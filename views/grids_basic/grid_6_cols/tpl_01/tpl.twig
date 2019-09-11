@@ -1,0 +1,12 @@
+{% extends '_objects/gridObject.twig' %}
+{% block grid_items %}
+<div class="grid_6col_tpl_01 grid-x small-up-2 medium-up-3 large-up-6 align-center {{ alignment|default }} {{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+    {% if items|default %}
+        {% for key, item in items %}
+            <div class="cell">
+                {{ item }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

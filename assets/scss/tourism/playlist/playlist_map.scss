@@ -1,0 +1,433 @@
+#playlist-map {
+    display: flex;
+    height: 100vh;
+    background: white;
+
+
+    .item_sheet_alpha {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+
+        .item-thumbnail img,
+        .infos {
+            transform: none;
+        }
+    }
+
+    // Style Leaflet Item (popup)
+    .leaflet-tmp-item {
+        background: white;
+        height: 300px;
+    }
+
+    .rc_lego img {
+        max-width: 100% !important;
+    }
+
+    // Hack Leaflet Gmap layer
+    .leaflet-google-layer {
+        z-index: 0;
+    }
+
+    // Style Leaflet Popup
+    .leaflet-popup-content-wrapper {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .leaflet-popup-content {
+        overflow: visible !important;
+        top: 20px !important;
+        left: 30px !important;
+        margin: 0;
+        width: 300px;
+        height: auto;
+
+        .item_sheet_alpha {
+            width: 300px !important;
+        }
+
+        &>div {
+            overflow: visible !important;
+        }
+    }
+
+    .leaflet-popup-close-button {
+        z-index: 1;
+        top: -14px !important;
+        right: -12px !important;
+        width: 30px !important;
+        height: 30px !important;
+        display: flex;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .16);
+        border-radius: 50%;
+        background: #fff;
+        font-size: 16px;
+        padding: 10px;
+        color: #000;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: 400;
+        text-transform: none;
+
+        &:hover {
+            background: $primary-color;
+            color: #fff;
+        }
+    }
+
+    .leaflet-control-container {
+        .leaflet-top {
+            top: 125px;
+        }
+
+        .leaflet-right .leaflet-control {
+            margin: 0 20px 10px 0;
+        }
+    }
+
+    .leaflet-control {
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+        padding: 2px;
+        background: #fff;
+        border-radius: 5px;
+    }
+
+    .leaflet-control-layers-toggle {
+        display: block !important;
+    }
+
+    .leaflet-control-layers-toggle,
+    .leaflet-bar a {
+        height: 36px;
+        width: 36px;
+        line-height: 36px;
+    }
+
+    // Style Layer List
+    .leaflet-control-layers-list {
+        position: absolute;
+        background: white;
+        padding: 10px;
+        top: 0;
+        white-space: nowrap;
+        right: 50px;
+
+        .base-layer-item {
+            &:not(:last-child) {
+                margin-bottom: 8px
+            }
+            &>label {
+                background-image: url(https://api.tourism-system.com/static/assets/images/see_map.png);
+                padding: 0;
+                margin: 0;
+            }
+
+            &>input {
+                display: none;
+            }
+
+            &>input:checked~label {
+                position: relative;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: $primary-color;
+                    opacity: 0.5;
+                }
+
+                &>.base-layer-item-title {
+                    background-color: $primary-color;
+                    color: white;
+                    z-index: 1;
+                }
+            }
+
+            .base-layer-item-title {
+                display: block;
+                width: 100%;
+                margin: 10px 20px;
+                padding: 5px 10px;
+                border: 1px solid #ddd;
+                background: white;
+                text-align: center;
+            }
+
+            &:hover {
+                &>input:not(:checked)~label>.base-layer-item-title {
+                    background-color: #cecece;
+                    color: white;
+                }
+            }
+        }
+    }
+    .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+        transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+    }
+}
+
+#playlist-custom-layer {
+    position: relative;
+}
+
+#playlist-map-wrapper {
+    padding: 0 !important;
+    display: none;
+
+    &.fullscreen {
+        position: fixed !important;
+        width: 100vw !important;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .playlist-custom-controls {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+
+        // z-index: 1001;
+        &.right {
+            top: 10px;
+            right: 20px;
+            align-items: flex-end;
+        }
+
+        &.left {
+            top: 0px;
+            left: 35px;
+            // align-items: flex-start;
+        }
+
+        &.full {
+            top: 0;
+            width: 100%;
+
+            pointer-events: none;
+
+            .geoboudingbox-block,
+            .playlist-switch-list {
+                pointer-events: auto;
+            }
+        }
+
+        .geoboudingbox-block {
+            margin: 0 20px;
+            width: fit-content;
+            position: absolute;
+            top: 125px;
+        }
+
+        .playlist-switch-map {
+            pointer-events: none;
+
+            .switch-block-content::before {
+                background: $primary-color;
+            }
+
+            svg {
+                fill: white;
+
+                circle {
+                    fill: $primary-color;
+                }
+            }
+        }
+
+        .switch-block-content,
+        .playlist-infos-banner .playlist-features-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        // & > div,
+        // .playlist-switch-list {
+        //     border: 1px solid #ddd;
+        //     border-radius: 50%;
+        //     background-color: white;
+        //     color: $primary-color;
+        //     padding: 15px;
+        //     cursor: pointer;
+        //     margin-bottom: 10px;
+        //     i {
+        //         display: flex;
+        //         &.icon-font-zoom-in {
+        //             font-weight: 800;
+        //         }
+        //     }
+        // }
+    }
+
+    .gm-style-iw {
+        overflow: visible !important;
+
+        top: 20px !important;
+        left: 30px !important;
+        // max-width: 200px;
+        border-radius: 2px 2px 0 0;
+
+        #infowindow_content {
+            float: none;
+            min-height: 0;
+            position: relative;
+            width: 216px;
+            height: 231px;
+            overflow: visible;
+        }
+
+        .item_sheet_alpha {
+            width: 300px !important;
+        }
+
+        &>div {
+            overflow: visible !important;
+        }
+    }
+
+    .gm-style-iw+div {
+        top: 3px !important;
+        right: 10px !important;
+        width: 30px !important;
+        height: 30px !important;
+        opacity: 1 !important;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .16);
+        border-radius: 50%;
+
+        &>img {
+            display: none;
+        }
+
+        &:hover {
+            &:after {
+                background: $primary-color;
+                color: #fff;
+            }
+        }
+
+        &:after {
+            content: "\e63c";
+            background: rgba(0, 0, 0, .5);
+            background: #fff;
+            font-size: 16px;
+            line-height: 30px;
+            text-align: center;
+            color: #000;
+            overflow: visible;
+            font-family: 'raccourci';
+            font-style: normal;
+            font-weight: 400;
+            font-variant: normal;
+            text-transform: none;
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+        }
+    }
+
+    label {
+        display: flex;
+        // margin: $ggw-div 0;
+        align-items: center;
+        cursor: pointer;
+        background: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: normal;
+        user-select: none;
+    }
+
+    input:checked~label {
+        color: $primary-color;
+
+        .fake-checkbox::before {
+            transform: rotate(-45deg) scaleX(1);
+            transition: .2s;
+        }
+    }
+
+    .fake-checkbox {
+        display: inline-block;
+        content: '';
+        position: relative;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 5px;
+            display: inline-block;
+            width: 12px;
+            height: 6px;
+            border-left: 2px solid $primary-color;
+            border-bottom: 2px solid $primary-color;
+            transform: rotate(-0deg) scaleX(0);
+            transform-origin: left;
+        }
+    }
+}
+
+.leaflet-marker-number {
+    z-index: 1;
+    position: absolute;
+    top: -10px !important;
+    right: -10px !important;
+    width: 30px!important;
+    height: 30px!important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 3px solid $primary-color;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 50%;
+    background: #fff;
+    font-size: 16px;
+    color: #000;
+}
+
+.leaflet-flower-number {
+    pointer-events: none;
+    svg { display: none; }
+    .marker-index.new {
+        font-size: 35px;
+        line-height: 55px;
+        width: 55px;
+        height: 55px;
+        margin: 0 !important;
+    }
+    &.cluster-hovered {
+        .marker-index.new span {
+            color: white !important;
+        }
+    }
+}
+
+.cluster-hovered {
+    $pinHoverColor: black;
+    $pinHoverColor: darken($primary-color, 15%);
+    svg > path:first-child {
+        stroke: $pinHoverColor; fill: $pinHoverColor;
+    }
+    svg > circle:first-child {
+        stroke: $pinHoverColor;
+    }
+    .leaflet-marker-number {
+        border-color: $pinHoverColor;
+    }
+}

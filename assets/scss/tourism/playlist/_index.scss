@@ -1,0 +1,31 @@
+// @import "https://api.tourism-system.com/static/assets/fonts/raccourci-font.less";
+
+// @import 'vendors/bootstrap/bootstrap.less';
+
+// @import '0-vars/_index.scss';
+// @import '1-base/_index.scss';
+// @import '2-patterns/_index.scss';
+// @import '3-layout/_index.scss';
+
+// @import '4-features/centrales/_datepicker.scss';
+
+@import 'partial/filter_alpha';
+
+@import 'playlist_general.scss';
+@import 'playlist_filters.scss';
+@import 'playlist_items.scss';
+@import 'playlist_map.scss';
+@import 'playlist_responsive.scss';
+@import 'playlist_scrollbar.scss';
+
+
+.main-tourism-wrapper.newplaylist {
+    width: 100%;
+}
+
+#playlist-map-wrapper,
+#api_filter,
+#playlist-context {
+    padding: 0;
+    position: initial;
+}

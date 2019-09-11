@@ -1,0 +1,115 @@
+.itinerary-steps-wrapper {
+    padding: $vr;
+    // width: 100%;
+
+    .h3 {
+        line-height: 40px;
+        margin-top: 0;
+        color: $primary-color;
+        font-weight: 400;
+        margin-bottom: 20px;
+
+        &:before {
+            height: 40px;
+            font-size: 40px;
+            width: auto;
+            margin-right: $vr/2;
+            float: left;
+
+            @extend .icon-font-item;
+        }
+    }
+
+    .itinerary-to-start .h3:before {
+        @extend .icon-departure;
+    }
+
+    .itinerary-steps .h3:before {
+        @extend .icon-direction;
+    }
+
+    .card-item {
+        position: relative;
+        cursor: pointer;
+        border-radius: 0;
+        opacity: .5;
+        border: 2px solid $color-bd;
+        transition: all .3s ease;
+
+        &:after,
+        &:before {
+            bottom: 100%;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            border-color: rgba(136, 183, 213, 0);
+            border-bottom-color: #fff;
+            border-width: 12px;
+            margin-left: -12px;
+        }
+
+        &:before {
+            border-color: rgba(194, 225, 245, 0);
+            border-bottom-color: $color-bd;
+            border-width: 15px;
+            margin-left: -15px;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.opened {
+            // z-index: 10;
+            opacity: 1;
+            border-color: $primary-color;
+
+            &:before {
+                border-bottom-color: $primary-color;
+            }
+        }
+    }
+
+    .kaarousel .kaarousel-nav .kaarousel-prev,
+    .kaarousel .kaarousel-nav .kaarousel-next {
+        background: rgba(255, 255, 255, 0.8) !important;
+
+        &:after {
+            color: #000 !important;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.9) !important;
+            box-shadow: none !important;
+
+            &:after {
+                color: $primary-color !important;
+            }
+        }
+    }
+
+    .kaarousel .kaarousel-wrapper {
+        padding: 14px 50px;
+        width: 100%;
+    }
+
+    .kaarousel .kaarousel-pager ul li {
+        width: 16px;
+        height: 16px;
+        margin: 4px 7px;
+        background-color: white;
+        border: 3px solid $color-bd;
+
+        &.selected {
+            border-color: $primary-color;
+            background-color: $primary-color;
+        }
+    }
+}

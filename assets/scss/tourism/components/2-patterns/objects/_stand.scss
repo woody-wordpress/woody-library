@@ -1,0 +1,30 @@
+/*------------------------------------*\
+    - STAND
+\*------------------------------------*/
+/**
+ * When an element needs to stand out, creates a wide space under it
+ */
+.plo-stand {
+    padding-top: $vr;
+    padding-bottom: $vr;
+
+    &--tiny {
+        padding-top: $vr--tiny;
+        padding-bottom: $vr--tiny;
+    }
+
+    &--small {
+        padding-top: $vr--small;
+        padding-bottom: $vr--small;
+    }
+
+    &--large {
+        padding-top: $vr--large;
+        padding-bottom: $vr--large;
+    }
+
+    &--huge {
+        padding-top: $vr--huge;
+        padding-bottom: $vr--huge;
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "approved": true,
+    "name": "Grille 1 colonne - 100% (Paysage B)",
+    "description": "Grille 1 colonne 100% de large (Paysage B)",
+    "acf_groups": [
+        "group_5d5bbac79ab7e"
+    ],
+    "vars": [
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "background_color",
+        "background_img_opacity",
+        "background_img",
+        "gallery_no_padding",
+        "gallery_items",
+        "gallery_link"
+    ]
+}

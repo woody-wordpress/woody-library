@@ -1,0 +1,14 @@
+<div class="videoObject {{ containerClass|default }}" itemprop="video" itemscope="itemscope" itemtype="http://schema.org/VideoObject">
+    {% if movie.movie_poster_file.title|default %}
+        <span class="hide videoObject-name" itemprop="name">{{ movie.movie_poster_file.title }}</span>
+        <meta item.movieprop="thumbnail" content="{{ movie.movie_poster_file.sizes[image_style] }}"/>
+    {% endif %}
+    {% if movie.mp4_movie_file or movie.movie_ogg_file or movie.movie_webm_file %}
+        <video class="card-video videoObject-video" poster="{{ movie.movie_poster_file.sizes[image_style] }}"{% if ratio|default %} style="height:calc(100vw / {{ ratio }})"{% endif %}{% if autoplay|default is same as(true) %} autoplay{% endif %}{% if loop|default is same as(true) %} loop{% endif %} {% if muted|default is same as(true) %} muted{% endif %}>
+            {% if movie.mp4_movie_file|default %}<source src="{{ movie.mp4_movie_file.url }}" type="video/mp4">{% endif %}
+            {% if movie.movie_ogg_file|default %}<source src="{{ movie.movie_ogg_file.url }}" type="video/ogg">{% endif %}
+            {% if movie.movie_webm_file|default %}<source src="{{ movie.movie_webm_file.url }}" type="video/webm">{% endif %}
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+</div>

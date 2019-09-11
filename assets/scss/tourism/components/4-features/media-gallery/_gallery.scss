@@ -1,0 +1,88 @@
+/**
+ * Media Gallery
+ */
+
+.tourism-detail-content {
+    #gallery {
+        padding: 0;
+
+        .fresco {
+            cursor: pointer;
+        }
+
+        @media all and(max-width: 768px){
+            &:not(.hero-slider) {
+                display: none;
+            }
+        }
+
+        .media-col {
+            overflow: hidden;
+            width: 50%;
+            float: left;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            &.odd {
+                li {
+                    padding: 0 10px 10px 0;
+                }
+            }
+
+            &.even {
+                li {
+                    padding: 0 0 10px 0;
+                }
+            }
+
+            li {
+                list-style: none;
+                margin: 0;
+
+                .gallery-photo-wrapper {
+                    display: block;
+                    position: relative;
+                    overflow: hidden;
+
+                    .rc-img {
+                        width: 100%;
+                    }
+
+                    .photo-label {
+                        color: #FFF;
+                        position: absolute;
+                        opacity: 0;
+                        padding: 10px;
+                        width: 100%;
+                        background: rgba(0, 0, 0, 0.5);
+                        overflow: hidden;
+                        bottom: 0;
+                        transition: opacity 0.2s;
+                    }
+
+                    &:hover {
+                        .photo-label {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .gallery-video-wrapper {
+                    height: 240px;
+                    background: #000;
+                    display: block;
+                }
+
+                .row {
+                    margin-bottom: -10px;
+                    padding-top: 0px;
+                }
+
+                &.plo-panel {
+                    border: none;
+                }
+            }
+        }
+    }
+}

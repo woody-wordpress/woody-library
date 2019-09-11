@@ -1,0 +1,22 @@
+{
+    "approved": true,
+    "name": "Grille NovaScotia - 01",
+    "description": "pattern type socialwall infini",
+    "acf_groups": [
+        "group_5b5b2fbc3460d"
+    ],
+    "vars": [
+        "background_color",
+        "background_img",
+        "background_img_opacity",
+        "sw_no_padding",
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "gallery_items"
+    ]
+}

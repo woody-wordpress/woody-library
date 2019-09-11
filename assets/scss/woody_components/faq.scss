@@ -1,0 +1,7 @@
+.woody-component-faq {
+    .faq-title {
+        display: block;
+        @extend .h3 !optional;
+        @include xy-gutters($gutter-position: bottom);
+    }
+}

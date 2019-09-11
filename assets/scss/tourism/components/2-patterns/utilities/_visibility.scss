@@ -1,0 +1,38 @@
+/*------------------------------------*\
+    - HIDDEN
+\*------------------------------------*/
+/*
+ * Hide stuff $bp
+ */
+@mixin _plu-hidden {
+    display: none !important;
+}
+
+%_plu-hidden {
+    @include _plu-hidden;
+}
+
+._plu-hidden {
+    @extend %_plu-hidden;
+
+    @media (min-width: $ts_screen-sm-min) and (max-width: $ts_screen-sm-max) {
+
+        &\$sm {
+            @include _plu-hidden;
+        }
+    }
+
+    @media (min-width: $ts_screen-md-min) and (max-width: $ts_screen-md-max) {
+
+        &\$md {
+            @include _plu-hidden;
+        }
+    }
+
+    @media (min-width: $ts_screen-lg-min) {
+
+        &\$lg {
+            @include _plu-hidden;
+        }
+    }
+}

@@ -1,0 +1,309 @@
+@media only screen and (max-width : 1400px) {
+    .nav-button:not(.nav-back) {
+        margin-bottom: 5px;
+    }
+
+    .nav-button.nav-back {
+        display: block;
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+    .nav-button>a {
+        padding: 9px !important;
+
+        &:before {
+            font-size: 13px !important;
+            line-height: 13px !important;
+            width: auto !important;
+        }
+    }
+
+    .nav-button.nav-back {
+        &:before {
+            margin-right: 5px !important;
+        }
+    }
+
+    .api-render-header .sheet-header .header-text .sheet-header_title {
+        padding-right: 10px;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 991px) {
+
+    // default 992
+    .api-render-wrapper.itinerary-sheet {
+        display: flex;
+        flex-direction: column;
+
+        #steps {
+
+            .kaarousel-next,
+            .kaarousel-prev {
+                height: 0;
+            }
+
+            .kaarousel-pager {
+                min-height: fit-content;
+            }
+        }
+
+        .sheet-navbar-checkpoint {
+            display: none;
+            height: 0 !important;
+        }
+
+        .itinerary-layout>.col-md-7 {
+            order: 2;
+        }
+
+        #locomotion-infos {
+            margin: $vr 0;
+        }
+
+        .api-render-header {
+            // padding-top: 33vh;
+        }
+
+        .itinerary-layout {
+            order: 2;
+            // padding-top: 33vh;
+            padding-left: 0;
+            padding-right: 0;
+            display: flex;
+            flex-direction: column;
+
+            .itinerary-chart {
+                margin-right: $vr/2;
+            }
+
+            .api-render-header .sheet-header .header-text .sheet-header_title {
+                padding-right: 0;
+            }
+
+            .tourism-detail-hero-slider {
+                margin-bottom: 15px;
+            }
+
+            #poi .itinerary-poi-wrapper {
+                padding: 0px 20px;
+
+                .step-title {
+                    // width: ~"calc(100% - 30px)";
+                    width: unquote("calc( 100% - 30px )");
+                }
+            }
+
+            .trip-length {
+                font-size: $font-size-h1;
+                line-height: $font-size-h1;
+
+                &__unit {
+                    font-size: $font-size-h2;
+                }
+            }
+
+            .itinerary-elevation-wrapper {
+                padding: 0;
+            }
+
+            #profile dt {
+                padding-left: $vr;
+            }
+        }
+
+
+        .itinerary-sidebar {
+            order: 1;
+            z-index: 50;
+            height: 33vh;
+            padding: 0;
+            margin-top: 0 !important;
+
+            #iti-map {
+                height: 33vh !important;
+                width: 100% !important;
+
+                &.sticky-bottom {
+                    // display: none;
+                    position: fixed;
+                    top: 0;
+                    bottom: unset;
+                }
+            }
+
+            .map-mode-switcher {
+                display: none;
+
+                bottom: 15px;
+                left: 15px;
+                top: initial;
+            }
+        }
+
+        .poi-wrapper-responsive {
+            .step-title-responsive {
+                margin: 0;
+                padding: $vr;
+                cursor: pointer;
+
+                &:hover {
+                    color: $primary-color;
+                }
+
+                .step-title-number {
+                    display: inline-block;
+                    width: 35px;
+                    height: 35px;
+                    line-height: 35px;
+                    font-size: .7em;
+                    -moz-border-radius: 50%;
+                    border-radius: 50%;
+                    text-align: center;
+                    background: $primary-color;
+                    margin-right: 15px;
+                    color: #FFF;
+                }
+            }
+        }
+
+        .modal {
+            position: fixed !important;
+            -webkit-overflow-scrolling: touch;
+            background-color: white;
+            overflow: auto;
+            z-index: 900;
+            padding: 30px !important;
+
+            &.modal-off {
+                display: none !important;
+            }
+
+            .poi-wrapper {
+                margin-top: $vr*2.5;
+            }
+
+            .close {
+                position: absolute;
+                right: 0;
+                top: 0;
+                margin: 15px;
+                border: 1px solid $color-bd !important;
+                width: 2.5*$vr !important;
+                height: 2.5*$vr !important;
+                padding: 15px;
+                display: flex;
+                align-items: center;
+                float: none;
+                color: $primary-color;
+                opacity: 1;
+
+                &:hover {
+                    color: white;
+                    background-color: $primary-color;
+                }
+
+                >span {
+                    line-height: 0;
+                    font-size: 37px;
+                    font-weight: 400;
+                    margin: 0 auto;
+                }
+            }
+
+            .slick-arrow {
+                top: 0 !important;
+                border: 1px solid $color-bd !important;
+                width: 2.5*$vr !important;
+                height: 2.5*$vr !important;
+                margin-top: 15px;
+            }
+
+            .nav-next {
+                left: 2.5*$vr + 10px;
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+
+            .nav-prev {
+                z-index: 1;
+                margin-left: 15px;
+                left: 0 !important;
+            }
+
+            .step-title {
+                margin: 0 0 $vr 0 !important;
+            }
+        }
+    }
+}
+
+/* Small Devices, Tablets */
+// @media only screen and (max-width : 768px) {
+@media only screen and (max-width : 768px) {
+    .itinerary-layout>.col-md-7 {
+        padding: 0;
+    }
+}
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+    .itinerary-steps-wrapper .card-item {
+        font-size: 0.7em;
+        padding: $vr/2;
+    }
+
+    .itinerary-elevation-wrapper .itinerary-elevation-datas {
+        padding-left: $vr;
+    }
+
+    .linked-sheets.panel .item_sheet_alpha_list {
+
+        .nav-next,
+        .nav-prev {
+            display: none !important;
+        }
+    }
+
+    .api-render-wrapper.itinerary-sheet {
+
+        // padding-left: 20px;
+        .itinerary-layout {
+            .trip-length {
+                font-size: $font-size-h4;
+                line-height: $font-size-h4;
+
+                &__unit {
+                    display: block;
+                    font-size: $font-size-h5;
+                }
+            }
+        }
+    }
+
+    $locomotionIconSize: 23px;
+
+    .locomotion-features {
+
+        .locomotion-feature-wrapper {
+            font-size: 0.8em;
+
+            i {
+                font-size: $locomotionIconSize;
+                line-height: $locomotionIconSize+3;
+            }
+
+            .locomotion-icon::after {
+                font-size: $locomotionIconSize;
+                // @extend .icon-font-item;
+            }
+        }
+    }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {}

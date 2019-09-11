@@ -1,0 +1,76 @@
+/*------------------------------------*\
+    - SHELVES (component)
+\*------------------------------------*/
+/**
+ * Creates a bdb
+ */
+.s-shelves {
+
+    &:not(ul),
+    &.s-shelves--all,
+    >li:not(:last-child) {
+        border-width: 0;
+        border-style: solid;
+        border-bottom-width: $theme-bdw;
+    }
+
+    &--keyline {
+
+        >li {
+            border: $color-bd;
+        }
+    }
+}
+
+/*------------------------------------*\
+    - BOOKENDS
+\*------------------------------------*/
+/**
+ * Creates a bdr
+ */
+.s-bookends {
+
+    &:not(ul),
+    &.s-shelves--all,
+    >li:not(:last-child) {
+        border-width: 0;
+        border-style: solid;
+        border-right-width: $theme-bdw;
+    }
+}
+
+
+/*------------------------------------*\
+    - KEYLINE
+\*------------------------------------*/
+/**
+ * Creates a light grayed top border
+ */
+.s-keyline {
+    border: 0 solid $color-bd;
+
+    &--top {
+        border-top-width: $theme-bdw;
+    }
+
+    &--bottom {
+        border-bottom-width: $theme-bdw;
+    }
+
+    &--list:last-child {
+        border-width: 0;
+    }
+}
+
+
+/*------------------------------------*\
+    - FENCE
+\*------------------------------------*/
+/**
+ * Creates a border around an element
+ */
+.s-fence {
+    display: inline-block;
+    border-style: solid;
+    border-width: $theme-bdw;
+}

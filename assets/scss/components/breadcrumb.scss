@@ -1,0 +1,38 @@
+.breadcrumb-wrapper {
+    background-color: $breadcrumb-bgcolor;
+    margin: $breadcrumb-margin;
+    font-size: $breadcrumb-fontsize;
+
+    a {
+        color: lighten($dark-gray, 30%) !important;
+        transition: color .3s;
+
+        &:hover {
+            color: $dark-gray !important;
+        }
+    }
+}
+
+.bg-primary,
+.bg-secondary,
+.bg-darkgray,
+.bg-black {
+    .breadcrumb-wrapper a {
+        color: darken($white, 10%) !important;
+
+        &:hover {
+            color: $white !important;
+        }
+    }
+}
+
+
+.bg-lightgray {
+    .breadcrumb-wrapper a {
+        color: $dark-gray !important;
+
+        &:hover {
+            color: darken($dark-gray, 20%) !important;
+        }
+    }
+}

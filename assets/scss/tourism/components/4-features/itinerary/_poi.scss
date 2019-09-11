@@ -1,0 +1,334 @@
+#poi {
+    dl.row {
+        padding: $vr;
+        padding-bottom: 0;
+    }
+
+    .section-title {
+        @include header-size(h3);
+
+        line-height: 40px;
+
+        &:before {
+            font-size: 40px;
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+            float: left;
+            @extend .icon-font-item;
+            @extend .icon-interactive-map;
+        }
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .itinerary-poi-wrapper {
+        padding: $vr;
+        position: relative;
+
+        .step-title {
+            // margin: 0 auto;
+            margin-top: 0;
+            text-align: left;
+            text-transform: none;
+            font-weight: 500;
+            display: table;
+            margin-bottom: $defMargin;
+            // padding: 0 3* $defContainersPadding;
+
+            .step-title-value {
+                text-align: left;
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .step-title-number {
+                display: table-cell;
+                // vertical-align: middle;
+                width: 42px;
+
+                .number-wrapper {
+                    display: inline-block;
+                    width: 42px;
+                    height: 42px;
+                    font-size: .7em;
+                    line-height: 42px;
+                    border-radius: 50%;
+                    text-align: center;
+                    background: $primary-color;
+                    margin-right: $defMargin;
+                    color: #FFF;
+                }
+            }
+        }
+
+        .step-images {
+            .kaarousel-slider {
+                background: $gray-dark;
+            }
+
+            img {
+                display: block;
+                margin: auto;
+            }
+        }
+
+        .step-description {
+            white-space: normal;
+            overflow: auto;
+        }
+
+        .video-element-wrapper,
+        .audio-element-wrapper {
+            width: 100%;
+            min-height: 30px;
+            position: relative;
+            display: block;
+
+            &>*,
+            .mejs-container,
+            .mejs-mediaelement {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            video,
+            audio {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .video-element-wrapper {
+            padding-top: 56%;
+
+
+            .video-container {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        // .videoWrapper {
+        //     position: relative;
+        //     padding-bottom: 56.25%; /* 16:9 */
+        //     padding-top: 25px;
+        //     height: 0;
+        // }
+        // .videoWrapper iframe {
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     width: 100%;
+        //     height: 100%;
+        // }
+        .audio-element-wrapper {
+            margin-bottom: 10px;
+        }
+
+        .tourism-list-item {
+            width: 100%;
+            height: 220px;
+
+            article {
+                padding: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                .item-wrapper {
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+
+                    .item-top-left-corner,
+                    .item-top-right-corner {
+                        display: none;
+                    }
+                }
+
+                .item-links {
+                    display: none;
+                }
+
+                .item-image-wrapper {
+                    height: 100% !important;
+                    width: 30%;
+
+                    .rc-img {
+                        padding-top: 0;
+                        background-size: cover !important;
+                    }
+                }
+
+                .item-infos {
+                    left: 30%;
+                    width: 70%;
+                    top: 0;
+                    height: 100%;
+
+                    .link-wrapper a {
+                        padding: 15px;
+                    }
+
+                    .item-title {
+                        font-size: 2em;
+                        font-weight: 100;
+                    }
+                }
+
+                .wishlist-button {
+                    top: auto;
+                    bottom: 10px;
+                }
+            }
+        }
+
+        // STEP SUB KAAROUSEL
+        .kaarousel-nav {
+
+            .kaarousel-prev,
+            .kaarousel-next {
+                height: 80px;
+                width: 40px;
+                top: 50%;
+                margin-top: -40px;
+                background: rgba(0, 0, 0, .5);
+
+                &:after {
+                    color: #fff;
+                    line-height: normal;
+                    top: 38px;
+                    margin-top: -10px;
+                }
+            }
+        }
+
+        .kaarousel-slide {
+            vertical-align: middle;
+
+            .photo-label {
+                color: #FFF;
+                position: absolute;
+                opacity: 0;
+                padding: 10px;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                overflow: hidden;
+                bottom: 0;
+                transition: opacity 0.2s;
+            }
+
+            &:hover {
+                .photo-label {
+                    opacity: 1;
+                }
+            }
+        }
+
+        // STEP KAAROUSEL
+        .kaarousel-actions-wrapper {
+            background: #FFF;
+        }
+
+        .kaarousel-nav {
+
+            .kaarousel-prev,
+            .kaarousel-next {
+                z-index: 100;
+                background: none;
+
+                &:after {
+                    top: 0;
+                    margin-top: 0;
+                    line-height: 42px;
+                    color: white;
+                }
+
+                &:hover {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .sheets-wrapper {
+            clear: both;
+            float: left;
+        }
+    }
+
+
+    $item-padding: $grid-gutter-width/2;
+    $nav-padding: $vr;
+    $nav-font-size: 16px;
+    $nav-bd-size: 1px;
+
+    // slick pager
+    .nav-prev,
+    .nav-next {
+
+        position: absolute;
+        border-radius: 3px;
+        top: -2*$vr;
+        border: 1px solid #d8d8d8;
+        display: flex !important;
+        transition: background .3s ease;
+
+        a {
+            padding: 15px;
+            text-decoration: none;
+        }
+
+        &:not(.slick-disabled) {
+            cursor: pointer;
+        }
+
+        &.slick-disabled {
+            display: none;
+            // a {
+            //     opacity: .3;
+            // }
+        }
+
+        a:before {
+            line-height: $nav-font-size;
+            font-size: $nav-font-size;
+            font-family: 'raccourci';
+            position: relative;
+            width: auto;
+            height: auto;
+        }
+
+        &:not(.slick-disabled):hover {
+            background-color: $primary-color;
+
+            // opacity: 0.7;
+            a {
+                color: white;
+            }
+        }
+    }
+
+    .nav-next {
+        right: $vr;
+    }
+
+    .nav-prev {
+        // left: 0;
+        left: auto;
+        right: $nav-padding*2 + $nav-font-size + $nav-bd-size*2 + $item-padding; //padding*2 + font-size + borders + item padding
+    }
+}

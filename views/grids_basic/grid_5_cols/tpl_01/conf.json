@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Grille 5 colonnes",
+    "description": "Grille 5 colonnes égales",
+    "acf_groups": [
+        "field_5afd2c9616ecd"
+    ],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

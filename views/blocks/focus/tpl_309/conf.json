@@ -1,0 +1,20 @@
+{
+    "approved": true,
+    "name": "Focus - Template 3 éléments - 09",
+    "description": "Grille 3 blocs - 3 cartes image et textes centrés (Paysage B + slider au dela de 3) + cartouche prix",
+    "acf_groups": [
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "group_5b33890e6fa0b",
+        "field_5d16118093cc1"
+    ],
+    "vars": [
+        "items"
+    ],
+    "items_count": [
+        {
+            "fitted_for": 3,
+            "accepts_max": 9
+        }
+    ]
+}

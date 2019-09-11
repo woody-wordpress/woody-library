@@ -1,0 +1,41 @@
+.menu {
+    width: 100%;
+
+    a[target="_blank"]:after {
+        display: none;
+    }
+}
+
+.dropdown {
+    &.fullwidth-dropdowns {
+        .is-dropdown-submenu-parent {
+            position: static;
+        }
+
+        .is-dropdown-submenu {
+            width: 100vw !important;
+            left: -$topbar-padding !important;
+            right: -$topbar-padding !important;
+            top: calc(100% + #{$topbar-padding}) !important;
+            z-index: 1000;
+        }
+
+        .is-dropdown-submenu-item {
+            >div {
+                width: 100%;
+                max-width: 1600px;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    &.menu {
+        span.menuLink {
+            padding: $global-menu-padding;
+        }
+    }
+}
+
+.grid-container.is-submenu-item {
+    max-width: 1600px;
+}

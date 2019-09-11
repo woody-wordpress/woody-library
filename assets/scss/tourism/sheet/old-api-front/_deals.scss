@@ -1,0 +1,344 @@
+.tourism-detail-section.tourism-detail-deals {
+    padding: 0;
+    margin-top: $defMargin;
+    border-bottom: none;
+}
+
+.deal-min {
+    display: block;
+    z-index: 10;
+    font-size: 70px;
+    color: $primary-color;
+
+    // disable background 29/06/19
+    // background-size: contain;
+    // background-position: top center;
+    // background-repeat: no-repeat;
+    // background-image: url(/api/static/assets/images/deals-icon.png);
+}
+
+// VISIBLE PART
+.sheet-deal {
+    display: table;
+    width: 100%;
+    padding: $defContainersPadding 0;
+    border-bottom: 1px solid $bdColor;
+
+    .deal-logo {
+        margin: 0 auto;
+        display: block;
+        width: 78px;
+        height: 90px;
+        background-size: contain;
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-image: url(/api/static/assets/images/deals-icon.png);
+    }
+
+    .deal-wrapper {
+
+        margin-top: $defMargin;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+
+        display: table;
+
+        .deal-description-left {
+            display: table-cell;
+            vertical-align: top;
+
+            padding-right: $defContainersPadding;
+        }
+
+        .deal-description-right {
+            display: table-cell;
+            vertical-align: top;
+
+            width: 200px;
+        }
+    }
+
+    .deal-title {
+        margin-bottom: $defMargin;
+
+        .deal-name {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+    }
+
+    .deal-description {
+        p {
+            margin-bottom: 2px;
+        }
+    }
+
+    .print-link {
+        color: $primary-color;
+    }
+
+    .deal-time-left {
+        color: $secTextColor;
+        margin-bottom: 10px;
+
+        &:before {
+            display: inline-block;
+            vertical-align: top;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            margin-right: 5px;
+
+            @extend .icon-font-item;
+            @extend .icon-clock;
+        }
+    }
+
+    .deal-expiration {
+        margin-top: 30px;
+        font-weight: 500;
+
+        &:before {
+            font-size: 16px;
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            vertical-align: top;
+
+            text-align: center;
+            line-height: 20px;
+
+            @extend .icon-font-item;
+            @extend .icon-hourglass;
+        }
+    }
+
+    .deal-url {
+
+        font-size: 1em;
+        border-radius: 3px;
+        text-align: center;
+        margin: 2 * $defMargin 0;
+
+        .print-link {
+            max-width: 250px;
+            margin: 0 auto;
+            display: block;
+            text-decoration: none;
+            @extend .valid-btn;
+            border: 1px solid $primary-color;
+
+            &:hover {
+                background: transparent;
+                color: $primary-color;
+                border-color: $primary-color;
+            }
+        }
+
+
+    }
+
+    .deal-reference-wrapper {
+        color: $primary-color;
+        text-align: right;
+        font-size: 1.5em;
+        font-weight: 400;
+    }
+
+    .deal-timer-wrapper,
+    .deal-reference-wrapper {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    timer {
+        display: table;
+        width: 100%;
+
+        .deal-days-left-wrapper {
+            display: table-cell;
+            vertical-align: middle;
+
+            border-right: 1px solid $bdColor;
+            padding-right: 12px;
+            text-align: center;
+        }
+
+        .deal-hms-right-wrapper {
+            display: table-cell;
+            vertical-align: middle;
+
+            padding-left: 12px;
+            color: $secTextColor;
+            font-weight: 300;
+        }
+
+        .timer-value {
+            font-size: 2em;
+            display: block;
+            text-align: center;
+        }
+
+        .timer-label {
+            font-size: .8em;
+            display: block;
+            text-align: center;
+        }
+
+        .timer-values-wrapper {
+            display: table;
+            width: 100%;
+        }
+
+        .timer-days {
+            display: block;
+            width: 100%;
+        }
+
+        .timer-hours,
+        .timer-minutes,
+        .timer-seconds,
+        .sep {
+            display: table-cell;
+            vertical-align: top;
+            overflow: hidden;
+            width: 30%;
+        }
+
+        .sep {
+            line-height: 40px;
+            font-size: 2em;
+            width: 5%;
+        }
+
+        .deal-hms-value {
+            font-size: 1.9em;
+        }
+
+        .deal-hms-words {
+
+            font-size: .8em;
+
+            &>span {
+                width: 30%;
+                float: left;
+                display: inline-block;
+                text-align: center;
+
+                &:nth-child(1),
+                &:nth-child(2) {
+                    margin-right: 5%;
+                }
+            }
+
+        }
+
+        .deal-hms-left-value {
+            font-weight: bold;
+            font-size: 1.7em;
+        }
+    }
+}
+
+// PRINTABLE VOUCHER
+
+.print-section {
+
+    display: none;
+
+    .print-cgu {
+        font-style: italic;
+        font-size: 1em;
+        color: grey;
+        padding: 5px;
+    }
+
+    .elemToPrint {
+        -webkit-print-color-adjust: exact;
+        border: 3px dashed #ddd;
+        padding: 15px;
+        display: table;
+        font-family: arial;
+
+        .print-wrapper-right {
+            height: 20px;
+            width: 30%;
+            padding: 20px;
+            display: table-cell;
+            position: relative;
+        }
+
+        .print-wrapper-left {
+            vertical-align: top;
+            width: 70%;
+            position: relative;
+            height: 100%;
+            display: table-cell;
+        }
+
+        .print-infos-wrapper {
+            margin-bottom: 50px;
+        }
+
+        .print-deal-title,
+        .print-deal-description {
+            padding-right: 30px;
+            padding-top: 15px;
+        }
+
+        .print-deal-title {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .print-wrapper-expiration {
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+
+        }
+
+        .print-deal-expiration {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            display: block;
+        }
+
+        .print-phone,
+        .print-name,
+        .print-address {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+
+        .print-reference {
+            background: repeating-linear-gradient(145deg,
+                #F2F2F2 2px,
+                #F2F2F2 2px,
+                #ddd 4px,
+                #ddd 12px);
+            float: right;
+            background-color: #ddd;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .rc-wrapper {
+            height: 100px;
+        }
+
+        .print-img {
+            height: 100px;
+            width: 100px;
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+        }
+    }
+}

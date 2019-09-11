@@ -1,0 +1,9 @@
+.wicon {
+    &-circle {
+        padding: 15px;
+        display: inline-flex;
+        line-height: $wicon-circle-line-height;
+    }
+
+    @include social-colors;
+}

@@ -1,0 +1,7 @@
+// Rounded icon
+$social-button-size: rem-calc(70) !default;
+$social-button-border-width: 1px !default;
+$social-button-font-size: rem-calc($social-button-size / 2.25) !default;
+$social-button-border-radius: 50% !default;
+$social-button-line-height: 2.15em !default;
+$social-button-color: scale-color($black, $lightness: 50%);

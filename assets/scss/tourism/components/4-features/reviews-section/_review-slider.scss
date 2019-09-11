@@ -1,0 +1,41 @@
+/**
+ * Comment slider
+ */
+
+.comments-slider {
+    position: relative;
+    overflow: hidden;
+
+    ul {
+        @extend .plo-list-bare;
+        position: relative;
+
+        >li {
+            article {
+                display: table;
+
+                .plo-media__img,
+                .plo-media__body {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+            }
+
+            visibility: hidden;
+            transition: margin 1s ease-in-out;
+
+            &.comment-slide-hidden {
+                position: absolute;
+                visibility: hidden;
+                margin-left: -9999px;
+            }
+
+            &.comment-slide-visible {
+                position: relative;
+                visibility: visible;
+                margin-left: 0;
+            }
+        }
+    }
+
+}

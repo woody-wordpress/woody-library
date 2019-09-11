@@ -1,0 +1,20 @@
+{
+    "approved": true,
+    "name": "Focus - Template 1 élément - 04",
+    "description": "Grille bloc 100% - Cartes texte à gauche sous l'image (Paysage B + slider au delà de 1)",
+    "acf_groups": [
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "group_5b33890e6fa0b",
+        "field_5d16118093cc1"
+    ],
+    "vars": [
+        "items"
+    ],
+    "items_count": [
+        {
+            "fitted_for": "all",
+            "accepts_max": 6
+        }
+    ]
+}

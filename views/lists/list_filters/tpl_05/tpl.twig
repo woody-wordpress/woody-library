@@ -1,0 +1,10 @@
+{% set random_number = ''|random_number %}
+{% set default_lat = '-46' %}
+{% set default_lng = 0 %}
+{% set map_zoom = filter.list_filter_map_params.map_zoom|default(7) %}
+{% set map_zoom_auto = filter.list_filter_map_params.map_zoom_auto|default('false') %}
+{% set map_height = filter.list_filter_map_params.map_height|default('md') %}
+{% include 'blocks/geo_map/tpl_01/tpl.twig' with {
+    'markers' : filter.markers
+} %}
+

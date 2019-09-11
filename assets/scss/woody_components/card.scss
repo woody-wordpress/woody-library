@@ -1,0 +1,320 @@
+.card {
+    margin-bottom: 0;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    overflow: visible;
+
+    >a {
+        border-radius: $card-border-radius;
+    }
+
+    &-titles {
+        &.has-icon-img img {
+            max-width: $icon-img-max-width;
+        }
+
+        width: 100%;
+    }
+
+    &-button {
+        margin-top: 20px;
+    }
+
+    &-video {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    &-link {
+        height: 100%;
+        color: rgb(24, 24, 24);
+
+        &:hover {
+            color: inherit;
+        }
+    }
+
+    &-description {
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    &-texts {
+        >span {
+            display: block;
+        }
+    }
+
+    &-title {
+        @extend .h4 !optional;
+    }
+
+    &-pretitle,
+    &-subtitle {
+        @extend .h6 !optional;
+    }
+
+    &-wicon {
+        font-size: rem-calc($card-icon-size);
+    }
+
+    &-date {
+        font-family: $card-date-font-family;
+        margin-bottom: 10px;
+
+        .date-part {
+            display: inline-flex;
+            align-items: center;
+            flex-direction: $card-datePart-direction;
+
+            >span {
+                line-height: 1em;
+            }
+
+            span[class$="-day"] {
+                font-size: $card-date-day-size;
+                font-weight: $card-date-day-font-weight;
+            }
+
+            span[class$="-month"] {
+                font-size: $card-date-month-size;
+                font-weight: $card-date-month-font-weight;
+                text-transform: $card-date-month-txt-transform;
+            }
+        }
+    }
+
+    &-town,
+    &-type {
+        color: $card-sheet-town-color;
+    }
+
+    &-type {
+        text-transform: $card-sheet-type-txt-transform;
+        font-size: rem-calc(13);
+    }
+
+    &-town {
+        .wicon {
+            display: inline-block;
+            transform: translateY(3px);
+        }
+    }
+
+    &-bookable {
+        font-size: $card-bookable-font-size;
+        padding: $card-bookable-padding;
+        background-color: $card-bookable-bgcolor;
+        color: $card-bookable-color;
+        font-weight: $card-bookable-font-weight;
+        border-radius: $card-bookable-border-radius;
+        border: $card-bookable-border-color $card-bookable-border-style $card-bookable-border-width;
+        position: absolute;
+        top: $card-bookable-top-pos;
+        left: $card-bookable-left-pos;
+        right: $card-bookable-right-pos;
+    }
+
+    &.basicCard {
+        .card-link {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            background-color: $nobg-cardsection-bgcolor;
+
+            &.text-center {
+                align-items: center;
+            }
+        }
+
+        .imageObject {
+            border-radius: $card-border-radius $card-border-radius 0 0;
+        }
+    }
+
+    &.overlayedCard {
+        background-color: $overlayed-bgcolor;
+
+        .card-section,
+        a {
+            color: $white;
+        }
+
+        .imageObject {
+            height: 100%;
+            border-radius: $card-border-radius;
+        }
+
+        .card-description {
+            max-width: 600px;
+        }
+
+        &.tpl_01,
+        &.tpl_03 {
+            .card-description {
+                text-align: center;
+            }
+        }
+    }
+
+    &-iti-length {
+        line-height: 1em;
+        top: $iti-length-top-position;
+        right: $iti-length-right-position;
+        bottom: $iti-length-bottom-position;
+        left: $iti-length-left-position;
+        border-radius: $iti-length-border-radius;
+        background-color: $iti-length-bgcolor;
+        color: $iti-length-color;
+        @include xy-gutters($gutters: 10px, $gutter-type:padding, $gutter-position: top left right bottom)
+    }
+
+    &-iti-infos {
+        .iti-infos-type {
+
+            .wicon {
+                display: $iti-infos-type-icon-display;
+                color: $iti-infos-type-icon-color;
+                font-size: $iti-infos-type-icon-size;
+            }
+
+            .term {
+                display: $iti-infos-type-term-display;
+            }
+        }
+    }
+
+}
+
+.card.overlayedCard,
+.card.basicCard.tpl_01,
+.card.basicCard.tpl_02 {
+    .card-tripInfos-wrapper {
+        top: $card-tripInfos-top-position;
+        bottom: $card-tripInfos-bottom-position;
+        left: $card-tripInfos-left-position;
+        right: $card-tripInfos-right-position;
+        background-color: $card-tripInfos-bgcolor;
+        color: $card-tripInfos-color;
+        text-align: center;
+
+        .fat-text {
+            display: block;
+            font-weight: bold;
+            font-size: rem-calc(18);
+        }
+
+        small {
+            font-size: rem-calc(11);
+        }
+    }
+}
+
+.card.basicCard.tpl_03 {
+
+    .tripInfos-price,
+    .tripInfos-duration {
+        >span {
+            display: block;
+            line-height: 1em;
+
+            &.prefix {
+                color: rgba($black, 40%);
+                text-transform: uppercase;
+            }
+
+            &.fat-text {
+                font-size: rem-calc(22);
+            }
+        }
+    }
+
+    .tripInfos-duration {
+        margin-left: auto;
+    }
+}
+
+.card.basicCard.tpl_04,
+.card.basicCard.tpl_05 {
+    .card-tripInfos-wrapper.has-price {
+        margin-top:calc(-#{$card-priceTag-height} / 2);
+    }
+
+    .tripInfos-price {
+        margin: 0 auto 20px auto;
+        padding: $card-priceTag-padding;
+        width: $card-priceTag-width;
+        height: $card-priceTag-height;
+        background-color: $card-tripInfos-bgcolor;
+        color: $card-tripInfos-color;
+        border-radius: $card-tripInfos-border-radius;
+        @include bordered($card-tripInfos-border-width, $card-tripInfos-border-style, $card-tripInfos-border-color);
+
+        .prefix,
+        .suffix {
+            font-size: $card-priceTag-smallSize;
+            line-height: 1;
+        }
+
+        .prefix {
+            margin-bottom: 5px;
+        }
+
+        .suffix {
+            margin-top: 5px;
+        }
+
+        .value {
+            font-size: $card-priceTag-fatSize;
+            font-weight: $global-weight-bold;
+            line-height: 1;
+        }
+    }
+}
+
+.card.splitCard {
+    @include breakpoint(medium down) {
+        .grid-x>.cell:not(.card-section) {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    &.tpl_01 {
+        .card-section {
+            @include breakpoint(large) {
+                padding-left: map-get($grid-padding-gutters, medium)*2;
+            }
+        }
+    }
+}
+
+.geomapCard {
+    .card-titles {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.bg {
+
+    @each $color,
+    $hex in $foundation-palette {
+        &-#{$color} {
+            .basicCard .card-section {
+                background-color: $coloredbg-cardsection-bgcolor;
+            }
+        }
+    }
+}

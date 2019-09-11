@@ -1,0 +1,11 @@
+{
+    "approved": true,
+    "name": "Texte",
+    "description": "Affiche l'éditeur visuel",
+    "acf_groups": [
+        "group_5b042f5ad9ecc"
+    ],
+    "vars": [
+        "text"
+    ]
+}

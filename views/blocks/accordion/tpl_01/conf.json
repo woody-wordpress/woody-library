@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "FAQ - Template 1",
+    "description": "Titres avec textes associés dépliables",
+    "acf_groups": [
+        "group_5b0433ff0bb17"
+    ],
+    "vars": [
+        "title",
+        "accordion"
+    ]
+}

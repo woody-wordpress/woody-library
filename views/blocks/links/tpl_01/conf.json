@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Liens - Template 1",
+    "description": "Affiche un groupe liens sous forme de boutons",
+    "acf_groups": [
+        "group_5b043614df4a6"
+    ],
+    "vars": [
+        "links",
+        "alignement"
+    ]
+}

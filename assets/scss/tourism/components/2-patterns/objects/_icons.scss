@@ -1,0 +1,36 @@
+.plo-fonticon {
+    display: inline-block;
+    line-height: inherit;
+    transform: translateY(.14em);
+    font-size: $font-size-base;
+    backface-visibility: hidden;
+    text-align: center;
+
+    &:before {
+        width: 1em;
+        height: 1em;
+        margin-top: -1.3em;
+        margin-bottom: -1.3em;
+        display: block;
+    }
+
+    &--tiny {
+        font-size: ($font-size-h6*.75);
+    }
+
+    &--small {
+        font-size: $font-size-h6;
+    }
+
+    &--large {
+        font-size: $font-size-h4;
+    }
+
+    &--huge {
+        font-size: $font-size-h3;
+    }
+
+    &--jumbo {
+        font-size: 60px;
+    }
+}

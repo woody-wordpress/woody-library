@@ -1,0 +1,51 @@
+/**
+ * Accessibilities
+ */
+
+#establishment-detail {
+
+    .accessibilities {
+        li {
+            margin-bottom: $vr--small;
+        }
+    }
+}
+
+#arrangements {
+    thead {
+        background-color: $primary-color;
+        color: white;
+
+        th {
+            text-align: center;
+            border: none;
+            padding: 10px 8px;
+
+            &:first-child {
+                font-weight: 600;
+            }
+        }
+    }
+
+    tbody td {
+        border: none;
+        padding: 14px 8px;
+        position: relative;
+
+        &:nth-child(even) {
+            background: #f7f7f7
+        }
+
+        &:first-child {
+            color: $primary-color;
+            font-weight: 500;
+            padding-left: 20px;
+        }
+
+        &:not(:first-child) {
+            text-align: center;
+            color: lighten($text-muted, 20%);
+            font-weight: 500;
+        }
+    }
+}

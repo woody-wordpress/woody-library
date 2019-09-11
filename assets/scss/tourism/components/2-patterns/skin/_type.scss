@@ -1,0 +1,49 @@
+.alpha,
+.beta,
+.gamma,
+.delta,
+.epsilon,
+.zeta {
+    line-height: $headings-line-height;
+    font-weight: $headings-font-weight;
+}
+
+.alpha {
+    @include header-size(h1);
+}
+
+.beta {
+    @include header-size(h2);
+}
+
+.gamma {
+    @include header-size(h3);
+}
+
+.delta {
+    @include header-size(h4);
+}
+
+.epsilon {
+    @include header-size(h6);
+}
+
+.zeta {
+    font-size: $font-size-h6;
+}
+
+
+/*------------------------------------*\
+    - COPY
+\*------------------------------------*/
+/**
+ * Contains the available text weights
+ */
+b,
+.s-callout {
+    font-weight: 600;
+}
+
+.s-lead {
+    font-weight: 400;
+}

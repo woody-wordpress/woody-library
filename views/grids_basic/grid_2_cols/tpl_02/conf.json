@@ -1,0 +1,14 @@
+{
+    "approved": true,
+    "name": "Grille 2 colonnes - 66 | 33",
+    "description": "2 colonnes 2/3 | 1/3",
+    "acf_groups": [
+        "field_5afd2c9616ecd",
+        "group_5b4726f891221",
+        "group_5b59c6f2d866c"
+    ],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

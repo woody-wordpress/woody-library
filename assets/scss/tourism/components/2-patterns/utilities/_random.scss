@@ -1,0 +1,105 @@
+._clickable {
+    cursor: pointer;
+}
+
+._pl-index {
+    z-index: 1;
+}
+
+._plu-ratio {
+    &--half:before {
+        padding-top: 50%;
+    }
+}
+
+._plu-fullwidth {
+    width: 100%;
+}
+
+._plu-fullwidth-o {
+    width: 100% !important;
+}
+
+
+
+/* JS APPEAR */
+.js-fade-in {
+    transition-duration: 0.8s;
+    transition-property: opacity, transform;
+    transition-timing-function: ease;
+
+    // + BEFORE Black opacity trs .2s ease
+    // > EXTRACT _plu-tint
+}
+
+/*------------------------------------*\
+    IMGs
+\*------------------------------------*/
+._plu-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+._plu-context {
+    position: relative;
+}
+
+._plu-test {
+    border: 1px solid red;
+}
+
+._plu-muted {
+    opacity: .5;
+}
+
+._plu-muted--light {
+    opacity: .8;
+}
+
+// Add a help cursor to any element that gives the user extra information on
+._plu-informative {
+    cursor: help !important;
+}
+
+// Mute an object by reducing its opacity.
+._plu-muted {
+    opacity: 0.5 !important;
+}
+
+// Pull items full width of `.-pl-island` parents.
+._plu-bleed {
+    margin-right: -$vr !important;
+    margin-left: -$vr !important;
+
+
+    .-pl-islet & {
+        margin-right: -(($vr/2)) !important;
+        margin-left: -(($vr/2)) !important;
+    }
+}
+
+._plu-bleed--islet {
+    margin-right: -($vr/2) !important;
+    margin-left: -($vr/2) !important;
+}
+
+/*------------------------------------*\
+    - FLIP
+\*------------------------------------*/
+/*
+ * Flips an object on the desired axis
+ */
+._plu-flip {
+    transform: scale(-1, -1);
+    backface-visibility: hidden;
+}
+
+._plu-flip--x {
+    transform: scale(-1, 1);
+}
+
+._plu-flip--y {
+    transform: scale(1, -1);
+}

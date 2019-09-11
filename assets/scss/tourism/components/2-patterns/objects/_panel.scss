@@ -1,0 +1,153 @@
+/**
+ * BOOTSTRAP panel override
+ * nested in sheet to avoid theme clash
+ */
+.api-render-sheet .panel {
+
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    .list-group-item {
+        padding: $vr;
+        margin-bottom: -1px !important;
+
+        &:first-child {
+            border: none;
+        }
+
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+
+
+    @media (max-width: $ts_screen-xs-max) {
+        border-width: 0;
+    }
+}
+
+
+.panel-title-responsive {
+    position: relative;
+    text-align: center;
+    margin-top: $line-height-computed;
+    margin-bottom: ($vr);
+
+    &_text {
+        @include header-size(h2);
+        position: relative;
+        display: inline-block;
+        padding: 0 $vr/2;
+        color: $brand-primary;
+        font-weight: 500;
+        background: white;
+        z-index: 1;
+    }
+
+    &:before {
+        position: absolute;
+        display: block;
+        content: '';
+        width: calc(100% - #{$line-height-computed});
+        height: 1px;
+        top: 50%;
+        margin-top: -1px;
+        left: ($line-height-computed/2);
+        background: $brand-primary;
+    }
+
+    @media (min-width: $ts_screen-sm-min) {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------*\
+    - PANEL
+\*------------------------------------*/
+/**
+ * Creates a light grayed container with a thin border
+ */
+.plo-panel {
+
+    & {
+        margin-bottom: $vr/2;
+        border: 1px solid $color-bd;
+        background: $color-bg;
+    }
+
+    &__fluid {
+        border: 0;
+        background: none;
+    }
+
+    &__header {
+        color: white;
+        background: $color-bg-dark;
+    }
+
+    &__row {
+        overflow: visible; // aka clearfix
+        padding: $vr;
+
+        &:not(:first-child) {
+            border-top: 1px solid $color-bd;
+        }
+
+        :last-child {
+            margin-bottom: 0 !important;
+        }
+
+    }
+
+    &.content-medias {
+        overflow: hidden;
+        padding: 10px;
+
+        .row {
+            padding: 10px;
+
+            li {
+                padding: 5px;
+
+                .video-wrapper {
+                    height: 240px;
+                    width: 100%;
+                    overflow: hidden;
+                    position: relative;
+                    display: block;
+                }
+
+                iframe {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.content-booking {
+        overflow: hidden;
+        padding: 10px;
+
+        .row {
+            padding: 10px;
+        }
+    }
+
+    &--flatten {
+        padding-bottom: $vr;
+    }
+
+    &--contrast {
+        background: white;
+    }
+}

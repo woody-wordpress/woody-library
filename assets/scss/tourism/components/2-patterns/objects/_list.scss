@@ -1,0 +1,29 @@
+/*------------------------------------*\
+    - LIST BARE
+\*------------------------------------*/
+/**
+ * Resets list styles
+ */
+
+.plo-list-bare {
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.plo-list-even {
+
+    & {
+        overflow: hidden; // aka clearfix
+    }
+
+    >li {
+        width: 50%;
+        float: left;
+        padding-right: 15px;
+
+        &:nth-child(2n + 3) {
+            clear: both;
+        }
+    }
+}

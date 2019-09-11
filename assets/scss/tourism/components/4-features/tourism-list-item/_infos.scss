@@ -1,0 +1,175 @@
+// SHEET INFOS - TITLE - DESCRIPTION - ADDRESS ...
+
+.item-infos {
+
+    position: absolute;
+    bottom: 0%;
+    min-height: $defFicheInfosHeight;
+    width: 100%;
+    z-index: 100;
+    background: $sheetListInfosBgColor;
+
+    transition: all $sheetListAnimDuration $sheetListAnimMethod;
+
+    .link-wrapper {
+
+        overflow: hidden;
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+
+        a {
+            display: block;
+            padding: 8px;
+            // float: left;
+            float: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .item-description {
+            display: block;
+            text-decoration: none;
+            color: lighten(#000, 30%);
+            font-weight: 300;
+            margin-top: 3px;
+            margin-bottom: 10px;
+            font-size: .9em;
+        }
+
+        .item-secondary-infos {
+            font-size: .9em;
+            padding: 5px 0 0;
+            margin-top: 5px;
+            display: block;
+            overflow: hidden;
+            border-top: $bdWidth solid $bdColor;
+            color: lighten(#000, 30%);
+            font-weight: 300;
+        }
+
+        .tel {
+            display: block;
+        }
+
+        .item-address {
+            .address-line {
+                float: left;
+                display: inline-block;
+                margin-right: 5px;
+            }
+
+            .zip-code {
+                float: left;
+                display: inline-block;
+                clear: left;
+                margin-right: 5px;
+            }
+
+            .commune {
+                float: left;
+                display: inline-block;
+            }
+        }
+
+        // TITLE
+
+        .item-title {
+
+            padding: 0;
+            font-weight: 300;
+            color: $defTextColor;
+            font-size: 1.2em;
+            line-height: 1.2em;
+            // display: table-cell;
+            display: inline-block;
+            vertical-align: top;
+            width: 100%;
+
+            &-with-comments {
+                width: 80%;
+                min-height: 40px;
+            }
+
+            .ratings-wrapper {
+                display: block;
+                margin-top: 5px;
+            }
+
+            .rating-font {
+                line-height: .8em;
+
+                span {
+                    margin-right: 2px;
+
+                    &:before {
+                        vertical-align: top;
+                        font-size: .6em;
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+
+//Specific style for markets
+&.tourism-item-type-FMA article.isMarket {
+    .item-infos {
+        min-height: 185px;
+
+        .link-wrapper {
+            a {
+                padding: 10px;
+                padding-top: 20px;
+            }
+
+            .item-title {
+                display: block;
+                text-align: center;
+                width: 100%;
+                padding: 7px;
+                font-size: 18px;
+            }
+
+            .item-dates {
+                position: relative;
+                display: block;
+                text-align: center;
+                width: 100%;
+                border-left: none;
+                padding: 0;
+                margin-top: 20px;
+                margin-bottom: 15px;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -15px;
+                    left: 25%;
+                    width: 50%;
+                    margin: 0 auto;
+                    height: 1px;
+                    background: rgba(0, 0, 0, 0.1);
+                }
+
+                ul li {
+                    .date-label {
+                        font-size: 16px;
+                        line-height: 1;
+                        margin-bottom: 8px;
+                    }
+
+                    .date-value-markets {
+                        font-size: 14px;
+                        line-height: 1.2;
+                    }
+                }
+            }
+
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "approved": true,
+    "name": "Infos séjour - Template 2",
+    "description": "Affiche le prix et la durée d'un séjour - Centrés l'un sur l'autre",
+    "acf_groups": [
+        "group_5b6c5e6ff381d"
+    ],
+    "vars": [
+        "the_price",
+        "the_duration",
+        "the_peoples"
+    ]
+}

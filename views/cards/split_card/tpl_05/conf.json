@@ -1,0 +1,9 @@
+{
+    "approved": true,
+    "name": "Split Carte - Template 5",
+    "description": "Carte de contenu avec média à gauche + textes à gauche (ratio 3/9)",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

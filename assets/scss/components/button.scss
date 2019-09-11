@@ -1,0 +1,50 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &[target='_blank']:after {
+        margin-left: 5px;
+    }
+
+    &.button-download {
+        &[target='_blank']:after {
+            display: none;
+        }
+    }
+
+    .wicon {
+        margin-right: 12px;
+        font-size: $button-icon-font-size;
+    }
+
+    .wicon~.button-label {
+        text-align: left;
+    }
+
+    .filesize {
+        margin-left: 8px;
+        opacity: .6;
+    }
+
+    &[class*="border-"] {
+        color: $black;
+        border-style: $bordered-button-border-style;
+        border-width: $bordered-button-border-width;
+        background-color: transparent;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.button-group .button {
+
+    @each $size,
+    $rem in $button-sizes {
+        &.#{$size} {
+            font-size: $rem
+        }
+    }
+}

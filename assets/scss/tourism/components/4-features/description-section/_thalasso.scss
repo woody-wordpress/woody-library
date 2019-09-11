@@ -1,0 +1,17 @@
+/**
+ * Thalasso
+ */
+
+#thalasso {
+    .thalasso-item {
+        ul {
+            margin-left: 25px;
+        }
+        ul > li {
+            list-style-type: disc;
+        }
+        ._plu-emphasis--high {
+            font-weight: 700 !important;
+        }
+    }
+}

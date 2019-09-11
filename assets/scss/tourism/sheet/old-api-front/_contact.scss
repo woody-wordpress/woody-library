@@ -1,0 +1,118 @@
+.contact-modal {
+    .modal-dialog {
+        width: 680px;
+        margin-top: 100px;
+    }
+}
+
+
+.contact-form {
+    .chars-counter {
+        text-align: right;
+        float: right;
+        color: #727272;
+        font-size: 10px;
+    }
+
+    .counter-alert {
+        font-weight: bold;
+        color: red;
+    }
+
+    &.detail-form {
+
+        .form-content-wrapper {
+            padding: 0;
+            border: none;
+            box-shadow: none;
+
+            .submit-btns-wrapper {
+                width: 100%;
+            }
+        }
+
+        h3 {
+            margin: 2 * $defMargin;
+            color: $primary-color;
+            font-weight: 300;
+        }
+
+        .field-wrapper,
+        .form-optin {
+            width: 100%;
+        }
+    }
+
+    &.success {
+        width: 100%;
+        text-align: center;
+        color: $secTextColor;
+        height: 350px;
+
+        .modal-dialog {
+            width: 380px !important;
+        }
+
+        &:before {
+            animation-name: bounceIn;
+            animation-duration: 1s;
+            background: $commentColor4;
+            display: block;
+            border-radius: 100/2px;
+            font-size: 4em;
+            color: white;
+            margin: auto;
+            margin-top: -50px;
+            width: 100px;
+            height: 100px;
+            padding-top: 22px;
+            @extend .icon-font-item;
+            @extend .icon-tick;
+        }
+
+        .success-message {
+            margin-top: 30px;
+
+            &>span {
+                display: block;
+            }
+
+            .text {
+                font-size: 1.3em;
+                font-weight: 300;
+            }
+
+            .title {
+                font-size: 80px;
+                line-height: 80px;
+                font-weight: 100;
+            }
+
+            .btn {
+                background: $commentColor4;
+                width: 280px;
+                margin: auto;
+                margin-top: 24px;
+                padding: 10px;
+                font-size: 2em;
+                font-weight: 300;
+            }
+        }
+    }
+
+    .validation-error {
+        width: 680px;
+        background: $invalidColor;
+        text-align: center;
+        color: white;
+        padding: 10px;
+        margin-top: 15px;
+        margin-left: -15px;
+    }
+}
+
+.calendars {
+    &:hover {
+        cursor: pointer;
+    }
+}

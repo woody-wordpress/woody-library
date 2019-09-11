@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Liste (carte au dessus, sans filtres)",
+    "description": "...",
+    "acf_groups": [
+        "group_5bc6079fe9b0a"
+    ],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

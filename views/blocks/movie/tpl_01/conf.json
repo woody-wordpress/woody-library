@@ -1,0 +1,11 @@
+{
+    "approved": true,
+    "name": "Vidéo",
+    "description": "Affiche une vidéo (youtube, vimeo, dailymotion, ...)",
+    "acf_groups": [
+        "group_5b0430471a3d6"
+    ],
+    "vars": [
+        "movie"
+    ]
+}

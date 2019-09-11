@@ -1,0 +1,132 @@
+/*------------------------------------*\
+    - MEDIA
+\*------------------------------------*/
+/**
+ * Place any image- and text-like content side-by-side.
+ */
+.api-render-sheet {
+
+    .media {
+        margin-top: 0;
+        display: table !important;
+        width: 100%;
+    }
+
+    .media-left {
+        width: 0;
+    }
+
+    .media-body {
+        width: auto;
+    }
+
+    .media-center {
+        margin: auto;
+    }
+
+    .media-middle :last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .media-stretch {
+        width: 100% !important;
+    }
+}
+
+
+.plo-media {
+    @include clearfix;
+    display: block;
+}
+
+.plo-media__img,
+.plo-media__img img,
+.plo-media__img--rev img,
+.plo-media__body {
+    display: block;
+}
+
+.plo-media__img {
+    float: left;
+    margin-right: $vr/2;
+
+    &--align {
+        top: -2px;
+        position: relative;
+    }
+
+    &--sprite,
+    &--icon {
+        margin-right: ($vr/4);
+    }
+}
+
+.plo-media__img--rev {
+    float: right;
+    margin-left: $vr;
+}
+
+.plo-media__body {
+    overflow: hidden;
+}
+
+.plo-media__body,
+.plo-media__body> :last-child {
+    margin-bottom: 0;
+}
+
+
+/**
+ * `.img`s in `.islet`s need an appropriately sized margin.
+ */
+.plo-nav--islets .plo-media__img,
+.-pl-islet .plo-media__img {
+    margin-right: ($vr/2);
+}
+
+.plo-nav--islets .plo-media__img--rev,
+.-pl-islet .plo-media__img--rev {
+    margin-left: ($vr/2);
+}
+
+.plo-media--play {
+    span {
+        cursor: pointer;
+        position: relative;
+
+        &:after {
+            font-family: $iconFont;
+            content: '\e61c';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: #FFF;
+            font-size: 4em;
+        }
+    }
+}
+
+.media-play-click {
+    cursor: pointer;
+    position: relative;
+
+    &:after {
+        font-family: $iconFont;
+        content: '\e61c';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        color: #FFF;
+        font-size: 4em;
+    }
+
+    img {
+        width: 100%;
+    }
+}

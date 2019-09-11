@@ -1,0 +1,13 @@
+.plo-split {
+    overflow: hidden;
+
+    dt {
+        float: left;
+        clear: both;
+    }
+
+    dd {
+        padding-left: $vr;
+        float: right;
+    }
+}

@@ -1,0 +1,15 @@
+{% extends 'blocks/semantic_view/tpl_01/tpl.twig' %}
+{% block index_class %}
+    tpl_03{% endblock %}
+{% block image %}
+    {% if item.img.ID|default %}
+        <div class="cell small-12">
+            {% include '_objects/imageObject.twig' with {
+                'img' : item.img,
+                'image_style' : "ratio_3_1",
+                'containerClass' : "semanticViewMediaWrapper"
+            } %}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block titles_class %}cell small-12 text-center{% endblock %}

@@ -1,0 +1,689 @@
+.itinerary-layout {
+    clear: both;
+    position: relative;
+    line-height: initial;
+
+    .sheet-nav-actions,
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+
+        dt {
+            padding: 0;
+        }
+    }
+
+    .api-render-header .sheet-header .header-text .sheet-header_title {
+        font-size: 3.5rem;
+        padding-right: 5px;
+    }
+
+    .nav-back {
+        font-size: 0.9em;
+    }
+
+    .itinerary-download-text {
+        display: block;
+        font-size: 0.9em;
+        margin-top: $vr/2;
+    }
+
+    .section-alert {
+        padding-right: 2 * $defContainersPadding;
+        font-size: 1.1em;
+        line-height: 1.5em;
+        font-weight: 300;
+        border: none;
+
+        ._panel-title.pl-heading {
+            color: $brand-danger;
+
+            &:after {
+                font-size: 35px;
+                display: block;
+                padding-left: 5px;
+                margin: 0 auto;
+                @extend .icon-font-item;
+                @extend .icon-warning;
+            }
+        }
+
+        .section-content {
+            white-space: pre-line;
+        }
+    }
+
+    .krpano-viewer {
+        display: block;
+        background: #000;
+        position: relative;
+        clear: both;
+        float: left;
+        width: 100%;
+        height: 380px;
+
+        &:after {
+            content: '';
+            display: block;
+            // padding-top: 56%;
+            width: 100%;
+        }
+
+        &>div {
+            z-index: 10;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+#goToItinerary {
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background-color: white;
+    padding: 10px;
+    color: #999;
+    cursor: pointer;
+    display: none;
+
+    i {
+        display: flex;
+        font-weight: 800;
+        font-size: 16px;
+    }
+
+    &:hover {
+        color: $primary-color;
+        border-color: $primary-color;
+        // text-align: center;
+    }
+}
+
+.itinerary-sidebar {
+    padding-left: 0;
+    right: 0;
+    position: initial;
+
+    #iti-map {
+        z-index: 1;
+        height: unquote("calc(100vh - 80px)");
+
+        &>.fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+
+            .fullscreen_control_wrapper {
+                border-color: $primary-color;
+
+                &:after {
+                    color: $primary-color;
+                    @extend .icon-zoom-out;
+                }
+            }
+        }
+
+        .itinerary-custom-controls {
+            position: absolute;
+            display: flex;
+            // flex-direction: column;
+            z-index: 1001;
+
+            &.right {
+                top: 10px;
+                right: 20px;
+                align-items: flex-end;
+            }
+
+            &.left {
+                top: 0px;
+                left: $grid-gutter-width/2;
+            }
+
+            &.bottom {
+                top: initial;
+                bottom: $vr *1.5;
+            }
+        }
+
+        .fullscreen_control_wrapper {
+            right: $grid-gutter-width/2;
+            // display: none;
+        }
+
+        .map-mode-switcher {
+            left: $grid-gutter-width/2;
+            right: initial;
+        }
+
+        .gm-style>button {
+            display: none;
+        }
+
+
+        /* LEAFLET STYLING */
+        .leaflet-google-layer {
+            z-index: 0;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .leaflet-popup-content {
+            height: auto;
+
+            .tourism-list-item.map-item {
+                .item-container {
+                    margin-left: -25px;
+
+                    &:hover {
+                        transform: none;
+                    }
+                }
+            }
+        }
+
+        .leaflet-map-pane a.leaflet-popup-close-button {
+            z-index: 1;
+            top: -14px !important;
+            right: -12px !important;
+            width: 30px !important;
+            height: 30px !important;
+            display: flex;
+            box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .16);
+            border-radius: 50%;
+            background: #fff;
+            font-size: 16px;
+            padding: 10px;
+            color: #000;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            text-transform: none;
+        }
+
+        .leaflet-map-pane a.leaflet-popup-close-button:hover {
+            background: $primary-color;
+            color: #fff;
+        }
+
+        .leaflet-control {
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+            padding: 2px;
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        .leaflet-control-layers-toggle {
+            display: block !important;
+        }
+
+        .leaflet-control .leaflet-control-layers-toggle,
+        .leaflet-control.leaflet-bar a {
+            cursor: pointer;
+            pointer-events: all;
+            height: 36px;
+            width: 36px;
+            line-height: 36px;
+        }
+
+        .leaflet-control-layers-list {
+            position: absolute;
+            background: white;
+            padding: 10px;
+            white-space: nowrap;
+            left: 50px;
+            // right:50px;
+            top: 0;
+        }
+
+        .leaflet-control-layers-list .base-layer-item .base-layer-item-title {
+            display: block;
+            width: 100%;
+            margin: 10px 20px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background: white;
+            text-align: center;
+        }
+
+        .leaflet-control-layers-list .base-layer-item:hover>input:not(:checked)~label>.base-layer-item-title {
+            background-color: #cecece;
+            color: white;
+        }
+
+        .leaflet-control-layers-list .base-layer-item>label {
+            background-image: url(https://api.tourism-system.com/static/assets/images/see_map.png);
+            padding: 0;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            user-select: none;
+        }
+
+        .leaflet-control-layers-list .base-layer-item>input {
+            display: none;
+        }
+
+        .leaflet-control-layers-list .base-layer-item>input:checked~label {
+            position: relative;
+        }
+
+        .leaflet-control-layers-list .base-layer-item>input:checked~label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: $primary-color;
+            opacity: 0.5;
+        }
+
+        .leaflet-control-layers-list .base-layer-item>input:checked~label>.base-layer-item-title {
+            background-color: $primary-color;
+            color: white;
+            z-index: 1;
+        }
+
+
+    }
+}
+
+#locomotion-infos {
+    margin-bottom: 15px !important;
+    &.slick-initialized .slick-slide {
+        display: flex;
+    }
+    .slick-dots {
+        display: none !important;
+    }
+}
+
+#poi {
+    .slick-dots {
+        bottom: auto;
+        top: -20px;
+        display: flex;
+        justify-content: center;
+
+        li {
+            width: auto;
+            height: auto;
+            padding-left: $grid-gutter-width /2;
+            padding-right: $grid-gutter-width /2;
+            position: relative;
+
+            &:nth-of-type(1) {
+                button .bar.before {
+                    display: none;
+                }
+            }
+
+            &:nth-last-of-type(1) {
+                margin-right: 0;
+
+                button .bar.after {
+                    display: none;
+                }
+            }
+
+            button {
+                color: inherit;
+                font-size: 0.875em;
+                line-height: 1em;
+                // width      : auto;
+                // height     : auto;
+                position: relative;
+                padding-top: 40px;
+                margin-top: -40px;
+
+                &:after,
+                &:before {
+                    width: 25px;
+                    height: 25px;
+                    position: absolute;
+                    left: 50%;
+                    content: '';
+                    border-radius: 50%;
+
+                    transform: translateX(-50%);
+                }
+
+                &:before {
+                    width: 8px;
+                    height: 8px;
+                    top: 12px;
+                }
+
+                &:after {
+                    opacity: 1;
+                    box-shadow: inset 0 0 0 2px #fff;
+                    top: 3px;
+                }
+
+                .bar {
+                    width: 100%;
+                    height: 2px;
+                    background-color: #6c6157;
+                    display: block;
+                    position: absolute;
+                    top: 15px;
+                    border-bottom: none;
+                    max-width: 130px;
+
+                    &.before {
+                        right: 50%;
+                        transform-origin: right;
+                        transform: translateX(-20px);
+                    }
+
+                    &.after {
+                        transform: translateX(20px);
+                        transform-origin: left;
+                        left: 50%;
+                    }
+                }
+            }
+
+            &.slick-active {
+                button {
+                    &:before {
+                        background-color: $primary-color;
+                    }
+
+                    &:after {
+                        box-shadow: inset 0 0 0 2px $primary-color;
+                    }
+
+                    &:after,
+                    &:before {
+                        transform: translateX(-50%) scale(1.1);
+                    }
+                }
+            }
+
+            &:not(.slick-active) {
+                button {
+
+                    &::before,
+                    &:after,
+                    .text {
+                        opacity: 0.4;
+                    }
+
+                    &:after {
+                        box-shadow: inset 0 0 0 2px black;
+                    }
+
+                    &::before {
+                        background-color: black;
+                    }
+
+                    &:focus,
+                    &:hover {
+
+                        &:after,
+                        &:before {
+                            transform: translateX(-50%);
+                        }
+
+                        &:after {
+                            box-shadow: inset 0 0 0 2px $primary-color;
+                        }
+
+                        &::before {
+                            background-color: $primary-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#steps,
+#poi {
+    .kaarousel-wrapper {
+        width: 100%;
+
+        .kaarousel-slide {
+            width: 100%;
+        }
+
+        &.anim {
+            &>.fade-animation {
+
+                &>.kaarousel-slide,
+                &>.dummy {
+                    transition-duration: 0s !important;
+                }
+            }
+        }
+    }
+
+    .kaarousel-nav {
+
+        .kaarousel-prev,
+        .kaarousel-next {
+            height: 80px;
+            width: 50px;
+            top: 50%;
+            margin-top: -40px;
+            background: rgba(0, 0, 0, .5);
+
+            &:after {
+                font-family: 'raccourci';
+                line-height: normal;
+                color: #fff;
+                top: 38px;
+            }
+        }
+
+        .kaarousel-next {
+            &:after {
+                content: '\e619';
+            }
+        }
+
+        .kaarousel-prev {
+            &:after {
+                content: '\e61a';
+            }
+        }
+    }
+}
+
+&.itinerary-printing {
+
+    .hero-slider,
+    .list-group-item:not(:first-child),
+    #mosaic,
+    #mosaic-header > .mosaic-abs-block,
+    #iti-print-btn,
+    #groups,
+    #reviews,
+    #panorama,
+    #gallery,
+    .nav-container.sheet-nav,
+    .sheet-navbar-checkpoint,
+    .sheet-fab,
+    .sheet-nav-actions,
+    .poi-wrapper-responsive,
+    #steps > [krpano-selection],
+    #poi .itinerary-poi-wrapper .audio-element-wrapper,
+    #poi .itinerary-poi-wrapper .video-element-wrapper,
+    .leaflet-control-container
+    { display: none; }
+
+    #poi .itinerary-poi-wrapper .step-images .kaarousel-slider {
+        background: none !important;
+    }
+
+
+    #mosaic-header {
+        display: block !important;
+        margin-top: 25px;
+        .sheet-header {
+            position: relative;
+            text-shadow: none;
+
+            .sheet-header_title,
+            .sheet-header_subtitle {
+                color: black;
+            }
+        }
+    }
+
+    .woody-component-headnavs,
+    .woody-component-mobilenavs,
+    .site-footer-container
+    footer,
+    #footer,
+    .page-footer
+    { display: none; }
+
+
+    // fix layouts
+    .itinerary-layout {
+        & > div, & >aside {
+            width: 100% !important;
+        }
+    }
+    .itinerary-elevation-datas > ul {
+        width: 50%;
+        li {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .slick-list.draggable {
+        height: auto !important;
+        .slick-track {
+            width: 100% !important;
+            transform: none !important;
+            & > .slick-cloned {
+                display: none !important;
+            }
+        }
+    }
+    .poi-wrapper.slick-slide {
+        width: 100% !important;
+        left: auto !important;
+        opacity: 1 !important;
+        float: none !important;
+        .steps-wrapper > .col-md-6.col-xs-12 {
+            max-width: 320px;
+            display: none;
+        }
+    }
+
+    .list-group-item,
+    .panel {
+        border: none !important;
+    }
+
+    // .grid-print-container { grid-template: 1fr / 1fr; box-sizing: border-box; }
+    // .grid-map-print { grid-row: 1; grid-column: 1; }
+
+    // force max-width
+    #iti-map,
+    .itinerary-chart {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 297mm;
+        margin: 0 !important;
+    }
+
+    .kaarousel-wrapper {
+        .kaarousel-slide {
+            width: auto !important;
+            display: none;
+            max-width: 32%;
+        }
+        .kaarousel-slide:nth-child(-n+4) {
+            display: inline-block !important;
+        }
+        .dummy {
+            display: none !important;
+        }
+    }
+
+    // .locomotion-features {
+    //     display: block !important;
+    // }
+
+    // #poi, //testing firefox
+    .sf-toolbar,
+    #poi .slick-arrow,
+    .kaarousel-nav {
+        display: none !important;
+    }
+
+    // links
+    a:after {
+        display: none;
+    }
+
+    // page-breaks
+    #steps,
+    #profile,
+    #poi .poi-wrapper.slick-slide:not(:last-child),
+    #iti-map,
+    // .establishment-description:last-child,
+    #description {
+        page-break-after: always;
+        page-break-inside: avoid;
+        // &:before {
+        //     display: block;
+        //     margin-bottom: 5px;
+        //     content: "( "attr(id)" )";
+        // }
+    }
+
+
+    #poi .poi-wrapper.slick-slide {
+        border: 3px solid red;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-inside: avoid;
+    }
+
+    // .itinerary-sidebar {
+    //     order: -1;
+    // }
+
+    @media print {
+        @page {size: landscape; }
+        #iti-map {
+            // border: 3px solid red;
+            height: 100vh !important;
+            max-height: 190mm !important;
+        }
+    }
+}
+
+@supports (-moz-appearance:none) {
+    &.itinerary-printing .itinerary-sidebar  #iti-map { max-height: 155mm !important; }
+    .mixte-step-wrapper > section:last-child { margin: 0 !important; }
+    .mixte-step-wrapper > .step-images { margin: 0 !important; }
+}
+
+@media print {
+    &body {
+      overflow: visible !important;
+    }
+  }

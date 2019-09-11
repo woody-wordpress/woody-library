@@ -1,0 +1,26 @@
+.bg {
+    @include colors-apply();
+
+    @each $color,
+    $hex in $foundation-palette {
+        &-#{$color} {
+            .bg {
+                @include colors-apply();
+            }
+        }
+    }
+
+    &-lightgray {
+        a:not(.button):not(.card-link):not(.tab-link):not(.feature-link) {
+            color: $primary-color;
+        }
+    }
+}
+
+.text {
+    @include colors-apply(color);
+}
+
+.border {
+    @include colors-apply(border-color);
+}

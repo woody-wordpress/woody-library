@@ -1,0 +1,15 @@
+{
+    "approved" : true,
+    "name" : "Section header - Template 1",
+    "description" : "En-tête avec Titre, sur-titre, sous-titre, icone et description",
+    "acf_groups" : [],
+    "vars" : [
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+    ]
+}

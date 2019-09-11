@@ -1,0 +1,19 @@
+{
+    "approved": true,
+    "name": "Focus - Template 1 élément - 07",
+    "description": "Grille bloc 100% en empilement - Cartes texte sur images (Paysage B)",
+    "acf_groups": [
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "field_5d16118093cc1"
+    ],
+    "vars": [
+        "items"
+    ],
+    "items_count": [
+        {
+            "fitted_for": "all",
+            "accepts_max": 6
+        }
+    ]
+}

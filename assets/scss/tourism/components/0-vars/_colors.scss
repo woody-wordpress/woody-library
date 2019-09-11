@@ -1,0 +1,92 @@
+/**
+ * Available greys (from Bs)
+ * NONE SHOULD BE ADDED 6 IS MORE THAN ENOUGH
+ *
+ */
+
+$gray-base: #000;
+$gray-darker: lighten($gray-base, 13.5%);
+$gray-dark: lighten($gray-base, 20%);
+$gray: lighten($gray-base, 33.5%);
+$gray-light: lighten($gray-base, 46.7%);
+$gray-lighter: lighten($gray-base, 93.5%);
+
+$panel-default-border: #ddd !default;
+
+$brand-primary: $primary-color;
+$link-color: $brand-primary !default;
+
+//** Text color
+$text-muted: $gray-light !default;
+$text-color: $gray-dark !default;
+
+$color-secondary: red;
+$color-accent: red;
+
+
+$color-bg: mix($gray-lighter, white, 50%); // mix(white, black, 98%);
+$color-bg-dark: $gray-dark;
+// $color-bd: 				fade(black, (100% - lightness($panel-default-border)) ); // turns lightness into alpha
+$color-bd: rgba(0, 0, 0, 0.14);
+
+$mainText: #333333;
+// $text-light:            fade(black, (100% - lightness(mix($gray-light, $gray-lighter, 50%))) ); // turns lightness into alpha
+$text-light: rgba(0, 0, 0, 0.3);
+
+$endedEventColor: #d9451f;
+
+
+// States colors
+$brand-success: #76b852;
+$brand-warning: #e67e22;
+$brand-danger: #ee4f4f;
+
+$blocsBg: $color-bg;
+$blocEltBg: $color-bg;
+$tabsColor: #433D3D;
+
+// TEXTS COLORS
+$defTextColor : #000000;
+$secTextColor : #7A7A7A;
+$thTextColor : #424242;
+
+// SOCIAL COLORS
+$facebookColor: #3B5998;
+$twitterColor: #00ACED;
+$youtubeColor: #BB0000;
+$googleColor: #DD4B39;
+$instagramColor: #000000;
+$pinterestColor: #CB2027;
+
+// STATE COLORS
+$validColor: #5FB13A;
+$invalidColor: #F14347;
+$warningColor: #FC8258;
+
+// NAV
+$navBackground: $color-bg;
+$navColor: #A0A0A0;
+$navColorHover: darken($navColor, 17%);
+
+// MENU
+$menu-bg-color: $primary-color;
+$menu-bg-color-hover : #FFF;
+$menu-txt-color: $primary-color;
+$menu-txt-color-hover: $primary-color;
+$menu-icon-color: #FFF;
+$menu-icon-color-hover: $primary-color;
+$menu-submenu-txt-color: lighten(#000, 10%);
+$menu-submenu-bg-color: darken(#FFF, 4%);
+
+// COMMENTS
+$commentColor1: #ee622d;
+$commentColor2: #ffc001;
+$commentColor3: #9fbf04;
+$commentColor4: #71a63e;
+$commentColor5: #277712;
+
+// AVAILABILITIES
+$available: #93E6A5;
+$full: #FF726B;
+$closed: #9F9F9F;
+$outOf: #D5D5D5;

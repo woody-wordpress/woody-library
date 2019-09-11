@@ -1,0 +1,232 @@
+// DESCRIBE A TOURISM LIST ITEM
+
+.tourism-list-item.renderview-thumbnail {
+
+    position: relative;
+    list-style-type: none;
+    padding: 0;
+    transition: width .3s ease;
+    transform: translateZ(0);
+
+    a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    &.alone {
+        width: 100%;
+        height: 100%;
+    }
+
+    .item-container {
+
+        top: $sheetsSpacing;
+        left: $sheetsSpacing;
+        right: $sheetsSpacing;
+        bottom: $sheetsSpacing;
+        position: absolute;
+        border: 1px solid $bdColor;
+        transition: box-shadow .5s $swift-out, border .5s $swift-out, transform .5s $swift-out;
+
+        .plo-fonticon {
+            font-size: 0.6em;
+            color: $primary-color;
+
+            &:before {
+                vertical-align: super;
+                line-height: 0.8;
+            }
+        }
+
+        &.active {
+            box-shadow: $defShadowLev1;
+            border-color: $primary-color;
+        }
+
+        .item-image-wrapper {
+            .rc-img {
+                transition: transform .5s $swift-out, opacity .5s $swift-out !important;
+            }
+        }
+
+        .item-wrapper {
+
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            position: absolute;
+
+        }
+
+        .plo-fonticon {
+            font-size: 0.6em;
+            color: $primary-color;
+
+            &:before {
+                vertical-align: super;
+                line-height: 0.8;
+            }
+        }
+    }
+
+    &:not(.map-item) {
+        .item-container {
+            &:hover {
+
+                box-shadow: $defShadowLev2;
+                border-color: $primary-color;
+
+                transform: translateY(-4px);
+
+                .item-image-wrapper {
+                    .rc-img {
+                        transform: scale(1.1);
+                        opacity: .8 !important;
+                    }
+                }
+            }
+
+            &.user-hover {
+                .item-top-left-corner {
+                    opacity: 0;
+                }
+
+                .item-image-wrapper {
+                    background-color: #000;
+
+                    .rc-img {
+                        opacity: .3 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-top: $defFicheHeight;
+    }
+
+
+}
+
+.tourism-list-item:not(.renderview-thumbnail) {
+
+    position: relative;
+    list-style-type: none;
+    float: left;
+    padding: 0;
+
+    transition: width .3s ease;
+    transform: translateZ(0);
+
+    a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    &.alone {
+        width: 100%;
+        height: 100%;
+    }
+
+    .item-container {
+
+        top: $sheetsSpacing;
+        left: $sheetsSpacing;
+        right: $sheetsSpacing;
+        bottom: $sheetsSpacing;
+        position: absolute;
+        border: 1px solid $bdColor;
+
+        transition: box-shadow .5s $swift-out, border .5s $swift-out, transform .5s $swift-out;
+
+        &.active {
+            box-shadow: $defShadowLev1;
+            border-color: $primary-color;
+        }
+
+        .item-image-wrapper {
+            min-height: 68%;
+
+            .rc-img {
+                transition: transform .5s $swift-out, opacity .5s $swift-out !important;
+            }
+        }
+
+        .item-wrapper {
+
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            position: absolute;
+
+        }
+
+
+    }
+
+    &:not(.map-item) {
+        .item-container {
+            &:hover {
+
+                box-shadow: $defShadowLev2;
+                border-color: $primary-color;
+
+                transform: translateY(-4px);
+
+                .item-image-wrapper {
+                    .rc-img {
+                        transform: scale(1.1);
+                        opacity: .8 !important;
+                    }
+                }
+            }
+
+            &.user-hover {
+                .item-top-left-corner {
+                    opacity: 0;
+                }
+
+                .item-image-wrapper {
+                    background-color: #000;
+
+                    .rc-img {
+                        opacity: .3 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-top: $defFicheHeight;
+    }
+
+    @import '_buttons.scss';
+    @import '_infos.scss';
+    @import '_extras.scss';
+    @import '_images.scss';
+    @import '_deals.scss';
+    @import '_comments.scss';
+    @import '_states.scss';
+    @import '_itinerary.scss';
+    @import '_agenda.scss';
+
+    @import '_maps.scss';
+}
+
+// .angular-block{
+//     .tourism-list-item.tourism-item-type-FMA .item-container .item-wrapper .item-infos .item-title{
+//         width: 100%;
+//     }
+// }

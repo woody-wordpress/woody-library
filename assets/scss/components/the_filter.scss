@@ -1,0 +1,40 @@
+.the_filter {
+    &.accordion {
+        .accordion-item .accordion-title {
+            color: $accordionFilter-color;
+            background-color: $accordionFilter-bgcolor;
+            border: $accordionFilter-border-width $accordionFilter-border-style $accordionFilter-border-color;
+            text-align: $accordionFilter-text-align;
+            font-family: $accordionFilter-font-family;
+            font-weight: $accordionFilter-font-weight;
+            text-transform: $accordionFilter-text-transform;
+            @include header-size(h4);
+
+            &:before {
+                @include breakpoint(large down) {
+                    top: auto;
+                    bottom: 0;
+                    right: 50%;
+                    transform: translateX(50%);
+                }
+            }
+
+            &:hover,
+            &:focus {
+                color: $accordionFilter-hover-color;
+                background-color: $accordionFilter-hover-bgcolor;
+            }
+
+            .items-count {
+                @include breakpoint(large down) {
+                    display: block;
+                    margin-top: 3px;
+                }
+
+                color:$accordionFilter-results-color;
+                font-weight:$accordionFilter-results-font-weight;
+                font-family:$accordionFilter-results-font-family;
+            }
+        }
+    }
+}

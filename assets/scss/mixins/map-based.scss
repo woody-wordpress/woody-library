@@ -1,0 +1,200 @@
+@import 'maps';
+
+@mixin bgimg-op {
+
+    @each $name,
+    $opacity in $opacities {
+        &#{$name} .backgroundMedia {
+            opacity: $opacity;
+        }
+    }
+}
+
+@mixin max-height {
+
+    @each $size,
+    $height in $heights {
+        &-#{$size} {
+            max-height: $height;
+        }
+    }
+}
+
+@mixin dynamic-spaces($attribute:padding, $size_type:basic) {
+    $deep-spaces-sizes: map-deep-get($spaces-sizes, '#{$size_type}');
+
+    @each $size,
+    $space in $deep-spaces-sizes {
+        &-#{$size} {
+            #{$attribute}: $space;
+        }
+    }
+}
+
+@mixin colors-apply($attribute: background-color) {
+
+    @each $color,
+    $hex in $foundation-palette {
+        &-#{$color} {
+            #{$attribute}: $hex !important;
+
+            @if $attribute==background-color {
+                color: set-color($hex);
+
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                .woody-component-list-filter .filter-label {
+                    color: set-color($hex);
+                }
+
+                .list-wicon li:before {
+                    color: rgba(set-color($hex), .75) !important;
+                }
+
+                a:not(.button):not(.card-link):not(.accordion-title):not(.feature-link) {
+                    color: rgba(set-color($hex), .75);
+
+                    &:hover {
+                        color: set-color($hex);
+                    }
+                }
+
+                table {
+                    color: $black;
+                }
+
+                blockquote p {
+                    color: rgba(set-color($hex), .65);
+                }
+
+                .sharing-button__link {
+                    svg {
+                        fill: set-color($hex);
+                    }
+                }
+
+                .swResp,
+                .swiperOut {
+
+                    .swiper-button-next,
+                    .swiper-button-prev {
+                        .wicon {
+                            color: set-color($hex);
+                        }
+                    }
+
+                }
+
+                select,
+                input {
+                    background: lighten($hex, 5%);
+                    color: set-color($hex);
+
+                    &:not(.button):focus {
+                        background: lighten($hex, 7%);
+                    }
+
+                    @include placeholder {
+                        color: rgba(set-color($hex), .5);
+                    }
+                }
+
+                .item-counter-button {
+                    background-color: $white;
+                    color: $hex;
+                }
+
+                .weatherDay-details {
+                    background-color: rgba(darken($hex, 10%), .2);
+                }
+            }
+        }
+    }
+}
+
+@mixin bullet($size) {
+    position: relative;
+    padding-left: calc(#{$size} + 5px);
+
+    &:before {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-block;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        content: '';
+    }
+
+    @each $color,
+    $hex in $foundation-palette {
+        &.#{$color} {
+            &:before {
+                background-color: $hex;
+            }
+        }
+    }
+}
+
+@mixin social-colors() {
+
+    @each $color,
+    $hex in $social-palette {
+        &.#{$color} {
+            color: $hex;
+        }
+    }
+}
+
+@mixin wicon-list($icon-color) {
+
+    @each $type,
+    $icon in $wicon-list-styles {
+        &.#{$type} {
+            li {
+                position: relative;
+                padding-left: calc(#{$wicon-list-icon-size} + 10px);
+                margin-bottom: 10px;
+                @extend .#{$icon} !optional;
+
+                &:before {
+                    position: absolute;
+                    left: 0;
+                    top: -5px;
+                    font-size: $wicon-list-icon-size;
+                    color: $icon-color;
+                }
+            }
+        }
+    }
+}
+
+@mixin header-size($type) {
+    font-size: rem-calc(map-get(map-get(map-get($header-styles, small), $type), font-size) * 1px);
+
+    @include breakpoint(medium) {
+        font-size: rem-calc(map-get(map-get(map-get($header-styles, medium), $type), font-size) * 1px);
+    }
+}
+
+@mixin flags-positions($size: medium) {
+    $i: 0;
+    $step: 13;
+
+    @if $size==large {
+        $step: 20;
+    }
+
+    @each $lang in $langs {
+        &.#{$lang} {
+            background-position : 0 #{$i}px;
+        }
+
+        $i: $i - $step;
+    }
+}

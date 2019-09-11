@@ -1,0 +1,26 @@
+#map-container {
+    position: relative;
+    z-index: 2;
+    &>#map {
+        border-top: 1px solid $panel-default-border;
+    }
+}
+
+
+.sidebar-map-container {
+    padding: $vr--tiny;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+
+    .sidebar-map {
+        height: 190px;
+        pointer-events: none;
+
+        .gm-style>* {
+            &:not(:first-child) {
+                display: none;
+            }
+        }
+    }
+}

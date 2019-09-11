@@ -1,0 +1,9 @@
+{
+    "approved": true,
+    "name": "Carte Overlay - Template 1",
+    "description": "Carte de contenu avec textes centrés en bas en overlay de l'image",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

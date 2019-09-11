@@ -1,0 +1,16 @@
+{
+    "approved": true,
+    "name": "LandSwiper (Pleine page)",
+    "description": "Swiper items",
+    "acf_groups": [
+        "group_5bb325e8b6b43"
+    ],
+    "vars": [
+        "styleClass",
+        "slidesPerView",
+        "spaceBetween",
+        "loop",
+        "centeredSlides",
+        "items"
+    ]
+}

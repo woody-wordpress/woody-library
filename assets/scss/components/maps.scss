@@ -1,0 +1,175 @@
+[id^=focusMapEl-] {
+    width: 100%;
+}
+
+.default-marker {
+    fill: $markerObject-color;
+}
+
+.focus-map-pane-element-toggler {
+    @extend .markerObject;
+    cursor: pointer;
+
+    &.activePane {
+        path {
+            fill: $marker-activePane-color;
+        }
+    }
+}
+
+.focus-map-pane {
+    position: relative;
+    height: 100%;
+}
+
+.focus-map-pane-element {
+    @include breakpoint(large) {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: scale(.95);
+        transition: opacity .4s ease-in, filter 1.3s ease-out, transform .4s ease-in;
+
+    }
+
+    &.is-active {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 1;
+    }
+}
+
+.map-pane-button {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: $white;
+    padding: 15px 10px;
+    background-color: rgba($black, .5);
+    transition: background-color .3s;
+
+    &:hover {
+        background-color: rgba($black, .7);
+    }
+
+    &-next {
+        right: 10px;
+    }
+
+    &-prev {
+        left: 10px;
+    }
+}
+
+.direction-map-wrapper {
+    width: 100%;
+
+}
+
+.leaflet-container {
+    .leaflet-control {
+        a {
+            color: $black !important;
+        }
+    }
+}
+
+.geomap {
+    @include max-height;
+}
+
+.leaflet-control {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    padding: 2px;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.leaflet-control-layers-toggle {
+    display: block !important;
+}
+
+.leaflet-control-layers-toggle,
+.leaflet-bar a {
+    height: 36px;
+    width: 36px;
+    line-height: 36px;
+}
+
+// Style Layer List
+.leaflet-control-layers-list {
+    position: absolute;
+    background: white;
+    padding: 10px;
+    top: 0;
+    white-space: nowrap;
+    right: 50px;
+
+    .base-layer-item {
+        &:not(:last-child) {
+            margin-bottom: 8px
+        }
+
+        &>label {
+            display: flex;
+            // margin: $ggw-div 0;
+            align-items: center;
+            cursor: pointer;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: normal;
+            user-select: none;
+        }
+
+        &>label {
+            background-image: url(https://api.tourism-system.com/static/assets/images/see_map.png);
+            padding: 0;
+            margin: 0;
+        }
+
+        &>input {
+            display: none;
+        }
+
+        &>input:checked~label {
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: $primary-color;
+                opacity: 0.5;
+            }
+
+            &>.base-layer-item-title {
+                background-color: $primary-color;
+                color: white;
+                z-index: 1;
+            }
+        }
+
+        .base-layer-item-title {
+            display: block;
+            width: 100%;
+            margin: 10px 20px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background: white;
+            text-align: center;
+        }
+
+        &:hover {
+            &>input:not(:checked)~label>.base-layer-item-title {
+                background-color: #cecece;
+                color: white;
+            }
+        }
+    }
+}

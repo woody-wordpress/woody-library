@@ -1,0 +1,33 @@
+<div class="card geomapCard isRel" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
+    {% if item.link|default %}
+        <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}">
+        {% endif %}
+        {% block card_media_wrapper %}
+            {% if item.img.ID %}
+                {% include '_objects/imageObject.twig' with {
+                    'img' : item.img,
+                    'image_style' : image_style,
+                    'containerClass' : "cardMediaWrapper"
+                } %}
+            {% endif %}
+        {% endblock %}
+        <div class="card-section">
+            {% block card_titles %}
+                <div class="card-titles">
+                    {% if item.title|default %}
+                        <span class="card-title">
+                            {{ item.title }}
+                        </span>
+                    {% endif %}
+                    {% if item.description|default %}
+                        <span class="card-description">
+                            {{ item.description|ellipsis(80, '...', false, false) }}
+                        </span>
+                    {% endif %}
+                </div>
+            {% endblock %}
+        </div>
+        {% if item.link %}
+        </a>
+    {% endif %}
+</div>

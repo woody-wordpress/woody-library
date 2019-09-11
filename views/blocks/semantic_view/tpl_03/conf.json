@@ -1,0 +1,11 @@
+{
+    "approved": true,
+    "name": "Cocon sémantique - Template 3",
+    "description": "Blocs de texte avec image 2:1 au dessus du texte centré",
+    "acf_groups": [
+        "group_5c4f2efaccd2f"
+    ],
+    "vars": [
+
+    ]
+}

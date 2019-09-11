@@ -1,0 +1,121 @@
+.linked-sheets {
+    $item-padding: $grid-gutter-width/2;
+    $nav-padding: 15px;
+    $nav-font-size: 16px;
+    $nav-bd-size: 1px;
+
+    &.panel-body {
+        background: #f7f7f7;
+    }
+
+    .pl-heading {
+        // margin-top: 10px;
+        font-size: $font-size-h3;
+        line-height: 40px;
+
+        &:before {
+            font-size: 40px;
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+            float: left;
+            @extend .icon-font-item;
+            @extend .icon-arrow5;
+        }
+    }
+
+    .rc_lego_wrapper {
+        display: inline-block;
+        width: 50%;
+        padding: 0 5px;
+        margin-top: $vr + 5px;
+        margin-bottom: 10px;
+    }
+
+    .rc_lego.item_sheet_beta .item-thumbnail {
+        transition: all .3s;
+        background-color: #000;
+
+        img {
+            opacity: .6;
+            transition: opacity .3s;
+        }
+    }
+
+    .rc_lego.item_sheet_beta {
+        .item-infos-date {
+            span:not(:last-child) {
+                margin-right: 5px;
+            }
+        }
+    }
+
+
+
+    .rc_lego.item_sheet_beta:hover .item-thumbnail {
+        background-color: $primary-color;
+
+        img {
+            opacity: .3;
+        }
+    }
+
+
+    .item_sheet_alpha_list {
+
+        .nav-prev,
+        .nav-next {
+            position: absolute;
+            display: flex !important;
+            top: -2*$vr;
+            transition: background .3s ease;
+            border: $nav-bd-size solid darken(#e5e5e5, 5%);
+            border-radius: 3px;
+
+            a {
+                padding: $nav-padding;
+                text-decoration: none;
+            }
+
+            &:not(.slick-disabled) {
+                background-color: white;
+                cursor: pointer;
+            }
+
+            &.slick-disabled {
+                border-color: #e5e5e5;
+
+                a {
+                    opacity: .3;
+                }
+            }
+
+            a:before {
+                position: relative;
+                font-size: $nav-font-size;
+                line-height: $nav-font-size;
+                width: auto;
+                height: auto;
+                font-family: 'raccourci'
+            }
+
+            &:not(.slick-disabled):hover {
+                background-color: $primary-color;
+                border-color: darken($primary-color, 5%);
+
+                a:before {
+                    color: #FFF;
+                }
+            }
+        }
+
+        .nav-next {
+            right: 5px;
+        }
+
+        .nav-prev {
+            left: auto;
+            right: $nav-padding*2 + $nav-font-size + $nav-bd-size*2 + 5px*2; //padding*2 + font-size + borders + space
+        }
+    }
+}

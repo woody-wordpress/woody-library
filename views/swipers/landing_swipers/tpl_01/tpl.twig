@@ -1,0 +1,90 @@
+<div class="woody-component-landswpr isRel {{ index_class|default('tpl_01') }} bg-black">
+    <div class="swiper-container woody-landing-swiper {{ styleClass|default }}" data-options="{{ json_swiper_options }}">
+        <div class="swiper-wrapper">
+            {% for slide in landswpr_slides %}
+                <div class="swiper-slide slide-{{ loop.index }} {{ slide.landswpr_slide_media.landswpr_media_op }}">
+                    {% block landswpr_media_wrapper %}
+                        {% if slide.landswpr_slide_media.landswpr_slide_media_type == 'img' and slide.landswpr_slide_media.landswpr_slide_img|default %}
+                            {% include '_objects/imageObject.twig' with {
+                                'img' : slide.landswpr_slide_media.landswpr_slide_img,
+                                'image_style' : 'ratio_16_9',
+                                'lazy' : false,
+                                'containerClass' : "landswprMediaWrapper"
+                            } %}
+                        {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'movie' and slide.landswpr_slide_media.landswpr_slide_movie|default %}
+                            {% if landswpr_slides|length %}
+                                {% include '_objects/videoObject.twig' with {
+                                    'movie' : slide.landswpr_slide_media.landswpr_slide_movie,
+                                    'image_style' : 'ratio_16_9',
+                                    'containerClass' : "landswprMediaWrapper",
+                                    'ratio' : 1.777778,
+                                    'loop' : true,
+                                    'muted' : true,
+                                    'autoplay' : true
+                                } %}
+                            {% else %}
+                                {% include '_objects/videoObject.twig' with {
+                                    'movie' : slide.landswpr_slide_media.landswpr_slide_movie,
+                                    'image_style' : 'ratio_16_9',
+                                    'containerClass' : "landswprMediaWrapper",
+                                    'ratio' : 1.777778,
+                                    'loop' : false,
+                                    'muted' : true,
+                                    'autoplay' : false
+                                } %}
+                            {% endif %}
+                        {% endif %}
+                    {% endblock %}
+                    {% block landswpr_titles_wrapper %}
+                        {% if slide.title or slide.subtitle or slide.pretitle or slide.landswpr_slide_smart_links.links %}
+                            <div class="landswpr-titles-wrapper grid-container padd-all-lg fullcenterbox fcbCol">
+                                {% include '_objects/titlesObject.twig' with {
+                                    'titles' : slide,
+                                    'contextPrefix' : "landswpr",
+                                    'textsClasses' : "flex-container flex-dir-column align-center align-middle text-center"
+                                } %}
+                                {% if slide.landswpr_slide_smart_links.links|default %}
+                                    <div class="landswpr-links-wrapper">
+                                        {% for button in slide.landswpr_slide_smart_links.links %}
+                                            {% if button.link.url|default %}
+                                                <a class="button {{ button.button_style|default }} {{ button.button_size|default('normal') }} landswpr-link" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}">
+                                                    {% if button.button_woody_icon %}
+                                                        <span class="wicon {{ button.button_woody_icon }}"></span>
+                                                    {% endif %}
+                                                    <span class="title">{{ button.link.title }}</span>
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% block search_form %}{% endblock %}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            {% endfor %}
+        </div>
+        {% if landswpr_slides|length > 1 %}
+            {% block landswpr_pagination %}
+                <div class="swiper-pagination"></div>
+            {% endblock %}
+            {% block landswpr_navigation %}
+                <div class="swiper-navigation">
+                    <div class="swiper-button-prev">
+                        <i aria-hidden="true" class="wicon wicon-026-precedent"></i>
+                    </div>
+                    <div class="swiper-button-next">
+                        <i aria-hidden="true" class="wicon wicon-025-suivant"></i>
+                    </div>
+                </div>
+            {% endblock %}
+        {% endif %}
+        {% if landswpr_scroll_down %}
+            {% block scrollDown %}
+                {% include '_objects/scrolldownObject.twig' with {
+                    target : '#pageSection-0'
+                } %}
+            {% endblock %}
+        {% endif %}
+    </div>
+</div>

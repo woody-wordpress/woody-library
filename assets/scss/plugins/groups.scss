@@ -1,0 +1,625 @@
+.trip-added,
+.edit,
+.delete,
+.form-group .validate,
+.trip-basis .chosen .validate {
+    display: none;
+}
+
+.group-quotation-wrapper {
+    .tabs {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100vw;
+        left: 50%;
+        transform: translateX(-50%);
+        @include xy-gutters($gutter-position:bottom);
+    }
+
+    .return-to-trip {
+        a {
+            padding: 1.75rem 1.5rem;
+            background-color: $light-gray;
+            color: $black;
+            border-bottom: none !important;
+            text-transform: uppercase;
+            display: flex;
+            transition: color .3s;
+
+            .wicon {
+                margin-right: 8px;
+            }
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .tabs-title {
+        float: none;
+
+        .subtitle,
+        .title {
+            display: block;
+        }
+
+        .title {
+            @include header-size(h5);
+            font-weight: bold;
+            color: $dark-gray;
+        }
+
+        .subtitle {
+            @include header-size(h6);
+            color: $medium-gray;
+            font-style: italic;
+        }
+
+        >a {
+            display: flex;
+            align-items: center;
+        }
+
+        .circle {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: $light-gray;
+            color: $medium-gray;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        &.is-active {
+            .circle {
+                background-color: $primary-color;
+                color: $white;
+            }
+
+            .title {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .tabs-content {
+        border: none !important;
+
+        .button {
+            margin-bottom: 0;
+        }
+
+        .caption {
+            text-decoration: underline;
+        }
+
+        label {
+            white-space: nowrap;
+        }
+
+        .selector {
+            margin-left: 10px;
+            max-width: 450px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .form-control {
+            height: 44px;
+            margin: 0 5px;
+            width: 280px;
+            padding-right: 0;
+            margin-bottom: 0;
+        }
+
+        .form-group,
+        .form-fields-component {
+            align-items: center;
+
+            select {
+                margin-bottom: 0;
+                cursor: pointer;
+            }
+        }
+
+        .form-group {
+            margin: 20px 0 20px 0;
+        }
+
+        .day-number {
+            width: 95px;
+        }
+    }
+
+    .tabs-panel-content {
+        position: relative;
+    }
+
+    .add-element,
+    .my-cart,
+    .quotation {
+        &-title {
+            @include header-size(h5);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
+    .trip {
+        &-infos {
+            width: 100%;
+        }
+
+        &-pretitle {
+            color: $medium-gray;
+            font-weight: normal;
+        }
+
+        &-title {
+            display: block;
+            @include xy-gutters($gutter-position:bottom);
+        }
+
+        &-price {
+            font-weight: bold;
+            font-size: rem-calc(18);
+        }
+
+        &-added,
+        &-basis {
+            .form-fields-component {
+                &:nth-of-type(2n) {
+                    background-color: darken($white, 2%);
+                }
+
+                .component-price {
+                    right: 15px;
+                    color: lighten($black, 25%);
+                    font-size: rem-calc(14);
+                }
+            }
+
+            .chosen {
+                .edit {
+                    display: block;
+                }
+            }
+
+            .validate {
+                transition: .5s;
+                margin-left: 5px;
+
+                &:before {
+                    cursor: pointer;
+                    padding: 3px;
+                    color: green;
+                    font-weight: bold;
+                }
+
+                &:hover:before {
+                    transition: .5s;
+                    background-color: rgba(0, 128, 0, .1);
+                }
+            }
+        }
+
+        &-recap {
+            @include xy-gutters($gutter-position:top);
+
+            &:after {
+                display: block;
+                width: 1px;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: 23%;
+                background-color: rgba(0, 0, 0, .2);
+                content: '';
+            }
+        }
+    }
+
+    .button {
+        &.next {
+            .wicon {
+                margin-right: 0;
+                margin-left: 5px;
+            }
+        }
+
+        &.small {
+            .wicon {
+                font-size: rem-calc(14);
+            }
+        }
+    }
+
+    .sidebar-cards {
+        .cart {
+            background-color: $group-cart-bgcolor;
+            padding: 20px;
+        }
+    }
+
+    .my-cart-title {
+        background-color: $group-cart-title-bgcolor;
+        color: $group-cart-title-color;
+        padding: 20px;
+        margin: -20px -20px 0 -20px;
+    }
+
+    .cart-lines {
+        .added-price {
+            padding: 10px;
+            margin-left: -20px;
+            margin-right: -20px;
+
+            .price {
+                color: lighten($black, 25%);
+                font-size: rem-calc(14);
+            }
+
+            &:nth-of-type(2n) {
+                background-color: rgba($white, .4);
+            }
+        }
+    }
+
+    .added-price .less .text {
+        font-size: rem-calc(11);
+        color: $alert-color;
+        width: 100%;
+        display: block;
+        text-align: right;
+    }
+
+    .full_total_price {
+        @extend .trip-price;
+    }
+
+    .base_people {
+        font-size: rem-calc(14);
+    }
+
+    .freebies_person {
+        color: lighten($black, 25%);
+        font-size: rem-calc(14);
+        font-style: italic;
+    }
+
+    :not(.empty-quotation) .alert-box {
+        padding: 40px;
+        background: lighten($alert-color, 40%);
+        color: $alert-color;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        box-shadow: 0 5px 12px rgba($alert-color, .15);
+
+        .close {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: rem-calc(24);
+            background: $white;
+            color: black;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .alert-box.success{
+        background-color: lighten($success-color, 40%);
+        color: $success-color;
+        box-shadow: 0 5px 12px rgba($success-color, .15);
+    }
+
+    .required-legend {
+        font-size: 12px;
+        color: $alert-color;
+    }
+
+    .trip-list{
+        padding-top: 75px;
+        padding-bottom: 75px;
+    }
+}
+
+.quotation-form:not(.empty-form) {
+    width: 70%;
+}
+
+#group-quotation {
+    .tab-title {
+        padding: 0.85em 1em 0.85em 0;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+    }
+}
+
+#group-quotation-infos,
+#group-quotation-recap,
+#group-quotation-contacts {
+    position: relative;
+
+    .flex-container {
+        align-items: center;
+    }
+
+    .form-fields {
+        margin-top: 50px;
+        max-width: 500px;
+
+        .form-group {
+            justify-content: space-between;
+        }
+
+        .form-group.multi-input {
+            width: unset !important;
+            max-width: 280px;
+            ;
+        }
+    }
+
+    .button.next {
+        right: 0;
+    }
+
+    .actions {
+        right: 24%;
+    }
+}
+
+
+// DELETE BUTTON
+
+.delete {
+    transition: 0.5s;
+}
+
+.delete::before {
+    color: $alert-color;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 2px;
+}
+
+.delete:hover::before {
+    transition: .5s;
+    background-color: rgba(231, 115, 115, .5);
+}
+
+// EDIT BUTTON
+
+.edit::before {
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 2px;
+}
+
+.edit:hover::before {
+    transition: .5s;
+    background-color: rgba(219, 216, 216, 0.747);
+}
+
+.trip-basis .chosen,
+.trip-added .chosen,
+.trip-basis .deleted {
+
+    .form-control {
+        background-color: transparent;
+        background-image: none;
+        border: none;
+        /* for Firefox */
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+    }
+
+    /* For IE10 */
+    .form-control::-ms-expand {
+        display: none;
+    }
+
+    .delete {
+        display: block;
+    }
+
+    .delete::before {
+        font-weight: bold;
+    }
+
+}
+
+.deleted {
+    .validate {
+        display: none !important;
+    }
+
+    .selector select,
+    .component-price,
+    .title,
+    .price {
+        color: rgba(158, 147, 147, 0.637);
+        text-decoration: line-through;
+        font-style: italic;
+    }
+
+    .delete {
+        transition: 0.5s;
+        transform: rotate(45deg);
+    }
+
+    .delete::before {
+        font-weight: bold;
+        color: green;
+        text-decoration: none !important;
+    }
+
+    .delete:hover::before {
+        transition: 0;
+        background-color: transparent;
+    }
+}
+
+// ADD ELEMENT
+.trip-added {
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, .2);
+    max-width: unset !important;
+}
+
+.add-element {
+    .form-group.edit {
+        display: flex;
+
+        .validate {
+            display: block !important;
+            padding: 12px;
+            background: $black;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            margin: 0 10px 0 10px;
+            width: 150px;
+
+            .wicon {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .form-group.multi-input{
+        .form-control.choices{
+            max-width: 206px !important;
+        }
+        .validate{
+            white-space: nowrap;
+        }
+    }
+
+    h4 {
+        text-align: center;
+    }
+}
+
+// LOADING
+
+.isLoading {
+    visibility: hidden;
+}
+
+#group-quotation {
+    padding: 20px;
+
+    textarea {
+        width: 280px !important;
+    }
+
+    aside {
+        display: flex;
+        flex-direction: column;
+        margin-left: 40px;
+        width: 35%;
+
+        // PANIER
+        .my-quotation {
+            max-height: 100%;
+
+            .added-price {
+                .title {
+                    padding-right: 10px;
+                }
+
+                justify-content: space-between;
+            }
+
+            .basis-price {
+                justify-content: space-between;
+                border-top: 1px solid rgba(0, 0, 0, .2);
+                padding-top: 8px;
+            }
+
+            .base_people {
+                text-align: right;
+                font-style: italic;
+                font-size: 15px;
+            }
+
+            .menu {
+                width: 25%;
+            }
+        }
+
+    }
+}
+
+// REQUIRED INPUT
+.required label::after {
+    display: inline-block;
+    content: '*';
+    color: $alert-color;
+    transform: translateY(-3px);
+    margin-left: 5px;
+}
+
+// Removed
+
+.removed {
+    color: rgba(158, 147, 147, 0.637);
+    text-decoration: line-through;
+    font-style: italic;
+}
+
+.cart-warning p {
+    margin: 1rem 0;
+    background-color: lighten($warning-color, 40%);
+    color: $black;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.empty-quotation{
+    .alert-box {
+        background: lighten($alert-color, 40%);
+        color: $alert-color;
+        box-shadow: 0 5px 12px rgba($alert-color, .15);
+        position: relative;
+        padding: 10px;
+        border-radius: 5px;
+
+        .close {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: rem-calc(24);
+            background: $white;
+            color: black;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .empty-form{
+        width: 100% !important;
+
+        .your-cart{
+            width: 65%;
+        }
+    }
+}

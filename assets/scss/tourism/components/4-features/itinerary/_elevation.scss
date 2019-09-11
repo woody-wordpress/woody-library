@@ -1,0 +1,87 @@
+.itinerary-elevation-wrapper {
+    overflow: hidden;
+
+    .section-title {
+        @include header-size(h3);
+        line-height: 40px;
+
+        &:before {
+            font-size: 40px;
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+            float: left;
+            @extend .icon-font-item;
+            @extend .icon-elevation;
+        }
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .itinerary-chart {
+        padding-top: 38%;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: $vr;
+
+        #chart_div {
+            cursor: pointer;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .google-visualization-tooltip {
+            font-weight: 300;
+            box-sizing: content-box;
+
+            .chart-tooltip {
+                padding: 10px;
+            }
+
+            .dist {
+                display: block;
+                // color:$secTextColor;
+                font-size: 1.1em;
+                padding-bottom: 5px;
+                margin-bottom: 5px;
+                border-bottom: 1px solid #DDD;
+            }
+
+            .elevation {
+                display: block;
+                font-size: 1.7em;
+                color: $primary-color;
+            }
+        }
+    }
+
+    .itinerary-elevation-datas {
+        overflow: hidden;
+        padding-left: 75px;
+        width: 100%;
+
+        li {
+            display: table;
+            width: 100%;
+
+            .data-label {
+                display: table-cell;
+                vertical-align: top;
+                color: $secTextColor;
+                white-space: nowrap;
+            }
+
+            .data-value {
+                display: table-cell;
+                vertical-align: top;
+                text-align: left;
+                width: 45%;
+            }
+        }
+    }
+}

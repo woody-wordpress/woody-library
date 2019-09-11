@@ -1,0 +1,38 @@
+.rounded-social-buttons {
+    text-align: center;
+    display: flex;
+    height: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .social-button {
+        width: $social-button-size;
+        height: $social-button-size;
+        font-size: $social-button-font-size;
+        margin: $global-margin/4;
+        text-align: center;
+        @include bordered($social-button-border-width, solid, $social-button-color);
+        border-radius: $social-button-border-radius;
+
+        a {
+            line-height: $social-button-line-height;
+            color: $social-button-color;
+            padding: 0;
+        }
+
+        &:hover {
+            @include bordered($social-button-border-width, solid, $primary-color);
+
+            a {
+                color: $primary-color;
+            }
+        }
+
+    }
+}
+
+.woody-component-socialwall.tpl_02 {
+    .woodyGallery>.cell>.grid-x {
+        justify-content: flex-end; // Fix the 1px white space btw cells
+    }
+}

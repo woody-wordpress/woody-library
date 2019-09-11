@@ -1,0 +1,108 @@
+/**
+ * BOOTSTRAP button override
+ * nested to avoid clashing
+ */
+.api-render-sheet {
+    .btn-sharp {
+        border-radius: 0;
+    }
+
+    .btn-fab {
+        @extend .shadow-3;
+        position: relative;
+        width: 56px !important;
+        height: 56px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px !important;
+        border-radius: 50% !important;
+        transition: .1s ease-in-out;
+        cursor: pointer;
+        z-index: 1;
+    }
+}
+
+
+/*------------------------------------*\
+    - BUTTON
+\*------------------------------------*/
+/**
+ * Button styles
+ */
+.plo-btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: $font-size-base;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    background: $primary-color;
+    border-radius: 4px;
+
+    &--large {
+        padding: 15px;
+
+        &:hover,
+        &:focus {
+            background: darken($primary-color, 8%);
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+
+    &--band {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+
+        &:hover,
+        &:focus {
+            background: darken($primary-color, 8%);
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+
+    &:hover,
+    &:focus {
+        background: darken($primary-color, 8%);
+        text-decoration: none;
+        color: #fff;
+    }
+
+    &.dark {
+        background: #333;
+        border: 1px solid #333;
+        color: #fff;
+
+        &:hover,
+        &:focus {
+            background: #fff;
+            border: 1px solid #333;
+            color: #333;
+            text-decoration: none;
+        }
+    }
+
+    &.inverse {
+        background: #f9F9F9;
+        border: 1px solid #f9F9F9;
+        color: #aaa;
+        padding: 5px;
+
+        &:hover,
+        &:focus {
+            background: #424242;
+            border: 1px solid #424242;
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+/**
+ * sheet-nav-actions
+ */
+.sheet-nav-actions {
+    @include clearfix;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: ($grid-gutter-width/2);
+    padding-right: ($grid-gutter-width/2);
+
+    &_item {
+        &:not(:last-child) {
+            margin-bottom: ($vr/2);
+        }
+    }
+
+    @media (min-width: $ts_screen-sm-min) {
+        padding-left: 0;
+        padding-right: 0;
+
+        &_item {
+            float: left;
+            margin-right: ($vr/2);
+            margin-bottom: 0;
+        }
+    }
+}

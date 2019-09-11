@@ -1,0 +1,9 @@
+{% if visual_effects|default %}
+    <div class="visualModifier {{ visual_effects.transform }}">
+    {% endif %}
+    {% block content %}
+        {# Here's the content of the block #}
+    {% endblock %}
+    {% if visual_effects|default %}
+    </div>
+{% endif %}

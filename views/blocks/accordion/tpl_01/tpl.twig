@@ -1,0 +1,20 @@
+{% set random_number = ''|random_number %}
+<div class="woody-component woody-component-faq tpl_01">
+    {% if title|default %}
+    <span class="faq-title">{{ title }}</span>
+    {% endif %}
+    {% if accordion|default %}
+    <ul id="accordion-{{ random_number }}" class="accordion" data-accordion data-allow-all-closed="true">
+        {% for key, row in accordion %}
+        <li class="accordion-item" data-accordion-item>
+            <!-- Accordion tab title -->
+            <a href="#accordion-row-{{ random_number }}-{{ key }}" class="accordion-title">{{ row.title }}</a>
+            <!-- Accordion tab content -->
+            <div id="accordion-row-{{ random_number }}-{{ key }}" class="accordion-content" data-tab-content>
+                {{ row.text }}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

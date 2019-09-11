@@ -1,0 +1,56 @@
+/*------------------------------------*\
+    - BUTTON
+\*------------------------------------*/
+/**
+ * Button variants
+ */
+.s-btn {
+
+    &--primary {
+        background-color: $primary-color;
+        border-color: $primary-color;
+    }
+
+    &--secondary {
+        background-color: $color-secondary;
+        border-color: $color-secondary;
+    }
+
+    &--accent {
+        background-color: $color-accent;
+        border-color: $color-accent;
+    }
+
+    &--white {
+        background: white;
+        border-color: white;
+        color: $primary-color;
+    }
+}
+
+.s-btn-outline {
+
+    &:not(:hover) {
+        background-color: transparent;
+    }
+
+    &--primary {
+        color: $primary-color;
+    }
+
+    &--secondary {
+        color: $color-secondary;
+    }
+
+    &--accent {
+        color: $color-accent;
+    }
+
+    &--white {
+        color: white;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+}

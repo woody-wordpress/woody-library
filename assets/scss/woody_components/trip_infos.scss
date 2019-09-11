@@ -1,0 +1,93 @@
+.woody-component-trip-infos {
+    text-transform: $trip_info_text_transform;
+    font-weight: $trip_infos_font_weight;
+
+    flex-direction: column;
+
+    @include breakpoint(medium) {
+        position: absolute;
+        top: $trip_info_top_position;
+        right: 10px;
+        width: calc(100% - 10px);
+    }
+
+    @include breakpoint(large) {
+        right: 0;
+        width: 100%;
+    }
+
+    .text-fat {
+        font-size: $trip_info_text_fat;
+    }
+
+    .trip-duration-wrapper {
+        @include xy-gutters($gutter-position: bottom);
+    }
+
+    .trip-button{
+        padding: 0px;
+        a{
+            padding:1em;
+            width:100%;
+        }
+        &:nth-of-type(1){
+            margin-top:30px;
+        }
+    }
+}
+
+.woody-component-teaser.tpl_05{
+    .woody-component-trip-infos {
+
+        flex-direction: row;
+
+        position: relative;
+
+        top:0px;
+        right: 0px;
+        justify-content: center;
+        align-items: center;
+        position: initial;
+        padding: 0px;
+        @if ($trip-info-border){
+            border: 2px solid $trip-info-border-color;
+        }
+        &>*{
+            flex: 1;
+        }
+        @if ($trip-info-separator) {
+            &>div:not(:last-of-type){
+                position: relative;
+                &:after{
+                    content: "";
+                    position: absolute;
+                    width: 1px ;
+                    height : 20px;
+                    background-color:lighten($black,10);
+                    right: 0px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+        .trip-peoples-wrapper{
+            display: flex;
+            flex-direction: column;
+        }
+        .trip-duration-wrapper{
+            margin: 0px;
+        }
+        button{
+            height: 100px;
+            background-color: $trip-info-button-color;
+            margin: 0px!important;
+            a{
+                color:$white;
+            }
+        }
+        .text-fat{
+            font-size: 1.5rem;
+        }
+
+    }
+}

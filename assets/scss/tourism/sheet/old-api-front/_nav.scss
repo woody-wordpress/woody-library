@@ -1,0 +1,127 @@
+/**
+     * DESCRIBE STYLES FOR THE TOP AND BOTTOM NAVIGIATION BAR
+     * ON TOURISM SHEETS
+     **/
+
+.sheet-nav {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.nav-container {
+    overflow: hidden;
+    // width: 180px;
+    float: right;
+    margin: 0 auto;
+}
+
+.nav-buttons-wrapper {
+    float: right;
+    white-space: nowrap;
+    padding-left: $defContainersPadding;
+}
+
+.nav-button {
+
+    display: inline-block;
+    vertical-align: top;
+    color: transparent;
+    font-size: 0;
+
+    a {
+        cursor: pointer;
+        border: $bdWidth solid $bdColor;
+        border-radius: $defRadius;
+        position: relative;
+        display: inline-block;
+        padding: $defContainersPadding;
+        text-decoration: none;
+
+        color: $navColor;
+        transition: all .3s ease;
+
+        &:before {
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            line-height: 16px;
+            @extend .icon-font-item;
+        }
+
+        &:hover {
+            background-color: $primary-color;
+            border-color: darken($primary-color, 5%);
+            color: #FFF;
+        }
+    }
+
+    &.disabled {
+        a {
+            opacity: .3;
+
+            &:hover {
+                color: $navColor;
+                border: $bdWidth solid $bdColor;
+                background: #FFF;
+            }
+        }
+    }
+
+
+}
+
+// BACK TO LIST
+
+.nav-back {
+    font-size: 1em;
+    line-height: 16px;
+
+    a {
+        display: inline-block;
+        vertical-align: top;
+
+        &:before {
+            vertical-align: top;
+            width: 16px;
+            margin-right: 15px;
+            @extend .icon-nav-back;
+        }
+    }
+}
+
+
+// PREVIOUS & NEXT
+.nav-prev,
+.nav-next {
+
+    position: relative;
+    transition: background .3s ease;
+    line-height: 0px;
+    color: $navColor;
+
+    &:hover {
+        color: $navColorHover;
+    }
+}
+
+.nav-prev {
+    a {
+        &:before {
+            @extend .icon-nav-prev;
+        }
+    }
+}
+
+.nav-next {
+    a {
+        &:before {
+            @extend .icon-nav-next;
+        }
+    }
+}
+
+.itinerary-detail {
+    .nav-buttons-wrapper {
+        padding-right: $defContainersPadding;
+    }
+}

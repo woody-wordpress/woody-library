@@ -1,0 +1,106 @@
+{% extends '_objects/visualModifier.twig' %}
+{% block content %}
+    <div class="woody-component woody-component-cta tpl_01 {{ border_color|default }} {{ background_color|default }} {{ background_img_opacity|default }}{% if background_img|default or background_color|default or border_color|default %} padd-all-md isRel{% endif %}{{ background_img ? ' has-bgimg' }}">
+        {% if background_img %}
+            <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+            <div class="content isRel">
+            {% endif %}
+            <div class="grid-x grid-padding-x">
+                <div class="cell medium-8 cta-desc flex-container flex-dir-column">
+                    {% block cta_desc %}
+                        {% if cta_woody_icon|default %}
+                            <span class="wicon wicon-woody-icons {{ cta_woody_icon }}"></span>
+                        {% endif %}
+                        {{ description|default }}
+                    {% endblock %}
+                </div>
+                <div class="cell medium-4 cta-actions flex-container flex-dir-column align-center">
+                {# TODO: remove useless code xhen "Anciens champs will be totally removed from woody #}
+                    {% if cta_buttons.alignement == 'horizontal' %}
+                        {% set list_classes = 'align-left align-top wrap' %}
+                    {% elseif cta_buttons.alignement == 'vertical' %}
+                        {% set list_classes = 'flex-dir-column align-left align-top' %}
+                    {% endif %}
+                    {% block cta_link %}
+                        {% if cta_buttons.links|default %}
+                            <ul class="list-unstyled flex-container {{ list_classes|default }}">
+                                {% for button in cta_buttons.links %}
+                                    <li class="list-item">
+                                        {% include '_objects/buttonObject.twig' %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            {% if action_type == 'link' and cta_button_group.link.url|default %}
+                                {% if cta_button_group.add_modal %}
+                                    <button class="button {{ cta_file_group.cta_link_button_size|default }}" data-open="{{ modal_id }}">
+                                        {% if cta_button_group.button_woody_icon|default %}
+                                            <span class="wicon wicon-woody-icons {{ cta_button_group.button_woody_icon }}"></span>
+                                        {% endif %}
+                                        {% if cta_button_group.link.title %}
+                                            <span class="link-title">{{ cta_button_group.link.title }}</span>
+                                        {% endif %}
+                                    </button>
+                                    <div class="full reveal" id="{{ modal_id }}" data-close-on-click="true" data-reveal="data-reveal" data-animation-in="scale-up-in" data-animation-out="scale-up-out">
+                                        <iframe class="full-frame" src="{{ cta_button_group.link.url }}"></iframe>
+                                        <button class="close-button" data-close aria-label="Close modal" type="button">
+                                            <small>{{ __('Fermer', 'woody-theme') }}</small><span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% else %}
+                                    <a class="button {{ cta_file_group.cta_link_button_size|default }}" href="{{ cta_button_group.link.url }}" target="{{ cta_button_group.link.target|default('_self') }}">
+                                        {% if cta_button_group.button_woody_icon|default %}
+                                            <span class="wicon wicon-woody-icons {{ cta_button_group.button_woody_icon }}"></span>
+                                        {% endif %}
+                                        {% if cta_button_group.link.title %}
+                                            <span class="link-title">{{ cta_button_group.link.title }}</span>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                            {% elseif action_type == 'code' and cta_widget_group.cta_widget|default %}
+                                <button class="button" data-open="{{ modal_id }}">
+                                    {% if cta_widget_group.button_woody_icon|default %}
+                                        <span class="wicon wicon-woody-icons {{ cta_widget_group.button_woody_icon }}"></span>
+                                    {% endif %}
+                                    {% if cta_widget_group.label %}
+                                        <span class="link-title">{{ cta_widget_group.label }}</span>
+                                    {% endif %}
+                                </button>
+                                <div class="full reveal" id="{{ modal_id }}" data-close-on-click="true" data-reveal="data-reveal" data-animation-in="scale-up-in" data-animation-out="scale-up-out">
+                                    {{ cta_widget_group.cta_widget|raw|shortcodes }}
+                                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                                        <small>{{ __('Fermer', 'woody-theme') }}</small><span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% elseif action_type == 'file' and  cta_file_group.file|default %}
+                                <a class="button {{ cta_file_group.cta_file_button_size|default }}" href="{{ cta_file_group.file.url }}">
+                                    {% if cta_file_group.file_woody_icon|default %}
+                                        <span class="wicon wicon-woody-icons {{ cta_file_group.file_woody_icon }}"></span>
+                                    {% endif %}
+                                    {% if cta_file_group.label %}
+                                        <span class="link-title">{{ cta_file_group.label }}</span>
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    {% endblock %}
+                    {% block cta_phone %}
+                        {% if cta_display_phone|default and cta_phone|default %}
+                            <div class="cta-phone padd-top-sm padd-bottom-sm">
+                                <a class="phone-number-action hidden" href="tel:{{ cta_phone }}" data-phone="{{ cta_phone }}" data-page-type="{{ globals.page_type }}" data-title="{{ globals.post_title }}"  data-id="{{ globals.post_id }}">
+                                    {% if cta_phone_before|default %}
+                                        <span class="cta-phone-before">{{ cta_phone_before }}</span>
+                                    {% endif %}
+                                    <span class="cta-phone-number">{{ cta_phone|phone_click }}</span>
+                                    {# <span class="cta-phone-tip bg-black">{{ __('Cliquez pour afficher le numéro', 'woody-theme') }}</span> #}
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </div>
+            {% if background_img %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

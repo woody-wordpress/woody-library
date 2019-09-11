@@ -1,0 +1,56 @@
+/*------------------------------------*\
+    - FLAG
+\*------------------------------------*/
+/**
+ * Places any img and text-like content side-by-side.
+ * and centers it vertically
+ */
+.plo-flag {
+    display: table;
+    width: 100%;
+}
+
+.plo-flag__aside,
+.plo-flag__body {
+    display: table-cell;
+    // vertical-align: middle;
+    float: none !important;
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+// body
+.plo-flag__body:not([class^="col-"]) {
+    width: 100%;
+}
+
+.plo-flag__body[class^="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+// aside
+.plo-flag__aside {
+    padding-right: ($vr/2);
+
+    >img {
+        display: block;
+        max-width: none;
+    }
+
+    .plo-flag--rev & {
+        padding-right: 0;
+        padding-left: ($vr/2);
+    }
+}
+
+// modifiers
+.plo-flag--fit {
+
+    &,
+    & .plo-flag__body {
+        width: auto;
+    }
+}

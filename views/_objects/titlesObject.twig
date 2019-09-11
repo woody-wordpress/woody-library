@@ -1,0 +1,163 @@
+<div class="{{ contextPrefix }}-titles {{ titles.icon_type == 'picto' and titles.woody_icon ? 'has-icon-picto' }}{{ titles.icon_type == 'img' ? 'has-icon-img' }} {{ flexOptions|default }}">
+
+    {% block cardIcon%}
+        {% if titles.icon_type == 'picto' and titles.woody_icon|default %}
+        <span class="{{ contextPrefix }}-wicon wicon wicon-woody-icons {{ titles.woody_icon }}"></span>
+        {% elseif titles.icon_type == 'img' and titles.icon_img %}
+        <img class="img-responsive" src="{{ titles.icon_img.sizes.thumbnail }}" {% if titles.icon_img.alt %} alt="{{ titles.icon_img.alt }}" {% endif %} />
+        {% endif %}
+    {% endblock %}
+
+    {% if titles.the_price.price or titles.the_duration.count_days or titles.the_duration.count_hours or titles.the_duration.count_minutes or title.the_length.length %}
+    <div class="{{ contextPrefix }}-tripInfos-wrapper isAbs padd-all-sm">
+
+        {% block cardPrice %}
+            {% if titles.the_price.price|default %}
+            <div class="tripInfos-price {{ cardPriceClasses|default }}">
+                {% if titles.the_price.prefix_price|default %}
+                <span class="prefix">
+                    <small>{{ __('à partir de', 'woody-theme') }}</small>
+                </span>
+                {% endif %}
+                <span class="value fat-text">{{ titles.the_price.price  }}
+                    <span class="unit {{ the_price.currency.value|default('euro') }}">{{ the_price.currency.label|default('€') }}</span>
+                </span>
+                {% if titles.the_price.suffix_price %}
+                <span class="suffix">
+                    <small>{{ titles.the_price.suffix_price  }}</small>
+                </span>
+                {% endif%}
+            </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block cardDuration %}
+            {% if titles.the_duration.count_days or titles.the_duration.count_hours or titles.the_duration.count_minutes %}
+            <div class="tripInfos-duration">
+                <span class="value fat-text">
+                    {% if titles.the_duration.duration_unit == 'hours' and titles.the_duration.count_hours %}
+                            {{ titles.the_duration.count_hours|pluralizeUnit(__('heure', 'woody-theme'), __('heures', 'woody-theme')) }}
+                        {% elseif titles.the_duration.duration_unit == 'minutes' and titles.the_duration.count_minutes %}
+                            {{ titles.the_duration.count_minutes|pluralizeUnit(__('min.', 'woody-theme')) }}
+                        {% elseif titles.the_duration.count_days %}
+                            {{ titles.the_duration.count_days|pluralizeUnit(__('jour', 'woody-theme'), __('jours', 'woody-theme')) }}
+                    {% endif %}
+                </span>
+            </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block cardLength %}
+            {% if title.the_length.length|default %}
+            <div class="tripInfos-length">
+                <span class="value fat-text">{{ titles.the_length.count_length  }}
+                    <span class="unit">km</span>
+                </span>
+            </div>
+            {% endif %}
+        {% endblock %}
+
+    </div>
+    {% endif %}
+
+    {% block cardDates %}
+        {% if titles.date|default %}
+        <div class="{{ contextPrefix }}-date {{ cardDatesClasses|default}}">
+            {% if titles.date.start|default %}
+            <span class="date-part {{ contextPrefix }}-startDate">
+                <span class="{{ contextPrefix }}-startDate-day">{{ titles.date.start.day|default }}</span>
+                <span class="{{ contextPrefix }}-startDate-month">{{ titles.date.start.shortMonth|default }}</span>
+            </span>
+            {% endif %}
+            {% if titles.date.start|default and titles.date.oneday == false %}
+            <span class="{{ contextPrefix }}-dateDivider wicon wicon-025-suivant"></span>
+            <span class="date-part {{ contextPrefix }}-endDate">
+                <span class="{{ contextPrefix }}-endDate-day">{{ titles.date.end.day|default }}</span>
+                <span class="{{ contextPrefix }}-endDate-month">{{ titles.date.end.shortMonth|default }}</span>
+            </span>
+            {% endif %}
+
+        </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block sheetLength %}
+        {% if titles.sheet_itinerary.length %}
+        <span class="{{ contextPrefix }}-iti-length isAbs">
+            <small>{{ titles.sheet_itinerary.length }}</small>
+        </span>
+        {% endif %}
+    {% endblock %}
+
+    {% block sheetLocomotions %}
+        {% if titles.sheet_itinerary.locomotions %}
+        <small>
+            <ul class="{{ contextPrefix }}-iti-infos list-unstyled text-darkgray">
+                {% for locomotion in titles.sheet_itinerary.locomotions[:1] %}
+                {# Format icon #}
+                {% if locomotion.icon == 'walking' %}
+                {% set iti_icon = '057-walk' %}
+                {% elseif locomotion.icon == 'vtt' %}
+                {% set iti_icon = '055-vtt' %}
+                {% elseif locomotion.icon == 'bike'%}
+                {% set iti_icon = '054-bike' %}
+                {% elseif locomotion.icon == 'horse'%}
+                {% set iti_icon = '056-horse' %}
+                {% endif %}
+                <li class="iti-infos-{{ loop.index }}">
+                    <span class="iti-infos-type">
+                        <span class="wicon wicon-{{ iti_icon }}"></span>
+                        <span class="term">{{ locomotion.type }}</span>
+                    </span>
+                    <span class="iti-infos-level">{{ locomotion.difficulty }}</span>
+                    <span class="iti-infos-time">{{ locomotion.duration }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </small>
+        {% endif %}
+    {% endblock %}
+
+    {% block cardTitles %}
+        {% if titles.pretitle|default or titles.title|default or titles.subtitle|default or titles.sheet_type or titles.sheet_rating|default or titles.description|default or titles.sheet_town|default %}
+        <div class="{{ contextPrefix }}-texts {{ textsClasses|default }}{{ titles.pretitle ? ' has-pretitle ' }}{{ titles.subtitle ? 'has-subtitle ' }}{{ titles.description ? 'has-desc ' }}">
+            {% if titles.pretitle|default %}
+            <span class="{{ contextPrefix }}-pretitle">{{ titles.pretitle }}</span>
+            {% endif %}
+            {% if titles.title|default %}
+            {% if contextPrefix == 'section' %}
+            <h2 class="{{ contextPrefix }}-title">{{ titles.title }}</h2>
+            {% elseif titles.title_as_h1 %}
+            <h1 class="{{ contextPrefix }}-title">{{ titles.title }}</h1>
+            {% else %}
+            <span class="{{ contextPrefix }}-title">{{ titles.title }}</span>
+            {% endif %}
+            {% endif %}
+            {% if titles.subtitle|default %}
+            <span class="{{ contextPrefix }}-subtitle">{{ titles.subtitle }}</span>
+            {% endif %}
+            {% if titles.sheet_type %}
+            <span class="{{ contextPrefix }}-type">{{ titles.sheet_type }}</span>
+            {% endif %}
+            {% if titles.sheet_rating|default %}
+            <div class="{{ contextPrefix }}-ratings">{{ titles.sheet_rating|raw }}</div>
+            {% endif %}
+            {% if titles.description|default and not no_desc %}
+            {% if ellipsis %}
+            <span class="{{ contextPrefix }}-description">{{ titles.description|ellipsis(ellipsis, '...', false, false) }}</span>
+            {% else %}
+            <span class="{{ contextPrefix }}-description">{{ titles.description }}</span>
+            {% endif %}
+            {% endif %}
+            {% block sheetTown %}
+                {% if titles.sheet_town|default %}
+                <span class="{{ contextPrefix }}-town">
+                    <span class="wicon wicon-039-pin"></span>
+                    <small>{{ titles.sheet_town }}</small>
+                </span>
+                {% endif %}
+            {% endblock %}
+        </div>
+        {% endif %}
+    {% endblock %}
+</div>

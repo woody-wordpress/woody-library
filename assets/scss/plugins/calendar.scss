@@ -1,0 +1,229 @@
+.availabilities-calendar{
+    .date{
+        font-weight: 100;
+        text-align: center;
+        text-transform: capitalize;
+        padding: 10px 0px;
+        max-width: 50px;
+    }
+    .date:nth-child(2){
+        background: $white !important;
+        color: $primary-color !important;
+    }
+
+    td{
+        text-align: center;
+        border: 1px solid $white;
+
+        a{
+            text-align: left;
+        }
+
+        a::after{
+            content: none;
+        }
+    }
+
+    td,
+    th,
+    .legend li{
+        font-size: 15px;
+    }
+
+    .available{
+        background-color: $available-color;
+    }
+
+    .unavailable{
+        background-color: $unavailable-color;
+    }
+
+    .closed{
+        background-color: rgb(228, 228, 229, );
+    }
+
+    .no-info{
+        background-color: $white;
+        border: 1px solid rgb(228, 228, 229, );
+    }
+
+    .sticky-col,
+    .sticky-col-1,
+    .sticky-col-2{
+        span{
+            display: block;
+            sup{
+                white-space: nowrap;
+                top: unset;
+            }
+        }
+
+        .maj{
+            font-size: 12px;
+            font-style: italic;
+            color: rgb(88, 88, 88);
+        }
+    }
+
+    .sticky-col,
+    .sticky-col-1{
+        text-align: start;
+    }
+
+    .tabs-panel{
+        padding-left: 0;
+    }
+
+
+    .table-scroll{
+        overflow: unset !important;
+        table{
+            width: 100%;
+        }
+    }
+
+    th{
+        transition: 0.5s;
+        z-index: 1000;
+        position: sticky;
+        top: 30px;
+        background: lighten($primary-color, 5%);
+    }
+
+    thead{
+        .sticky-col{
+            min-height: 68px;
+            background: lighten($primary-color, 5%);
+            margin-left: 2px;
+            border: 0;
+        }
+    }
+
+    .year{
+        margin: 0 0 0 10px;
+        font-weight: bold;
+        color: $primary-color;
+    }
+}
+
+.availabilities-playlist{
+    position: relative;
+    .alert-box{
+        border-radius: 2px;
+        padding: 5px 10px;
+        background-color: $unavailable-color;
+        color: darken($unavailable-color, 40%);
+        a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            float: right;
+            color: darken($unavailable-color, 40%);
+            background: $white;
+            border-radius: 10px;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+    }
+    .tabs-content{
+        border: 0;
+    }
+
+    .availabilities-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        .legend{
+            display: flex;
+            padding: 10px;
+            margin: 0 ;
+            position: relative;
+
+            li{
+                list-style-type: none;
+                margin: 0 10px;
+            }
+            span{
+                padding: 0 10px;
+                margin-right: 5px;
+            }
+
+            .available{
+                background-color: $available-color;
+            }
+
+            .unavailable{
+                background-color: $unavailable-color;
+            }
+
+            .closed{
+                background-color: rgb(228, 228, 229);
+            }
+
+            .no-info{
+                background-color: $white;
+                border: 1px solid rgb(228, 228, 229);
+            }
+        }
+    }
+
+    form{
+        .availabilities-filters{
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+            margin-left: 0px;
+        }
+
+        .filter-orderby{
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+
+            li {
+                margin: 0 10px;
+
+                div{
+                    display:flex;
+                    flex-direction: column;
+                    margin: 0 0 0 10px;
+                    input{
+                        position: relative;
+                        margin: 0;
+                        visibility: hidden;
+                        color: darken($light-gray, 10%);
+                    }
+
+                    input:checked::before{
+                        color: $black;
+                        transition: .3s;
+                    }
+                    .wicon-046-bas::before,
+                    .wicon-045-haut::before{
+                        visibility: visible;
+                        position: absolute;
+                        font-size: 1em;
+                        cursor: pointer;
+                    }
+                    .wicon-045-haut::before{
+                        top: -12px;
+                        left: -2px;
+                    }
+                    .wicon-046-bas::before{
+                        left: -2px;
+                        top: -2px;
+                    }
+                }
+            }
+        }
+
+        .filter-label{
+            font-weight: normal;
+            font-size: 0.875rem;
+            font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+            color: #4c525e;
+            text-transform: uppercase;
+        }
+    }
+}

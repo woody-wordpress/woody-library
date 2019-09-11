@@ -1,0 +1,40 @@
+.woody-component-cta {
+
+    .button {
+        margin-bottom: 0;
+    }
+
+    .wicon{
+        font-size:rem-calc($cta-icon-size);
+    }
+
+    &.tpl_04 {
+        .wicon-circle {
+            margin-bottom: 30px;
+        }
+    }
+
+    .cta-phone {
+        &-tip {
+            position: relative;
+            display: inline-block;
+            padding: 2px 5px;
+            font-size: rem-calc($cta-phone-tip-size);
+            height: calc($cta-phone-tip-size + 4px);
+            margin-left: 8px;
+
+            // &:before {
+            //     display: block;
+            //     content: '';
+            //     position: absolute;
+            //     right: 100%;
+            //     top: 0;
+            //     width: 0;
+            //     height: 0;
+            //     border-style: solid;
+            //     border-width: calc($cta-phone-tip-size / 2 + 2) 6px calc($cta-phone-tip-size / 2 + 2) 0;
+            //     border-color: transparent $black transparent transparent;
+            // }
+        }
+    }
+}

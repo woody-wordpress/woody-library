@@ -1,0 +1,74 @@
+.toggling-movie-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100%;
+
+    .toggling-movie {
+        background-color: rgba(0, 0, 0, .75);
+        width: 100vw;
+        height: 100%;
+        transition: opacity .3s .1s ease-in-out, transform .3s ease-in;
+
+        iframe {
+            height: 100%;
+        }
+    }
+
+    .movie-toggle {
+        padding: map-get($movie-toggle-padding, small);
+        background-color: $movie-toggle-bgcolor;
+        color: $movie-toggle-color;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+
+        .toggle-icon:before {
+            display: block;
+            font-family: "woody-icons";
+            content: '\E005';
+            font-size: 1.5em;
+            margin-right: 8px;
+        }
+
+        @include breakpoint(medium down) {
+            font-size: rem-calc(11);
+        }
+
+        @include breakpoint(large) {
+            left: $movie-toggle-left-position;
+            right: $movie-toggle-right-position;
+            top: $movie-toggle-top-position;
+            bottom: $movie-toggle-bottom-position;
+            padding: map-get($movie-toggle-padding, large);
+        }
+
+        &.close-button {
+            top: auto;
+            font-size: rem-calc(16);
+
+            @include breakpoint(medium down) {
+                font-size: rem-calc(12);
+            }
+
+            .toggle-icon:before {
+                content: '\E01E';
+                margin-right: 0;
+            }
+
+            .toggle-text {
+                display: none;
+            }
+        }
+    }
+
+
+    .hidden {
+        opacity: 0;
+        transform: scale(0);
+    }
+}

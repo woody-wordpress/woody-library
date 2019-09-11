@@ -1,0 +1,109 @@
+{% if img|default %}
+    {% if img.url is empty and img.sizes is empty and img is iterable %}
+        {% set img = img|merge({'resizer': true}) %}
+        {% set img = img|merge({'url': 'https://api.tourism-system.com/resize/crop/%width%/%height%/70/aHR0cHM6Ly9hcGkudG91cmlzbS1zeXN0ZW0uY29tL3N0YXRpYy9hc3NldHMvaW1hZ2VzL3Jlc2l6ZXIvd29vZHlfNDA0LmpwZw==/404.jpg'}) %}
+    {% endif %}
+
+    {% if img.resizer|default %}
+        {% set tiny_square = img.url | replace({'%width%/%height%': "360/360"}) %}
+        {% if image_style == 'ratio_8_1' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/45"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/80"}) %}
+            {% set large_size = img.url | replace({'%width%/%height%': "1200/150"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1920/240"}) %}
+        {% elseif image_style == 'ratio_4_1' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/90"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/160"}) %}
+            {% set large_size = img.url | replace({'%width%/%height%': "1200/300"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1920/480"}) %}
+        {% elseif image_style == 'ratio_3_1' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/120"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/214"}) %}
+            {% set large_size = img.url | replace({'%width%/%height%': "1200/400"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1920/640"}) %}
+        {% elseif image_style == 'ratio_2_1' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/180"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/320"}) %}
+            {% set large_size = img.url | replace({'%width%/%height%': "1200/600"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1920/960"}) %}
+        {% elseif image_style == 'ratio_16_9' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/203"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/360"}) %}
+            {% set large_size = img.url | replace({'%width%/%height%': "1200/675"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1920/1080"}) %}
+        {% elseif image_style == 'ratio_4_3' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/270"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/480"}) %}
+            {% set large_size = img.url | replace({'%width%/%height%': "1200/900"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1920/1440"}) %}
+        {% elseif image_style == 'ratio_3_4' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/480"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/854"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1200/1600"}) %}
+        {% elseif image_style == 'ratio_10_16' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/576"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/1024"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1200/1920"}) %}
+        {% elseif image_style == 'ratio_a4' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/509"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/905"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1200/1697"}) %}
+        {% elseif image_style == 'ratio_square' %}
+            {% set small_size = img.url | replace({'%width%/%height%': "360/360"}) %}
+            {% set medium_size = img.url | replace({'%width%/%height%': "640/640"}) %}
+            {% set original_size = img.url | replace({'%width%/%height%': "1200/1200"}) %}
+        {% endif %}
+    {% else %}
+
+    {% set tiny_square = img.sizes['ratio_square_small'] %}
+
+    {% set small_size = img.sizes[image_style ~ '_small'] %}
+    {% set medium_size = img.sizes[image_style ~ '_medium'] %}
+    {% set original_size = img.sizes[image_style] %}
+    {% if img.sizes[image_style ~ '_large'] %}
+        {% set large_size = img.sizes[image_style ~ '_large'] %}
+    {% endif %}
+    {% endif %}
+
+    {% set blank_ratio = "/app/themes/woody-theme/src/img/blank/" ~ image_style ~ ".png" %}
+
+    {% if large_size %}
+        {% set srcset = "#{ small_size } 360w, #{ medium_size } 640w, #{ large_size } 1200w, #{ original_size } 1920w" %}
+    {% else %}
+        {% set srcset = "#{ small_size } 360w, #{ medium_size } 640w, #{ original_size } 1200w" %}
+    {% endif %}
+
+    <figure itemscope itemtype="http://schema.org/ImageObject" class="isRel imageObject {{ containerClass|default }}{{ img.attachment_more_data.is_instagram ? ' is_instagram' }}">
+        {% if lazy|default(true) and lazy is same as(false) %}
+            <img class="imageObject-img img-responsive" src="{{ original_size }}" alt="{{ img.alt|default(img.filename) }}" itemprop="contentUrl" {% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
+        {% else %}
+            <noscript>
+                <img class="imageObject-img img-responsive {{ img.class|default }}" src="{{ medium_size }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail"/>
+            </noscript>
+            <img class="imageObject-img img-responsive {{ lazyClass|default("lazyload") }}" src="{{ blank_ratio }}" srcset="{{ blank_ratio }}" data-src="{{ medium_size }}" data-sizes="auto" data-srcset="{{ srcset }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail"{% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
+        {% endif %}
+        {% if img.date %}
+            <meta itemprop="datePublished" content="{{ img.date }}">
+        {% endif %}
+        {% if img.description %}
+            <span class="hide imageObject-description" itemprop="description">{{ img.description }}</span>
+        {% endif %}
+        {% if img.attachment_more_data.is_instagram %}
+            <div class="imageObject-instagram flex-container align-middle align-start">
+                <span class="wicon wicon-011-instagram"></span>
+                {# <span class="instagram-user">{{ img.attachment_more_data.author }}</span> #}
+                {# <span class="created-time">{{ img.attachment_more_data.instagram_metadata.date.date|date('d/m/Y') }}</span> #}
+            </div>
+        {% endif %}
+        {% if img.caption|default or img.attachment_more_data.author|default %}
+            <span class="imageObject-caption">
+                {% if img.caption|default %}
+                    <span itemprop="caption">{{ img.caption }}</span>
+                {% endif %}
+                {% if img.attachment_more_data.author|default %}
+                    <span class="imageObject-author" itemprop="copyrightHolder">© {{ img.attachment_more_data.author }}</span>
+                {% endif %}
+            </span>
+        {% endif %}
+    </figure>
+{% endif %}

@@ -1,0 +1,89 @@
+.woody-lang_switcher {
+
+    .lang_switcher-button,
+    .lang_switcher-lang {
+        cursor: pointer;
+    }
+
+    .lang_switcher-lang {
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    .lang_switcher-button {
+        display: block;
+        position: relative;
+        padding: 10px 13px 10px 10px;
+    }
+
+    &.flags {
+
+        .lang_switcher-button>div,
+        .lang_switcher-lang {
+            font-size: 0;
+        }
+
+        &.medium {
+            .lang_switcher-button>div {
+                width: 20px;
+                height: 13px;
+                background: url('../img/flags-medium-20190625.png') no-repeat;
+                @include flags-positions();
+            }
+        }
+
+        &.large {
+            .lang_switcher-button>div {
+                width: 30px;
+                height: 20px;
+                background: url('../img/flags-large-20190625.png') no-repeat;
+                @include flags-positions($size: large);
+            }
+        }
+    }
+}
+
+.lang_switcher-langs {
+    .lang_switcher-lang {
+        margin-bottom: 20px;
+
+        &:not(._current) a:hover,
+        &._current a {
+            background-color: $light-gray;
+            color: $black;
+        }
+
+        a {
+            border-radius: 200px;
+            font-size: rem-calc(24);
+            color: lighten($black, 30%);
+            text-transform: uppercase;
+            padding: 15px 30px;
+            transition: background-color .3s, color .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    .lang_flag {
+        display: block;
+        margin-right: 10px;
+        width: 30px;
+        height: 20px;
+        background: url('../img/flags-large-20190625.png') no-repeat;
+        @include flags-positions($size: large);
+    }
+}

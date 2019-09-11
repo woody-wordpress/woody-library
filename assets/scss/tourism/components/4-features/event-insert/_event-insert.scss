@@ -1,0 +1,164 @@
+.event-event-insert {
+
+    .panel-body>div:not(.btn-wrapper):not(:nth-child(-n+5)) {
+        display: none;
+    }
+
+    .date-multipleday,
+    .date-oneday {
+        &:not(:nth-child(1)) {
+            margin-top: 10px;
+            padding-bottom: 10px;
+
+            &:before {
+                width: 75%;
+                margin: 0 auto;
+                display: block;
+                padding-bottom: 20px;
+                content: '';
+                border-top: 1px solid #e7e7e7;
+            }
+        }
+    }
+
+    .date-oneday {
+        text-align: center;
+
+        .date-time-wrapper {
+            top: 5px;
+            ;
+            position: relative;
+
+            .date-time {
+                color: $primary-color;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .date-format {
+        padding: 0;
+        margin: 0;
+        display: table;
+        width: 100%;
+        font-size: 1.3em;
+
+        &>span {
+            display: table-cell;
+            padding: 0;
+            height: 100%;
+            vertical-align: middle;
+            color: $mainText;
+        }
+
+        .date-day-label {
+            text-align: right;
+            padding-right: 10px;
+            width: 40%;
+        }
+
+        .date-month {
+            text-align: left;
+            padding-left: 10px;
+            width: 40%;
+        }
+
+        .date-day-number {
+            text-align: center;
+            color: $primary-color;
+            font-size: 2.8em;
+            font-weight: bold;
+            line-height: 40px;
+            width: 10%;
+        }
+    }
+
+    .date-multipleday {
+        text-align: center;
+
+        .date-format {
+            width: 35%;
+            display: inline-block;
+            height: auto;
+            position: relative;
+            font-size: 1em;
+
+            .date-day-label {
+                text-transform: uppercase;
+            }
+
+            .date-day-number {
+                font-size: 4em;
+            }
+
+            .date-month {
+                font-size: 1.4em;
+                text-transform: uppercase;
+            }
+
+            &:nth-child(1) {
+                margin-right: 15px;
+
+                &:after {
+                    @extend .icon-font-item;
+                    @extend .icon-nav-next;
+                    color: $text-light;
+                    position: absolute;
+                    top: 40%;
+                    right: 0;
+                    font-weight: 100;
+                    height: 100%;
+                    width: 4px !important;
+                    font-size: 2em;
+                }
+            }
+
+            &>span {
+                width: auto;
+                text-align: center;
+                padding: 8px 0;
+                display: block;
+            }
+        }
+
+    }
+
+    @keyframes firstdate-anim {
+        from {
+            left: -$vr;
+            font-weight: 500;
+        }
+
+        to {
+            left: -($vr--large+$vr)/2;
+            font-weight: 400;
+        }
+    }
+
+    .next-dates {
+        text-align: center;
+
+        .next-date-wrapper {
+
+            &:first-child {
+                .next-date {
+                    position: relative;
+                    // &:before {
+                    //     position: absolute;
+                    //     left: -$vr;
+                    //     content: '>';
+                    //     animation-name: firstdate-anim;
+                    //     animation-duration: 2s;
+                    //     animation-iteration-count: infinite;
+                    //     animation-direction: alternate;
+                    // }
+                }
+            }
+
+            &:not(:first-child) {
+                opacity: 0.6;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,63 @@
+.wishlist-button {
+
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    .wishlist-count {
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        margin-top: -24px;
+        margin-right: -34px;
+        color: white;
+        background: $primary-color;
+        height: 24px;
+        width: 24px;
+        display: block;
+        border-radius: 50%;
+        text-align: center;
+        transition: background .8s $swift-out;
+
+        .count {
+            display: inline;
+            font-size: .7em;
+            font-weight: bold;
+            line-height: 24px;
+        }
+    }
+
+    .wishlist-button-wrapper {
+        color: #FFF;
+        display: table;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        text-align: center;
+        background: $primary-color;
+
+        .icon-font-suitcase {
+            display: table-cell;
+            vertical-align: middle;
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+
+            transition: transform .8s $swift-out;
+        }
+    }
+
+    &.animate {
+        .wishlist-button-wrapper {
+            .icon-font-suitcase {
+                transform: scale(1.3) rotate(-45deg);
+            }
+        }
+
+        .wishlist-count {
+            background: $invalidColor;
+        }
+    }
+}

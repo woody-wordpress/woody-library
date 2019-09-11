@@ -1,0 +1,114 @@
+.menuToggler {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+
+    &-icon {
+        .bar {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: lighten($black, 30%);
+
+            &:focus {
+                background-color: $primary-color;
+            }
+
+            &:not(:nth-last-of-type(1)) {
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    &-title {
+        margin-left: 5px;
+        color: lighten($black, 10%);
+        font-size: rem-calc(14);
+    }
+}
+
+.woody-component-mobilenavs {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
+
+    .tools {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        z-index: 10;
+    }
+}
+
+.woody-component-mobile-menu {
+    .title-bar {
+        position: relative;
+        z-index: 2;
+        min-height: $mobile-title-bar-height;
+    }
+
+    >.menu {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+        background-color: $dropdownmenu-submenu-background;
+        overflow: scroll;
+        max-height: 100vh;
+        padding-bottom: $mobile-title-bar-height;
+    }
+
+    .menu {
+        &.depth-1 {
+            >li>a {
+                color: $mobileLink-depth1-color;
+                font-size: $mobileLink-depth1-font-size;
+                font-weight: $mobileLink-depth1-font-weight;
+            }
+        }
+
+        &.depth-2 {
+            background-color: $mobileLink-depth2-bgcolor;
+
+            >li>a {
+                color: $mobileLink-depth2-color;
+                font-size: $mobileLink-depth2-font-size;
+                font-family: $mobileLink-depth2-font-family;
+                text-transform: $mobileLink-depth2-text-transform;
+                font-weight: $mobileLink-depth2-font-weight;
+            }
+        }
+
+        &.depth-3 {
+            background-color: $mobileLink-depth3-bgcolor;
+
+            >li>a {
+                color: $mobileLink-depth3-color;
+                font-size: $mobileLink-depth3-font-size;
+                font-family: $mobileLink-depth3-font-family;
+                text-transform: $mobileLink-depth3-text-transform;
+                font-weight: $mobileLink-depth3-font-weight;
+            }
+        }
+    }
+}
+
+body.mobile-menu-open {
+    &:before {
+        position: fixed;
+        top: 0;
+        left: 0;
+        content: '';
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        background-color: $mobile-menu-overlay-color;
+        z-index: 10;
+    }
+
+    .site-content {
+        filter: $mobile-menu-overlay-blur;
+    }
+}

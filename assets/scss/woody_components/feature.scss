@@ -1,0 +1,50 @@
+.woody-component-feature {
+    >a {
+        display: block;
+        color: inherit;
+    }
+
+    .feature-titles>img {
+        max-width: 120px;
+    }
+
+    .feature-title {
+        @extend .h4 !optional;
+    }
+
+    .feature-pretitle,
+    .feature-subtitle {
+        @extend h5 !optional;
+    }
+
+    .feature-wicon {
+        font-size: rem-calc($feature-icon-size);
+    }
+
+    &.tpl_01,
+    &.tpl_03 {
+        .feature-texts {
+            text-align: center;
+
+            >span {
+                display: block;
+            }
+        }
+    }
+
+    &.tpl_02 {
+        .feature-texts {
+            @include xy-gutters($gutter-position: left);
+        }
+    }
+}
+
+@each $color,
+$hex in $foundation-palette {
+    .woody-component-feature.bg-#{$color} {
+        .feature-pretitle,
+        .feature-subtitle{
+            color:set-color($hex) !important;
+        }
+    }
+}

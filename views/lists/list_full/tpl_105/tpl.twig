@@ -1,0 +1,49 @@
+<div id="{{ uniqid|default }}" class="woody-component woody-component-list-full tpl_105">
+    <div class="grid-x grid-padding-x grid-padding-y">
+        {% if filters|length != 0 %}
+        {% set random_number = ''|random_number %}
+        <div class="cell isRel accordion has_map the_filter" id="accordion-{{ random_number }}" class="accordion" data-accordion data-allow-all-closed="true">
+            <div class="accordion-item" data-accordion-item>
+                <a href="#filters-{{ random_number }}" class="accordion-title">
+                    <span>{{ __("Voir les résultats sur la carte", 'woody-theme') }}</span>
+                    {% if items_count_type == 'plural' %}
+                        <span class="items-count">({{ items_count }} {{ __('résultats', 'woody-theme') }})</span>
+                    {% elseif items_count_type == 'singular' %}
+                        <span class="items-count">({{ items_count }} {{ __('résultat', 'woody-theme') }})</span>
+                    {% else %}
+                        <span class="items-count">({{ __('Aucun résultat', 'woody-theme') }})</span>
+                    {% endif %}
+                </a>
+                <div id="filters-{{ random_number }}" class="accordion-content" data-tab-content>
+                    <form class="woody-component-filters-wrapper isRel {{ filters.display.classes|default }} padd-all-md{{ filters.display.background_img ? ' has-bgimg' }}" action="{{ permalink }}" method="post">
+                        {% if filters.display.background_img %}
+                        <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ filters.display.background_img.url }}'); background-size:cover; background-position:center center;"></div>
+                        <div class="content isRel">
+                            {% endif %}
+                            <div class="grid-x grid-padding-x grid-padding-y">
+                                {% for filter_index, filter in filters %}
+                                {% if filter.list_filter_type == 'map' %}
+                                <div class="cell">
+                                    {% include 'lists/list_filters/tpl_05/tpl.twig' %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% if filters.display.background_img %}
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="cell the_grid">
+            <div class="elements-wrapper">{{ the_grid|default }}</div>
+        </div>
+    </div>
+    {% if pager|default %}
+    <div class="cell flex-container the_pager {{ pager_position|default }}">
+        {{ pager }}
+    </div>
+    {% endif %}
+</div>

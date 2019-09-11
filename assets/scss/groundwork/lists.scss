@@ -1,0 +1,13 @@
+.list-unstyled {
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.bullet {
+    @include bullet(6px);
+}
+
+.list-wicon {
+    @include wicon-list($wicon-list-icon-color);
+}

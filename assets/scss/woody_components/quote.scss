@@ -1,0 +1,60 @@
+.woody-component-quote {
+    .lead {
+        @if $has-quote-icon {
+            position: relative;
+            @include wicon(037-citation-02, before);
+            @include wicon(036-citation-01, after);
+
+            &:after,
+            &:before {
+                position: absolute;
+                opacity: .25;
+                color: $quote-icon-color;
+                line-height: 1;
+                font-size: $quote-icon-size;
+            }
+
+            &:before {
+                top: $quote-icon-position;
+                left: $quote-icon-position*.5;
+                transform: scale(1, -1);
+            }
+
+            &:after {
+                bottom: $quote-icon-position;
+                right: $quote-icon-position*.5;
+                transform: scale(-1, 1);
+            }
+        }
+    }
+
+    .item-author {
+        position: relative;
+    }
+
+    .imageObject {
+        @if $quote-img-rounded {
+            border-radius: 50%;
+        }
+
+        @if $quote-img-border {
+            @include bordered($quote-img-border-size, $quote-img-border-style, $quote-img-border-color);
+            box-sizing: content-box;
+
+            img {
+                background-color: $quote-img-border-color;
+            }
+        }
+
+        &-caption {
+            display: none;
+        }
+    }
+
+    &.tpl_02 {
+        .item-img .imageObject {
+            margin: 20px auto 0 auto;
+            max-width: $quote-02-img-size;
+        }
+    }
+}

@@ -1,0 +1,191 @@
+.woody-component-esSearch {
+    .form-wrapper {
+        padding: $esSearch-form-padding;
+        background: $esSearch-form-bgcolor;
+        margin-bottom: 20px;
+
+        .input-group {
+            margin: 0 auto;
+            max-width: $global-width;
+        }
+
+        .input-group-label,
+        .input-group-field {
+            border: none;
+        }
+
+
+        .input-group-label {
+            background: $esSearch-icon-bgcolor;
+            color: $esSearch-icon-color;
+        }
+
+        .button {
+            display: none;
+            // color: $esSearch-button-color;
+            // background: $esSearch-button-bgcolor;
+            // border: $esSearch-button-border-width $esSearch-button-border-style $esSearch-button-border-color;
+        }
+
+        @media (max-width: 375px) {
+            .button {
+                font-size: rem-calc(11);
+            }
+        }
+
+        &.is-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            z-index: 100;
+        }
+
+        .ajaxloader {
+            width: 48px;
+            height: 40px;
+            background: $esSearch-icon-bgcolor url('../img/ajaxloader-white.gif') center center no-repeat / 25px 25px;
+            display: block;
+        }
+    }
+
+    .list-wrapper {
+
+        .sidebar {
+            @media (min-width: 1024px) {
+                padding-left: 45px;
+            }
+
+            @media (max-width: 1023px) {
+                margin-top: 45px;
+            }
+
+            .sidebar-wrapper {
+                padding: 1rem;
+                background-color: $dark-gray;
+            }
+
+            .sidebar-title {
+                color: $white;
+                margin-bottom: 1rem;
+            }
+
+            .cell {
+                border: 3px solid $white;
+            }
+
+            .grid-x {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            .card-title {
+                font-size: rem-calc(16);
+                margin-bottom: 2px;
+            }
+
+            // .card-town {
+            //     color: $white;
+            //     font-size: 10px;
+            // }
+        }
+    }
+}
+
+.woody-component-esSearch-block {
+    .esSearch-button {
+        display: block;
+        padding: 8px;
+        color: $esSearchBlock-link-color;
+        font-size: $esSearchBlock-link-size;
+
+        &:hover {
+            color: $esSearchBlock-link-hover;
+        }
+
+        .wicon {
+            display: block;
+            line-height: 1em;
+        }
+    }
+}
+
+.esSearch-block-reveal {
+    z-index: 10000000;
+    background-color: $esSearchBlock-bgcolor;
+    padding: 0;
+    border: none;
+    width: 100vw;
+    max-width: none;
+
+    .block-form-wrapper {
+        height: 100vh;
+    }
+
+    .woody-esForm {
+        width: 100%;
+        padding: 30px;
+
+        @include breakpoint(large) {
+            padding: 60px;
+        }
+
+        .input-group {
+            flex-wrap: wrap;
+        }
+
+        input[type='text'] {
+            background-color: lighten($esSearchBlock-bgcolor, 7%);
+            border: none;
+            box-shadow: none;
+            padding: 20px;
+            color: set-color($esSearchBlock-bgcolor);
+
+            @include placeholder {
+                color: rgba(set-color($esSearchBlock-bgcolor), .4);
+            }
+        }
+
+        .input-group-button {
+            @include breakpoint(medium down) {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .button {
+                background-color: rgba($esSearchBlock-button-bgcolor, .8);
+                color: $esSearchBlock-button-color;
+                border: none;
+                padding: 20px 30px;
+
+                &:hover {
+                    background-color: $esSearchBlock-button-bgcolor;
+                }
+
+                @include breakpoint(medium down) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .suggest-wrapper {
+        width: 100%;
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+
+        .h2 {
+            @extend .section-title;
+            color: $esSearchBlock-suggest-title-color;
+        }
+    }
+
+    .close-button {
+        color: rgba($esSearchBlock-button-bgcolor, .8);
+
+        &:hover {
+            color: $esSearchBlock-button-bgcolor;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+.card-terms {
+    position: absolute;
+    top: $card-term-space / 2;
+    left: $card-term-space / 2;
+
+    .card-term {
+        margin: $card-term-space / 2;
+        line-height: 1em;
+        background-color: $card-term-bgcolor;
+        color: $card-term-color;
+        font-size: $card-term-font-size;
+        padding: $card-term-padding;
+        border-radius: $card-term-border-radius;
+        border: $card-term-border-color $card-term-border-style $card-term-border-width;
+    }
+}
+
+.card {
+
+    &.basicCard.tpl_02,
+    &.overlayedCard.tpl_01,
+    &.overlayedCard.tpl_03 {
+        .card-terms {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    &.splitCard {
+
+        &.tpl_02,
+        &.tpl_04,
+        &.tpl_06 {
+            .card-terms {
+                left: auto;
+                right: $card-term-space / 2;
+            }
+        }
+    }
+}

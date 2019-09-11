@@ -1,0 +1,23 @@
+// Tabs rail
+$tabs-rail-height: 1px !default;
+$tabs-rail-space: 20px !default;
+$tabs-rail-color: $black !default;
+$tabs-icon-size:(small:rem-calc(24), large:rem-calc(32)) !default;
+$tabs-small-icon-size:rem-calc(32) !default;
+$inactive-tab-dot-size: 12px !default;
+$active-tab-dot-size: 14px !default;
+$inactive-tab-dot-color: $light-gray !default;
+$inactive-tab-dot-border-color: $tabs-rail-color !default;
+$active-tab-dot-color: $primary-color !default;
+$active-tab-dot-border-color: $active-tab-dot-color !default;
+
+// Tabs pill
+$tabs-pill-bgcolor: $light-gray !default;
+$tabs-pill-radius: 5em !default;
+
+// Tabs underline
+$border-tab-size: 5px !default;
+$border-tab-side: true !default;
+
+
+$tabs-titles-font-size:(small:rem-calc(11), large:rem-calc(16)) !default;

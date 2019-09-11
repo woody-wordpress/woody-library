@@ -1,0 +1,134 @@
+{% if trip_infos %}
+{% set first_cell_classes = "cell large-9 flex-container flex-dir-column align-center" %}
+{% else %}
+{% set first_cell_classes = "cell large-7 flex-container flex-dir-column align-center" %}
+{% endif %}
+
+{% set random_number = ''|random_number %}
+
+<div class="woody-component woody-component-teaser{% block index_class %} tpl_03{% endblock %} {{ classes|default }}{{ background_img ? ' has-bgimg' }}">
+    {% if background_img %}
+    <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+    {% endif %}
+    {% if trip_infos|default %}
+        <div class="grid-x">
+            <div class="cell medium-7 large-9">
+                    {{ breadcrumb|default }}
+            </div>
+        </div>
+    {% else %}
+        {{ breadcrumb|default }}
+    {% endif %}
+    <div class="grid-container isRel">
+        {% if page_teaser_title|default or page_teaser_desc|default or page_teaser_display_favs_btn|default or page_teaser_buttons %}
+        <div class="grid-x grid-padding-x grid-padding-y align-justify">
+            <div class="{{ first_cell_classes }}">
+                {{ block("page_teaser_texts", "blocks/page_teaser/tpl_01/tpl.twig") }}
+                {{ block("page_teaser_links", "blocks/page_teaser/tpl_01/tpl.twig") }}
+                {{ block("page_teaser_external_favorite", "blocks/page_teaser/tpl_01/tpl.twig") }}
+                {{ block("page_teaser_shares", "blocks/page_teaser/tpl_01/tpl.twig") }}
+            </div>
+            {% if trip_infos|default %}
+            <div class="cell medium-5 large-3 flex-container flex-dir-column isRel">
+                {{ trip_infos }}
+            </div
+            {% elseif page_teaser_add_profile and profile.profile_title %}
+            <div class="cell large-4 flex-container flex-dir-column profile-wrapper padd-all-md">
+                    <div class="profile-header">
+                        {% if profile.profile_picture|default %}
+                            {% include '_objects/imageObject.twig' with{
+                                'img' : profile.profile_picture,
+                                'image_style' : "ratio_square",
+                                'containerClass' : "profileMediaWrapper"
+                            } %}
+                        {% endif %}
+                        <span class="profile-title">{{ profile.profile_title }}</span>
+                        {% if profile.profile_description|default %}
+                        <p class="profile-description">{{ profile.profile_description }}</p>
+                        {% endif %}
+                    </div>
+                    {% if profile.profile_favs.profile_favs_things|default %}
+                    <div class="profile-favs-wrapper">
+                        {% if profile.profile_favs.profile_favs_title|default %}
+                        <span class="profile-favs-title">{{ profile.profile_favs.profile_favs_title }}</span>
+                        {% endif %}
+                        <ul class="list-unstyled flex-container wrap profile-favs">
+                            {% for fav in profile.profile_favs.profile_favs_things %}
+                                <li class="profile-fav">
+                                    {% if fav.profile_fav_text %}
+                                        <span>{{ fav.profile_fav_text }}</span>
+                                    {% elseif fav.profile_fav_woody_icon %}
+                                        <span class="wicon {{ fav.profile_fav_woody_icon}}"></span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% if profile.links|default %}
+                    <ul class="list-unstyled flex-container wrap profile-links">
+                        {% for button in profile.links %}
+                            <li>
+                                {% include '_objects/buttonObject.twig' %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+            </div>
+            {% elseif page_teaser_add_media and not trip_infos %}
+            {% if page_teaser_img or page_teaser_widget or page_teaser_movie or page_teaser_add_media == 'map' %}
+            <div class="cell medium-6 large-5 flex-container align-middle">
+                {% if page_teaser_media_type == 'img' and page_teaser_img|default %}
+                {% block imagObject %}
+                {% include '_objects/imageObject.twig' with {
+                'img' : page_teaser_img,
+                'image_style' : "ratio_4_3",
+                'containerClass' : "pageTeaserMedia"
+                } %}
+                {% endblock %}
+                {% elseif page_teaser_media_type == 'movie' and page_teaser_movie|default%}
+                {{ page_teaser_movie }}
+                {% elseif page_teaser_media_type == 'widget' and page_teaser_widget|default%}
+                {{ page_teaser_widget }}
+                {% elseif page_teaser_media_type == 'map' and post_coordinates|default %}
+                <script>
+                    var mapData = {
+                        id: "geomap-{{ random_number }}",
+                        default: {
+                            lat: {{ post_coordinates.post_latitude }},
+                            lng: {{ post_coordinates.post_longitude }},
+                            zoom: {{ page_teaser_map_zoom|default(7)}},
+                            fitBounds: false,
+                            controls: {
+                                "fullScreenControl": false,
+                                "zoomControl": true,
+                                "zoomControlPosition": "topright",
+                                "layerControl": false
+                            }
+                        },
+                        markers: [{
+                            lat: {{ post_coordinates.post_latitude }},
+                            lng: {{ post_coordinates.post_longitude }},
+                            mode: "contentFixed",
+                            html: "empty"
+                        }]
+                    };
+
+                    if (!window.ExtendedMarkersV2) {
+                        window.ExtendedMarkersV2 = [];
+                    }
+                    ExtendedMarkersV2.push(mapData);
+
+                </script>
+                <div class="direction-map-wrapper isRel">
+                    <div id="geomap-{{ random_number }}" style="height:300px"></div>
+                    <a href="https://www.google.com/maps/dir/''/{{ post_coordinates.post_latitude }},{{ post_coordinates.post_longitude }}" class="button isAbs" title="{{ __("Voir l'itinéraire", 'woody-theme') }}" target="_blank">{{ __("M'y rendre", 'woody-theme') }}</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>

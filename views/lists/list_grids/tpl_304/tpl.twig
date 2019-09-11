@@ -1,0 +1,8 @@
+{% extends 'lists/bases_grid/tpl_301/tpl.twig' %}
+{% block grid_class %}woody_list_grid tpl_304{% endblock %}
+{% block the_card %}
+    {% include "cards/overlayed_card/tpl_03/tpl.twig" with {
+        'image_style' : "ratio_4_3",
+        'page_type' : item.page_type
+    } %}
+{% endblock %}

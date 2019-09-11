@@ -1,0 +1,77 @@
+/**
+ * Holidays Area feature
+ */
+
+.tourism-detail-content {
+    .holidays-areas-info {
+        width: 25px;
+        height: 25px;
+        border: solid 1px black;
+
+        &.circle {
+            display: inline-block;
+            border-radius: 50%;
+
+            ::before {
+                vertical-align: -20%;
+                font-size: 22px;
+            }
+        }
+
+        .tooltip {
+            &.in {
+                opacity: 1;
+                filter: alpha(opacity=100);
+            }
+
+            >.tooltip-inner {
+                position: absolute;
+                left: -30px;
+                min-width: 250px;
+                max-width: 700px;
+                width: auto;
+                display: inline-block;
+                background-color: white;
+                border: 1px solid grey;
+                padding: 15px;
+            }
+        }
+
+        /**
+         * Template Part
+         */
+        .holidays-areas {
+            font-size: 0.85em;
+            color: grey;
+            text-align: left;
+            width: 600px;
+
+            .area {
+                text-align: right;
+            }
+
+            span {
+                line-height: 1.3em;
+
+                .legend-box {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 2em;
+                    height: 0.6em;
+
+                    &.area_a {
+                        background-color: #D97901;
+                    }
+
+                    &.area_b {
+                        background-color: #2B80DB;
+                    }
+
+                    &.area_c {
+                        background-color: #87C001;
+                    }
+                }
+            }
+        }
+    }
+}

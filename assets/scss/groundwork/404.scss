@@ -1,0 +1,26 @@
+.error404{
+    h1.msg404{
+        text-transform: uppercase;
+        color:#dde1e6;
+        font-size: rem-calc(80);
+        &:before{
+            display: block;
+            content:'';
+            width: 120px;
+            height: 120px;
+            margin:0 auto 20px auto;
+            background: url('../img/compass.png') center top no-repeat / cover;
+        }
+    }
+    h2.msg404{
+        color:#dde1e6;
+        font-size: rem-calc(54);
+    }
+    .page-section{
+        margin-top: 40px;
+        p{
+            color:darken(#dde1e6, 20%);
+        }
+    }
+
+}

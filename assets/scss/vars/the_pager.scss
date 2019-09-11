@@ -1,0 +1,14 @@
+$pageNumbers-padding: 5px 10px !default;
+$pageNumbers-bgcolor: transparent !default;
+$pageNumbers-radius : $global-radius !default;
+$pageNumbers-color: $primary-color !default;
+$pageNumbers-border-width: 2px !default;
+$pageNumbers-border-style: solid !default;
+$pageNumbers-border-color: $light-gray !default;
+$pageNumbers-font-weight : bold;
+$pageNumbers-current-bgcolor: transparent !default;
+$pageNumbers-current-color: $black !default;
+$pageNumbers-current-border-color: $primary-color !default;
+$pageNumbers-hover-bgcolor: $pageNumbers-current-bgcolor !default;
+$pageNumbers-hover-color: $pageNumbers-color !default;
+$pageNumbers-hover-border-color: $pageNumbers-current-border-color !default;

@@ -1,0 +1,21 @@
+.plo-adversaries {
+
+    &__goliath {
+        font-size: $font-size-h1;
+        font-weight: 500;
+    }
+
+    &__david {
+        margin-left: -.3em;
+        font-size: $font-size-h5;
+    }
+}
+
+.plo-note {
+
+    &__total {}
+
+    &__max {}
+
+    &__rating {}
+}

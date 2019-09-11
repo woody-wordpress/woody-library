@@ -1,0 +1,63 @@
+/*------------------------------------*\
+    - PROMO
+\*------------------------------------*/
+/**
+ * Main secondary and accent bgs
+ */
+.s-promo {
+
+    &,
+    a {
+        color: white;
+    }
+
+    & {
+        border-color: white;
+    }
+
+    &.s-promo--main {
+        background: $primary-color;
+
+    }
+
+    &.s-promo--secondary {
+        background: $color-secondary;
+    }
+
+    &.s-promo--accent {
+        background: $color-accent;
+    }
+
+    &.s-promo--inverted {
+        background: white;
+
+        &,
+        a {
+            color: $primary-color !important;
+        }
+
+        &.s-promo--main {
+
+            &,
+            a {
+                color: $primary-color !important;
+            }
+        }
+
+        &.s-promo--secondary {
+
+            &,
+            a {
+                color: $color-secondary !important;
+            }
+        }
+
+        &.s-promo--accent {
+
+            &,
+            a {
+                color: $color-accent !important;
+            }
+        }
+    }
+}

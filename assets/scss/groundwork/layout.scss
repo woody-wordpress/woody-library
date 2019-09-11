@@ -1,0 +1,202 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body.no-page-header {
+
+    .woody-component-hero.tpl_01,
+    .home-slider {
+        height: 100vh;
+    }
+}
+
+// .disallow-scroll {
+//     height: 100%;
+//     overflow: hidden;
+// }
+
+.woody-grid-frame {
+    @include breakpoint(large) {
+        height: 100%;
+
+        &.grid-padding-y {
+            height: calc(100% + #{map-get($grid-padding-gutters, medium)});
+        }
+    }
+}
+
+/****************
+** Positioning **
+****************/
+
+.fullcenterbox {
+    @include fullcenterBox;
+
+    &.fcbCol {
+        flex-direction: column;
+    }
+
+    &.fcbRow {
+        flex-direction: row;
+    }
+}
+
+.bottomcenterBox {
+    @include bottomcenterBox;
+
+    &.fcbCol {
+        flex-direction: column;
+    }
+
+    &.fcbRow {
+        flex-direction: row;
+    }
+}
+
+.topleftbox {
+    @include topleftBox;
+
+    &.fcbCol {
+        flex-direction: column;
+    }
+
+    &.fcbRow {
+        flex-direction: row;
+    }
+}
+
+.bottomrightbox {
+    @include bottomrightBox;
+
+    &.fcbCol {
+        flex-direction: column;
+    }
+
+    &.fcbRow {
+        flex-direction: row;
+    }
+}
+
+.toprightbox {
+    @include toprightBox;
+
+    &.fcbCol {
+        flex-direction: column;
+    }
+
+    &.fcbRow {
+        flex-direction: row;
+    }
+}
+
+.isRel {
+    position: relative;
+}
+
+.isAbs {
+    position: absolute;
+}
+
+/***************
+** Paddings **
+***************/
+
+.padd-all {
+    @include dynamic-spaces();
+}
+
+.padd-top {
+    @include dynamic-spaces($attribute: padding-top);
+}
+
+.padd-bottom {
+    @include dynamic-spaces($attribute: padding-bottom);
+}
+
+.padd-left {
+    @include dynamic-spaces($attribute: padding-left);
+}
+
+.padd-right {
+    @include dynamic-spaces($attribute: padding-right);
+}
+
+.page-teaser,
+.page-section {
+
+    [class*='bgimg'],
+    [class*='bg-'] {
+        &.padd-top {
+            @include dynamic-spaces($attribute: padding-top, $size_type: large);
+        }
+
+        &.padd-bottom {
+            @include dynamic-spaces($attribute: padding-bottom, $size_type: large);
+        }
+    }
+}
+
+/***************
+** Margins **
+***************/
+
+.marg-all {
+    @include dynamic-spaces($attribute: margin);
+}
+
+.marg-top {
+    @include dynamic-spaces($attribute: margin-top);
+}
+
+.marg-bottom {
+    @include dynamic-spaces($attribute: margin-bottom);
+}
+
+.marg-left {
+    @include dynamic-spaces($attribute: margin-left);
+}
+
+.marg-right {
+    @include dynamic-spaces($attribute: margin-right);
+}
+
+/*********************
+** Flex alignements **
+*********************/
+
+.flex-container.wrap {
+    flex-wrap: wrap;
+}
+
+.align-stretch {
+    >.cell>.woody-component {
+        height: 100%;
+    }
+}
+
+/*********************
+**     Bordering    **
+*********************/
+
+[class*="border-"] {
+    border-style: $bg-params-border-style;
+    border-width: $bg-params-border-width;
+}
+
+
+/*********************
+**     Container    **
+*********************/
+
+.container-min {
+    max-width: 800px;
+}
+
+
+/****************************************************
+**     Fix width of img inserted by text editor    **
+****************************************************/
+
+.wp-caption {
+    max-width: 100%;
+}

@@ -1,0 +1,686 @@
+// @font-face {
+//   font-family: 'Glyphicons Halflings';
+//   src: url('${icon-font-path}${icon-font-name}.eot');
+//   src: url('${icon-font-path}${icon-font-name}.eot?#iefix') format('embedded-opentype'),
+//        url('${icon-font-path}${icon-font-name}.woff2') format('woff2'),
+//        url('${icon-font-path}${icon-font-name}.woff') format('woff'),
+//        url('${icon-font-path}${icon-font-name}.ttf') format('truetype'),
+//        url('${icon-font-path}${icon-font-name}.svg#${icon-font-svg-id}') format('svg');
+// }
+
+
+// CALENDARS
+
+@media (max-width: 1000px) {
+    .daterangepicker.dropdown-menu {
+        max-width: 320px !important;
+    }
+}
+
+@media (min-width: 564px) {
+    .daterangepicker .left .daterangepicker_input {
+        padding-right: 0px;
+    }
+}
+
+$drp-inputColor : #000 !important;
+$drp-inputPHColor : $drp-inputColor;
+$drp-borderColor : $drp-inputColor;
+
+$drp-inputHeight : 40px !important;
+$drp-lineHeight : $drp-inputHeight;
+
+$drp-fontSize : 15px !important;
+$drp-width : 280px !important;
+$calendarMargin : 0px;
+$drpPadding : 15px;
+$drpFont : $body-font-family;
+
+@media (min-width: 564px) {
+    .daterangepicker.ltr .left .daterangepicker_input {
+        padding-right: 13px;
+    }
+}
+
+.daterangepicker {
+
+    .date-picker.form-control {
+        font-size: 14px;
+    }
+
+    td.active,
+    td.active:hover {
+        background-color: $primary-color;
+    }
+
+    td.in-range {
+        background-color: mix($primary-color, white, 5%);
+        border-color: transparent;
+        color: #000;
+        border-radius: 0;
+    }
+
+    &.ltr .ranges {
+        float: right;
+    }
+
+    .ranges li {
+        color: $primary-color;
+    }
+
+    .ranges li.active {
+        background: $primary-color;
+        border: 1px solid $primary-color;
+    }
+
+    .ranges li:hover {
+        background: $primary-color;
+        border: 1px solid $primary-color;
+    }
+
+
+    .form-control {
+        box-shadow: none;
+        pointer-events: none;
+        text-align: center;
+        border: 0;
+        display: table;
+        width: auto;
+        margin: 0 auto;
+        padding: 0 12px;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    .daterangepicker_input i {
+        display: none;
+    }
+
+
+    .left .daterangepicker_input::after {
+        position: absolute;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        top: 5px;
+        right: -15px;
+        z-index: 9999;
+        content: '➞';
+    }
+
+    .input-mini.active {
+        border: 0;
+        color: $primary-color;
+        border-bottom: 1px solid $primary-color;
+        font-weight: 500;
+    }
+}
+
+
+
+.daterangepicker {
+    padding: $drpPadding;
+    width: auto;
+    opacity: 1;
+    border: none;
+    font-family: $drpFont;
+
+    // delete arrow
+    // &:before, &:after {
+    //     content: none;
+    // }
+
+    // OPENS RIGHT CASE
+    &.opensright {
+
+        // .right {
+        //     .daterangepicker_input {
+        //         input {
+        //             background: transparent;
+        //             border: none;
+        //             box-shadow: none;
+        //             left: -169px;
+        //              &.active {
+        //                 border: none !important;
+        //                 box-shadow: none;
+        //             }
+        //         }
+        //         i {
+        //             width: 41%;
+        //             left: -150px;
+        //         }
+        //     }
+        // }
+
+        // .left {
+        //     .daterangepicker_input {
+        //         input {
+        //             border: 1px solid #000 !important;
+        //             padding-left: 19px !important;
+        //         }
+        //         i {
+        //             &:after {
+        //                 position: absolute;
+        //                 content: "→" !important;
+        //                 width: calc(~'100% - ${drp-inputHeight}');
+        //                 left: 40%;
+        //                 top: -2px;
+        //             }
+        //             &:before {
+        //                 visibility: hidden;
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
+    &.opensleft {
+        // .right {
+        //     .daterangepicker_input {
+        //         left: 139px;
+        //         input {
+        //             background: transparent;
+        //             border: none;
+        //             position: relative;
+        //             box-shadow: none;
+        //              &.active {
+        //                 border: none !important;
+        //             }
+        //         }
+        //         i {
+        //             width: 48%;
+        //         }
+        //     }
+        // }
+        // .left {
+        //     .daterangepicker_input {
+        //         left: 311px !important;
+        //         input {
+        //             border: 1px solid #000 !important;
+        //             padding-left:  21px !important;
+        //         }
+        //         i {
+        //             &:after {
+        //                 position: absolute;
+        //                 content: "→" !important;
+        //                 width: calc(~'100% - ${drp-inputHeight}');
+        //                 left: 41%;
+        //                 color: $drp-inputColor;
+        //                 top: -2px;
+        //             }
+        //             &:before {
+        //                 visibility: hidden;
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
+    // EVERY CASE
+    // .daterangepicker_input {
+    //     width: $drp-width !important;
+    //     padding: 0;
+    //     opacity: 1;
+    //     color: #000 !important;
+    //     font-size: $drp-fontSize;
+    //     input {
+    //         font-size: $drp-fontSize;
+    //         position: relative;
+    //         pointer-events: none;
+    //         text-align: left !important;
+    //         height: $drp-inputHeight !important;
+    //         font-weight: 300 !important;
+
+    //         &.active {
+    //             box-shadow: none;
+    //             color: $primary-color !important;
+    //             border: 1px solid #555 !important;
+    //             font-weight: 500 !important;
+    //             opacity: 1;
+    //         }
+    //     }
+
+    //     i {
+    //         width: 100%;
+    //         display: inline-block;
+    //         line-height: $drp-inputHeight;
+    //         position: absolute;
+    //         top: 0;
+    //         &:before {
+    //             float: right;
+    //             content: "\e641" !important;
+    //             font-family: 'raccourci' !important;
+    //         }
+    //     }
+    // }
+
+    .calendar {
+        width: auto;
+        height: 356px;
+        min-width: 290px;
+        max-width: 340px;
+        margin-left: $calendarMargin;
+
+        &.left {
+            margin-right: 7px !important;
+        }
+
+        .input-mini {
+            color: $drp-inputColor;
+            // width: $drp-width;
+            // border-radius: 0;
+            // padding: 0 6px 0 24px;
+            // text-align: center;
+            margin-bottom: 5px;
+
+            &.active {
+                color: $primary-color;
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+
+            thead {
+                display: table-caption;
+
+                tr {
+                    &:first-child {
+                        line-height: 20px !important;
+                        font-size: $drp-fontSize !important;
+
+                        th {
+                            padding: 10px 0 !important;
+
+                            &.available:hover {
+                                background-color: $primary-color;
+                                color: #fff;
+                            }
+
+                            i {
+                                // border: $bdWidth solid $bdColor;
+                                font-size: $drp-fontSize !important;
+                            }
+
+                            &.month {
+                                width: 100%;
+                                text-transform: capitalize;
+                            }
+                        }
+                    }
+
+                    &:not(:first-child) {
+                        line-height: 14px !important;
+
+                        th {
+                            padding: 7px 0 !important;
+                            font-size: 11px !important;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                line-height: 27px !important;
+
+                td {
+                    padding: 6px 11px !important;
+                    border: $bdWidth solid lighten($bdColor, 5%);
+                    font-size: $drp-fontSize !important;
+
+                    &.disabled {
+                        text-decoration: none;
+                    }
+
+                    &.in-range:not(.off):not(.end-date):not(:hover) {
+                        background: lighten($primary-color, 25%);
+                        border-color: lighten($primary-color, 25%);
+                    }
+
+                    &.active {
+                        border-color: $primary-color;
+
+                    }
+
+                    &.start-date,
+                    &.end-date {
+                        background: $primary-color;
+                    }
+
+                    &:not(.off):hover {
+                        border-radius: 0;
+                        background: $primary-color;
+                        border: $bdWidth solid $primary-color;
+                    }
+
+                    &.active:hover,
+                    &.available:hover {
+                        background: $primary-color;
+                        color: #fff;
+                    }
+
+                    &.off {
+                        cursor: default;
+                        border: none;
+                        pointer-events: none;
+                        opacity: 0.4;
+                        // visibility: hidden;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// DateRange Default Input
+.my-stay-calendar {
+    min-width: $drp-width;
+    width: $drp-width !important;
+    max-width: 295px;
+    position: relative;
+
+    .daterangepicker-component,
+    #daterangepicker {
+        font-size: $drp-fontSize;
+        color: transparent !important;
+        background-color: #fefefe !important;
+        border: 1px solid $drp-inputColor !important;
+        width: $drp-width;
+        height: $drp-inputHeight !important;
+
+        &::-webkit-input-placeholder {
+            /* WebKit, Blink, Edge */
+            color: $drp-inputPHColor;
+        }
+
+        &:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: $drp-inputPHColor;
+            opacity: 1;
+        }
+
+        &::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: $drp-inputPHColor;
+            opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: $drp-inputPHColor;
+        }
+    }
+
+    &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: $drp-fontSize;
+        text-align: center;
+        width: $drp-inputHeight;
+        line-height: $drp-inputHeight;
+        pointer-events: none;
+        color: $drp-inputColor;
+        @extend .icon-font-item;
+        @extend .icon-calendar;
+    }
+
+    .my-placeholder-wrapper {
+        vertical-align: middle;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: left 0.3s;
+        line-height: $drp-inputHeight;
+        min-width: 280px - 34px;
+        color: $drp-inputColor;
+        pointer-events: none;
+        text-align: center;
+
+        div {
+            font-family: $drpFont;
+            width: 50%;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            font-size: $drp-fontSize;
+        }
+
+        .drp-start {
+            padding-left: 10px;
+        }
+
+        .drp-end {
+            padding-left: 20px;
+
+            &:before {
+                content: '→';
+                position: absolute;
+                left: 0px;
+            }
+        }
+    }
+}
+
+.calendars {
+
+    position: relative;
+
+    input {
+        padding-right: 44px;
+        text-overflow: ellipsis;
+    }
+}
+
+
+// API RENDER
+.sheet-sidebar {
+    .calendar-wrapper {
+        text-align: center;
+    }
+}
+
+//---> surcharge
+.booking-centrale-treatment {
+    background: transparent;
+
+    .form-control {
+        border-radius: 0px;
+    }
+
+    &>.form-group {
+        padding: 14px 10px;
+        margin: 0px;
+
+        select {
+            display: block;
+            width: 100%;
+            color: #fff;
+            border-radius: 0px;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            background: transparent;
+
+            //changement des flèches - homogénéiser le style sur Chrome et Firefox
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url('/api/static/assets/images/arrow.png') no-repeat;
+
+            // background-position: calc(~"100% - 16px") calc(~"100% - 8px");
+            background-position: unquote("calc(100% - 16px)") unquote("calc(100% - 8px)"); //sass try
+            cursor: pointer;
+
+            option {
+                color: #000;
+                background: #fff;
+            }
+        }
+    }
+
+    .exposed-availabilities-facet {
+        width: 100%;
+        padding-top: 0px;
+        background: transparent;
+    }
+
+    .exposed-availabilities-wrapper {
+        display: block;
+    }
+
+    .availabilities-facet-wrapper {
+        &.has-children {
+            padding-right: 0px;
+
+            .nb-children {
+                float: left;
+                clear: both;
+                width: 68% !important;
+                padding-left: 0px !important;
+
+                .form-control {
+                    border-radius: 0px;
+                }
+            }
+
+            .edit-button {
+                clear: both !important;
+                width: 28%;
+                float: right;
+                border-radius: 0px;
+                position: relative;
+                top: -49px;
+            }
+
+            div.children-select-wrapper {
+                padding: 10px !important;
+                text-align: center;
+
+                .children-select {
+                    padding: 0px !important;
+                }
+
+                .valid-btn {
+                    float: none;
+                    display: inline-block;
+                }
+
+                .close-button .icon-font-slim-delete {
+                    top: 12px;
+                    right: 12px;
+                }
+            }
+
+            &.show-button {
+                padding-bottom: 0px;
+
+                .valid-btn-wrapper {
+                    bottom: 25px;
+                }
+            }
+        }
+
+        &.show-button {
+            padding-bottom: 0px;
+
+            .valid-btn-wrapper {
+                text-align: center;
+                width: 100%;
+                display: block;
+                transform: none;
+                position: relative;
+                top: auto;
+                bottom: 0px;
+                left: 0;
+
+                &>.btn {
+                    border-radius: 0px;
+                }
+            }
+        }
+    }
+
+    .calendars-wrapper {
+        border: none !important;
+        padding: 0;
+        display: block;
+
+        label {
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            display: block;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        input.form-control {
+            padding: 10px 30px 10px 12px !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            height: $fieldsHeight - 4px !important;
+            border-radius: 0px;
+            cursor: pointer;
+        }
+
+        .form-group.facet-calendar {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+
+    .people-select {
+        display: block;
+        width: 100%;
+
+        label {
+            color: inherit;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            text-align: left;
+        }
+
+        .people-select-wrapper {
+            display: block;
+        }
+
+        .select-wrapper {
+            display: block;
+            vertical-align: top;
+            width: 100% !important;
+            padding: 0 !important;
+
+            &:first-child,
+            &:last-child {
+                padding: 0 !important;
+            }
+        }
+
+        select {
+            display: block;
+            width: 100%;
+            color: inherit;
+            border-radius: 0px;
+            border: solid 1px #fff;
+            background: transparent;
+            position: relative;
+            cursor: pointer;
+
+            //changement des flèches - homogénéiser le style sur Chrome et Firefox
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url('/api/static/assets/images/arrow.png') no-repeat;
+            // background-position:calc(~"100% - 16px") calc(~"100% - 8px");
+            background-position: unquote("calc(100% - 16px)") unquote("calc(100% - 8px)"); //sass try
+
+            option {
+                color: #000;
+                background: #fff;
+            }
+        }
+    }
+}

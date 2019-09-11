@@ -1,0 +1,16 @@
+[class^='splitgrid_'] {
+    @include breakpoint(medium) {
+
+        .cell {
+            [class^='grid-'] {
+                height: 100%;
+
+                >.cell {
+                    >.woody-component {
+                        height: calc(100% + #{map-get($grid-padding-gutters, medium)});
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+/**
+ * Documents
+ */
+
+#description {
+
+    .slogan-description {
+        font-size: 1.2em;
+    }
+
+    .establishment-description {
+        ul {
+            margin-left: $grid-gutter-width/2;
+        }
+
+        ul>li {
+            list-style-type: initial;
+        }
+    }
+
+    .document-list {
+        list-style-type: none;
+        color: $primary-color;
+        padding: 0;
+
+        >li {
+            display: inline-block;
+            margin-right: $vr;
+
+            >a {
+                &:hover {
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+                >span {
+                    margin-right: $vr--tiny;
+                }
+            }
+        }
+    }
+}

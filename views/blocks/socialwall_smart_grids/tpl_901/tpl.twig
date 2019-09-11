@@ -1,0 +1,32 @@
+<div class="cell medium-3 flex-container align-center align-middle">
+    {% if icon|default or pretitle|default or title|default or subtitle|default or description|default %}
+        <div class="block-header padd-all-md">
+            {% include '_objects/titlesObject.twig' with {
+                'titles' : _context,
+                'contextPrefix' : "socialwall",
+                'flexOptions' : "flex-container flex-dir-column align-middle align-center text-center"
+            } %}
+        </div>
+    {% endif %}
+</div>
+<div class="cell medium-9">
+    <div class="grid-x small-up-2 medium-up-4{{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y padd-bottom-sm' }}">
+        {% for item in gallery_items[:4] %}
+            <div class="cell">
+                {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                    'containerClass' : "socialwall"
+                } %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="grid-x small-up-2 medium-up-5{{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+            {% for item in gallery_items[4:5] %}
+            <div class="cell">
+                {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                    'containerClass' : "socialwall",
+                    'reveal' : true
+                } %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

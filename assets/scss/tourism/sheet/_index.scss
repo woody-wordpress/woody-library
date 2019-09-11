@@ -1,0 +1,23 @@
+@import 'item/item_alpha';
+@import 'item/item_booking_alpha';
+@import 'item/global';
+
+
+/**
+ * IMPORT FROM API-FRONT
+ */
+
+@import 'old-api-front/blablacar.scss';
+@import 'old-api-front/_availabilities.scss';
+@import 'old-api-front/_central.scss';
+@import 'old-api-front/_deals.scss';
+@import 'old-api-front/_nav.scss';
+@import 'old-api-front/_contact.scss';
+@import 'old-api-front/_comment.scss';
+@import 'old-api-front/_detail.scss';
+@import 'old-api-front/responsive.scss';
+
+
+// not needed
+// @import 'old-api-front/account.scss';
+// @import 'old-api-front/wishlist.scss';

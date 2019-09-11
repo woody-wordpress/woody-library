@@ -1,0 +1,16 @@
+{
+    "approved": true,
+    "name": "Swiper - Ultra basique",
+    "description": "Swiper items",
+    "acf_groups": [],
+    "vars":[
+        "styleClass",
+        "slidesPerView",
+        "spaceBetween",
+        "loop",
+        "centeredSlides",
+        "items",
+        "pagination",
+        "paginationStyle"
+    ]
+}

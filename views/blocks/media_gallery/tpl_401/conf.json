@@ -1,0 +1,23 @@
+{
+    "approved": true,
+    "name": "Grille 4 colonnes - 25% (image carrée)",
+    "description": "Grille 4 égales - 25% de large",
+    "acf_groups": [
+        "group_5b04314e0ec21"
+    ],
+    "vars": [
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "background_color",
+        "background_img_opacity",
+        "background_img",
+        "gallery_no_padding",
+        "gallery_items",
+        "gallery_link"
+    ]
+}

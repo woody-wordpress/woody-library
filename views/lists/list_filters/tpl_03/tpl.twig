@@ -1,0 +1,21 @@
+{# <div class="woody-component woody-component-list-filter type-buttonUpDown tpl_03">
+    <label class="filter-label">{{ filter.list_filter_name }}</label>
+    <div class="numberUpDown">
+        <span class="circle button-stepDown" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+            <span class="action stepDown">-</span>
+        </span>
+        <input type="number" name="trip_count_days_{{ filter_index }}" min="{{ filter.minmax.min|default }}" max="{{ filter.minmax.max|default }}" value="{{ filter.minmax.default|default }}" step="1" placeholder="-">
+        <span class="circle button-stepUp" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+            <span class="action stepUp">+</span>
+        </span>
+    </div>
+</ul>
+</div> #}
+
+{% set random_number = ''|random_number %}
+<div class="woody-component woody-component-list-filter type-rangeSlider tpl_02" data-step="1" data-caption="{{ __('jours', 'woody-themes') }}">
+    <label class="filter-label">{{ filter.list_filter_name }}</label>
+    <div id="rangeSlider_{{ random_number }}" class="rangeSlider" data-min="{{ filter.minmax.min }}" data-max="{{ filter.minmax.max }}" data-start="{{ filter.minmax.default_min|default(filter.minmax.min) }}" data-stop="{{ filter.minmax.default_max|default(filter.minmax.max) }}" data-type="duration"></div>
+    <input class="duration_min" name="trip_duration_{{ filter_index }}_min" type="hidden" value="{{ filter.minmax.default_min|default(filter.minmax.min) }}">
+    <input class="duration_max" name="trip_duration_{{ filter_index }}_max" type="hidden" value="{{ filter.minmax.default_max|default(filter.minmax.max) }}">
+</div>

@@ -1,0 +1,39 @@
+.semanticView {
+    &-texts>span {
+        display: block;
+    }
+
+    &-title {
+        @extend .h2 !optional;
+    }
+
+    &-pretitle,
+    &-subtitle {
+        @extend .h4 !optional;
+    }
+
+    &-term {
+        font-size: rem-calc(12);
+        padding: 3px 5px;
+        line-height: 1em;
+        border: 1px solid $primary-color;
+
+        &:not(:nth-last-of-type(1)) {
+            margin-right: 5px;
+        }
+    }
+}
+
+.woody-component-semantic-view {
+
+    &.tpl_03,
+    &.tpl_04 {
+        .semanticViewMediaWrapper {
+            @include xy-gutters($gutter-position: bottom);
+        }
+    }
+
+    .text-center .semanticView-terms {
+        display: inline-flex;
+    }
+}

@@ -1,0 +1,22 @@
+// Search page
+$esSearch-form-bgcolor:$primary-color !default;
+$esSearch-form-padding:20px !default;
+$esSearch-button-color:$white !default;
+$esSearch-button-bgcolor:$black !default;
+$esSearch-button-border-width:0 !default;
+$esSearch-button-border-style:solid !default;
+$esSearch-button-border-color:transparent !default;
+$esSearch-icon-bgcolor:darken($esSearch-form-bgcolor, 7%) !default;
+$esSearch-icon-color:$white;
+$esSearch-tab-title-size : 18 !default;
+$esSearch-tab-title-transform:uppercase !default;
+
+// Search block
+$esSearchBlock-link-color: lighten($black, 20%) !default;
+$esSearchBlock-aside-background-color: lighten($black, 60%) !default;
+$esSearchBlock-link-hover: $primary-color !default;
+$esSearchBlock-link-size:rem-calc(19) !default;
+$esSearchBlock-bgcolor: $primary-color !default;
+$esSearchBlock-button-bgcolor : $white !default;
+$esSearchBlock-button-color : $esSearchBlock-bgcolor !default;
+$esSearchBlock-suggest-title-color: $esSearchBlock-button-bgcolor;

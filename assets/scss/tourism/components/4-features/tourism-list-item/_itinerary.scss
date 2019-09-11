@@ -1,0 +1,53 @@
+.itinerary-locomotion-type {
+    display: block;
+    font-size: .8em;
+    overflow: hidden;
+    margin-top: $defMargin;
+
+    .locomotion-wrapper {
+
+        .locomotion-icon {
+
+            &:after {
+                color: $primary-color;
+                font-size: 25px;
+                text-align: center;
+                line-height: 40px;
+            }
+        }
+
+        .locomotion-infos {
+            color: $secTextColor;
+            vertical-align: middle;
+        }
+
+    }
+}
+
+.itinerary-length {
+
+    display: block;
+    text-align: center;
+    padding: 6px 10px 4px 10px;
+    color: #FFF;
+    background: $primary-color;
+
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+
+    transition: all .4s ease;
+
+    &-value {
+        margin-top: 10px;
+        font-size: 2em;
+        line-height: 1;
+        font-weight: bold;
+    }
+
+    &-unit {
+        font-size: 1.2em;
+        margin-top: 2px;
+        line-height: 1;
+    }
+}

@@ -1,0 +1,24 @@
+{% extends '_objects/visualModifier.twig' %}
+{% block content %}
+    <div class="woody-component woody-component-cta tpl_03 text-center {{ border_color|default }} {{ background_color|default }} {{ background_img_opacity|default }}{% if background_img|default or background_color|default or border_color|default %} padd-all-md isRel{% endif %}{{ background_img ? ' has-bgimg' }}">
+        {% if background_img|default %}
+            <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+            <div class="content isRel text-center">
+            {% endif %}
+            <div class="cta-desc">
+                {{ block("cta_desc", "blocks/call_to_action/tpl_01/tpl.twig") }}
+            </div>
+            <div class="cta-actions">
+                {% if cta_buttons.alignement == 'horizontal' %}
+                    {% set list_classes = 'align-center align-top wrap' %}
+                {% elseif cta_buttons.alignement == 'vertical' %}
+                    {% set list_classes = 'flex-dir-column align-center align-middle' %}
+                {% endif %}
+                {{ block("cta_link", "blocks/call_to_action/tpl_01/tpl.twig") }}
+                {{ block("cta_phone", "blocks/call_to_action/tpl_01/tpl.twig") }}
+            </div>
+            {% if background_img|default %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

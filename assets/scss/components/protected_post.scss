@@ -1,0 +1,53 @@
+$nurtik-border-color: $dark-gray !default;
+$nurtik-outline-color: $black !default;
+$nurtik-submit-icon: 034-fleche-suivant !default;
+$nurtik-submit-icon-color: $black !default;
+$nurtik-font-color: $dark-gray;
+
+.protected-post{
+    max-width:500px;
+    margin:auto;
+    margin-top:100px;
+    margin-bottom:100px;
+    h2{
+        font-weight:600;
+        color:$primary-color;
+    }
+    form{
+        align-items: center;
+        input{
+            display:inline-block;
+        }
+        .protected-form{
+            height: 40px;
+            overflow:hidden;
+            margin-top:30px;
+        }
+        .post-password{
+            width:80%;
+            height:100%;
+        }
+        .submit-button{
+            width:19%;
+            height:100%;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            background-color: $primary-color;
+            padding:0;
+            margin: 0;
+            color: $white;
+            cursor: pointer;
+            @include wicon($nurtik-submit-icon, after);
+
+            &:after {
+                color: $nurtik-submit-icon-color;
+                font-weight: $global-weight-bold;
+                position: relative;
+            }
+        }
+    }
+    .error_msg{
+        color:#FF9494;
+    }
+}

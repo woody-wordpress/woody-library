@@ -1,0 +1,20 @@
+{
+    "approved": true,
+    "name": "Focus - Template 4 éléments - 02",
+    "description": "Grille 4 blocs - Carte textes sur image (Paysage C + slider au dela de 4)",
+    "acf_groups": [
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "group_5b33890e6fa0b",
+        "field_5d16118093cc1"
+    ],
+    "vars": [
+        "items"
+    ],
+    "items_count": [
+        {
+            "fitted_for": 4,
+            "accepts_max": 12
+        }
+    ]
+}

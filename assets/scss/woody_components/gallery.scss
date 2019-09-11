@@ -1,0 +1,40 @@
+.gallery,
+.socialwall {
+    &-texts {
+        >span {
+            display: block;
+        }
+    }
+
+    &-title {
+        @extend .h3 !optional;
+    }
+
+    &-pretitle,
+    &-subtitle {
+        @extend h6 !optional;
+    }
+}
+
+.splitGallery {
+    @include breakpoint(medium) {
+        .medium-grid-frame {
+            min-height: calc(100% + (.9375em *2));
+        }
+    }
+
+    .mediaCard {
+        display: block;
+        height: 100%;
+
+        >.imageObject {
+            height: 100%;
+        }
+    }
+}
+
+// .woody-component-gallery{
+//     > .grid-container{
+//         max-width:none;
+//     }
+// }

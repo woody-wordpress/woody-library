@@ -1,0 +1,31 @@
+.tooltip {
+    width: auto;
+    min-width: 120px;
+    max-width: 150px;
+}
+
+.apirender-container {
+    .weather-icon {
+        .temperature {
+            font-weight: normal;
+            line-height: 20px;
+            top: 0px !important;
+            left: 23px !important;
+        }
+    }
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+
+.icon-font-diamond {
+    color: #C2A769;
+}

@@ -1,0 +1,54 @@
+<div class="card splitCard {% block media_pos %}media-left{% endblock %} {% block index_class %} tpl_01{% endblock %} isRel {{ page_type|default }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
+    {% if item.link.url|default %}
+        {% if obfuscation %}
+            <span class="card-link obf" data-obf="{{ item.link.url|base64Encode }}" data-target="{{ item.link.target|default('_self') }}">
+            {% else %}
+                <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}">
+                {% endif %}
+
+            {% endif %}
+            <div class="grid-x{% block grid_class %}{% endblock %}">
+                {% if item.img.ID or item.img.url %}
+                    <div class="cell{% block first_part_classes %} large-7{% endblock %}">
+                        {% include '_objects/imageObject.twig' with {
+                    'img' : item.img,
+                    'image_style' : image_style,
+                    'containerClass' : "cardMediaWrapper"
+                } %}
+                    </div>
+                {% endif %}
+                <div class="cell card-section flex-container flex-dir-column{% block second_part_classes %} large-5 align-center align-top{% endblock %}">
+                    {{ block('card_terms', 'cards/basic_card/tpl_01/tpl.twig') }}
+                    {% block card_titles %}
+                        {% if block_titles|default %}
+                            {% include '_objects/titlesObject.twig' with {
+                        'titles' : block_titles,
+                        'contextPrefix' : "focus-block",
+                    } %}
+                        {% endif %}
+                        {% include '_objects/titlesObject.twig' with {
+                        'titles' : item,
+                        'contextPrefix' : "card",
+                        'ellipsis' : ellipsis|default(180)
+                    } %}
+                        {% if display_button|default and ( item.link.link_label|default or item.link.title|default ) %}
+                            <button class="card-button button">
+                                {% if item.link.link_label %}
+                                    {{ item.link.link_label }}
+                                {% elseif item.link.title %}
+                                    {{ item.link.title }}
+                                {% endif %}
+                            </button>
+                        {% endif %}
+                    {% endblock %}
+                    {% if item.booking.link %}
+                        <span class="card-bookable">{{ __('Réservable', 'woody_theme') }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% if obfuscation %}
+            </span>
+    {% elseif item.link.url %}
+        </a>
+    {% endif %}
+</div>

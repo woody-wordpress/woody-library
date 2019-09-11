@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Filtre de liste de type checkboxes",
+    "description": "...",
+    "acf_groups": [
+
+    ],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

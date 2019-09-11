@@ -1,0 +1,15 @@
+.backgroundMedia {
+    z-index: 0;
+
+    &.movie {
+        overflow: hidden;
+
+        video {
+            object-fit: cover;
+        }
+    }
+}
+
+.bgimg-op {
+    @include bgimg-op;
+}

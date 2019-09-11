@@ -1,0 +1,35 @@
+/**
+ * File containing all imported
+ * This file is called by sheet
+ *
+ * Add any _index from a new created subdirectory
+ */
+
+// components
+@import 'centrales/_index';
+
+// sections
+@import 'header/_index';
+@import 'map/_map';
+@import 'event-insert/_event-insert';
+@import 'navigation-bars/_index';
+@import 'description-section/_index';
+@import 'reviews-section/_index';
+@import 'media-gallery/_index';
+@import 'establishment-detail-section/_index';
+@import 'itinerary/_index';
+@import 'price-list-section/_index';
+@import 'opening-period-section/_index';
+@import 'kaarousel/_index';
+@import 'linked-sheets/_index';
+@import 'selectpicker/_index';
+@import 'fairguest/_index';
+
+// Item Playlist
+@import 'tourism-list-item/_index'; // delete when item is made new in BBCar module (used only there now)
+
+// sidebar
+@import 'sidebar/_index';
+
+// global
+@import 'globals/_index';

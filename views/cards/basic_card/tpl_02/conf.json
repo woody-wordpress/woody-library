@@ -1,0 +1,9 @@
+{
+    "approved": true,
+    "name": "Carte basique - Template 3",
+    "description": "Carte de contenu avec image - textes centrés en dessous de l'image - Prix et distance sur l'image",
+    "acf_groups": [],
+    "vars":[
+        "item"
+    ]
+}

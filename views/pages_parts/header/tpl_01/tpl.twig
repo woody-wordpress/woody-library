@@ -1,0 +1,41 @@
+<header class="woody-component-header tpl_01 site-header show-for-xlarge" data-click-open="true" data-disable-hover="true" data-dropdown-menu="data-dropdown-menu" data-sticky-container="data-sticky-container" role="banner">
+    <div class="main-menu-wrapper">
+        <nav class="top-bar title-bar" id="main-menu">
+            <ul class="menu dropdown horizontal align-center align-middle fullwidth-dropdowns">
+                {% for menu_link in main_menu_links %}
+                    <li class="{{ loop.first ? 'is-brand-logo isAbs' }}{% if menu_link.subitems|default and menu_link.subitems is not iterable %} is-dropdown-submenu-parent{% endif %}{{ globals.post.ID|theRootAncestor == menu_link.the_id ? ' is-active' }}">
+                        {% if obfuscation %}
+                            <span class="{{ loop.first ? 'menuLogo' : 'menuLink' }} obf" data-obf="{{ menu_link.the_url|default|base64Encode }}" data-target="{{ menu_link.the_target|default('_self') }}" data-post-id="{{ menu_link.the_id }}">
+                            {% else %}
+                                <a class="{{ loop.first ? 'menuLogo' : 'menuLink' }}" href="{{ menu_link.the_url|default }}" target="{{ menu_link.the_target|default('_self') }}" data-post-id="{{ menu_link.the_id }}">
+                                {% endif %}
+                                {% if loop.first %}
+                                    <span class="brand-logo">{{ logo|default('Logo goes here') }}</span>
+                                {% else %}
+                                    {% if menu_link.the_fields.icon|default %}
+                                        <span class="wicon menuLink-wicon {{ menu_link.the_fields.icon }}"></span>
+                                    {% endif %}
+                                    {% if menu_link.the_fields.pretitle|default %}
+                                        <span class="menuLink-pretitle small">{{ menu_link.the_fields.pretitle }}</span>
+                                    {% endif %}
+                                    <span class="menuLink-title">{{ menu_link.the_fields.title|default }}</span>
+                                    {% if menu_link.the_fields.subtitle|default %}
+                                        <span class="menuLink-subtitle small">{{ menu_link.the_fields.subtitle }}</span>
+                                    {% endif %}
+                                {% endif %}
+                                {% if obfuscation %}
+                                </span>
+                        {% else %}
+                            </a>
+                        {% endif %}
+                        {% if menu_link.subitems|default and menu_link.subitems is not iterable %}
+                            <ul class="menu" data-link-parent="{{ menu_link.the_id }}" data-title="{{ menu_link.the_fields.title|default }}">
+                                {{ menu_link.subitems }}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</header>

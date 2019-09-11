@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Variation de grille 1 éléments",
+    "description": "Grille 1 colonne 100%",
+    "acf_groups": [],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

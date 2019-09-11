@@ -1,0 +1,78 @@
+/*------------------------------------*\
+    - NAV
+\*------------------------------------*/
+/**
+ * Throws list into horizontal mode
+ */
+.nav {
+    // from bs
+}
+
+.nav-inline {
+    @include clearfix;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+
+    >li {
+        float: left;
+    }
+}
+
+.plo-nav {
+
+    & {
+        @extend .plo-list-bare;
+    }
+
+    >li {
+
+        &,
+        >* {
+            display: inline-block;
+            *display: inline;
+            zoom: 1;
+        }
+
+        & {
+            position: relative;
+        }
+
+        >* {
+            display: block;
+        }
+    }
+
+    // stacks items on top of each other
+    &.plo-nav--stacked {
+
+        >li {
+            display: list-item;
+        }
+    }
+
+    // centers list
+    &.plo-nav--banner {
+        text-align: center;
+
+        >li {
+            padding-left: ($vr/2);
+            padding-right: ($vr/2);
+        }
+    }
+
+    // Force a nav to occupy 100% of the available width of its parent.
+    &.plo-nav--fit {
+
+        display: table;
+        // display: flex;
+        // justify-content: space-between;
+        // flex-flow: row nowrap;
+        width: 100%;
+
+        >li {
+            display: table-cell;
+            // width: 100%;
+        }
+    }
+}

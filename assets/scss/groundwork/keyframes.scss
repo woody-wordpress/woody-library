@@ -1,0 +1,40 @@
+@keyframes woodySlideInDown {
+    0% {
+        opacity: 100%;
+    }
+
+    2% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expansion {
+    0% {
+        transform: scale(0);
+        opacity: .5;
+    }
+
+    70% {
+        opacity: .2;
+    }
+
+    90% {
+        transform: scale(3);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}

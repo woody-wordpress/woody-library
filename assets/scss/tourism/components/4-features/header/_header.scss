@@ -1,0 +1,72 @@
+/**
+ * Desktop
+ */
+.api-render-sheet {
+    .sheet-header {
+        @include clearfix;
+
+        .header-text {
+            display: table-cell;
+
+            .sheet-header_title {
+                // font-size: 3.6rem;
+                // font-weight: 500;
+                // color: $primary-color;
+                // text-align: left;
+                @extend h2;
+
+                sup {
+                    display: block;
+                    top: -0.2em;
+                    line-height: 1;
+
+                    @media (min-width: $ts_screen-sm-min) {
+                        display: inline-block;
+                        top: -0.5em;
+                        line-height: 0;
+                    }
+                }
+            }
+
+            .sheet-header_subtitle {
+                @extend h6;
+                // font-size: 1.4rem !important;
+                // text-align: left;
+            }
+
+            .sheet-subtitle {
+                @include header-size(h4);
+                text-transform: inherit;
+            }
+        }
+    }
+
+    .sheet-nav-responsive {
+        margin-bottom: -10px;
+        margin-left: -8px;
+        margin-top: 5px;
+
+        a {
+            font-weight: 300;
+            color: $text-muted;
+        }
+    }
+}
+
+/**
+ * Responsive
+ */
+@media screen and (max-width: 520px) {
+    .api-render-header {
+        .sheet-header {
+            @include clearfix;
+        }
+
+        // .container { display: flex; flex-flow: column; }
+        // .five { order: 1; }
+        // .four { order: 2;  }
+        // .three { order: 3; }
+        // .two { order: 4; }
+        // .one { order: 5 }
+    }
+}

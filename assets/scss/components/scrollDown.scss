@@ -1,0 +1,92 @@
+.scrollDown {
+    display: none;
+
+    @include breakpoint(large) {
+        display: flex;
+        left: 50%;
+        bottom: 40px;
+        z-index: 10;
+        transform: translateX(-50%);
+        width: $scrollDown-size;
+        height: $scrollDown-size;
+        background-color: $scrollDown-bgcolor;
+        opacity: $scrollDown-opacity;
+        transition: background-color .3s, color .3s, border .3s;
+        animation:bounCe 3s ease-in-out infinite;
+
+        @if $scrollDown-border {
+            border-radius: $scrollDown-radius;
+            border: $scrollDown-border-width $scrollDown-border-style $scrollDown-border-color;
+        }
+
+        &:hover {
+            background-color: $scrollDown-hover-bgcolor;
+            opacity: $scrollDown-hover-opacity;
+        }
+    }
+}
+
+@if $scrollDown-type==arrow {
+    .scrollDown {
+        &-mouse {
+            display: none;
+        }
+
+        &-arrow {
+            font-size: $scrollDown-arrow-size;
+            color: $scrollDown-color;
+        }
+    }
+}
+
+@else if $scrollDown-type==mouse {
+    .scrollDown {
+        &-arrow {
+            display: none;
+        }
+
+        &-mouse {
+            &-shape {
+                width: calc(#{$scrollDown-size} * .35);
+                height: calc(#{$scrollDown-size} * .62);
+                border: $scrollDown-border-width solid $scrollDown-color;
+                display: block;
+                border-radius: calc(#{$scrollDown-size} * .35);
+                position: relative;
+            }
+
+            &-bar {
+                position: absolute;
+                top: 10px;
+                left: calc(50% - #{$scrollDown-border-width});
+                height: 10px;
+                width: calc(#{$scrollDown-border-width});
+                background-color: $scrollDown-color;
+            }
+
+        }
+        &:hover{
+            .scrollDown-mouse{
+                &-shape{
+                    border-color: $scrollDown-hover-color;
+                }
+                &-bar{
+                    background-color: $scrollDown-hover-color;
+                }
+            }
+        }
+    }
+}
+
+
+@keyframes bounCe{
+    0%{
+        transform: translateX(-50%) translateY(0);
+    }
+    50%{
+        transform: translateX(-50%) translateY(-20px);
+    }
+    100%{
+        transform: translateX(-50%) translateY(0);
+    }
+}

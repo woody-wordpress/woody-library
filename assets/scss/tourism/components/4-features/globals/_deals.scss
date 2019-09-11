@@ -1,0 +1,21 @@
+#deals {
+
+    .tourism-detail-deals {
+        margin-top: 0;
+
+        .sheet-deal {
+            &:first-child {
+                padding-top: 0;
+            }
+
+            &:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .deal-wrapper {
+                margin-top: 0;
+            }
+        }
+    }
+}

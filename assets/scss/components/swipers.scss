@@ -1,0 +1,279 @@
+.swiper-wrapper {
+    display: flex;
+    align-items: flex-start;
+
+    &.disabled {
+        transform: translate3d(0px, 0, 0) !important;
+    }
+}
+
+.swiper-pagination,
+.swiper-navigation {
+    &.disabled {
+        display: none;
+    }
+}
+
+.swiper-container {
+    @include breakpoint(large up) {
+
+        &.zoomActive {
+            perspective: 2000px;
+            -webkit-font-smoothing: antialiased;
+            transform: perspective(1px);
+
+            .swiper-wrapper {
+                transform-style: preserve-3d;
+            }
+
+            .swiper-slide {
+                transition: transform .3s ease, opacity .3s ease;
+
+                &:not(.swiper-slide-active) {
+                    backface-visibility: hidden;
+                    transform: translate3d(0, 0, -180px);
+
+                    .imageObject {
+                        transition: filter .3s ease;
+                        filter: grayscale(50%);
+                    }
+                }
+
+                &:not(.swiper-slide-next):not(.swiper-slide-prev):not(.swiper-slide-active) {
+                    opacity: 0;
+                }
+
+                &.swiper-slide-active {
+                    z-index: 1;
+
+                    @if $swiper-zoomActive-shadow {
+                        &:before {
+                            display: block;
+                            content: '';
+                            position: absolute;
+                            top: 10px;
+                            left: 0;
+                            width: 100%;
+                            height: calc(100% - 20px);
+                            background-color: rgba($black, .3);
+                            filter: blur(7px);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    .grid-x {
+        box-sizing: border-box;
+    }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    width: auto !important;
+    height: auto !important;
+    padding: 15px;
+    background-image: none !important;
+
+    &:focus {
+        outline: none;
+        background-color: rgba(#000, .2);
+    }
+
+    >.wicon {
+        color: #fff;
+        font-size: 12px;
+
+        @include breakpoint(medium) {
+            font-size: 20px;
+        }
+    }
+    &.swiper-button-disabled{
+        pointer-events:auto !important;
+        filter:grayscale(100%);
+    }
+}
+
+.swiper-button-next {
+    right: 10px;
+}
+
+.swiper-button-prev {
+    left: 10px;
+}
+
+.swiperOut {
+    // padding-left: 25px;
+    // padding-right: 25px;
+
+    @include breakpoint(large) {
+        padding-left: 60px;
+        padding-right: 60px;
+
+        .swiper-button-prev {
+            left: -10px;
+        }
+
+        .swiper-button-next {
+            right: -10px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            .wicon {
+                color: $black;
+            }
+        }
+    }
+}
+
+.swiper-slide {
+    .swiperOut {
+        margin: 0 60px;
+    }
+
+    @include breakpoint(medium down) {
+        @include xy-gutters($gutter-type: padding, $gutter-position:top bottom);
+    }
+}
+
+// Minimum style for beautiful pagination with Thumbs
+.swiper-thumbs {
+    position: absolute;
+    width: 40%;
+    margin: 0;
+    bottom: $global-margin*2;
+    left: $global-margin*2;
+
+
+
+    .swiper-slide {
+        background-color: $swiper-thumbs-bgColor;
+        @include wicon($swiper-thumbs-icon, after);
+
+        .imageObject-caption {
+            display: none;
+        }
+
+        img {
+            filter: grayscale(50%);
+            transition: all .25s ease-in;
+        }
+
+        &:after {
+            @include fullcenterBox;
+            color: $white;
+            opacity: 0;
+            @include header-size(h5);
+            transition: opacity .25s ease-in;
+        }
+
+
+        &:not(.duplicate).swiper-slide-thumb-active,
+        &:hover {
+            img {
+                opacity: .6;
+                filter: grayscale(0);
+            }
+        }
+
+        &:hover {
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+// TODO: Pour ré-activer les focus responsive, décommenter les lignes ci-dessous
+// Styles pour les fcus responsive - fonctionnalité actuellement désactivé
+.swResp {
+    @include breakpoint(large down) {
+        position: relative;
+        overflow: hidden;
+        padding: 0 20px 30px 20px !important;
+
+        .swiper-slide {
+            height: auto;
+
+            &.swiper-slide-next,
+            &.swiper-slide-active {
+                opacity: 1;
+            }
+        }
+
+        .swRespW {
+            align-items: center;
+            margin: 0;
+            flex-wrap: nowrap !important;
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            background-color: $primary-color;
+            padding: 10px 12px;
+
+            .wicon {
+                color: $white !important;
+            }
+        }
+
+        .swiper-button-prev {
+            left: 0;
+        }
+
+        .swiper-button-next {
+            right: 0;
+        }
+    }
+
+    .swiper-pagination-bullet {
+        border: 2px solid $black;
+        background-color: $white;
+
+        &.swiper-pagination-bullet-active {
+            border-color: $secondary-color;
+        }
+    }
+}
+
+.bg-secondary {
+    .swResp .swiper-pagination-bullet {
+        &.swiper-pagination-bullet-active {
+            border-color: $primary-color;
+        }
+    }
+}
+
+.bg-black,
+.bg-darkgray,
+.bg-secondary {
+    .swResp .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+        border-color: $white;
+    }
+}
+
+// Reset cell paddings
+.grid-padding-x>.cell>.swResp,
+.grid-padding-y>.cell.swResp,
+.grid-padding-y>.cell>.woody-component-focus.tpl_502,
+.grid-padding-x>.cell .woody-component-basic-swiper {
+    @include breakpoint(medium down) {
+        // @include xy-gutters($gutter-position: left right, $negative:true);
+    }
+}
+
+.grid-padding-x>.cell .woody-component-basic-swiper {
+    @include breakpoint(medium down) {
+        // width: calc(100% + 20px);
+    }
+}
+
+.swResp .grid-padding-y>.cell {
+    @include breakpoint(medium down) {
+        // padding-top: 0;
+        // padding-bottom: 0;
+    }
+}

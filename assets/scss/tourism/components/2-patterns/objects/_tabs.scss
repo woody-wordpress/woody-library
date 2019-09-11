@@ -1,0 +1,257 @@
+.sheet-tab {
+
+    &-nav {
+        @media (min-width: $ts_screen-sm-min) {
+            width: (100%/12)*4;
+            float: left;
+        }
+    }
+
+    &-nav-mobile {
+        color: $brand-primary;
+        padding-left: $vr;
+        padding-right: $vr;
+        margin-bottom: $vr;
+
+        .form-wrapper {
+            position: relative;
+            border: 1px solid $panel-default-border;
+
+            .form-control {
+                color: $brand-primary;
+                border: none;
+                box-shadow: none;
+                padding-left: $vr/4;
+            }
+
+            .icon {
+                position: absolute;
+                top: 0;
+                right: 0;
+                line-height: $input-height-base;
+                width: $input-height-base;
+                text-align: center;
+                font-size: 11px;
+                transform: rotateZ(90deg);
+                pointer-events: none;
+                background: white;
+            }
+        }
+
+        @media (min-width: $ts_screen-sm-min) {
+            display: none;
+        }
+    }
+
+    &-nav-desktop {
+        display: none !important;
+        vertical-align: top;
+        padding: 0;
+        margin: 0;
+        background: $color-bg;
+
+        ul {
+            padding: 0;
+            position: relative;
+
+        }
+
+        li {
+            padding: ($line-height-computed/2);
+            color: $text-muted;
+            font-weight: 500;
+            border-bottom: 1px solid $panel-default-border;
+            overflow: visible;
+            cursor: pointer;
+
+            &:hover:not(.active) {
+                background-color: transparent;
+            }
+
+            &.active {
+                cursor: default;
+                position: relative;
+                background: #fff;
+                color: $primary-color;
+
+                &:hover {
+                    .plo-tabs-nav__item__icon {
+                        padding-left: 0;
+                    }
+                }
+
+                &:after {
+                    content: " ";
+                    position: absolute;
+                    background: #fff;
+                    height: 100%;
+                    width: 3px;
+                    top: 0;
+                    z-index: 1;
+                    right: -2px;
+                }
+            }
+        }
+
+        @media (min-width: $ts_screen-sm-min) {
+            display: block !important;
+        }
+    }
+
+    &-panes {
+
+        background: white;
+
+        ul {
+            padding: 0;
+            display: none;
+            margin-bottom: 0;
+
+            &.tab-active {
+                display: block;
+            }
+
+            li {
+                padding: $vr;
+                border-bottom: 1px solid $panel-default-border;
+
+                &:last-child {
+                    border-bottom-width: 0;
+                }
+            }
+        }
+
+        @media (max-width: $ts_screen-xs-max) {
+            ul {
+                @include stripes-even;
+            }
+        }
+
+        @media (min-width: $ts_screen-sm-min) {
+            width: (100%/12)*8;
+            float: left;
+            padding: 0 $vr;
+            border-left: 1px solid $panel-default-border;
+        }
+    }
+
+    @media (min-width: $ts_screen-sm-min) {
+        background: $color-bg;
+    }
+}
+
+
+
+.plo-tabs {
+    background: #fff;
+    width: 100%;
+
+    .plo-tabs-nav {
+        background: $color-bg;
+        display: table-cell;
+        vertical-align: top;
+        padding: 0;
+        margin: 0;
+        width: 100%/3;
+
+        &__item {
+            display: table;
+            width: 100%;
+            padding: $vr;
+            border-bottom: 1px solid $color-bd;
+            cursor: pointer;
+            font-weight: 300;
+
+            // &:last-child {
+            //     border: none;
+            // }
+
+            &:hover {
+                .plo-tabs-nav__item__icon {
+                    color: $primary-color;
+                    padding-left: 5px;
+                }
+            }
+
+            &.active {
+                cursor: default;
+                position: relative;
+                background: #fff;
+                font-weight: bold;
+                color: $primary-color;
+
+                &:hover {
+                    .plo-tabs-nav__item__icon {
+                        padding-left: 0;
+                    }
+                }
+
+                &:after {
+                    content: " ";
+                    position: absolute;
+                    background: #fff;
+                    height: 100%;
+                    width: 3px;
+                    top: 0;
+                    right: -2px;
+                }
+            }
+
+            &__title {
+                display: table-cell;
+                vertical-align: middle;
+                padding-right: 10px;
+                width: 85%;
+            }
+
+            &__icon {
+                display: table-cell;
+                vertical-align: middle;
+                width: 15%;
+                transition: padding 0.1s ease-in-out;
+            }
+        }
+    }
+
+    .plo-tabs-panes {
+        padding: 20px;
+
+
+        .plo-tabs-pane {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            &.tab-active {
+                display: block;
+            }
+
+            li {
+                margin-bottom: 15px;
+
+                &.striped {
+                    padding-bottom: 20px;
+                    margin-bottom: 20px;
+                    border-bottom: 1px solid $color-bd;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                    border: 0;
+                }
+            }
+        }
+
+        @media (min-width: $ts_screen-sm-min) {
+            display: table-cell;
+            width: (100%/3)*2;
+            border-left: 1px solid $color-bd;
+        }
+    }
+
+    @media (min-width: $ts_screen-sm-min) {
+        display: table;
+    }
+}

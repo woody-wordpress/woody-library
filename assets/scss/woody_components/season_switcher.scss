@@ -1,0 +1,153 @@
+.woody-season-switcher {
+    &.tpl_01 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+
+        a {
+            cursor: pointer;
+            font-family: $header-font-family;
+            text-transform: uppercase;
+            color: rgba($light-gray, .5);
+            padding: .5rem;
+            transition: color .25s ease-in;
+
+            &:first-child {
+                border-right: 1px solid rgba($white, .1);
+            }
+
+            &.is-active {
+                color: $primary-color;
+                font-weight: $global-weight-bold;
+
+            }
+
+            &:hover,
+            &:focus,
+            &.is-active {
+                color: $white;
+            }
+        }
+
+        span.wicon {
+            vertical-align: middle;
+        }
+    }
+
+    &.tpl_02 {
+        .switch {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin-bottom: 0;
+
+            @include breakpoint(xmedium down) {
+                left: 0;
+                z-index: 1;
+                position: relative;
+
+                span.season-name {
+                    display: none;
+                }
+            }
+        }
+
+        .switch-input:checked~ {
+            .switch-paddle {
+                &:after {
+                    left: 1.5rem;
+                }
+            }
+        }
+
+        .switch-paddle {
+            color: $switcher-color-active;
+            background-color: transparent;
+            border: 2px solid $white;
+            border-radius: 25px;
+
+            >span {
+                position: absolute;
+                font-size: rem-calc(14);
+                width: 100%;
+                height: 100%;
+                left: calc(100% + 1rem);
+                line-height: 1.5;
+                color: $switcher-color-disabled;
+            }
+
+            &:after {
+                background-color: transparent;
+                font-size: rem-calc(20);
+                line-height: .6;
+                left: 0;
+            }
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: rem-calc(14);
+            padding-right: .8rem;
+            color: $switcher-color-active;
+            text-transform: uppercase;
+
+            &.is-season-link {
+                color: $white;
+            }
+
+            &.is-disabled {
+                pointer-events: all;
+                color: $switcher-color-disabled;
+            }
+
+            &.is-active {
+                color: $switcher-color-active;
+
+                .season-name {
+                    pointer-events: none;
+                }
+
+
+
+            }
+
+            &.is-hiver~a {
+                .switch-input {
+                    &:checked~.switch-paddle {
+                        @include wicon(013-station-soleil, after);
+
+                        >span {
+                            color: $switcher-color-active;
+                            font-weight: $global-weight-bold;
+                        }
+                    }
+                }
+
+                .switch-paddle {
+                    @include wicon(003-station-flocon, after);
+                }
+            }
+
+            &.is-ete~a {
+                .switch-input {
+                    &:checked~.switch-paddle {
+                        @include wicon(013-station-soleil, after);
+
+                        >span {
+                            color: $switcher-color-active;
+                            font-weight: $global-weight-bold;
+                        }
+                    }
+                }
+
+                .switch-paddle {
+                    @include wicon(003-station-flocon, after);
+                }
+            }
+        }
+    }
+}

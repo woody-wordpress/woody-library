@@ -1,0 +1,232 @@
+.availabilities-tab {
+    float: left;
+    width: 100%;
+
+    .type-selector {
+        width: 50%;
+        margin: 28px auto;
+        border: none;
+        border-radius: 0;
+    }
+
+    .out-of-month {
+        visibility: hidden;
+    }
+
+    .available,
+    .legend-available .square {
+        background-color: $available;
+    }
+
+    .closed,
+    .legend-closed .square {
+        background-color: $closed;
+    }
+
+    .full,
+    .legend-full .square {
+        border-color: #FFF;
+        background: $full;
+        color: #000;
+        text-shadow: none;
+
+        &:hover {
+            border-color: #FFF;
+            color: #000;
+        }
+    }
+
+    .legend-wrapper {
+
+        width: 90%;
+        margin: 28px auto;
+        overflow: hidden;
+
+        .last-update {
+            float: left;
+            display: block;
+            width: 60%;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        ul {
+            display: block;
+            padding: 0;
+            margin: 0;
+            float: right;
+            margin: 5px 0;
+
+            li {
+
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+                float: left;
+                margin-left: 20px;
+                font-size: 14px;
+                font-weight: 300;
+
+            }
+        }
+
+        .square {
+
+            float: left;
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            margin: 3px 5px;
+            margin-left: 0px;
+
+        }
+
+        .legend-label {
+            font-size: 1.077em;
+        }
+    }
+}
+
+.availabilities-tables {
+
+    max-width: 90%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 1s;
+    display: table;
+
+    th {
+
+        text-align: center;
+        font-size: 18/13em;
+        color: $secTextColor;
+
+    }
+
+    td {
+
+        height: 40px;
+        width: 40px;
+        border: 5px solid #FFF;
+        font-size: 1.3em;
+        text-align: center;
+
+    }
+
+    .month {
+
+        color: #333;
+        display: table-cell;
+        vertical-align: top;
+        padding: 10px;
+        max-width: 33%;
+
+        .month-wrapper {
+
+            padding: $defContainersPadding;
+            border-radius: $defRadius;
+            background: #FFF;
+
+        }
+
+        h3 {
+            font-size: rem-calc(18);
+            margin: 0;
+            margin-bottom: $defMargin;
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: 300;
+        }
+
+        table {
+            font-size: .8em;
+            width: 100%;
+        }
+
+        .weekNumberLabel,
+        .weekNumber {
+            display: none;
+        }
+
+        .out {
+            opacity: .25;
+            background: $outOf;
+        }
+
+        &.displayWeekNumbers {
+
+            .weekNumberLabel,
+            .weekNumber {
+                display: table-cell;
+            }
+        }
+    }
+}
+
+.availabilities-container {
+    position: relative;
+    overflow: hidden;
+    min-height: 250px;
+
+    .calendars-wrapper {
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto;
+        display: block;
+
+        .availabilities-nav {
+
+            .prevMonth,
+            .nextMonth {
+                position: absolute;
+                top: 0;
+                width: 8%;
+                height: 100%;
+                font-size: 0;
+                color: transparent;
+                cursor: pointer;
+
+                transition: all .5s ease;
+
+                &:after {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+
+                    width: 20px;
+                    height: 20px;
+                    margin-top: -10px;
+                    margin-left: -10px;
+
+                    font-size: 20px;
+                    text-align: center;
+                    line-height: 20px;
+                    color: #FFF;
+
+                    @extend .icon-font-item;
+                }
+            }
+
+            .prevMonth {
+                left: 0;
+
+                &:after {
+                    @extend .icon-nav-prev;
+                }
+            }
+
+            .nextMonth {
+                right: 0;
+
+                &:after {
+                    @extend .icon-nav-next;
+                }
+            }
+        }
+
+        &.noSelect {
+            margin-top: 30px;
+        }
+    }
+}

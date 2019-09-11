@@ -1,0 +1,10 @@
+{
+    "approved": false,
+    "name": "Variation de grille 4 ou 8 éléments",
+    "description": "Grille 4 colonnes égales",
+    "acf_groups": [],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

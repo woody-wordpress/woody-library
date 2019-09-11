@@ -1,0 +1,288 @@
+@media only screen and (max-width : 1600px) {
+    .api_filter_alpha.s01 .section-body-filters .filter-type-reviews .icon {
+        font-size: 2.5em;
+    }
+}
+
+@media only screen and (max-width : 1300px) {
+    .api_filter_alpha.s01 .section-body-filters .filter-type-reviews .icon {
+        font-size: 2.1em;
+    }
+}
+
+@media only screen and (max-width : 1100px) {
+
+    .playlist-pager {
+
+        // bootstrap override
+        &.pagination>li>a,
+        &.pagination>li>span {
+            padding: 8px 14px;
+            margin-left: 5px;
+        }
+    }
+}
+
+
+@media (max-width: 991px) {
+
+    .playlist-interaction-banner {
+        flex-direction: column;
+        border: 1px dashed $primary-color;
+        padding: 20px;
+        .playlist-sortoptions-wrapper .playlist-sort {
+            border-top: 1px solid #ddd;
+            padding: 25px 10px;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .dropdown-content li {
+            padding: 20px 20px;
+        }
+    }
+
+    .item-infos-right {
+        align-self: center;
+    }
+    .item-infos-fairguest {
+        .rating {
+            font-size: 22px !important;
+            min-width: 50px !important;
+            padding: 14px 8px !important;
+        }
+
+        .rating_text {
+            font-size: 24px !important;
+        }
+    }
+
+    .slideInUp {
+        animation-name: slideInUp;
+        animation-duration: 1s;
+        // animation-iteration-count: 1;
+        // visibility: hidden;
+        // animation-fill-mode: both;
+    }
+
+    @keyframes slideInUp {
+        0% {
+            transform: translateY(100%);
+            visibility: visible;
+        }
+
+        100% {
+            transform: translateY(0);
+            visibility: visible;
+        }
+    }
+
+    #responsive-showlist {
+        position: fixed;
+        height: auto;
+        width: 100%;
+        bottom: 0;
+        z-index: 30000;
+        opacity: 1;
+        font-weight: bold;
+        padding: 15px 10px;
+        border: 1px solid $primary-color;
+        background: $primary-color;
+        display: block;
+        display: flex;
+        color: white;
+        cursor: pointer;
+
+        div {
+            margin: auto;
+        }
+    }
+
+    .header-interactions {
+        align-self: auto;
+        flex-grow: 1;
+    }
+
+    .main-tourism-wrapper {
+        display: block;
+    }
+
+    #playlist-context,
+    #api_filter,
+    .playlist-switch-map {
+        display: none;
+    }
+
+    .playlist-infos-banner {
+        min-height: 1px;
+        .switch-block {
+            display: none;
+        }
+        .playlist-features-wrapper {
+            // border: none;
+            // padding: 0;
+            .playlist-features-label {
+                display: none;
+                white-space: normal;
+            }
+        }
+    }
+
+    #playlist-map-wrapper {
+        .playlist-switch-list {
+            display: none !important;
+        }
+        .playlist-infos-banner {
+            display: none;
+        }
+    }
+    #playlist-map .leaflet-control-container .leaflet-top {
+        top: 5px;
+        right: 5px;
+        .leaflet-control {
+            margin-right: 0;
+        }
+    }
+
+    #playlist-map-wrapper .playlist-custom-controls .geoboudingbox-block {
+        top: 5px;
+        left: 5px;
+        margin: 0;
+        font-size: rem-calc(13);
+
+        label.item {
+            padding: 4px 10px 4px 5px;
+            margin-right: 0;
+        }
+    }
+
+    #tab-playlist,
+    #tab-map,
+    #tab-filters {
+        font-weight: 400;
+        margin: auto;
+        text-align: center;
+        width: 100%;
+        cursor: pointer;
+        &:before {
+            display: flex;
+            margin: 10px auto;
+            width: $switcher-icon-font-size;
+            font-size: $switcher-icon-font-size;
+            line-height: $switcher-icon-font-size;
+            font-family: 'raccourci';
+        }
+    }
+
+    #tab-map::before {
+        content: '\e65f';
+    }
+    #tab-playlist::before {
+        content: '\e644';
+    }
+    #tab-filters::before {
+        content: '\e640';
+    }
+    #responsive-layout-switcher {
+        z-index: 999;
+        background: #f5f5f5;
+        display: flex;
+        border-bottom: 2px solid #BABABA;
+
+        &>.layout-switch-wrapper {
+            display: flex;
+            flex-grow: 1;
+            cursor: pointer;
+            label {
+                padding: 10px;
+                line-height: $ggw-div;
+            }
+
+            &>input[type="radio"] {
+                display: none;
+                &:checked+label {
+                    color: $primary-color;
+                }
+            }
+
+            &.active,
+            &:hover>label {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .playlist-pager {
+
+        // bootstrap override
+        &.pagination>li>a,
+        &.pagination>li>span {
+            padding: 4px 10px;
+            margin-left: 3px;
+        }
+    }
+}
+
+@media (min-width: 1450px) {
+    #playlist-context .item-wrapper { // 4 items by row
+        width: 25%;
+    }
+}
+
+
+@media all and (min-width:$ts_screen-lxs-min) and (max-width:$ts_screen-lxs-max) {
+    $fullwidth: 100%;
+    $col1: calc($fullwidth / 12);
+    $col2: calc($fullwidth / 6);
+    $col3: calc($fullwidth / 4);
+    $col4: calc($fullwidth / 3);
+    $col5: calc($fullwidth / 2.4);
+    $col6: calc($fullwidth / 2);
+
+    .col-lxs-1 {
+        width: $col1;
+    }
+
+    .col-lxs-2 {
+        width: $col2;
+    }
+
+    .col-lxs-3 {
+        width: $col3;
+    }
+
+    .col-lxs-4 {
+        width: $col4;
+    }
+
+    .col-lxs-5 {
+        width: $col5;
+    }
+
+    .col-lxs-6 {
+        width: $col6;
+    }
+
+    .col-lxs-7 {
+        //   width: ~"calc(${fullwidth} - ${col5})";
+    }
+
+    .col-lxs-8 {
+        //   width: ~"calc(${fullwidth} - ${col4})";
+    }
+
+    .col-lxs-9 {
+        //   width: ~"calc(${fullwidth} - ${col3})";
+    }
+
+    .col-lxs-10 {
+        //   width: ~"calc(${fullwidth} - ${col2})";
+    }
+
+    .col-lxs-11 {
+        //   width: ~"calc(${fullwidth} - ${col1})";
+    }
+
+    .col-lxs-12 {
+        width: $fullwidth;
+    }
+}

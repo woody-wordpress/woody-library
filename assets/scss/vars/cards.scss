@@ -1,0 +1,89 @@
+// Basic
+$coloredbg-cardsection-bgcolor : $white !default;
+$nobg-cardsection-bgcolor : $light-gray !default;
+
+// Overlayed
+$overlayed-bgcolor : $black !default;
+
+$card-icon-size: 24 !default;
+
+// Cartouche distance sur une fiche circuit
+$iti-length-top-position : 0 !default;
+$iti-length-bottom-position : auto !default;
+$iti-length-right-position : auto !default;
+$iti-length-left-position : 0 !default;
+$iti-length-border-radius : $global-radius !default;
+$iti-length-bgcolor : $black !default;
+$iti-length-color : $white !default;
+
+// Cartouche infos séjour sur les cartes séjours
+$card-tripInfos-top-position : $iti-length-top-position !default;
+$card-tripInfos-bottom-position : $iti-length-bottom-position !default;
+$card-tripInfos-right-position : $iti-length-right-position !default;
+$card-tripInfos-left-position : $iti-length-left-position !default;
+$card-tripInfos-border-radius : $global-radius !default;
+$card-tripInfos-bgcolor: $black !default;
+$card-tripInfos-color : $white !default;
+$card-tripInfos-border-color : transparent !default;
+$card-tripInfos-border-style : solid !default;
+$card-tripInfos-border-width:0 !default;
+$card-priceTag-padding : 0 !default;
+
+$card-priceTag-width : 100px !default;
+$card-priceTag-height : 100px !default;
+$card-priceTag-fatSize : rem-calc(30) !default;
+$card-priceTag-smallSize : rem-calc(12) !default;
+
+// Card terms
+$card-term-font-size: rem-calc(12) !default;
+$card-term-padding: 5px !default;
+$card-term-bgcolor: transparent !default;
+$card-term-color:$white !default;
+$card-term-border-radius:$global-radius !default;
+$card-term-border-color: $card-term-color !default;
+$card-term-border-style:solid !default;
+$card-term-border-width:1px !default;
+$card-term-space:8px !default;
+
+$card-bookable-font-size : $card-term-font-size !default;
+$card-bookable-padding: $card-term-padding !default;
+$card-bookable-bgcolor : $card-term-bgcolor !default;
+$card-bookable-color : $card-term-color !default;
+$card-bookable-font-weight : bold !default;
+$card-bookable-border-radius:$card-term-border-radius !default;
+$card-bookable-border-color: $card-bookable-bgcolor !default;
+$card-bookable-border-style:solid !default;
+$card-bookable-border-width:1px !default;
+$card-bookable-top-pos : 4px !default;
+$card-bookable-left-pos : auto !default;
+$card-bookable-right-pos : $card-bookable-top-pos !default;
+
+// Card events dates
+$card-datePart-direction: column !default;
+$card-date-font-family: $header-font-family !default;
+$card-date-day-size: rem-calc(32) !default;
+$card-date-day-font-weight:$header-font-weight !default;
+$card-date-month-size:rem-calc(14) !default;
+$card-date-month-font-weight:$card-date-day-font-weight !default;
+$card-date-month-txt-transform: uppercase !default;
+
+// Card sheet town and type
+$card-sheet-town-color:darken($light-gray, 20%) !default;
+$card-sheet-type-color: $card-sheet-town-color !default;
+$card-sheet-type-txt-transform:uppercase !default;
+
+
+$icon-img-max-width: 150px !default;
+
+// Card info itinerary
+$iti-infos-type-icon-display: none !default;
+$iti-infos-type-icon-color: $primary-color !default;
+$iti-infos-type-icon-size: rem-calc(30) !default;
+$iti-infos-type-term-display: block !default;
+
+// Round buttons
+$round-card-button-size:60px !default;
+$round-card-button-font-size:44 !default;
+$round-card-button-bgcolor:$primary-color !default;
+$round-card-button-color:$white !default;
+$round-card-button-border:none !default;

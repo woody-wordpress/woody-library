@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Filtre de liste de type nombre -/+",
+    "description": "...",
+    "acf_groups": [
+
+    ],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

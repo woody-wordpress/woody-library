@@ -1,0 +1,5 @@
+.woody-component-files {
+    .button {
+        @include xy-gutters($gutter-position: right left);
+    }
+}

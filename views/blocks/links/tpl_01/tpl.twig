@@ -1,0 +1,16 @@
+{% if alignement == 'horizontal' %}
+    {% set list_classes = 'align-center align-middle wrap' %}
+{% elseif alignement == 'vertical' %}
+    {% set list_classes = 'flex-dir-column align-center align-middle' %}
+{% endif %}
+<div class="woody-component woody-component-links tpl_01">
+    {% if links|default %}
+        <ul class="list-unstyled flex-container {{ list_classes|default }}" data-equalizer="linksHeight">
+            {% for button in links %}
+                <li class="list-item">
+                    {% include '_objects/buttonObject.twig' %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>

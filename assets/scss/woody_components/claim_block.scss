@@ -1,0 +1,91 @@
+.woody-component-claims-block {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 280px;
+    z-index: 9999;
+    box-shadow: 0 6px 4px rgba($black, .15);
+    background-color: $white;
+
+    .claim {
+        &-titles {
+            @include xy-gutters($gutter-type: padding, $gutter-position:top left right);
+        }
+
+        &-pretitle,
+        &-title,
+        &subtitle {
+            display: block;
+        }
+
+        &-pretitle,
+        &-title {
+            margin-bottom: 0;
+        }
+
+        &-title {
+            @extend .h4 !optional;
+        }
+
+        &-pretitle,
+        &-subtitle {
+            @extend .h6 !optional;
+        }
+
+        &-wicon {
+            margin-top: -35px;
+            margin-bottom: 10px;
+            background-color: $white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $black;
+            position: relative;
+            z-index: 2;
+        }
+
+        &-link {
+            @include xy-gutters($gutter-position: top left);
+        }
+    }
+
+    .swiper-slide {
+        opacity: 0 !important;
+
+        &.swiper-slide-active,
+        &.swiper-slide-visible,
+        &.swiper-slide-duplicate-active {
+            opacity: 1 !important;
+        }
+    }
+
+    .claim-close-button {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: $black;
+        color: darken($white, 10%);
+        z-index: 1;
+        font-size: rem-calc(12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 0 8px rgba($black, .4);
+
+        &:hover {
+            color: $white;
+        }
+    }
+}
+
+body.fullScrolled {
+    .woody-component-claims-block {
+        transform: translateY(-50px); // To stay above cookie consent banner
+    }
+}

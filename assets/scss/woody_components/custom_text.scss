@@ -1,0 +1,16 @@
+.woody-component-custom-text {
+    p>.button {
+        @include xy-gutters($gutter-position: right);
+    }
+    img{
+        display: block;
+        &.aligncenter{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        &.alignright{
+            margin-left: auto;
+        }
+    }
+
+}

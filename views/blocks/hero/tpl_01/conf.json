@@ -1,0 +1,23 @@
+{
+    "approved": true,
+    "name": "Hero - Paysage A",
+    "description": "Visuel (3:1) et accroche (Icône, Sur-titre, Titre, sous-titre, description) + image ou vidéo de fond + video complémentaire",
+    "acf_groups": [
+        "group_5b052bbee40a4"
+    ],
+    "vars": [
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "page_heading_background_img_opacity",
+        "page_heading_img",
+        "page_heading_movie",
+        "page_heading_media_type",
+        "page_heading_add_social_movie",
+        "page_heading_social_movie"
+    ]
+}

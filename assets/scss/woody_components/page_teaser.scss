@@ -1,0 +1,50 @@
+.button-add-to-favs {
+    border-left: none !important;
+    border-right: none !important;
+
+    .true {
+        color: $button-add-to-favs-color;
+    }
+
+
+    &.is-false {
+        .true {
+            display: none;
+        }
+    }
+
+    &.is-true {
+        .false {
+            display: none;
+        }
+    }
+}
+
+.external-favorite {
+    font-size: 2.5rem;
+}
+
+.woody-component-teaser {
+    position: relative;
+
+    .page-main-wicon {
+        font-size: rem-calc($page-teaser-icon-size);
+    }
+
+    .direction-map-wrapper {
+        .leaflet-marker-icon {
+            width: $geomap-marker-width !important;
+
+            svg {
+                max-width: 100%;
+            }
+        }
+    }
+
+    &:not(.tpl_02) {
+        .buttons-list {
+            @include xy-gutters($gutter-position: left, $negative:true);
+        }
+    }
+
+}

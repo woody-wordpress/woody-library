@@ -1,0 +1,80 @@
+<div class="woody-component woody-component-teaser tpl_01 {{ classes|default }}{{ background_img ? ' has-bgimg' }}">
+    {% if background_img %}
+    <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+    {% endif %}
+    {{ breadcrumb|default }}
+    <div class="grid-container isRel">
+        {% block page_teaser_texts %}
+        {% if page_teaser_woody_icon %}
+        <span class="page-main-wicon wicon-woody-icons {{ page_teaser_woody_icon }}"></span>
+        {% endif %}
+        {% if page_teaser_pretitle or page_teaser_title|default or page_teaser_subtitle or (page_teaser_display_favs_btn|default and globals.options.favorites|default)  %}
+        <div class="page-main-titles">
+            {% if page_teaser_pretitle %}
+            <span class="page-main-pretitle">{{ page_teaser_pretitle }}</span>
+            {% endif %}
+            {% if page_teaser_title|default %}
+
+            <h1 class="page-main-title">
+                {{ page_teaser_title }}
+                {% include '_objects/favoriteTeaserObject.twig'%}
+            </h1>
+            {% endif %}
+            {% if page_teaser_subtitle %}
+            <span class="page-main-subtitle">{{ page_teaser_subtitle }}</span>
+            {% endif %}
+        </div>
+        {% endif %}
+
+
+        {% if page_teaser_desc|default %}
+        <div class="page-main-description">{{ page_teaser_desc }}</div>
+        {% endif %}
+        {% endblock %}
+        {% block page_teaser_links %}
+        {% if page_teaser_smart_buttons.links|default %}
+        {% if page_teaser_smart_buttons.alignement == 'horizontal' %}
+        {% set list_classes = 'align-left align-top wrap buttons-list' %}
+        {% elseif page_teaser_smart_buttons.alignement == 'vertical' %}
+        {% set list_classes = 'flex-dir-column align-left align-top' %}
+        {% endif %}
+
+        <ul class="list-unstyled flex-container {{ list_classes|default }}">
+            {% for button in page_teaser_smart_buttons.links %}
+            <li class="list-item">
+                {% include '_objects/buttonObject.twig' %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        {# TODO: retirer la condition lorsque les sites seront corrigés #}
+        {% if page_teaser_buttons|default %}
+        <ul class="list-unstyled flex-container align-middle wrap">
+            {% for button_group in page_teaser_buttons %}
+            <li>
+                <a href="{{ button_group.button.url }}" class="button" target="{{ button_group.button.target|default('_self') }}">
+                    {{ button_group.button.title|default }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endif %}
+        {% endblock %}
+        {% block page_teaser_external_favorite %}
+            {% if page_teaser_title == false %}
+                {% include '_objects/favoriteTeaserObject.twig' with{
+                    'containerClass' : "external-favorite"
+                } %}
+            {% endif %}
+        {% endblock %}
+        {% block page_teaser_shares %}
+        {% if page_teaser_display_shares|default and globals.post_id not in globals.woody_options_pages %}
+        <span class="sharing-links">
+            {{ social_shares }}
+        </span>
+        {% endif %}
+        {% endblock %}
+
+    </div>
+</div>

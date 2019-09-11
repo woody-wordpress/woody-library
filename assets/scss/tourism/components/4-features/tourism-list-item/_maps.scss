@@ -1,0 +1,59 @@
+// History : from tourism/maps/sheet-maps.scss
+
+&.map-item {
+
+    float: none;
+    min-height: 0;
+    position: relative;
+    width: 216px;
+    height: 231px;
+    overflow: visible;
+
+    &:after {
+        content: none;
+    }
+
+    .sheet-list-item-buttons {
+        display: none;
+    }
+
+    .item-container {
+
+        width: 271px;
+        height: 256px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+        color: #000;
+
+        margin-top: -10px;
+        margin-left: -16px;
+
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: $defShadowLev1;
+
+        .item-wrapper {
+            border: none;
+            box-shadow: none;
+
+            .item-extras {
+                font-size: .85em;
+
+                .extra-type {
+                    display: none;
+                }
+            }
+
+            .itinerary-locomotion-type {
+                display: none;
+            }
+
+            .itinerary-length {
+                width: 68px;
+                height: 68px;
+            }
+        }
+    }
+}

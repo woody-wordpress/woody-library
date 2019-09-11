@@ -1,0 +1,5 @@
+.visualModifier {
+    @include breakpoint(large) {
+        @include transformByData;
+    }
+}

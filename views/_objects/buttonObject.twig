@@ -1,0 +1,75 @@
+{% set random_number = ''|random_number %}
+<div class="woody-component-button marg-all-sm{% if button.button_add_img and button.button_img %} has-thumbnail{% endif %}">
+    {% if button.button_type == 'link' and button.link.url|default %}
+        {% if button.add_modal == true %}
+            {% block button_thumbnail %}
+                {% if button.button_add_img and button.button_img %}
+                    <div class="button_thumbnail marg-bottom-sm">
+                        {% include '_objects/imageObject.twig' with {
+                            'img' : button.button_img,
+                            'image_style' : button.button_img_style
+                        }%}
+                    </div>
+                {% endif %}
+            {% endblock %}
+            <button class="button {{ button.button_style|default }} {{ button.button_size|default }}" data-open="{{ acf_fc_layout }}_modal_{{ random_number }}" data-equalizer-watch="linksHeight">
+                {% if button.button_woody_icon|default %}
+                    <span class="wicon {{ button.button_woody_icon }}"></span>
+                {% endif %}
+                {% if button.link.title %}
+                    <span class="button-label">{{ button.link.title }}</span>
+                {% endif %}
+            </button>
+            <div class="full reveal" id="{{ acf_fc_layout }}_modal_{{ random_number }}" data-close-on-click="true" data-reveal data-animation-in="scale-up-in" data-animation-out="scale-up-out">
+                <div class="content-wrapper">
+                    <iframe class="full-frame" src="{{  button.link.url }}"></iframe>
+                </div>
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <small>{{ __('Fermer', 'woody-theme') }}</small><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% else %}
+            {{ block('button_thumbnail') }}
+            <a class="woody-component-button button {{ button.button_style|default }} {{ button.button_size|default }}" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}" data-equalizer-watch="linksHeight">
+
+                {% if button.button_woody_icon|default %}
+                    <span class="wicon {{ button.button_woody_icon }}"></span>
+                {% endif %}
+                {% if button.link.title %}
+                    <span class="button-label">{{ button.link.title|default }}</span>
+                {% endif %}
+            </a>
+        {% endif %}
+    {% elseif button.button_type == 'file' and button.file.url %}
+        {{ block('button_thumbnail') }}
+        <a class="button button-download {{ button.button_style|default }} {{ button.button_size|default }}" href="{{ button.file.url }}" target="_blank" data-equalizer-watch="linksHeight" data-equalize-by-row="">
+            {% if button.button_woody_icon|default %}
+                <span class="wicon {{ button.button_woody_icon }}"></span>
+            {% endif %}
+            {% if button.button_text %}
+                <span class="button-label">{{ button.button_text }}</span>
+            {% endif %}
+            {% if button.file.filesize|default %}
+                <small class="filesize">{{ button.file.filesize|humanize_filesize(0) }}</small>
+            {% endif %}
+        </a>
+    {% elseif button.button_type == 'code' and button.widget|default %}
+        {{ block('button_thumbnail') }}
+        <button class="button {{ button.button_style|default }} {{ button.button_size|default }}" data-open="{{ acf_fc_layout }}_modal_{{ random_number }}" data-equalizer-watch="linksHeight" data-equalize-by-row="">
+                {% if button.button_woody_icon|default %}
+                    <span class="wicon {{ button.button_woody_icon }}"></span>
+                {% endif %}
+                {% if button.button_text %}
+                    <span class="button-label">{{ button.button_text }}</span>
+                {% endif %}
+            </button>
+            <div class="full reveal" id="{{ acf_fc_layout }}_modal_{{ random_number }}" data-close-on-click="true" data-reveal data-animation-in="scale-up-in">
+                <div class="reveal-container">
+                    {{ button.widget|shortcodes }}
+                </div>
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <small>{{ __('Fermer', 'woody-theme') }}</small><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    {% endif %}
+</div>

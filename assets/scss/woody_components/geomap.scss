@@ -1,0 +1,63 @@
+.woody-component-geomap {
+    .leaflet-popup-pane {
+        .leaflet-popup {
+            bottom: -10px !important;
+            padding: 70px;
+        }
+    }
+
+    .leaflet-popup-content {
+        min-width: $geomap-popup-content-min-width;
+
+        .card {
+            &-link:hover {
+                .card-title {
+                    color: $primary-color;
+                }
+            }
+
+            &-titles {
+                text-align: $geomap-titles-text-align;
+            }
+
+            &-title {
+                font-size: $geomap-title-font-size;
+                transition: color .3s;
+            }
+
+            a[target="_blank"].card-link:after {
+                content: none;
+            }
+        }
+    }
+
+    .leaflet-container a.leaflet-popup-close-button {
+        top: 65px;
+        right: 65px;
+        background: $primary-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 22px;
+        width: 22px;
+        border-radius: 30px;
+        padding: 0;
+        color: set-color($primary-color);
+
+        &:hover {
+            background: $secondary-color;
+            color: set-color($secondary-color);
+        }
+    }
+
+    .leaflet-marker-icon {
+        height: 0px !important;
+
+        svg {
+            height: 50px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
+}

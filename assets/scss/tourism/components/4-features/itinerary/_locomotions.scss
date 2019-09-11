@@ -1,0 +1,119 @@
+$locomotionIconSize: 33px;
+
+.section-did-you-know {
+    ._panel-title {
+        &:after {
+            display: block;
+            font-size: 43px;
+            padding-left: 15px;
+            margin: 10px auto 0;
+            @extend .icon-font-item;
+            @extend .icon-hat;
+        }
+    }
+}
+
+.locomotion-features {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: $text-muted;
+
+
+    .locomotion-feature-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        i {
+            font-size: $locomotionIconSize;
+            line-height: $locomotionIconSize+3;
+
+            &.icon-font-dot:before {
+                color: $text-muted;
+                color: $primary-color;
+            }
+        }
+
+        .locomotion-icon::after {
+            font-size: $locomotionIconSize;
+            @extend .icon-font-item;
+        }
+
+        &[type="02.01.07.01.06"] {
+            .locomotion-icon::after {
+                @extend .icon-car;
+            }
+        }
+
+        &[type="02.01.07.01.05"] {
+            .locomotion-icon::after {
+                @extend .icon-walking;
+            }
+        }
+
+        &[type="189.02.01.07.01.08"] {
+            .locomotion-icon::after {
+                @extend .icon-swimming;
+            }
+        }
+
+        &[type="02.01.07.01.01"],
+        &[type="189.02.01.07.01.06"],
+        &[type="184.02.01.07.01.02"] {
+            .locomotion-icon::after {
+                @extend .icon-bike;
+            }
+        }
+
+        &[type="02.01.07.01.02"] {
+            .locomotion-icon::after {
+                @extend .icon-horse;
+            }
+        }
+
+        &[type="99.02.01.07.01.04"] {
+            .locomotion-icon::after {
+                @extend .icon-vtt;
+            }
+        }
+
+        &[type="99.02.01.07.01.07"] {
+            .locomotion-icon::after {
+                @extend .icon-kayak;
+            }
+        }
+
+        &[type="99.02.01.07.01.08"] {
+            .locomotion-icon::after {
+                @extend .icon-flippers;
+            }
+        }
+
+        &[type="99.02.01.07.01.09"] {
+            .locomotion-icon::after {
+                @extend .icon-paddle;
+            }
+        }
+
+        &[type="99.02.01.07.01.01"] {
+            .locomotion-icon::after {
+                @extend .icon-motorcycle;
+            }
+        }
+    }
+
+
+    .trip-length {
+        color: $primary-color;
+        @include header-size(h1);
+        line-height: $font-size-h1;
+        font-weight: 400;
+
+        &__unit {
+            font-weight: 300;
+            @include header-size(h2);
+        }
+    }
+}
+
+// color: $text-muted;

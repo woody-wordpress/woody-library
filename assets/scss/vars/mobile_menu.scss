@@ -1,0 +1,20 @@
+$mobile-title-bar-height:44px !default;
+
+// Style des liens selon leur niveau de pronfondeur
+$mobileLink-depth1-color: $black !default;
+$mobileLink-depth1-font-size: rem-calc(20) !default;
+$mobileLink-depth1-font-weight: regular !default;
+$mobileLink-depth2-color: lighten($black, 20%) !default;
+$mobileLink-depth2-bgcolor: $white !default;
+$mobileLink-depth2-font-family: $body-font-family !default;
+$mobileLink-depth2-font-size: rem-calc(14) !default;
+$mobileLink-depth2-text-transform:none !default;
+$mobileLink-depth2-font-weight: bold !default;
+$mobileLink-depth3-bgcolor: darken($white, 2%) !default;
+$mobileLink-depth3-color: lighten($black, 40%) !default;
+$mobileLink-depth3-font-family: $body-font-family !default;
+$mobileLink-depth3-font-size: rem-calc(13) !default;
+$mobileLink-depth3-text-transform:none !default;
+$mobileLink-depth3-font-weight: normal !default;
+$mobile-menu-overlay-color:rgba($black, .75) !default;
+$mobile-menu-overlay-blur:blur(5px) !default;

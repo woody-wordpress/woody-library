@@ -1,0 +1,14 @@
+{# Extending tpl_1 and override grid part with the right grid #}
+{% extends 'blocks/media_gallery/tpl_101/tpl.twig' %}
+{% block index_class %}tpl_301{% endblock %}
+{% block gallery_grid %}
+    <div class="woodyGallery grid-x small-up-2 medium-up-3 clearing-thumbs{{ gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
+        {% if gallery_items|default %}
+            {% for item in gallery_items %}
+                <div class="cell">
+                    {% include 'cards/media_card/tpl_01/tpl.twig' %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

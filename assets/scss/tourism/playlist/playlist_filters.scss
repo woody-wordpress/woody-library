@@ -1,0 +1,106 @@
+#api_filter {
+    border-right: 1px solid $bdcolor;
+    background: #fff;
+}
+
+.daterangepicker {
+    &:before {
+        display: none;
+    }
+    .calendar {
+        height: auto;
+    }
+    .calendar table tbody tr {
+        background-color: #fff;
+    }
+    .daterangepicker_input {
+        display: none;
+    }
+}
+
+.chosen-container-multi {
+    .chosen-choices {
+        border-radius: 5px;
+        padding: 4px 20px;
+        font-size: 1.1em;
+        font-weight: 500;
+    }
+}
+
+.active-filters-wrapper {
+    background-color: white;
+    border-top: 1px solid $bdcolor;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &>.active-filter {
+        margin: 5px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        overflow: auto;
+        display: inline-flex;
+
+        &>div {
+            padding: 5px 10px;
+            display: inline-flex;
+
+            i {
+                // margin-left: 10px;
+                font-size: $active-filters-font-size;
+                cursor: pointer;
+
+                &:before {
+                    position: relative;
+                }
+            }
+
+            span {
+                margin-right: 10px;
+            }
+        }
+
+        &>.active-filter-name {
+            border: 1px solid $bdcolor;
+            border-right: none;
+        }
+
+        &>.active-filter-value {
+            background-color: $primary-color;
+            align-items: center;
+            color: white;
+        }
+    }
+    .active-filter.geo_bounding_box_ghost {
+        flex-grow: 1;
+        width: 100%;
+        .active-filter-name {
+            flex-grow: 1;
+        }
+    }
+}
+
+#api_filter-header {
+    clear: both;
+
+    >.rc_lego {
+        background-color: $hd-filters-color;
+    }
+}
+
+// #api_filter.show-more {
+//     max-height: 200px;
+//     overflow: hidden;
+//     border-bottom: 1px solid #ddd;
+//     &:after {
+//         position: absolute;
+//         bottom: 0;
+//         left: 50%;
+//         content: '';
+//         width: 50px;
+//         height: 50px;
+//         border: 3px solid #ddd;
+//         margin: 0 -25px;
+//     }
+// }

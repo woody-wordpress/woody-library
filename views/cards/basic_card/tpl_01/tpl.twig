@@ -1,0 +1,67 @@
+<div class="card basicCard {% block index_class %}tpl_01{% endblock %} isRel {{ page_type|default }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
+    {% if item.link.url %}
+        {% if obfuscation %}
+            <span class="card-link obf" data-obf="{{ item.link.url|base64Encode }}" data-target="{{ item.link.target|default('_self') }}">
+            {% else %}
+                <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}">
+                {% endif %}
+
+            {% endif %}
+            {% block card_media_wrapper %}
+                {% if item.img.ID or item.img.url %}
+                    {% include '_objects/imageObject.twig' with {
+                    'img' : item.img,
+                    'image_style' : image_style,
+                    'containerClass' : "cardMediaWrapper"
+                } %}
+                {% elseif item.movie %}
+                    {% include '_objects/videoObject.twig' with {
+                    'movie' : item.movie,
+                    'image_style' : image_style,
+                    'containerClass' : "cardMediaWrapper",
+                    'autoplay': true,
+                    'muted' : true,
+                    'loop': true
+                } %}
+                {% endif %}
+            {% endblock %}
+            <div class="card-section" {% if not desequalize %} data-equalizer-watch {% endif %}>
+                {% block card_terms %}
+                    {% if item.terms|default %}
+                        <div class="card-terms flex-container align-center wrap">
+                            {% for term_key, term in item.terms %}
+                                {% if term.name|default %}
+                                    <span class="card-term {{ term_key }}-term {{ term.slug|default }}" data-term-id="{{ term.term_id|default }}">
+                                        {{ term.name|default }}
+                                    </span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                {% block card_titles %}
+                    {% include '_objects/titlesObject.twig' with {
+                    'titles' : item,
+                    'contextPrefix' : "card",
+                    'ellipsis' : ellipsis|default(180)
+                } %}
+                    {% if display_button|default and ( item.link.link_label|default or item.link.title|default ) %}
+                        <button class="card-button button">
+                            {% if item.link.link_label %}
+                                {{ item.link.link_label }}
+                            {% elseif item.link.title %}
+                                {{ item.link.title }}
+                            {% endif %}
+                        </button>
+                    {% endif %}
+                {% endblock %}
+                {% if item.booking.link %}
+                    <span class="card-bookable">{{ __('Réservable', 'woody_theme') }}</span>
+                {% endif %}
+            </div>
+            {% if obfuscation %}
+            </span>
+    {% elseif item.link.url %}
+        </a>
+    {% endif %}
+</div>

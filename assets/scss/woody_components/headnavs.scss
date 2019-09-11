@@ -1,0 +1,33 @@
+.woody-component-headnavs {
+    @if $headnavs-has-shadow {
+        box-shadow: $headnavs-shadow;
+    }
+    @if $headnavs-autohide {
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        transition: opacity $headnavs-autohide-duration $headnavs-autohide-easing,
+        transform $headnavs-autohide-duration $headnavs-autohide-easing;
+        backface-visibility: hidden;
+        will-change: transform;
+    }
+}
+
+@if $headnavs-autohide {
+    @include breakpoint(large) {
+        body.scrolling-down {
+            .woody-component-headnavs {
+                transform: translateY(-150%);
+                opacity: 0;
+            }
+        }
+
+        body.fullScrolled {
+            .woody-component-headnavs {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    }
+}

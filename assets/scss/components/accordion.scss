@@ -1,0 +1,7 @@
+.accordion-item {
+    &.is-active {
+        .accordion-title {
+            background-color: $accordion-item-background-hover;
+        }
+    }
+}

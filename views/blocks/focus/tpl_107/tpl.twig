@@ -1,0 +1,16 @@
+{% extends '_objects/visualModifier.twig' %}
+{% block content %}
+<div class="woody-component woody-component-focus tpl_107">
+    <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+        {% for item in items %}
+            <div class="cell small-12">
+                {% include "cards/overlayed_card/tpl_03/tpl.twig" with {
+                    'image_style' : 'ratio_16_9',
+                    'page_type' : item.page_type
+                } %}
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

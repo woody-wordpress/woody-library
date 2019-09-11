@@ -1,0 +1,9 @@
+{
+    "approved": false,
+    "name": "Carte Geomap - Template 1",
+    "description": "Carte légère avec image, titre, description et lien (overlay activé par défaut en sass)",
+    "acf_groups": [],
+    "vars":[
+        "item"
+    ]
+}

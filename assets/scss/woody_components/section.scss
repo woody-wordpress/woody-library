@@ -1,0 +1,90 @@
+.section {
+    @include breakpoint(medium down) {
+        @include xy-gutters($gutter-type: padding);
+
+        .section-layout-wrapper>.grid-padding-x>.cell {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    border-left: none !important;
+    border-right: none !important;
+
+    &-header-wrapper {
+        @include xy-gutters($gutters: 60px, $gutter-position: bottom);
+    }
+
+    &-texts {
+        >span {
+            display: block;
+        }
+    }
+
+    &-title,
+    &-pretitle,
+    &-subtitle,
+    &-wicon {
+        line-height: 1em;
+    }
+
+    &-wicon {
+        font-size: rem-calc($section-icon-size);
+    }
+
+    &-title {
+        @extend .h2 !optional;
+    }
+
+    &-pretitle,
+    &-subtitle {
+        @extend .h5 !optional;
+    }
+
+    &-banner-top,
+    &-banner-bottom {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+
+        svg {
+            display: block;
+        }
+
+        rect,
+        circle,
+        path,
+        polygon {
+            fill: $white !important;
+        }
+    }
+
+    &-banner-top {
+        bottom: 100%;
+    }
+
+    &-banner-bottom {
+        top: 100%;
+    }
+
+}
+
+@each $color,
+$hex in $foundation-palette {
+    .section.bg-#{$color} {
+        .section-banner {
+
+            &-top,
+            &-bottom {
+
+                rect,
+                circle,
+                path,
+                polygon {
+                    fill: $hex !important;
+                }
+            }
+        }
+    }
+}

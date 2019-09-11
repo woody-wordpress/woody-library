@@ -1,0 +1,146 @@
+/**
+ * Dynamic Openings
+ */
+
+.dynamic-opening-periods {
+    cursor: pointer;
+
+    span {
+        display: block;
+        text-align: center;
+    }
+
+    .opening-state {
+        @extend ._plu-caps;
+        font-size: 1.2rem;
+
+        .opening-time {
+            color: $text-color;
+            display: block;
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &--text {
+            font-weight: 500;
+        }
+
+        &-opened {
+            color: #2ecc71;
+
+            .opening-state--light {
+                background: #2ecc71;
+            }
+        }
+
+        &-closed {
+            color: #ff1a00;
+
+            .opening-state--light {
+                background: #ff1a00;
+            }
+        }
+
+        &-soon {
+            color: #E47830;
+
+            .opening-state--light {
+                background: #E47830;
+            }
+        }
+
+        &-undefined {
+            color: #b5bdc8;
+
+            .opening-state--light {
+                background: #b5bdc8;
+            }
+        }
+
+        &--light {
+            border-radius: 50%;
+            height: 7px;
+            width: 7px;
+            margin-right: $vr--small;
+            vertical-align: middle;
+
+            animation-duration: 1.2s;
+            animation-name: changeradius;
+            animation-iteration-count: infinite;
+        }
+    }
+}
+
+@keyframes changeradius {
+
+    from,
+    to {
+        box-shadow: 0 0 0px 0px;
+    }
+
+    50% {
+        box-shadow: 0 0 3px 3px;
+    }
+}
+
+.ended-event {
+	.icon{
+        display: none;
+        // display: block;
+        // background: $endedEventColor url('https://api.tourism-system.com/static/assets/images/ended-event.png') no-repeat;
+        // background-position: center 11px;
+        // background-size:55%;
+        // width:55px;
+        // height:55px;
+        // margin:0 auto;
+        // border-radius:50%;
+        // margin-bottom:-7.5px;
+    }
+
+    .text-elements{
+        background-color:white;
+        padding-top: 8px;
+        padding-bottom:28px;
+        text-align: center;
+
+        margin-left: -15px;
+        margin-right: -15px;
+
+        // event + ended
+        .neutral, .red{
+            text-transform:uppercase;
+            font-size:28px;
+            line-height:1;
+            margin:0;
+            padding:8px 0px;
+            text-align:center;
+        }
+
+        //event
+        .red,
+        .neutral{
+            display: inline-block;
+            color:rgba(0,0,0,0.4);
+            border-top: solid 1px rgba(0,0,0,0.1);
+            border-bottom: solid 1px rgba(0,0,0,0.1);
+            // padding:10px 0px;
+            // letter-spacing: 4px;
+            // margin-bottom:3px;
+        }
+        .neutral {
+            display: none;
+        }
+
+        //ended
+        .red{
+            background-color: $endedEventColor;
+            color:white;
+            transform: skewY(-7deg);
+            letter-spacing: 11px;
+            display: block;
+        }
+    }
+}

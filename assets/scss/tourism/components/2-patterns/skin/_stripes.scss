@@ -1,0 +1,27 @@
+.s-stripes {
+    &--contrast {
+        >:nth-child(even) {
+            background: $color-bg;
+        }
+    }
+}
+
+@mixin stripes-even {
+    >:nth-child(even) {
+        background: $color-bg;
+    }
+}
+
+%stripes-even {
+    @include stripes-even;
+}
+
+.stripes-even {
+    @extend %stripes-even;
+}
+
+.stripes-odd {
+    >:nth-child(odd) {
+        background: $color-bg;
+    }
+}

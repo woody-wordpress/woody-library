@@ -1,0 +1,60 @@
+// Number UpDown
+$numberUpDown-button-size : 35px !default;
+$numberUpDown-button-radius : 50% !default;
+$numberUpDown-button-bgcolor : $white !default;
+$numberUpDown-button-color : $black !default;
+$numberUpDown-button-hover-bgcolor : $numberUpDown-button-bgcolor !default;
+$numberUpDown-button-hover-color : $primary-color !default;
+
+// RangeSlider
+$rangeSlider-bar-height: 2px !default;
+$rangeSlider-bar-color : rgba($black, .2) !default;
+$rangeSlider-bar-radius : $rangeSlider-bar-height !default;
+$rangeSlider-handle-size: 16px !default;
+$rangeSlider-handle-radius : 50% !default;
+$rangeSlider-handle-bgcolor: #fff !default;
+$rangeSlider-tooltip-font-size : rem-calc(12) !default;
+$rangeSlider-tooltip-font-weight : bold !default;
+$rangeSlider-tooltip-position : top !default;
+$rangeSlider-tooltip-color : $primary-color !default;
+$rangeSlider-handle-border-width : 2px !default;
+$rangeSlider-handle-border-style : solid !default;
+$rangeSlider-handle-border-color : $primary-color;
+
+//woody-component-list-filter
+$list-filter-label-font-family : $body-font-family !default;
+$list-filter-label-font-size: rem-calc(14) !default;
+$list-filter-label-font-weight: normal !default;
+$list-filter-label-case: uppercase !default;
+$list-filter-label-color: lighten($black, 15%) !default;
+
+$boxes-filter-active-color: $primary-color !default;
+$boxes-filter-active-bgcolor : transparent !default;
+$boxes-filter-button-weight : bold !default;
+
+// Filters button
+$list-filter-submit-bgcolor : transparent !default;
+$list-filter-submit-color : $black !default;
+$list-filter-submit-border-color: $primary-color !default;
+
+// Filters as accordion
+$accordionFilter-color:$primary-color !default;
+$accordionFilter-bgcolor: transparent !default;
+$accordionFilter-border-width: 0 !default;
+$accordionFilter-border-style:solid !default;
+$accordionFilter-border-color: transparent !default;
+$accordionFilter-text-align: center !default;
+$accordionFilter-font-family: $header-font-family !default;
+$accordionFilter-font-weight: bold !default;
+$accordionFilter-text-transform : uppercase !default;
+$accordionFilter-hover-color:$accordionFilter-color !default;
+$accordionFilter-hover-bgcolor: $accordionFilter-bgcolor !default;
+$accordionFilter-results-font-weight:$accordionFilter-font-weight !default;
+$accordionFilter-results-font-family: $accordionFilter-font-family !default;
+$accordionFilter-results-color:lighten($black, 60%) !default;
+
+// Filters as Select
+$selectFilter-font-weight: bold !default;
+$selectFilter-border-color: $primary-color !default;
+$selectFilter-border-width: 2px !default;
+$selectFilter-border-style: solid !default;

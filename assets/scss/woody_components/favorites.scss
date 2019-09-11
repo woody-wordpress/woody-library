@@ -1,0 +1,76 @@
+.woody-component-favorites-block {
+    a {
+        position: relative;
+        padding-right: 4px;
+        color: $favorites-icon-color;
+        display: block;
+        .wicon{
+            display: block;
+        }
+        &:hover {
+            color: $favorites-icon-color;
+
+            .counter {
+                background-color: $favorites-counter-color-hover;
+            }
+        }
+    }
+
+    .wicon::before {
+        font-size: 28px;
+    }
+
+    .counter {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        right: 0;
+        bottom: 5px;
+        text-align: center;
+        font-size: rem-calc(11);
+        color: $white;
+        background-color: $favorites-counter-color;
+        border-radius: 50%;
+    }
+}
+
+// Buttons add/remove from favorites
+.favorites-page-icons {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    font-size: 28px;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    color: $white;
+    background: rgba(0,0,0,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .3s, transform .3s;
+    &:hover{
+        transform: translateY(-2px);
+    }
+
+
+    &.addFavorites {
+        &:hover {
+            background-color: $primary-color;
+        }
+    }
+
+    &.removeFavorites {
+        &:hover {
+            background-color: map-get($foundation-palette, 'alert');
+        }
+    }
+}
+
+#visited-section {
+    .addFavorites {
+        right: 41px;
+    }
+}

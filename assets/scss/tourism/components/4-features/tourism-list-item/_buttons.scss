@@ -1,0 +1,113 @@
+// ACTION BUTTON - ADD TO WISHLIST - GO TO DETAIL ...
+
+.wishlist-button {
+    position: absolute;
+    top: -60px;
+    right: 10px;
+
+    padding: $defMargin;
+    height: 50px;
+    width: 50px;
+    z-index: 10;
+    margin: 0;
+
+    border-radius: 50%;
+    transition: background .3s ease;
+
+    &.itinerary {
+        top: -225%;
+    }
+
+    &:after {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        font-size: 28px;
+        line-height: 50px;
+        text-align: center;
+        color: #FFF;
+        font-weight: normal;
+
+        transition: all .3s ease;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+
+        @extend .icon-font-item;
+        @extend .icon-suitcase;
+    }
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    &.isFaved {
+        background: $primary-color;
+        box-shadow: $defShadowLev1;
+
+        &:after {
+            color: #FFF;
+            text-shadow: none;
+        }
+    }
+}
+
+.sheet-list-item-buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.booking-url {
+    display: block;
+}
+
+.list-website-btn,
+.list-booking-btn {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    line-height: 2;
+
+    background: $primary-color;
+    transition: background .3s $swift-out;
+
+    a {
+        color: #FFF;
+    }
+
+    &:hover {
+        background: darken($primary-color, 5%);
+    }
+}
+
+.list-booking-btn-fixed {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    line-height: 2;
+    display: block;
+
+    background: $primary-color;
+    transition: background .3s $swift-out;
+
+    a {
+        color: #FFF;
+        width: 115%;
+        line-height: 350%;
+        display: block;
+        margin-left: -17px;
+        margin-top: -10px;
+        margin-bottom: -10px;
+    }
+
+    &:hover {
+        background: darken($primary-color, 5%);
+    }
+}
+
+.list-website-btn {
+    opacity: 0.90;
+}

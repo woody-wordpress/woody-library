@@ -1,0 +1,7 @@
+{% set random_number = ''|random_number %}
+<div class="woody-component woody-component-list-filter type-rangeSlider tpl_02" data-step="10" data-caption="€">
+    <label class="filter-label">{{ filter.list_filter_name }}</label>
+    <div id="rangeSlider_{{ random_number }}" class="rangeSlider" data-min="{{ filter.minmax.min }}" data-max="{{ filter.minmax.max }}" data-start="{{ filter.minmax.default_min|default(filter.minmax.min) }}" data-stop="{{ filter.minmax.default_max|default(filter.minmax.max) }}" data-type="price"></div>
+    <input class="price_min" name="trip_price_{{ filter_index }}_min" type="hidden" value="{{ filter.minmax.default_min|default(filter.minmax.min) }}">
+    <input class="price_max" name="trip_price_{{ filter_index }}_max" type="hidden" value="{{ filter.minmax.default_max|default(filter.minmax.max) }}">
+</div>

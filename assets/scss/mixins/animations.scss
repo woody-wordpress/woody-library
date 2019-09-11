@@ -1,0 +1,128 @@
+@mixin slidingBorders($topleftColor : $primary-color, $bottomrightColor : $secondary-color, $borderWidth : 2px) {
+    position: relative;
+
+    &:before,
+    &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        width: calc(100% + #{$borderWidth} * 2);
+        height: calc(100% + #{$borderWidth} * 2);
+        transform: scale(0);
+        transition: transform .3s ease-out;
+    }
+
+    &:before {
+        left: -$borderWidth;
+        top: -$borderWidth;
+        border-left: $borderWidth solid $topleftColor;
+        border-top: $borderWidth solid $topleftColor;
+        transform-origin: top left;
+    }
+
+    &:after {
+        right: -$borderWidth;
+        bottom: -$borderWidth;
+        border-right: $borderWidth solid $bottomrightColor;
+        border-bottom: $borderWidth solid $bottomrightColor;
+        transform-origin: bottom right;
+    }
+
+    &:hover {
+
+        &:before,
+        &:after {
+            transform: scale(1)
+        }
+    }
+}
+
+@mixin tooltip-effect($position, $effect){
+
+    @if $position=='top-left'{
+        @if $effect == 'classic'{
+            transform: translate3d(0,-10px,0);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect == 'getup'{
+            transform-origin: 50% calc(0% + 10px);
+            transform: perspective(1000px) rotate3d(1,0,0,45deg);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect == 'skew'{
+            transform: translate3d(0,10px,0) rotate3d(1,1,0,25deg);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect=='scale'{
+            transform-origin: 10% 10%;
+            transform: scale3d(0.7,0.3,1);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect=='rotate'{
+            transform-origin: 0px calc(0% + 6em);
+            transform: rotate3d(0,0,1,15deg);
+            transition: opacity 0.2s, transform 0.2s;
+            transition-timing-function: ease, cubic-bezier(.17,.67,.4,1.39);
+        }
+    }@else if $position=='top-right'{
+        @if $effect == 'classic'{
+            transform: translate3d(0,-10px,0);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect == 'getup'{
+            transform-origin: 50% calc(0% + 10px);
+            transform: perspective(1000px) rotate3d(1,0,0,45deg);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect == 'skew'{
+            transform: translate3d(0,10px,0) rotate3d(-1,1,0,25deg);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect=='scale'{
+            transform-origin: 90% 10%;
+            transform: scale3d(0.7,0.3,1);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect=='rotate'{
+            transform-origin: 100% 0%;
+            transform: rotate3d(0,0,-1,15deg);
+            transition: opacity 0.2s, transform 0.2s;
+            transition-timing-function: ease, cubic-bezier(.17,.67,.4,1.39);
+        }
+    }@else if $position=='bottom-left'{
+        @if $effect == 'classic'{
+            transform: translate3d(0,10px,0);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect == 'getup'{
+            transform-origin: 50% calc(100% + 10px);
+            transform: perspective(1000px) rotate3d(1,0,0,45deg);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect == 'skew'{
+            transform: translate3d(0,-10px,0) rotate3d(1,-1,0,25deg);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect=='scale'{
+            transform-origin: 10% 90%;
+            transform: scale3d(0.7,0.3,1);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect=='rotate'{
+            transform-origin: 0% 100%;
+            transform: rotate3d(0,0,1,-15deg);
+            transition: opacity 0.2s, transform 0.2s;
+            transition-timing-function: ease, cubic-bezier(.17,.67,.4,1.39);
+        }
+    }@else if $position=='bottom-right'{
+        @if $effect == 'classic'{
+            transform: translate3d(0,10px,0);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect == 'getup'{
+            transform-origin: 50% calc(100% + 10px);
+            transform: perspective(1000px) rotate3d(1,0,0,45deg);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect == 'skew'{
+            transform: translate3d(0,10px,0) rotate3d(-1,-1,0,25deg);
+            transition: opacity 0.3s, transform 0.3s;
+        }@else if $effect=='scale'{
+            transform-origin: 90% 90%;
+            transform: scale3d(0.7,0.3,1);
+            transition: opacity 0.2s, transform 0.2s;
+        }@else if $effect=='rotate'{
+            transform-origin: 100% 100%;
+            transform: rotate3d(0,0,-1,-15deg);
+            transition: opacity 0.2s, transform 0.2s;
+            transition-timing-function: ease, cubic-bezier(.17,.67,.4,1.39);
+        }
+    }
+
+}

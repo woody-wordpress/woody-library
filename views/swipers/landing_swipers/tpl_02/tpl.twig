@@ -1,0 +1,38 @@
+{% set index_class = 'tpl_02' %}
+{% extends 'swipers/landing_swipers/tpl_01/tpl.twig' %}
+{% block landswpr_titles_wrapper %}
+    {% if slide.title or slide.subtitle or slide.pretitle or slide.landswpr_slide_smart_links.links %}
+        <div class="landswpr-titles-wrapper">
+            <div class="grid-container grid-y align-center">
+                {% include '_objects/titlesObject.twig' with {
+                    'titles' : slide,
+                    'contextPrefix' : "landswpr",
+                    'lazy': false,
+                    'textsClasses' : "flex-container flex-dir-column"
+                } %}
+
+                {% if slide.landswpr_slide_smart_links.links|default %}
+                    <div class="landswpr-links-wrapper">
+                        {% for button in slide.landswpr_slide_smart_links.links %}
+                            {% if button.link.url|default %}
+                                <a class="button {{ button.button_size|default('normal') }} landswpr-link" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}">
+                                    <span class="wicon {{ button.button_woody_icon }}"></span>
+                                    {{ button.link.title }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if landswpr_scroll_down %}
+                    {% block scrollDown %}
+                        {% include '_objects/scrolldownObject.twig' with {
+                            target : '#pageSection-0'
+                        } %}
+                    {% endblock %}
+                {% endif %}
+
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

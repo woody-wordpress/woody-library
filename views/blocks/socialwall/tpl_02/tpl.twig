@@ -1,0 +1,61 @@
+<div class="woody-component woody-component-socialwall isRel tpl_02 {{ background_color|default }} {{ border_color|default }} {{ background_img_opacity|default }}{{ background_img ? ' has-bgimg' }}">
+    {% if background_img %}
+    <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+    <div class="content isRel">
+        {% endif %}
+        <div class="gallery-wrapper">
+            <div class="woodyGallery grid-x{{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
+                {# the grid goes here #}
+                <div class="cell">
+                    {% if icon|default or pretitle|default or title|default or subtitle|default or description|default %}
+                    <div class="block-header padd-all-md">
+                        {% include '_objects/titlesObject.twig' with {
+                        'titles' : _context,
+                        'contextPrefix' : "socialwall",
+                        'flexOptions' : "flex-container flex-dir-column align-middle align-center text-center"
+                        } %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="cell large-6">
+                    <div class="grid-x {{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                        <div class="cell medium-4">
+                            <div class="grid-y {{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                                {% for item in gallery_items[:2]%}
+                                <div class="cell">
+                                    {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                                    'containerClass' : "socialwall",
+                                    'reveal': true
+                                    } %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% for item in gallery_items[2:1]%}
+                        <div class="cell medium-8">
+                            {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                            'containerClass' : "socialwall",
+                            'reveal': true
+                            } %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="cell large-6">
+                    <div class="grid-x {{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                        {% for item in gallery_items[3:6]%}
+                        <div class="cell medium-4">
+                            {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                            'containerClass' : "socialwall",
+                            'reveal': true
+                            } %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if background_img %}
+    </div>
+    {% endif %}
+</div>

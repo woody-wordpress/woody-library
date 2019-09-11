@@ -1,0 +1,47 @@
+/**
+ * Global sidebar style
+ */
+.tourism-detail-sidebar {
+
+    .sidebar-default-btn {
+        width: 100%;
+        &:not(:first-child) {
+            margin: $panel-body-padding auto 0 auto;
+        }
+    }
+
+    .tourism-detail-sidebar-list {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+#li-dynamic-openings { order: 0; }
+#li-event-insert { order: 5; }
+#li-city-pass { order: 6; }
+
+#li-booking { order: 10; }
+#li-booking-ingenie { order: 15; }
+#li-fairguest-widget { order: 20; }
+#li-contact-form { order: 25; }
+
+#li-contact-infos { order: 30; }
+#li-contact-infos-owner { order: 31; }
+#li-contact-infos-booking { order: 32; }
+#li-contact-infos-group { order: 33; }
+
+
+#li-social-networks { order: 90; }
+#li-li-sit-source { order: 95; }
+#li-issue-report { order: 100; }
+
+.elloha-layout {
+    #li-contact-infos { order: 10; }
+    #li-contact-infos-owner { order: 11; }
+    #li-contact-infos-booking { order: 12; }
+    #li-contact-infos-group { order: 13; }
+
+    #li-fairguest-widget { order: 25; }
+    #li-booking-elloha { order: 30; }
+}

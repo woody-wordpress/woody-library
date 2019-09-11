@@ -1,0 +1,410 @@
+.central-resa {
+    display: block;
+    overflow: hidden;
+    background: #DDD;
+    color: #333;
+
+    .resa-controls {
+        width: 100%;
+        //background: #E5E5E5;
+        padding: $defContainersPadding;
+        overflow: hidden;
+
+        .controls-manif {
+            display: block;
+            overflow: auto;
+            width: 100%;
+        }
+
+        .datepicker-label {
+            float: left;
+            width: 12%;
+            text-align: center;
+            line-height: 38px;
+
+            &.manif {
+                width: 30%;
+            }
+        }
+
+        .daterange-selector .daterange-item.accordion .day.day,
+        .daterange-selector .daterange-item.accordion .month {
+            border-top-color: #E5E5E5;
+            border-bottom-color: #E5E5E5;
+        }
+
+        .daterange-selector .daterange-item.accordion .day.day:after,
+        .daterange-selector .daterange-item.accordion .day.day:before,
+        .daterange-selector .daterange-item.accordion .month:after,
+        .daterange-selector .daterange-item.accordion .month:before {
+            border-top-color: #E5E5E5;
+            border-bottom-color: #E5E5E5;
+        }
+
+        .datepicker-element {
+            float: left;
+            width: 24%;
+            display: block;
+
+            input {
+                border: 1px solid darken($bdColor, 5%);
+                border-radius: $defRadius;
+                height: auto;
+                padding: 8px 12px;
+                font-weight: bold;
+            }
+        }
+
+        .btn-resa {
+            max-width: 26%;
+            margin: 0 1%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 24px;
+
+            background: #DDD;
+            border-radius: $defRadius;
+        }
+
+    }
+
+    .booking-results-wrapper {
+
+        min-height: 50px;
+
+        .no-avas {
+            text-align: center;
+            margin-top: 30px;
+
+            .comments-icon-image {
+                display: block;
+
+                &:before {
+                    font-size: 5em;
+                    color: #969696;
+                }
+            }
+
+            .text {
+                display: block;
+                color: #333;
+                margin: 30px auto;
+                width: 45%;
+            }
+
+        }
+
+        .booking-result-item {
+            padding: 0;
+            display: table;
+            width: 100%;
+            color: #333;
+
+            background: #FFF;
+            border-bottom: 1px solid darken(#FFF, 5%);
+
+            transition: background .3s ease;
+
+            .result-col {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            &.item-booking {
+                .result-booking {
+                    width: 120px;
+                    padding-right: 15px;
+
+                    .btn {
+                        width: 120px;
+                        padding: 10px;
+                        display: block;
+                        margin: 0 auto;
+
+                        &.btn-danger {
+                            // background: none;
+                            // border: 0;
+                            // color: $invalidColor;
+                            // text-transform: uppercase;
+                            opacity: 1;
+                        }
+
+                        &.btn-neutral {
+                            color: $secTextColor;
+                            font-size: 1em;
+                            border: none;
+                            white-space: normal;
+                            word-break: break-word;
+                        }
+                    }
+                }
+
+                .result-media {
+                    background: #EEEEEE;
+                    width: 70px;
+                    padding-left: 0 !important;
+                    position: relative;
+
+                    &.no-picture {
+                        &:before {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 30px;
+                            height: 30px;
+                            margin-top: -15px;
+                            margin-left: -15px;
+                            z-index: 10;
+
+                            font-size: 30px;
+                            color: #BBB;
+                            text-align: center;
+
+                            @extend .icon-font-item;
+                            @extend .icon-picture;
+
+                        }
+
+                        .rc-img {
+                            display: none !important;
+                        }
+                    }
+
+                    .rc-img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                    }
+
+                    &:after {
+                        content: '';
+                        width: 100%;
+                        display: block;
+                        padding-top: 82%;
+                    }
+
+                }
+
+                .result-type {
+                    font-size: rem-calc(14);
+                    text-align: left;
+                    padding: 0 $defContainersPadding;
+                    .product {
+                        display: block;
+                        &::first-letter{
+                            text-transform: uppercase;
+                        }
+                    }
+
+                    .remaining {
+                        font-size: 0.6em;
+                        display: block;
+                        font-weight: bold;
+
+                        &.warning {
+                            color: $invalidColor;
+                        }
+                    }
+                }
+
+                .result-people {
+                    width: 10%;
+                    color: #666;
+                    text-align: right;
+                }
+
+                .result-date {
+                    width: 10%;
+                    color: #666;
+                    text-align: right;
+                    font-size: 1.2em;
+                }
+
+                .result-price {
+                    width: 20%;
+                    padding: 0 $defContainersPadding;
+                    text-align: right;
+
+                    .crossed-out-price {
+                        color: #AAA;
+                        text-decoration: line-through;
+                        font-size: 0.8em;
+                        padding-right: 10px;
+                    }
+
+                    .price {
+                        color: $primary-color;
+                        font-size: 1.6em;
+
+                        .price-legende {
+                            font-size: 0.5em;
+                            display: block;
+                            color: #AAA;
+                        }
+                    }
+                }
+
+                .result-text {}
+
+                &:last-child {
+                    border: none;
+                }
+
+                &:nth-child(2n) {
+                    background: darken(#FFF, 2%);
+                }
+            }
+        }
+    }
+
+    .resa-table {
+        width: 100%;
+        padding: 0;
+
+        .resa-table-footer-wrapper {
+            height: 50px;
+            background: #DDD;
+            color: #333;
+            display: table;
+
+            .resa-table-footer {
+                display: table-cell;
+                vertical-align: middle;
+
+                .footer-col {
+                    float: left;
+                    padding-top: 10px;
+                    color: #666;
+                }
+
+                .footer-register {
+                    width: 20%;
+                    padding: 0;
+                    padding-top: 3px;
+                    text-align: right;
+                }
+
+                .footer-empty {
+                    width: 80%;
+                    display: block;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+.advanced-mode-switch {
+    display: block;
+    padding: 20px;
+    width: 100%;
+    text-align: right;
+    cursor: pointer;
+    color: darken($primary-color, 10%);
+    font-size: 16px;
+
+    .icon-font-calendar:before {
+        margin-top: 3px;
+        margin-right: 3px;
+        display: inline-block;
+        vertical-align: top;
+        font-size: 16px;
+    }
+
+    &:hover {
+        color: #333;
+    }
+}
+
+.central-manif {
+    $spacing: 35px;
+    padding: 0;
+    margin: 0 auto !important;
+    height: 100%;
+    text-align: center;
+
+    .central-manif-item {
+        height: 100px;
+        width: 96px;
+        display: inline-table;
+        color: #777;
+        padding: 25px 20px;
+        background: #fff;
+        border-left: 1px solid #E5E5E5;
+        cursor: pointer;
+
+        span {
+            display: block;
+            text-align: center;
+            vertical-align: middle;
+            width: 100%;
+
+            &.date {
+                font-size: 2em;
+            }
+        }
+
+        &:hover {
+            background: $primary-color;
+            color: #FFF;
+            border-left: 1px solid #E5E5E5;
+        }
+
+        &.active {
+            background: $primary-color;
+            border: 0;
+            height: 120px;
+            padding-top: 35px;
+            padding-bottom: 35px;
+            color: #FFF;
+        }
+
+        &.disabled {
+            cursor: default;
+            opacity: 0.5;
+            background: #BBB url($stripes);
+            border: 0;
+            color: #777 !important;
+            pointer-events: none;
+        }
+    }
+}
+
+.my-stay-calendar {
+    .glyphicon {
+        right: 10px;
+    }
+}
+
+.people-select {
+    .people-select-wrapper {
+        text-align: center;
+
+        .nb-children,
+        .children-select {
+            margin-top: 20px;
+        }
+    }
+
+    .nya-bs-select {
+        .dropdown-toggle.show-special-title .special-title {
+            display: none;
+        }
+
+        .filter-option {
+            color: #82888a;
+        }
+
+        .btn-default {
+            border: 1px solid #82888a;
+        }
+    }
+
+    .btn-success {
+        margin-top: 20px;
+        border-radius: 0;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,34 @@
+.hero,
+.page-main,
+.section {
+
+    &-pretitle,
+    &-title,
+    &-subtitle,
+    &-description {
+        word-break: break-word;
+        margin-bottom: 0;
+    }
+
+    &-pretitle,
+    &-subtitle {
+        @include xy-gutters($gutter-position: top);
+    }
+
+    &-description {
+        @include xy-gutters($gutters: 50px, $gutter-position: top);
+    }
+}
+
+.mega-title {
+    font-family: $mega-title-font-family;
+    font-size: $mega-title-font-size;
+    font-weight: $mega-title-font-weight;
+    text-transform: $mega-title-text-transform;
+}
+
+.frontpage-htitle {
+    position: absolute;
+    bottom: calc(100% + 300px);
+    margin: 0;
+}

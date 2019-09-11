@@ -1,0 +1,20 @@
+{# FORMAT 4:1 #}
+{% extends "blocks/hero/tpl_01/tpl.twig" %}
+{% block index_class %}tpl_02{% endblock %}
+{% block backgroundimage %}
+    <div class="backgroundMedia" style="background-image: url('{{ page_heading_img.sizes.ratio_4_1 }}'); background-size:cover; background-position:center center;"></div>
+{% endblock %}
+
+{% block heroVideo %}
+    {% include '_objects/videoObject.twig' with {
+        'movie' : page_heading_movie,
+        'image_style' : "ratio_4_1",
+        'containerClass' : "heroMediaWrapper",
+        'ratio' : "4",
+        'autoplay': true,
+        'muted' : true,
+        'loop': true
+    } %}
+{% endblock %}
+
+{% block scrollDown %}{% endblock %}

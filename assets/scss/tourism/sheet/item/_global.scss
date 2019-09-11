@@ -1,0 +1,121 @@
+// DEALS
+.item-deals {
+    display: block;
+    margin: 10px 10px 0px 10px;
+    background-color: #FFF;
+    background-color: transparent;
+}
+
+// WISHICONS
+.wishlist-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    padding: 5px 10px;
+
+    color: #FFF;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform $transition-delay;
+
+    svg {
+        // https://api.tourism-system.com/static/assets/images/058-coeur-inactif.svg
+        // https://api.tourism-system.com/static/assets/images/059-coeur-actif.svg
+        fill: white;
+        width: 100%;
+        height: auto;
+        .svg-heart-circle { fill: $primary-color; }
+    }
+
+    span {
+        font-size: 35px;
+        &.wicon {
+            width: 60px;
+            &>svg { pointer-events: none; }
+        }
+        &.wishOff { display: block; }
+        &.wishOn { display: none; }
+    }
+
+    &.active {
+        animation-name: fave;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+
+        span {
+            font-size: 37px;
+            &.wicon >svg { fill: $primary-color; }
+            &.wishOff { display: none; }
+            &.wishOn { display: block; }
+        }
+    }
+
+    @keyframes fave {
+        0% { transform: scale(0.3); }
+        10% { transform: scale(0); }
+        20% { transform: scale(1.3); }
+        25% { transform: scale(0.8); }
+        35% { transform: scale(1.1); color: #E45C44; }
+        45% { transform: scale(1); }
+        to { color: #E45C44; }
+    }
+}
+
+
+// FAIRGUEST
+.item-infos-fairguest {
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    .top_container {
+        height: 70%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 0 7px;
+        justify-content: center;
+        align-items: center;
+
+        &.fullHeight {
+            height: 100%;
+        }
+
+        .rating {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1;
+            padding: 9px 6px;
+            width: 40px;
+            text-align: center;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .rating_text {
+            font-family: 'Lobster', cursive;
+            font-size: 19px;
+            line-height: 1;
+            font-weight: 500;
+            padding-top: 7px;
+            white-space: nowrap;
+        }
+
+        .rating_count {
+            white-space: nowrap;
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: lowercase;
+            padding-top: 1px;
+            letter-spacing: 0.6px;
+        }
+    }
+}

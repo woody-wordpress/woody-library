@@ -1,0 +1,37 @@
+a[target="_blank"]:after {
+    display: inline-block;
+    margin-left: 2px;
+    font-size: 10px;
+    color: inherit;
+    font-family: "woody-icons";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+    content: '\E02B';
+    line-height: 0;
+    font-size: rem-calc(16);
+    transform: translateY(-2px);
+}
+
+a[target="_blank"].card-link:after {
+    content: none;
+}
+
+p>a[target="_blank"]:after {
+    margin: 0 5px 0 0;
+}
+
+a.no-ext:after {
+    display: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+button:focus,
+a:focus {
+    outline: none !important;
+}

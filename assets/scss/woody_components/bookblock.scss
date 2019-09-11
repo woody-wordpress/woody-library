@@ -1,0 +1,270 @@
+.woody-component-bookblock {
+    .bookblock {
+        &-title {
+            @extend .h3 !optional;
+        }
+
+        &-form {
+            @include breakpoint(xmedium down) {
+                .form-item {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+
+    .dates-input,
+    .pl-select {
+        width: 100%;
+        margin-right: 0;
+
+        @include breakpoint(xmedium) {
+            margin-right: 20px;
+            width: 160px;
+
+        }
+
+        @include breakpoint(large) {
+            width: 180px;
+
+        }
+
+        @include breakpoint(xlarge) {
+            width: 250px;
+
+        }
+    }
+
+    .daterange-input {
+        width: 100%;
+    }
+
+    .dates-input {
+        .wicon {
+            right: 8px;
+            top: 6px;
+            pointer-events: none;
+        }
+    }
+
+    select,
+    input {
+        border: none;
+        margin-bottom: 0;
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
+    }
+
+    .item-counter {
+        @include breakpoint(medium down) {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .label {
+            font-size: rem-calc(14);
+            margin-left: 10px;
+        }
+
+        .item-counter-value {
+            max-width: 45px;
+        }
+    }
+
+    .form-submit {
+        margin-bottom: 0;
+
+        .disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    @each $color,
+    $hex in $foundation-palette {
+        &.bg-#{$color} {
+            label {
+                color: set-color($hex);
+            }
+        }
+    }
+}
+
+.item-counter-button {
+    line-height: 1em;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: rem-calc(20);
+    background-color: $primary-color;
+    color: $white;
+    cursor: pointer;
+
+    &.decre {
+        margin-right: 10px;
+    }
+
+    &.incre {
+        margin-left: 10px;
+    }
+
+    &[disabled="disabled"],
+    &[disabled="true"] {
+        opacity: .3;
+        pointer-events: none;
+    }
+}
+
+.woody-component-bookblock.tpl_01 {
+    .form-submit {
+        margin-left: auto;
+
+        @include breakpoint(medium down) {
+            margin-right: auto;
+        }
+    }
+}
+
+.woody-component-bookblock.tpl_02 {
+    .block-content {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .bookblock-title {
+        margin-bottom: 0;
+
+        @include breakpoint(large down) {
+            @include xy-gutters($gutter-position: bottom);
+            text-align: center;
+            width: 100%;
+        }
+
+        @include breakpoint(large) {
+            max-width: 25%;
+        }
+    }
+}
+
+.woody-component-bookblock.tpl_03 {
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: inner-spin-button;
+        opacity: 0;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: inner-spin-button;
+    }
+
+    .item-counter {
+        @include caret-spin($black, 10px);
+    }
+
+    .dates-input {
+        width: auto;
+    }
+
+    .start-date,
+    .end-date {
+        width: 100%;
+        margin-right: 0;
+
+
+        @include breakpoint(xmedium) {
+            margin-right: 20px;
+            width: 160px;
+        }
+
+        @include breakpoint(large) {
+            width: 180px;
+        }
+
+        @include breakpoint(xlarge) {
+            width: 250px;
+        }
+    }
+
+    .date-input,
+    .pl-select {
+        @include color-caret(rgba($black, .9), 10px, 95%);
+    }
+}
+
+
+.woody-component-bookblock.tabulation {
+    .form-tabs {
+        bottom: 100%;
+        width: 100%;
+        background: $book-tabs-bgcolor;
+        z-index: 1;
+        left: 0;
+
+        .tab-button {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: $book-tab-flex-dir;
+            align-items: $book-tab-flex-align;
+            justify-content: $book-tab-flex-justify;
+            padding: 15px 20px;
+            min-width: 110px;
+            color: $book-tabs-color;
+            cursor: pointer;
+
+            .wicon {
+                font-size: $book-tab-icon-size;
+                margin: $book-tab-icon-margin;
+            }
+
+            &.is-active {
+                background-color: $book-tab-active-bgcolor;
+                color: $book-tab-active-color;
+
+                &:before,
+                &:after {
+                    display: block;
+                    content: '';
+                    position: absolute;
+                }
+
+                &:before {
+                    bottom: 100%;
+                    left: 0;
+                    width: 100%;
+                    height: 10px;
+                    background-color: inherit;
+                }
+
+                &:after {
+                    width: 0;
+                    height: 0;
+                    left: 50%;
+                    top: 100%;
+                    transform: translateX(-50%);
+                    border-style: solid;
+                    border-width: 10px 25px 0 25px;
+                    border-color: $book-tab-active-bgcolor transparent transparent transparent;
+                }
+            }
+        }
+    }
+}

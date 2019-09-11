@@ -1,0 +1,61 @@
+.plo-input-group {
+
+    position: relative;
+    margin-bottom: $vr / 2;
+
+    select,
+    input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    &__input {
+        height: $input-height;
+        max-width: 100%;
+        padding: 0 $input-p--sides;
+        font-weight: $input-fw;
+        color: $input-border;
+        border: $theme-bdw solid $input-border;
+        border-radius: $input-bdrs;
+        background-color: transparent;
+
+        &:focus,
+        &:active {
+            outline: none;
+            color: $input-border-focus;
+            border-color: $input-border-focus;
+
+            &~.plo-input-group__icon,
+            &~.plo-input-group__icon {
+                color: $input-border-focus;
+                opacity: .9;
+            }
+        }
+
+        &:focus~.plo-input-group__label,
+        &:valid~.plo-input-group__label {
+            transform: translateY(-($input-height*.8));
+        }
+
+    }
+
+    &__label {
+        position: absolute;
+        top: 0;
+        left: $input-p--sides;
+        line-height: $input-height;
+        font-weight: $input-fw;
+        color: $input-color;
+        pointer-events: none;
+        transition: .2s ease-out;
+    }
+
+    &--band {
+
+        &,
+        .plo-input-group__input {
+            width: 100%;
+        }
+    }
+}

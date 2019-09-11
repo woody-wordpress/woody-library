@@ -1,0 +1,1071 @@
+// Mixin itself
+@mixin clearfix() {
+    &::after {
+        display: block;
+        content: "";
+        clear: both;
+    }
+}
+
+
+// Magic class hiding content when angular is loading
+.show-when-angular-ready {
+    display: none !important;
+}
+
+/* Small Devices, Tablets & bigger */
+// @media only screen and (min-width : 768px) {
+
+.sticky-element {
+    &.sticky-fixed {
+        position: fixed !important;
+        top: 0;
+    }
+
+    &.sticky-fixed-at-bottom {
+        position: fixed !important;
+        bottom: 0;
+    }
+
+    &.sticky-fixed-bottom-element {
+        position: absolute !important;
+        bottom: 0;
+        right: 0;
+    }
+
+    &.sticky-fixed-bottom {
+        position: absolute !important;
+    }
+
+    &.sticky-bottom:not(#iti-map) {
+        position: fixed;
+        bottom: 0;
+    }
+
+    &.sticky-bottom#iti-map {
+        position: absolute;
+        bottom: 0;
+    }
+
+}
+
+// }
+
+.unstick-element {
+    position: absolute !important;
+    top: 0 !important;
+}
+
+._plu-text-1 {
+    color: $commentColor1;
+}
+
+._plu-text-2 {
+    color: $commentColor2;
+}
+
+._plu-text-3 {
+    color: $commentColor3;
+}
+
+._plu-text-4 {
+    color: $commentColor4;
+}
+
+._plu-text-5 {
+    color: $commentColor5;
+}
+
+._plu-wrapper {
+    padding: $vr;
+}
+
+// Wrappers
+.table-wrapper {
+    display: table;
+    width: 100%;
+}
+
+.cell-wrapper {
+    display: table-cell;
+
+    &.vatop {
+        vertical-align: top;
+    }
+
+    &.vamiddle {
+        vertical-align: middle;
+    }
+
+    &.vabottom {
+        vertical-align: bottom;
+    }
+}
+
+// Pins
+.pinColor {
+    color: $primary-color;
+}
+
+.darkerPinColor {
+    color: darken($primary-color, 5%);
+}
+
+.hoverPinColor {
+    color: #333;
+}
+
+.hoverDarkerPinColor {
+    color: #000;
+}
+
+// MARKER
+.marker-index {
+    color: #000;
+    font-family: $defFonts;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+    margin-top: 2px !important;
+    margin-left: -26px !important;
+    z-index: 2;
+    cursor: pointer;
+
+    &.new {
+        margin-top: 14px !important;
+        margin-left: -39px !important;
+        font-size: 20px;
+
+        .marker-icon {
+            font-size: 22px;
+
+            // TODO clean dat shit man
+            // &.icon-font-itinerary {
+            //     &:before {
+            //         @extend .icon-walking;
+            //     }
+            // }
+        }
+    }
+}
+
+.map-canvas {
+    .cluster {
+        div {
+            color: #FFF !important;
+            font-weight: bold !important;
+            font-size: 15px !important;
+
+            &:before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: '';
+                display: block;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                border-radius: 50%;
+                background: $primary-color;
+                border: 2px solid #FFF;
+                box-shadow: 0px 3px 12px #333;
+            }
+        }
+
+        img {
+            display: none;
+        }
+    }
+}
+
+.marker-icon {
+    line-height: 25px;
+    font-size: 16px;
+}
+
+.marker-middle {
+    background: #FFF;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+
+    margin-top: -12px !important;
+    margin-left: -7px !important;
+}
+
+.marker-shadow {
+    background: transparent;
+    display: block;
+    height: 4px;
+    width: 12px;
+    box-shadow: 0px 30px 6px #333;
+    position: absolute;
+    margin-left: 21px;
+    margin-top: -36px;
+}
+
+div:not(.leaflet-marker-icon)>.rich-marker {
+    z-index: 2;
+    position: relative;
+    cursor: pointer;
+
+    &.secondary {
+        &:hover {
+            z-index: 2;
+
+            path {
+                transition: all .3s ease;
+                fill: #555;
+            }
+        }
+    }
+}
+
+// CHECKED
+.isChecked {
+    .check {
+        background: $primary-color;
+        border-radius: 50%;
+        position: absolute;
+        height: 17px;
+        width: 17px;
+        right: -6px;
+        top: -6px;
+
+        &:after {
+            font-weight: normal;
+            font-family: $iconFont;
+            line-height: 1;
+            font-size: 12px;
+            color: #FFF;
+            position: absolute;
+            top: 2px;
+            right: 1px;
+            display: block;
+            @extend .icon-tick;
+        }
+
+    }
+}
+
+
+// CHECKBOXES
+
+[class^="cb-icon-"],
+[class*=" cb-icon-"] {
+    background-image: none;
+}
+
+.button-checkbox {
+    .btn {
+        &.checkbox-btn {
+
+            padding: 0;
+            display: block;
+            background: #FFF;
+            border-radius: 1px;
+            border: 1px solid #DDD;
+            position: relative;
+            width: 18px;
+            height: 18px;
+
+            .btn-checked {
+                width: 16px;
+                height: 16px;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+
+                &:after {
+                    color: #666;
+                    font-size: 10px;
+                    line-height: 16px;
+                    vertical-align: top;
+
+                    @extend .icon-font-item;
+                    @extend .icon-tick;
+                }
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+        }
+    }
+
+    &.type-valid {
+        .btn.checkbox-btn {
+            .btn-checked {
+                top: -1px;
+                left: 2px;
+
+                &:after {
+                    color: $validColor;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+// SLIDERS NAVS
+
+.slider-nav-item {
+    font-weight: normal;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -11px;
+    margin-top: -11px;
+
+    width: 23px;
+    height: 23px;
+
+    color: #A2A2A2;
+
+    font-size: 23px;
+
+    @extend .icon-font-item;
+    @extend .icon-nav-next;
+}
+
+// MODALS
+.modal {
+    z-index: 3600 !important;
+}
+
+.modal-backdrop {
+    z-index: 3500 !important;
+    background: #000;
+
+    &.in {
+        opacity: 0.8;
+    }
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    box-shadow: $defWindowShadow;
+
+    .modal-window {
+        padding: $defContainersPadding;
+    }
+}
+
+.valign-modal .modal-dialog {
+    transform: translateY(50%) !important;
+
+    .btn-success {
+        width: auto !important;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    z-index: 50;
+    cursor: pointer;
+    background: #EAEAEA;
+
+    &:after {
+        font-size: 12px;
+        line-height: 50px;
+        text-align: center;
+        color: #727272;
+
+        @extend .icon-font-item;
+        @extend .icon-suppr;
+    }
+
+    &:hover {
+        background-color: darken(#EAEAEA, 2%);
+    }
+}
+
+.login-modal {
+
+    .modal-dialog {
+        width: 460px;
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: $defShadowLev2;
+
+            .modal-window {
+                padding: 0;
+            }
+        }
+    }
+}
+
+// VALID BTN
+
+.valid-btn {
+    color: #FFF;
+    background: $primary-color;
+    border-radius: $defRadius;
+    text-align: center;
+    border: none;
+    position: relative;
+    padding: 9px 3 * $defPadding;
+    font-weight: 300;
+    font-size: 15/13em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    transition: all .3s ease;
+
+    &:hover {
+        background: darken($primary-color, 5%);
+        box-shadow: 0 0 30px 0px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.cancel-btn {
+    color: $defTextColor;
+    background: $blocsBg;
+    border-radius: $defRadius;
+    text-align: center;
+    border: none;
+    position: relative;
+    padding: 9px 3 * $defPadding;
+    font-weight: 300;
+    font-size: 15/13em;
+    cursor: pointer;
+
+    transition: all .3s ease;
+
+    &:hover {
+        background: darken($blocsBg, 5%);
+        box-shadow: 0 0 30px 0px rgba(255, 255, 255, 0.3);
+    }
+}
+
+ul[datepicker-popup-wrap] {
+    font-family: $defFonts;
+    padding: $defPadding;
+    border-radius: 0;
+    margin-top: 1px;
+    border: none;
+    max-width: 340px;
+
+    *:focus {
+        outline: none !important;
+    }
+
+    th {
+        font-size: .8em;
+        text-transform: uppercase;
+        font-weight: 300;
+        color: #ACACAC;
+
+        button {
+
+            &:hover,
+            &:focus {
+                background-color: transparent;
+            }
+        }
+
+        strong {
+            font-size: 1.8em;
+            font-weight: 300;
+            text-transform: capitalize;
+        }
+    }
+
+    td {
+        border: $bdWidth solid lighten($bdColor, 5%);
+
+        button {
+            span {
+                color: #000;
+                font-weight: 500;
+                font-size: 1.1em;
+
+                &.text-muted {
+                    font-weight: 300;
+                    color: #DADADA;
+                }
+            }
+
+            &.active {
+                background-color: transparent;
+                box-shadow: none;
+
+                span {
+                    font-weight: bold;
+                    color: $primary-color;
+                }
+            }
+
+            &[disabled] {
+                background: #F3F3F3;
+
+                span {
+                    font-weight: 300;
+                }
+
+                &.active {
+                    background: #F3F3F3;
+
+                    span {
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            &.btn-info {
+                background: #333 !important;
+
+                span {
+                    color: #FFF;
+                }
+            }
+        }
+    }
+
+    button {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: $padding-small-vertical $padding-small-horizontal !important;
+    }
+
+    .h6 {
+        border: none;
+
+        em {
+            font-style: normal;
+            font-weight: 300;
+            font-size: .8em;
+            color: #ACACAC;
+        }
+    }
+}
+
+.dropdown-select {
+    .bootstrap-select.btn-group {
+        width: 100%;
+
+        button.selectpicker {
+
+            border-radius: $fieldsRadius;
+            box-shadow: none;
+            padding: 12px;
+            border: none;
+            height: $fieldsHeight;
+            padding-right: 40px;
+            font-weight: 300;
+
+            .filter-option {
+                line-height: 1;
+                overflow: visible;
+                text-align: left;
+            }
+
+            .caret {
+                position: absolute;
+                right: 14px;
+                top: 18px;
+                line-height: 1em;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 35px;
+                height: 100%;
+                width: 1px;
+                background: #DDD;
+            }
+        }
+
+        i {
+            color: $validColor;
+
+            &:before {
+                margin-top: 8px;
+                @extend .icon-font-item;
+                @extend .icon-tick;
+            }
+        }
+
+        *:focus {
+            outline: none !important;
+        }
+
+        &.open {
+            button.selectpicker {
+                border-radius: $fieldsRadius $fieldsRadius 0 0;
+            }
+
+        }
+
+        .dropdown-menu {
+            border-radius: 0;
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown-menu li>a {
+            text-align: left;
+            padding: $defPadding 2 * $defPadding;
+        }
+    }
+}
+
+
+// SELECTS
+.common-select {
+    padding: .5 * $defPadding $defPadding;
+    border-radius: $fieldsRadius;
+    border: $fieldsBorder;
+}
+
+// FULLSCREEN BTN
+.fullscreen_control_wrapper {
+    background: #FFF;
+    position: absolute;
+    top: 15px !important;
+    right: 15px !important;
+    width: 32px;
+    height: 32px;
+    border: 1px solid $bdColor;
+
+    cursor: pointer;
+
+    .fullscreen_control_text {
+        display: none;
+    }
+
+    &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #999;
+        font-size: 16px;
+        text-align: center;
+        line-height: 30px;
+        @extend .icon-font-item;
+        @extend .icon-zoom-in;
+    }
+
+    &:hover {
+        border-color: $primary-color;
+
+        &:after {
+            color: $primary-color;
+        }
+    }
+}
+
+// SCROLLBARS
+.ps-container .ps-scrollbar-y {
+    opacity: 1;
+    border-radius: 4px;
+}
+
+.ps-container .ps-scrollbar-y-rail {
+    border-radius: 4px;
+}
+
+.ps-container .ps-scrollbar-y-rail:hover,
+.ps-container .ps-scrollbar-y-rail.hover,
+.ps-container .ps-scrollbar-y-rail.in-scrolling {
+    background: rgba(255, 255, 255, .2);
+}
+
+.ps-container .ps-scrollbar-y-rail {
+    opacity: .2;
+}
+
+.ps-container:hover .ps-scrollbar-y-rail,
+.ps-container.hover .ps-scrollbar-y-rail {
+    opacity: .4;
+}
+
+.ps-container .ps-scrollbar-y-rail:hover,
+.ps-container .ps-scrollbar-y-rail.hover {
+    opacity: .9;
+}
+
+// MEDIA ELEMENT
+.mejs-offscreen {
+    display: none;
+}
+
+.mejs-container {
+    outline: none;
+
+    .mejs-controls {
+        background: rgba(0, 0, 0, 0.7);
+
+        .mejs-horizontal-volume-slider {
+            div {
+                border-radius: 0;
+            }
+
+            .mejs-horizontal-volume-current {
+                background: $primary-color;
+            }
+        }
+
+        .mejs-time-rail {
+            span {
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .mejs-time-total {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .mejs-time-loaded {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .mejs-time-current {
+                background: $primary-color;
+            }
+
+            .mejs-time-float {
+                width: 38px;
+                height: 38px;
+                top: -47px;
+                border-radius: 50%;
+                background: transparent;
+                border: 3px solid $primary-color;
+                box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+                background: rgba(255, 255, 255, 0.6);
+            }
+
+            .mejs-time-float-current {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                line-height: 32px;
+                text-align: center;
+
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .mejs-time-float-corner {
+                bottom: -12px;
+                left: 50%;
+                margin-left: -5px;
+                top: auto;
+                border-top-color: $primary-color;
+            }
+
+        }
+    }
+
+    &.mejs-audio {
+        border-radius: 3px;
+        background-color: transparent;
+
+        .mejs-controls {
+            background: #000;
+        }
+    }
+
+}
+
+.warning-icon {
+    &:before {
+        float: left;
+        display: inline-block;
+        margin-right: $defMargin;
+        width: 32px;
+        height: 32px;
+        font-size: 30px;
+        line-height: 32px;
+        color: $invalidColor;
+        @extend .icon-font-item;
+        @extend .icon-warning;
+    }
+}
+
+// USER AVATAR
+@media screen {
+    .avatar-wrapper {
+        width: 140px;
+        height: 140px;
+        display: block;
+        margin: $defMargin auto;
+
+        .avatar-image {
+            float: left;
+            width: 100%;
+            height: 100%;
+
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid #FFF;
+
+            &:after {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 2;
+
+                box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+            }
+
+            .rc-img {
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+// CARD
+.card-item {
+    background: #FFF;
+    border: 1px solid #D7D7D7;
+    box-shadow: $softShadow;
+    border-radius: $defRadius;
+    padding: $defContainersPadding;
+}
+
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+// ALERT WINDOW
+.alert-window-wrapper {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+
+    .alert-window {
+        position: absolute;
+        top: 200px;
+        width: 80%;
+        margin-left: 10%;
+        background: #FFF;
+        color: $secTextColor;
+        padding: 2 * $defContainersPadding;
+        font-weight: 300;
+
+        h2 {
+            font-weight: 100;
+            margin-top: 0;
+            color: $defTextColor;
+            margin-bottom: 2 * $defMargin;
+            @extend .warning-icon;
+        }
+    }
+}
+
+.warning-icon {
+    &:before {
+        float: left;
+        display: inline-block;
+        margin-right: $defMargin;
+        width: 32px;
+        height: 32px;
+        font-size: 30px;
+        line-height: 32px;
+        color: $invalidColor;
+        @extend .icon-font-item;
+        @extend .icon-warning;
+    }
+}
+
+.conf-status-wrapper {
+    position: absolute;
+    top: 0;
+    transition: all 1s 1s;
+    background: #FFF;
+    color: #333;
+
+    box-shadow: $softShadow;
+
+    z-index: 12;
+    line-height: 1;
+
+    &:hover {
+        opacity: 1;
+        text-decoration: none;
+    }
+
+    .conf-status {
+
+        float: left;
+
+        z-index: 999;
+        cursor: pointer;
+
+        white-space: nowrap;
+
+        color: inherit;
+
+        .desti {
+            text-transform: capitalize;
+        }
+
+        span {
+            float: left;
+            padding: 16px;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        .icon-font-menu {
+            padding: 15px;
+            font-size: 16px;
+            border-right: none;
+
+            transition: all .5s ease;
+
+            &:before {
+                display: block;
+            }
+
+            &:hover {
+                color: #FFF;
+                background: $primary-color;
+                border-color: $primary-color;
+            }
+        }
+    }
+
+    .playlists-switch {
+        background: rgba(0, 0, 0, 0.1);
+        width: auto;
+        z-index: 999;
+        padding: 7px;
+        white-space: nowrap;
+        vertical-align: top;
+
+        .btn {
+            background: transparent;
+            border: none;
+            float: left;
+            padding: 6px 15px;
+
+            border-radius: 2px !important;
+
+            &:hover {
+                box-shadow: $softShadow;
+                background: #FFF;
+                color: #000;
+            }
+        }
+
+        .dropdown-menu li {
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+}
+
+// Centered container element
+@mixin container-fixed($gutter: $grid-gutter-width) {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: floor(($gutter / 2));
+    padding-right: ceil(($gutter / 2));
+    @include clearfix;
+}
+
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+.container {
+    @include container-fixed;
+
+    @media (min-width: $ts_screen-sm-min) {
+        width: $container-sm;
+    }
+
+    @media (min-width: $ts_screen-md-min) {
+        width: $container-md;
+    }
+
+    @media (min-width: $ts_screen-lg-min) {
+        width: $container-lg;
+    }
+}
+
+
+// Fluid container
+//
+// Utilizes the mixin meant for fixed width containers, but without any defined
+// width for fluid, full width layouts.
+
+.container-fluid {
+    @include container-fixed;
+}
+
+&>.modal,
+.main-tourism-wrapper {
+
+    a[target="_blank"]:after {
+        content: none;
+    }
+
+    .badge {
+        border-radius: 10px;
+    }
+
+    .wrap-date input {
+        font-size: 1em;
+        margin: 0;
+    }
+
+    [type='text'],
+    [type='password'],
+    [type='date'],
+    [type='datetime'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='week'],
+    [type='email'],
+    [type='number'],
+    [type='search'],
+    [type='tel'],
+    [type='time'],
+    [type='url'],
+    [type='color'],
+    textarea,
+    .pagination li,
+    label {
+        font-size: 1em;
+    }
+}

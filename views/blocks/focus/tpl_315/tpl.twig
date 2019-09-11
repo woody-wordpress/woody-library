@@ -1,0 +1,52 @@
+{% if no_padding == 0 %}{% set spaceBetween = 30 %}
+{% else %}{% set spaceBetween = 0 %}
+{% endif %}
+
+{% extends '_objects/visualModifier.twig' %}
+{% block content %}
+<div class="woody-component woody-component-focus tpl_315{{ items|length > 3 ? ' isRel swiperOut' : ' swResp' }}">
+    {% if items|length == 1 %}
+        {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
+            'items' : items,
+            'card' : "overlayed_card/tpl_01",
+            'image_style' : "ratio_4_3"
+        } %}
+    {% elseif items|length == 2 %}
+        {% include 'lists/bases_grid/tpl_201/tpl.twig' with {
+            'items' : items,
+            'card' : "overlayed_card/tpl_01",
+            'image_style' : "ratio_4_3",
+            'swResp' : true
+        } %}
+    {% elseif items|length == 3 %}
+        {% include 'lists/bases_grid/tpl_301/tpl.twig' with {
+            'items' : items,
+            'card' : "overlayed_card/tpl_01",
+            'image_style' : "ratio_4_3",
+            'swResp' : true
+        } %}
+    {% elseif items|length > 3 %}
+        {% set swiper_options = {
+            'slidesPerView' : 3,
+            'spaceBetween' : spaceBetween,
+            'centeredSlides': false,
+            'breakpoints' : {
+                1024 : {
+                    'slidesPerView' : 2,
+                },
+                767 : {
+                    'slidesPerView' : 1,
+                },
+            }
+        }%}
+        {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
+        {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
+            'items' : items,
+            'image_style' : "ratio_4_3",
+            'card' : "overlayed_card/tpl_01",
+            'swiper_options' : json_swiper_options
+        } %}
+    {% endif %}
+
+</div>
+{% endblock %}

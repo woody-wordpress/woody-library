@@ -1,0 +1,327 @@
+// $infos-height: 64px;
+
+// $locomotion-height: 40px;
+
+// $town-height: 30px;
+// $type-height: 12px;
+// $description-height: 55px;
+// $address-height: 36px;
+// $phone-height: 18px;
+
+// $extra-height: 40px;
+
+// .addProp($height) {
+//     &.tourism-item-type-ITI {
+//         $d: $infos-height + $locomotion-height;
+
+//         &:after { padding-top: ~"calc(${defFicheHeight} - 10px + ${locomotion-height})"; padding-bottom: 7px;}
+
+//         .item-image-wrapper { height: ~"calc(100% - (${d} + ${height}))"; }
+//         .item-infos { min-height: $d + $height; }
+//     }
+//     &.tourism-item-type-FMA {
+
+//         &:not(.image-landscape) {
+//             &:after { padding-top: ~"calc(${defFicheHeightAgenda} + ${height})"; }
+//         }
+//         &.image-landscape {
+//             &:after { padding-top: ~"calc(${defFicheHeight} + ${height})"; }
+//         }
+
+//         .item-image-wrapper { height: ~"calc(100% - (${infos-height} + ${height}))"; }
+//         .item-infos { min-height: $infos-height + $height; }
+//     }
+//     &:not(.tourism-item-type-FMA):not(.tourism-item-type-ITI):not(.deal-item):not(.search-item) {
+//         &:after { padding-top: ~"calc(${defFicheHeight} + ${height})"; }
+//         .item-image-wrapper { height: ~"calc(100% - (${infos-height} + ${height}))"; }
+//         .item-infos { min-height: $infos-height + $height; }
+//     }
+// }
+
+// .addProp(0px);
+
+// // For Deals Only
+// &.deal-item:not(.kaarousel-slide) {
+//     $d: $infos-height + 245px;
+
+//     &:after { padding-top: ~"calc(${defFicheHeight} + 245px)"; }
+
+//     .item-image-wrapper { height: ~"calc(100% - ${d})"; }
+//     .item-infos { min-height: $d; }
+// }
+// &.deal-item.kaarousel-slide {
+//     $d: $infos-height;
+
+//     &:after { padding-top: ~"calc(${defFicheHeight})"; }
+
+//     .item-image-wrapper { height: ~"calc(100% - ${d})"; }
+//     .item-infos { min-height: $d; }
+// }
+
+// &.display-type {
+//     $h1: $type-height;
+//     .addProp($h1);
+
+//     &.display-town {
+//         $h2: $h1 + $town-height;
+//         .addProp($h2);
+
+//         &.display-description {
+//             $h3: $h2 + $description-height;
+//             .addProp($h3);
+
+//             &.display-address {
+//                 $h4: $h3 + $address-height;
+//                 .addProp($h4);
+
+//                 &.display-phone {
+//                     $h5: $h4 + $phone-height;
+//                     .addProp($h5);
+
+//                     &.extra-height-level-1 {
+//                         $h6: $h5 + $extra-height;
+//                         .addProp($h6);
+//                     }
+//                     &.extra-height-level-2 {
+//                         $h6: $h5 + ( 2 * $extra-height );
+//                         .addProp($h6);
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     &.display-description {
+//         $h2: $h1 + $description-height;
+//         .addProp($h2);
+
+//         &.display-address {
+//             $h3: $h2 + $address-height;
+//             .addProp($h3);
+
+//             &.display-phone {
+//                 $h4: $h3 + $phone-height;
+//                 .addProp($h4);
+
+//                 &.extra-height-level-1 {
+//                     $h5: $h4 + $extra-height;
+//                     .addProp($h5);
+//                 }
+//                 &.extra-height-level-2 {
+//                     $h5: $h4 + ( 2 * $extra-height );
+//                     .addProp($h5);
+//                 }
+//             }
+//         }
+//     }
+//     &.display-address {
+//         $h2: $h1 + $address-height;
+//         .addProp($h2);
+
+//         &.display-phone {
+//             $h3: $h2 + $phone-height;
+//             .addProp($h3);
+
+//             &.extra-height-level-1 {
+//                 $h4: $h3 + $extra-height;
+//                 .addProp($h4);
+//             }
+//             &.extra-height-level-2 {
+//                 $h4: $h3 + ( 2 * $extra-height );
+//                 .addProp($h4);
+//             }
+//         }
+//     }
+//     &.display-phone {
+//         $h2: $h1 + $phone-height;
+//         .addProp($h2);
+
+//         &.extra-height-level-1 {
+//             $h3: $h2 + $extra-height;
+//             .addProp($h3);
+//         }
+//         &.extra-height-level-2 {
+//             $h3: $h2 + ( 2 * $extra-height );
+//             .addProp($h3);
+//         }
+//     }
+//     &.extra-height-level-1 {
+//         $h2: $h1 + $extra-height;
+//         .addProp($h2);
+//     }
+//     &.extra-height-level-2 {
+//         $h2: $h1 + ( 2 * $extra-height );
+//         .addProp($h2);
+//     }
+// }
+
+// &.display-town {
+//     $h1: $town-height;
+//     .addProp($h1);
+
+//     &.display-description {
+//         $h2: $h1 + $description-height;
+//         .addProp($h2);
+
+//         &.display-address {
+//             $h3: $h2 + $address-height;
+//             .addProp($h3);
+
+//             &.display-phone {
+//                 $h4: $h3 + $phone-height;
+//                 .addProp($h4);
+
+//                 &.extra-height-level-1 {
+//                     $h5: $h4 + $extra-height;
+//                     .addProp($h5);
+//                 }
+//                 &.extra-height-level-2 {
+//                     $h5: $h4 + ( 2 * $extra-height );
+//                     .addProp($h5);
+//                 }
+//             }
+//         }
+//     }
+//     &.display-address {
+//         $h2: $h1 + $address-height;
+//         .addProp($h2);
+
+//         &.display-phone {
+//             $h3: $h2 + $phone-height;
+//             .addProp($h3);
+
+//             &.extra-height-level-1 {
+//                 $h4: $h3 + $extra-height;
+//                 .addProp($h4);
+//             }
+//             &.extra-height-level-2 {
+//                 $h4: $h3 + ( 2 * $extra-height );
+//                 .addProp($h4);
+//             }
+//         }
+//     }
+//     &.display-phone {
+//         $h2: $h1 + $phone-height;
+//         .addProp($h2);
+
+//         &.extra-height-level-1 {
+//             $h3: $h2 + $extra-height;
+//             .addProp($h3);
+//         }
+//         &.extra-height-level-2 {
+//             $h3: $h2 + ( 2 * $extra-height );
+//             .addProp($h3);
+//         }
+//     }
+//     &.extra-height-level-1 {
+//         $h2: $h1 + $extra-height;
+//         .addProp($h2);
+//     }
+//     &.extra-height-level-2 {
+//         $h2: $h1 + ( 2 * $extra-height );
+//         .addProp($h2);
+//     }
+// }
+
+// &.display-description {
+//     $h1: $description-height;
+//     .addProp($h1);
+
+//     &.display-address {
+//         $h2: $h1 + $address-height;
+//         .addProp($h2);
+
+//         &.display-phone {
+//             $h3: $h2 + $phone-height;
+//             .addProp($h3);
+
+//             &.extra-height-level-1 {
+//                 $h4: $h3 + $extra-height;
+//                 .addProp($h4);
+//             }
+//             &.extra-height-level-2 {
+//                 $h4: $h3 + ( 2 * $extra-height );
+//                 .addProp($h4);
+//             }
+//         }
+//     }
+//     &.display-phone {
+//         $h2: $h1 + $phone-height;
+//         .addProp($h2);
+
+//         &.extra-height-level-1 {
+//             $h3: $h2 + $extra-height;
+//             .addProp($h3);
+//         }
+//         &.extra-height-level-2 {
+//             $h3: $h2 + ( 2 * $extra-height );
+//             .addProp($h3);
+//         }
+//     }
+//     &.extra-height-level-1 {
+//         $h2: $h1 + $extra-height;
+//         .addProp($h2);
+//     }
+//     &.extra-height-level-2 {
+//         $h2: $h1 + ( 2 * $extra-height );
+//         .addProp($h2);
+//     }
+// }
+
+// &.display-address {
+//     $h1: $address-height;
+//     .addProp($h1);
+
+//     &.display-phone {
+//         $h2: $h1 + $phone-height;
+//         .addProp($h2);
+
+//         &.extra-height-level-1 {
+//             $h3: $h2 + $extra-height;
+//             .addProp($h3);
+//         }
+//         &.extra-height-level-2 {
+//             $h3: $h2 + ( 2 * $extra-height );
+//             .addProp($h3);
+//         }
+//     }
+//     &.extra-height-level-1 {
+//         $h2: $h1 + $extra-height;
+//         .addProp($h2);
+//     }
+//     &.extra-height-level-2 {
+//         $h2: $h1 + ( 2 * $extra-height );
+//         .addProp($h2);
+//     }
+// }
+
+// &.display-phone {
+//     $h1: $phone-height;
+//     .addProp($h1);
+
+//     &.extra-height-level-1 {
+//         $h2: $h1 + $extra-height;
+//         .addProp($h2);
+//     }
+//     &.extra-height-level-2 {
+//         $h2: $h1 + ( 2 * $extra-height );
+//         .addProp($h2);
+//     }
+// }
+
+// &.extra-height-level-1 {
+//     $h1: $extra-height;
+//     .addProp($h1);
+
+//     .item-infos {
+//         padding-bottom: $h1;
+//     }
+// }
+
+// &.extra-height-level-2 {
+//     $h1: 2 * $extra-height;
+//     .addProp($h1);
+
+//     .item-infos {
+//         padding-bottom: $h1;
+//     }
+// }

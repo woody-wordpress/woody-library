@@ -1,0 +1,15 @@
+$bordered-button-border-style : solid !default;
+$bordered-button-border-width : 2px !default;
+$submit-bgcolor:transparent !default;
+$submit-color:$black !default;
+$submit-border-style:$bordered-button-border-style !default;
+$submit-border-width:$bordered-button-border-width !default;
+$submit-border-color:$primary-color !default;
+
+$button-icon-font-size : rem-calc(24) !default;
+
+$reset-color:lighten($black, 60%) !default;
+$reset-border-style:$bordered-button-border-style !default;
+$reset-border-width:$bordered-button-border-width !default;
+$reset-border-color:lighten($black, 60%) !default;
+$reset-bgcolor:transparent;

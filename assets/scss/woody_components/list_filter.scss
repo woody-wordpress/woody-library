@@ -1,0 +1,120 @@
+.woody-component-list-filter {
+
+    .filter-label {
+        font-weight: $list-filter-label-font-weight;
+        font-size: $list-filter-label-font-size;
+        font-family: $list-filter-label-font-family;
+        color: $list-filter-label-color;
+        text-transform: $list-filter-label-case;
+    }
+
+    .button_boxinside {
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            display: none;
+
+            &:checked~.button {
+                color: $boxes-filter-active-color;
+                background-color: $boxes-filter-active-bgcolor;
+                border-color: $boxes-filter-active-color !important;
+            }
+        }
+
+        .button:hover {
+            color: $boxes-filter-active-color;
+        }
+
+        .button {
+            margin: 0 0 5px 0;
+            font-weight: $boxes-filter-button-weight;
+            transition: color .3s, border .3s, background-color .3s;
+        }
+
+        &:not(:nth-last-of-type(1)) {
+            margin-right: 5px;
+        }
+    }
+
+    // Reset select
+    select {
+        font-weight: $selectFilter-font-weight;
+        padding: 0 2rem 0 0;
+        margin: 0;
+        border: none;
+        border-bottom-width: $selectFilter-border-width;
+        border-bottom-color: $selectFilter-border-color;
+        border-bottom-style: $selectFilter-border-style;
+        background: transparent;
+        @include color-caret(rgba($list-filter-label-color, .9), 10px);
+        background-position: 100% 100%;
+        background-repeat: no-repeat;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        &:active,
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}
+
+.woody-component-filters-wrapper {
+    @include breakpoint(large down) {
+        padding: 0;
+    }
+
+    &.vertical-filters {
+        @include xy-gutters($gutter-position: top);
+
+        .form-actions {
+            margin-top: 50px;
+        }
+
+        .filter-item {
+            margin-bottom: 30px;
+        }
+
+        .woody-component-list-filter {
+            .filter-label {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+body.ajaxload {
+    &:after {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        content: '';
+        display: flex;
+        z-index: 1000;
+        background: url('../img/ajaxloader.gif') center center no-repeat rgba($white, 0.95);
+    }
+}
+
+
+.bg {
+
+    @each $color,
+    $hex in $foundation-palette {
+        &-#{$color} {
+            .woody-component-list-filter {
+                .button_boxinside {
+                    .button {
+                        color: set-color($hex);
+
+                        @if $color==lightgray {
+                            border-color: rgba(set-color($hex), .2) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

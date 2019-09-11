@@ -1,0 +1,50 @@
+.markerObject {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: $markerObjectSize;
+
+    &-button {
+        position: relative;
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    svg {
+        fill: $markerObject-color;
+        filter: drop-shadow(0px 14px 7px rgba(0, 0, 0, .15));
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .wicon {
+        position: absolute;
+        top: $markerObject-icon-top;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: $markerObject-icon-font-size;
+    }
+
+    .circle {
+        position: relative;
+        display: block;
+        width: $markerObject-circle-size;
+        height: $markerObject-circle-size;
+
+        &:after {
+            display: block;
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%) scale(2);
+            background-color: inherit;
+            opacity: .3;
+            border-radius: 50%;
+        }
+    }
+}

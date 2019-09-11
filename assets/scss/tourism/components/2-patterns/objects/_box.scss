@@ -1,0 +1,50 @@
+/*------------------------------------*\
+    - BOX
+\*------------------------------------*/
+/**
+ * Creates a responsive box,
+ * which's height is based on width
+ */
+.plo-box {
+    $default: $vr--large;
+
+    &,
+    &:before {
+        position: relative;
+    }
+
+    & {
+        width: $default;
+    }
+
+    &:before {
+        display: block;
+        content: '';
+        padding-top: 100%;
+    }
+
+    //> *,
+    >.plo-box-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &--tiny {
+        width: ($default/$tiny);
+    }
+
+    &--small {
+        width: ($default/$small);
+    }
+
+    &--large {
+        width: ($default*$large);
+    }
+
+    &--huge {
+        width: ($default*$huge);
+    }
+}

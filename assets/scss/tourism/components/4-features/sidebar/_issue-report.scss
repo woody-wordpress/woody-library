@@ -1,0 +1,19 @@
+/**
+ * Sidebar Issue report
+ */
+
+.tourism-detail-sidebar {
+
+    .sidebar-issue-report {
+        width: 96%;
+        margin: 5% 2% 5% 2%;
+        padding: 5%;
+
+        .sidebar-issue-report-btn {
+            // background: #efefef;
+            // color: $text-light;
+            width: 100%;
+            padding: $vr--small;
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "rc/woody-library",
+    "type": "wordpress-cendor",
+    "description": "",
+    "license": "proprietary",
+    "authors": [{
+        "name": "Raccourci Agency",
+        "email": "contact@raccourci.fr"
+    }],
+    "require": {
+        "php": ">=5.6",
+        "composer/installers": "^1.4"
+    },
+    "config": {
+        "secure-http": false,
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-0": {
+            "WoodyLibrary": ""
+        }
+    }
+}

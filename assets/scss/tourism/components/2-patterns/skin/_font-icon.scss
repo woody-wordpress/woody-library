@@ -1,0 +1,28 @@
+/*------------------------------------*\
+    - FONTICON
+\*------------------------------------*/
+/**
+ * Icon font stuff
+ */
+.s-fonticon-list {
+
+    &--tiny .plo-fonticon {
+        font-size: ($font-size-h6*.75);
+    }
+
+    &--small .plo-fonticon {
+        font-size: $font-size-h6;
+    }
+
+    &--large .plo-fonticon {
+        font-size: $font-size-h4;
+    }
+
+    &--huge .plo-fonticon {
+        font-size: $font-size-h3;
+    }
+
+    &--jumbo .plo-fonticon {
+        font-size: 60px;
+    }
+}

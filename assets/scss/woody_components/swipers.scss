@@ -1,0 +1,484 @@
+.woody-component-basic-swiper {
+    width: 100%;
+}
+
+.woody-component-landswpr {
+    .landswpr {
+        &-titles {
+            >img {
+                max-width: 90px;
+                margin: 0 auto 20px auto;
+            }
+        }
+
+        &-title {
+            @extend .h1 !optional;
+        }
+
+        &-wicon {
+            font-size: #{rem-calc($wicon-landswpr-size)};
+        }
+
+        &-pretitle,
+        &-subtitle {
+            @extend .h3 !optional;
+        }
+
+        &-description {
+            @extend .h6 !optional;
+            @include xy-gutters($gutters: 50px, $gutter-position: bottom);
+        }
+
+        &-links-wrapper {
+            @include xy-gutters($gutters: 40px, $gutter-position: top);
+        }
+
+        &-link {
+            @include xy-gutters($gutters: 5px, $gutter-position: left right);
+        }
+    }
+
+    .media-op90 {
+        .landswprMediaWrapper {
+            opacity: .9;
+        }
+    }
+
+    .media-op75 {
+        .landswprMediaWrapper {
+            opacity: .75;
+        }
+    }
+
+    .landswpr-search-form {
+        margin-top: 40px;
+
+        .input-group-field {
+            min-width: 220px;
+            border: $landswpr-search-field-border;
+            background-color: $landswpr-search-field-bgcolor;
+            color: set-color($landswpr-search-field-bgcolor);
+
+            @include placeholder {
+                font-style: $landswpr-search-field-placeholder-style;
+                color: $landswpr-search-field-placeholder-color;
+            }
+
+            @include breakpoint(large) {
+                min-width: 360px;
+            }
+        }
+
+        .input-group-button {
+            position: relative;
+            width: 60px;
+            @include wicon(053-loupe-par-defaut);
+
+            &:before {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                font-size: rem-calc(16);
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .button {
+                position: absolute;
+                border: $landswpr-search-button-border;
+                background-color: $landswpr-search-button-bgcolor;
+                color: set-color($landswpr-search-button-bgcolor);
+                font-size: 0;
+                width: 100%;
+                height: 100%;
+
+                &:hover {
+                    background-color: darken($landswpr-search-button-bgcolor, 7%);
+                }
+            }
+        }
+    }
+
+    &.tpl_06 {
+        .landswpr-titles {
+            margin-bottom: 30px;
+
+            @include breakpoint(large) {
+                margin-bottom: 80px;
+            }
+        }
+    }
+}
+
+body:not(.no-page-header) {
+    .landswpr-titles {
+        @include breakpoint(1025px) {
+            opacity: 0;
+            transition: opacity .3s .2s ease-in;
+        }
+    }
+}
+
+// Responsive stuff
+.woody-component-landswpr {
+    height: 100%;
+    overflow: hidden;
+
+    .woody-landing-swiper {
+        height: 100%;
+    }
+
+    @include breakpoint(xmedium down) {
+        .swiper-slide {
+            padding-top: 0;
+            padding-bottom: 0;
+            height: 100vw;
+        }
+    }
+
+    @include breakpoint(large down) {
+        .swiper-slide {
+            .imageObject {
+                height: 100%;
+
+                >img {
+                    max-width: none;
+                    width: auto;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+    }
+
+    .videoObject.landswprMediaWrapper {
+        @include breakpoint(xlarge down) {
+            position: relative;
+            height: 100%;
+
+            .videoObject-video {
+                height: 100% !important;
+                position: absolute;
+            }
+        }
+    }
+}
+
+.woody-component-landswpr.tpl_02 {
+    .swiper {
+        &-slide {
+            position: relative;
+        }
+
+        &-pagination {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            transition: .3s opacity;
+            z-index: 10;
+
+            &-bullets {
+                bottom: 7.5% !important;
+                left: 0;
+            }
+
+            &-item {
+                display: flex;
+                align-items: center;
+
+                .pagination-number {
+                    opacity: 0.5;
+                }
+
+                &:hover,
+                &:focus {
+                    cursor: pointer;
+                    outline: 0;
+
+                    .pagination-number {
+                        opacity: 0.75;
+                    }
+                }
+
+                &:last-of-type {
+                    .pagination-separator {
+                        width: 0;
+                    }
+                }
+
+                &.active {
+                    .pagination-number {
+                        opacity: 1;
+                    }
+
+                    .pagination-separator {
+                        width: 10vw;
+                    }
+
+                    .pagination-separator-loader {
+                        transform: scaleX(1);
+                        transition: all 5s linear;
+                    }
+                }
+            }
+        }
+    }
+
+    .landswprMediaWrapper {
+        background: $black;
+
+        .imageObject-img,
+        .videoObject-video {
+            opacity: 0.75;
+        }
+    }
+
+    .landswpr-titles-wrapper {
+        @include position(absolute, 0, null, null, 0);
+        @include padding(null, 2, null, 2);
+        width: 100%;
+        height: 100%;
+
+        >.grid-container {
+            height: 100%;
+        }
+    }
+
+    // Pagination
+    .pagination-number {
+        color: $white;
+        font-size: 1.8rem;
+        transition: all .3s ease;
+        @include padding(null, 0.5, null, 0.5);
+
+        @include breakpoint(large) {
+            font-size: 2.6rem;
+            @include padding(null, 1, null, 1);
+        }
+    }
+
+    .pagination-separator {
+        display: none;
+
+        @media (min-width: 45em) {
+            display: block;
+        }
+
+        position: relative;
+        width: 40px;
+        height: 2px;
+        background: rgba($white, 0.25);
+        transition: all .3s ease;
+
+        &-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: $white;
+            transform-origin: 0 0;
+            transform: scaleX(0);
+            transition: all 0.3s ease;
+        }
+    }
+
+}
+
+.woody-component-landswpr.tpl_03 {
+    .landswpr-link {
+        position: relative;
+        z-index: 1;
+    }
+
+    .swiper {
+        &-slide {
+            position: relative;
+            // width: 90%;
+
+            &:after {
+                content: '';
+                @include position(absolute, 0, null, null, 0);
+                width: calc(100% - 2rem);
+                height: calc(100% - 2rem);
+                margin: 1rem;
+                box-sizing: border-box;
+                @include bordered(1px, solid, $white);
+
+                @include breakpoint(medium down) {
+                    width: 100%;
+                    height: 100%;
+                    margin: 0;
+                }
+            }
+        }
+
+        &-pagination {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            transition: .3s opacity;
+            z-index: 10;
+
+            @include breakpoint(medium down) {
+                position: relative;
+            }
+
+            @include breakpoint(small down) {
+                display: none;
+            }
+
+            &-bullets {
+                left: 0;
+                bottom: 1rem;
+
+                @include breakpoint(medium down) {
+                    top: 0;
+                    padding-bottom: 1rem;
+                }
+            }
+
+            &-item {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                flex-grow: .1;
+
+                @include breakpoint(medium down) {
+                    flex-direction: column-reverse;
+                }
+
+                .pagination-pretitle {
+                    @include header-size(h6);
+                    font-weight: $global-weight-normal;
+
+                    @include breakpoint(large down) {
+                        font-size: 90%;
+                    }
+
+                    @include breakpoint(medium down) {
+                        order: 2;
+                    }
+                }
+
+                .pagination-title {
+                    color: $white;
+                    @include header-size(h4);
+                    font-family: $header-font-family;
+                    text-transform: uppercase;
+                    transition: all .3s ease;
+                    padding-bottom: $global-padding;
+
+
+                    @include breakpoint(large down) {
+                        font-size: 90%;
+                        padding: 0;
+                    }
+
+                    @include breakpoint(medium down) {
+                        order: 1;
+                    }
+                }
+
+                .pagination-separator {
+                    @include breakpoint(medium down) {
+                        order: 3;
+                    }
+                }
+
+                .pagination-title,
+                .pagination-pretitle {
+                    opacity: 0.75;
+                }
+
+                &:hover,
+                &:focus,
+                &.active {
+                    cursor: pointer;
+                    outline: 0;
+
+                    .pagination-title,
+                    .pagination-pretitle {
+                        opacity: 1;
+                    }
+                }
+
+                &.active {
+                    .pagination-separator {
+                        width: 2px;
+
+                        &.onPause {
+                            .pagination-separator-loader {
+                                // animation-play-state: paused;
+                                transform: scaleY(1);
+                                transition: transform .5s linear;
+                            }
+                        }
+                    }
+
+                    .pagination-separator-loader {
+                        transform: scaleY(1);
+                        transition: transform 5s linear;
+                        // animation: progress 5s linear;
+                        // @keyframes progress {
+                        //     from {
+                        //         transform: scaleY(0);
+                        //     }
+                        //     to {
+                        //         transform: scaleY(1);
+                        //     }
+                        // }
+                    }
+                }
+            }
+        }
+    }
+
+    .landswprMediaWrapper {
+
+        .imageObject-img,
+        .videoObject-video {
+            opacity: 0.75;
+        }
+    }
+
+    .landswpr-titles-wrapper {
+        @include position(absolute, 0, null, null, 0);
+        width: 100%;
+        text-align: center;
+        height: 100%;
+
+
+
+        >.grid-container {
+            height: 100%;
+        }
+    }
+
+    .pagination-separator {
+        display: block;
+        position: relative;
+        height: 50px;
+        width: 1px;
+        background: rgba($white, .5);
+        transition: all .25s ease-in;
+
+        &-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: $primary-color;
+            transform-origin: 0 100%;
+            transform: scaleY(0);
+            transition: all .25s ease-in;
+        }
+    }
+}

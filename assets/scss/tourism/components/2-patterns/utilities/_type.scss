@@ -1,0 +1,142 @@
+/*------------------------------------*\
+    - HIGHLIGHT
+\*------------------------------------*/
+/**
+ * text is main color and bold
+ */
+.pl-heading {
+    color: $primary-color;
+    font-weight: 500;
+}
+
+
+/*------------------------------------*\
+    - WEIGHTS
+\*------------------------------------*/
+/**
+ * Differents weights available
+ */
+._plu-emphasis--low {
+    font-weight: 300 !important;
+}
+
+._plu-emphasis--default {
+    font-weight: 400 !important;
+}
+
+._plu-emphasis--high {
+    font-weight: 500 !important;
+}
+
+._plu-emphasis--max {
+    font-weight: 600 !important;
+}
+
+._plu-emphasis--alt {
+    font-weight: 400 !important;
+    text-transform: uppercase;
+}
+
+
+/*------------------------------------*\
+    - COLORS
+\*------------------------------------*/
+._plu-text-muted {
+    color: $text-muted;
+}
+
+._plu-text-muted--light {
+    color: #afafaf;
+    // color: transparentize($text-muted, 0.8);
+}
+
+._plu-text-contrast {
+    color: white;
+}
+
+._plu-link-reset {
+    color: inherit;
+}
+
+
+/*------------------------------------*\
+    - STATES COLORS
+\*------------------------------------*/
+._plu-text-success {
+    color: $brand-success;
+}
+
+._plu-text-warning {
+    color: $brand-warning;
+}
+
+._plu-text-danger {
+    color: $brand-danger;
+}
+
+
+._plu-smaller {
+    font-size: .75em;
+}
+
+._plu-bigger {
+    font-size: 1.25em;
+}
+
+._plu-reset-lh {
+    line-height: 1;
+}
+
+._plu-caps {
+    text-transform: uppercase;
+}
+
+._plu-text-center {
+    text-align: center;
+}
+
+._plu-text-left {
+    text-align: left;
+}
+
+._plu-text-right {
+    text-align: right;
+}
+
+._plu-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    backface-visibility: hidden;
+}
+
+
+/*------------------------------------*\
+    - SPECIAL SKINS
+\*------------------------------------*/
+/**
+ * Differents weights available
+ */
+._plu-text-underline {
+    padding-left: $vr/4;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+._plu-screen-reader-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+._plu-text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

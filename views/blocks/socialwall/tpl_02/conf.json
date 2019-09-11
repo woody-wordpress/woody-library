@@ -1,0 +1,22 @@
+{
+    "approved": true,
+    "name": "Grille SocialWall - 02",
+    "description": "Affiche l'en-tête centré en haut de la grille",
+    "acf_groups": [
+        "group_5b5b2fbc3460d"
+    ],
+    "vars": [
+        "background_color",
+        "background_img",
+        "background_img_opacity",
+        "sw_no_padding",
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "gallery_items"
+    ]
+}

@@ -1,0 +1,169 @@
+.woody-component-snow-infos {
+    @if $snow-infos-weight-bold {
+        font-weight: $global-weight-bold;
+    }
+
+    .snow-infos-texts {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .snow-infos-pretitle,
+    .snow-infos-subtitle {
+        @include header-size(h6);
+    }
+
+    .snow-infos-title {
+        @include header-size(h3);
+        font-family: $header-font-family;
+    }
+
+    .weather {
+        .weather {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &-icon {
+                font-size: rem-calc(80);
+                line-height: 1;
+            }
+
+            &-temp {
+                margin-left: .5rem;
+            }
+        }
+
+        .snow-depth {
+            display: flex;
+
+            .mountain-icon {
+                margin-right: 2rem;
+
+                .wicon:before {
+                    font-size: 5rem;
+                }
+            }
+
+            .levels {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .max,
+            .min {
+                margin: $global-margin/2;
+                position: relative;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 70px;
+                    height: 1px;
+                    background-color: $light-gray;
+                    top: 10px;
+                    right: 120%;
+                }
+            }
+
+            .min {
+                &:before {
+                    width: 25px;
+                }
+            }
+        }
+    }
+
+    .info-tracks {
+        .slopes {
+            .data-wrapper {
+                padding: $global-padding;
+                line-height: 1;
+
+                .wicon {
+                    font-size: rem-calc(35);
+                    line-height: .5;
+                }
+            }
+        }
+
+        .ski-lifts,
+        .nordic {
+            .wicon {
+                font-size: rem-calc(35);
+                margin-right: .25rem;
+            }
+        }
+
+        .ski-lifts {
+            .menu {
+                >li {
+                    margin-right: .5rem;
+                }
+            }
+        }
+
+        .nordic {
+            .texts {
+                line-height: 1;
+                align-items: baseline;
+            }
+        }
+    }
+
+    .links {
+        a.woody-component-button {
+            display: flex;
+        }
+    }
+
+    .discover-button {
+        @if $snow-infos-buttons-underline {
+            text-decoration: underline;
+        }
+    }
+
+    .flash-info {
+        display: flex;
+        padding: 0;
+
+        &-icon {
+            background-color: $flash-info-bg-icon;
+
+            >span {
+                font-size: rem-calc(40);
+                color: $flash-info-color-icon;
+            }
+        }
+
+        &-text {
+            flex: 1 1 auto;
+            color: $flash-info-color-text;
+            background-color: $flash-info-bg-text;
+            font-size: rem-calc(15);
+        }
+    }
+
+    &.tpl_02 {
+        .slopes {
+            .levels {
+                flex-wrap: wrap;
+            }
+        }
+        .weather {
+
+            .snow-depth {
+                .max,
+                .min {
+                    &:before {
+                        background-color: $medium-gray;
+                    }
+                }
+            }
+            >div {
+                justify-content: flex-end;
+            }
+        }
+    }
+}

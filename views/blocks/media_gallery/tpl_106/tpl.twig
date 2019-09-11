@@ -1,0 +1,12 @@
+{# Extending tpl_1 and override grid part with the right grid #}
+{% extends 'blocks/media_gallery/tpl_101/tpl.twig' %}
+{% block index_class %}tpl_106{% endblock %}
+{% block the_items %}
+    {% for item in gallery_items %}
+        <div class="cell {{ gallery_no_padding == 0 ? ' padd-bottom-md' }}">
+            {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                'image_style' : "ratio_square"
+            } %}
+        </div>
+    {% endfor %}
+{% endblock %}

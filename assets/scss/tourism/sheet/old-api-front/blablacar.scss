@@ -1,0 +1,683 @@
+$color-bbc-primary: #65bd4d;
+$color-bbc-gray: #979797;
+$color-bbc-gray--light: #d0d0d0;
+$color-bbc-accent: #f8d617;
+
+// $grid-gutter-width: 34px;
+
+
+
+// UTILITIES
+// Colors
+.bblc-cartridge-primary {
+    color: $color-bbc-primary;
+}
+.bblc-cartridge-text {
+    color: $color-bbc-gray;
+    .trip-cities{
+        padding: 5px 15px 5px 15px;
+    }
+}
+.bblc-cartridge-text--light {
+    color: $color-bbc-gray--light;
+}
+.bblc-paint-primary {
+    background-color: $color-bbc-primary;
+}
+
+// spacing & stuff
+.u-flush {
+    margin: 0 !important;
+}
+.u-flush-top {
+    margin-top: 0 !important;
+}
+.u-flush-bottom {
+    margin-bottom: 0 !important;
+}
+.u-bblc-cap-height {
+    line-height: 1;
+}
+.u-bblc-clickable {
+    cursor: pointer;
+}
+.bblc-bleed {
+    margin-left: -($grid-gutter-width/2) !important;
+    margin-right: -($grid-gutter-width/2) !important;
+}
+.bblc-bleed--large {
+    margin-left: -$grid-gutter-width !important;
+    margin-right: -$grid-gutter-width !important;
+}
+
+
+
+
+
+
+// PATTERNS
+.bblc-panel {
+    @extend .bblc-bleed;
+    padding: ($grid-gutter-width/2)!important;
+    // background: fade($color-bbc-gray, 6%);
+    background: lighten($color-bbc-gray, 6%);
+
+    &:not(:last-child) {
+        border-top: 1px solid rgba(0, 0, 0, 0.97);
+    }
+    &:hover{
+    //   background: fade($color-bbc-gray, 25%);
+      background: lighten($color-bbc-gray, 25%);
+
+    }
+    .stars{
+        .star{
+            display: inline-block;
+            height: 15px;
+            width: 15px;
+            text-align: center;
+            &:before{
+                @extend .icon-font-item;
+            }
+        }
+    }
+}
+.u-bblc-glue {
+    display: table !important;
+    width: 100%;
+    //
+    //> * {
+    //  display: table-cell;
+    //  float: none !important;
+    //}
+    //&--top > * {
+    //  vertical-align: top;
+    //}
+    //&--middle > * {
+    //  vertical-align: middle;
+    //}
+    //&--bottom > * {
+    //  vertical-align: bottom;
+    //}
+}
+
+
+.u-bblc-flag {
+    display: table;
+    width: 100%;
+}
+.u-bblc-flag__body,
+.u-bblc-flag__aside {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.u-bblc-flag__body {
+    width: 100%;
+}
+
+.u-bblc-flag__aside {
+    padding-right: ($grid-gutter-width/2);
+
+    &--rev {
+        padding-right: 0;
+        padding-left: ($grid-gutter-width/2);
+    }
+}
+
+
+
+
+// UI KIT
+.bblc-btn-primary {
+    color: white;
+    padding: ($grid-gutter-width/4);
+    border-radius: 0;
+    text-transform: uppercase;
+    background-color: $color-bbc-primary;
+
+    &:hover {
+        color: $color-bbc-primary;
+        background-color: transparent;
+        box-shadow: 0 0 0 2px currentColor;
+    }
+}
+
+.bblc-header {
+    line-height: 1;
+    font-weight: 700 !important;
+    &.trip-time{
+        font-weight: 400 !important;
+    }
+}
+
+
+
+// Form
+.bblc-form {
+    padding-top: (($grid-gutter-width/3) + 10px);
+    padding-bottom: 10px;
+    .bblc-fieldset{
+        .economy{
+            text-align:center;
+            font-size: 1.2em;
+            .price{
+                font-size:1.2em;
+                color:#65bd4d;
+            }
+        }
+        .remaining-places{
+            text-align: center;
+        }
+        .btn-propose{
+            margin-top: 35px;
+        }
+    }
+}
+
+.bblc-form-item {
+    $i-h: 34px;
+    $i-radio-size: 1.02em;
+    $i-c: $color-bbc-gray;
+    $i-c--light: $color-bbc-gray--light;
+    $i-fz: 14px;
+
+    & {
+        position: relative;
+        display: block;
+        color: $i-c;
+        font-size: $i-fz;
+        font-weight: 400;
+        margin-bottom: ($grid-gutter-width/3);
+    }
+
+    &__input {
+
+        &--text {
+            display: block;
+            width: 100%;
+            height: $i-h;
+            color: $color-bbc-gray;
+            line-height: $i-h;
+            border: 0 solid $i-c--light;
+            padding: 0 $i-h 0;
+            background: rgba(0, 0, 0, 0.97);
+
+            &.disable {
+                cursor: default;
+            }
+
+            &.datepicker {
+                cursor: pointer;
+            }
+
+            &:focus {
+                border-width: 1px;
+            }
+        }
+        &--radio {
+            display: none;
+        }
+
+        &:focus,
+        &:hover,
+        &:active {
+            outline: none;
+        }
+
+        &:focus {
+
+        }
+    }
+
+    &__fakeradio {
+        display: inline-block;
+        width: $i-radio-size;
+        height: $i-radio-size;
+        padding-right: 5px;
+        border-radius: 50%;
+        border: 1px solid $i-c--light;
+        vertical-align: middle;
+        background: rgba(0, 0, 0, 0.95);
+
+        input:checked + & {
+            box-shadow: 0 0 0 2px white inset, 0 0 0 3px darken($color-bbc-primary, 3%) inset;
+            background: $color-bbc-primary;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        text-align: center;
+        line-height: $i-h;
+        width: $i-h;
+        top: 0;
+        left: 0;
+        font-size: ($grid-gutter-width/2);
+        color: $i-c--light;
+    }
+
+
+    &__text {
+
+    }
+}
+.trip-circle {
+    display: table;
+    width: 25px;
+    height: 25px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    text-align: center;
+    text-transform: uppercase;
+    color: $color-bbc-accent;
+
+    &__content {
+        display: table-cell;
+        vertical-align: middle;
+        font-weight: 500;
+        font-size: 12px;
+    }
+}
+
+.trip-symbol{
+    font-size:15px;
+}
+
+.trip-car{
+    padding: 0 15px 0 15px;
+    font-size: 0.8em;
+    &>div{
+        float: left;
+        background: #F3F7F8;
+        border: 1px solid #DDD;
+        border-radius: 8px;
+        padding: 3px;
+        margin-right: 5px;
+    }
+}
+
+
+.blablacar-widget{
+    $tab-h: 45px;
+    $tab-bdw: 2px;
+    $tab-bdc: mix($color-bbc-gray--light, white, 50%);
+    $tab-bg: rgba(0, 0, 0, 0.97);
+
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid $tab-bdc;
+    overflow: hidden;
+    background: #FFF;
+    color: $defTextColor;
+
+    &>div{
+        height: 535px;
+        overflow: hidden;
+    }
+
+    .fulltab{
+        .nav-tabs {
+            li{
+                width: 100%;
+            }
+        }
+    }
+
+    tab-heading{
+        height: 100%;
+        width: 100%;
+        display: block;
+    }
+
+    .bbc-alert{
+        .alert{
+            display: block;
+            text-align: center;
+        }
+    }
+
+    .bblc-logo{
+        padding: 10px;
+        width: 130px;
+        height: $tab-h;
+        display: block;
+        margin: auto;
+        &.inline{
+            display: inline-block;
+            vertical-align: middle;
+            margin-top:-4px;
+            padding-left: 0;
+        }
+    }
+
+    .see-more{
+        display: block;
+        width: 100%;
+        text-align: center;
+        color: $secTextColor;
+        vertical-align: middle;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+
+    .nav-tabs {
+        // .bblc-bleed--large;
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+        border-color: $tab-bdc;
+        margin-bottom: 10px;
+
+        li {
+            color: $color-bbc-gray;
+            background: $tab-bg;
+            width: 50%;
+
+            &:first-child a {
+                border-left-width: 0 !important;
+            }
+        }
+        a {
+            height: $tab-h;
+            margin: 0;
+            padding: 0 !important;
+            line-height: ($tab-h - ($tab-bdw + ($tab-bdw/2)));
+            border: $tab-bdw solid $tab-bdc !important;
+            border-width: $tab-bdw $tab-bdw ($tab-bdw/2) !important;
+            border-radius: 0 !important;
+            text-align: center;
+            min-width: 120px;
+            color: inherit !important;
+            // background: transparent !important;
+        }
+
+
+        li.active a {
+            height: $tab-h + ($tab-bdw/2);
+            margin-bottom: -($tab-bdw/2);
+            border-bottom: none !important;
+            background-color: white !important;
+        }
+
+        li + li a {
+            border-left-width: 0 !important;
+        }
+
+        // SPECIFIC
+        .bblc-widget-tabs a {
+            color: transparent !important;
+            background-image: url('../images/bblc/bla_bla_car_logo.png') !important;
+            background-repeat: no-repeat !important;
+            background-position: center center !important;
+        }
+    }
+
+    .section-map{
+        // TEST
+        // height:400px;
+        min-height: 535px;
+
+        padding: 0;
+        display: block;
+        position: relative;
+        .map-item{
+          position: absolute;
+          left: 40px;
+          top: 70px;
+          z-index: 1;
+          .item-container{
+            width: 271px;
+            height: 400px;
+            box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.30);
+            border-bottom: 7px solid $primary-color;
+            background: #fff;
+            .item-image-wrapper {
+              height: 200px !important;
+            }
+            .item-infos {
+              min-height: 200px !important;
+            }
+          }
+        }
+        .fullscreen_control_wrapper{
+            display: none;
+        }
+        &.full{
+            width: 100%;
+        }
+    }
+
+    select{
+        color: $defTextColor;
+    }
+
+    .unique-option .nearest-section .nav-tabs {
+        margin-top: 5px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    .unique-option .nearest-section .tab-content {
+        margin: 0 15px;
+    }
+    // NEAR
+    .nearest-section{
+        margin: auto;
+        text-align: center;
+
+        .nav-tabs {
+            border: 0;
+            // margin-bottom: 0;
+
+            li {
+                padding-bottom: 2px;
+                background: none;
+                width: 33.3%;
+                a {
+                    border: none !important;
+                }
+            }
+
+            li.active {
+                color: $primary-color;
+                a {
+                    height: $tab-h;
+                    span {
+                        border-bottom: 2px solid $primary-color;
+                    }
+                }
+            }
+        }
+
+        .tab-content {
+            // margin-right: -15px;
+            // margin-left: -15px;
+
+            $nearest-tabh: 390px; // 4 sheet rows
+            height: $nearest-tabh;
+            line-height: $nearest-tabh;
+            overflow: hidden;
+
+            .tab-pane {
+                line-height: normal;
+                vertical-align: middle;
+                padding: 0;
+                .test {
+                    padding: 0;
+                    text-align: center;
+                }
+
+                .nearest-sheet-wrapper {
+                    display: inline;
+
+                    .nearest-sheet {
+                        margin: 2px;
+                        $nSheetHeight: 90px;
+                        width: $nSheetHeight;
+                        height: $nSheetHeight;
+                        max-width: 150px;
+                        display: inline-block;
+                        transition: all 0.3s ease-in-out;
+                        cursor: pointer;
+                        border: 1px solid $tab-bdc;
+                        &.no-image{
+                        }
+                        &.selected,
+                        &.hover,
+                        &:hover{
+                            padding: 1px;
+                            position: relative;
+
+                            &>div{
+
+                                &:before {
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    height: 100%;
+                                    width: 100%;
+                                    background-color: #000;
+                                    opacity: 0.4;
+                                    content: '';
+                                }
+                                &:after {
+                                    position: absolute;
+                                    // transition: all 0.3s ease-in-out;
+                                    display: inline-block;
+                                    left: 0;
+                                    top: 0;
+                                    color: white;
+                                    font-size: 35px;
+                                    vertical-align: middle;
+                                    line-height: $nSheetHeight;
+                                    @extend .icon-font-item;
+                                    @extend .icon-tick;
+                                }
+                            }
+                        }
+                        &.selected > div::after {
+                            font-size: 50px;
+                        }
+                        &.selected > div::before {
+                            opacity: 0.3;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.blablacar-widget.leaflet {
+    .section-nav {
+        height: auto;
+    }
+    .nearest-section{
+        .nav-tabs {
+            margin: 0 !important;
+            display: flex;
+            // border: none;
+            li {
+                padding: 20px 10px;
+                cursor: pointer;
+                color: white;
+                background-color: $primary-color;
+                &:nth-child(odd) {
+                    background-color: lighten($primary-color, 10%);
+                }
+            }
+
+            li.active {
+                color: $primary-color;
+                cursor: default;
+                background: none;
+                span {
+                    border-bottom: 2px solid $primary-color;
+                }
+            }
+        }
+    }
+
+
+    /* LEAFLET STYLING */
+    .leaflet-google-layer {
+        z-index: 0;
+    }
+
+    .leaflet-control {
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+        padding: 2px;
+        background: #fff;
+        border-radius: 5px;
+    }
+
+    .leaflet-control-layers-toggle {
+        display: block !important;
+    }
+
+    .leaflet-control .leaflet-control-layers-toggle,
+    .leaflet-control.leaflet-bar a {
+        cursor: pointer;
+        pointer-events: all;
+        height: 36px;
+        width: 36px;
+        line-height: 36px;
+    }
+
+    .leaflet-control-layers-list {
+        position: absolute;
+        background: white;
+        padding: 10px;
+        white-space: nowrap;
+        left: 50px;
+        // right:50px;
+        top: 0;
+    }
+    .leaflet-control-layers-list .base-layer-item .base-layer-item-title {
+        display: block;
+        width: 100%;
+        margin: 10px 20px;
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        background: white;
+        text-align: center;
+    }
+    .leaflet-control-layers-list .base-layer-item:hover > input:not(:checked) ~ label > .base-layer-item-title {
+        background-color: #cecece;
+        color: white;
+    }
+    .leaflet-control-layers-list .base-layer-item > label {
+        background-image: url(https://api.tourism-system.com/static/assets/images/see_map.png);
+        padding: 0;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        user-select: none;
+    }
+    .leaflet-control-layers-list .base-layer-item > input {
+        display: none;
+    }
+    .leaflet-control-layers-list .base-layer-item > input:checked ~ label {
+        position: relative;
+    }
+    .leaflet-control-layers-list .base-layer-item > input:checked ~ label::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $primary-color;
+        opacity: 0.5;
+    }
+
+    .leaflet-control-layers-list .base-layer-item > input:checked ~ label > .base-layer-item-title {
+        background-color: $primary-color;
+        color: white;
+        z-index: 1;
+    }
+}

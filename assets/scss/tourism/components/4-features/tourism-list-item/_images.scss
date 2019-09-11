@@ -1,0 +1,88 @@
+// IMAGES - CAROUSEL
+
+.item-image-wrapper {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #F0F0F0;
+    overflow: hidden;
+
+    transition: background-color .5s $swift-out;
+
+    .sheet-image-item,
+    .sheet-image-item a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.no-image {
+
+        background: $defFicheImagesBg;
+
+        a {
+            float: left;
+            width: 100%;
+            height: 100%;
+
+            &:after {
+
+                position: absolute;
+                top: 50%;
+                left: 50%;
+
+                width: 50px;
+                height: 50px;
+
+                margin-top: -25px;
+                margin-left: -25px;
+
+                color: darken($defFicheImagesBg, 6%);
+                font-size: 50px;
+                line-height: 50px;
+                text-align: center;
+
+                @extend .icon-font-item;
+                @extend .icon-picture;
+            }
+        }
+
+    }
+
+    .kaarousel {
+        float: left;
+        width: 100%;
+        height: 100%;
+
+        .kaarousel-actions-wrapper,
+        .kaarousel-wrapper,
+        .kaarousel-slider,
+        .kaarousel-slide {
+            width: 100%;
+            height: 100%;
+        }
+
+        a {
+            float: left;
+            width: 100%;
+            height: 100%;
+        }
+
+        .link-wrapper {
+            float: left;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+}
+
+//Specific style for markets
+&.tourism-item-type-FMA article.isMarket {
+    .item-image-wrapper {
+        // height: calc(~"100% - 185px");
+        height: unquote("calc( 100% - 185px )")
+    }
+}

@@ -1,0 +1,48 @@
+{% set random_number = ''|random_number %}
+<div class="woody-lang_switcher tpl_01{% if flags|default %} flags {{ flags }}{% endif %}">
+    <button class="lang_switcher-button" data-open="lang_switcher-{{ random_number }}">
+        <div class="{{ current_lang|default }}" data-lang="{{ current_lang|default }}">{{ current_lang|default }}</div>
+    </button>
+    <div class="reveal full lang_switcher-reveal" id="lang_switcher-{{ random_number }}" data-reveal data-animation-in="fade-in" data-animation-out="fade-out">
+        <div class="flex-container align-center align-middle">
+            <ul class="lang_switcher-langs list-unstyled{% if flags|default %} flags {{ flags }}{% endif %}">
+                {% for lang_key, lang in langs if lang.is_current %}
+                    <li class="lang_switcher-lang _current {{ lang_key|default }}" data-lang="{{ lang_key|default }}">
+                        {% if obfuscation %}
+                            <span class="obf no-ext" data-obf="{{ lang.url|default|base64Encode }}" data-target="{{ lang.target|default('_self') }}">
+                            {% else %}
+                                <a class="no-ext" href="{{ lang.url|default }}" target="{{ lang.target|default('_self') }}">
+                                {% endif %}
+                                <span class="lang_flag {{ lang.locale|default }}"></span>
+                                <span class="title">{{ lang.name|default(lang_key) }}</span>
+                                {% if obfuscation %}
+                                </span>
+                        {% else %}
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                {% for lang_key, lang in langs if not lang.is_current %}
+                    <li class="lang_switcher-lang {{ lang_key|default }}" data-lang="{{ lang_key|default }}">
+                        {% if obfuscation %}
+                            <span class="obf no-ext" data-obf="{{ lang.url|default|base64Encode }}" data-target="{{ lang.target|default('_self') }}">
+                            {% else %}
+                                <a href="{{ lang.url|default }}" target="{{ lang.target|default('_self') }}">
+                                {% endif %}
+                                <span class="lang_flag {{ lang.locale|default }}"></span>
+                                <span class="title">{{ lang.name|default(lang_key) }}</span>
+                                {% if obfuscation %}
+                                </span>
+                        {% else %}
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button class="close-button" data-close aria-label="Close modal" type="button">
+                <small>{{ __('Fermer', 'woody-theme') }}</small>
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>

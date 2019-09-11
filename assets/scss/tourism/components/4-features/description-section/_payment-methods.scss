@@ -1,0 +1,22 @@
+/**
+ * Payment Methods
+ */
+
+.tourism-detail-content {
+    #description {
+        .payment-methods {
+            .payment-methods-icon-wrapper {
+                width: 47px;
+                height: 35px;
+                line-height: 30px;
+                vertical-align: middle;
+                text-align: center;
+
+                .payment-methods-icon {
+                    display: inline-block;
+                    margin-right: $vr--tiny;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,71 @@
+{% if image_style %}
+    {% set image_style = image_style %}
+    {% else %}
+    {% set image_style = "ratio_square" %}
+{% endif %}
+{% if reveal == true %}
+    {% set random_number = ''|random_number %}
+    <div class="reveal-mediaCard tpl_01 has-reveal" data-open="revealMedia-{{ random_number }}">
+        {% include '_objects/imageObject.twig' with {
+            'img' : item,
+            'image_style' : image_style
+        } %}
+    </div>
+    <div class="reveal media-reveal" data-close-on-click="true" data-reveal data-v-offset="80" id="revealMedia-{{ random_number }}">
+        <div class="grid-x">
+            <div class="cell isRel">
+                {% include '_objects/imageObject.twig' with {
+                    'img' : item,
+                    'image_style' : image_style
+                } %}
+                {% if item.attachment_more_data.linked_page|default %}
+                    <div class="media-button-wrapper fullcenterbox">
+                        <a href="{{ item.attachment_more_data.linked_page.url|default }}" class="button" target="{{ item.attachment_more_data.linked_page.target|default('_self') }}">
+                            {{ item.attachment_more_data.linked_page.title|default }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="cell media-reveal-texts padd-all-md">
+                {% if item.attachment_more_data.author|default %}
+                    <div class="author">
+                        <span class="wicon wicon-011-instagram"></span>
+                        <span class="instagram-user">
+                            <strong>
+                                {{ item.attachment_more_data.author }}</strong>
+                        </span>
+                    </div>
+                {% endif %}
+                {% if item.attachment_more_data.instagram_metadata.date.sec %}
+                    <div class="created">
+                        <small>
+                            {{ item.attachment_more_data.instagram_metadata.date.sec|createdFrom() }}</small>
+                    </div>
+                {% endif %}
+                {% if item.attachment_more_data.instagram_metadata.caption|default and item.attachment_more_data.instagram_metadata.caption is not iterable  %}
+                    <div class="description marg-top-sm">
+                        <p>{{ item.attachment_more_data.instagram_metadata.caption }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="media-reveal-nav">
+            <button class="prev-button" type="button">
+                <span class="wicon wicon-026-precedent"></span>
+            </button>
+            <button aria-label="Close modal" class="close-button" data-close type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <button class="next-button" type="button">
+                <span class="wicon wicon-025-suivant"></span>
+            </button>
+        </div>
+    </div>
+    {% else %}
+    <a class="mediaCard tpl_01" href="{{ item.sizes.ratio_free }}" title="{{ item.title|default(item.filename) }}" itemprop="contentUrl" data-download-url="false">
+        {% include '_objects/imageObject.twig' with {
+            'img' : item,
+            'image_style' : image_style
+        } %}
+    </a>
+{% endif %}

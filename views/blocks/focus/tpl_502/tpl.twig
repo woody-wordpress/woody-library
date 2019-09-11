@@ -1,0 +1,166 @@
+{% if no_padding == 0 %}
+{% set spaceBetween = 30 %}
+{% else %}
+{% set spaceBetween = 0 %}
+{% endif %}
+
+{% extends '_objects/visualModifier.twig' %}
+{% block content %}
+<div class="woody-component woody-component-focus isRel tpl_502{{ items|length > 5 ? ' swiperOut' : ' swResp' }}">
+    {% if items|default %}
+        {% if items|length == 1 %}
+            {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
+                'items' : items,
+                'card' : "overlayed_card/tpl_03",
+                'image_style' : "ratio_4_3",
+            } %}
+        {% elseif items|length == 2 %}
+            {% include 'lists/bases_grid/tpl_201/tpl.twig' with {
+                'items' : items,
+                'card' : "overlayed_card/tpl_03",
+                'image_style' : "ratio_4_3",
+                'swResp' : true
+            } %}
+        {% elseif items|length == 3 %}
+            {% include 'lists/bases_grid/tpl_301/tpl.twig' with {
+                'items' : items,
+                'card' : "overlayed_card/tpl_03",
+                'image_style' : "ratio_4_3",
+                'swResp' : true
+            } %}
+        {% elseif items|length == 4 %}
+            {% include 'lists/bases_grid/tpl_401/tpl.twig' with {
+                'items' : items,
+                'card' : "overlayed_card/tpl_03",
+                'image_style' : "ratio_4_3",
+                'swResp' : true
+            } %}
+        {% elseif items|length == 5 %}
+            <div class="grid-x swRespW{{ no_padding == 0 ? ' grid-padding-x' }}">
+                <div class="cell medium-4 multiRows">
+                    <div class="grid-y woody-grid-frame{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                        {% for item in items[0 : 2] %}
+                            <div class="cell medium-6">
+                                {% include 'cards/overlayed_card/tpl_03/tpl.twig' with {
+                                    'image_style' : 'ratio_4_3',
+                                    'page_type' : item.page_type,
+                                    'ellipsis' : 90
+                                } %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="cell medium-4 multiRows">
+                    <div class="grid-y{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                        {% for item in items[2 : 1] %}
+                            <div class="cell medium-12">
+                                {% include 'cards/overlayed_card/tpl_03/tpl.twig' with {
+                                    'image_style' : 'ratio_10_16',
+                                    'page_type' : item.page_type
+                                } %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="cell medium-4 multiRows">
+                    <div class="grid-y woody-grid-frame{{ no_padding == 0 ? ' grid-padding-y' }}">
+                        {% for item in items[3 : 2] %}
+                            <div class="cell medium-6">
+                                {% include 'cards/overlayed_card/tpl_03/tpl.twig' with {
+                                    'image_style' : 'ratio_4_3',
+                                    'page_type' : item.page_type,
+                                    'ellipsis' : 90
+                                } %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% elseif items|length > 5 %}
+            {% set theloopindex = 0 %}
+            {% set itemPos = 0 %}
+            {% set loopcount = (items|length / 6) | round %}
+            {% set random_number = ''|random_number %}
+            {% set swiper_options = {
+                'slidesPerView' : 3,
+                'spaceBetween' : spaceBetween,
+                'centeredSlides' : false,
+                'breakpoints' : {
+                1024 : {
+                'slidesPerView' : 2,
+                'centeredSlides': false
+                },
+                767 : {
+                'slidesPerView' : 1,
+                }
+                }
+            }%}
+            {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
+            <div class="swiper-container woody-swiper swResp" data-nav="swiper-nav-{{ random_number }}" data-options="{{ json_swiper_options }}">
+                <div class="swiper-wrapper swRespW">
+                    {% for i in range(0, loopcount) %}
+                        {% if theloopindex <= 1 and items|length > itemPos %}
+                            <div class="swiper-slide multiRows">
+                                <div class="grid-y{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                                    {% for item in items[itemPos: 2] %}
+                                        <div class="cell medium-6">
+                                            {% include 'cards/overlayed_card/tpl_03/tpl.twig' with {
+                                                'image_style' : 'ratio_4_3',
+                                                'page_type' : item.page_type,
+                                                'ellipsis' : 90
+                                            } %}
+                                        </div>
+                                        {% set theloopindex = theloopindex + 1 %}
+                                    {% endfor %}
+                                    {% set itemPos = itemPos + 2 %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if theloopindex == 2 and items|length > itemPos %}
+                            <div class="swiper-slide multiRows">
+                                <div class="grid-y{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                                    {% for item in items[itemPos: 1] %}
+                                        <div class="cell medium-12">
+                                            {% include 'cards/overlayed_card/tpl_03/tpl.twig' with {
+                                                'image_style' : 'ratio_10_16',
+                                                'page_type' : item.page_type
+                                            } %}
+                                        </div>
+                                        {% set theloopindex = theloopindex + 1 %}
+                                    {% endfor %}
+                                    {% set itemPos = itemPos + 1 %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if theloopindex > 2 and items|length > itemPos %}
+                            <div class="swiper-slide multiRows">
+                                <div class="grid-y{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                                    {% for item in items[itemPos: 2] %}
+                                        <div class="cell medium-6">
+                                            {% include 'cards/overlayed_card/tpl_03/tpl.twig' with {
+                                                'image_style' : 'ratio_4_3',
+                                                'page_type' : item.page_type,
+                                                'ellipsis' : 90
+                                            } %}
+                                        </div>
+                                    {% endfor %}
+                                    {% set theloopindex = 0 %}
+                                    {% set itemPos = itemPos + 2 %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="swiper-nav-{{ random_number }}">
+                <div class="swiper-button-prev">
+                    <i class="wicon wicon-026-precedent" aria-hidden="true"></i>
+                </div>
+                <div class="swiper-button-next">
+                    <i class="wicon wicon-025-suivant" aria-hidden="true"></i>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

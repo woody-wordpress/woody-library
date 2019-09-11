@@ -1,0 +1,7 @@
+body.admin-bar {
+    .woody-component-headnavs {
+        @if $headnavs-autohide {
+            top: 32px;
+        }
+    }
+}

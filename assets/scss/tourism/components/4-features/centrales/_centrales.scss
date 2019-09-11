@@ -1,0 +1,254 @@
+#splashload-elloha {
+    background: #979797;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    border-radius: 4px;
+    position: relative;
+
+    .elloha-load-msg {
+        margin: auto;
+        align-items: center;
+        display: flex;
+    }
+
+    .isLoading {
+        position: relative;
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+    }
+
+    .animated-ellipsis {
+        display: inline-block;
+        width: 30px;
+    }
+
+    .animated-ellipsis:after {
+        content: "\2026";
+        /* ascii code for the ellipsis character */
+        display: inline-block;
+        vertical-align: bottom;
+        overflow: hidden;
+        width: 0px;
+        animation: ellipsis steps(4, end) 1500ms infinite;
+    }
+
+    @keyframes ellipsis {
+        to {
+            width: 1em;
+        }
+    }
+}
+
+.is-not-first .facet-daterange-embed {
+    margin: 30px 0 0 0;
+    border-top: 1px solid #eee;
+    padding: 20px 0 0 0;
+}
+
+#booking .facet-daterange-embed {
+    padding: 0;
+}
+
+.facet-daterange-embed {
+    padding: 10px 0 0 0;
+
+    .cell-wrapper,
+    .people-select {
+        display: inline-block;
+        margin: 0 0 15px 0;
+        width: 100%;
+    }
+
+    .booking-search-btn {
+        margin: 0;
+
+        .btn {
+            width: 100%;
+            @extend .plo-btn;
+        }
+    }
+
+    .booking-clean-btn {
+        display: none;
+    }
+
+    .form-group {
+        width: 100%;
+        position: relative;
+        text-align: center;
+
+        label,
+        .btn-group {
+            text-align: left;
+            font-weight: 300;
+            color: $mainText;
+            padding: 0;
+        }
+
+        // &.my-stay-calendar {
+        //     &:after {
+        //         font-family: 'raccourci';
+        //         position: absolute;
+        //         top: 50%;
+        //         left: 16px;
+        //         width: 16px;
+        //         height: 16px;
+        //         margin-top: -10px;
+        //         color: $text-light;
+        //         font-size: 16px;
+        //         content: "\e641";
+        //     }
+        // }
+
+        input,
+        button.btn {
+            cursor: pointer;
+            text-align: center;
+            height: 40px;
+            max-width: 100%;
+            padding: 0 $input-p--sides;
+            font-weight: $input-fw;
+            color: $mainText;
+            border: $theme-bdw solid $input-border;
+            border-radius: 4px;
+            background-color: transparent;
+            box-shadow: none;
+            width: 100%;
+
+            .filter-option {
+                color: $mainText;
+            }
+
+            &:focus,
+            &:active {
+                outline: none;
+                color: $input-border-focus;
+                border-color: $input-border-focus;
+
+                &~.plo-input-group__icon,
+                &~.plo-input-group__icon {
+                    color: $input-border-focus;
+                    opacity: .9;
+                }
+            }
+
+            &:focus~.plo-input-group__label,
+            &:valid~.plo-input-group__label {
+                transform: translateY(-($input-height*.8));
+            }
+        }
+
+        button.btn {
+            height: 29px;
+        }
+    }
+}
+
+
+// Widgets
+#booking .WidgetDirect {
+    padding: 0 !important;
+    min-height: 0 !important;
+
+    .OsMoteur {
+        margin-top: 0 !important;
+    }
+}
+
+
+#booking {
+    min-height: 40px;
+    padding: 15px;
+
+    &.fullscreen {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .booking-search-btn {
+        width: auto;
+    }
+
+    .isLoading {
+        .central-resa {
+            min-height: 60px !important;
+        }
+    }
+
+    .central-resa {
+        background: white !important;
+        position: relative;
+        text-align: center;
+
+        .resa-controls {
+            padding: 0 !important;
+
+            .selected-dates {
+                text-align: left;
+                margin-bottom: 10px !important;
+
+                >div:first-child {
+                    padding-left: 0;
+                }
+
+                >div:last-child {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                .new-search-btn {
+                    padding: 5px 20px;
+                }
+
+                .selected-dates-label {}
+            }
+
+            .controls-manif {
+                background: #eee;
+                padding: 15px;
+                margin-bottom: 15px !important;
+            }
+        }
+
+        .booking-results-wrapper {
+            line-height: $line-height-site;
+            vertical-align: middle;
+            display: inline-block;
+
+            .no-avas {
+                margin-top: 0 !important;
+
+                .text {
+                    margin: 0 auto !important;
+                }
+            }
+
+            min-height: 0 !important;
+            width: 100%;
+
+            .no-avas {
+                text-align: center;
+                margin-top: 30px;
+
+                .text {
+                    width: 100% !important;
+                }
+
+            }
+
+            .booking-result-item {
+                width: 100%;
+
+                &.item-booking {
+                    .result-booking {
+                        width: 120px;
+                        padding-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.woody-component-nav-item-image {
+    color: $white;
+    font-weight: $nav-item-image-font-weight;
+    font-size: $nav-item-image-font;
+
+    &:hover,
+    &:focus {
+        color: $white;
+    }
+}
+
+.woody-component-nav-item-list {
+    a {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}

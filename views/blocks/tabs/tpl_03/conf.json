@@ -1,0 +1,7 @@
+{
+    "approved": true,
+    "name": "Onglets - Template 3",
+    "description": "Grilles de blocs au choix dans des onglets (barre d'onglets au dessus)",
+    "acf_groups": ["group_5b471f2922b04"],
+    "vars": ["tabs"]
+}

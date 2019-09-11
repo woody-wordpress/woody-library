@@ -1,0 +1,9 @@
+{
+    "approved": true,
+    "name": "Carte media - Template 1",
+    "description": "Affiche une image ouvrable en galerie",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

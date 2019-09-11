@@ -1,0 +1,82 @@
+&.deal-item {
+
+    .item-wrapper {
+        &:hover {
+            .item-infos {
+                bottom: 0 !important;
+            }
+        }
+    }
+
+    .deal-title-list {
+        font-size: 1.3em;
+        margin: auto;
+        display: block;
+        padding: $defContainersPadding;
+        color: black;
+        font-weight: bold;
+        font-family: Arial;
+    }
+
+    .sheet-deal-title {
+        padding: 10px;
+        padding-bottom: 0;
+        text-align: center;
+        font-family: Arial;
+        color: $primary-color;
+        font-size: 1.5em;
+
+    }
+
+    .deal-validity {
+        position: absolute;
+        bottom: 100px;
+        left: 0;
+        width: 100%;
+        padding: 0 $defContainersPadding;
+        text-align: center;
+        color: grey;
+        margin: auto;
+        display: block;
+    }
+
+    .link-deal {
+
+        a {
+            text-align: center;
+            width: 50%;
+            background-color: $primary-color;
+            color: #FFF;
+            padding: 10px;
+            display: block;
+            text-decoration: none;
+            border-radius: $defRadius;
+            position: absolute;
+            border: $bdWidth solid $primary-color;
+            bottom: 2 * $defContainersPadding;
+            left: 25%;
+
+            transition: all .3s ease;
+
+            &:hover {
+                text-decoration: none;
+                color: $primary-color;
+                background-color: $sheetListInfosBgColor;
+                border: 1px solid $primary-color;
+            }
+        }
+
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .deal-title-list {
+        font-size: 1.3em;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .deal-title-list {
+        font-size: 1.8em;
+    }
+}

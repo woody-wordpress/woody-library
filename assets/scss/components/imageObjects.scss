@@ -1,0 +1,75 @@
+.no-js img.lazyload {
+    display: none;
+}
+
+.lazyload,
+.lazyloading {
+    opacity: 0;
+}
+
+.lazyloaded {
+    opacity: 1;
+    transition: opacity 300ms;
+}
+
+.imageObject {
+    overflow: hidden;
+    width: 100%;
+
+    &-caption {
+        display: block;
+        font-size: .75em;
+        line-height: 1.3em;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 10px;
+        color: #fff;
+        background: rgba(0, 0, 0, .3);
+        width: 100%;
+        opacity: 0;
+        transform: translateY(10%);
+        transition: opacity .3s ease-in-out, transform .3s ease-out;
+        pointer-events: none;
+        @include improve_transition;
+    }
+
+    &-img:hover~.imageObject-caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    &-instagram {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: #fff;
+        font-size: 1.3em;
+        padding: 6px 10px;
+        text-shadow: 0 0 16px #000;
+        width: 100%;
+
+        .wicon {
+            margin-right: 8px;
+            line-height: 1em;
+        }
+
+        .created-time {
+            margin-left: auto;
+
+        }
+    }
+
+    &.is_instagram {
+        .imageObject-img:hover~.imageObject-caption {
+            display: none;
+        }
+    }
+}
+
+.woody-component-focus {
+    .imageObject-img:hover~.imageObject-caption {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+}

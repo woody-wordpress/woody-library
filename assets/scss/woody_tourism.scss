@@ -1,0 +1,11 @@
+.apirender {
+    font-size: inherit;
+    @import 'tourism/components/0-vars/_index';
+    @import 'tourism/components/1-base/_index';
+    @import 'tourism/components/2-patterns/_index';
+    @import 'tourism/components/3-layout/_index';
+    @import 'tourism/components/4-features/_index';
+
+    @import 'tourism/playlist/_index';
+    @import 'tourism/sheet/_index';
+}

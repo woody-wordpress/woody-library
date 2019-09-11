@@ -1,0 +1,12 @@
+/*------------------------------------*\
+    - LADDER
+\*------------------------------------*/
+/**
+ * Creates a space under each element
+ */
+.plo-ladder {
+
+    >*:not(:last-child) {
+        margin-bottom: $vr;
+    }
+}

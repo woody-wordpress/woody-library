@@ -1,0 +1,29 @@
+$opacities: (90: .9,
+75: .75,
+50: .5,
+25: .25,
+10: .1);
+
+$heights: (sm: 300px,
+md: 550px,
+lg: 800px);
+
+$spaces-sizes: (basic: (sm: map-get($grid-padding-gutters, medium)/2,
+md: map-get($grid-padding-gutters, medium),
+lg: map-get($grid-padding-gutters, medium)*2,
+xlg: map-get($grid-padding-gutters, medium)*4,
+),
+large:(sm: map-get($grid-padding-gutters, medium),
+md: map-get($grid-padding-gutters, medium)*2,
+lg: map-get($grid-padding-gutters, medium)*4,
+xlg: map-get($grid-padding-gutters, medium)*6));
+
+$social-palette: (facebook: #3b5998,
+twitter: #1da1f2,
+google: #dd4b39,
+instagram: #405de6,
+youtube: #ff0000);
+
+$wicon-list-styles : (love-icon : 'wicon-032-coeur-contour', plus-icon : 'wicon-028-plus-02');
+
+$langs : (fr, en, de, nl, be, it, es, bzh, ja, ru, pt, zh);

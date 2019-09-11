@@ -1,0 +1,11 @@
+{
+    "approved": true,
+    "name": "Carte géographique",
+    "description": "Marqueurs personnalisés affichés sur une carte",
+    "acf_groups": [
+        "group_5b043b2171504"
+    ],
+    "vars": [
+
+    ]
+}

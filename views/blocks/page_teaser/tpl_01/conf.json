@@ -1,0 +1,18 @@
+{
+    "approved": true,
+    "name": "En tête de page - Template 1",
+    "description": "Affiche les infos indispensables d'une page alignées à gauche : titre + desc + social shares + ajout aux favoris",
+    "acf_groups": [
+        "group_5b2bbb46507bf"
+    ],
+    "vars": [
+        "classes",
+        "background_img",
+        "breadcrumb",
+        "page_teaser_title",
+        "page_teaser_display_favs_btn",
+        "page_teaser_desc",
+        "page_teaser_buttons",
+        "page_teaser_display_shares"
+    ]
+}

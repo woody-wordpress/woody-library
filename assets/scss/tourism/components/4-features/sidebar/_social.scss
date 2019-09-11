@@ -1,0 +1,311 @@
+/**
+ * Sidebar Social medias
+ */
+.tourism-detail-sidebar {
+
+    .sidebar-hashtag {
+        text-align: center;
+        padding: $vr;
+        padding-bottom: 0;
+
+        .hashtag-pre {
+            color: $text-muted;
+            opacity: 0.6;
+            font-size: $font-size-h5;
+        }
+
+        .hashtag {
+            display: block;
+            font-weight: normal;
+            font-size: ($font-size-h3 + $font-size-h4)/2;
+            line-height: ($font-size-h3 + $font-size-h4)/2;
+            color: $primary-color;
+        }
+    }
+
+
+    .tourism-detail-sharing {
+        // padding: $vr--small;
+
+        .iframe-wrapper {
+            display: inline-block;
+        }
+
+        &.social-buttons-wrapper {
+            // width: 100%;
+
+            .social-icons-list {
+                padding: 0;
+                text-align: center;
+
+                .social-icon-wrapper {
+                    border: none;
+                    display: inline-block;
+                    margin: 0 -2px; // compensates for inline block spacing preventing items to be on one line
+                    vertical-align: top;
+                    padding: 0 $vr--small;
+                    width: 80px;
+                    .social-icon {
+                        display: block;
+                        padding-top: 100%;
+                        border-radius: 50%;
+                        position: relative;
+                        transition: all .3s $swift-out;
+                        cursor: pointer;
+
+                        &:after {
+                            position: absolute;
+                            top: 40px;
+                            left: 15px;
+                            margin-top: -25px;
+                            text-align: center;
+                            font-size: 20px;
+                            line-height: 30px;
+                            width: 30px;
+                            height: 30px;
+                            @extend .icon-font-item;
+                        }
+
+                        &.active {
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                bottom: -6px;
+                                left: 25%;
+                                margin-left: 7px;
+                                transition: all .3s $swift-out;
+                                border-top: 7px solid transparent;
+                                border-left: 7px solid transparent;
+                                border-right: 7px solid transparent;
+                            }
+                        }
+
+                        &:hover,
+                        &.active {
+                            color: #FFF;
+                        }
+                    }
+
+                    &.item-facebook {
+                        .social-icon {
+                            color: $facebookColor;
+
+                            &:after {
+                                @extend .icon-facebook;
+                            }
+
+                            &:hover,
+                            &.active {
+                                background: $facebookColor;
+                                color: #FFF;
+
+                                &:before {
+                                    opacity: 1;
+                                    border-top-color: $facebookColor;
+                                }
+                            }
+                        }
+                    }
+
+                    &.item-twitter {
+                        .social-icon {
+                            color: $twitterColor;
+
+                            &:after {
+                                @extend .icon-twitter;
+                            }
+
+                            &:hover,
+                            &.active {
+                                background: $twitterColor;
+                                color: #FFF;
+
+                                &:before {
+                                    opacity: 1;
+                                    border-top-color: $twitterColor;
+                                }
+                            }
+                        }
+                    }
+
+                    &.item-youtube {
+                        .social-icon {
+                            color: $youtubeColor;
+
+                            &:after {
+                                @extend .icon-youtube;
+                            }
+
+                            &:hover {
+                                background: $youtubeColor;
+                                color: #FFF;
+
+                                &:before {
+                                    opacity: 1;
+                                    border-top-color: $youtubeColor;
+                                }
+                            }
+                        }
+                    }
+
+                    &.item-google {
+                        .social-icon {
+                            color: $googleColor;
+
+                            &:after {
+                                @extend .icon-google;
+                            }
+
+                            &:hover,
+                            &.active {
+                                background: $googleColor;
+                                color: #FFF;
+
+                                &:before {
+                                    opacity: 1;
+                                    border-top-color: $googleColor;
+                                }
+                            }
+                        }
+                    }
+
+                    &.item-instagram {
+                        .social-icon {
+                            color: $instagramColor;
+
+                            &:after {
+                                @extend .icon-instagram;
+                            }
+
+                            &:hover,
+                            &.active {
+                                background: $instagramColor;
+                                color: #FFF;
+
+                                &:before {
+                                    opacity: 1;
+                                    border-top-color: $instagramColor;
+                                }
+                            }
+                        }
+                    }
+
+                    &.item-pinterest {
+                        .social-icon {
+                            color: $pinterestColor;
+
+                            &:after {
+                                @extend .icon-pinterest;
+                            }
+
+                            &:hover,
+                            &.active {
+                                background: $pinterestColor;
+                                color: #FFF;
+
+                                &:before {
+                                    opacity: 1;
+                                    border-top-color: $pinterestColor;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .opened-share-item {
+                display: block;
+
+                .fb-share-sidebar-btn {
+                    position: relative;
+                    text-align: center;
+                    padding: 2px $vr--small;
+                    border: 1px solid $facebookColor;
+                    background-color: $facebookColor;
+                    cursor: pointer;
+                    color: white;
+                    border-radius: $defRadius;
+                }
+
+                .fb-share-sidebar-btn:hover {
+                    background-color: $color-bg;
+                    color: $facebookColor;
+                }
+
+                .social-tooltip {
+                    position: absolute;
+                    opacity: 0;
+                    overflow: visible;
+                    &.show {
+                        position: relative;
+                        opacity: 1;
+                        display: block;
+                    }
+
+                    .social-tooltip-wrapper {
+                        padding: $defContainersPadding;
+                        text-align: center;
+                        overflow: hidden;
+                        float: left;
+                        width: 100%;
+
+                        .tooltip-label {
+                            display: block;
+                            vertical-align: top;
+                            margin-bottom: $defMargin;
+                            font-weight: 300;
+                            font-size: $font-size-h6;
+                            color: #000;
+                        }
+
+                        .social-item {
+                            display: inline-block;
+                            width: 100%;
+                            vertical-align: top;
+                            margin-bottom: $defMargin;
+
+                            .gplus-share-wrapper {
+                                margin-left: 40px;
+                            }
+                        }
+
+                        .card-item {
+                            margin-bottom: $defMargin;
+                        }
+                    }
+                }
+
+                .instagram-icon {
+                    background: $instagramColor;
+                    width: 100px;
+                    height: 26px;
+                    display: inline-block;
+                    margin: 0 auto;
+                    cursor: pointer;
+                    border-radius: 3px;
+                    color: #FFF;
+                    font-size: .8em;
+                    line-height: 26px;
+                    padding-left: 26px;
+                    position: relative;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+
+                    &:before {
+                        position: absolute;
+                        top: 0;
+                        left: 2px;
+                        width: 26px;
+                        height: 26px;
+                        line-height: 26px;
+                        font-size: 14px;
+                        @extend .icon-font-item;
+                        @extend .icon-instagram;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+&.tourism-item-type-FMA {
+
+    .item-container .item-wrapper {
+        .item-infos {
+            .item-title {
+                padding-right: 10px;
+                text-overflow: ellipsis;
+                // width: 180px;
+                overflow: hidden;
+                display: inline-block;
+                min-height: 55px;
+            }
+
+            .item-secondary-infos {
+                margin: 0;
+                padding: 0;
+                border: none;
+
+                .commune {
+                    &:before {
+                        display: inline-block;
+                        vertical-align: top;
+                        width: 18px;
+                        height: 18px;
+                        line-height: 18px;
+                        text-align: left;
+                        @extend .icon-font-item;
+                        @extend .icon-localize;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.date-value-markets {
+    font-size: 12px;
+}

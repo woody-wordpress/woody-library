@@ -1,0 +1,265 @@
+.detail-form {
+
+    font-family: $defFonts;
+
+    h3 {
+        margin-top: 0;
+        text-align: center;
+        font-weight: 300;
+        font-size: 2.15em;
+        color: #272727;
+        margin-bottom: 20px;
+    }
+
+    .form-content-wrapper {
+        position: relative;
+        padding: 2 * $defContainersPadding;
+        border: $bdColor solid $bdWidth;
+        box-shadow: 0 -2px 6px -4px rgba(0, 0, 0, 0.2);
+
+        .submit-btns-wrapper {
+            clear: both;
+            margin: $defMargin auto 0 auto;
+            overflow: hidden;
+            width: 90%;
+
+            .floating-wrapper {
+                float: right;
+
+                .cancel,
+                .valid {
+                    padding: $defPadding $defContainersPadding;
+                    border-radius: $defRadius;
+                    font-weight: 300;
+                    font-size: 1.15em;
+                    border: none;
+                    line-height: 1.2em;
+                }
+
+                .cancel {
+                    background: $blocEltBg;
+                    margin-right: $defMargin / 2;
+
+                    &:hover {
+                        background: darken($blocEltBg, 8%);
+                    }
+                }
+
+                .valid {
+                    background: $validColor;
+                    color: #FFF;
+
+                    &:hover {
+                        background: darken($validColor, 5%);
+                    }
+                }
+            }
+        }
+    }
+
+    .form-optin {
+        width: 90%;
+        margin: 0 auto;
+        background: $blocEltBg;
+        overflow: hidden;
+        padding: 2 * $defContainersPadding;
+
+        .optin-label {
+            font-size: 1.1em;
+            color: $secTextColor;
+            margin-bottom: $defMargin;
+        }
+
+        .optins-wrapper {
+            overflow: hidden;
+
+            .form-item {
+                float: left;
+                width: 100%;
+                overflow: hidden;
+                margin: 0;
+
+                label {
+                    float: left;
+                    font-size: 1.07em;
+                    font-weight: 300;
+                    color: $defTextColor;
+                    margin-bottom: 0;
+                    cursor: pointer;
+                }
+
+                .button-checkbox {
+                    float: left;
+                    margin: 2px 8px 2px 0;
+                }
+            }
+        }
+
+        .helper {
+            display: block;
+            color: #727272;
+            font-weight: 300;
+            margin: $defMargin 0;
+        }
+    }
+
+    .legal-text {
+        margin-top: 5px;
+        padding: 5px;
+        font-size: 0.7em;
+        color: $sheetDetailTitlesColor;
+    }
+
+    .field-wrapper {
+
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+        display: table;
+        margin-bottom: 10px;
+        clear: both;
+
+        .ng-dirty {
+            &.ng-invalid {
+                border-color: #FFBBBB;
+
+                &:focus {
+                    box-shadow: 0 0 20px rgba(200, 0, 0, .1);
+                }
+            }
+
+            &.ng-valid {
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+            }
+        }
+
+        label {
+            width: 24%;
+            display: table-cell;
+            vertical-align: top;
+            padding-right: 2%;
+            text-align: right;
+            line-height: 34px;
+            margin: 0;
+        }
+
+        &.required {
+            label {
+                &:after {
+                    content: "*";
+                    color: #F00;
+                }
+            }
+        }
+
+        input[type=text],
+        input[type=email],
+        textarea {
+            border-radius: $fieldsRadius;
+            border: $fieldsBorder;
+            box-shadow: none;
+        }
+
+        &>input[type=text],
+        &>input[type=email],
+        &>textarea {
+            display: table-cell;
+            vertical-align: top;
+            width: 100%;
+        }
+
+        .input-wrapper {
+            display: table-cell;
+            vertical-align: top;
+            width: 100%;
+        }
+
+        .calendar-wrapper {
+            float: left;
+            width: 50%;
+
+            input {
+                margin-bottom: 0;
+            }
+
+            @extend .calendars;
+
+            .start-calendar {
+                border-radius: $fieldsRadius 0 0 $fieldsRadius;
+            }
+
+            .end-calendar {
+                border-left: none;
+                border-radius: 0 $fieldsRadius $fieldsRadius 0;
+            }
+        }
+
+        &.form-captcha {
+            overflow: hidden;
+            margin: $defMargin 0;
+
+            label {
+                width: 40%;
+                text-align: center;
+            }
+
+            .input-wrapper {
+                width: 100%;
+                display: table;
+
+                .captcha-question {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+
+                .captcha-input {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+
+                .captcha-question,
+                .captcha-input {
+                    height: 36px;
+                }
+
+                input {
+                    margin: 0;
+                }
+            }
+        }
+
+        .form-select {
+            width: 50% !important;
+            float: left;
+            margin-bottom: 0;
+
+            &.month-select {
+                width: 49% !important;
+                margin-right: 1%;
+            }
+        }
+
+        button.selectpicker {
+            width: 100%;
+            border-radius: $fieldsRadius;
+            border: $fieldsBorder;
+        }
+    }
+}
+
+.modal-button-set {
+    .valid {
+        padding: $defPadding $defContainersPadding;
+        border-radius: $defRadius;
+        font-weight: 300;
+        font-size: 1.15em;
+        border: none;
+        line-height: 1.2em;
+        background: $validColor;
+        color: #FFF;
+
+        &:hover {
+            background: darken($validColor, 5%);
+        }
+    }
+}

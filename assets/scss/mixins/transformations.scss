@@ -1,0 +1,45 @@
+$trnslt-values : (30, 60, 90, 120, 150);
+$rotate-values : (3, 5, 10, 15);
+$Ydirections : (top : -1, bottom : 1);
+$Xdirections : (left : -1, right : 1);
+
+@mixin transformByData() {
+    &.trnslt {
+
+        @each $Ydirection,
+        $multiple in $Ydirections {
+            &-#{$Ydirection} {
+                @each $value in $trnslt-values {
+                    &-#{$value} {
+                        transform: translateY(#{$value * $multiple}px);
+                    }
+                }
+            }
+        }
+
+        @each $Xdirection,
+        $multiple in $Xdirections {
+            &-#{$Xdirection} {
+                @each $value in $trnslt-values {
+                    &-#{$value} {
+                        transform: translateX(#{$value * $multiple}px);
+                    }
+                }
+            }
+        }
+    }
+
+    &.rotate {
+
+        @each $Xdirection,
+        $multiple in $Xdirections {
+            &-#{$Xdirection} {
+                @each $value in $rotate-values {
+                    &-#{$value} {
+                        transform: rotate(#{$value * $multiple}deg);
+                    }
+                }
+            }
+        }
+    }
+}

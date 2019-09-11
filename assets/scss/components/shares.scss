@@ -1,0 +1,27 @@
+.sharing-links {
+    display: flex;
+    @include xy-gutters($gutter-position: top);
+
+    .sharing-button__link {
+        width: 20px;
+        opacity: .8;
+        transition: opacity .3s, transform .3s;
+
+        &:not(:nth-last-of-type(1)) {
+            margin-right: 20px;
+        }
+
+        &:after {
+            display: none !important;
+        }
+
+        &:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+    }
+}
+
+.text-center .sharing-links {
+    justify-content: center;
+}
