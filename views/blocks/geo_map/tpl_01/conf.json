@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Carte géographique",
+    "name": "Template 01",
     "description": "Marqueurs personnalisés affichés sur une carte",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b043b2171504"
     ],

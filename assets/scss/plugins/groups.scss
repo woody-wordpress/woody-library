@@ -5,8 +5,13 @@
 .trip-basis .chosen .validate {
     display: none;
 }
-
 .group-quotation-wrapper {
+
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+        -webkit-appearance: none;
+    }
+
     .tabs {
         position: relative;
         display: flex;

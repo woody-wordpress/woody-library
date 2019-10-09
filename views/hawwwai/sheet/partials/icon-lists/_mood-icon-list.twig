@@ -1,0 +1,25 @@
+{% if rating <= 1 %}
+    {% set rating = 1 %}
+    {% set color = 'danger' %}
+{% elseif rating == 2 %}
+    {% set color = 'warning' %}
+{% else %}
+    {% set color = 'success' %}
+{% endif %}
+<i class="plo-fonticon plo-fonticon--{{size}} icon-font-avis{{rating}} _plu-text-{{color}}"></i>
+{% if label|default and rating|default %}
+    {% set label_text = 'EXCELLENT' %}
+    {% if rating <= 1 %}
+        {% set label_text = 'HORRIBLE' %}
+    {% elseif rating == 2 %}
+        {% set label_text = 'BAD' %}
+    {% elseif rating == 3 %}
+        {% set label_text = 'AVERAGE' %}
+    {% elseif rating == 4 %}
+        {% set label_text = 'GOOD' %}
+    {% elseif rating == 5 %}
+        {% set label_text = 'EXCELLENT' %}
+    {% endif %}
+    {% set full_label = 'SECTIONS.TOURISM.SHEET.COMMENTS.'~label_text %}
+    <div class="_plu-text-{{color}}">{{ full_label|trans }}</div>
+{% endif %}

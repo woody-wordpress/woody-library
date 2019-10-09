@@ -46,13 +46,13 @@
                     'ellipsis' : ellipsis|default(180)
                 } %}
                     {% if display_button|default and ( item.link.link_label|default or item.link.title|default ) %}
-                        <button class="card-button button">
+                        <span class="card-button button">
                             {% if item.link.link_label %}
                                 {{ item.link.link_label }}
                             {% elseif item.link.title %}
                                 {{ item.link.title }}
                             {% endif %}
-                        </button>
+                        </span>
                     {% endif %}
                 {% endblock %}
                 {% if item.booking.link %}

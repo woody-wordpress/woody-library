@@ -25,7 +25,7 @@ $.fn.initSwiper = function ( options )
             // Set default options
             var defaultOptions = {
                 loop: isNested ? false : true,
-                centeredSlides: isNested ? false : true,
+                centeredSlides: false,
                 keyboard: {
                     enabled: true
                 },

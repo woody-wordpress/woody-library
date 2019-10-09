@@ -1,0 +1,11 @@
+{% if contractsLevels.sidebar.issueReport %}
+	<li id="li-issue-report" class="sidebar-issue-report">
+	    <a class="sidebar-issue-report-btn plo-btn"
+	            rc-modal
+	            window-class="contact-modal"
+	            tpl-url="sections/tourism/sheet-detail/modals/issue-report-form.html"
+	            action="click"
+	            check-params="form_error">{{ 'SECTIONS.TOURISM.SHEET.FORM.ISSUE_REPORT.REPORT_ISSUE'|trans }}
+	    </a>
+	</li>
+{% endif %}

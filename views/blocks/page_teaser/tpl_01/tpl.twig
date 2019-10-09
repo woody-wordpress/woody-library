@@ -1,4 +1,4 @@
-<div class="woody-component woody-component-teaser tpl_01 {{ classes|default }}{{ background_img ? ' has-bgimg' }}">
+<div class="woody-component woody-component-teaser tpl_01 trip-info-banner {{ classes|default }}{{ background_img ? ' has-bgimg' }}">
     {% if background_img %}
     <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
     {% endif %}
@@ -29,6 +29,9 @@
 
         {% if page_teaser_desc|default %}
         <div class="page-main-description">{{ page_teaser_desc }}</div>
+        {% endif %}
+        {% if created %}
+        <span class="page-main-created">{{ __('Publié le', 'woody-theme') }} {{ created }}</span>
         {% endif %}
         {% endblock %}
         {% block page_teaser_links %}
@@ -75,6 +78,12 @@
         </span>
         {% endif %}
         {% endblock %}
-
+        {% if trip_infos|default %}
+            <div class="grid-x">
+                <div class="cell medium-12 large-12 flex-cowfntainer flex-dir-row isRel">
+                {{ trip_infos }}
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>

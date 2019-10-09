@@ -109,6 +109,7 @@
     position: initial;
 
     #iti-map {
+        position: relative;
         z-index: 1;
         height: unquote("calc(100vh - 80px)");
 
@@ -508,6 +509,40 @@
 
 &.itinerary-printing {
 
+    @media (min-width: 768px) {
+        .modal-dialog {
+            width: 50%;
+        }
+    }
+
+    .modal-dialog {
+
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+
+        .modal-content {
+            padding: 10px;
+        }
+        .modal-body {
+            padding-left: 50px !important;
+        }
+        .checkbox {
+            // text-align: center;
+            &.grey {
+                color: #999;
+                label { cursor: default; }
+            }
+        }
+    }
+
+    &.hide-poi { #poi {display: none; } }
+    &.hide-poi-images { #poi .step-images, .steps-wrapper > .col-md-6.col-xs-12 {display: none; } }
+    &.hide-profile { #profile {display: none; } }
+    &.hide-steps { #steps {display: none; } }
+    &.hide-map { #iti-map {display: none !important; } }
+
     .hero-slider,
     .list-group-item:not(:first-child),
     #mosaic,
@@ -521,7 +556,6 @@
     .sheet-navbar-checkpoint,
     .sheet-fab,
     .sheet-nav-actions,
-    .poi-wrapper-responsive,
     #steps > [krpano-selection],
     #poi .itinerary-poi-wrapper .audio-element-wrapper,
     #poi .itinerary-poi-wrapper .video-element-wrapper,
@@ -538,6 +572,7 @@
         margin-top: 25px;
         .sheet-header {
             position: relative;
+            max-width: none;
             text-shadow: none;
 
             .sheet-header_title,
@@ -557,6 +592,72 @@
 
 
     // fix layouts
+    #map .leaflet-marker-pane {
+        // fix shift markers
+        top: -5px;
+        @media print {}
+    }
+    #map div.leaflet-marker-icon {
+        padding-top: 37px !important;
+        .marker-index.new {
+            font-size: 12px !important;
+            font-weight: 700;
+            margin-top: 5px !important;
+        }
+    }
+    #map .rich-marker {
+        height: 35px !important;
+        // transform: translateY(-20px);
+    }
+    #map .rich-marker path {
+        fill-opacity: 0;
+        stroke: #000;
+        // transform: translateY(-72px);
+    }
+    #map .rich-marker circle {
+        fill-opacity: 0.5;
+        fill: transparent !important;
+    }
+
+    .locomotion-features .locomotion-feature-wrapper .locomotion-icon::after {
+        font-size: 26px !important;
+    }
+    .locomotion-features *,
+    .locomotion-features .locomotion-feature-wrapper {
+        font-size: 16px !important;
+    }
+    #description {
+        font-size: 12px !important;
+    }
+    #poi > dl {
+        padding: 0;
+        margin-bottom: 5px;
+    }
+    #poi .itinerary-poi-wrapper {
+        page-break-inside: avoid;
+        padding: 0;
+    }
+    #poi > .poi-wrapper-responsive {
+        display: block !important;
+        .step-title-responsive {
+            display: inline-block !important;
+            font-size: 16px !important;
+            margin: 0 !important;
+            margin-right: 15px !important;
+            margin-bottom: 5px !important;
+        }
+    }
+    .step-title-number .number-wrapper {
+        display: inline-block !important;
+        width: 42px !important;
+        height: 42px !important;
+        font-size: .7em !important;
+        text-align: center !important;
+        line-height: 42px !important;
+        border-radius: 50%;
+        border: 1px solid black;
+        margin-right: 10px !important;
+    }
     .itinerary-layout {
         & > div, & >aside {
             width: 100% !important;
@@ -585,10 +686,15 @@
         left: auto !important;
         opacity: 1 !important;
         float: none !important;
-        .steps-wrapper > .col-md-6.col-xs-12 {
-            max-width: 320px;
-            display: none;
+        & > .steps-wrapper  {
+            font-size: 12px;
         }
+    }
+    &.hide-items .steps-wrapper > .col-md-6.col-xs-12 {
+        display: none;
+    }
+    .steps-wrapper > .col-md-6.col-xs-12 {
+        max-width: 200px;
     }
 
     .list-group-item,
@@ -611,8 +717,10 @@
     .kaarousel-wrapper {
         .kaarousel-slide {
             width: auto !important;
+            vertical-align: top !important;
             display: none;
-            max-width: 32%;
+            max-width: 18%;
+            padding: 0 5px;
         }
         .kaarousel-slide:nth-child(-n+4) {
             display: inline-block !important;
@@ -641,10 +749,11 @@
     // page-breaks
     #steps,
     #profile,
-    #poi .poi-wrapper.slick-slide:not(:last-child),
+    // #poi .poi-wrapper.slick-slide:not(:last-child),
     #iti-map,
     // .establishment-description:last-child,
-    #description {
+    // #description,
+    #page-break {
         page-break-after: always;
         page-break-inside: avoid;
         // &:before {
@@ -656,7 +765,7 @@
 
 
     #poi .poi-wrapper.slick-slide {
-        border: 3px solid red;
+        // border: 3px solid red;
         margin: 0 !important;
         padding: 0 !important;
         page-break-inside: avoid;

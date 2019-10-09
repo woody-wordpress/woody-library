@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Vidéo",
+    "name": "Template 01",
     "description": "Affiche une vidéo (youtube, vimeo, dailymotion, ...)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b0430471a3d6"
     ],

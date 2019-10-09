@@ -1,0 +1,22 @@
+{% if audio_files.audio_file_mp3.url %}
+    <div class="woody-component woody-component-audio-player tpl_01">
+        <div class="the-player" itemscope itemtype="http://schema.org/AudioObject">
+            <span class="hide" itemprop="name"><b>{{ audio_files.audio_file_mp3.filename }}</b></span>
+                <audio class="audio-player" controls>
+                    {% if audio_files.audio_file_mp3.url %}
+                        <source src="{{ audio_files.audio_file_mp3.url }}" type="audio/mp3" />
+                    {% endif %}
+                    {% if audio_files.audio_file_ogg.url %}
+                        <source src="{{ audio_files.audio_file_ogg.url }}" type="audio/ogg" />
+                    {% endif %}
+                </audio>
+                <meta itemprop="encodingFormat" content="{{ audio_files.audio_file_mp3.mime_type }}" />
+                <meta itemprop="contentUrl" content="{{ audio_files.audio_file_mp3.url }}" />
+                {% if audio_files.audio_file_mp3.description %}
+                <span class="description">
+                    <span itemprop="description">{{ audio_files.audio_file_mp3.description }}</span>
+                </span>
+                {% endif %}
+        </div>
+    </div>
+{% endif %}

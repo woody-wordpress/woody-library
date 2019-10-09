@@ -1,0 +1,23 @@
+{% if formated_object.sitSourceData|default %}
+<li id="li-sit-source" class="sit-source-data">
+{% set inPanelSection = false %}
+{% if inPanelSection|default %}<section class="panel panel-default">{% endif %}
+
+        <div class="panel-body text-center">
+        {% if formated_object.sitSourceData.logo|default %}
+            <img src="{{ formated_object.sitSourceData.logo }}" class="responsive-img" />
+        {% endif %}
+
+        {% if formated_object.sitSourceData.modified|default and formated_object.sitSourceData.creator|default %}
+            <div>
+                {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}} {{ formated_object.sitSourceData.modified|date("Y-m-d")|localizeddate('long', 'none', lang) }}
+                {{ 'GLOBAL.AT'|trans }} {{ formated_object.sitSourceData.modified|date("H:i:s")| localizeddate('none', 'short', lang) }}
+            </div>
+            <div>
+                {{ 'GLOBAL.BY'|trans }} {{ formated_object.sitSourceData.creator }}
+            </div>
+        {% endif %}
+        </div>
+{% if inPanelSection %}</section>{% endif %}
+</li>
+{% endif %}

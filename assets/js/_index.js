@@ -1,11 +1,11 @@
-import './movies';
+import './medias';
 import './images';
 import './maps';
 import './swipers';
 import './responsive_focus';
 import './lightgallery';
 import './tables';
-import './list_filters';
+import './lists';
 import './phone_click';
 import './headnavs';
 import './media-reveal';
@@ -20,3 +20,4 @@ import './focuses';
 import './accordion';
 import './interactive_gallery';
 import './parallax';
+import './reveals';

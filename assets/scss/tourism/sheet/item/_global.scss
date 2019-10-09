@@ -119,3 +119,31 @@
         }
     }
 }
+
+.item-thumbnail {
+    position: relative;
+
+    .item-thumbnail-nav {
+        display: flex;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 6;
+        align-items: center;
+        justify-content: space-between;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+
+        .prev,
+        .next {
+            background-color: #ffffff99;
+            font-size: 35px;
+            padding: 15px 19px;
+            color: #333;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+    }
+    &:hover .item-thumbnail-nav { opacity: 1; }
+}

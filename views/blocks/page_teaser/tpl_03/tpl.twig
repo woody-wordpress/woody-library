@@ -98,7 +98,7 @@
                             lat: {{ post_coordinates.post_latitude }},
                             lng: {{ post_coordinates.post_longitude }},
                             zoom: {{ page_teaser_map_zoom|default(7)}},
-                            fitBounds: false,
+                            fitBounds: 0,
                             controls: {
                                 "fullScreenControl": false,
                                 "zoomControl": true,

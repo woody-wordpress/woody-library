@@ -4,7 +4,7 @@
         {% if background_img %}
             <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
         {% endif %}
-        <div class="grid-x grid-padding-x{{ background_img ? ' isRel'}}">
+        <div class="grid-x{{ custom_text_no_padding ? '' : ' grid-padding-x' }}{{ background_img ? ' isRel'}}">
             <div class="cell">
                 {{ text|default }}
             </div>

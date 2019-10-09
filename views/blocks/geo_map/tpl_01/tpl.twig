@@ -7,7 +7,7 @@
                 lat: {{ default_lat }},
                 lng: {{ default_lng }},
                 zoom: {{ map_zoom|default(7) }},
-                fitBounds: {{ map_zoom_auto|default('true') }},
+                fitBounds: {{ map_zoom_auto|default(0) }},
                 tm_conf_id : {{ tmaps_confid|default('false') }},
                 controls: {
                     "fullScreenControl": true,
@@ -51,20 +51,24 @@
             if(document.getElementsByClassName('leaflet-map-pane').length == 0) {
                 setTimeout(setPropertiesToLayer, 1000);
             }else{
-                rcModule.rcTouristicMap[mapData['id']].eachLayer(function(e){
-                    if('feature' in e && 'route' in e['feature']){
-                        let stroke_color = e['feature']['properties']['stroke'];
-                        let fill_color = e['feature']['properties']['fill'];
-                        let opacity = e['feature']['properties']['fill-opacity'];
-                        let weight = e['feature']['properties']['stroke-width'];
-                        e.setStyle({
-                            color: stroke_color,
-                            fillColor: fill_color,
-                            fillOpacity: opacity,
-                            weight: weight
+                $.each(rcModule.rcTouristicMap, function(index, value){
+                    if(index.indexOf('geomap') != -1){
+                        value.eachLayer(function(e){
+                            if('feature' in e && 'route' in e['feature']){
+                                let stroke_color = e['feature']['properties']['stroke'];
+                                let fill_color = e['feature']['properties']['fill'];
+                                let opacity = e['feature']['properties']['fill-opacity'];
+                                let weight = e['feature']['properties']['stroke-width'];
+                                e.setStyle({
+                                    color: stroke_color,
+                                    fillColor: fill_color,
+                                    fillOpacity: opacity,
+                                    weight: weight
+                                });
+                            }
                         });
                     }
-                });
+                })
             }
         };
         setPropertiesToLayer();

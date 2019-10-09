@@ -2,27 +2,30 @@
 {% else %}{% set spaceBetween = 0 %}
 {% endif %}
 
+{% set imageStyle = "ratio_16_9" %}
+{% set classIndex = "tpl_304" %}
+
 {% extends '_objects/visualModifier.twig' %}
 {% block content %}
-<div class="woody-component woody-component-focus tpl_304 {{ items|length > 3 ? ' isRel swiperOut' : ' swResp' }}" data-equalizer data-equalize-on="small">
+<div class="woody-component woody-component-focus {{ classIndex }} {{ items|length > 3 ? ' isRel swiperOut' : ' swResp' }}" data-equalizer data-equalize-on="small">
     {% if items|length == 1 %}
         {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
             'items' : items,
             'card' : "basic_card/tpl_01",
-            'image_style' : "ratio_16_9"
+            'image_style' : imageStyle
         } %}
     {% elseif items|length == 2 %}
         {% include 'lists/bases_grid/tpl_201/tpl.twig' with {
             'items' : items,
             'card' : "basic_card/tpl_01",
-            'image_style' : "ratio_16_9",
+            'image_style' : imageStyle,
             'swResp' : true
         } %}
     {% elseif items|length == 3 %}
         {% include 'lists/bases_grid/tpl_301/tpl.twig' with {
             'items' : items,
             'card' : "basic_card/tpl_01",
-            'image_style' : "ratio_16_9",
+            'image_style' : imageStyle,
             'swResp' : true
         } %}
     {% elseif items|length > 3 %}
@@ -43,7 +46,7 @@
         {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
         {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
             'items' : items,
-            'image_style' : "ratio_16_9",
+            'image_style' : imageStyle,
             'card' : "basic_card/tpl_01",
             'swiper_options' : json_swiper_options
         } %}

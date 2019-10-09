@@ -1,9 +1,10 @@
 {
-    "approved" : true,
-    "name" : "Section complète - Template 1",
-    "description" : "Regroupe le header, le layout et le footer d'une section + gestion des class d'affichage ",
-    "acf_groups" : [],
-    "vars" : [
+    "approved": true,
+    "name": "Section complète - Template 1",
+    "description": "Regroupe le header, le layout et le footer d'une section + gestion des class d'affichage ",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": [
         "header",
         "footer",
         "layout",

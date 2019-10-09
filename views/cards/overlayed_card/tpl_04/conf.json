@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Carte Overlay - Template 4",
     "description": "Carte de contenu avec textes en haut à droite en overlay de l'image",
+    "lib_type": "lite",
     "acf_groups": [],
     "vars": [
         "item"

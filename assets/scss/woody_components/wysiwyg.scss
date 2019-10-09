@@ -1,0 +1,17 @@
+p {
+    img {
+        display: block;
+
+        &.alignleft {
+            float: left;
+            margin: 0 15px 15px 0;
+        }
+        &.aligncenter {
+            margin: 10px auto;
+        }
+        &.alignright {
+            float: right;
+            margin: 0 0 15px 15px;
+        }
+    }
+}

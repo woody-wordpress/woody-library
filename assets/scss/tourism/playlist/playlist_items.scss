@@ -4,6 +4,8 @@
 
 #item_sheet_list {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
     .rc_lego {
         margin-bottom: 20px;
     }

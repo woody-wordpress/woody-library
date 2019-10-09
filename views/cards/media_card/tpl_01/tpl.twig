@@ -30,9 +30,15 @@
                 {% if item.attachment_more_data.author|default %}
                     <div class="author">
                         <span class="wicon wicon-011-instagram"></span>
+
                         <span class="instagram-user">
-                            <strong>
-                                {{ item.attachment_more_data.author }}</strong>
+                            {% if item.attachment_more_data.instagram_metadata.permalink %}
+                                <a class="no-ext" href="{{ item.attachment_more_data.instagram_metadata.permalink }}" target="_blank">
+                            {% endif %}
+                            <strong>{{ item.attachment_more_data.author }}</strong>
+                            {% if item.attachment_more_data.instagram_metadata.permalink %}
+                                </a>
+                            {% endif %}
                         </span>
                     </div>
                 {% endif %}

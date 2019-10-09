@@ -1,0 +1,61 @@
+{# Trip secondary infos #}
+
+{# Departure point #} {# been asked to remove in #31438 #}
+{#{% if formated_object.contacts.establishment.commune|default %}
+    {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.DEPARTURE', 'rowContent' : formated_object.contacts.establishment.commune } only %}
+{% endif %}#}
+
+
+{# Coords #} {# been asked to remove in #31438 #}
+{#{% if formated_object.bordereau == 'PRD' and formated_object.dataItinerary.gpsCoordinates|default %}
+    {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.GPS_COORDINATES', 'rowContent' : formated_object.dataItinerary.gpsCoordinates } only %}
+{% endif %}#}
+
+
+{# Difference in elevation #}
+{% if formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation|default and formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation > 0 %}
+    {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.DIFFERENCE_IN_HEIGHT', 'rowContent' : formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation ~ ' m' } only %}
+{% endif %}
+
+{% if formated_object.dataItinerary.additionals|default %}
+    {# Alert : shown elsewhere #}
+    {# {% if formated_object.dataItinerary.additionals.alert|default %}
+        {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.WARNING', 'rowContent' : formated_object.dataItinerary.additionals.alert } only %}
+    {% endif %} #}
+
+    {# PRD others #}
+    {% if formated_object.dataItinerary.additionals.others|default %}
+        {% for other in formated_object.dataItinerary.additionals.others %}
+            {% include TWIG.PANEL_ROW with {  'rowTitle': other._code, 'rowContent' : other._value } only %}
+        {% endfor %}
+    {% endif %}
+
+    {# Interest #}
+    {% if formated_object.dataItinerary.additionals.interest|default %}
+        {% include TWIG.PANEL_ROW with {  'rowTitle': 'SECTIONS.TOURISM.SHEET.ITINERARY.ROUTE_INTEREST', 'rowContent' : formated_object.dataItinerary.additionals.interest } only %}
+    {% endif %}
+
+    {# Equipment #}
+    {% if formated_object.dataItinerary.additionals.equipment|default %}
+        {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.EQUIPMENT', 'rowContent' : formated_object.dataItinerary.additionals.equipment } only %}
+    {% endif %}
+
+    {# Prefectoral #}
+    {% if formated_object.dataItinerary.additionals.prefectoral|default %}
+        {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.PREFECTORAL_DECREE',
+                                                                        'rowLinkText': 'GLOBAL.KNOW_MORE',
+                                                                        'rowLink' : formated_object.dataItinerary.additionals.prefectoral } only %}
+    {% endif %}
+
+    {# IGN ref #}
+    {% if formated_object.dataItinerary.additionals.ignId|default %}
+        {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.IGN_MAP', 'rowContent' : formated_object.dataItinerary.additionals.ignId } only %}
+    {% endif %}
+
+    {# Did you know #}
+    {% if formated_object.dataItinerary.additionals.didYouKnow|default %}
+        {% include TWIG.PANEL_ROW with {  'rowTitle': 'SECTIONS.TOURISM.SHEET.ITINERARY.DID_YOU_KNOW',
+                                                                        'rowClass': 'section-did-you-know',
+                                                                        'rowContent' : formated_object.dataItinerary.additionals.didYouKnow } only %}
+    {% endif %}
+{% endif %}

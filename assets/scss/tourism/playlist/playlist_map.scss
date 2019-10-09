@@ -30,6 +30,10 @@
         z-index: 0;
     }
 
+    .leaflet-control-scale {
+        background: none;
+    }
+
     // Style Leaflet Popup
     .leaflet-popup-content-wrapper {
         background: transparent;

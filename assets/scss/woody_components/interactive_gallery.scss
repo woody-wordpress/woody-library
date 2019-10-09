@@ -1,13 +1,14 @@
-.woody-component-interactive_gallery{
+.woody-component-interactive_gallery {
     .tooltip {
         display: inline;
         position: relative;
         z-index: 999;
-        &.is-open{
-            .tooltip-item{
-                &:before{
-                    transform-origin: 50%  51%;
-                    transform:rotate(0deg);
+
+        &.is-open {
+            .tooltip-item {
+                &:before {
+                    transform-origin: 50% 51%;
+                    transform: rotate(0deg);
                 }
             }
         }
@@ -26,8 +27,9 @@
         background-color: $black;
         border-radius: 50%;
         transform: rotate(0deg);
-        &:before{
-            transform:rotate(45deg);
+
+        &:before {
+            transform: rotate(45deg);
             transition: transform 0.2s;
         }
     }
@@ -42,17 +44,18 @@
         text-align: left;
         font-size: 0.765em;
         line-height: 1.4;
-        box-shadow: -5px -5px 15px rgba(48,54,61,0.2);
+        box-shadow: -5px -5px 15px rgba(48, 54, 61, 0.2);
         background: $tooltip-text-background;
         opacity: 0;
         cursor: default;
         pointer-events: none;
     }
 
-    .tooltip-effect{
+    .tooltip-effect {
         position: absolute;
         z-index: 9999;
-        .tooltip-content{
+
+        .tooltip-content {
             @include tooltip-effect($tooltip-position, $tooltip-effect);
         }
     }
@@ -61,76 +64,97 @@
     .tooltip.is-open .tooltip-content {
         pointer-events: auto;
         opacity: 1;
-        transform: translate3d(0,0,0) rotate3d(0,0,0,0);
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0);
     }
+
     .tooltip.tooltip-effect-2:hover .tooltip-content {
-        transform: perspective(1000px) rotate3d(1,0,0,0deg);
+        transform: perspective(1000px) rotate3d(1, 0, 0, 0deg);
     }
 
     /* Tooltip content*/
 
-    .tooltip-content img {
-        position: relative;
-        height: 170px;
-        display: block;
-        float: left;
-        margin-right: 1em;
+    .tooltip-content {
+        @include xy-gutters($gutter-type:padding, $gutter-position:top bottom left right);
+
+        img {
+            position: relative;
+            height: 170px;
+            display: block;
+            float: left;
+            margin-right: 1em;
+        }
     }
 
     .tooltip-text {
         display: block;
-        padding: 1rem;
         color: $tooltip-text-color;
-        p{
+
+        p {
             margin: 0;
             font-size: 1rem;
         }
     }
 
+    .tooltip-audio-player {
+        &.bottom {
+            margin-top: 20px;
+        }
+    }
+
     /* Text container positioning */
-    @if $tooltip-position == 'top-left'{
-        .tooltip-content{
+    @if $tooltip-position=='top-left' {
+        .tooltip-content {
             left: 50%;
             top: 50%;
             right: auto;
             bottom: auto;
         }
-        .tooltip-effect{
+
+        .tooltip-effect {
             top: 20%;
             left: 20%;
         }
-    }@else if $tooltip-position == 'top-right'{
-        .tooltip-content{
+    }
+
+    @else if $tooltip-position=='top-right' {
+        .tooltip-content {
             right: 50%;
             top: 50%;
             left: auto;
             bottom: auto;
         }
-        .tooltip-effect{
-            top:20%;
+
+        .tooltip-effect {
+            top: 20%;
             right: 20%;
         }
-    }@else if $tooltip-position == 'bottom-right'{
-        .tooltip-content{
+    }
+
+    @else if $tooltip-position=='bottom-right' {
+        .tooltip-content {
             right: 50%;
             bottom: 50%;
             left: auto;
             top: auto;
         }
-        .tooltip-effect{
-            bottom:20% ;
-            right: 20% ;
+
+        .tooltip-effect {
+            bottom: 20%;
+            right: 20%;
         }
-    }@else if $tooltip-position == 'bottom-left'{
-        .tooltip-content{
+    }
+
+    @else if $tooltip-position=='bottom-left' {
+        .tooltip-content {
             right: auto;
             bottom: 50%;
             left: 50%;
             top: auto;
         }
-        .tooltip-effect{
-            left:20% ;
-            bottom: 20% ;
+
+        .tooltip-effect {
+            left: 20%;
+            bottom: 20%;
         }
     }
 }

@@ -1,0 +1,21 @@
+{% if contractsLevels.sidebar.booking and formated_object.centralResa|default and
+    formated_object.centralResa.type == '99.20.02.02.04' and formated_object.centralResa.mode|default == 'booking' %}
+
+    {% if tw_inSidebar|default %}
+    <span ng-controller="datesGlobalCtrl"></span>
+    <li id="li-booking-ingenie" ng-if="formatedDatas.resaIframe && formatedDatas.resaIframeContent">
+        <div id="booking" class="show-when-angular-ready panel panel-default" style="background: none;">
+            <div ng-bind-html="formatedDatas.resaIframeContent"></div>
+        </div>
+    </li>
+    {% else %}
+    <section id="booking" class="content-booking panel panel-default row show-when-angular-ready">
+        <span ng-controller="datesGlobalCtrl"></span>
+        {# content #}
+        <ng-include ng-if="!formatedDatas.resaIframe" src="'components/central-resa/central-resa.html'"></ng-include>
+        <span ng-if="formatedDatas.resaIframe">
+            <div ng-bind-html="formatedDatas.resaIframeContent"></div>
+        </span>
+    </section>
+    {% endif %}
+{% endif %}

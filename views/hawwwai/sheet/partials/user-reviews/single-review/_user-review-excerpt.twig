@@ -1,0 +1,13 @@
+<article class="plo-media">
+
+    <div class="plo-media__img">
+        {% include TWIG.MOOD_ICONS with {'rating': comment.note|number_format, 'size': ''} only %}
+    </div>
+
+    <div class="plo-media__body">
+
+        <p class="zeta">
+            <strong class="_plu-emphasis--high">{{ comment.titre }}</strong>{# <a class="_plu-text-underline _plu-link-reset" anchor-link ng-click="scrollTo('#comments')" href>{{ 'GLOBAL.READ_MORE'|trans }}</a>#} -  <span class="_plu-text-muted">{{ comment.auteur }} - {{ comment._formatedDate }}</span>
+        </p>
+    </div>
+</article>

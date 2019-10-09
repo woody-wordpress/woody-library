@@ -47,13 +47,15 @@
         </div>
     {% endblock %}
     {% if page_heading_add_social_movie and page_heading_social_movie|default %}
-        <div class="toggling-movie-container">
+        <div class="toggling-movie-container{{ page_heading_social_movie ? ' embed-plyr' }}">
             <div class="movie-toggle">
                 <span class="toggle-icon"></span>
                 <span class="toggle-text">{{ __("Voir la vidéo", 'woody-theme') }}</span>
             </div>
             <div class="hidden toggling-movie">
-                {{ page_heading_social_movie }}
+                <div class="heroPlyr-wrapper">
+                    {{ page_heading_social_movie }}
+                </div>
             </div>
         </div>
     {% endif %}

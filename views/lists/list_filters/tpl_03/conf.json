@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Filtre de liste de type nombre -/+",
     "description": "...",
+    "lib_type": "lite",
     "acf_groups": [
 
     ],

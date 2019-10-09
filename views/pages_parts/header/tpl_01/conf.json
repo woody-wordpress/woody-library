@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Header template 1",
     "description": "Un exemple de header",
+    "lib_type": "lite",
     "acf_groups": [],
     "vars": []
 }

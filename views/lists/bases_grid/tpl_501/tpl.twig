@@ -1,6 +1,5 @@
 {% extends '_objects/visualModifier.twig' %}
 {% block content %}
-    <!-- TODO: cette grille ne fonctionne pas au delà de 5 éléments ... -->
     {% if is_list %}
         <li class="grid-container">
         {% endif %}
@@ -12,10 +11,10 @@
                 <span class="h5 align-center align-middle">{{ empty }}</span>
             </div>
         {% endif %}
-        <div class="{% block grid_class %}woody_bases_grid tpl_501{% endblock %} align-stretch grid-x{{ swResp ? ' swRespW' }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+        <div class="{% block grid_class %}woody_bases_grid tpl_501{% endblock %} align-stretch grid-x medium-up-3 large-up-5{{ swResp ? ' swRespW' }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
             {% if items|default %}
-                {% for item in items[: 2] %}
-                    <div class="cell medium-6{{ swResp ? ' swRespS' }}">
+                {% for item in items %}
+                    <div class="cell {{ swResp ? ' swRespS' }}">
                         {% block the_card %}
                             {% include "cards/#{card}/tpl.twig" with {
                                 'desequalize' : desequalize,
@@ -23,11 +22,6 @@
                                 'page_type' : item.page_type
                         } %}
                         {% endblock %}
-                    </div>
-                {% endfor %}
-                {% for item in items[2 : 3] %}
-                    <div class="cell medium-4{{ swResp ? ' swRespS' }}">
-                        {{ block(the_card) }}
                     </div>
                 {% endfor %}
             {% endif %}

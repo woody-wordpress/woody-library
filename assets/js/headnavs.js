@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 $('.woody-component-headnavs').each(function() {
     var windowWidth = window.innerWidth;
-    var $body = $('body'),
+    var $body = $('body:not(.fullScrolled)'),
         $mainContent = $('#main-content'),
         $this = $(this),
         headerHeight = $this.height(),

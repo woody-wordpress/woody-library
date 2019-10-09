@@ -1,0 +1,7 @@
+{% if contractsLevels.content.booking %}
+    {% if formated_object.hasCentraleDispo|default or formated_object.hasTsAvailabilities|default %}
+        <section id="availabilities" class="show-when-angular-ready panel panel-default row" ng-if="availabilities">
+            <rc-dispo class="availabilities-tab"></rc-dispo>
+        </section>
+    {% endif %}
+{% endif %}

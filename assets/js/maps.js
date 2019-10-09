@@ -89,13 +89,15 @@ $('.tabs').on({
 //
 function reloadMapBounds(map_id) {
     var the_map = rcModule.rcTouristicMap[map_id];
-    the_map.invalidateSize();
-    the_map.on('moveend', function() {
-        var bounds = [];
-        the_map.eachLayer(function(layer) {
-            bounds.push(layer._latlng);
+    if (typeof the_map !== 'undefined') {
+        the_map.invalidateSize();
+        the_map.on('moveend', function() {
+            var bounds = [];
+            the_map.eachLayer(function(layer) {
+                bounds.push(layer._latlng);
+            });
+            the_map.fitBounds(bounds);
+            the_map.off('moveend');
         });
-        the_map.fitBounds(bounds);
-        the_map.off('moveend');
-    });
+    }
 }

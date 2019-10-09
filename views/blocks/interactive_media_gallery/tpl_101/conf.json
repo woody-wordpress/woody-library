@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Grille 1 colonne - 100% (Paysage B)",
+    "name": "Template 01 - Paysage B",
     "description": "Grille 1 colonne 100% de large (Paysage B)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5d5bbac79ab7e"
     ],

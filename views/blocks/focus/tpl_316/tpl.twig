@@ -1,0 +1,12 @@
+{% if no_padding == 0 %}{% set spaceBetween = 30 %}
+{% else %}{% set spaceBetween = 0 %}
+{% endif %}
+
+{% set imageStyle = "ratio_square" %}
+{% set classIndex = "tpl_316" %}
+
+{% extends '_objects/visualModifier.twig' %}
+
+{% block content %}
+{{ block ("content", "blocks/focus/tpl_304/tpl.twig")}}
+{% endblock %}

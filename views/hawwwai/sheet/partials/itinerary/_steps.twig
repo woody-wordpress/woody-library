@@ -1,0 +1,58 @@
+{% if (tformated_object.dataItinerary.additionals|default and formated_object.dataItinerary.additionals.toStart|default)
+   or (formated_object.medias|default and formated_object.medias.krpanos|default)
+   or (formated_object.dataItinerary.additionals|default and formated_object.dataItinerary.additionals.steps|default) %}
+<section id="steps" class="row itinerary-steps-wrapper panel panel-default">
+
+    {# DEPARTURE #}
+    {% if formated_object.dataItinerary.additionals|default and formated_object.dataItinerary.additionals.toStart|default %}
+        <section class="itinerary-to-start">
+            <div class="h3">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.HOW_TO_REACH_THE_START' |trans }}</div>
+            <div class="pre-wrapper">{{ formated_object.dataItinerary.additionals.toStart|raw|nl2br }}</div>
+        </section>
+    {% endif %}
+
+    {# KRPANO #}
+    {% if formated_object.medias|default and formated_object.medias.krpanos|default %}
+    <section class="show-when-angular-ready" krpano-selection krpanos='{{formated_object.medias.krpanos|json_encode(constant('JSON_PRETTY_PRINT'))}}'>
+        {% for kr in formated_object.medias.krpanos|slice(0, 1) %}
+
+            <span class="krpano-viewer krpano-viewer-{{loop.index0}}"
+                {% if not loop.first %}style="display: none;"{% endif %}>
+                {# {% if app['env'] != 'dev' %} #}
+                <div krpano krpano-id="krpano-viewer-{{loop.index0}}"
+                    {# krpano-type="'{{ kr.type }}'" krpano-url="'{{ kr.URL }}'" #}
+                    {% verbatim %}
+                    krpano-type="selectedKr.type" krpano-url="selectedKr.URL" ng-if="selectedKr"
+                    {% endverbatim %}
+                     ng-class="{isLoading: loading}" >
+                </div>
+                {# {% endif %} #}
+            </span>
+
+        {% endfor %}
+        <kaarousel min-width="200" displayed="2" per-slide="2" autoplay="false" is-swipable="false">
+            {% for kr in formated_object.medias.krpanos %}
+                <kaarousel-slide slide="kr"
+                    ng-class="{visible: isVisible('{{ loop.index0 }}'), opened : {{ loop.index0 }} === krSelector }"
+                    ng-style="itemStyles()"
+                    index="{{ loop.index0 }}"
+                    {% if loop.last %} last="true" {% endif %}
+                    class="card-item krpano-selector-{{loop.index0}}"
+                    ng-click="selectKr('{{loop.index0}}')">
+                        {{ kr._name }}
+                </kaarousel-slide>
+            {% endfor %}
+        </kaarousel>
+    </section>
+    {% endif %}
+
+    {# STEPS #}
+    {% if formated_object.dataItinerary.additionals|default and formated_object.dataItinerary.additionals.steps|default %}
+        <section class="itinerary-steps">
+            <div class="h3">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.STEPS' |trans }}</div>
+            <div class="pre-wrapper">{{ formated_object.dataItinerary.additionals.steps|raw|nl2br }}</div>
+        </section>
+    {% endif %}
+
+</section>
+{% endif %}

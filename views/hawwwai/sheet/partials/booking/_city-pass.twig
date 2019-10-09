@@ -1,0 +1,16 @@
+{% if formated_object.specialLabels and site_key in ['angers-tourisme'] %}
+    <li id="li-city-pass">
+        <a class="plo-btn"
+            {% if lang in ['fr','ca'] %}
+                href="https://www.tourisme.destination-angers.com/avec-le-city-pass-visitez-les-sites-incontournables"
+            {% else %}
+                href="https://www.tourisme.destination-angers.com/en/plan-your-stay/the-city-pass"
+            {% endif %}
+            style="display: block;" target="_blank">
+
+            <div class="media media-center">
+                <span class="media-body media-middle">{{'CITY_PASS.INCLUDED'|trans}}<br>{{'CITY_PASS.BOOK'|trans}}</span>
+            </div>
+        </a>
+    </li>
+{% endif %}

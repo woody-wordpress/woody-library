@@ -1,0 +1,9 @@
+{% if step.medias.audios|default %}
+    {% for audio in step.medias.audios if audio.url|default %}
+        <section>
+            <div class="audio-element-wrapper">
+                <audio src="{{ audio.url }}" width="100%" controls></audio>
+            </div>
+        </section>
+    {% endfor %}
+{% endif %}

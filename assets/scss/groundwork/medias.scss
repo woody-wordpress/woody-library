@@ -12,3 +12,11 @@
 video {
     display: block;
 }
+
+audio {
+
+    &:hover,
+    &:focus {
+        outline: none;
+    }
+}

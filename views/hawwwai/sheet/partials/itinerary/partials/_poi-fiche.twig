@@ -1,0 +1,35 @@
+{% if step.medias.sheets|default %}
+    <section class="steps-wrapper clearfix">
+        {% spaceless %}
+        {% for sheet in step.medias.sheets if externalSheets[sheet.idFiche] is defined %}
+            {% set item = externalSheets[sheet.idFiche] %}
+            <div class="col-md-6 col-xs-12">
+                <div class="rc_lego_wrapper">
+                    {% include '@LEGO/items/api_render/item_sheet_alpha/index.html.twig' with {
+                        'bordereau': item.bordereau,
+                        'sheetId': item.sheetId,
+                        'title': item.title,
+                        'type': item.type,
+                        'targetBlank': item.targetBlank,
+                        'img': item.img,
+                        'town': item.town,
+                        'dates': item.dates,
+                        'ratings': item.ratings,
+                        'itineraryLength': item.itineraryLength,
+                        'services': item.services,
+                        'specials': item.specials,
+                        'chains': item.chains,
+                        'link': item.link,
+                        'lego_style': 's02',
+                        'display': {
+                            'list' : {
+                                'imageMode': 'landscape',
+                            }
+                        }
+                    } only %}
+                </div>
+            </div>
+        {% endfor %}
+        {% endspaceless %}
+    </section>
+{% endif %}

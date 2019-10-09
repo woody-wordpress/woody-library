@@ -1,0 +1,72 @@
+.tides-container{
+    display: flex;
+    justify-content: space-between;
+    .tabs-title a{
+        text-align: center;
+        text-transform: capitalize;
+    }
+    .month{
+        font-size: 1rem;
+        line-height: 2;
+    }
+}
+
+.tides-panel{
+    padding: 0 !important;
+    .empty{
+        padding: 50px;
+    }
+}
+.tides-panel.tabs-panel.is-active{
+    display: flex ;
+    flex-direction: row;
+    justify-content: center;
+    thead{
+        tr{
+            pointer-events: none !important;
+        }
+    }
+    .table-scroll{
+        width: 100%;
+    }
+    .tides{
+        width: 100%;
+        th, td{
+            text-align: center;
+        }
+        .tide-xlarge{
+            color: red;
+            font-weight: bold;
+        }
+        .tide-large{
+            color: red;
+        }
+        .tide-medium{
+            color: #ff9205
+        }
+        .tide-small{
+            color: green;
+        }
+    }
+
+    .today-tide{
+        background-color: $primary-color;
+        color: $white;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .tides-panel.tabs-panel.is-active{
+        display: flex ;
+        flex-direction: column;
+        justify-content: center;
+        .table-scroll{
+            width: 100%;
+        }
+    }
+
+    .tides-container{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

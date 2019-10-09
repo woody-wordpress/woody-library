@@ -1,0 +1,23 @@
+{% if step.medias.videos|default %}
+    <section>
+        {% for media in step.medias.videos if media.url is defined %}
+        {# media-play-click #}
+        {# thumb-url="{{ 'https://cdn1.iconfinder.com/data/icons/outlined-input-icons-gestures/200/signs_click_here-512.png' | rcImg(400, 235, 75, 'jpg', 'clip') }}"#}
+            <div class="video-element-wrapper">
+                {% if media.player|default %}
+                    {% if media.player == 'file' %}
+                        <video class="video-container" width="100%" height="448px" controls {% if media._thumbURL|default %}poster="{{media._thumbURL}}"{% else %}preload="metadata"{% endif %}>
+                            <source type="video/mp4" src="{{ media._embedURL|default(media.url) }}" ></source>
+                        </video>
+                    {% else %}
+                        <iframe class="video-container" width="100%" height="448px" src="{{ media._embedURL|default(media.url) }}" frameborder="0" allowfullscreen> </iframe>
+                    {% endif %}
+                {% else %}
+                    <video class="video-container" width="100%" height="448px" controls {% if media._thumbURL|default %}poster="{{media._thumbURL}}"{% else %}preload="metadata"{% endif %}>
+                        <source type="video/mp4" src="{{ media._embedURL|default(media.url) }}" ></source>
+                    </video>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </section>
+{% endif %}

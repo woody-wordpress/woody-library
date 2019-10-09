@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Grille 6 colonnes",
     "description": "Grille 6 colonnes égales",
+    "lib_type": "lite",
     "acf_groups": [
         "field_5afd2c9616ecd"
     ],

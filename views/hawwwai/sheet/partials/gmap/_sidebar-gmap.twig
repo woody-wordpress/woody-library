@@ -1,0 +1,24 @@
+{% if contractsLevels.sidebar.maps %}
+    {% if contractsLevels.sidebar.booking and formated_object.centralResa is not null and formated_object.centralResa.type == '99.20.02.02.12' and formated_object.centralResa.mode|default == 'booking' %}
+    {% else %}
+    <div class="sidebar-map-container" anchor-link ng-click="scrollTo('#map')">
+
+            <div class="sidebar-map"
+                ng-if="useLeafletLibrary"
+                rc-map-layout-leaflet
+                zoom="12"
+                latitude={{ formated_object.geolocations.latitude }}
+                longitude={{ formated_object.geolocations.longitude }}>
+            </div>
+
+            <div class="sidebar-map"
+                ng-if="!useLeafletLibrary"
+                rc-map-layout
+                zoom="12"
+                latitude={{ formated_object.geolocations.latitude }}
+                longitude={{ formated_object.geolocations.longitude }}>
+            </div>
+
+    </div>
+    {% endif %}
+{% endif %}

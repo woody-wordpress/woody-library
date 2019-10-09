@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Liste (filtres au dessus + checkboxes + sliders)",
     "description": "...",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5bc6079fe9b0a"
     ],

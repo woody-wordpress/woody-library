@@ -25,60 +25,69 @@
         }
     }
 
-    &.tpl_405{
-        .woody-grid-frame > .cell{
+    &.tpl_405 {
+        .woody-grid-frame>.cell {
             height: 100%;
         }
     }
-    &.tpl_313{
-        @include breakpoint(large){
-            .woody_bases_grid >.cell:nth-of-type(2n){
-                .card-link{
-                    flex-direction:column-reverse;
+
+    &.tpl_313 {
+        @include breakpoint(large) {
+            .woody_bases_grid>.cell:nth-of-type(2n) {
+                .card-link {
+                    flex-direction: column-reverse;
                 }
-                .card-section{
+
+                .card-section {
                     justify-content: flex-end;
                 }
-                .card-titles{
-                    margin-bottom:30px;
+
+                .card-titles {
+                    margin-bottom: 30px;
                 }
             }
-            .woody_bases_grid >.cell:nth-of-type(2n+1){
-                .card-titles{
-                    margin-top:30px;
+
+            .woody_bases_grid>.cell:nth-of-type(2n+1) {
+                .card-titles {
+                    margin-top: 30px;
                 }
             }
-            .card-button{
+
+            .card-button {
                 position: absolute;
-                top:50%;
-                left:50%;
-                transform:translateX(-50%) translateY(-50%);
-                font-size:0;
-                border-radius:50%;
-                margin-top:0;
-                width:$round-card-button-size;
-                height:$round-card-button-size;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                font-size: 0;
+                border-radius: 50%;
+                margin-top: 0;
+                width: $round-card-button-size;
+                height: $round-card-button-size;
                 background-color: $round-card-button-bgcolor;
-                color:$round-card-button-color;
+                color: $round-card-button-color;
                 border: $round-card-button-border;
                 min-width: $round-card-button-size;
-                &:before{
+
+                &:before {
                     display: block;
-                    content:'+';
+                    content: '+';
                     font-size: rem-calc($round-card-button-font-size);
                     line-height: $round-card-button-size;
-                    font-weight:normal;
+                    font-weight: normal;
                 }
             }
         }
-        .card-title{
-            transition:color .3s;
+
+        .card-title {
+            transition: color .3s;
         }
-        .card-link:hover{
-            .card-title{
-                color:$primary-color;
+
+        .card-link:hover {
+            .card-title {
+                color: $primary-color;
             }
-            .card-button{
+
+            .card-button {
                 background-color: $button-background-hover;
             }
         }
@@ -103,7 +112,9 @@
 }
 
 .woody-component-focus-map {
-    &.tpl_01 {
+
+    &.tpl_01,
+    &.tpl_02 {
         .imageObject {
             @include breakpoint(medium down) {
                 height: 160px;
@@ -126,6 +137,40 @@
         .card-description {
             @include breakpoint(large down) {
                 font-size: rem-calc(13);
+            }
+        }
+    }
+}
+
+//
+// Styles spécifiques aux focus dans une section pleine largeur
+//
+.section-layout-wrapper:not(.grid-container) {
+    .woody-component-focus.tpl_504 {
+        overflow: hidden;
+
+        @include breakpoint(large) {
+            padding-right: 0;
+
+            .swiper-container {
+                overflow: visible;
+                padding-right: 110px;
+            }
+
+            .swiper-slide {
+                transition: opacity .3s;
+
+                &:not(.swiper-slide-visible) {
+                    opacity: .3;
+                }
+            }
+
+            .swiper-button-prev {
+                left: 0;
+            }
+
+            .swiper-button-next {
+                right: 0;
             }
         }
     }

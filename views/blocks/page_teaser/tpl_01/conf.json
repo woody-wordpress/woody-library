@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "En tête de page - Template 1",
+    "name": "Template 01",
     "description": "Affiche les infos indispensables d'une page alignées à gauche : titre + desc + social shares + ajout aux favoris",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b2bbb46507bf"
     ],

@@ -1,0 +1,29 @@
+{% if formated_object.centralResa|default and contractsLevels.content.booking %}
+
+    {% if formated_object.centralResa.type == '99.20.02.02.12' and formated_object.centralResa.mode|default == 'booking'  %}
+        {# ELLOHA BOOKING IFRAME - sidebar #}
+    {% elseif formated_object.centralResa.type == '99.20.02.02.04' and formated_object.centralResa.mode|default == 'booking' %}
+        {# INGENIE BOOKING IFRAME - sidebar #}
+    {% else %}
+        <section id="booking" class="content-booking panel panel-default row show-when-angular-ready">
+
+            {# additional picker for specific central #}
+            {% if formated_object.centralResa.type == '99.20.02.02.04' and site_key in ['ot-beaune'] %} {# Ingenie beaune #}
+                <div class="central-resa" ng-if="DGS.isEnabled()">
+                    <div class="resa-controls"><ng-include src="'components/central-resa/central-calendar.html'"></ng-include></div>
+                </div>
+            {% else %}
+                <span ng-controller="datesGlobalCtrl"></span>
+            {% endif %}
+
+            {# content #}
+            <ng-include ng-if="!formatedDatas.resaIframe" src="'components/central-resa/central-resa.html'"></ng-include>
+
+            <span ng-if="formatedDatas.resaIframe">
+                <div ng-bind-html="formatedDatas.resaIframeContent"></div>
+            </span>
+
+        </section>
+    {% endif %}
+
+{% endif %}

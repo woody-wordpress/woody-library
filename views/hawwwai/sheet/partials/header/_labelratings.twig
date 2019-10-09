@@ -1,0 +1,25 @@
+{% if labelRatings|default %}
+    {% for labelRating in labelRatings %}
+        {% for i in 1..labelRating.repeated %}
+            {% if labelRating.character in ['\\e603', '\\e651'] %} {# Étoiles #}
+                <i class="icon-font-star-2 plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\e600', '\\e64e'] %}  {# Épis #}
+                <i class="icon-font-ear plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\e601', '\\e64f'] %}  {# Fleurs #}
+                <i class="icon-font-flower plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\e602', '\\e650'] %}  {# Clés #}
+                <i class="icon-font-key plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\e93f'] %}  {# Cocotte #}
+                <i class="icon-font-cook plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\e940'] %}  {# Cheminée #}
+                <i class="icon-font-fireplace plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\e946'] %}  {# Diamant #}
+                <i class="icon-font-diamond plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\e93c'] %}  {# Soleil #}
+                <i class="icon-font-sun plo-fonticon"></i>
+            {% elseif labelRating.character in ['\\ea12'] %}  {# Fleurs #}
+                <i class="icon-font-sunflower-2 plo-fonticon"></i>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}

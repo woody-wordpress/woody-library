@@ -1,5 +1,22 @@
 <?php
 
+/**
+ * Plugin Name: Woody Library
+ * Plugin URI: https://github.com/woody-wordpress/woody-library
+ * Description: Catalogue of block and section templates for the Woody builder.
+ * Author: Raccourci Agency
+ * Author URI: https://www.raccourci.fr
+ * License: GPL2
+ *
+ * This program is GLP but; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of.
+ */
+
 use Symfony\Component\Finder\Finder;
 
 /**
