@@ -174,4 +174,25 @@
             }
         }
     }
+
+    .woody-component-focus.tpl_202 {
+        @include breakpoint(large) {
+            padding-right: 0;
+
+            .swiper-container {
+                overflow: visible;
+                padding-right: 20%;
+            }
+        }
+
+        .woody-component-basic-swiper {
+            overflow: hidden;
+        }
+
+        .basicCard {
+            .card-section {
+                align-items: flex-end;
+            }
+        }
+    }
 }

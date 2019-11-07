@@ -38,12 +38,9 @@
                 {% if formated_object.criterias|default %}
                     <span class="sheet-header-criterias">
                     {% spaceless %}
-                    {% for criteria in formated_object.criterias %}
-                            {{ criteria._criterion}}
-                        {% if not loop.last %}
-                            ,&nbsp;
-                        {% endif %}
-                    {% endfor %}
+                    {%- for criteria in formated_object.criterias -%}
+                        {{criteria._criterion}}{%- if not loop.last -%},&nbsp;{%- endif -%}
+                    {%- endfor -%}
                     {% endspaceless %}
                     </span>
                 {% endif %}

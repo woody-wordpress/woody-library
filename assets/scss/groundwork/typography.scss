@@ -32,3 +32,21 @@
     bottom: calc(100% + 300px);
     margin: 0;
 }
+
+
+// Tooltip
+[w-tooltip-up] {
+    @include tooltip(up);
+}
+
+[w-tooltip-left] {
+    @include tooltip(left);
+}
+
+[w-tooltip-down] {
+    @include tooltip(down);
+}
+
+[w-tooltip-right] {
+    @include tooltip(right);
+}

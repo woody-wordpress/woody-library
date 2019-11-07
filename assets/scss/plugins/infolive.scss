@@ -1,0 +1,219 @@
+.woody-component-infolive {
+    .infolive-component {
+        .title {
+            text-transform: uppercase;
+        }
+    }
+
+    .infolive-webcam {
+        .media-wrapper {
+            position: relative;
+            @include wicon($infolive-webcam-icon);
+
+            &:before {
+                z-index: 1;
+                position: absolute;
+                text-align: center;
+                background: $primary-color;
+                color: $white;
+                left: 0;
+                top: 0;
+                pointer-events: none;
+                padding: $global-padding/2;
+                width: $global-padding*2.5;
+                height: $global-padding*2.5;
+            }
+        }
+    }
+
+    .infolive-weather {
+
+        .weather-icon,
+        .snowdepth-icon {
+            color: $dark-gray;
+            font-size: rem-calc(96);
+        }
+
+        .weather-temp {
+            font-weight: $global-weight-bold;
+            font-size: rem-calc(22);
+            cursor: default;
+        }
+
+        .snowdepth-levels {
+            transform: translateX(30px);
+
+            .value {
+                font-weight: $global-weight-bold;
+            }
+
+            .max,
+            .min {
+                position: relative;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    height: 1px;
+                    background-color: $medium-gray;
+                }
+            }
+
+            .min {
+                transform: translateY(10px);
+
+                &:after {
+                    width: 20px;
+                    right: calc(100% + 5px);
+                }
+            }
+
+            .max {
+                transform: translateY(-23px);
+
+                &:after {
+                    width: 75px;
+                    right: calc(100% + 5px);
+                }
+            }
+        }
+    }
+
+    .infolive-slopes-info {
+        .lifts-wrapper {
+            cursor: default;
+
+            .wicon {
+                font-size: rem-calc(30);
+            }
+
+            .opened {
+                vertical-align: super;
+
+            }
+        }
+
+        .circular-progressbar {
+            .circle-shape {
+                width: 100%;
+                position: relative;
+
+                .value {
+                    position: absolute;
+                    display: flex;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+                    cursor: default;
+
+                    .open {
+                        font-weight: $global-weight-bold;
+                    }
+                }
+
+                svg {
+                    display: block;
+                }
+            }
+
+            .circle-bg {
+                fill-opacity: $infolive-progressbar-bg-opacity;
+            }
+
+            &.init,
+            .circle-fill {
+                transition: stroke .2s;
+            }
+
+            &:not(.init) {
+
+                .circle-fill,
+                .value {
+                    visibility: hidden;
+                }
+            }
+        }
+
+        .level {
+            &-global {
+                .circular-progressbar {
+                    width: $circular-progressbar-global-width;
+
+                    .circle-shape {
+                        .wicon {
+                            font-size: rem-calc(30);
+                            position: absolute;
+                            top: 40%;
+                            left: 50%;
+                            transform: translateX(-50%) translateY(-50%);
+                        }
+
+                        .value {
+                            top: 60%;
+                        }
+
+                        svg {
+                            width: $circular-progressbar-global-width;
+                            height: $circular-progressbar-global-width;
+                        }
+                    }
+
+                }
+            }
+
+            &-colors {
+                .circular-progressbar {
+                    width: $circular-progressbar-levels-width;
+
+                    .circle-shape {
+                        svg {
+                            width: $circular-progressbar-levels-width;
+                            height: $circular-progressbar-levels-width;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    .infolive-links {
+        .links-wrapper {
+
+            &,
+            li {
+                width: 100%;
+            }
+
+            .button {
+                min-width: 200px;
+                width: 50%;
+            }
+        }
+    }
+
+    .infolive-alert {
+        .alert-wrapper {
+            background-color: $infolive-alert-bg;
+
+            .alert-icon {
+                width: 75px;
+                height: 75px;
+                font-size: rem-calc(30);
+                color: $infolive-alert-color-icon;
+                background-color: $infolive-alert-bg-icon;
+            }
+
+            .alert-text {
+                margin-left: $global-margin;
+
+                .msg {
+                    font-style: $infolive-alert-text-style;
+                    font-weight: $infolive-alert-text-weight;
+                    color: $infolive-alert-text-color;
+                }
+            }
+        }
+    }
+}

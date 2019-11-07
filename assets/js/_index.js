@@ -21,3 +21,4 @@ import './accordion';
 import './interactive_gallery';
 import './parallax';
 import './reveals';
+import './infolive';

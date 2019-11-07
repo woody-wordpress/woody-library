@@ -1,0 +1,30 @@
+<div class="text-center marg-bottom-sm title-wrapper">
+    <span class="title h6">{{ __('Météo','woody-theme') }}</span>
+</div>
+{% if weather.icon is not empty and weather.temp is not empty %}
+<div class="flex-container align-center align-middle marg-bottom-sm weather-wrapper">
+    <span class="weather-icon {{ weather.icon }}"></span>
+    <span class="weather-temp">{{ weather.temp ~ '°C' }}</span>
+</div>
+{% endif %}
+
+{% if data.slopes.settings.type == 'alpine' or data.slopes.settings.type == 'all' %}
+<div class="flex-container align-center align-middle marg-bottom-sm snowdepth-wrapper">
+    <div class="snowdepth-icon">
+        <span class="wicon wicon-006-station-montagne"></span>
+    </div>
+    <div class="snowdepth-levels">
+        <div class="max">
+            <span class="value" w-tooltip-up="{{ weather.altitude.max ~ 'm' }}">{{ weather.snow_depth.max ~ '<small>cm</small>' }}</span>
+        </div>
+        <div class="min">
+            <span class="value" w-tooltip-down="{{ weather.altitude.min ~ 'm' }}">{{ weather.snow_depth.min ~ '<small>cm</small>' }}</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if weather.link is not empty %}
+<a class="woody-component-button button primary" href="{{ weather.link }}" title="{{ __('Voir le bulletin météo', 'woody-theme') }}">
+    <span class="button-label">{{ __('Bulletin complet', 'woody-theme') }}</span>
+</a>
+{% endif %}

@@ -2,10 +2,11 @@ import $ from 'jquery';
 // import * as lightGallery from 'lightGallery';
 // import * as thumbnail from 'lg-thumbnail';
 
-$(".woodyGallery").lightGallery({
+$(".content-wrapper").lightGallery({
     mode: 'lg-fade',
     selector: '.mediaCard',
     cssEasing: 'cubic-bezier(0.25, 0, 0.25, 1)',
     thumbWidth: 120,
-    thumbHeight: '90px'
+    thumbHeight: '90px',
+    exThumbImage: 'data-lgthumb'
 });

@@ -40,6 +40,14 @@
     @include improve_transition;
 }
 
+@mixin bottomleftBox() {
+    @include the_box;
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: left;
+    @include improve_transition;
+}
+
 @mixin toprightBox() {
     @include the_box;
     align-items: flex-start;
@@ -148,7 +156,6 @@
     }
 }
 
-
 // Placeholder mixin usage :
 // @include placeholder {
 //     font-style:italic;
@@ -157,18 +164,173 @@
 // }
 @mixin placeholder {
     &::-webkit-input-placeholder {
-        @content
+        @content;
     }
 
     &:-moz-placeholder {
-        @content
+        @content;
     }
 
     &::-moz-placeholder {
-        @content
+        @content;
     }
 
     &:-ms-input-placeholder {
-        @content
+        @content;
+    }
+}
+
+// Create a triangle using the borders
+@mixin triangle($size, $color, $direction) {
+    height: 0;
+    width: 0;
+
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size;
+
+    @if $direction==up {
+        border-bottom-color: $color;
+    }
+
+    @else if $direction==right {
+        border-left-color: $color;
+    }
+
+    @else if $direction==down {
+        border-top-color: $color;
+    }
+
+    @else if $direction==left {
+        border-right-color: $color;
+    }
+
+    @else {
+        @error "Aucune direction #{$direction}.";
+    }
+}
+
+@mixin tooltip($direction: right) {
+    cursor: $w-tooltip-cursor;
+
+    &:before {
+        content: attr(w-tooltip-#{$direction});
+        position: absolute;
+        z-index: 9;
+        min-height: $w-tooltip-box-size*2;
+        padding: $w-tooltip-box-size/4 $w-tooltip-box-size;
+        opacity: 0;
+        pointer-events: none;
+        color: $w-tooltip-color;
+        background-color: $w-tooltip-bg;
+        font-size: $w-tooltip-font-size;
+        font-weight: $w-tooltip-font-weight;
+        text-align: center;
+        box-shadow: $w-tooltip-boxshadow;
+        transform-origin: left;
+        transition: transform .2s ease-out;
+
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 9;
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .2s ease-out;
+    }
+
+    // UP
+    @if $direction==up {
+        &:before {
+            right: calc(0% - #{$w-tooltip-box-size} * 1.5);
+            bottom: calc(100% + #{$w-tooltip-box-size});
+            border-top: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateY(10px) scale(1.1);
+            transform-origin: bottom center;
+        }
+
+        &:after {
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, down);
+            right: 0;
+            bottom: calc(100% - #{$w-tooltip-box-size} / 2);
+            transform: translateY(10px) scale(1.1);
+            transform-origin: bottom center;
+        }
+    }
+
+    // LEFT
+    @else if $direction==left {
+        &:before {
+            top: -$w-tooltip-box-size/4;
+            right: calc(100% + (#{$w-tooltip-box-size} * 1.5));
+            border-left: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateX(10px) scale(1.1);
+            transform-origin: center right;
+        }
+
+        &:after {
+            right: 100%;
+            top: calc(50% - #{$w-tooltip-box-size});
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, right);
+            transform: translateX(10px) scale(1.1);
+            transform-origin: center right;
+        }
+    }
+
+    // DOWN
+    @else if $direction==down {
+        &:before {
+            right: calc(0% - #{$w-tooltip-box-size} * 1.5);
+            top: calc(100% + #{$w-tooltip-box-size});
+            border-bottom: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateY(-10px) scale(1.1);
+            transform-origin: top center;
+        }
+
+        &:after {
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, up);
+            right: 0;
+            top: calc(100% - #{$w-tooltip-box-size} / 2);
+            transform: translateY(-10px) scale(1.1);
+            transform-origin: top center;
+        }
+    }
+
+    // RIGHT
+    @else if $direction==right {
+        &:before {
+            top: -$w-tooltip-box-size/4;
+            left: calc(100% + (#{$w-tooltip-box-size} * 1.5));
+            border-right: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateX(-10px) scale(1.1);
+            transform-origin: center left;
+        }
+
+        &:after {
+            left: 100%;
+            top: calc(50% - #{$w-tooltip-box-size});
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, left);
+            transform: translateX(-10px) scale(1.1);
+            transform-origin: center left;
+        }
+    }
+
+    @else {
+        @error "Aucune direction #{$direction}.";
+    }
+
+    &:hover {
+
+        &:before,
+        &:after {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
     }
 }

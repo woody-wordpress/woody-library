@@ -80,7 +80,7 @@
                                                     {% for currentday in period._formated_days %}
                                                         {% if not loop.first %},{% endif %}
 
-                                                        {% for schedule in currentday.schedules %}
+                                                        {% for schedule in currentday.schedules|default %}
                                                             {% if schedule.startTime is defined %}
                                                                 {# fisrt time range #}
                                                                 {% if schedule.endTime is not defined and currentday.schedules[loop.index0 + 1].endTime is not defined %}
@@ -121,7 +121,7 @@
                                                     {% for currentday in period._formated_days %}
                                                         {% if not loop.first %},{% endif %}
 
-                                                        {% for schedule in currentday.schedules %}
+                                                        {% for schedule in currentday.schedules|default %}
                                                             {% if schedule.startTime is defined %}
                                                                 {# fisrt time range #}
                                                                 {% if schedule.endTime is not defined and currentday.schedules[loop.index0 + 1].endTime is not defined %}
@@ -364,7 +364,7 @@
                                                     {# if schedules are defined,not empty && day is not closure day #}
                                                     {% if currentday.schedules is defined and currentday.schedules is not empty and currentday.closure is not defined %}
 
-                                                        {% for schedule in currentday.schedules %}
+                                                        {% for schedule in currentday.schedules|default %}
 
                                                             {% if not loop.first and loop.index0 % 2 == 0 %}<div class="col-xs-4"></div>{% endif %}
 
@@ -429,7 +429,7 @@
                                                 {# if schedules are defined,not empty && day is not closure day #}
                                                 {% if currentday.schedules is defined and currentday.schedules is not empty and currentday.closure is not defined %}
 
-                                                    {% for schedule in currentday.schedules %}
+                                                    {% for schedule in currentday.schedules|default %}
 
                                                         {% if not loop.first and loop.index0 % 2 == 0 %}<div class="col-xs-4"></div>{% endif %}
 

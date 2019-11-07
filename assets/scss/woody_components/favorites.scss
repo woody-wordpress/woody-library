@@ -1,18 +1,50 @@
 .woody-component-favorites-block {
     a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: relative;
         padding-right: 4px;
         color: $favorites-icon-color;
-        display: block;
-        .wicon{
+
+        >div {
+            position: relative;
+        }
+
+        @if $favorites-block-title-position==top {
+            flex-direction: column;
+        }
+
+        @if $favorites-block-title-position==right {
+            flex-direction: row-reverse;
+        }
+
+        @if $favorites-block-title-position==bottom {
+            flex-direction: column-reverse;
+        }
+
+        @if $favorites-block-title-position==left {
+            flex-direction: row;
+        }
+
+        .wicon {
             display: block;
         }
+
         &:hover {
             color: $favorites-icon-color;
 
             .counter {
                 background-color: $favorites-counter-color-hover;
             }
+        }
+    }
+
+    .favorites-title {
+        font-size: $small-font-size;
+
+        @include breakpoint(large down) {
+            display: none;
         }
     }
 
@@ -24,7 +56,7 @@
         position: absolute;
         width: 16px;
         height: 16px;
-        right: 0;
+        left: 50%;
         bottom: 5px;
         text-align: center;
         font-size: rem-calc(11);
@@ -46,12 +78,13 @@
     width: 40px;
     height: 40px;
     color: $white;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, .4);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color .3s, transform .3s;
-    &:hover{
+
+    &:hover {
         transform: translateY(-2px);
     }
 

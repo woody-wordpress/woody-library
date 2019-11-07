@@ -5,6 +5,7 @@
         text-transform: capitalize;
         padding: 10px 0px;
         max-width: 50px;
+        white-space: pre;
     }
     .date:nth-child(2){
         background: $white !important;
@@ -224,6 +225,22 @@
             font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
             color: #4c525e;
             text-transform: uppercase;
+        }
+    }
+}
+
+@include breakpoint(medium down) {
+    .availabilities-calendar{
+        .availabilities-header,
+        .filter-orderby{
+            flex-direction: column !important;
+        }
+        .table-scroll{
+            overflow-x: auto !important;
+        }
+
+        .date{
+            padding: 10px 5px;
         }
     }
 }

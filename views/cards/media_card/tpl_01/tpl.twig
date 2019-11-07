@@ -68,7 +68,7 @@
         </div>
     </div>
     {% else %}
-    <a class="mediaCard tpl_01" href="{{ item.sizes.ratio_free }}" title="{{ item.title|default(item.filename) }}" itemprop="contentUrl" data-download-url="false">
+    <a class="mediaCard tpl_01" href="{{ item.sizes.ratio_free }}" title="{{ item.title|default(item.filename) }}" data-download-url="false" data-lgthumb="{{ item.sizes.ratio_16_9_small }}">
         {% include '_objects/imageObject.twig' with {
             'img' : item,
             'image_style' : image_style

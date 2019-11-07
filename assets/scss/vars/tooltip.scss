@@ -1,0 +1,13 @@
+
+$w-tooltip-bg: $black !default;
+$w-tooltip-color: $white !default;
+$w-tooltip-boxshadow: 3px 2px 5px rgba($black, .5) !default;
+$w-tooltip-border: 5px solid $primary-color !default;
+$w-tooltip-radius: $global-radius !default;
+$w-tooltip-cursor: help !default;
+$w-tooltip-transition: true !default;
+$w-tooltip-direction: down !default;
+$w-tooltip-arrow: true !default;
+$w-tooltip-box-size: 1rem !default;
+$w-tooltip-font-size: $small-font-size !default;
+$w-tooltip-font-weight: $global-weight-normal !default;

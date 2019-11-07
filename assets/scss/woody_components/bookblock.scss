@@ -17,9 +17,9 @@
     .pl-select {
         width: 100%;
         margin-right: 0;
+        position: relative;
 
         @include breakpoint(xmedium) {
-            margin-right: 20px;
             width: 160px;
 
         }
@@ -32,6 +32,9 @@
         @include breakpoint(xlarge) {
             width: 250px;
 
+            &.single-date {
+                max-width: 150px;
+            }
         }
     }
 
@@ -40,11 +43,30 @@
     }
 
     .dates-input {
+        @include breakpoint(xmedium) {
+            margin-right: 20px;
+        }
+
         .wicon {
             right: 8px;
             top: 6px;
             pointer-events: none;
         }
+    }
+
+    .period-input {
+        >label {
+            width: 120px;
+        }
+
+        >select {
+            max-width: 120px;
+        }
+    }
+
+    .pl-select-wrapper,
+    .period-input {
+        position: relative;
     }
 
     select,

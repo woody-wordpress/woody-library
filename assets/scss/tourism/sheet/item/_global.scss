@@ -66,6 +66,10 @@
     }
 }
 
+.item-infos-website {
+    cursor: pointer;
+    &:hover { color: $primary-color; }
+}
 
 // FAIRGUEST
 .item-infos-fairguest {

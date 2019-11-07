@@ -1,7 +1,7 @@
 {% if labelRatings|default %}
     {% for labelRating in labelRatings %}
         {% for i in 1..labelRating.repeated %}
-            {% if labelRating.character in ['\\e603', '\\e651'] %} {# Étoiles #}
+            {% if labelRating.character in ['\\e909','\\e603', '\\e651'] %} {# Étoiles #}
                 <i class="icon-font-star-2 plo-fonticon"></i>
             {% elseif labelRating.character in ['\\e600', '\\e64e'] %}  {# Épis #}
                 <i class="icon-font-ear plo-fonticon"></i>

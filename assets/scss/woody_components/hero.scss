@@ -58,6 +58,14 @@ body:not(.no-page-header) {
 }
 
 .woody-component-hero {
+
+    .backgroundMedia.movie {
+        .rellax {
+            height: 100%;
+        }
+    }
+
+
     &.tpl_01 {
 
         .toggling-movie-container {
@@ -84,6 +92,7 @@ body:not(.no-page-header) {
 
     // Define heigths of heros from image ratio
     @include breakpoint(medium) {
+
         &:not(.tpl_04) {
             max-height: calc(100vw / 2) !important;
         }
@@ -277,8 +286,10 @@ body:not(.no-page-header) {
 
 
     .hidden {
+        //TODO: Depuis Chrome 77, l'élément est bien masqué par le transform mais reste devant toute la page et bloque les interactions
         opacity: 0;
         transform: scale(0);
+        display: none;
     }
 }
 

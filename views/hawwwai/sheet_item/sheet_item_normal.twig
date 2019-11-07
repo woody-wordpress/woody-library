@@ -354,6 +354,12 @@
                                 {% endif %}
                             {% endif %}
 
+                            {% if website|default %}
+                                {% if not display.infos|default or display.infos.website|default %}
+                                    <p class="item-infos-website" data-link="{{ website }}">{{ website }}</p>
+                                {% endif %}
+                            {% endif %}
+
                             {% if adress|default %}
                                 {% if not display.infos|default or display.infos.address|default %}
                                     <p class="item-infos-adress"><adress>{{ adress|nl2br }}</adress></p>

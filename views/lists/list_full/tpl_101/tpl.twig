@@ -33,6 +33,7 @@
                                     {% block list_form_actions %}
                                         <div class="cell form-actions">
                                             <input type="hidden" name="uniqid" value="{{ uniqid }}">
+                                            <input type="hidden" name="seed" value="{{ ''|seed }}">
                                                 <input id="{{ uniqid|default }}-submit" type="submit" name="submit" value="{{ filters.button.filter_button_text|default }}" class="button">
                                                     {% if filters.reset|default %}
                                                         <input id="{{ uniqid|default }}-reset" type="submit" name="reset" value="{{ __('Réinitialiser', 'woody-theme') }}" class="button reset-button">

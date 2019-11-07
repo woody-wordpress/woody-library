@@ -27,6 +27,7 @@
             <div class="text-fat">
                     {% if the_duration.duration_unit == 'hours' and the_duration.count_hours %}
                         {{ the_duration.count_hours|pluralizeUnit(__('heure', 'woody-theme'), __('heures', 'woody-theme')) }}
+                         {% if the_duration.count_minutes %}{{the_duration.count_minutes }}{% endif %}
                     {% elseif the_duration.duration_unit == 'minutes' and the_duration.count_minutes %}
                         {{ the_duration.count_minutes|pluralizeUnit(__('minute', 'woody-theme'), __('minutes', 'woody-theme')) }}
                     {% elseif the_duration.count_days %}

@@ -1,11 +1,10 @@
 {
     "name": "woody-wordpress/woody-library",
     "type": "wordpress-vendor",
-    "version": "1.6.2",
+    "version": "1.7.14",
     "description": "Catalogue of block and section templates for the Woody builder.",
     "license": "GPL-2.0",
-    "authors": [
-        {
+    "authors": [{
             "name": "Léo POIROUX",
             "email": "leo@raccourci.fr"
         },

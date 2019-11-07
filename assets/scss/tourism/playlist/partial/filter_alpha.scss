@@ -396,6 +396,8 @@
         .filter-type-reviews {
             form {
                 text-align: center;
+                display: flex;
+                justify-content: space-between;
             }
 
             .uncolored {
@@ -423,6 +425,12 @@
                         color: #277712;
                     }
                 }
+            }
+
+            .uncolored label,
+            .colored label {
+                margin-left: 0;
+                margin-right: 0;
             }
 
             //Colorize label checked
@@ -716,49 +724,49 @@
             }
         }
 
-        .filter-type-list {
+    }
+    .filter-type-list {
 
-            form {
-                position: relative;
+        form {
+            position: relative;
+        }
+
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transform: rotate(90deg) scaleX(1);
+            right: 20px;
+            color: $primary-color;
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+
+        select {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.20);
+            border-radius: 4px;
+
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
+            cursor: pointer;
+
+            &:active~.icon {
+
+                transform: rotate(90deg) scaleX(-1);
             }
 
-            .icon {
-                display: inline-flex;
-                align-items: center;
-                position: absolute;
-                top: 0;
-                height: 100%;
-                transform: rotate(90deg) scaleX(1);
-                right: 20px;
-                color: $primary-color;
-                transition: all 0.2s;
-                pointer-events: none;
-            }
+        }
 
-            select {
-                position: relative;
-                z-index: 10;
-                width: 100%;
-                padding: 10px 20px;
-                background: transparent;
-                border: 1px solid rgba(0, 0, 0, 0.20);
-                border-radius: 4px;
-
-                -webkit-appearance: none;
-                -moz-appearance: none;
-
-                cursor: pointer;
-
-                &:active~.icon {
-
-                    transform: rotate(90deg) scaleX(-1);
-                }
-
-            }
-
-            .chosen-container div>b {
-                display: none;
-            }
+        .chosen-container div>b {
+            display: none;
         }
     }
 
