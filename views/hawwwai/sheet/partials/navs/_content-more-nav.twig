@@ -11,7 +11,8 @@
                     <a target="_blank"
                        href="{{formated_object.bookingUrl}}"
                        class="plo-btn dark sheet-nav-actions_button"
-                       analytics-mediaveille
+                       analytics-mediaveille {# Tracking MediaVeille #}
+                       data-type="CLIC_OFFRE" {# Tracking Tourinsoft #}
                        interact event-type="SHEET_BOOK_URL">
                             {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
                     </a>
@@ -33,8 +34,9 @@
                     <a  rc-modal size="lg"
                         tpl-url="sections/tourism/sheet-detail/modals/contact-form.html"
                         action="click"
+                        analytics-mediaveille {# Tracking MediaVeille #}
+                        data-type="MAILTO" {# Tracking Tourinsoft #}
                         interact event-type="SHEET_CONTACT_FORM_OPENED"
-                        analytics-mediaveille
                         check-params="form_contact"
                         {# window-class="contact-modal" #}
                         class="plo-btn sheet-nav-actions_button">

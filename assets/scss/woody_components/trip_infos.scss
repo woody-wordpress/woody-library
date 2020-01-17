@@ -1,17 +1,18 @@
+.woody-component-trip-infos-card {
+    position: relative;
+}
+
 .woody-component-trip-infos {
     text-transform: $trip_info_text_transform;
     font-weight: $trip_infos_font_weight;
 
     flex-direction: column;
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
         position: absolute;
         top: $trip_info_top_position;
         right: 10px;
         width: calc(100% - 10px);
-    }
-
-    @include breakpoint(large) {
         right: 0;
         width: 100%;
     }
@@ -49,10 +50,18 @@
         justify-content: center;
         align-items: stretch;
         padding: 0px;
-        width: calc(100vw - 15px);
         margin-left: 50%;
         transform: translateX(-50%);
         background-color: $black;
+
+        &:not(.single-block) {
+            width: calc(100vw - 15px);
+        }
+
+        &.single-block {
+            display: inline-flex;
+            width: auto;
+        }
 
         &>.trip-infos-wrapper {
             flex: 1;

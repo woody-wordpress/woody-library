@@ -184,6 +184,12 @@ body.no-page-header {
     >.cell>.woody-component {
         height: 100%;
     }
+    >.cell>.visualModifier{
+        height: 100%;
+        &>.woody-component{
+            height: 100%;
+        }
+    }
 }
 
 /*********************

@@ -6,6 +6,15 @@
         &-#{$color} {
             .bg {
                 @include colors-apply();
+
+                @each $color,
+                $hex in $foundation-palette {
+                    &-#{$color} {
+                        .bg {
+                            @include colors-apply();
+                        }
+                    }
+                }
             }
         }
     }

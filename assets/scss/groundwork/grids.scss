@@ -7,7 +7,7 @@
 
                 >.cell {
                     >.woody-component {
-                        height: calc(100% + #{map-get($grid-padding-gutters, medium)});
+                        height: 100%;
                     }
                 }
             }

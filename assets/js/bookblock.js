@@ -8,16 +8,27 @@ $('.woody-component-bookblock').each(function() {
         var $optionSelected = $('option:selected', $plSelect);
 
         if (typeof($optionSelected.data('daterange')) !== 'undefined') {
-            dateSingle.clear();
             $dateRangeInput.show();
+
+            if (dateSingle.length !== 0) {
+                dateSingle.clear();
+            }
+        } else if (typeof($optionSelected.data('singledate')) !== 'undefined') {
+            $dateRangeInput.hide();
+
+            if (datesRange.length !== 0) {
+                datesRange.clear();
+            }
         } else {
-            datesRange.clear();
             $dateRangeInput.hide();
         }
 
         if (typeof($optionSelected.data('singledate')) !== 'undefined') {
-            datesRange.clear();
             $singleDateInput.add($periodInput).show();
+
+            if (datesRange.length !== 0) {
+                datesRange.clear();
+            }
 
             var $options = $periodInput.find('option');
             $options.each(function() {
@@ -25,8 +36,13 @@ $('.woody-component-bookblock').each(function() {
                     $(this).remove();
                 }
             });
+        } else if (typeof($optionSelected.data('daterange')) !== 'undefined') {
+            $singleDateInput.add($periodInput).hide();
+
+            if (dateSingle.length !== 0) {
+                dateSingle.clear();
+            }
         } else {
-            dateSingle.clear();
             $singleDateInput.add($periodInput).hide();
         }
 
@@ -58,22 +74,50 @@ $('.woody-component-bookblock').each(function() {
         });
     }
 
-    var flatpickrInit = function($e) {
-        flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday
-        var date_mode = $e.hasClass('single-date') ? 'single' : 'range',
-            input_class = $e.hasClass('single-date') ? '.singledate-input' : '.daterange-input';
+    var seasonslangs = function(locale) {
+        if (locale == 'hiver' || locale == 'ete') {
+            return 'fr';
+        } else if (locale == 'winter' || locale == 'summer') {
+            return 'en';
+        } else if (locale == 'wintertijd' || locale == 'zomertijd') {
+            return 'nl';
+        } else {
+            return locale;
+        }
 
-        const bookingdates = flatpickr(input_class, {
-            mode: date_mode,
+    }
+
+    var flatpickrSingle = function($e) {
+        flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday
+        var the_locale = seasonslangs(window.siteConfig.current_lang);
+        const bookingSingledate = flatpickr('.singledate-input', {
+            mode: 'single',
             minDate: "today",
             dateFormat: "d/m/Y",
-            locale: window.siteConfig.current_lang,
-            onClose: function (selectedDates, dateStr, el) {
+            locale: the_locale,
+            onClose: function(selectedDates, dateStr, el) {
                 $(el.input).parents('.woody-component-bookblock').find('.form-submit').removeData('tooltip').removeAttr('title').removeClass('disabled');
             }
         });
 
-        return bookingdates;
+        return bookingSingledate;
+    }
+
+    var flatpickrRange = function($e) {
+        flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday
+        var the_locale = seasonslangs(window.siteConfig.current_lang);
+        const bookingRangesdates = flatpickr('.daterange-input', {
+            mode: 'range',
+            minDate: "today",
+            dateFormat: "d/m/Y",
+            locale: the_locale,
+            onClose: function(selectedDates, dateStr, el) {
+                $(el.input).parents('.woody-component-bookblock').find('.form-submit').removeData('tooltip').removeAttr('title').removeClass('disabled');
+            }
+        });
+
+        return bookingRangesdates;
+
     }
 
     var facetConstructor = function(adult_count, children_count, selectedDates, customValues, conf_id) {
@@ -112,8 +156,8 @@ $('.woody-component-bookblock').each(function() {
         $counterButton = $this.find('.item-counter-button'),
         $dateRangeInput = $this.find('.dates-input.range-dates'),
         $singleDateInput = $this.find('.dates-input.single-date'),
-        datesRange = flatpickrInit($dateRangeInput),
-        dateSingle = flatpickrInit($singleDateInput),
+        datesRange = flatpickrRange($dateRangeInput),
+        dateSingle = flatpickrSingle($singleDateInput),
         $periodInput = $this.find('.period-input'),
         $adultsInput = $this.find('.adults-input'),
         $childrenInput = $this.find('.children-input');
@@ -186,6 +230,7 @@ $('.woody-component-bookblock').each(function() {
             };
         datesGlobal.push(datesToStore);
         sessionStorage.setItem('dates_global', JSON.stringify(datesGlobal));
+
         $(this).attr('href', $('option:selected', $plSelect).data('permalink'));
         if (!$(this).hasClass('disabled')) {
             window.location = $(this).attr('href');

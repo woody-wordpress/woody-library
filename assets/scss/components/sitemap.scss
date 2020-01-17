@@ -1,0 +1,52 @@
+.woody-component-sitemap {
+    .sitemap-list {
+        list-style-type: none;
+
+        &[data-depth^="depth-"] {
+            >.sitemap-post>.sitemap-link {
+                @include header-size(h6);
+                color: lighten($sitemap-link-color, 40%);
+
+                &:hover {
+                    color: $sitemap-link-color-hover;
+                }
+            }
+        }
+
+        &[data-depth="depth-0"] {
+            >.sitemap-post>.sitemap-link {
+                @include header-size(h3);
+                color: $sitemap-link-color;
+            }
+        }
+
+        &[data-depth="depth-1"] {
+            >.sitemap-post>.sitemap-link {
+                @include header-size(h4);
+                color: lighten($sitemap-link-color, 10%);
+            }
+        }
+
+        &[data-depth="depth-2"] {
+            >.sitemap-post>.sitemap-link {
+                @include header-size(h5);
+                color: lighten($sitemap-link-color, 20%);
+            }
+        }
+
+        &[data-depth="depth-3"] {
+            >.sitemap-post>.sitemap-link {
+                color: lighten($sitemap-link-color, 30%);
+            }
+        }
+    }
+
+    .sitemap-link {
+        display: inline-flex;
+        flex-direction: column;
+        padding: 5px;
+        text-decoration: none;
+        border-bottom: none;
+        transition: color .3s;
+    }
+}

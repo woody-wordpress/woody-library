@@ -19,7 +19,8 @@
                             {% include "cards/#{card}/tpl.twig" with {
                             'desequalize' : desequalize,
                             'image_style' : image_style,
-                            'page_type' : item.page_type
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(false)
                         } %}
                         {% endblock %}
                     </div>

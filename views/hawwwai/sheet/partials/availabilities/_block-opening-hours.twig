@@ -54,7 +54,7 @@
                                 <li class="period">
 
                                     {% if period._isAllYear is defined and period._isAllYear %}
-                                        <span period-parser type="bloc"
+                                        <span period-parser-disabled type="bloc"
                                             start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
                                             {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}}
@@ -64,7 +64,7 @@
                                         </span>
 
                                     {% elseif period._isMultipleOneDays is defined and period._isMultipleOneDays %}
-                                    	<span period-parser type="bloc" multiple="true"
+                                    	<span period-parser-disabled type="bloc" multiple="true"
                                             start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
                                         	<span class="prefix-text-start">
@@ -108,7 +108,7 @@
                                         </span>
 
                                     {% elseif period._isOneDay is defined and period._isOneDay %}
-                                       	<span period-parser
+                                       	<span period-parser-disabled
                                               type="bloc"
                                               oneday="true"
                                               start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
@@ -149,7 +149,7 @@
                                         </span>
 
                                     {% else %}
-                                    	<span period-parser type="bloc"
+                                    	<span period-parser-disabled type="bloc"
                                             start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
                                         	<span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans}}</span>

@@ -72,12 +72,19 @@ class WoodyLibrary
 
             // Get all json files (.json) in the targeted folder
             // to add templates[thumbnails]
+
             $jsonsFinder = new Finder();
             $jsonsFinder->files()->name('*.json')->in($folder_path);
             foreach ($jsonsFinder as $key => $json) {
                 $json_data = file_get_contents($json);
                 $php_data = json_decode($json_data, true);
-                if ($php_data['approved'] == false) {
+
+                // if ($name == 'blocks-trip_infos-tpl_03') {
+                //     print_r($json_data);
+                //     print_r($php_data);
+                //     exit;
+                // }
+                if (empty($php_data['approved']) || $php_data['approved'] == false) {
                     continue;
                 }
                 if (!empty($php_data['acf_groups'])) {

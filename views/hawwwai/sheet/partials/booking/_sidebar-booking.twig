@@ -92,7 +92,8 @@
                             <a target="_blank"
                             href="{{formated_object.bookingUrl}}"
                             class="plo-btn _plu-fullwidth"
-                            analytics-mediaveille
+                            analytics-mediaveille {# Tracking MediaVeille #}
+                            data-type="CLIC_OFFRE" {# Tracking Tourinsoft #}
                             interact event-type="SHEET_BOOK_URL">
                                 {# button text #}
                                 {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}

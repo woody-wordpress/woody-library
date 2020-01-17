@@ -1,5 +1,8 @@
 .backgroundMedia {
     z-index: 0;
+    &:not(.movie) {
+        pointer-events: none;
+    }
 
     &.movie {
         overflow: hidden;

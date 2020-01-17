@@ -65,6 +65,11 @@ body:not(.no-page-header) {
         }
     }
 
+    @include breakpoint(medium down) {
+        .plyr__video-embed {
+            height: 100vw;
+        }
+    }
 
     &.tpl_01 {
 
@@ -286,7 +291,7 @@ body:not(.no-page-header) {
 
 
     .hidden {
-        //TODO: Depuis Chrome 77, l'élément est bien masqué par le transform mais reste devant toute la page et bloque les interactions
+        //NOTE: Depuis Chrome 77, l'élément est bien masqué par le transform mais reste devant toute la page et bloque les interactions
         opacity: 0;
         transform: scale(0);
         display: none;

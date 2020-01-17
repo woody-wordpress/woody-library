@@ -6,7 +6,8 @@
             <div class="cell small-12">
                 {% include "cards/overlayed_card/tpl_03/tpl.twig" with {
                     'image_style' : 'ratio_16_9',
-                    'page_type' : item.page_type
+                    'page_type' : item.page_type,
+                    'ellipsis': item.ellipsis|default(false)
                 } %}
             </div>
 

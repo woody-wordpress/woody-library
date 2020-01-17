@@ -1,30 +1,31 @@
-{% if contractsLevels.content.description
-    or contractsLevels.content.slogan
-    or formated_object.passDescription|default
-    or formated_object.groupsDescription.description|default
-    or formated_object.accessPoints|default
-    or formated_object.environmentPoints|default
-    or contractsLevels.content.capacities
-    or formated_object.thalassoData|default
-    or contractsLevels.content.labels
-    or contractsLevels.content.handicap
-    or (formated_object.langs|default and contractsLevels.content.lang)
-    or contractsLevels.content.docs %}
-
-    {% if contractsLevels.content.description and formated_object.passDescription|default %}
+{% if contractsLevels.content.description and formated_object.passDescription|default %}
     <section id="pass-description" class="tourism-detail-pass-description panel panel-default s-stripes s-stripes--contrast row list-group-item">
         <dl>
             <dt class="col-xs-12 col-sm-12 _plu-push--tiny"><span class="pl-heading">{{ 'Notre offre « Chartrexpérience, Le Pass’ »' }}</span></dt>
             <dd class="col-xs-12 col-sm-12"><span>{{ formated_object.passDescription }}</span></dd>
         </dl>
     </section>
-    {% endif %}
+{% endif %}
 
+{% if (contractsLevels.content.description and formated_object.description|default)
+    or (contractsLevels.content.slogan and formated_object.slogan|default)
+    or (formated_object.bordereau in ['RES'] and formated_object.chefName|default)
+    or formated_object.goodDealsDescription|default
+    or formated_object.accessPoints|default
+    or (formated_object.environmentPoints|default and contractsLevels.content.environment)
+    or (contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default))
+    or (object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos)
+    or (formated_object.langs|default and contractsLevels.content.lang)
+    or (contractsLevels.content.labels and formated_object.labels.simpleLabels._labels|default)
+    or (contractsLevels.content.handicap and formated_object.labels.tourismHandicap._labels|default)
+    or (contractsLevels.content.docs and formated_object.documents|default)
+    or (formated_object.audiofiles|default and contractsLevels.content.audios)
+%}
     <section id="description" class="tourism-detail-description panel panel-default s-stripes s-stripes--contrast row">
 
         <ul class="list-group stripes-odd">
             {# Description #}
-            {% if (contractsLevels.content.description and formated_object.description|default or formated_object.passDescription|default) or (contractsLevels.content.slogan and formated_object.slogan|default) %}
+            {% if (contractsLevels.content.description and formated_object.description|default) or (contractsLevels.content.slogan and formated_object.slogan|default) %}
                 <li class="list-group-item">
                     {# Description__title #}
                     {% if formated_object.slogan|default and contractsLevels.content.slogan %}
@@ -99,7 +100,7 @@
                                             {{ 'GLOBAL.AT' | trans }}
                                             <span class="pl-heading">
                                                 {{ access._distance| number_format}}
-                                                {{ access._distanceUnit }}
+                                                {{ access._distanceUnit|default }}
                                             </span>
                                         {% endif %}
                                     </li>
@@ -130,7 +131,7 @@
                                             {{ 'GLOBAL.AT' | trans }}
                                             <span class="pl-heading">
                                                 {{ env._distance| number_format}}
-                                                {{ env._distanceUnit }}
+                                                {{ env._distanceUnit|default }}
                                             </span>
                                         {% endif %}
                                     </li>
@@ -143,7 +144,7 @@
 
 
             {# Capacities #}
-            {% if contractsLevels.content.capacities and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default) %}
+            {% if contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default) %}
                 <li class="list-group-item">
                     <dl class="row">
 
@@ -157,18 +158,10 @@
                                             {% if capacity.capacity|default %}
                                                 <li class="{{capacity.type}}">
                                                     {% if thesaurus.fulldictionary[capacity.type]|default %}
-                                                        {# Si c'est une pièce ou une chambre #}
-                                                        {# {% if capacity.unitCapacity == '01.03.01.10' or capacity.unitCapacity == '01.03.01.03' %}
-                                                            {{ thesaurus.fulldictionary[capacity.unitCapacity] }}
-                                                            |
-                                                            {{ capacity.capacity }}&nbsp;{{ thesaurus.fulldictionary[capacity.type] }}
-                                                        {% else %} #}
                                                             {% if thesaurus.fulldictionary[capacity.type]|default %}
                                                                 <span class="_plu-emphasis--high">{{ thesaurus.fulldictionary[capacity.type] }}&nbsp;:&nbsp;</span>
                                                             {% endif %}
-
                                                             {{ capacity.capacity }}&nbsp;{{ thesaurus.fulldictionary[capacity.unitCapacity] }}
-                                                        {# {% endif %} #}
                                                     {% endif %}
 
                                                     {% if capacity.superficy|default %}
@@ -228,16 +221,8 @@
                             <ul class="plo-nav md-icon-list">
                                 {# parse data.langs #}
                                 {% for spokenlang in formated_object.langs %}
-                                    <li class="langs-icon"
-                                        {% if spokenlang._lang|default %}
-                                            tooltip="{{ spokenlang._lang }}"
-                                        {% endif %}>
-                                        <img width="24"
-                                            {% if spokenlang._lang|default %}
-                                                alt="{{ spokenlang._lang }}"
-                                            {% endif %}
-                                                src={{ spokenlang._url }}
-                                        />
+                                    <li class="langs-icon" {% if spokenlang._lang|default %} tooltip="{{ spokenlang._lang }}" {% endif %}>
+                                        <img width="24" {% if spokenlang._lang|default %} alt="{{ spokenlang._lang }}" {% endif %} src="{{ spokenlang._url }}"/>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -248,48 +233,37 @@
 
 
             {# Labels #}
-            {% if contractsLevels.content.labels %}
+            {% if contractsLevels.content.labels and formated_object.labels.simpleLabels._labels|default %}
                 <li class="list-group-item tourism-labels">
                     <dl class="row">
 
                         {# <dt class="col-xs-12 col-sm-3 _plu-push--tiny">
-                            {% if formated_object.labels.simpleLabels._title|default
-                                and thesaurus.fulldictionary[formated_object.labels.simpleLabels._title]|default %}
-                                <span class="pl-heading">{{ thesaurus.fulldictionary[formated_object.labels.simpleLabels._title] }}</span>
-                            {% endif %}
+                            <span class="pl-heading">{{ formated_object.labels.simpleLabels._title|default('Labels') }}</span>
                         </dt> #}
 
                         <dd class="col-xs-12">
                             <ul class="nav-inline sheet-labels-list">
                             {% for simplelabel in formated_object.labels.simpleLabels._labels %}
-                                {% for image in thesaurus.images %}
-                                    {% if image.code == simplelabel.type %}
+                                {# display label #}
+                                <li class="sheet-labels-list_item">
+                                    <div class="sheet-labels-list_wrapper">
+                                        {% if simplelabel.urlInfo|default %}
 
-                                        {# display label #}
-                                        <li class="sheet-labels-list_item">
-                                            <div class="sheet-labels-list_wrapper">
-                                                {% if image.urlInfo|default %}
-                                                <a href="{{ image.urlInfo }}">
-                                                {% endif %}
-                                                    <div class="sheet-labels-list_icon"
-                                                        {% if thesaurus.fulldictionary[image.code]|default %}
-                                                         tooltip="{{thesaurus.fulldictionary[image.code]}}"
-                                                        {% endif %}>
-
-                                                        {% if image.urlHD|default %}
-                                                        <img class="{{simplelabel.type}}" alt="{{thesaurus.fulldictionary[image.code]|default}}" src={{ image.urlHD | rcImg(100, 100, 75, 'png', 'clip') }}>
-                                                        {% else %}
-                                                        <img alt="{{thesaurus.fulldictionary[image.code]|default}}" src={{ image.url | rcImg(100, 100, 75, 'png', 'clip') }}>
-                                                        {% endif %}
-                                                    </div>
-                                                {% if image.urlInfo|default %}
-                                                </a>
+                                        <a href="{{ simplelabel.urlInfo }}">
+                                        {% endif %}
+                                            <div class="sheet-labels-list_icon"
+                                                {% if simplelabel.libelle|default %}tooltip="{{simplelabel.libelle}}"{% endif %}>
+                                                {% if simplelabel.urlHD|default %}
+                                                <img class="{{simplelabel.code}}" alt="{{simplelabel.libelle|default}}" src="{{ simplelabel.urlHD | rcImg(100, 100, 75, 'png', 'clip') }}" />
+                                                {% else %}
+                                                {# <img alt="{{simplelabel.libelle|default}}" src="{{ simplelabel.url | rcImg(100, 100, 75, 'png', 'clip') }}" /> #}
                                                 {% endif %}
                                             </div>
-                                        </li>
-
-                                    {% endif %}
-                                {% endfor %}
+                                        {% if simplelabel.urlInfo|default %}
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </li>
                             {% endfor %}
                             </ul>
                         </dd>
@@ -299,51 +273,40 @@
 
 
             {# Tourisme & handicap #}
-            {% if contractsLevels.content.handicap %}
+            {% if contractsLevels.content.handicap and formated_object.labels.tourismHandicap._labels %}
+
                 <li class="list-group-item tourism-handicap-labels">
                     <dl class="row">
 
                         <dt class="col-xs-12 col-sm-3 _plu-push--tiny">
-                            {% if formated_object.labels.tourismHandicap._title|default
-                                and thesaurus.fulldictionary[formated_object.labels.tourismHandicap._title]|default %}
-                                <span class="pl-heading">{{ thesaurus.fulldictionary[formated_object.labels.tourismHandicap._title] }}</span>
-                            {% else %}
-                                 <span class="pl-heading text-undefined-thesaurus">Handicap</span>
-                            {% endif %}
-
+                            <span class="pl-heading">{{ formated_object.labels.tourismHandicap._title|default('Handicap') }}</span>
                         </dt>
 
                         <dd class="col-xs-12 col-sm-9">
                             <ul class="nav-inline sheet-labels-list">
-                                {% for label in formated_object.labels.tourismHandicap._formatedLabels|keys %}
-                                    {% for image in thesaurus.images %}
-                                        {% if image.code == label %}
-                                            <li class="sheet-labels-list_item col-xs-3"
-                                                {% if thesaurus.fulldictionary[image.code]|default %}
-                                                tooltip="{{thesaurus.fulldictionary[image.code]}}"
-                                                {% endif %}>
+                                {% for key, label in formated_object.labels.tourismHandicap._labels %}
+                                    <li class="sheet-labels-list_item col-xs-3"
+                                        {% if label.libelle|default %}tooltip="{{label.libelle}}"{% endif %}>
 
-                                                <div class="sheet-labels-list_wrapper">
-                                                    {% if formated_object.labels.tourismHandicap._formatedLabels[label]|default
-                                                       and formated_object.labels.tourismHandicap._formatedLabels[label] %}
-                                                        {# Display label normally #}
-                                                        <div class="sheet-labels-list_icon sheet-labels-list_icon-thlabel">
-                                                    {% else %}
-                                                        {# Display label disabled #}
-                                                        <div class="sheet-labels-list_icon sheet-labels-list_icon-thlabel unavailable">
-                                                    {% endif %}
+                                        <div class="sheet-labels-list_wrapper">
+                                            {% if formated_object.labels.tourismHandicap._display[key]|default
+                                                and formated_object.labels.tourismHandicap._display[key] %}
+                                                {# Display label normally #}
+                                                <div class="sheet-labels-list_icon sheet-labels-list_icon-thlabel">
+                                            {% else %}
+                                                {# Display label disabled #}
+                                                <div class="sheet-labels-list_icon sheet-labels-list_icon-thlabel unavailable">
+                                            {% endif %}
 
-                                                        {% if image.urlHD|default %}
-                                                        <img src={{ image.urlHD | rcImg(40, 40, 100, 'png', 'clip') }}>
-                                                        {% else %}
-                                                        <img src={{ image.url | rcImg(40, 40, 100, 'png', 'clip') }}>
-                                                        {% endif %}
+                                                {% if label.urlHD|default %}
+                                                <img src={{ label.urlHD | rcImg(40, 40, 100, 'png', 'clip') }}>
+                                                {% else %}
+                                                <img src={{ label.url | rcImg(40, 40, 100, 'png', 'clip') }}>
+                                                {% endif %}
 
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
+                                            </div>
+                                        </div>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </dd>
@@ -352,7 +315,7 @@
             {% endif %} {# End of Tourisme & handicap #}
 
             {# Pdfs / docs #}
-            {% if contractsLevels.content.docs %}
+            {% if contractsLevels.content.docs and formated_object.documents|default %}
                 <li id="download" class="list-group-item">
                     <dl class="row">
 
@@ -373,7 +336,7 @@
                                             data-type="FICHIER"
                                             event-type="SHEET_DOWNLOAD_PDF"
                                             {% endif %}
-                                            interact itemprop="url" href={{ document.URL }} download>
+                                            interact itemprop="url" href="{{ document.URL }}" download>
                                             <span class="icon-font-download plo-fonticon"></span>
                                             {{ document._name|default }}
                                         </a>

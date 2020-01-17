@@ -157,40 +157,6 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                                 %}
                             </div>
                         {% else %}
-                            {# {% if displayItemMode in ['booking_contract'] %}
-                                {% if not hasIncludedNormal|default %}
-                                    {% include TWIG.BANNER with {'type': 'normal'} %}
-                                    {% set hasIncludedNormal = true %}
-                                {% endif %}
-                            {% else %}
-                                {% if not hasIncludedBooking|default %}
-                                    {% include TWIG.BANNER with {'type': 'booking'} %}
-                                    {% set hasIncludedBooking = true %}
-                                {% endif %}
-                            {% endif %} #}
-
-                            {% set thinerStyle = false %}
-                            {% if display.list.mixsheets|default and display.version|default(1) != 2 %}
-                                {% if display.list.mixsheetsMode|default and display.list.mixsheetsMode in ['central_only', 'contractlevels'] %}
-                                    {% set thinerStyle = true %}
-                                {% endif %}
-
-                                {% if display.list.mixsheetsMode|default and display.list.mixsheetsMode in ['contractlevels'] %}
-                                    {% if item.contract|default and item.contract in display.list.mixsheetsContracts %}
-                                        {# {% set displayItemMode = 'booking_contract' %} #}
-                                        {% set thinerStyle = false %}
-                                    {% endif %}
-                                {% else %}
-                                    {% if display.list.mixsheetsMode|default and display.list.mixsheetsMode in ['central_only'] %}
-                                        {% if item.booking.link|default and item.booking.central|default %}
-                                            {% set thinerStyle = false %}
-                                        {% endif %}
-                                    {% elseif item.booking.link|default %}
-                                        {# {% set displayItemMode = 'booking' %} #}
-                                        {% set thinerStyle = false %}
-                                    {% endif %}
-                                {% endif %}
-                            {% endif %}
                             <div class="col-xs-12">
                                 {% include TWIG.BOOKING_SHEET_ITEM with {
                                     'itemClasses': item.itemClasses,
@@ -225,7 +191,7 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                                     'wishlistBtn': item.wishlistBtn|default,
                                     'link': item.link|default,
                                     'userId': item.userId|default,
-                                    'thinerStyle' : thinerStyle|default(false),
+                                    'thinerStyle' : false,
                                     'lego_style': 's01',
                                     'display': display  } only
                                 %}

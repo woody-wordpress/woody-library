@@ -90,9 +90,10 @@
             font-size: 20px;
         }
     }
-    &.swiper-button-disabled{
-        pointer-events:auto !important;
-        filter:grayscale(100%);
+
+    &.swiper-button-disabled {
+        pointer-events: auto !important;
+        filter: grayscale(100%);
     }
 }
 
@@ -187,8 +188,6 @@
     }
 }
 
-// TODO: Pour ré-activer les focus responsive, décommenter les lignes ci-dessous
-// Styles pour les fcus responsive - fonctionnalité actuellement désactivé
 .swResp {
     @include breakpoint(large down) {
         position: relative;

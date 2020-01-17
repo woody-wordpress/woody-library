@@ -24,11 +24,11 @@
 
                                     {{ phones[0]|hideNumber(2) }}<span class="hidden-number">▒▒</span>
                                 </div>
-                                <a class="phone-link reveal-content" itemprop="telephone" data-rel="external" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
+                                <a class="phone-link reveal-content" itemprop="telephone" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
                             </div>
                         {% else %}
                             <div class="main-tel">
-                                <a class="phone-link" itemprop="telephone" data-rel="external" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
+                                <a class="phone-link" itemprop="telephone" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
                             </div>
                         {% endif %}
                     {% endif %}
@@ -41,11 +41,11 @@
                                     analytics-mediaveille>
                                     {{ phones[1]|hideNumber(2) }}<span class="hidden-number">▒▒</span>
                                 </div>
-                                <a class="phone-link reveal-content" itemprop="telephone" data-rel="external" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
+                                <a class="phone-link reveal-content" itemprop="telephone" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
                             </div>
                         {% else %}
                             <div class="secondary-tel">
-                                <a class="phone-link" itemprop="telephone" data-rel="external" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
+                                <a class="phone-link" itemprop="telephone" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
                             </div>
                         {% endif %}
                     {% endif %}

@@ -1,0 +1,18 @@
+{
+    "approved": true,
+    "name": "Template 04",
+    "description": "Icone avec textes alignés à gauche en-dessous (pretitre, titre, sous-titre, description)",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b0ec29dbd905"
+    ],
+    "vars": [
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description"
+    ]
+}

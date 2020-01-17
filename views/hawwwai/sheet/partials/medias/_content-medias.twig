@@ -1,9 +1,9 @@
 
-{% if contractsLevels.content.medias and contractsLevels.content.gallery %}
+{% if contractsLevels.content.medias and options.showgallery %}
 {% if formated_object.gallery|length > 1 %}
 
         {# more nav bar #}
-        {% if ( contractsLevels.content.services or
+        {% if ( (contractsLevels.content.services and (formated_object.arrangementsDefault|default or formated_object.servicesOffers|default)) or
             (formated_object.centralResa|default and contractsLevels.content.booking) or
             (formated_object.tariffs|default and contractsLevels.content.tariffs) or
             formated_object.openingPeriods.periods|default and contractsLevels.content.periods and not (formated_object.bordereau in ['FMA'] and not formated_object.openingPeriods.hasHours and not formated_object.openingPeriods.hasInnerDescription and not formated_object.openingPeriods.description|default)) %}

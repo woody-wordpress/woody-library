@@ -8,20 +8,20 @@
     {% if items|length == 1 %}
         {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
             'items' : items,
-            'card' : "basic_card/tpl_05",
+            'card' : "basic_card/tpl_04",
             'image_style' : "ratio_16_9"
         } %}
     {% elseif items|length == 2 %}
         {% include 'lists/bases_grid/tpl_201/tpl.twig' with {
             'items' : items,
-            'card' : "basic_card/tpl_05",
+            'card' : "basic_card/tpl_04",
             'image_style' : "ratio_16_9",
             'swResp' : true
         } %}
     {% elseif items|length == 3 %}
         {% include 'lists/bases_grid/tpl_301/tpl.twig' with {
             'items' : items,
-            'card' : "basic_card/tpl_05",
+            'card' : "basic_card/tpl_04",
             'image_style' : "ratio_16_9",
             'swResp' : true
         } %}
@@ -43,7 +43,7 @@
         {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
             'items' : items,
             'image_style' : "ratio_16_9",
-            'card' : "basic_card/tpl_05",
+            'card' : "basic_card/tpl_04",
             'swiper_options' : json_swiper_options
         } %}
     {% endif %}

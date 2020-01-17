@@ -12,7 +12,7 @@
 {% endif %}
 
 {% if contractsLevels.sidebar.vcard and email|default %}
-    <li id="li-contact-form" class="show-when-angular-ready clearfix">
+    <li id="li-contact-form" class="show-when-angular-ready clearfix hidden-xs">
 
         {% if object.data.specificFields|default and object.data.specificFields.sfProfilElId is defined %}
             {# start user scope #}
@@ -74,9 +74,11 @@
                                 {{ formated_object.contacts.owner.civility|default }} {{ formated_object.contacts.owner.peopleFirstName|default }} {{ formated_object.contacts.owner.peopleLastName|default }}
                             {% elseif formated_object.mailContact|default and formated_object.contacts[formated_object.mailContact].businessName|default and token not in ['bocage_v2'] %}
                                 {{ formated_object.contacts[formated_object.mailContact].businessName }}
-                            {% elseif formated_object.bordereau == 'FMA' and formated_object.contractCode != '311.20.02.01.03' %}
-                                {% if formated_object.contacts.owner.peopleLastName|default and token not in ['bocage_v2'] %}
+                            {% elseif formated_object.bordereau == 'FMA' %}
+                                {% if formated_object.contacts.owner.peopleLastName|default %}
                                     {{ formated_object.contacts.owner.civility|default }} {{ formated_object.contacts.owner.peopleFirstName|default }} {{ formated_object.contacts.owner.peopleLastName|default }}
+                                {% elseif formated_object.contacts.owner.businessName|default %}
+                                    {{ formated_object.contacts.owner.businessName }}
                                 {% else %}
                                     {{ 'SECTIONS.TOURISM.SHEET.THE_ORGANIZER'|trans }}
                                 {% endif %}
@@ -115,8 +117,9 @@
                         </form>
 
                         <a class="plo-btn sidebar-default-btn"
+                            analytics-mediaveille {# Tracking MediaVeille #}
+                            data-type="MAILTO" {# Tracking Tourinsoft #}
                             interact event-type="SHEET_CONTACT_FORM_OPENED"
-                            analytics-mediaveille
                             data-toggle="rcModal" data-target="#nurtik-form" data-id="{{object.metadata.id|default}}">
                                 {{ 'GLOBAL.SEND'|trans }}
                         </a>
@@ -157,7 +160,8 @@
                         {# Contact button #}
                         <a class="plo-btn sidebar-default-btn"
                         interact event-type="SHEET_CONTACT_FORM_OPENED"
-                        analytics-mediaveille
+                        analytics-mediaveille {# Tracking MediaVeille #}
+                        data-type="MAILTO" {# Tracking Tourinsoft #}
                         rc-modal size="lg"
                         ng-if="sheet"
                         window-class="contact-modal"

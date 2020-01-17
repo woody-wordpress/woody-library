@@ -10,6 +10,9 @@
                                 <span class="date-day-number">{{ fmaInsert.startDateFormated['day-number']|trim }}</span>
                                 <span class="date-month">{{ fmaInsert.startDateFormated['month-label']|trim }}</span>
                             </div>
+                            {% if fmaInsert.startDateFormated['year-label'] != 'now'|date('Y') %}
+                                <div class='date-time-wrapper'>{{ fmaInsert.startDateFormated['year-label'] }}</div>
+                            {% endif %}
                             {% if fmaInsert.startTime|default %}
                                 <span class='date-time-wrapper'>
                                     {{ (fmaInsert.endTime|default ? 'SECTIONS.TOURISM.SHEET.TARIFFS.FROM' : 'GLOBAL.AT') |trans }}
@@ -46,7 +49,7 @@
                         </div>
                     {% endif %}
                     {% if fmaInsert.onlyOneDay == false %}
-                        <div class="date-multipleday" data-date date-start="{{fmaInsert.startDate}}" data-date date-end="{{fmaInsert.endDate}}">
+                        <div class="date-multipleday" data-date date-start="{{fmaInsert.startDate}}" date-end="{{fmaInsert.endDate}}">
                             <div class="date-format">
                                 <span class="date-day-label">{{ 'GLOBAL.DATE.FROM'|trans }}</span>
                                 <span class="date-day-number">{{ fmaInsert.startDateFormated['day-number']|trim }}</span>
@@ -55,9 +58,14 @@
                             <div class="date-format">
                                 <span class="date-day-label">{{ 'GLOBAL.DATE.TO'|trans }}</span>
                                 <span class="date-day-number">{{ fmaInsert.endDateFormated['day-number']|trim }}</span>
-                                <span class="date-month">{{ fmaInsert.endDateFormated['month-label']|trim }}</span>
+                                <span class="date-month">{{ fmaInsert.endDateFormated['month-label']|trim }}
+                                </span>
                             </div>
+                            {% if fmaInsert.endDateFormated['year-label'] == fmaInsert.startDateFormated['year-label'] and fmaInsert.endDateFormated['year-label'] != ('now'|date('Y')) %}
+                                <div>{{ fmaInsert.endDateFormated['year-label'] }}</div>
+                            {% endif %}
                         </div>
+
                     {% endif %}
                 {% endfor %}
 

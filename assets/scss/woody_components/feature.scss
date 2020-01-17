@@ -21,6 +21,14 @@
         font-size: rem-calc($feature-icon-size);
     }
 
+    &:not(.tpl_02) {
+        .feature-texts {
+            >span {
+                display: block;
+            }
+        }
+    }
+
     &.tpl_01,
     &.tpl_03 {
         .feature-texts {
@@ -42,9 +50,10 @@
 @each $color,
 $hex in $foundation-palette {
     .woody-component-feature.bg-#{$color} {
+
         .feature-pretitle,
-        .feature-subtitle{
-            color:set-color($hex) !important;
+        .feature-subtitle {
+            color: set-color($hex) !important;
         }
     }
 }

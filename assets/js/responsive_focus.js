@@ -16,10 +16,16 @@ $('.swResp').each(function() {
         if ($this.children().first().hasClass('visualModifier')) {
             swiperWrapper.unwrap();
         }
-
-        if ((window.innerWidth <= 640) || (window.innerWidth > 640 && swiperLength > 2)) {
-            $this.append('<div class="swiper-pagination"></div>').append('<div class="swiper-nav"><div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"><i class="wicon wicon-026-precedent" aria-hidden="true"></i></div><div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"><i class="wicon wicon-025-suivant" aria-hidden="true"></i></div></div>');
+        if (!($this.hasClass('spv-tablette-1'))){
+            if ((window.innerWidth <= 640) || (window.innerWidth > 640 && swiperLength > 2)) {
+                $this.append('<div class="swiper-pagination"></div>').append('<div class="swiper-nav"><div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"><i class="wicon wicon-026-precedent" aria-hidden="true"></i></div><div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"><i class="wicon wicon-025-suivant" aria-hidden="true"></i></div></div>');
+            }
+        }else{
+            if (swiperLength > 1) {
+                $this.append('<div class="swiper-pagination"></div>').append('<div class="swiper-nav"><div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"><i class="wicon wicon-026-precedent" aria-hidden="true"></i></div><div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"><i class="wicon wicon-025-suivant" aria-hidden="true"></i></div></div>');
+            }
         }
+
         var $the_wrapper = $($this.find('.swRespW'));
         if ($the_wrapper.length != 0) {
             $the_wrapper.removeClass('grid-x').addClass('swiper-wrapper');
@@ -50,6 +56,19 @@ $('.swResp').each(function() {
                     clickable: true
                 },
             };
+            //la class spv-tablette-1 permet d'afficher 1 seul élément en mode tablette
+            if($this.hasClass('spv-tablette-1')){
+                options = {
+                    spaceBetween: 25,
+                    loop: false,
+                    slidesPerView: 1,
+                    slidesPerGroup: 2,
+                    navigation: {
+                        nextEl: $(this).parent().find('.swiper-button-next')[0],
+                        prevEl: $(this).parent().find('.swiper-button-prev')[0]
+                    },
+                }
+            }
 
             // New Swiper instance for current element
             var responsive_slider = new Swiper(this, options);

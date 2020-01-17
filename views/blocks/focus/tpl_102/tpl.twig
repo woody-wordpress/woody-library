@@ -11,7 +11,8 @@
             {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
                 'card' : "overlayed_card/tpl_03",
                 'image_style' : "ratio_16_9",
-                'page_type' : item.page_type
+                'page_type' : item.page_type,
+                'ellipsis': item.ellipsis|default(false)
             } %}
         {% endfor %}
     {% elseif items|length > 1 %}

@@ -1,4 +1,4 @@
-{% if object.data.tariffs.paymentMethods|default and contractsLevels.content.paymentMethods %}
+{% if formated_object.paymentMethods|default and contractsLevels.content.paymentMethods %}
 
     <div class="panel-title-responsive"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TARIFFS'|trans }}</span></div>
     <section id="tariffs" class="row panel panel-default">
@@ -11,32 +11,18 @@
 
                 <dd class="col-xs-12 col-sm-8">
                     <ul class="plo-nav md-icon-list _plu-flush">
-                    {% for payment in object.data.tariffs.paymentMethods %}
+                    {% for payment in formated_object.paymentMethods %}
 
                         {# MicroData payment #}
-                        {% if object.data.bordereau != 'FMA' and object.data.bordereau != 'VIL'
-                            and object.data.bordereau != 'PNA' and thesaurus.fulldictionary[payment.type] is defined
-                        %}
-                            <meta itemprop="paymentAccepted" content="{{thesaurus.fulldictionary[payment.type]}}">
+                        {% if object.data.bordereau not in ['FMA','VIL','PNA'] and payment.libelle|default %}
+                            <meta itemprop="paymentAccepted" content="{{payment.libelle}}">
                         {% endif %}
 
                         {# Images #}
-                        {% for image in thesaurus.images %}
-                            {% if image.code == payment.type %}
-                                <li class="payment-methods-icon-wrapper"
-                                    {% if thesaurus.fulldictionary[image.code] is defined %}
-                                    tooltip="{{thesaurus.fulldictionary[image.code]}}"
-                                    {% endif %}>
+                        <li class="payment-methods-icon-wrapper" {% if payment.libelle|default %}tooltip="{{payment.libelle}}"{% endif %}>
+                            <img class="payment-methods-icon" alt="{{payment.libelle|default}}" src={{ payment.urlHD |default(payment.url) | rcImg(50, 35, 80, 'png', 'clip') }}>
+                        </li>
 
-                                    {% if image.urlHD is defined and image.urlHD is not null %}
-                                    <img class="payment-methods-icon" alt="{{thesaurus.fulldictionary[image.code]}}" src={{ image.urlHD | rcImg(50, 35, 80, 'png', 'clip') }}>
-                                    {% else %}
-                                    <img class="payment-methods-icon" alt="{{thesaurus.fulldictionary[image.code]}}" src={{ image.url | rcImg(50, 35, 80, 'png', 'clip') }}>
-                                    {% endif %}
-
-                                </li>
-                            {% endif %}
-                        {% endfor %}
                     {% endfor %}
                     </ul>
                 </dd>
@@ -46,7 +32,7 @@
 {% endif %}
 {% if formated_object.tariffs|default and contractsLevels.content.tariffs %}
     <section class="row panel panel-default {% if formated_object.tariffPeriods is not empty %}sheet-tab{% endif %}"
-        {% if object.data.tariffs.paymentMethods is not defined %}
+        {% if formated_object.paymentMethods is empty or not contractsLevels.content.paymentMethods %}
              id="tariffs"
         {% endif %}>
         <div class="tariff-tab-wrapper">
@@ -143,6 +129,9 @@
                                                 {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TARIFFS'|trans }}
                                                 {{ tariffPeriod.endDate | date ('Y') }}
                                             </span>
+                                        {% elseif tariffPeriod._formatedStartDate == tariffPeriod._formatedEndDate %}
+                                            <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
+                                            <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', lang)}}</span>
                                         {% else %}
                                             <span period-parser type="select" start={{tariffPeriod.startDate| date('Y-m-d')}} end={{tariffPeriod.endDate| date('Y-m-d')}}>
                                                 <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>
@@ -175,6 +164,9 @@
                                                     {{ tariffPeriod.endDate | date ('Y') }}
                                                 {% endif %}
                                             </span>
+                                        {% elseif tariffPeriod._formatedStartDate == tariffPeriod._formatedEndDate %}
+                                            <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
+                                            <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', lang)}}</span>
                                         {% else %}
                                             <span period-parser type="tab" start={{tariffPeriod.startDate| date('Y-m-d')}} end={{tariffPeriod.endDate| date('Y-m-d')}}>
                                                 <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>

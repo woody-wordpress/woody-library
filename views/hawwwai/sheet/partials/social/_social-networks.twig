@@ -51,7 +51,7 @@
                             {% if formated_object.socials.facebook.particular|default %}
                             <span class="social-item{# card card-item #}">
                                 <span class="tooltip-label">{{ 'SECTIONS.SOCIAL.FOLLOW_ON'|trans }}&nbsp;Facebook</span>
-                                    <span class="iframe-wrapper">
+                                    <span class="iframe-wrapper follow-facebook">
                                         <div class="fb-like-box" data-colorscheme="light"
                                             data-show-faces="false" data-header="true"
                                             data-stream="false" data-show-border="true"
@@ -64,7 +64,7 @@
                             {% if formated_object.socials.facebook.url|default %}
                             <span class="social-item">
                                 <span class="tooltip-label" style="text-align:center">{{ 'SECTIONS.SOCIAL.SHARE_ON'|trans }}&nbsp;Facebook</span>
-                                <span class="iframe-wrapper">
+                                <span class="iframe-wrapper share-facebook">
                                     <iframe src="{{formated_object.socials.facebook.url}}" frameborder="0" width="38%" height="50px"></iframe>
                                 </span>
                             </span>
@@ -84,7 +84,7 @@
                             {% if formated_object.socials.twitter.particular|default %}
                             <span class="social-item{# card card-item #}" ng-social-network-twitter>
                                 <span class="tooltip-label">{{ 'SECTIONS.SOCIAL.FOLLOW_ON'|trans }}&nbsp;Twitter</span>
-                                <span class="iframe-wrapper">
+                                <span class="iframe-wrapper follow-twitter">
                                     <a href={{formated_object.socials.twitter.particular}} class="twitter-follow-button"
                                     data-show-count="false">Follow {{formated_object.socials.twitter.username}}</a>
                                 </span>
@@ -94,7 +94,7 @@
                             {% if formated_object.canonical|default %}
                                 <span class="social-item" ng-social-network-twitter>
                                     <span class="tooltip-label">{{ 'SECTIONS.SOCIAL.SHARE_ON'|trans }}&nbsp;Twitter</span>
-                                    <span class="iframe-wrapper">
+                                    <span class="iframe-wrapper share-twitter">
                                         <a data-href={{formated_object.canonical}} class="twitter-share-button" data-dnt="true"
                                         data-count="none" data-width="100%" data-height="50px" data-via="twitterdev">Tweet</a>
                                     </span>
@@ -112,7 +112,7 @@
 
                             <span class="social-item">
                                 <span class="tooltip-label">{{ 'SECTIONS.SOCIAL.FOLLOW_ON'|trans }}&nbsp;Instagram</span>
-                                <span class="iframe-wrapper">
+                                <span class="iframe-wrapper follow-instagram">
                                     <a href={{formated_object.socials.instagram.particular}} target="_blank" class="instagram-icon">Instagram</a>
                                 </span>
                             </span>

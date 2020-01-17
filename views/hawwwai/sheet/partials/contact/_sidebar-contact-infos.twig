@@ -1,4 +1,4 @@
-{% if options.displayed_contacts is not defined or (options.displayed_contacts|default and options.displayed_contacts.establishment) %}
+{% if options.displayed_contacts is not defined or formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.establishment) %}
     <li id="li-contact-infos" class="sidebar-contact-infos contact-establishment">
         <section class="panel panel-default">
 

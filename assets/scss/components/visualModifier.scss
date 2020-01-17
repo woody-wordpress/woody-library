@@ -1,5 +1,12 @@
 .visualModifier {
     @include breakpoint(large) {
         @include transformByData;
+
+        @for $i from 1 through 3 {
+            &.deep-#{$i} {
+                position: relative;
+                z-index: $i;
+            }
+        }
     }
 }

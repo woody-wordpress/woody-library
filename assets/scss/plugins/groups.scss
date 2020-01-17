@@ -335,12 +335,22 @@
         }
     }
 
-    .added-price .less .text {
-        font-size: rem-calc(11);
-        color: $alert-color;
-        width: 100%;
-        display: block;
-        text-align: right;
+    .added-price {
+        .base, .evolve, .less .text{
+            display: block;
+            text-align: right;
+        }
+        .evolve {
+            font-size: rem-calc(11);
+            .before_evolve {
+                color: $alert-color;
+                text-decoration: line-through;
+            }
+            .after{
+                color: $success-color;
+                padding-left: 2px;
+            }
+        }
     }
 
     .full_total_price {
@@ -357,10 +367,11 @@
         font-style: italic;
     }
 
+    .specialdays-lines, .freebies-lines {
+        padding: 10px;
+    }
     .freebies-lines {
         background: #e6f8d9;
-        padding: 10px;
-
         .freebies-price {
             justify-content: space-between;
         }

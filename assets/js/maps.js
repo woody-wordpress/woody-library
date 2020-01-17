@@ -66,13 +66,84 @@ $('.accordion.has_map').on({
         var map_id = $this.find("div[class^='geomap-']").attr('id');
         if (typeof map_id != 'undefined') {
             reloadMapBounds(map_id);
+
+            // On ajoute un champ de recherche par ville si on trouve un filtre de type carte
+            $this.find('.filter-item .woody-component-geomap').each(function() {
+
+                var $mapEl = $(this),
+                    // On récupère l'objet TouristicMaps correspondant
+                    mapObj = rcModule.rcTouristicMap[map_id];
+
+                // Si les limites de la carte n'ont pas encore été définies, on les calcule pour les passer en viewbox au nominatim OSM
+                if (typeof mapObj.alreadyBounded == 'undefined') {
+                    var mapBounds = mapObj.getBounds(),
+                        limits = [];
+
+                    limits.push(mapBounds['_southWest']['lng']);
+                    limits.push(mapBounds['_northEast']['lat']);
+                    limits.push(mapBounds['_northEast']['lng']);
+                    limits.push(mapBounds['_southWest']['lat']);
+
+                    mapObj.viewBox = limits.join(',');
+                    mapObj.alreadyBounded = true;
+                }
+
+                // Ajout de l'élément html de recherche par ville
+                $mapEl.append('<div class="city-filter-wrapper isAbs"><input type="text" class="city-filter" placeholder="Recherche par ville"/><span class="wicon wicon-024-loupe isAbs"></span></div>');
+
+                // Lors de la saisie dans le champ de recherche déplace le centre de la carte en fonction de la commune choisie
+                $('.city-filter').keyup(debounce(function() {
+                    getCity($(this).val(), mapObj, mapObj.viewBox, $(this).parent('.city-filter-wrapper'));
+                }, 800));
+            });
         }
 
     },
 });
 
+// Permet d'annuler une requête en cours si la saisie dans le champ de recherche n'est pas terminée
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this,
+            args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+
+// On récupère les coordonnées de la ville choisie dans le champ de recherche et on déplace le centre de la carte sur cette ville
+function getCity(cityName, map, viewBox, $wrapper) {
+
+    $wrapper.addClass('ajaxload');
+    // url => On appelle le nominatim OSM en limitant la recherche à 1 résultat, contenu dans les limites de la carte de base
+    $.ajax({
+        url: 'https://nominatim.openstreetmap.org/search/?format=json&limit=1&viewbox=' + viewBox + '&bounded=1&city=' + cityName,
+        method: "POST",
+        dataType: "json",
+        success: function(data) {
+            // Si le nominatim OSM renvoie un résultat, on modifie le centre et le zoom de la carte
+            if (typeof map != 'undefined' && typeof data[0] != 'undefined') {
+                map.setView(new L.LatLng(data[0].lat, data[0].lon), 10);
+            }
+
+            $wrapper.removeClass('ajaxload');
+        },
+        error: function(xhr, status, error) {
+            console.log('Submission failed: ' + error);
+            $('body').removeClass('ajaxload');
+        }
+    });
+}
+
 //
-// Groupes d'onglets => si une carte est présentes dans l'onglet actif, rechargement de cette dernière
+// Groupes d'onglets => si une carte est présente dans l'onglet actif, rechargement de cette dernière
 //
 $('.tabs').on({
     'change.zf.tabs	': function(e) {
@@ -84,20 +155,38 @@ $('.tabs').on({
     }
 });
 
+$('.tabs-panel.is-active').each(function() {
+    var map_id = $(this).find("div[class^='geomap-']").attr('id');
+    if (typeof map_id != 'undefined') {
+        // TODO: Voir pour récupérer un event indiquant que rcModule est prêt
+        function mapLoaded() {
+            if (typeof rcModule.rcTouristicMap[map_id] != 'undefined') {
+                rcModule.rcTouristicMap[map_id].loaded = true;
+                clearInterval(checkMapLoaded);
+            }
+        }
+        var checkMapLoaded = setInterval(mapLoaded, 300);
+    }
+});
+
 //
 // Recalcul de la hauteur de la carte + application des bounds
 //
 function reloadMapBounds(map_id) {
-    var the_map = rcModule.rcTouristicMap[map_id];
-    if (typeof the_map !== 'undefined') {
-        the_map.invalidateSize();
-        the_map.on('moveend', function() {
-            var bounds = [];
-            the_map.eachLayer(function(layer) {
-                bounds.push(layer._latlng);
-            });
-            the_map.fitBounds(bounds);
-            the_map.off('moveend');
-        });
+    if (typeof rcModule.rcTouristicMap[map_id] !== 'undefined' && typeof rcModule.rcTouristicMap[map_id].loaded == 'undefined') {
+        rcModule.rcTouristicMap[map_id].invalidateSize();
+        rcModule.rcTouristicMap[map_id].on('moveend', getAndFitBounds);
+        rcModule.rcTouristicMap[map_id].loaded = true;
     }
+}
+
+function getAndFitBounds() {
+    var bounds = [];
+    this.eachLayer(function(layer) {
+        if (typeof layer._latlng != 'undefined') {
+            bounds.push(layer._latlng);
+        }
+    });
+    this.fitBounds(bounds);
+    this.off('moveend', getAndFitBounds);
 }

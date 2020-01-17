@@ -10,11 +10,7 @@
                     {# available layouts labelicons #}
                     {% for layout in formated_object.arrangementLayouts %}
                         <th tooltip="{{layout._type|default(layout.type)}}" tooltip-append-to-body="true">
-                            {% if layout.icon|default %}
-                                <i class="plo-fonticon plo-fonticon--large via-thesaurus icon-font-{{layout.icon|default('minus')}}"></i>
-                            {% else %}
-                                <i class="plo-fonticon plo-fonticon--large via-fontservice icon-font-{{layout.icon_hardcoded|default('minus')}}"></i>
-                            {% endif %}
+                            <i class="plo-fonticon plo-fonticon--large icon-font-{{layout.icon|default('minus')}}"></i>
                         </th>
                     {% else %}
                     {% endfor %}
@@ -55,7 +51,7 @@
 </section>
 {% endif %}
 
-{% if contractsLevels.content.services %}
+{% if contractsLevels.content.services and (formated_object.arrangementsDefault|default or formated_object.servicesOffers|default) %}
     <section id="establishment-detail" class="row panel panel-default s-stripes s-stripes--contrast">
         <div class="panel-title-responsive"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.SERVICES'|trans }}</span></div>
 
@@ -110,44 +106,42 @@
                 </li>
             {% endif %}
 
-            {% if contractsLevels.content.services %}
-                {% for service in formated_object.servicesOffers %}
-                    {% if service.servicesDetail|default and thesaurus.fulldictionary[service.type] is defined %}
-                        <li class="list-group-item establishment-detail-{{service.type}}">
-                            <dl class="row">
-                                <dt class="col-xs-12 col-sm-3 _plu-push--tiny"><span class="pl-heading">{{thesaurus.fulldictionary[service.type]}}</span></dt>
-                                <dd class="col-xs-12 col-sm-9">
-                                    {% if service.type == '15.01' %} {# if accessibilities #}
-                                    <ul class="plo-list-bare accessibilities">
-                                    {% else %}
-                                    <ul class="plo-list-bare col-xs-6">
+            {% for service in formated_object.servicesOffers %}
+                {% if service.servicesDetail|default and thesaurus.fulldictionary[service.type] is defined %}
+                    <li class="list-group-item establishment-detail-{{service.type}}">
+                        <dl class="row">
+                            <dt class="col-xs-12 col-sm-3 _plu-push--tiny"><span class="pl-heading">{{thesaurus.fulldictionary[service.type]}}</span></dt>
+                            <dd class="col-xs-12 col-sm-9">
+                                {% if service.type == '15.01' %} {# if accessibilities #}
+                                <ul class="plo-list-bare accessibilities">
+                                {% else %}
+                                <ul class="plo-list-bare col-xs-6">
+                                {% endif %}
+
+                                {% for servicedetail in service.servicesDetail  %}
+                                    {% if servicedetail.service|default and servicedetail._service is defined %}
+                                        {% if service.type != '15.01' and loop.index0 == ((loop.length/2)|round) %}</ul><ul class="plo-list-bare col-xs-6">{% endif %}
+                                        <li>
+                                            {{ servicedetail._service }}
+                                            {% if servicedetail.distance is defined
+                                                and servicedetail.distanceUnit is defined
+                                                and thesaurus.fulldictionary[servicedetail.distanceUnit] is defined %}
+                                                    <em class="zeta _plu-text-muted--light">{{ 'GLOBAL.AT'|trans }} {{ servicedetail.distance }} {{ thesaurus.fulldictionary[servicedetail.distanceUnit] }}</em>
+                                            {% endif %}
+                                            {% if servicedetail._description is defined %}
+                                                <div class="zeta _plu-text-muted--light _plu-cushion--tiny"><em>&bull;&nbsp;{{ servicedetail._description }}</em></div>
+                                            {% endif %}
+                                        </li>
+
                                     {% endif %}
+                                {% endfor %}
 
-                                    {% for servicedetail in service.servicesDetail  %}
-                                        {% if servicedetail.service|default and servicedetail._service is defined %}
-                                            {% if service.type != '15.01' and loop.index0 == ((loop.length/2)|round) %}</ul><ul class="plo-list-bare col-xs-6">{% endif %}
-                                            <li>
-                                                {{ servicedetail._service }}
-                                                {% if servicedetail.distance is defined
-                                                    and servicedetail.distanceUnit is defined
-                                                    and thesaurus.fulldictionary[servicedetail.distanceUnit] is defined %}
-                                                        <em class="zeta _plu-text-muted--light">{{ 'GLOBAL.AT'|trans }} {{ servicedetail.distance }} {{ thesaurus.fulldictionary[servicedetail.distanceUnit] }}</em>
-                                                {% endif %}
-                                                {% if servicedetail._description is defined %}
-                                                    <div class="zeta _plu-text-muted--light _plu-cushion--tiny"><em>&bull;&nbsp;{{ servicedetail._description }}</em></div>
-                                                {% endif %}
-                                            </li>
-
-                                        {% endif %}
-                                    {% endfor %}
-
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                {% endif %}
+            {% endfor %}
 
         </ul>
     </section>

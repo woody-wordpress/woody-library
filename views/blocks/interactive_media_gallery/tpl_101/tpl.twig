@@ -10,10 +10,10 @@
     <div class="content isRel">
         {% endif %}
         <div class="interactive_gallery-wrapper">
-            <div class="swiper-container woody-swiper">
-                <div class="swiper-wrapper">
+            <div class="swiper-container woody-swiper swResp spv-tablette-1">
+                <div class="swiper-wrapper swRespW">
                     {% for item in interactive_gallery_items %}
-                    <div class="swiper-slide slide-{{ loop.index }} ">
+                    <div class="swiper-slide slide-{{ loop.index }} swRespS">
                         {% block interactive_gallery_grid %}
                         <div class="woodyGallery grid-x{{ interactive_gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
                             {% if item.interactive_gallery_photo |default %}
@@ -30,13 +30,14 @@
                                 <div class="interactive_gallery-tooltip">
                                     <div class="tooltip tooltip-effect {{ interactive_gallery_open == 1 ? ' is-open' }} ">
                                         <span class="tooltip-item wicon wicon-029-croix-fermer"></span>
+                                        <span class="tooltip-resp-close wicon wicon-029-croix-fermer"></span>
                                         <span class="tooltip-content clearfix">
                                         {% if item.interactive_gallery_text %}
                                             <div class="tooltip-text">
                                                 {{ item.interactive_gallery_text }}
                                             </div>
                                         {% endif %}
-                                        {% if item.interactive_gallery_audio_player %}
+                                        {% if item.interactive_gallery_audio_player.audio_files.audio_file_mp3 or item.interactive_gallery_audio_player.audio_files.audio_file_ogg  %}
                                             <div class="tooltip-audio-player bottom">
                                                 {% include 'blocks/audio/tpl_01/tpl.twig' with {
                                                     'audio_files' : item.interactive_gallery_audio_player.audio_files,
@@ -55,7 +56,7 @@
                 <div class="swiper-pagination"></div>
                 {% endblock %}
                 {% block interactive_gallery_items_navigation %}
-                <div class="swiper-navigation">
+                <div class="swiper-nav">
                     <div class="swiper-button-prev">
                         <i aria-hidden="true" class="wicon wicon-026-precedent"></i>
                     </div>

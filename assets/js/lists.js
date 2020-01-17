@@ -154,8 +154,12 @@ var ajaxListPaginate = function(e, $el) {
             // On modifie l'url de la page
             history.pushState(null, null, this.url);
 
+            // On remonte en haut de la liste
+            $('html, body').scrollTop(parseInt($('#' + listId).offset().top - 100));
+
             // On retire le loader
             $('body').removeClass('ajaxload');
+
         },
         error: function(xhr, status, error) {
             console.log('Submission failed: ' + error);

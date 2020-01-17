@@ -1,22 +1,20 @@
 <div class="sheet-header">
 
+    {% if formated_object.chains|default %}
     <div class="sheet-header-logos">
         {# Hotel chains #}
-        {% if formated_object.chains|default %}
-            {% include TWIG.CHAINS
-                with {'chains': formated_object.chains,
-                    'TWIG': TWIG,} only %}
-        {% endif %}
+        {% include TWIG.CHAINS
+            with {'chains': formated_object.chains,
+                'TWIG': TWIG,} only %}
     </div>
+    {% endif %}
 
     <div class="header-text">
             <h1 class="header-title _plu-push--tiny _plu-flush sheet-header_title"><span itemprop="name">{{formated_object.businessName}}</span>
             {% if formated_object.labelRatings|default %}
                 <sup>
                     {% include TWIG.LABEL_RATINGS
-                        with {'labelRatings': formated_object.labelRatings,
-                            'TWIG': TWIG,
-                        } only %}
+                        with {'labelRatings': formated_object.labelRatings } only %}
                 </sup>
             {% endif %}
         </h1>

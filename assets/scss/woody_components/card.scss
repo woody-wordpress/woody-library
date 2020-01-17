@@ -167,6 +167,12 @@
                 margin-right: auto;
             }
         }
+
+        &.tpl_02 {
+            .card-description {
+                margin-left: auto;
+            }
+        }
     }
 
     &-iti-length {
@@ -246,8 +252,7 @@
     }
 }
 
-.card.basicCard.tpl_04,
-.card.basicCard.tpl_05 {
+.card.basicCard.tpl_04 {
     .card-tripInfos-wrapper.has-price {
         margin-top:calc(-#{$card-priceTag-height} / 2);
     }

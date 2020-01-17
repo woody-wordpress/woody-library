@@ -1,13 +1,16 @@
+{% if title %}
 <div class="text-center marg-bottom-sm title-wrapper">
     <span class="title h6">{{ __('Pistes','woody-theme') }}</span>
 </div>
-<div class="slopes-wrapper">
+{% endif %}
+<div class="slopes-wrapper {% if slopes.settings.type != "all" %}single-area{% endif %} ">
+
     {% for slopeType ,slope in slopes[1:] if slopes.settings.type == slopeType or slopes.settings.type == "all"  %}
     <div class="flex-container flex-dir-column align-center align-middle marg-top-sm {{ "slopes-" ~ slopeType }}">
-        {% if slopeType == "alpine" %}
+        {% if slopeType == "alpine" and title_type %}
         <span class="title-area">{{ __('Domaine Alpin','woody-theme') }}</span>
         {% endif %}
-        {% if slopeType == "nordic" %}
+        {% if slopeType == "nordic" and title_type %}
         <span class="title-area">{{ __('Domaine Nordique','woody-theme') }}</span>
         {% endif %}
         <div class="flex-container flex-dir-column align-center align-middle padd-all-sm {{ slopeType ~ "-levels" }}">
@@ -42,7 +45,7 @@
             {% include "blocks/infolive/_objects/lifts.twig" %}
         </div>
         {% endif %}
-        {% if slopes.settings.links.alpine is not empty or slopes.settings.links.nordic is not empty %}
+        {% if (slopes.settings.links.alpine is not empty or slopes.settings.links.nordic is not empty) and link %}
         <a class="woody-component-button button primary" href="{{ slopeType == "alpine" ? slopes.settings.links.alpine : slopes.settings.links.nordic }}" title="{{ __('Voir le bulletin complet', 'woody-theme') }}">
             <span class="button-label">{{ __('Détails', 'woody-theme') }}</span>
         </a>

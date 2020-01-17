@@ -114,12 +114,12 @@
         opacity: 0.75;
     }
 
-    .right.column > div {
-        border-left: 1px solid #333;
-    }
-    .right .img-wrapper:nth-child(2) {
-        border-top: 1px solid #333;
-    }
+    // .right.column > div {
+    //     border-left: 1px solid #333;
+    // }
+    // .right .img-wrapper:nth-child(2) {
+    //     border-top: 1px solid #333;
+    // }
 
     /**
     *** LAYOUT
@@ -173,12 +173,10 @@
         }
     }
 
-    // &.has-1 {
-    //     .tourism-special-labels,
-    //     .sheet-territory-label-brands {
-    //         position: absolute;
-    //     }
-    // }
+    &.has-0 {
+        #mosaic { background: #cecece; }
+        .sheet-header { text-shadow: 5px 4px 30px rgba(0, 0, 0, 0.7) !important; }
+    }
 
     // titre
     .sheet-header {

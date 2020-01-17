@@ -22,3 +22,5 @@ import './interactive_gallery';
 import './parallax';
 import './reveals';
 import './infolive';
+import './links';
+import './addons/circuit';

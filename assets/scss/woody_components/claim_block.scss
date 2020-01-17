@@ -1,11 +1,15 @@
 .woody-component-claims-block {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 280px;
-    z-index: 9999;
-    box-shadow: 0 6px 4px rgba($black, .15);
-    background-color: $white;
+
+    &:not(.inSection) {
+
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 280px;
+        z-index: 9999;
+        box-shadow: 0 6px 4px rgba($black, .15);
+        background-color: $white;
+    }
 
     .claim {
         &-titles {
@@ -47,7 +51,7 @@
             z-index: 2;
         }
 
-        &-link {
+        &-button {
             @include xy-gutters($gutter-position: top left);
         }
     }

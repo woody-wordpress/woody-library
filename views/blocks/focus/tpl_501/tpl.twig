@@ -41,6 +41,7 @@
                                 {% include 'cards/overlayed_card/tpl_02/tpl.twig' with {
                                 'image_style' : "ratio_4_3",
                                 'page_type' : item.page_type,
+                                'ellipsis': item.ellipsis|default(false)
                             } %}
                             </div>
                             {% set theloopindex = theloopindex + 1 %}
@@ -48,7 +49,8 @@
                             <div class="cell large-4">
                                 {% include 'cards/overlayed_card/tpl_02/tpl.twig' with {
                                 'image_style' : "ratio_4_3",
-                                'page_type' : item.page_type
+                                'page_type' : item.page_type,
+                                'ellipsis': item.ellipsis|default(false)
                             } %}
                             </div>
                             {% set theloopindex = theloopindex + 1 %}
@@ -56,7 +58,8 @@
                             <div class="cell medium-6">
                                 {% include 'cards/overlayed_card/tpl_02/tpl.twig' with {
                                 'image_style' : "ratio_16_9",
-                                'page_type' : item.page_type
+                                'page_type' : item.page_type,
+                                'ellipsis': item.ellipsis|default(false)
                             } %}
                             </div>
                             {% set theloopindex = theloopindex + 1 %}

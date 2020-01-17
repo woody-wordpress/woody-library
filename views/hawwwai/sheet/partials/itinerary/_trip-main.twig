@@ -1,8 +1,8 @@
 {# Trip general infos #}
 {% if formated_object.dataItinerary.itinerary|default and
-    (formated_object.dataItinerary.itinerary._length|default and formated_object.dataItinerary.itinerary.locomotionType|default)
+    (formated_object.dataItinerary.itinerary._length|default or formated_object.dataItinerary.itinerary.locomotionType|default or formated_object.dataItinerary.itinerary.typeTraceItinerary)
  %}
-    <section id="locomotion-infos" class="panel-default text-center {% if formated_object.dataItinerary.itinerary.locomotionType|length > 1 %}slick-slider{% endif %}">
+    <section id="locomotion-infos" class="panel-default text-center {% if formated_object.dataItinerary.itinerary.locomotionType|default|length > 1 %}slick-slider{% endif %}">
 
         {% if formated_object.dataItinerary.itinerary.locomotionType|default %}
         {% for locomotion in formated_object.dataItinerary.itinerary.locomotionType %}

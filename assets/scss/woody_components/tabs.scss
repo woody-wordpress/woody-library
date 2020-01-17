@@ -92,9 +92,10 @@
 }
 
 .tabs-rail-bottom {
-    .tabs-title>.tab-link{
-        color:$tabs-rail-color;
+    .tabs-title>.tab-link {
+        color: $tabs-rail-color;
     }
+
     &:after {
         display: block;
         content: "";
@@ -116,7 +117,7 @@
             width: $inactive-tab-dot-size;
             height: $inactive-tab-dot-size;
             border: 1px solid $inactive-tab-dot-border-color;
-            border-radius: 50%;
+            border-radius: $active-tab-dot-radius;
             background-color: $inactive-tab-dot-color;
             z-index: 1;
         }

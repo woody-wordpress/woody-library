@@ -73,21 +73,6 @@
             </dd>
         </dl>
 
-        {# LegalInfos #}
-        {% if formated_object.legalInfos|default %}
-            <dl class="row">
-                <dt class="col-xs-2">
-                    {# <span class="icon-font-mountain plo-fonticon"></span> #}
-                </dt>
-
-                <dd class="col-xs-10 _plu-hard--left">
-                    {% for legalInfo in formated_object.legalInfos if legalInfo.type|default %}
-                        <span class="">{{ legalInfo.type }}: {{ legalInfo.value|default }}</span>
-                    {% endfor %}
-                </dd>
-            </dl>
-        {% endif %}
-
         {# Altitude #}
         {% if formated_object.geolocations.altitude|default %}
             <dl class="row">

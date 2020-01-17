@@ -18,16 +18,14 @@
 
                 <div class="top-left-corner col-md-6">
 
-                    {% if services|default and display.topServices|default and
+                    {% if services|default and true and
                         ((services.position.left|default and not display.topLeft|default)
                         or (display.topLeft|default and display.topLeft.services|default)) %}
                         <span class="item-services">
                             {% for service in services.data %}
-                                {% if service.key in display.topServices %}
-                                    <span class="item-service item-{{ service.name }}">
-                                        <span class="icon-font-{{ service.icon }}" data-toggle="tooltip" data-placement="top" title="{{ service.name }}" ></span>
-                                    </span>
-                                {% endif %}
+                                <span class="item-service item-{{ service.name }}">
+                                    <span class="icon-font-{{ service.icon }}" data-toggle="tooltip" data-placement="top" title="{{ service.name }}" ></span>
+                                </span>
                             {% endfor %}
                         </span>
                     {% endif %}
@@ -77,16 +75,14 @@
 
                 <div class="top-right-corner col-md-6">
 
-                    {% if services|default and display.topServices|default and
+                    {% if services|default and true and
                         ((services.position.right|default and not display.topRight|default)
                         or (display.topRight|default and display.topRight.services|default)) %}
                         <span class="item-services">
                             {% for service in services.data %}
-                                {% if display.topServices|default %}
-                                    <span class="item-service item-{{ service.name }}">
-                                        <span class="icon-font-{{ service.icon }}" data-toggle="tooltip" data-placement="top" title="{{ service.name }}" ></span>
-                                    </span>
-                                {% endif %}
+                                <span class="item-service item-{{ service.name }}">
+                                    <span class="icon-font-{{ service.icon }}" data-toggle="tooltip" data-placement="top" title="{{ service.name }}" ></span>
+                                </span>
                             {% endfor %}
                         </span>
                     {% endif %}

@@ -1,9 +1,19 @@
 <ul id="navlist" class="clearfix {{classes}}" {% if not directive %}dropdown-menu{% endif %}>
 
-    {% if formated_object.description|default
-      or formated_object.capacities|default
-      or object.data.langs|default
-      or object.data.tariffs.paymentMethods|default %}
+    {% if (contractsLevels.content.description and formated_object.description|default)
+    or (contractsLevels.content.slogan and formated_object.slogan|default)
+    or (formated_object.bordereau in ['RES'] and formated_object.chefName|default)
+    or formated_object.goodDealsDescription|default
+    or formated_object.accessPoints|default
+    or (formated_object.environmentPoints|default and contractsLevels.content.environment)
+    or (contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default))
+    or (object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos)
+    or (formated_object.langs|default and contractsLevels.content.lang)
+    or (contractsLevels.content.labels and formated_object.labels.simpleLabels._labels|default)
+    or (contractsLevels.content.handicap and formated_object.labels.tourismHandicap._labels|default)
+    or (contractsLevels.content.docs and formated_object.documents|default)
+    or (formated_object.audiofiles|default and contractsLevels.content.audios)
+%}
 
         <li id="nav_description" class="" anchor-link ng-click="scrollTo('#description')">
             <a href="" role="button" class="media">
@@ -79,7 +89,7 @@
     {% endif %}
 
     {# Establishment details / Services #}
-    {% if contractsLevels.content.services %}
+    {% if contractsLevels.content.services and (formated_object.arrangementsDefault|default or formated_object.servicesOffers|default) %}
         <li id="nav_establishment-detail" anchor-link ng-click="scrollTo('#establishment-detail')">
             <a href="" role="button" class="media">
                 <span class="media-left"><span class="icon-font-list [ plo-fonticon ]"></span></span>
@@ -146,8 +156,42 @@
         </li>
     {% endif %}
 
+    {% if contractsLevels.sidebar.vcard and formated_object.emails.establishment|default %}
+        <li id="nav_contact-form" class="visible-xs-block visible-sm-block">
+            <a role="button" class="media"
+                rc-modal size="lg"
+                tpl-url="sections/tourism/sheet-detail/modals/contact-form.html"
+                action="click"
+                analytics-mediaveille {# Tracking MediaVeille #}
+                data-type="MAILTO" {# Tracking Tourinsoft #}
+                interact event-type="SHEET_CONTACT_FORM_OPENED"
+                check-params="form_contact">
+
+                <span class="media-left"><span class="icon-font-mail [ plo-fonticon ]"></span></span>
+                <span class="nav-title media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
+            </a>
+        </li>
+
+        {# <li class="sheet-nav-actions_item nav-contact">
+            <a rc-modal size="lg"
+                tpl-url="sections/tourism/sheet-detail/modals/contact-form.html"
+                action="click"
+                analytics-mediaveille
+                data-type="MAILTO"
+                interact event-type="SHEET_CONTACT_FORM_OPENED"
+                check-params="form_contact"
+                class="plo-btn sheet-nav-actions_button">
+
+                <div class="media media-center">
+                    <span class="media-left media-middle"><span class="icon-font-mail plo-fonticon"></span></span>
+                    <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
+                </div>
+            </a>
+        </li> #}
+    {% endif %}
+
     {# Medias #}
-    {% if contractsLevels.content.medias and contractsLevels.content.gallery %}
+    {% if contractsLevels.content.medias %}
         {% if options.sheet_model_v2 is not defined or options.sheet_model_v2 %}
             <li id="nav_gallery" anchor-link ng-click="scrollTo('#gallery')">
                 <a href="" role="button" class="media">
@@ -204,7 +248,9 @@
 {% if contractsLevels.sidebar.booking and formated_object.bookingUrl|default %}
 <div class="pull-right nav-title sheet-navbar-button navbar-booking-btn visible-xs-block visible-sm-block">
     <a target="_blank" href="{{formated_object.bookingUrl}}"
-        analytics-mediaveille interact event-type="SHEET_BOOK_URL">
+        analytics-mediaveille {# Tracking MediaVeille #}
+        data-type="CLIC_OFFRE" {# Tracking Tourinsoft #}
+        interact event-type="SHEET_BOOK_URL">
         {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
     </a>
 </div>

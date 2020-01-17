@@ -5,39 +5,10 @@
         }
     }
 
-    .infolive-webcam {
-        .media-wrapper {
-            position: relative;
-            @include wicon($infolive-webcam-icon);
-
-            &:before {
-                z-index: 1;
-                position: absolute;
-                text-align: center;
-                background: $primary-color;
-                color: $white;
-                left: 0;
-                top: 0;
-                pointer-events: none;
-                padding: $global-padding/2;
-                width: $global-padding*2.5;
-                height: $global-padding*2.5;
-            }
-        }
-    }
-
-    .infolive-weather {
-
-        .weather-icon,
+    .snowdepth-wrapper {
         .snowdepth-icon {
             color: $dark-gray;
             font-size: rem-calc(96);
-        }
-
-        .weather-temp {
-            font-weight: $global-weight-bold;
-            font-size: rem-calc(22);
-            cursor: default;
         }
 
         .snowdepth-levels {
@@ -80,7 +51,60 @@
         }
     }
 
+    .infolive-webcam {
+        .media-wrapper {
+            position: relative;
+            max-width: 80%;
+            @include wicon($infolive-webcam-icon);
+
+            &:before {
+                z-index: 1;
+                position: absolute;
+                text-align: center;
+                background: $primary-color;
+                color: $white;
+                left: 0;
+                top: 0;
+                pointer-events: none;
+                padding: $global-padding/2;
+                width: $global-padding*2.5;
+                height: $global-padding*2.5;
+            }
+        }
+    }
+
+    .infolive-weather {
+
+        .weather-icon {
+            color: $dark-gray;
+            font-size: rem-calc(96);
+        }
+
+        .weather-temp {
+            font-weight: $global-weight-bold;
+            font-size: rem-calc(22);
+            cursor: default;
+        }
+    }
+
     .infolive-slopes-info {
+
+        .slopes-wrapper {
+            &.single-area {
+
+                &,
+                .slopes-alpine,
+                .slopes-nordic {
+                    height: 100%;
+                }
+
+                .alpine-levels,
+                .nordic-levels {
+                    flex: 1 1 auto;
+                }
+            }
+        }
+
         .lifts-wrapper {
             cursor: default;
 
@@ -109,6 +133,12 @@
 
                     .open {
                         font-weight: $global-weight-bold;
+                    }
+
+                    @if $infolive-slopes-total-hide {
+                        .total {
+                            display: none;
+                        }
                     }
                 }
 
@@ -213,6 +243,64 @@
                     font-weight: $infolive-alert-text-weight;
                     color: $infolive-alert-text-color;
                 }
+            }
+        }
+    }
+
+    &.tpl_02 {
+        &.has-snowdepth.has-slopes-info {
+            .infolive-slopes-info {
+                position: relative;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 1px;
+                    height: 90%;
+                    top: 5%;
+                    left: 0;
+                    background-color: rgba($black, .25);
+                }
+            }
+        }
+
+        .infolive-weather {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                width: 90%;
+                height: 1px;
+                bottom: 0;
+                left: 5%;
+                background-color: rgba($black, .25);
+            }
+        }
+
+        .snowdepth-wrapper {
+            height: 100%;
+
+            .snowdepth-content {
+                flex: 1 1 auto;
+            }
+        }
+
+        .infolive-slopes-info {
+            .level-colors {
+                flex-wrap: wrap;
+                max-width: $circular-progressbar-levels-width * 2;
+            }
+        }
+
+        .infolive-webcam {
+            .media-wrapper {
+                max-width: 100%;
+            }
+
+            .button {
+                width: 200px;
+                margin-left: auto;
             }
         }
     }

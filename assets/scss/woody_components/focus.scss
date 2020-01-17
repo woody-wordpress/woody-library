@@ -175,23 +175,25 @@
         }
     }
 
-    .woody-component-focus.tpl_202 {
-        @include breakpoint(large) {
-            padding-right: 0;
+    .woody-component-focus {
+        &.swiperOff {
+            @include breakpoint(large) {
+                padding-right: 0;
 
-            .swiper-container {
-                overflow: visible;
-                padding-right: 20%;
+                .swiper-container {
+                    overflow: visible;
+                    padding-right: 20%;
+                }
             }
-        }
 
-        .woody-component-basic-swiper {
-            overflow: hidden;
-        }
+            .woody-component-basic-swiper {
+                overflow: hidden;
+            }
 
-        .basicCard {
-            .card-section {
-                align-items: flex-end;
+            .basicCard {
+                .card-section {
+                    align-items: flex-end;
+                }
             }
         }
     }
