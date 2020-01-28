@@ -25,6 +25,7 @@
 }
 
 .woody-component-teaser {
+    padding-top: 1px; // Fixes the white margin of page_main_description if no breadcrumb or title are shown
     position: relative;
     background-color: $white;
 

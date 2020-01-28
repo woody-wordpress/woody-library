@@ -249,6 +249,14 @@
                 }
             }
 
+            .sub-components{
+                color: lighten($black, 25%);
+                font-size: rem-calc(14);
+                display: flex;
+                flex-direction: column;
+                margin-left: 40px;
+            }
+
             .chosen {
                 .edit {
                     display: block;
@@ -761,6 +769,9 @@
 
         .quotation-form {
             width: 100%;
+        }
+        .sub-components{
+            display: none;
         }
     }
 

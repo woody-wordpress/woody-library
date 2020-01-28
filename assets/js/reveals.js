@@ -13,3 +13,8 @@ $('.woody-lang_switcher .lang_switcher-button').click(function() {
         $('.lang_switcher-reveal').foundation('open');
     }
 })
+
+$('.esSearch-block-reveal .close-button').click(function() {
+    $('.esSearch-block-reveal').foundation('_destroy');
+    $('body').removeClass('is-reveal-open');
+})
