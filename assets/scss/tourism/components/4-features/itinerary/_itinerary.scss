@@ -1,3 +1,33 @@
+#alert {
+    border-color: $brand-danger;
+
+    .section-alert {
+        background-color: #ee4f4f40;
+        padding-right: 2 * $defContainersPadding;
+        font-size: 1.1em;
+        line-height: 1.5em;
+        font-weight: 300;
+        border: none;
+
+        ._panel-title.pl-heading {
+            color: $brand-danger;
+
+            &:after {
+                font-size: 35px;
+                display: block;
+                padding-left: 5px;
+                margin: 0 auto;
+                @extend .icon-font-item;
+                @extend .icon-warning;
+            }
+        }
+
+        .section-content {
+            white-space: pre-line;
+        }
+    }
+}
+
 .itinerary-layout {
     clear: both;
     position: relative;
@@ -27,29 +57,11 @@
         font-size: 0.9em;
         margin-top: $vr/2;
     }
-
-    .section-alert {
-        padding-right: 2 * $defContainersPadding;
-        font-size: 1.1em;
-        line-height: 1.5em;
-        font-weight: 300;
-        border: none;
-
-        ._panel-title.pl-heading {
-            color: $brand-danger;
-
-            &:after {
-                font-size: 35px;
-                display: block;
-                padding-left: 5px;
-                margin: 0 auto;
-                @extend .icon-font-item;
-                @extend .icon-warning;
-            }
-        }
-
-        .section-content {
-            white-space: pre-line;
+    .itinerary-how-to-use {
+        font-weight: bold;
+        color: $primary-color;
+        &:hover {
+            text-decoration: underline;
         }
     }
 
@@ -643,9 +655,6 @@
         fill: transparent !important;
     }
 
-    .locomotion-features .locomotion-feature-wrapper .locomotion-icon::after {
-        font-size: 26px !important;
-    }
     .locomotion-features *,
     .locomotion-features .locomotion-feature-wrapper {
         font-size: 16px !important;

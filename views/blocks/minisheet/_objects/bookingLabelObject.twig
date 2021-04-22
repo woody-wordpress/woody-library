@@ -1,0 +1,15 @@
+<div class="booking-wrapper">
+    <div class="booking-price">
+        <span class="booking-prefix">{{ booking.prefix }}</span>
+        <div class="price-value">
+            <span class="price">{{ booking.price }}</span>
+            <span class="suffix">{{ booking.suffix|default('€') }}</span>
+        </div>
+    </div>
+    {% if booking.price_details %}
+        <div class="price-details isAbs">{{ booking.price_details }}</div>
+    {% endif %}
+    {% if booking.link %}
+        <a href="{{ booking.link.url }}" class="button no-ext" title="{{ booking.link.title|default(__('Réserver', 'woody-theme')) }}" target="{{ booking.link.target|default('_self') }}">{{ booking.link.title|default(__('Réserver', 'woody-theme')) }}</a>
+    {% endif %}
+</div>

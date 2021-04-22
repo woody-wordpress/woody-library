@@ -1,10 +1,18 @@
 {% if type == "alpine" %}
-{% set data_progress = (level.open / level.total * 100) ~ '%' %}
+{% if level.total == 0 %}
+    {% set data_progress = '0%' %}
+{% else %}
+    {% set data_progress = (level.open / level.total * 100) ~ '%' %}
+{% endif%}
 {% set data_open = level.open %}
 {% set data_total = level.total %}
 {% endif %}
 {% if type == "nordic" %}
-{% set data_progress = (level.km_open / level.km_total * 100) ~ '%' %}
+{% if level.km_total == 0 %}
+    {% set data_progress = '0%' %}
+{% else %}
+    {% set data_progress = (level.km_open / level.km_total * 100) ~ '%' %}
+{% endif %}
 {% set data_open = level.km_open %}
 {% set data_total = level.km_total %}
 {% endif %}

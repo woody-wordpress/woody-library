@@ -1,32 +1,213 @@
-.woody-component-focus {
-    @include breakpoint(medium down) {
-        .grid-padding-x {
-            margin-left: 0;
-            margin-right: 0;
+.focus-buttons {
+    position: relative;
+}
 
-            >.cell {
-                padding-left: 0;
-                padding-right: 0;
+.woody-component-focus,
+.woody-component-focus-map {
+    .focus-header {
+
+        &.fullwidth {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .focus-block-texts {
+            >span {
+                display: block;
             }
         }
 
-        .cell {
-            @include xy-gutters($gutter-type: padding, $gutter-position: top bottom);
+        .focus-block-wicon,
+        .focus-block-title {
+            @extend .h2 !optional;
+        }
 
-            .overlayedCard {
-                .cardMediaWrapper {
-                    min-height: 100px;
+        .focus-block-pretitle,
+        .focus-block-subtitle {
+            @extend .h4 !optional;
+        }
+    }
+}
+
+.woody-component-focus {
+
+    .focusLane-wrapper {
+        background-color: $focusLane-bgcolor;
+    }
+
+    .focusLane-item {
+        padding-bottom: $focusLane-space;
+
+        .button-icon {
+            position: relative;
+            margin-right: $focusLane-space;
+
+            &:before {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: $focusLane-icon-size;
+                height: $focusLane-icon-size;
+                background-color: $focusLane-color;
+                color: set-color($focusLane-color);
+                border-radius: $focusLane-icon-radius;
+                font-size: calc(#{$focusLane-icon-size} / 2);
+            }
+        }
+
+        a {
+            display: flex;
+            color: set-color($focusLane-bgcolor) !important;
+        }
+
+        &:not(:nth-last-of-type(1)) {
+            .button-icon {
+                &:after {
+                    display: block;
+                    content: '';
+                    height: calc(100% + #{$focusLane-space});
+                    width: 1px;
+                    background-color: $focusLane-color;
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
                 }
             }
         }
 
-        .swiper-wrapper {
-            flex-wrap: wrap;
+        &:nth-of-type(1) {
+            .button-icon:after {
+                @include breakpoint(medium) {
+                    height: calc(100% + #{$focusLane-space} + #{$focusLane-space});
+                    top : -#{$focusLane-space}
+                }
+            }
         }
     }
 
-    &.tpl_405 {
+    .focusLane-texts {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &.tpl_127 {
+        .focusLane-wrapper {
+            padding: $focusLane-space map-get($grid-column-gutter, medium) map-get($grid-column-gutter, medium) map-get($grid-column-gutter, medium);
+            height: 100%;
+        }
+    }
+
+    &.tpl_130 {
+        .swiper-container {
+            max-height: 90vh;
+        }
+
+        .swiper-slide {
+            &:not(.swiper-slide-active) {
+                pointer-events: none;
+            }
+
+            .imageObject {
+                opacity: .2;
+                filter: blur(5px);
+                transition: opacity .7s, transform .9s ease-in-out, filter .7s;
+            }
+
+            &.swiper-slide-active {
+                .imageObject {
+                    opacity: .6;
+                    transform: scale(1.04);
+                    filter: blur(0);
+                }
+            }
+
+            &:not(.swiper-slide-active) {
+                pointer-events: none;
+            }
+        }
+
+
+        .swiper-pagination {
+            bottom: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: left;
+            max-width: 1600px;
+            display: flex;
+            justify-content: space-between;
+
+            &-item {
+                color: $white;
+                padding: 10px 5px;
+                cursor: pointer;
+
+                .pagination {
+                    &-pretitle {
+                        @include header-size(h5);
+                    }
+
+                    &-title {
+                        @include header-size(h4);
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_502,
+    &.tpl_503,
+    &.tpl_605,
+    &.tpl_404,
+    &.tpl_201 {
+
+        .woody-mobile-swiper,
+        .woody-swiper {
+            &:not(.swResp) {
+                @include breakpoint(xmedium down) {
+                    padding-left: 40px;
+                    padding-right: 40px;
+                }
+            }
+        }
+    }
+
+    &.tpl_404,
+    &.tpl_201 {
+
+        .woody-mobile-swiper,
+        .woody-swiper {
+            .swiper-slide {
+                @include breakpoint(xmedium down) {
+                    @include xy-gutters($gutter-position:top bottom);
+                }
+            }
+        }
+    }
+
+    &.tpl_301,
+    &.tpl_401 {
+        .splitCard {
+            @include breakpoint(xmedium down) {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+    }
+
+    &.tpl_405,
+    &.tpl_410 {
         .woody-grid-frame>.cell {
+            height: 100%;
+        }
+    }
+
+    &.tpl_409,
+    &.tpl_411 {
+        .fullHeight {
             height: 100%;
         }
     }
@@ -53,65 +234,288 @@
                 }
             }
 
-            .card-button {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translateX(-50%) translateY(-50%);
-                font-size: 0;
-                border-radius: 50%;
-                margin-top: 0;
-                width: $round-card-button-size;
-                height: $round-card-button-size;
-                background-color: $round-card-button-bgcolor;
-                color: $round-card-button-color;
-                border: $round-card-button-border;
-                min-width: $round-card-button-size;
+            .card.basicCard {
+                .card-button {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+                    font-size: 0;
+                    border-radius: 50%;
+                    margin-top: 0;
+                    width: $round-card-button-size;
+                    height: $round-card-button-size;
+                    background-color: $round-card-button-bgcolor;
+                    color: $round-card-button-color;
+                    border: $round-card-button-border;
+                    min-width: $round-card-button-size;
 
-                &:before {
-                    display: block;
-                    content: '+';
-                    font-size: rem-calc($round-card-button-font-size);
-                    line-height: $round-card-button-size;
-                    font-weight: normal;
+                    &:before {
+                        display: block;
+                        content: '+';
+                        font-size: rem-calc($round-card-button-font-size);
+                        line-height: $round-card-button-size;
+                        font-weight: normal;
+                    }
+                }
+
+                .card-profile {
+                    top: calc(50% + #{map-get($basiccard-profile-coords, top)});
                 }
             }
         }
 
-        .card-title {
-            transition: color .3s;
-        }
+        .card.basicCard {
+            .has-profile {
+                position: initial;
+            }
 
-        .card-link:hover {
             .card-title {
-                color: $primary-color;
+                transition: color .3s;
             }
 
-            .card-button {
-                background-color: $button-background-hover;
+            .card-link:hover {
+                .card-title {
+                    color: $primary-color;
+                }
+
+                .card-button {
+                    background-color: $button-background-hover;
+                }
+            }
+
+        }
+    }
+
+    &.tpl_323,
+    &.tpl_319,
+    &.tpl_326 {
+        .focus-header {
+            padding: $global-padding * 3;
+
+            @include breakpoint(xlarge) {
+                padding-right: $global-padding * 6;
+            }
+        }
+
+        .woody-component-basic-swiper {
+            transform: translateY(-$swiper-offset-size);
+
+            @include breakpoint(xlarge) {
+                transform: translateX(-$swiper-offset-size) translateY(0);
+                width: calc(100% + #{$swiper-offset-size});
             }
         }
     }
-}
+    &.tpl_323,
+    &.tpl_319 {
+        .swiper-controls {
+            position: relative;
+            display: flex;
 
-.focus-block {
-    &-texts {
-        >span {
-            display: block;
+            .swiper-nav {
+                position: relative;
+                display: flex;
+                margin-left: 150px;
+
+                >div {
+                    position: relative;
+                    left: auto;
+                    right: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0;
+                    top: 0;
+                }
+            }
         }
     }
 
-    &-title {
-        @extend .h2 !optional;
+    &.tpl_320 {
+        &>.swiper-container {
+            .woody-grid-frame {
+
+                &>.cell,
+                .imageObject-img {
+                    height: 100%;
+                }
+            }
+        }
     }
 
-    &-pretitle,
-    &-subtitle {
-        @extend .h4 !optional;
+    &:not(.tpl_323),
+    &:not(.tpl_319),
+    &:not(.tpl_326) {
+        @include breakpoint(xmedium down) {
+
+            .grid-padding-x {
+                margin-left: 0;
+                margin-right: 0;
+
+                >.cell {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+
+            .cell {
+                @include xy-gutters($gutter-type: padding, $gutter-position: top bottom);
+
+                .overlayedCard {
+                    .cardMediaWrapper {
+                        min-height: 100px;
+                    }
+                }
+            }
+
+            .swiper-wrapper {
+                flex-wrap: wrap;
+            }
+        }
     }
+
+    &.tpl_321 {
+        @include breakpoint(large) {
+            padding-left: 120px;
+
+            .focus-buttons>.flex-container {
+                justify-content: flex-start;
+            }
+        }
+
+        &.has-bgimg>.content .grid-x>.cell,
+        .grid-x>.cell {
+            &:nth-of-type(1) {
+                @include breakpoint(large) {
+                    transform: translateY(60px);
+                }
+            }
+
+            &:nth-of-type(2) {
+                @include breakpoint(large) {
+                    transform: translateY(180px);
+                }
+            }
+
+            &:nth-of-type(3) {
+                @include breakpoint(large) {
+                    transform: translateY(-60px) translateX(180px);
+                }
+            }
+
+            &:nth-of-type(4) {
+                @include breakpoint(large) {
+                    padding-top: 180px;
+                    padding-left: 180px;
+                }
+            }
+        }
+    }
+
+    &.tpl_322 {
+
+        &.has-bgimg>.woody-mobile-swiper>.content>.grid-x>.cell,
+        >.woody-mobile-swiper>.grid-x>.cell {
+            .card {
+                height: auto;
+            }
+
+            &:nth-of-type(1) {
+                @include breakpoint(large) {
+                    padding-left: 90px;
+                }
+            }
+
+            &:nth-of-type(3) {
+                z-index: 1;
+
+                @include breakpoint(large) {
+                    transform: translateY(-120px) translateX(90px);
+
+                    .focus-buttons {
+                        padding-right: 40px;
+
+                        .list-item {
+                            margin-left: auto;
+                        }
+                    }
+                }
+            }
+
+            &:nth-of-type(4) {
+                @include breakpoint(large) {
+                    padding-left: 50px;
+                    padding-right: 50px;
+                }
+            }
+        }
+
+        .woody-mobile-swiper:not(.swResp) {
+
+            @include breakpoint(xmedium down) {
+                >.grid-x {
+                    position: relative;
+                    padding-bottom: 90px;
+                }
+
+                .cell.has-button {
+                    position: static;
+
+                    .focus-buttons {
+                        margin: 0;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_324 {
+        @include breakpoint(large only) {
+            &.swiperOut {
+                padding-right: 0;
+            }
+
+            .swiperJustified {
+                margin-left: 0;
+            }
+        }
+    }
+
+    &.tpl_502,
+    &.tpl_503 {
+
+        .woody-swiper,
+        .woody-mobile-swiper {
+            &:not(.swResp) {
+                @include breakpoint(xmedium only) {
+                    .swiper-slide:not(.multirows) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_801 {
+        @include breakpoint(large) {
+            >.grid-x>.cell:nth-of-type(3) .grid-x {
+                height: 100%;
+            }
+        }
+    }
+
 }
 
 .woody-component-focus-map {
+
+    .swResp {
+        overflow: hidden;
+    }
 
     &.tpl_01,
     &.tpl_02 {
@@ -140,49 +544,154 @@
             }
         }
     }
+
+    &.tpl_03 {
+        .map-wrapper {
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            z-index: 10;
+            transform: scale(0);
+            opacity: 0;
+            transform-origin: top right;
+            transition: transform .3s ease-in, opacity .3s;
+        }
+
+        .toggle-map {
+            right: 10px;
+            top: 10px;
+            z-index: 11;
+            background-color: $white;
+            color: $primary-color;
+            border-radius: 200px;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+
+            .wicon {
+                margin-right: 0;
+            }
+
+            .wicon-029-croix-fermer {
+                display: none;
+            }
+        }
+
+        &.map-opened {
+            .map-wrapper {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            .toggle-map {
+                right: -25px;
+                top: -25px;
+
+                .wicon-029-croix-fermer {
+                    display: block;
+                }
+
+                .wicon-039-pin {
+                    display: none;
+                }
+            }
+
+            .swiper-nav {
+                display: none;
+            }
+        }
+
+        .swiper-controls {
+            height: 100%;
+
+            .swiper-pagination.swiper-pagination-bullets {
+                .swiper-pagination-bullet {
+                    background-color: rgba($white, .5);
+
+                    &-active {
+                        background-color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// En-tête de bloc en surimpression de la mise en avant
+.focusH-overlayed {
+    .focus-header {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        z-index: 10;
+        color: $white;
+        width: 100%;
+        max-width: 1600px;
+        padding: 30px;
+        transform: translateX(-50%);
+    }
+
+    .cardMediaWrapper {
+        opacity: .6;
+    }
+
+    .titles-container,
+    .focusH-container {
+        max-width: 1600px;
+    }
+
+
+    .titles-container {
+        box-sizing: border-box;
+        // color: $white;
+
+        .focus {
+            &-title {
+                @extend h3;
+            }
+
+            &-pretitle,
+            &-subtitle {
+                @extend h4;
+            }
+
+            &-description {
+                max-width: 400px;
+            }
+        }
+    }
+}
+
+@each $align in $alignments {
+    &.focusH-#{$align} {
+        text-align: $align;
+    }
 }
 
 //
 // Styles spécifiques aux focus dans une section pleine largeur
 //
 .section-layout-wrapper:not(.grid-container) {
-    .woody-component-focus.tpl_504 {
-        overflow: hidden;
-
-        @include breakpoint(large) {
-            padding-right: 0;
-
-            .swiper-container {
-                overflow: visible;
-                padding-right: 110px;
-            }
-
-            .swiper-slide {
-                transition: opacity .3s;
-
-                &:not(.swiper-slide-visible) {
-                    opacity: .3;
-                }
-            }
-
-            .swiper-button-prev {
-                left: 0;
-            }
-
-            .swiper-button-next {
-                right: 0;
-            }
-        }
-    }
-
     .woody-component-focus {
-        &.swiperOff {
+        &[class*="swiperOff"] {
             @include breakpoint(large) {
                 padding-right: 0;
 
                 .swiper-container {
                     overflow: visible;
-                    padding-right: 20%;
+                }
+
+                &[class*="-right"] {
+                    .swiper-container {
+                        padding-left: $swiper-offset-size;
+                    }
+                }
+
+                &[class*="-left"] {
+                    .swiper-container {
+                        padding-right: $swiper-offset-size;
+                    }
                 }
             }
 
@@ -193,6 +702,89 @@
             .basicCard {
                 .card-section {
                     align-items: flex-end;
+                }
+            }
+        }
+
+        &.tpl_504 {
+            overflow: hidden;
+
+            @include breakpoint(large) {
+                padding-right: 0;
+
+                .swiper-container {
+                    overflow: visible;
+                    padding-right: 110px;
+                }
+
+                .swiper-slide {
+                    transition: opacity .3s;
+
+                    &:not(.swiper-slide-visible) {
+                        opacity: .3;
+                    }
+                }
+
+                .swiper-button-prev {
+                    left: 0;
+                }
+
+                .swiper-button-next {
+                    right: 0;
+                }
+            }
+        }
+
+    }
+}
+
+// Mises en avant de profils
+
+.woody-component-focus.profile-focus {
+
+    .profileCard {
+        .profile {
+            &-img {
+                margin: 0 auto 20px auto;
+            }
+        }
+    }
+
+    &.mediaLeft {
+        .profileCard {
+            .profile {
+                &-summary {
+                    @include breakpoint(medium) {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+                &-img {
+                    width: 100px;
+                    margin: 0 auto 20px auto;
+
+                    @include breakpoint(xmedium) {
+                        margin: 0 20px 0 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.mediaTop {
+        .profileCard {
+            .profile {
+                &-title {
+                    margin: 0 auto 5px auto;
+                }
+
+                &-contacts {
+                    justify-content: center;
+                }
+
+                &-img {
+                    width: 140px;
                 }
             }
         }

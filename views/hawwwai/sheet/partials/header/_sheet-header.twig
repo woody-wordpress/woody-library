@@ -12,10 +12,8 @@
     <div class="header-text">
             <h1 class="header-title _plu-push--tiny _plu-flush sheet-header_title"><span itemprop="name">{{formated_object.businessName}}</span>
             {% if formated_object.labelRatings|default %}
-                <sup>
-                    {% include TWIG.LABEL_RATINGS
-                        with {'labelRatings': formated_object.labelRatings } only %}
-                </sup>
+                {% include TWIG.LABEL_RATINGS
+                    with {'labelRatings': formated_object.labelRatings } only %}
             {% endif %}
         </h1>
 
@@ -37,7 +35,7 @@
                     <span class="sheet-header-criterias">
                     {% spaceless %}
                     {%- for criteria in formated_object.criterias -%}
-                        {{criteria._criterion}}{%- if not loop.last -%},&nbsp;{%- endif -%}
+                        <span class="sheet-controlled-vocabulary">{{criteria._criterion}}{%- if not loop.last -%},&nbsp;{%- endif -%}</span>
                     {%- endfor -%}
                     {% endspaceless %}
                     </span>
@@ -45,7 +43,7 @@
 
                 {# & city #}
                 {% if formated_object.contacts.establishment|default %}
-                    <span class="sheet-heder-city">{{ 'GLOBAL.AT'|trans }}&nbsp;{{ formated_object.locality|default ? formated_object.locality : formated_object.contacts.establishment.commune }}</span>
+                    <span class="sheet-header-city">{{ 'GLOBAL.ATPLACE'|trans }}&nbsp;{{ formated_object.locality|default ? formated_object.locality : formated_object.contacts.establishment.commune }}</span>
                 {% endif %}
             </h2>
         {% endif %}

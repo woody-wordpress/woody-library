@@ -1,0 +1,34 @@
+// ------
+// Testimonials
+// ------
+
+// Testimonials Globals
+$testimonials-transition-duration: .2s !default;
+
+// Testimonials Header
+$testimonials-wicon-size: rem-calc(32) !default;
+$testimonials-title-weight: bold !default;
+$testimonials-title-size: h3 !default;
+$testimonials-title-color: currentColor !default;
+$testimonials-subtitle-size: h5 !default;
+$testimonials-subtitle-color: $dark-gray !default;
+
+// Testimonials Pagination
+$testimonials-pagination-color-active: $primary-color !default;
+$testimonials-pagination-color: $medium-gray !default;
+$testimonials-pagination-font-family: $header-font-family !default;
+$testimonials-pagination-font-size: rem-calc(20);
+$testimonials-pagination-font-transform: uppercase;
+$testimonials-pagination-font-border: true !default;
+$testimonials-pagination-font-border-size: 2px !default;
+$testimonials-pagination-bullet-radius: $active-tab-dot-radius !default;
+$testimonials-pagination-bullet-size: $active-tab-dot-size !default;
+
+// Testimonials Image
+$testimonials-img-rounded: true !default;
+$testimonials-img-width: 50% !default;
+
+// Testimonials Quote
+$testimonials-quote-color: $dark-gray !default;
+$testimonials-quote-icon-color: $primary-color !default;
+$testimonials-quote-icon-size: rem-calc(28) !default;

@@ -1,10 +1,39 @@
-$quote-img-rounded: false !default;
+// ------
+// Quote
+// ------
+
+// Img
+$quote-img-rounded: true !default;
 $quote-img-border: false !default;
 $quote-img-border-size: 5px !default;
 $quote-img-border-style: solid !default;
 $quote-img-border-color: $primary-color !default;
-$has-quote-icon: false !default;
-$quote-icon-color: $black !default;
+$quote-02-img-size: 100px !default;
+
+// Icon
+$has-quote-icon: true !default;
+$quote-icon-color: $primary-color !default;
 $quote-icon-size: rem-calc(80) !default;
 $quote-icon-position: rem-calc(-40) !default;
-$quote-02-img-size: 100px !default;
+
+// Title
+$quote-title-color: $primary-color !default;
+$quote-title-size: rem-calc(46) !default;
+$quote-title-weight: $global-weight-normal !default;
+$quote-title-font-family: $header-font-family !default;
+$quote-title-text-transform: inherit !default;
+
+// Lead
+$quote-lead-color: currentColor !default;
+$quote-lead-size: rem-calc(22) !default;
+$quote-lead-weight: $global-weight-normal !default;
+$quote-lead-font-family: $body-font-family !default;
+$quote-lead-text-transform: inherit !default;
+
+// Author
+$quote-author-color: currentColor !default;
+$quote-author-size: rem-calc(16) !default;
+$quote-author-weight: $global-weight-bold !default;
+$quote-author-font-family: $body-font-family !default;
+$quote-author-text-transform: inherit !default;
+$quote-author-style: normal !default;

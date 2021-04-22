@@ -4,8 +4,8 @@
         margin-bottom: 0;
     }
 
-    .wicon{
-        font-size:rem-calc($cta-icon-size);
+    .wicon {
+        font-size: rem-calc($cta-icon-size);
     }
 
     &.tpl_04 {
@@ -35,6 +35,12 @@
             //     border-width: calc($cta-phone-tip-size / 2 + 2) 6px calc($cta-phone-tip-size / 2 + 2) 0;
             //     border-color: transparent $black transparent transparent;
             // }
+        }
+    }
+
+    p {
+        .wicon:before {
+            font-size: $icons-in-text-size;
         }
     }
 }

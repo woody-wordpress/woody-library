@@ -2,7 +2,9 @@
 {% block content %}
     <div class="woody-component woody-component-custom-text tpl_01 {{ border_color|default }} {{ background_color|default }} {{ background_img_opacity|default }}{% if background_img_opacity or background_color|default or border_color|default %} padd-all-md isRel{% endif %}{{ background_img ? ' has-bgimg' }}">
         {% if background_img %}
-            <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+            {% include '_objects/bgImageObject.twig' with {
+                'img': background_img,
+            } %}
         {% endif %}
         <div class="grid-x{{ custom_text_no_padding ? '' : ' grid-padding-x' }}{{ background_img ? ' isRel'}}">
             <div class="cell">

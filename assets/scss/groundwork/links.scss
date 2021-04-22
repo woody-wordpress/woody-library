@@ -1,18 +1,19 @@
-a[target="_blank"]:after {
-    display: inline-block;
-    margin-left: 2px;
-    font-size: 10px;
-    color: inherit;
-    font-family: "woody-icons";
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    text-decoration: none;
-    text-transform: none;
-    content: '\E02B';
-    line-height: 0;
-    font-size: rem-calc(16);
-    transform: translateY(-2px);
+@if $target_icon {
+    a[target="_blank"]:after {
+        display: inline-block;
+        margin-left: 2px;
+        color: inherit;
+        font-family: "woody-icons";
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        text-decoration: none;
+        text-transform: none;
+        content: '\E02B';
+        line-height: 0;
+        font-size: rem-calc(16);
+        transform: translateY(-2px);
+    }
 }
 
 a[target="_blank"].card-link:after {

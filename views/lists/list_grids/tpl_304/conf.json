@@ -1,6 +1,6 @@
 {
     "approved": true,
-    "name": "Template 304 - Paysage C",
+    "name": "Template Liste 304 - Paysage C",
     "description": "3 colonnes égales",
     "lib_type": "lite",
     "acf_groups": [
@@ -15,8 +15,15 @@
         "items",
         "no_padding"
     ],
-    "items_count": [{
-        "fitted_for": 3,
-        "accepts_max": 60
+    "display": [{
+        "type": "grid",
+        "length": 3,
+        "infinite": "true",
+        "card_type": "overlay",
+        "img_ratio": [
+            "4_3"
+        ],
+        "text_align": "middlecenter",
+        "roadbook": false
     }]
 }

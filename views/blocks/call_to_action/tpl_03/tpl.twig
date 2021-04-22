@@ -1,8 +1,10 @@
 {% extends '_objects/visualModifier.twig' %}
 {% block content %}
     <div class="woody-component woody-component-cta tpl_03 text-center {{ border_color|default }} {{ background_color|default }} {{ background_img_opacity|default }}{% if background_img|default or background_color|default or border_color|default %} padd-all-md isRel{% endif %}{{ background_img ? ' has-bgimg' }}">
-        {% if background_img|default %}
-            <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+        {% if background_img %}
+            {% include '_objects/bgImageObject.twig' with {
+                'img': background_img,
+            } %}
             <div class="content isRel text-center">
             {% endif %}
             <div class="cta-desc">

@@ -65,6 +65,18 @@ body.no-page-header {
     }
 }
 
+.centerleftbox {
+    @include centerleftBox;
+
+    &.fcbCol {
+        flex-direction: column;
+    }
+
+    &.fcbRow {
+        flex-direction: row;
+    }
+}
+
 .bottomrightbox {
     @include bottomrightBox;
 
@@ -94,6 +106,19 @@ body.no-page-header {
 
     &.fcbCol {
         flex-direction: column;
+        align-items: flex-end;
+    }
+
+    &.fcbRow {
+        flex-direction: row;
+    }
+}
+
+.centerrightbox {
+    @include centerrightBox;
+
+    &.fcbCol {
+        flex-direction: column;
     }
 
     &.fcbRow {
@@ -107,6 +132,12 @@ body.no-page-header {
 
 .isAbs {
     position: absolute;
+    $sides: top, right, bottom, left;
+    @each $side in $sides {
+        &.at-#{$side} {
+            #{$side}: 0;
+        }
+    }
 }
 
 /***************
@@ -171,6 +202,48 @@ body.no-page-header {
 .marg-right {
     @include dynamic-spaces($attribute: margin-right);
 }
+body .padd-all-none {
+    padding: 0;
+}
+
+// === Paddings and margins with breakpoints
+// large-padd-top-sm || medium-padd-left-md || xmedium-padd || medium-marg-top || large-marge-bottom
+// large-down-padd-top-sm || medium-down-padd-left-md || xmedium-down-padd || medium-down-marg-top || large-down-marge-bottom
+// allowed breakpoints : small || medium || xmedium || large || xlarge || xxlarge
+$directions: ('top', 'right', 'bottom', 'left');
+$props: (margin:'marg', padding:'padd');
+@each $breakpoint, $screen-size in $breakpoints {
+    @each $direction in $directions {
+        @include breakpoint($breakpoint) {
+            @each $prop, $shortname in $props {
+                .#{$breakpoint}-#{$shortname}-#{$direction} {
+                    @include dynamic-spaces($attribute: #{$prop}-#{$direction});
+                }
+            }
+        }
+        @include breakpoint($breakpoint down) {
+            @each $prop, $shortname in $props {
+                .#{$breakpoint}-down-#{$shortname}-#{$direction} {
+                    @include dynamic-spaces($attribute: #{$prop}-#{$direction});
+                }
+            }
+        }
+    }
+    @each $prop, $shortname in $props {
+        @include breakpoint($breakpoint) {
+            .#{$breakpoint}-#{$shortname} {
+                @include dynamic-spaces($attribute: #{$prop});
+            }
+        }
+    }
+    @each $prop, $shortname in $props {
+        @include breakpoint($breakpoint down) {
+            .#{$breakpoint}-down-#{$shortname} {
+                @include dynamic-spaces($attribute: #{$prop});
+            }
+        }
+    }
+}
 
 /*********************
 ** Flex alignements **
@@ -184,9 +257,11 @@ body.no-page-header {
     >.cell>.woody-component {
         height: 100%;
     }
-    >.cell>.visualModifier{
+
+    >.cell>.visualModifier {
         height: 100%;
-        &>.woody-component{
+
+        &>.woody-component {
             height: 100%;
         }
     }
@@ -209,7 +284,9 @@ body.no-page-header {
 .container-min {
     max-width: 800px;
 }
-
+.box-sizing {
+    box-sizing: border-box;
+}
 
 /****************************************************
 **     Fix width of img inserted by text editor    **
@@ -218,3 +295,20 @@ body.no-page-header {
 .wp-caption {
     max-width: 100%;
 }
+
+/*********************
+**     X Y Sizes    **
+*********************/
+.full {
+    &-width {
+        width: 100%;
+    }
+    &-height {
+        height: 100%;
+    }
+    &-fill {
+        width: 100%;
+        height: 100%;
+    }
+}
+

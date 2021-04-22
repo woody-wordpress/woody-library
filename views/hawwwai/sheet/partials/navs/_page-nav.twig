@@ -193,12 +193,14 @@
     {# Medias #}
     {% if contractsLevels.content.medias %}
         {% if options.sheet_model_v2 is not defined or options.sheet_model_v2 %}
-            <li id="nav_gallery" anchor-link ng-click="scrollTo('#gallery')">
-                <a href="" role="button" class="media">
-                    <span class="media-left"><span class="icon-font-image [ plo-fonticon ]"></span></span>
-                    <span class="nav-title media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.GALERY'|trans }}</span>
-                </a>
-            </li>
+            {% if formated_object.sortedGallery|default %}
+                <li id="nav_gallery" anchor-link ng-click="scrollTo('#gallery')">
+                    <a href="" role="button" class="media">
+                        <span class="media-left"><span class="icon-font-image [ plo-fonticon ]"></span></span>
+                        <span class="nav-title media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.GALERY'|trans }}</span>
+                    </a>
+                </li>
+            {% endif %}
         {% else %}
             {% if formated_object.gallery|length > 1 %}
                 <li id="nav_gallery" anchor-link ng-click="scrollTo('#gallery')">
@@ -234,7 +236,7 @@
     {# Map #}
     {% if contractsLevels.content.maps %}
     {% if not formated_object.dataItinerary.itineraryLayout|default %}
-        <li id="nav_map" class="hidden-xs" anchor-link ng-click="scrollTo('#map')">
+        <li id="nav_map" class="hidden-xs" anchor-link ng-click="scrollTo('#hww_map')">
             <a href="" role="button" class="media">
                 <span class="media-left"><span class="icon-font-pin-outline [ plo-fonticon ]"></span></span>
                 <span class="nav-title media-body media-middle">{{ 'SECTIONS.TOURISM.SHEETLIST.MAP'|trans }}</span>
@@ -248,8 +250,9 @@
 {% if contractsLevels.sidebar.booking and formated_object.bookingUrl|default %}
 <div class="pull-right nav-title sheet-navbar-button navbar-booking-btn visible-xs-block visible-sm-block">
     <a target="_blank" href="{{formated_object.bookingUrl}}"
+        rel="noindex,nofollow"
         analytics-mediaveille {# Tracking MediaVeille #}
-        data-type="CLIC_OFFRE" {# Tracking Tourinsoft #}
+        data-fs-tracking="RESERVATION" {# Tracking Tourinsoft #}
         interact event-type="SHEET_BOOK_URL">
         {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
     </a>

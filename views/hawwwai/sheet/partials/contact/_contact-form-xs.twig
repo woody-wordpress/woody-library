@@ -14,9 +14,7 @@
 {% if contractsLevels.sidebar.vcard and email|default %}
     <div id="li-contact-form" class="show-when-angular-ready clearfix {% if TWIG.CONTACT_FORM_MOBILEONLY|default %}hidden-sm hide-for-medium{% endif %}">
 
-        <div class="panel-title-responsive">
-            <span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
-        </div>
+        <div class="panel-title-responsive"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span></div>
 
         {% if object.data.specificFields|default and object.data.specificFields.sfProfilElId is defined %}
             {# start user scope #}
@@ -70,7 +68,7 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                        <h2 ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)" class="sidebar-contact-business-name pl-heading _plu-flush--top">
+                        <div ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)" class="sidebar-contact-business-name pl-heading _plu-flush--top">
                             {% if formated_object.user|default and formated_object.contacts.owner.peopleLastName|default %}
                                 {{ formated_object.contacts.owner.civility|default }} {{ formated_object.contacts.owner.peopleFirstName|default }} {{ formated_object.contacts.owner.peopleLastName|default }}
                             {% elseif formated_object.mailContact|default and formated_object.contacts[formated_object.mailContact].businessName|default and token not in ['bocage_v2'] %}
@@ -86,7 +84,7 @@
                             {% else %}
                                 {{ formated_object.businessName }}
                             {% endif %}
-                        </h2>
+                        </div>
                         <div ng-if="userProfile && userProfile.link.url" class="sidebar-contact-business-name pl-heading show-when-angular-ready">
                             <a target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}">
                                 {{ '{{userProfile.name}}' }}

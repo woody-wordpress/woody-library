@@ -1,0 +1,9 @@
+{% if img %}
+	<div class="item-img {{ customClass|default }}">
+		{% include '_objects/imageObject.twig' with {
+        'img' : img,
+        'image_style' : 'ratio_square',
+        'containerClass' : "quoteMediaWrapper"
+    } %}
+	</div>
+{% endif %}

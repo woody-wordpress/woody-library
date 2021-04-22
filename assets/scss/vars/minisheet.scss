@@ -1,0 +1,61 @@
+// ------
+// Minisheet
+// ------
+
+// Globals
+$minisheet-bg-color: $white !default;
+$minisheet-bg-color-hover: $primary-color !default;
+$minisheet-border: 1px solid $light-gray !default;
+
+// Anchors
+$minisheet-anchor-size: rem-calc(24) !default;
+$minisheet-anchor-weight: $global-weight-normal !default;
+$minisheet-anchor-color: $primary-color !default;
+$minisheet-anchor-color-hover: $white !default;
+
+// Booking
+$minisheet-booking-max-with: 220px;
+$minisheet-booking-position: calc(100% - #{$minisheet-booking-max-with} - 1rem) !default;
+$minisheet-booking-box-shadow: 2px -6px 10px -3px rgba($black, .2) !default;
+$minisheet-booking-bg-color: $black !default;
+$minisheet-booking-font-weight: $global-weight-bold !default;
+$minisheet-booking-prefix-color: $medium-gray !default;
+$minisheet-booking-price-color: $white !default;
+$minisheet-booking-link-border: 2px dashed $white !default;
+$minisheet-booking-link-bg-color: $secondary-color !default;
+$minisheet-booking-link-bg-color-hover: darken($secondary-color, 5%) !default;
+
+// Variable CSS
+.woody-component-minisheet {
+    // Globals
+    --minisheet-border: #{$minisheet-border};
+    --minisheet-bg-color: #{$minisheet-bg-color};
+    --minisheet-bg-color-hover: #{$minisheet-bg-color-hover};
+
+    // Anchors
+    --minisheet-anchor-size: #{$minisheet-anchor-size};
+    --minisheet-anchor-color: #{$minisheet-anchor-color};
+    --minisheet-anchor-weight: #{$minisheet-anchor-weight};
+    --minisheet-anchor-color-hover: #{$minisheet-anchor-color-hover};
+
+    // Booking
+    --minisheet-booking-max-with: #{$minisheet-booking-max-with};
+    --minisheet-booking-position: #{$minisheet-booking-position};
+    --minisheet-booking-bg-color: #{$minisheet-booking-bg-color};
+    --minisheet-booking-box-shadow: #{$minisheet-booking-box-shadow};
+    --minisheet-booking-font-weight: #{$minisheet-booking-font-weight};
+    --minisheet-booking-prefix-color: #{$minisheet-booking-prefix-color};
+    --minisheet-booking-price-color: #{$minisheet-booking-price-color};
+    --minisheet-booking-link-border: #{$minisheet-booking-link-border};
+    --minisheet-booking-link-bg-color: #{$minisheet-booking-link-bg-color};
+    --minisheet-booking-link-bg-color-hover: #{$minisheet-booking-link-bg-color-hover};
+
+    // Thumbs => min-height
+    --minisheet-anchor-min-height: calc(100rem / 4);
+}
+
+.grid-container {
+    .woody-component-minisheet {
+        --minisheet-anchor-min-height: calc(75rem / 4.5);
+    }
+}

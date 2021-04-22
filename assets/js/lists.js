@@ -18,10 +18,10 @@ function rangeSliderFilter($el) {
         behaviour: 'tap-drag',
         tooltips: true,
         format: {
-            to: function(value) {
+            to: function (value) {
                 return '<span>' + Math.round(value) + '</span><span class="caption">' + $el.data('caption') + '</span>';
             },
-            from: function(value) {
+            from: function (value) {
                 return value;
             }
         }
@@ -44,20 +44,20 @@ function rangeSliderFilter($el) {
     }
 }
 
-$('.woody-component-list-full .woody-component-list-filter.type-rangeSlider').each(function() {
+$('.woody-component-list-full .woody-component-list-filter.type-rangeSlider').each(function () {
     var $this = $(this);
     rangeSliderFilter($this);
 });
 
-$('.woody-component-filters-wrapper').each(function() {
+$('.woody-component-filters-wrapper').each(function () {
     var $form = $(this);
 
     // On récupère l'id du bouton sur lequel on a cliqué
-    $("input:submit", $form).bind("click keypress", function() {
+    $("input:submit", $form).bind("click keypress", function () {
         $form.data("submittedId", this.id);
     });
 
-    $form.on('submit', function(e) {
+    $form.on('submit', function (e) {
         // Au clic sur reset, on vide les params, sinon, on y ajoute les valeurs du formulaire
         if ($form.data("submittedId").indexOf('reset') !== -1) {
             var params = [];
@@ -76,7 +76,7 @@ $('.woody-component-filters-wrapper').each(function() {
             data: params,
             method: "GET",
             dataType: "html",
-            success: function(data, params, url) {
+            success: function (data, params, url) {
                 // On remplace la grille, les filtres et la carte avec le DOM retourné par la requête Ajax
                 $('#' + listId + ' .the_grid').html($(data).find('#' + listId + ' .the_grid').html());
                 $('#' + listId + ' .the_filter .items-count').html($(data).find('#' + listId + ' .the_filter .items-count').html());
@@ -87,7 +87,7 @@ $('.woody-component-filters-wrapper').each(function() {
                     $('#' + listId + ' .the_pager').html('');
                 } else {
                     $('#' + listId + ' .the_pager').html($(data).find('#' + listId + ' .the_pager').html());
-                    $('#' + listId + ' .the_pager .page-numbers a').click(function(e) {
+                    $('#' + listId + ' .the_pager .page-numbers a').click(function (e) {
                         ajaxListPaginate(e, $(this));
                     });
 
@@ -96,16 +96,16 @@ $('.woody-component-filters-wrapper').each(function() {
                 // Si le clic
                 if ($form.data("submittedId").indexOf('reset') !== -1) {
 
-                    $form.find("input[type='checkbox']").each(function() {
+                    $form.find("input[type='checkbox']").each(function () {
                         $(this).prop("checked", false);
                     });
-                    $form.find(".rangeSlider").each(function() {
+                    $form.find(".rangeSlider").each(function () {
                         let range = $(this);
                         let min = range.data('min');
                         let max = range.data('max');
                         range[0].noUiSlider.set([min, max]);
                     });
-                    $form.find("select").each(function() {
+                    $form.find("select").each(function () {
                         $(this).find("option").first().attr("selected", true);
                         $(this).find("option").attr("selected", false);
                     });
@@ -115,6 +115,21 @@ $('.woody-component-filters-wrapper').each(function() {
                 if (typeof map_id != 'undefined') {
                     rcModule.rcTouristicMap.initialize();
                     reloadMapBounds(map_id);
+
+                    // On rajoute la recherche dans le composant de la carte
+                    $('#' + listId).find('.filter-item .woody-component-geomap').each(function () {
+                        
+                        var $mapEl = $(this),
+                        // On récupère l'objet TouristicMaps correspondant
+                        mapObj = rcModule.rcTouristicMap[map_id];
+                        // Ajout de l'élément html de recherche par ville
+                        $mapEl.append('<div class="city-filter-wrapper isAbs"><input type="text" class="city-filter" placeholder="Recherche par ville"/><span class="wicon wicon-024-loupe isAbs"></span></div>');
+
+                        // Lors de la saisie dans le champ de recherche déplace le centre de la carte en fonction de la commune choisie
+                        $('.city-filter').keyup(debounce(function () {
+                            getCity($(this).val(), mapObj, mapObj.viewBox, $(this).parent('.city-filter-wrapper'));
+                        }, 800));
+                    });
                 }
 
                 // On modifie l'url de la page
@@ -122,7 +137,7 @@ $('.woody-component-filters-wrapper').each(function() {
 
                 $('body').removeClass('ajaxload');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log('Submission failed: ' + error);
                 $('body').removeClass('ajaxload');
             }
@@ -130,7 +145,24 @@ $('.woody-component-filters-wrapper').each(function() {
     });
 });
 
-var ajaxListPaginate = function(e, $el) {
+// Permet d'annuler une requête en cours si la saisie dans le champ de recherche n'est pas terminée
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this,
+            args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+
+var ajaxListPaginate = function (e, $el) {
     e.preventDefault();
     var target = $el.attr('href');
     // On ajoute un loader
@@ -139,14 +171,14 @@ var ajaxListPaginate = function(e, $el) {
         url: target,
         method: "GET",
         dataType: "html",
-        success: function(data) {
+        success: function (data) {
 
             // On remplace les résultats et la pagination
             var $currentList = $($el.parents('.woody-component-list-full'));
             var listId = $currentList.attr('id');
             $('#' + listId + ' .the_grid').html($(data).find('#' + listId + ' .the_grid').html());
             $('#' + listId + ' .the_pager').html($(data).find('#' + listId + ' .the_pager').html());
-            $('.the_pager .page-numbers a').click(function(e) {
+            $('.the_pager .page-numbers a').click(function (e) {
                 var $this = $(this);
                 ajaxListPaginate(e, $this);
             });
@@ -161,7 +193,7 @@ var ajaxListPaginate = function(e, $el) {
             $('body').removeClass('ajaxload');
 
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log('Submission failed: ' + error);
             $('body').removeClass('ajaxload');
         }
@@ -169,7 +201,7 @@ var ajaxListPaginate = function(e, $el) {
 }
 
 // On pagine en ajax
-$('.the_pager .page-numbers a').click(function(e) {
+$('.the_pager .page-numbers a').click(function (e) {
     var $this = $(this);
     ajaxListPaginate(e, $this);
 });
@@ -180,8 +212,14 @@ function reloadMapBounds(map_id) {
         the_map.invalidateSize();
         var bounds = [];
         the_map.eachLayer(function(layer) {
-            bounds.push(layer._latlng);
+            if (typeof layer._latlng != 'undefined') {
+                bounds.push(layer._latlng);
+            }
         });
-        the_map.fitBounds(bounds);
+
+        if (bounds.length > 0) {
+            the_map.fitBounds(bounds);
+        }
+
     }
 }

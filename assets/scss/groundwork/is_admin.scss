@@ -2,6 +2,9 @@ body.admin-bar {
     .woody-component-headnavs {
         @if $headnavs-autohide {
             top: 32px;
+            @media screen and (max-width: 782px) {
+                top: 46px;
+            }
         }
     }
 }

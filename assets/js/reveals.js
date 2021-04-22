@@ -1,7 +1,5 @@
 import $ from 'jquery';
 
-
-
 $('.woody-component-esSearch-block .esSearch-button').click(function() {
     if ($('.esSearch-block-reveal').length) {
         $('.esSearch-block-reveal').foundation('open');
@@ -14,7 +12,7 @@ $('.woody-lang_switcher .lang_switcher-button').click(function() {
     }
 })
 
-$('.esSearch-block-reveal .close-button').click(function() {
-    $('.esSearch-block-reveal').foundation('_destroy');
-    $('body').removeClass('is-reveal-open');
+$('.reveal .close-button').click(function() {
+    console.log('clicked reveal close button');
+    $('body,html').removeClass('is-reveal-open').removeClass('is-cta-reveal-open');
 })

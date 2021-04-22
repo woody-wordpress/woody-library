@@ -1,0 +1,35 @@
+.woody-component-summary {
+    &.isFixed {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        transition: transform $headnavs-autohide-duration;
+    }
+}
+
+body.scrolling-up {
+    .woody-component-summary {
+        &.isFixed {
+            transform: translateY($summary-fixed-position);
+        }
+    }
+}
+
+.section-layout-wrapper {
+    .woody-component-summary {
+        &.isFixed {
+            width: 100vw;
+        }
+    }
+
+    &.grid-container {
+        .woody-component-summary {
+            &.isFixed {
+                @include breakpoint(xlarge) {
+                    width: calc(#{$global-width} - #{map-get($grid-column-gutter, medium)});
+                }
+            }
+        }
+    }
+}

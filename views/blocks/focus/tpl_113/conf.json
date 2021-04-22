@@ -1,0 +1,25 @@
+{
+    "approved": true,
+    "name": "Template 113 - Paysage C",
+    "description": "Grille bloc 100% - Cartes texte à gauche sous l'image + Cartouche Prix au dessus (4:3 + slider au delà de 1)",
+    "lib_type": "pro",
+    "acf_groups": [
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "group_5d7908eadaa46",
+        "group_5b33890e6fa0b"
+    ],
+    "vars": [
+        "items"
+    ],
+    "display": [{
+        "deprecated": true,
+    }],
+    "legend": [{
+        "group_5b0d1ed32a384": "Mise en avant manuelle",
+        "group_5b2788b48d04c": "Mise en avant automatique",
+        "group_5d7908eadaa46": "Mise en avant Topics",
+        "group_5b33890e6fa0b": "Mise en avant Fiches SIT",
+        "field_5d16118093cc1": "Mise en avant Composants de séjours"
+    }]
+}

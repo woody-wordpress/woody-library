@@ -6,7 +6,7 @@
 
     .accessibilities {
         li {
-            margin-bottom: $vr--small;
+            margin-bottom: $vr--small/2;
         }
     }
 }
@@ -46,6 +46,25 @@
             text-align: center;
             color: lighten($text-muted, 20%);
             font-weight: 500;
+        }
+    }
+}
+
+.complex-specificfield {
+    display: flex;
+    border: 2px solid $primary-color;
+    background-color: rgba($primary-color, .3);
+    padding: 20px;
+
+    .datablock {
+        &-title {
+        }
+        &-icon {
+            display: flex;
+            margin-right: 10px;
+            img { align-self: center; }
+        }
+        &-fields {
         }
     }
 }

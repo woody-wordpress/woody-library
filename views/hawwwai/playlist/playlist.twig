@@ -7,6 +7,7 @@ var metadata = {{ metadata|raw }};
     {% if playlistId|default %}
         DrupalAngularConfig.playlistId = "{{ playlistId }}";
     {% endif %}
+    // Deprecated (refactor)
     {% if season|default %}DrupalAngularConfig.season = "{{ season }}";{% endif %}
 {% endif %}
 {% if display|default %}
@@ -82,11 +83,7 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                         {% for sort in playlist.sortGroups %}
                             <div class="playlist-sort playlist-sort-dropdown"
                                 {% if sort.conditionalDisplay|default %}style="display:none" data-displayif="{{ sort.conditionalDisplay }}"{% endif %}
-                                data-sort="{{ sort|json_encode }}"
-                                data-sortfield="{{ sort.field }}"
-                                data-sortkey="{{ sort.key|default }}"
-                                data-sorttype="{{ sort.type }}"
-                                data-sortlabel="{{ sort.trans.label }}">
+                                data-sort="{{ sort|json_encode }}">
                                 <span class="playlist-sort-content">
                                     <span class="playlist-sort-icon {{ sort.class|default('') }}"></span>
                                     <span class="playlist-sort-label">{{ sort.trans.label }}</span>
@@ -116,8 +113,13 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                     {% for item in items|default %}
 
                         {% if displayItemMode in ['normal'] %}
-                            <div class="item-wrapper col-lg-4 col-md-6 col-sm-12">
+                            <div class="item-wrapper col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                 {% include TWIG.NORMAL_SHEET_ITEM with {
+                                    'covidCharterStatus': item.covidCharterStatus|default,
+                                    'covidServices': item.covidServices|default,
+                                    'covidOpenings': item.covidOpenings|default,
+                                    'contract': item.contract|default,
+                                    'openingPeriods': item.openingPeriods|default,
                                     'itemClasses': item.itemClasses,
                                     'bordereau': item.bordereau,
                                     'sheetId': item.sheetId,
@@ -152,6 +154,7 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                                     'wishlistBtn': item.wishlistBtn|default,
                                     'link': item.link|default,
                                     'userId': item.userId|default,
+                                    'script': item.script|default,
                                     'lego_style': 's02',
                                     'display': display  } only
                                 %}
@@ -159,6 +162,11 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                         {% else %}
                             <div class="col-xs-12">
                                 {% include TWIG.BOOKING_SHEET_ITEM with {
+                                    'covidCharterStatus': item.covidCharterStatus|default,
+                                    'covidServices': item.covidServices|default,
+                                    'covidOpenings': item.covidOpenings|default,
+                                    'openingPeriods': item.openingPeriods|default,
+                                    'contract': item.contract|default,
                                     'itemClasses': item.itemClasses,
                                     'bordereau': item.bordereau,
                                     'sheetId': item.sheetId,
@@ -193,6 +201,7 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                                     'userId': item.userId|default,
                                     'thinerStyle' : false,
                                     'lego_style': 's01',
+                                    'script': item.script|default,
                                     'display': display  } only
                                 %}
                             </div>
@@ -208,7 +217,7 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                     {% endfor %}
 
                     {% if display.list.infiniteScroll|default %}
-                    <div style="display: none;" id="playlist-load-more" class="item-wrapper col-lg-4 col-md-6 col-sm-12">
+                    <div style="display: none;" id="playlist-load-more" class="item-wrapper col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <article></article>
                     </div>
                     {% endif %}

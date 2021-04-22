@@ -1,0 +1,59 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}focus{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('412') }}{% endblock %}
+{% block woodyComponentContent %}
+
+    {% if customCard is not defined %}
+        {% set customCard = "overlayed_card/tpl_05"%}
+    {% endif %}
+
+    {% include 'blocks/focus/_objects/headerObject.twig' with {
+        display: display_block_titles,
+        margin: 'marg-bottom-md'
+    } %}
+
+    {% if items|length > 0 and items|length < 4 %}
+        {% include 'blocks/focus/_objects/fallbackGridObject.twig' with {
+            'card' : customCard|default("overlayed_card/tpl_05"),
+            'image_style' : "ratio_3_1",
+        }%}
+    {% else %}
+        <div class="woody-mobile-swiper swiper-container {{ swResp ? ' swResp' }}">
+            <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp ? ' swRespW' }}">
+                {% for key, item in items[:1] %}
+                    <div class="cell large-7{{ swResp ? ' swRespS' }}">
+                        {% include "cards/#{customCard}/tpl.twig" with {
+                            'image_style' : 'ratio_3_1',
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(90),
+                            'card_index':key + 1
+                        } %}
+                    </div>
+                {% endfor %}
+                {% for key, item in items[1:2] %}
+                    <div class="cell large-5{{ swResp ? ' swRespS' }}">
+                        {% include "cards/#{customCard}/tpl.twig" with {
+                            'image_style' : 'ratio_4_3',
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(90),
+                            'card_index':key + 2
+                        } %}
+                    </div>
+                {% endfor %}
+                {% for key, item in items[3:1] %}
+                    <div class="cell large-7{{ swResp ? ' swRespS' }}">
+                        {% include "cards/#{customCard}/tpl.twig" with {
+                            'image_style' : 'ratio_3_1',
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(90),
+                            'card_index':key + 4
+                        } %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'blocks/focus/_objects/focus_buttons.twig' %}
+
+{% endblock %}

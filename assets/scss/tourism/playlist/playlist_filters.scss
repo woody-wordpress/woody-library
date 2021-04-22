@@ -41,33 +41,27 @@
         border-radius: 4px;
         overflow: auto;
         display: inline-flex;
-
         &>div {
             padding: 5px 10px;
             display: inline-flex;
-
             i {
-                // margin-left: 10px;
                 font-size: $active-filters-font-size;
                 cursor: pointer;
-
                 &:before {
                     position: relative;
                 }
             }
-
             span {
                 margin-right: 10px;
             }
         }
-
         &>.active-filter-name {
             border: 1px solid $bdcolor;
             border-right: none;
         }
-
         &>.active-filter-value {
             background-color: $primary-color;
+            background-color: var(--highlight-facet-color, $primary-color);
             align-items: center;
             color: white;
         }

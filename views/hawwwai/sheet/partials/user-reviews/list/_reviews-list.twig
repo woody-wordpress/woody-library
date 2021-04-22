@@ -49,6 +49,12 @@
 
             <div class="reviews-count">{{formated_object.reviewsInfos.reviews|length}} {{ TRANS_COMMENTS|trans|lower }}</div>
             {% if formated_object.reviewsInfos.overall|default %}
+                <span itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating">
+                    <meta itemprop="ratingValue" content="{{formated_object.reviewsInfos.overall.moyenne}}">
+                    <meta itemprop="ratingCount" content="{{formated_object.reviewsInfos.reviews|length}}">
+                    <meta itemprop="bestRating" content="5">
+                </span>
+
                 <div class="reviews-mood-icon">
                 {% include TWIG.MOOD_ICONS
                     with {'rating': formated_object.reviewsInfos.overall.moyenne|number_format , 'size': 'huge' , 'label': true} only %}

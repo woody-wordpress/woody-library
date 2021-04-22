@@ -17,6 +17,13 @@
         filter: drop-shadow(0px 14px 7px rgba(0, 0, 0, .15));
         width: 100%;
         max-width: 100%;
+
+        @each $color,
+        $hex in $foundation-palette {
+            .svg-#{$color} {
+                fill: $hex;
+            }
+        }
     }
 
     .wicon {
@@ -25,6 +32,7 @@
         left: 50%;
         transform: translateX(-50%);
         font-size: $markerObject-icon-font-size;
+        z-index: 201;
     }
 
     .circle {

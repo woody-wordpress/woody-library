@@ -1,0 +1,15 @@
+{% set datatoggle = 'main-menu' %}
+{% if is_mobile %}
+    {% set datatoggle = 'mobile-main-menu' %}
+{% endif %}
+<button class="menu-icon" data-toggle="{{datatoggle}}" type="button">
+    <div class="title-bar-title" title="{{ __("Accès au menu principal", 'woody-theme') }}">
+        <span class="menu-btn-title" data-menu-close="{{ __('Menu', 'woody-theme') }}" data-menu-open="{{ __('Fermer', 'woody-theme') }}">{{ __('Menu', 'woody-theme') }}</span>
+    </div>
+    <div class="menu-icon-bars-wrapper">
+        <div class="menu-icon-bar top"></div>
+        <div class="menu-icon-bar middle middle-one"></div>
+        <div class="menu-icon-bar middle middle-two"></div>
+        <div class="menu-icon-bar bottom"></div>
+    </div>
+</button>

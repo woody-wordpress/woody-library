@@ -4,6 +4,7 @@
 {% set map_zoom = filter.list_filter_map_params.map_zoom|default(7) %}
 {% set map_zoom_auto = filter.list_filter_map_params.map_zoom_auto|default('false') %}
 {% set map_height = filter.list_filter_map_params.map_height|default('md') %}
+{% set tmaps_confid = filter.list_filter_map_params.tmaps_confid|default('false') %}
 {% include 'blocks/geo_map/tpl_01/tpl.twig' with {
     'markers' : filter.markers
 } %}

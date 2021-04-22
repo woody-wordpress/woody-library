@@ -1,0 +1,20 @@
+{% include 'blocks/focus/_objects/headerObject.twig' with {
+    display: display_block_titles|default(),
+    margin: block_titles_margin|default('marg-bottom-md')
+} %}
+
+{% if swResp is not defined %}
+    {% set swResp = true %}
+{% endif %}
+
+{% if items|length > 0 and items|length <= fallbackMaxLength %}
+    {% include 'blocks/focus/_objects/fallbackGridObject.twig' %}
+{% elseif items|length > fallbackMaxLength %}
+    {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
+    {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
+        'swiper_options' : json_swiper_options|default(),
+    } %}
+{% endif %}
+
+{% include 'blocks/focus/_objects/focus_buttons.twig' %}
+

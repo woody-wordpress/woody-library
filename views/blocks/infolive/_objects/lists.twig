@@ -1,0 +1,56 @@
+{# LIST OF ALL SECTORS #}
+{% if data.lists.types %}
+    <div class="infolive-sectors grid-x {{ data.lists.mode }}">
+        {% for sector in data.sector %}
+            {% if (sector.total_num_pistes > 0) or (sector.total_num_remontees > 0) or (sector.total_num_liaisons > 0) %}                         
+                <div class="infolive-sector-single grid-y infolive-card is-collapsed"> 
+                    <div class="infolive__visible-card isRel">
+                        <div class="info-header isRel align-center">
+                            <span class="sector-name">{{ sector.name}}</span>
+                            {% if data.lists.mode == 'infolive-cards-template' %}
+                                {% if sector.total_num_pistes > 0 %} 
+                                <div class="valnum pistes"><span class="val">{{sector.opened_num_pistes}}/{{sector.total_num_pistes}}</span><span class="txt">{{ __('Pistes', 'woody-theme') }}</span></div> 
+                                {% endif %}
+                                {% if sector.total_num_remontees > 0 %} 
+                                <div class="valnum remontees"><span class="val">{{sector.opened_num_remontees}}/{{sector.total_num_remontees}}</span><span class="txt">{{ __('Remontées mécaniques', 'woody-theme') }}</span></div>
+                                {% endif %}   
+                                {% if sector.total_num_liaisons > 0 %} 
+                                    <div class="valnum liaisons"><span class="val">{{sector.opened_num_liaisons}}/{{sector.total_num_liaisons}}</span><span class="txt">{{ __('Liaisons', 'woody-theme') }}</span></div> 
+                                {% endif %}  
+                            {% endif %}   
+                        </div>
+                    </div>
+                    <div class="card__expander isRel">
+                        {% if data.lists.mode == 'infolive-cards-template' %}
+                            <div class="close-expander-btn infolive__close-btn">                        
+                                <span class="wicon-woody-icons wicon-029-croix-fermer"></span>
+                            </div>
+                        {% endif %}
+                        {# Bloc pistes #}
+                        {% include "blocks/infolive/_objects/list_type.twig" with {
+                                'title' : __('Pistes','woody-theme'),
+                                'opened_num' : sector.opened_num_pistes,
+                                'total_num' : sector.total_num_pistes,
+                                'colors' : data.slopes.settings.colors,
+                                'items' : sector.pistes
+                            } %}
+                        {# Bloc remontées #}
+                        {% include "blocks/infolive/_objects/list_type.twig" with {
+                                'title' : __('Remontées mécaniques','woody-theme'),
+                                'opened_num' : sector.opened_num_remontees,
+                                'total_num' : sector.total_num_remontees,
+                                'items' : sector.remontee
+                            } %}
+                        {# Bloc Laisons #}
+                        {% include "blocks/infolive/_objects/list_type.twig" with {
+                                'title' : __('Liaisons','woody-theme'),
+                                'opened_num' : sector.opened_num_liaisons,
+                                'total_num' : sector.total_num_liaisons,
+                                'items' : sector.liaison
+                            } %}                        
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

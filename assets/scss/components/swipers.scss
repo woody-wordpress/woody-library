@@ -1,3 +1,70 @@
+// Globals
+.swiper-container {
+    @include breakpoint(large up) {
+
+        &.zoomActive {
+            @include breakpoint(large) {
+                -webkit-font-smoothing: antialiased;
+
+                @if $swiper-zoomActive-shadow {
+                    margin-bottom: -30px;
+                }
+
+                .swiper-wrapper {
+                    transform-style: preserve-3d;
+                }
+
+                .swiper-slide {
+                    transition: transform .3s ease, opacity .3s ease;
+
+                    &:not(.swiper-slide-active) {
+                        backface-visibility: hidden;
+                        transform: scale(.95);
+
+                        .imageObject {
+                            transition: filter .3s ease;
+
+                            @if $grayScale-zoomActive-swiper {
+                                filter: grayscale(50%);
+                            }
+                        }
+                    }
+
+
+                    &:not(.swiper-slide-visible):not(.swiper-slide-active) {
+                        opacity: 0;
+
+                    }
+
+                    &.swiper-slide-active {
+                        z-index: 1;
+
+                        @if $swiper-zoomActive-shadow {
+                            padding-bottom: 30px;
+
+                            &:before {
+                                display: block;
+                                content: '';
+                                position: absolute;
+                                top: 10px;
+                                left: 0;
+                                width: 100%;
+                                height: calc(100% - 30px);
+                                background-color: rgba($black, .2);
+                                filter: blur(7px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .grid-x {
+        box-sizing: border-box;
+    }
+}
+
 .swiper-wrapper {
     display: flex;
     align-items: flex-start;
@@ -14,62 +81,127 @@
     }
 }
 
-.swiper-container {
-    @include breakpoint(large up) {
-
-        &.zoomActive {
-            perspective: 2000px;
-            -webkit-font-smoothing: antialiased;
-            transform: perspective(1px);
-
-            .swiper-wrapper {
-                transform-style: preserve-3d;
-            }
-
-            .swiper-slide {
-                transition: transform .3s ease, opacity .3s ease;
-
-                &:not(.swiper-slide-active) {
-                    backface-visibility: hidden;
-                    transform: translate3d(0, 0, -180px);
-
-                    .imageObject {
-                        transition: filter .3s ease;
-                        filter: grayscale(50%);
-                    }
-                }
-
-                &:not(.swiper-slide-next):not(.swiper-slide-prev):not(.swiper-slide-active) {
-                    opacity: 0;
-                }
-
-                &.swiper-slide-active {
-                    z-index: 1;
-
-                    @if $swiper-zoomActive-shadow {
-                        &:before {
-                            display: block;
-                            content: '';
-                            position: absolute;
-                            top: 10px;
-                            left: 0;
-                            width: 100%;
-                            height: calc(100% - 20px);
-                            background-color: rgba($black, .3);
-                            filter: blur(7px);
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
-    .grid-x {
-        box-sizing: border-box;
+// Slide
+.swiper-slide {
+    .swiperOut {
+        margin: 0 60px;
     }
 }
 
+// Thumbs
+.swiper-thumbs {
+    margin-top: 5px;
+
+    @include breakpoint(large) {
+        position: absolute;
+        width: 50%;
+        margin: 0;
+        bottom: 40px;
+        left: 30px;
+    }
+
+    @include breakpoint(xlarge) {
+        bottom: 40px;
+        left: 30px;
+    }
+
+    .swiper-slide {
+        background-color: $swiper-thumbs-bgColor;
+        @include wicon($swiper-thumbs-icon, after);
+
+        .imageObject-caption {
+            display: none;
+        }
+
+        img {
+            filter: grayscale(50%);
+            transition: all .25s ease-in;
+        }
+
+        &:after {
+            @include fullcenterBox;
+            color: $white;
+            opacity: 0;
+            @include header-size(h5);
+            transition: opacity .25s ease-in;
+        }
+
+
+        &:not(.duplicate).swiper-slide-thumb-active,
+        &:hover {
+            img {
+                opacity: .4;
+                filter: grayscale(0);
+            }
+        }
+
+        &:hover {
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+// Responsive stuff
+.section-layout-wrapper.grid-container {
+
+    .woody-mobile-swiper,
+    .woody-swiper {
+        &:not(.swResp) {
+            @include breakpoint(xmedium down) {
+                padding-left: 30px;
+                padding-right: 30px;
+
+                .swRespS,
+                .swiper-slide {
+                    box-sizing: border-box;
+                    @include xy-gutters($gutter-type: padding, $gutter-position:top right bottom left);
+                }
+
+            }
+
+            @include breakpoint(xmedium only) {
+
+                .swiper-slide,
+                .swResp {
+                    &:not(.multirows):not(.full) {
+                        width: 50%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.woody-mobile-swiper .swiper-container {
+    @include breakpoint(large) {
+        overflow: visible;
+    }
+}
+
+// Controls
+.swiper-controls {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 50px);
+    top: auto;
+    bottom: 0;
+    left: 0;
+
+    @include breakpoint(large) {
+        top: 0;
+        bottom: auto;
+    }
+}
+
+.swiper-controls-offset {
+    .swiper-controls {
+        height: 100%;
+    }
+}
+
+// Navigation
 .swiper-button-next,
 .swiper-button-prev {
     width: auto !important;
@@ -105,6 +237,260 @@
     left: 10px;
 }
 
+// Pagination
+.swiper-pagination {
+    left: 0;
+    bottom: 15px;
+    right: auto;
+
+    &.swiper-pagination-bullets {
+        width: 100% !important;
+
+        .swiper-pagination-bullet {
+            margin: 0 4px;
+            opacity: $swiper-bullet-opacity;
+            background-color: $swiper-bullet-color;
+            border-radius: $swiper-bullet-radius;
+            transition: .2s transform, .2s left;
+
+            &-active {
+                background-color: $swiper-bullet-color-active;
+                opacity: 1;
+            }
+        }
+    }
+
+    &.swiper-pagination-fraction {
+        width: 100%;
+        font-size: $swiper-fraction-size;
+        color: $swiper-fraction-color;
+        font-family: $swiper-fraction-font-family;
+        line-height: 1;
+
+        .swiper-pagination-current {
+            font-weight: $swiper-fraction-weight;
+        }
+
+        .swiper-pagination-total {
+            font-size: $swiper-fraction-size * .8;
+            font-weight: $swiper-fraction-weight;
+            opacity: $swiper-fraction-total-opacity;
+            margin-left: $global-margin * .4;
+
+            &:before {
+                content: $swiper-fraction-separator;
+                position: relative;
+                color: currentColor;
+            }
+        }
+    }
+
+    &.swiper-pagination-progressbar {
+        width: 50%;
+        max-width: $swiper-progressbar-width;
+        height: $swiper-progressbar-height;
+        left: calc(50% - #{$swiper-progressbar-width} / 2);
+        border-radius: $swiper-progressbar-radius;
+        background-color: rgba($swiper-progressbar-color, $swiper-progressbar-opacity);
+
+        .swiper-pagination-progressbar-fill {
+            border-radius: $swiper-progressbar-radius;
+            background-color: $swiper-progressbar-color-active;
+        }
+    }
+
+    &.swiper-pagination-custom-bullets {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        bottom: 0;
+        width: auto;
+
+        .custom-pagination-item {
+            pointer-events: none;
+            position: absolute;
+            opacity: 0;
+            transition: opacity;
+
+            .custom-pagination-loader {
+                display: block;
+                position: relative;
+                height: 2px;
+                width: 150px;
+                border-radius: $global-radius;
+                background: rgba($white, .5);
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: $white;
+                    transform-origin: left;
+                    transform: scaleX(0);
+                    transition: transform #{var(--swiper-autoplay)} #{var(--swiper-speed)};
+                }
+            }
+
+            &.active {
+                opacity: 1;
+
+                .custom-pagination-loader {
+                    &:after {
+                        transform: scaleX(1);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.swiperOverflow {
+    @include breakpoint(large) {
+        &.left {
+            @each $swiper-size in $swiper-sizes {
+                &.#{$swiper-size} {
+                    @include swiperOverflow($right:false, $size:$swiper-size);
+                }
+            }
+        }
+
+        &.right {
+            @each $swiper-size in $swiper-sizes {
+                &.#{$swiper-size} {
+                    @include swiperOverflow($left:false, $size:$swiper-size);
+                }
+            }
+        }
+
+        &.left.right {
+            @each $swiper-size in $swiper-sizes {
+                &.#{$swiper-size} {
+                    @include swiperOverflow($size:$swiper-size);
+                }
+            }
+        }
+
+        &.shade {
+            .swiper-slide:not(.swiper-slide-visible):not(.swiper-slide-active) {
+                opacity: $swiperOverflow-opacity;
+            }
+        }
+    }
+}
+
+.section-layout-wrapper.grid-container {
+    .swiperOverflow {
+        @include breakpoint(large) {
+
+
+            &.left {
+                @each $swiper-size in $swiper-sizes {
+                    &.#{$swiper-size} {
+                        @include swiperOverflow($right:false, $size:$swiper-size, $context:contained);
+                    }
+                }
+            }
+
+            &.right {
+                @each $swiper-size in $swiper-sizes {
+                    &.#{$swiper-size} {
+                        @include swiperOverflow($left:false, $size:$swiper-size, $context:contained);
+                    }
+                }
+            }
+
+            &.left.right {
+                @each $swiper-size in $swiper-sizes {
+
+                    &.#{$swiper-size} {
+                        @include swiperOverflow($size:$swiper-size, $context:contained);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.section-layout-wrapper:not(.grid-container) {
+    .swiperJustified {
+        @include breakpoint(large) {
+            margin-left: $justifiedSwiperBlankSpace;
+            max-width: calc(100vw - #{$justifiedSwiperBlankSpace});
+        }
+    }
+}
+
+// Responsive
+.swResp {
+    @include breakpoint(xmedium down) {
+        &:not(.no-padding) {
+            padding: 0 60px !important;
+        }
+
+        &.no-padding {
+            @include wicon(025-suivant, after);
+            @include wicon(026-precedent, before);
+
+            &:before,
+            &:after {
+                display: flex;
+                align-items: center;
+                font-size: 10px;
+                position: absolute;
+                top: 5px;
+                width: 12px;
+                height: 24px;
+                z-index: 10;
+                background-color: rgba($white, .75);
+                color: $primary-color;
+            }
+
+            &:before {
+                border-radius: 20px 0 0 20px;
+                right: 17px;
+                justify-content: flex-end;
+            }
+
+            &:after {
+                border-radius: 0 20px 20px 0;
+                right: 5px;
+                justify-content: flex-start;
+            }
+        }
+
+        .swRespW {
+            flex-wrap: nowrap !important;
+            justify-content: flex-start;
+        }
+
+        .swiper-slide {
+            height: auto;
+        }
+    }
+}
+
+.section .section-layout-wrapper.grid-container {
+    .swResp {
+
+        @include breakpoint(xmedium down) {
+            @include xy-gutters($negative:true);
+        }
+
+        @include breakpoint(xmedium only) {
+            width: calc(100% + #{map-get($grid-column-gutter, medium)});
+        }
+
+        @include breakpoint(medium down) {
+            width: calc(100% + #{map-get($grid-column-gutter, small)});
+        }
+
+    }
+}
+
 .swiperOut {
     // padding-left: 25px;
     // padding-right: 25px;
@@ -112,6 +498,17 @@
     @include breakpoint(large) {
         padding-left: 60px;
         padding-right: 60px;
+
+
+        >.isRel {
+            .swiper-button-prev {
+                left: -70px;
+            }
+
+            .swiper-button-next {
+                right: -70px;
+            }
+        }
 
         .swiper-button-prev {
             left: -10px;
@@ -130,116 +527,9 @@
     }
 }
 
-.swiper-slide {
-    .swiperOut {
-        margin: 0 60px;
-    }
-
-    @include breakpoint(medium down) {
-        @include xy-gutters($gutter-type: padding, $gutter-position:top bottom);
-    }
-}
-
-// Minimum style for beautiful pagination with Thumbs
-.swiper-thumbs {
-    position: absolute;
-    width: 40%;
-    margin: 0;
-    bottom: $global-margin*2;
-    left: $global-margin*2;
-
-
-
-    .swiper-slide {
-        background-color: $swiper-thumbs-bgColor;
-        @include wicon($swiper-thumbs-icon, after);
-
-        .imageObject-caption {
-            display: none;
-        }
-
-        img {
-            filter: grayscale(50%);
-            transition: all .25s ease-in;
-        }
-
-        &:after {
-            @include fullcenterBox;
-            color: $white;
-            opacity: 0;
-            @include header-size(h5);
-            transition: opacity .25s ease-in;
-        }
-
-
-        &:not(.duplicate).swiper-slide-thumb-active,
-        &:hover {
-            img {
-                opacity: .6;
-                filter: grayscale(0);
-            }
-        }
-
-        &:hover {
-            &:after {
-                opacity: 1;
-            }
-        }
-    }
-}
-
-.swResp {
-    @include breakpoint(large down) {
-        position: relative;
-        overflow: hidden;
-        padding: 0 20px 30px 20px !important;
-
-        .swiper-slide {
-            height: auto;
-
-            &.swiper-slide-next,
-            &.swiper-slide-active {
-                opacity: 1;
-            }
-        }
-
-        .swRespW {
-            align-items: center;
-            margin: 0;
-            flex-wrap: nowrap !important;
-        }
-
-        .swiper-button-prev,
-        .swiper-button-next {
-            background-color: $primary-color;
-            padding: 10px 12px;
-
-            .wicon {
-                color: $white !important;
-            }
-        }
-
-        .swiper-button-prev {
-            left: 0;
-        }
-
-        .swiper-button-next {
-            right: 0;
-        }
-    }
-
-    .swiper-pagination-bullet {
-        border: 2px solid $black;
-        background-color: $white;
-
-        &.swiper-pagination-bullet-active {
-            border-color: $secondary-color;
-        }
-    }
-}
-
+// Background management
 .bg-secondary {
-    .swResp .swiper-pagination-bullet {
+    .swResp+.swiper-controls .swiper-pagination-bullet {
         &.swiper-pagination-bullet-active {
             border-color: $primary-color;
         }
@@ -249,7 +539,7 @@
 .bg-black,
 .bg-darkgray,
 .bg-secondary {
-    .swResp .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+    .swResp+.swiper-controls .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
         border-color: $white;
     }
 }

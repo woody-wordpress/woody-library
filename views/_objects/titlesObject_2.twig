@@ -1,3 +1,4 @@
+{% spaceless %}
 <div class="{{ contextPrefix }}-titles {{ flexOptions|default }}">
     <div class="{{ contextPrefix }}-texts {{ textsClasses|default }}">
         {% if titles.pretitle|default %}
@@ -21,6 +22,9 @@
         {% if titles.sheet_type %}
             <span class="{{ contextPrefix }}-type">{{ titles.sheet_type }}</span>
         {% endif %}
+        {% if titles.created %}
+			  <span class="{{ contextPrefix }}-created">{{ titles.created }}</span>
+		  {% endif %}
         {% if titles.sheet_rating|default %}
             <div class="{{ contextPrefix }}-ratings">{{ titles.sheet_rating|raw }}</div>
         {% endif %}
@@ -44,3 +48,4 @@
         {% endif %}
     </div>
 </div>
+{% endspaceless %}

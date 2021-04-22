@@ -13,8 +13,22 @@
     "vars": [
         "items"
     ],
-    "items_count": [{
-        "fitted_for": 3,
-        "accepts_max": 9
+    "display": [{
+        "type": "slider",
+        "length": 3,
+        "infinite": "true",
+        "card_type": "overlay",
+        "img_ratio": [
+            "3_4"
+        ],
+        "text_align": "bottomleft",
+        "roadbook": true
+    }],
+    "legend": [{
+        "group_5b0d1ed32a384": "Mise en avant manuelle",
+        "group_5b2788b48d04c": "Mise en avant automatique",
+        "group_5d7908eadaa46": "Mise en avant Topics",
+        "group_5b33890e6fa0b": "Mise en avant Fiches SIT",
+        "field_5d16118093cc1": "Mise en avant Composants de séjours"
     }]
 }

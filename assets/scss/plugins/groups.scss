@@ -5,9 +5,10 @@
 .trip-basis .chosen .validate {
     display: none;
 }
+
 .group-quotation-wrapper {
 
-    hr{
+    hr {
         border-bottom: 1px solid $primary-color;
     }
 
@@ -163,10 +164,10 @@
         &-infos {
             width: 100%;
 
-            .trip-title-infos{
+            .trip-title-infos {
                 display: flex;
 
-                .trip-title{
+                .trip-title {
                     width: fit-content;
                 }
             }
@@ -178,7 +179,7 @@
                 position: relative;
 
                 &:hover {
-                    .pop-message{
+                    .pop-message {
                         display: block !important;
                     }
                 }
@@ -191,12 +192,13 @@
                     left: -242px;
                     z-index: 10000;
                     background: $white;
-                    border: 1px solid rgba(0,0,0,0.2);
+                    border: 1px solid rgba(0, 0, 0, 0.2);
                     border-radius: 3px;
                     display: none;
                 }
 
-                .pop-message:after, .pop-message:before {
+                .pop-message:after,
+                .pop-message:before {
                     bottom: 100%;
                     left: 50%;
                     border: solid transparent;
@@ -212,8 +214,9 @@
                     border-width: 7px;
                     margin-left: -7px;
                 }
+
                 .pop-message:before {
-                    border-bottom-color: rgba(0,0,0,0.2);
+                    border-bottom-color: rgba(0, 0, 0, 0.2);
                     border-width: 8px;
                     margin-left: -8px;
                 }
@@ -249,7 +252,7 @@
                 }
             }
 
-            .sub-components{
+            .sub-components {
                 color: lighten($black, 25%);
                 font-size: rem-calc(14);
                 display: flex;
@@ -344,17 +347,23 @@
     }
 
     .added-price {
-        .base, .evolve, .less .text{
+
+        .base,
+        .evolve,
+        .less .text {
             display: block;
             text-align: right;
         }
+
         .evolve {
             font-size: rem-calc(11);
+
             .before_evolve {
                 color: $alert-color;
                 text-decoration: line-through;
             }
-            .after{
+
+            .after {
                 color: $success-color;
                 padding-left: 2px;
             }
@@ -375,11 +384,14 @@
         font-style: italic;
     }
 
-    .specialdays-lines, .freebies-lines {
+    .specialdays-lines,
+    .freebies-lines {
         padding: 10px;
     }
+
     .freebies-lines {
         background: #e6f8d9;
+
         .freebies-price {
             justify-content: space-between;
         }
@@ -412,7 +424,7 @@
         }
     }
 
-    .alert-box.success{
+    .alert-box.success {
         background-color: lighten($success-color, 40%);
         color: $success-color;
         box-shadow: 0 5px 12px rgba($success-color, .15);
@@ -423,7 +435,7 @@
         color: $alert-color;
     }
 
-    .trip-list{
+    .trip-list {
         padding-top: 75px;
         padding-bottom: 75px;
     }
@@ -459,10 +471,12 @@
 
         .form-group.multi-input {
             width: unset !important;
-            .form-control:first-of-type{
+
+            .form-control:first-of-type {
                 margin-left: auto;
             }
-            .form-control{
+
+            .form-control {
                 max-width: 140px;
             }
         }
@@ -579,6 +593,7 @@
 .add-element {
     .form-group.edit {
         display: flex;
+
         .validate {
             display: block !important;
             padding: 12px;
@@ -595,21 +610,22 @@
         }
     }
 
-    .form-group:not(.multi-input){
+    .form-group:not(.multi-input) {
         .choices {
             margin-left: auto;
         }
     }
 
-    .form-group.multi-input{
-        .form-control.choices:first-of-type{
+    .form-group.multi-input {
+        .form-control.choices:first-of-type {
             margin-left: auto;
         }
 
-        .form-control.choices{
+        .form-control.choices {
             max-width: 206px !important;
         }
-        .validate{
+
+        .validate {
             white-space: nowrap;
         }
     }
@@ -621,7 +637,7 @@
 
 // LOADING
 
-.isLoading {
+.group-quotation-wrapper .isLoading {
     visibility: hidden;
 }
 
@@ -639,7 +655,7 @@
         margin-left: 40px;
         width: 35%;
 
-        .help{
+        .help {
             background: $black;
             color: $white;
             text-align: center;
@@ -663,6 +679,7 @@
             .phone {
                 span {
                     justify-content: center;
+
                     strong {
                         margin-left: 5px;
                     }
@@ -727,7 +744,7 @@
     font-size: 12px;
 }
 
-.empty-quotation{
+.empty-quotation {
     .alert-box {
         background: lighten($alert-color, 40%);
         color: $alert-color;
@@ -753,10 +770,10 @@
         }
     }
 
-    .empty-form{
+    .empty-form {
         width: 100% !important;
 
-        .your-cart{
+        .your-cart {
             width: 65%;
         }
     }
@@ -764,36 +781,38 @@
 
 // MOBILE DEVICE GROUPS
 @include breakpoint(xmedium down) {
-    #group-quotation{
+    #group-quotation {
         flex-direction: column;
 
         .quotation-form {
             width: 100%;
         }
-        .sub-components{
+
+        .sub-components {
             display: none;
         }
     }
 
-    .trip-recap::after{
+    .trip-recap::after {
         display: none !important;
     }
 
-    aside{
+    aside {
         width: 100% !important;
         margin-left: 0px !important;
 
-        .help{
+        .help {
             width: 100%;
         }
-        .cart{
+
+        .cart {
             max-width: 100%;
         }
     }
 }
 
 @include breakpoint(medium down) {
-    #group-quotation{
+    #group-quotation {
         padding: 0px;
         display: flex;
         flex-direction: column;
@@ -805,12 +824,14 @@
             .form-control {
                 max-width: 100% !important;
             }
+
             .form-control:first-of-type {
                 margin-left: 5px !important;
                 margin-right: 5px !important;
             }
         }
-        ul.tabs{
+
+        ul.tabs {
             display: none;
         }
 
@@ -818,53 +839,57 @@
             width: 100%;
         }
 
-        .trip-recap{
-            .trip-desc{
+        .trip-recap {
+            .trip-desc {
                 flex-direction: column;
             }
         }
 
-        .trip-recap::after{
+        .trip-recap::after {
             display: none;
         }
 
-        .trip-basis .form-control{
-            margin: 0px ;
+        .trip-basis .form-control {
+            margin: 0px;
             margin-bottom: 0px !important;
 
             padding: 0px;
         }
 
-        .component-price{
+        .component-price {
             position: unset !important;
             display: inline-block;
         }
 
-        .form-control{
-            margin: 5px ;
+        .form-control {
+            margin: 5px;
             margin-bottom: 5px !important;
         }
 
-        .form-group{
+        .form-group {
             display: unset;
         }
-        .form-group.edit{
+
+        .form-group.edit {
             display: block;
         }
 
-        .form-fields-component{
-            display: block ;
-            .selector{
+        .form-fields-component {
+            display: block;
+
+            .selector {
                 margin-left: 0px;
                 max-width: none;
-                display: block ;
+                display: block;
             }
-            .actions{
+
+            .actions {
                 position: relative;
                 right: 0 !important;
             }
         }
-        aside{
+
+        aside {
             width: 100% !important;
             margin-left: 0 !important;
         }

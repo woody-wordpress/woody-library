@@ -20,7 +20,6 @@
         }
     }
 
-
     @media (max-width: $ts_screen-xs-max) {
         border-width: 0;
     }
@@ -61,8 +60,11 @@
     }
 }
 
-
-
+.panel-title-desktop {
+    @media (max-width: $ts_screen-sm-max) {
+        display: none !important;
+    }
+}
 
 
 

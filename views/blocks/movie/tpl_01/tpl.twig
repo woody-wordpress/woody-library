@@ -1,5 +1,11 @@
-<div class="woody-component woody-component-movie tpl_01">
+<div class="woody-component woody-component-movie tpl_01" itemscope itemtype="https://schema.org/VideoObject">
+    {% if movie_title %}
+        <span class="movie-title" itemprop="name">{{ movie_title }}</span>
+    {% endif %}
     <div class="responsive-embed widescreen plyrObject">
         {{ movie|default }}
     </div>
+    {% if movie_caption %}
+        <small class="movie-caption" itemprop="description">{{ movie_caption }}</small>
+    {% endif %}
 </div>

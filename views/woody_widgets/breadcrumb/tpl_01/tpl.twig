@@ -1,9 +1,9 @@
 <div class="woody-component-breadcrumb breadcrumb-wrapper padd-all-sm">
-    <ol vocab="https://schema.org/" typeof="BreadcrumbList" class="flex-container align-middle">
+    <ol vocab="https://schema.org/" typeof="BreadcrumbList" class="flex-container align-middle wrap">
     {% for item in items %}
     <li property="itemListElement" typeof="ListItem">
         {% if loop.last %}
-            <span property="item" typeof="WebPage">
+            <span property="item" typeof="WebPage" itemid="{{ item.url }}">
         {% else %}
             <a property="item" typeof="WebPage" href="{{ item.url }}">
         {% endif %}

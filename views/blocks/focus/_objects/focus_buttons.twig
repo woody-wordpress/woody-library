@@ -1,0 +1,16 @@
+{% if block_titles.focus_buttons|default %}
+    <div class="focus-buttons {{ padding|default('padd-all-sm') }}">
+        {% if block_titles.focus_buttons.alignement == 'horizontal' %}
+            {% set list_classes = 'align-middle wrap' %}
+        {% elseif block_titles.focus_buttons.alignement == 'vertical' %}
+            {% set list_classes = 'flex-dir-column align-middle' %}
+        {% endif %}
+        <ul class="list-unstyled flex-container {{ align|default('align-center') }} {{ list_classes|default }}">
+            {% for button in block_titles.focus_buttons.links %}
+                <li class="list-item">
+                    {% include '_objects/buttonObject.twig' %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

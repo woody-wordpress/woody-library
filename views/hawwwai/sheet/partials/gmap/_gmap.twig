@@ -4,8 +4,8 @@
         {% if formated_object.dataItinerary.itineraryLayout|default %}
 	    {% else %}
             {# BlaBlaCar #}
-            <div id="map" ng-if="useLeafletLibrary" blablacar-leaflet class="blablacar-widget leaflet"></div>
-            <div id="map" ng-if="!useLeafletLibrary" blablacar class="blablacar-widget"></div>
+            <div id="hww_map" ng-if="useLeafletLibrary" blablacar-leaflet class="blablacar-widget leaflet"></div>
+            <div id="hww_map" ng-if="!useLeafletLibrary" blablacar class="blablacar-widget"></div>
 	    {% endif %}
 
 	</div>

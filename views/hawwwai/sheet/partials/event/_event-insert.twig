@@ -101,9 +101,9 @@
                     {% if formated_object.openingPeriods.nextDates is not empty %}
                         periods='{{ formated_object.openingPeriods.nextDates|json_encode|raw }}'
                     {% endif %}
-                        desc="{{ formated_object.description|json_encode|default(null) }}"
+                        desc="{{ formated_object.description|slice(0, 500)|json_encode|default(null) }}"
                         address="{{ formated_object.contacts.establishment|json_encode|default(null) }}"
-                        target="_blank" ng-href="{{ '{{googlecalendarURL}}' }}" rel="nofollow">
+                        target="_blank" ng-href="{{ '{{googlecalendarURL}}' }}" rel="noindex,nofollow">
 
                         <span class="icon-font-calendar plo-fonticon"></span>
                         <span class="_plu-soft--left">

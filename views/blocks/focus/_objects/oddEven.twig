@@ -1,0 +1,21 @@
+<div class="woody-mobile-swiper swiper-container {{ swResp ? ' swResp' }}">
+    <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }} {{ swResp ? ' swRespW' }}">
+        {% for key, item in items %}
+                <div class="cell swRespS">
+                    {% if loop.index is odd %}
+                        {% include "cards/#{oddCard}/tpl.twig" with {
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(false),
+                            'card_index':key + 1
+                        } %}
+                    {% else %}
+                        {% include "cards/#{evenCard}/tpl.twig" with {
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(false),
+                            'card_index':key + 1
+                        } %}
+                    {% endif %}
+                </div>
+        {% endfor %}
+    </div>
+</div>

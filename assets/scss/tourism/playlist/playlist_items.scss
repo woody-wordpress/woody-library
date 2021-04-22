@@ -11,6 +11,85 @@
     }
 }
 
+// REALTIME OPENINGS
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    &.dynamic-opening-periods {
+        overflow: hidden;
+        border-radius: 20px;
+        transition: background-color 1s ease-out .1s;
+
+        .opening-state {
+            margin: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-items: center;
+
+            &--light { margin: 0; animation-duration: 5s;}
+            &--text {
+                font-size: 1rem;
+                font-weight: bold;
+                display: inline-block;
+                opacity: 0;
+                max-width: 0;
+                // max-height: 0;
+                white-space: nowrap;
+                padding-right: 10px;
+                transition: max-width 1s ease-out .1s, opacity 1s ease-out .1s, color;
+            }
+        }
+        &:hover {
+            background-color: white;
+            text-align: right;
+            box-shadow: -2px -1px 5px -2px #cecece;
+            .opening-state--text {
+                opacity: 1;
+                max-width: 300px;
+                // max-height: none;
+                // transition: max-width 1s ease-out .1s, opacity 1s ease-out .1s, color .2s;
+            }
+        }
+    }
+}
+
+.item-infos-ratings {
+    .ratings-logos img {
+        display: flex;
+        height: 24px;
+    }
+}
+
+.item-thumbnail {
+    position: relative;
+
+    .item-thumbnail-nav {
+        display: flex;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 6;
+        align-items: center;
+        justify-content: space-between;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+
+        .prev,
+        .next {
+            background-color: #ffffff99;
+            font-size: 35px;
+            padding: 15px 19px;
+            color: #333;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+    }
+    &:hover .item-thumbnail-nav { opacity: 1; }
+}
+
 #playlist-context {
     background-color: #f5f5f5;
 
@@ -153,9 +232,11 @@
             text-transform: uppercase;
         }
 
+        .playlist-features-label { line-height: 1; }
         .playlist-results-label {
             color: $primary-color;
             font-size: 1.4em;
+            line-height: 1;
             font-weight: 700;
         }
     }

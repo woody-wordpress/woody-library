@@ -1,0 +1,23 @@
+.prepare_onspot_wrapper {
+    align-items: center;
+    display: none;
+
+    .prepare_onspot_switcher {
+        align-items: center;
+        padding: 5px;
+
+        label {
+            border-radius: 20px;
+            color: $primary-color;
+
+            &::after {
+                border-radius: 20px;
+            }
+        }
+
+        label,
+        span {
+            padding: 0 5px;
+        }
+    }
+}

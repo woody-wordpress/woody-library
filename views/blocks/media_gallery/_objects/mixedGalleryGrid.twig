@@ -1,0 +1,19 @@
+<div class="woodyGallery grid-x {{ gridClass|default }}{{ gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
+    {% if gallery_items|default %}
+        {% for item in gallery_items %}
+            {% if loop.first %}
+                <div class="cell {{ firstCellClass|default('small-12') }}">
+                    {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
+                        'image_style' : customImageStyleFirst|default("ratio_4_1")
+                    } %}
+                </div>
+            {% else %}
+                <div class="cell {{ secondCellClass|default('small-6') }}">
+                    {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
+                        'image_style' : customImageStyleSecond|default("ratio_16_9")
+                    } %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>

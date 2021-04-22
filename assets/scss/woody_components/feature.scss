@@ -43,6 +43,8 @@
     &.tpl_02 {
         .feature-texts {
             @include xy-gutters($gutter-position: left);
+            display:flex;
+            flex-direction: column;
         }
     }
 }

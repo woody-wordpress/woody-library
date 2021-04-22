@@ -55,6 +55,22 @@
             }
         }
 
+        &-exp{
+            width: 100%;
+            .expression{
+                &-title{
+                    @extend .h5 !optional;
+                    display:block;
+                    margin-bottom: 0px;
+                }
+                &-content{
+                    p{
+                        font-size: rem-calc(13);
+                    }
+                }
+            }
+        }
+
         &-title {
             @extend .h4 !optional;
             display: block;

@@ -11,7 +11,7 @@
 
                 sup {
                     display: block;
-                    top: -0.2em;
+                    top: -2px;
                     line-height: 1;
 
                     @media (min-width: $ts_screen-sm-min) {
@@ -40,6 +40,13 @@
         a {
             font-weight: 300;
             color: $text-muted;
+        }
+    }
+
+    .label-ratings-logos {
+        img {
+            display: flex;
+            width: 80px;
         }
     }
 }

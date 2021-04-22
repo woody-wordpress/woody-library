@@ -6,52 +6,85 @@
 
 <div class="woody-component woody-component-interactive_gallery isRel {% block index_class %}tpl_101{% endblock %} {{ background_color|default }} {{ border_color|default }} {{ background_img_opacity|default }}{% if background_img_opacity or background_color|default or border_color|default %} padd-all-md{% endif %}{{ background_img ? ' has-bgimg' }}">
     {% if background_img %}
-    <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+    {% include '_objects/bgImageObject.twig' with {
+            'img': background_img,
+        } %}
     <div class="content isRel">
         {% endif %}
         <div class="interactive_gallery-wrapper">
-            <div class="swiper-container woody-swiper swResp spv-tablette-1">
+            {% if interactive_gallery_items|length == 1 %}
+            <div class="gallery-no-swiper">
+                {% for item in interactive_gallery_items %}
+                {% block interactive_gallery_grid %}
+                <div class="woodyGallery grid-x{{ interactive_gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
+                    {% if item.interactive_gallery_photo |default %}
+                    <div class="cell">
+                        {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                                    'item' : item.interactive_gallery_photo,
+                                    'image_style' : "ratio_16_9",
+                                    'img_mobile_url' : item.img_mobile_url|default,
+                                }%}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endblock %}
+                {% if item.interactive_gallery_text or item.interactive_gallery_audio_player %}
+                <div class="interactive_gallery-tooltip">
+                    <div class="tooltip tooltip-effect {{ interactive_gallery_open == 1 ? ' is-open' }} ">
+                        <span class="tooltip-item wicon wicon-029-croix-fermer"></span>
+                        <span class="tooltip-resp-close wicon wicon-029-croix-fermer"></span>
+                        <span class="tooltip-content clearfix">
+                            {% if item.interactive_gallery_text %}
+                            <div class="tooltip-text">
+                                {{ item.interactive_gallery_text }}
+                            </div>
+                            {% endif %}
+                            {% if item.interactive_gallery_audio_player.audio_files.audio_file_mp3 or item.interactive_gallery_audio_player.audio_files.audio_file_ogg  %}
+                            <div class="tooltip-audio-player bottom">
+                                {% include 'blocks/audio/tpl_01/tpl.twig' with {
+                                                'audio_files' : item.interactive_gallery_audio_player.audio_files,
+                                            }%}
+                            </div>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% elseif interactive_gallery_items|length > 1 %}
+            <div class="swiper-container woody-swiper swResp no-padding spv-tablette-1">
                 <div class="swiper-wrapper swRespW">
                     {% for item in interactive_gallery_items %}
                     <div class="swiper-slide slide-{{ loop.index }} swRespS">
-                        {% block interactive_gallery_grid %}
-                        <div class="woodyGallery grid-x{{ interactive_gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
-                            {% if item.interactive_gallery_photo |default %}
-                            <div class="cell">
-                                {% include 'cards/media_card/tpl_01/tpl.twig' with {
-                                    'item' : item.interactive_gallery_photo,
-                                    'image_style' : "ratio_16_9"
-                                }%}
-                            </div>
-                            {% endif %}
-                        </div>
+                        {% block interactive_gallery_grid_swiper %}
+                        {{ block('interactive_gallery_grid', 'blocks/interactive_media_gallery/tpl_101/tpl.twig') }}
                         {% endblock %}
-                            {% if item.interactive_gallery_text or item.interactive_gallery_audio_player %}
-                                <div class="interactive_gallery-tooltip">
-                                    <div class="tooltip tooltip-effect {{ interactive_gallery_open == 1 ? ' is-open' }} ">
-                                        <span class="tooltip-item wicon wicon-029-croix-fermer"></span>
-                                        <span class="tooltip-resp-close wicon wicon-029-croix-fermer"></span>
-                                        <span class="tooltip-content clearfix">
-                                        {% if item.interactive_gallery_text %}
-                                            <div class="tooltip-text">
-                                                {{ item.interactive_gallery_text }}
-                                            </div>
-                                        {% endif %}
-                                        {% if item.interactive_gallery_audio_player.audio_files.audio_file_mp3 or item.interactive_gallery_audio_player.audio_files.audio_file_ogg  %}
-                                            <div class="tooltip-audio-player bottom">
-                                                {% include 'blocks/audio/tpl_01/tpl.twig' with {
-                                                    'audio_files' : item.interactive_gallery_audio_player.audio_files,
-                                                }%}
-                                            </div>
-                                        {% endif %}
-                                        </span>
+                        {% if item.interactive_gallery_text or item.interactive_gallery_audio_player %}
+                        <div class="interactive_gallery-tooltip">
+                            <div class="tooltip tooltip-effect {{ interactive_gallery_open == 1 ? ' is-open' }} ">
+                                <span class="tooltip-item wicon wicon-029-croix-fermer"></span>
+                                <span class="tooltip-resp-close wicon wicon-029-croix-fermer"></span>
+                                <span class="tooltip-content clearfix">
+                                    {% if item.interactive_gallery_text %}
+                                    <div class="tooltip-text">
+                                        {{ item.interactive_gallery_text }}
                                     </div>
-                                </div>
-                            {% endif %}
+                                    {% endif %}
+                                    {% if item.interactive_gallery_audio_player.audio_files.audio_file_mp3 or item.interactive_gallery_audio_player.audio_files.audio_file_ogg  %}
+                                    <div class="tooltip-audio-player bottom">
+                                        {% include 'blocks/audio/tpl_01/tpl.twig' with {
+                                                        'audio_files' : item.interactive_gallery_audio_player.audio_files,
+                                                    }%}
+                                    </div>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>
-                {% if interactive_gallery_items|length > 1 %}
                 {% block interactive_gallery_items_pagination %}
                 <div class="swiper-pagination"></div>
                 {% endblock %}
@@ -65,8 +98,8 @@
                     </div>
                 </div>
                 {% endblock %}
-                {% endif %}
             </div>
+            {% endif %}
         </div>
         {% if background_img %}
     </div>

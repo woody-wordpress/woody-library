@@ -32,6 +32,14 @@
     @include improve_transition;
 }
 
+@mixin centerleftBox() {
+    @include the_box;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    @include improve_transition;
+}
+
 @mixin bottomrightBox() {
     @include the_box;
     align-items: flex-end;
@@ -52,6 +60,14 @@
     @include the_box;
     align-items: flex-start;
     justify-content: flex-start;
+    text-align: right;
+    @include improve_transition;
+}
+
+@mixin centerrightBox() {
+    @include the_box;
+    align-items: center;
+    justify-content: flex-end;
     text-align: right;
     @include improve_transition;
 }
@@ -331,6 +347,460 @@
         &:after {
             opacity: 1;
             transform: translateX(0) scale(1);
+        }
+    }
+}
+
+@mixin swiperOverflow($left : true, $right : true, $size : large, $context : fullwidth) {
+    @if $context==contained {
+        @if $left==true {
+            .swiper-container {
+                padding-left: 20px;
+            }
+        }
+
+        @if $right==true {
+            .swiper-container {
+                padding-right: 20px;
+            }
+        }
+
+        @if $size==small {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 40px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 50px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 40px;
+                    }
+
+                    .swiper-button-next {
+                        right: 50px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 60px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 70px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 60px;
+                    }
+
+                    .swiper-button-next {
+                        right: 70px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==medium {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 50px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 60px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 50px;
+                    }
+
+                    .swiper-button-next {
+                        right: 60px;
+                    }
+                }
+
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 75px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 85px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 75px;
+                    }
+
+                    .swiper-button-next {
+                        right: 85px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==large {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 60px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 70px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 60px;
+                    }
+
+                    .swiper-button-next {
+                        right: 70px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 90px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 100px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 90px;
+                    }
+
+                    .swiper-button-next {
+                        right: 100px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==xlarge {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 100px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 110px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 100px;
+                    }
+
+                    .swiper-button-next {
+                        right: 30px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 200px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 210px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 200px;
+                    }
+
+                    .swiper-button-next {
+                        right: 210px;
+                    }
+                }
+            }
+        }
+    }
+
+    @else if $context==fullwidth {
+        @if $left==true {
+            .swiper-container {
+                padding-left: 40px;
+            }
+        }
+
+        @if $right==true {
+            .swiper-container {
+                padding-right: 40px;
+            }
+        }
+
+        @if $size==small {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 60px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 70px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 60px;
+                    }
+
+                    .swiper-button-next {
+                        right: 70px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 90px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 100px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 90px;
+                    }
+
+                    .swiper-button-next {
+                        right: 100px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==medium {
+            @include breakpoint(medium) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 90px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 100px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 90px;
+                    }
+
+                    .swiper-button-next {
+                        right: 100px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 180px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 190px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 180px;
+                    }
+
+                    .swiper-button-next {
+                        right: 190px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==large {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 120px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 130px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 120px;
+                    }
+
+                    .swiper-button-next {
+                        right: 130px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 240px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 250px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 240px;
+                    }
+
+                    .swiper-button-next {
+                        right: 250px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==xlarge {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 200px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 210px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 200px;
+                    }
+
+                    .swiper-button-next {
+                        right: 210px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 400px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 410px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 400px;
+                    }
+
+                    .swiper-button-next {
+                        right: 410px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin Xfader($items, $visibility, $transition) {
+    // Number of items
+    $n: $items;
+
+    // Item visibility (seconds)
+    $a: $visibility;
+
+    // Transition speed (seconds)
+    $b: $transition;
+
+    // Animation length
+    $t: ($a + $b) * $n;
+
+    // Item delay length
+    $d: $t / $n;
+
+    // Keyframe percentages
+    $pct-1: percentage(0);
+    $pct-2: percentage($a / $t);
+    $pct-3: percentage(($a + $b) / $t);
+    $pct-4: percentage(1 - $b / $t);
+    $pct-5: percentage(1);
+
+    // Animation properties
+    @if $n>1 {
+        $id: unique-id();
+
+        animation-name: $id;
+        animation-duration: $t * 1s;
+        animation-iteration-count: infinite;
+
+        @for $i from 1 to $n {
+            &:nth-child(#{$i}) {
+                animation-delay: $d * ($n - $i) * 1s;
+            }
+        }
+
+        @keyframes #{$id} {
+
+            #{$pct-1},
+            #{$pct-2},
+            #{$pct-5} {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            #{$pct-3},
+            #{$pct-4} {
+                opacity: 0;
+                visibility: hidden;
+            }
         }
     }
 }

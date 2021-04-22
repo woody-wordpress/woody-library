@@ -59,76 +59,12 @@ body:not(.no-page-header) {
 
 .woody-component-hero {
 
-    .backgroundMedia.movie {
-        .rellax {
-            height: 100%;
-        }
-    }
+    .backgroundMedia {
 
-    @include breakpoint(medium down) {
-        .plyr__video-embed {
-            height: 100vw;
-        }
-    }
-
-    &.tpl_01 {
-
-        .toggling-movie-container {
-            @include breakpoint(large) {
-                opacity: 0;
-                transition: opacity .3s .2s ease-in;
-            }
-        }
-    }
-
-    @include breakpoint(small only) {
-
-        .backgroundMedia,
-        .videoObject-video {
-            height: 100vw !important;
-            max-width: none;
-            width: auto;
-            position: relative;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%);
-        }
-    }
-
-    // Define heigths of heros from image ratio
-    @include breakpoint(medium) {
-
-        &:not(.tpl_04) {
-            max-height: calc(100vw / 2) !important;
-        }
-
-        &.tpl_01 {
-            .backgroundMedia {
-                height: calc(100vw / 2);
-            }
-        }
-
-        &.tpl_02 {
-            .backgroundMedia {
-                @include breakpoint(xmedium) {
-                    height: calc(100vw / 2);
-                }
-
-                @include breakpoint(large) {
-                    height: calc(100vw / 4);
-                }
-            }
-        }
-
-        &.tpl_03 {
-            .backgroundMedia {
-                @include breakpoint(xmedium) {
-                    height: calc(100vw / 2);
-                }
-
-                @include breakpoint(large) {
-                    height: calc(100vw / 8);
-                }
+        &.movie,
+        &.img {
+            .rellax {
+                height: 100%;
             }
         }
     }
@@ -162,64 +98,280 @@ body:not(.no-page-header) {
             }
         }
     }
-}
 
-// Minimum style for split Hero
-.woody-component-hero.tpl_04 {
-    overflow: hidden;
-    background-color: $splitHero-bgcolor;
-    color: set-color($splitHero-bgcolor);
+    &.tpl_01 {
 
-    >div:first-child {
-        overflow: hidden;
-    }
-
-    .hero-titles {
-        position: relative;
-        z-index: 1;
-    }
-
-    .backgroundTitles {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        opacity: $hero-bgTitles-opacity;
-    }
-
-    .hero-description {
-        text-align: center;
-    }
-
-    .scrollDown {
-        left: calc((100vw / 3) / 2);
-        bottom: 0;
-    }
-
-    .videoObject-video,
-    .backgroundMedia:not(.embed-plyr) {
-        height: calc(100vw / 3) !important;
-    }
-
-    .plyr--video {
-        min-height: calc(100vw / 3);
-    }
-
-    @include breakpoint(large down) {
-        .scrollDown {
-            left: calc((100vw / 2) / 2.5);
+        .toggling-movie-container {
+            @include breakpoint(large) {
+                opacity: 0;
+                transition: opacity .3s .2s ease-in;
+            }
         }
     }
 
-    @include breakpoint(xlarge down) {
+    &.tpl_04 {
+        overflow: hidden;
+        background-color: $splitHero-bgcolor;
+        color: set-color($splitHero-bgcolor);
+
+        >div:first-child {
+            overflow: hidden;
+        }
+
+        .hero-titles {
+            position: relative;
+            z-index: 1;
+        }
+
+        .backgroundTitles {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: $hero-bgTitles-opacity;
+        }
+
+        .hero-description {
+            text-align: center;
+        }
+
+        .scrollDown {
+            left: calc((100vw / 3) / 2);
+            bottom: 0;
+        }
 
         .videoObject-video,
         .backgroundMedia:not(.embed-plyr) {
-            height: calc(100vw / 2) !important;
+            height: calc(100vw / 3) !important;
+        }
+
+        .plyr--video {
+            min-height: calc(100vw / 3);
+        }
+
+        @include breakpoint(large down) {
+            .scrollDown {
+                left: calc((100vw / 2) / 2.5);
+            }
+        }
+
+        @include breakpoint(xlarge down) {
+
+            .videoObject-video,
+            .backgroundMedia:not(.embed-plyr) {
+                height: calc(100vw / 2) !important;
+            }
         }
     }
 
+    &.tpl_07 {
+        .titles-wrapper {
+            background-color: rgba($splitHero-bgcolor, .85);
+
+            @include breakpoint(large) {
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 40vw;
+
+                @include breakpoint(xxlarge) {
+                    width: 33vw;
+                }
+            }
+        }
+    }
+
+    &.tpl_10 {
+
+        .hero-description,
+        .scrollDown {
+            display: none !important;
+        }
+
+        @include breakpoint(xlarge) {
+            .bottomcenterBox {
+                padding-bottom: 60px;
+            }
+        }
+    }
+
+    &.fadingHero {
+        .backgroundMedia {
+            position: relative;
+            height: 100vh;
+
+            .heroMediaWrapper {
+                position: absolute;
+                min-width: 100%;
+                background-color: $black;
+                mask-image: linear-gradient(180deg, #000 calc(100% - var(--hero-gradient-size)), transparent 100%);
+                -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - var(--hero-gradient-size)), transparent 100%);
+                -moz-mask-image: linear-gradient(180deg, #000 calc(100% - var(--hero-gradient-size)), transparent 100%);
+            }
+
+            .img-author {
+                bottom: auto;
+                top: 5px;
+                right: 5px;
+            }
+
+            &.movie {
+                overflow: visible;
+
+                video {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            @include breakpoint(large down) {
+                .heroMediaWrapper {
+                    height: 100%;
+                }
+
+                .imageObject-img {
+                    height: 100%;
+                    width: auto;
+                    max-width: none;
+                    position: relative;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        .textsWrapper {
+            @include breakpoint(xmedium) {
+                width: 75%;
+            }
+
+            @include breakpoint(xlarge) {
+                width: 50%;
+            }
+        }
+
+        &.tpl_05 .textsWrapper {
+            right: 0;
+            left: auto;
+            transform: translateX(0) translateY(-50%) translateZ(0);
+        }
+
+        @each $percent,
+        $opacity in $opacities {
+            &.bgimg-op#{$percent} {
+                .backgroundMedia {
+                    opacity: 1;
+
+                    .heroMediaWrapper {
+
+                        video,
+                        img {
+                            opacity: $opacity;
+                        }
+
+                        &:after {
+                            content: '';
+                            background-color: $black;
+                            position: absolute;
+                            z-index: -1;
+                            width: 100%;
+                            height: 100%;
+                            top: 0;
+                            left: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .toggling-movie-container {
+            @include breakpoint(xmedium down) {
+                &.is-open {
+                    border-bottom: 35px solid black;
+                }
+
+                .movie-toggle.close-button {
+                    top: calc(100% + 10px);
+                    right: 50%;
+                    transform: translateX(50%);
+                }
+            }
+        }
+    }
+
+    &:not(.tpl_04) {
+        .plyr--video {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    }
+
+    // Define heigths of heros from image ratio
+    @include breakpoint(medium) {
+
+        &:not(.tpl_04):not(.tpl_07):not(.fadingHero) {
+            max-height: calc(100vw / 2) !important;
+        }
+
+        &.tpl_01,
+        &.tpl_07,
+        &.ratio-2-1,
+        &.hero-full-height{
+            .backgroundMedia {
+                height: calc(100vw / 2);
+            }
+        }
+
+        &.tpl_02, &.ratio-4-1 {
+            overflow: hidden;
+
+            .backgroundMedia {
+                @include breakpoint(xmedium) {
+                    height: calc(100vw / 2);
+                }
+
+                @include breakpoint(large) {
+                    height: calc(100vw / 4);
+                }
+            }
+        }
+
+        &.tpl_03 {
+            .backgroundMedia {
+                @include breakpoint(xmedium) {
+                    height: calc(100vw / 2);
+                }
+
+                @include breakpoint(large) {
+                    height: calc(100vw / 8);
+                }
+            }
+        }
+    }
+
+    @include breakpoint(medium down) {
+        .plyr__video-embed {
+            height: 100vw;
+        }
+    }
+
+    @include breakpoint(small only) {
+
+        // .backgroundMedia,
+        // .videoObject-video {
+        //     height: 100vw !important;
+        //     max-width: none;
+        //     width: auto;
+        //     position: relative;
+        //     left: 50%;
+        //     top: 0;
+        //     transform: translateX(-50%);
+        // }
+    }
 }
 
 .toggling-movie-container {
@@ -295,14 +447,5 @@ body:not(.no-page-header) {
         opacity: 0;
         transform: scale(0);
         display: none;
-    }
-}
-
-.woody-component-hero:not(.tpl_04) {
-    .plyr--video {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
     }
 }

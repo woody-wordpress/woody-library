@@ -19,14 +19,6 @@ ul {
 }
 
 .sheet-model-v2.has-mosaic {
-    .sheet-navbar-checkpoint {
-        margin-top: -60px;
-        .sheet-navbar-wrapper {
-            &:not(.sticky-fixed) {
-                visibility: hidden !important;
-            }
-        }
-    }
     .sheet-sidebar {
         z-index: 1;
 
@@ -47,6 +39,26 @@ ul {
 }
 
 .sheet-model-v2 {
+    .sheet-navbar-checkpoint {
+        margin-top: -60px;
+        .sheet-navbar-wrapper {
+            &:not(.sticky-fixed) {
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        .tourism-detail-sidebar {
+            padding-right: 0 !important;
+        }
+    }
+    @media (max-width: 991px) {
+        .tourism-detail-sidebar {
+            margin-left: -17px;
+        }
+    }
+
     .tourism-detail-sidebar {
         padding-right: 0 !important;
     }
@@ -54,13 +66,13 @@ ul {
         background: #fff !important;
     }
     main {
-        .booking-content {
-            background: #fff !important;
+        .list-group-item {
+            border: none !important;
         }
         .list-group-item,
         .panel-default {
             &:not(.sheet-tab) {
-                border: none !important;
+                // border: none !important;
             }
         }
     }

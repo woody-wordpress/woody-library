@@ -1,7 +1,6 @@
 <article class="md-review plo-stand" itemprop="review" itemscope itemtype="http://schema.org/Review">
 
 	<header class="md-review__header  _plu-push--small">
-
 		<div class="plo-flag">
 
 			<div class="plo-flag__aside" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
@@ -11,12 +10,7 @@
 			</div>
 
 			<div class="plo-flag__body">
-
-				{# <div class="pull-right">
-					<a href="" class="_plu-text-muted _plu-text-underline zeta _plu-muted _plu-emphasis--low">{{ 'GLOBAL.TRANSLATE'|trans }}</a>
-				</div> #}
 				<div class="_plu-text-truncate _plu-emphasis--high review-title" itemprop="name">{{ review.titre }}</div>
-
 			</div>
 		</div>
 	</header>
@@ -24,7 +18,6 @@
 	<p class="_plu-push--small" itemprop="description">{{review.texte }}</p>
 
 	<footer class="clearfix">
-
 		<div class="plo-flag plo-flag--fit plo-flag--rev">
 
 			<p class="plo-flag__body _plu-text-muted zeta">
@@ -33,14 +26,10 @@
 				{% endif %}
 			</p>
 
-			{# <div class="plo-flag__aside"> #}
-				{# AVATAR HIDDEN (remove 'hide' class)
-				<div class="plo-box hide">
-					<img src="images/avatar.jpg" alt="Nom de l'auteur" class="plo-box-content plo-avatar _plu-muted--light">
-				</div> #}
-				<!-- Placeholder -->
-				<!-- <div class="plo-box plo-avatar plo-avatar--placeholder"> </div> -->
-			{# </div> #}
+			{% if review.auteur|default %}
+                <meta itemprop="author" content="{{ review.auteur }}">
+            {% endif %}
+
 		</div>
 	</footer>
 

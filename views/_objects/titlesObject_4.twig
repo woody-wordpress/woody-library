@@ -1,3 +1,4 @@
+{% spaceless %}
 {% set cardPriceClasses = 'priceTag flex-container flex-dir-column align-center align-middle' %}
 
 <div class="{{ contextPrefix }}-titles {{ flexOptions|default }} isRel">
@@ -54,3 +55,4 @@
     {{ block("cardTitles", "_objects/titlesObject.twig") }}
 
 </div>
+{% endspaceless %}

@@ -1,0 +1,8 @@
+{% if menu_tools %}
+    <div class="tools">
+        {{ menu_tools.es_search_button|default }}
+        {{ menu_tools.favorites_block|default }}
+        {{ menu_tools.lang_switcher_button|default }}
+        {{ menu_tools.extra_tools|default }}
+    </div>
+{% endif %}

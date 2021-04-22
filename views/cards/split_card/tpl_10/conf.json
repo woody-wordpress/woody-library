@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Split Carte - Template 10",
+    "description": "",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

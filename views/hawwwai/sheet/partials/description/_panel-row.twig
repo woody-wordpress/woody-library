@@ -4,7 +4,7 @@
         {% if rowContent|default %}
             <span>{{ rowContent |nl2br }}</span>
         {% elseif rowLink|default and rowLinkText|default %}
-            <a href="{{ rowLink }}" target="_blank">{{ rowLinkText|trans }}</a>
+            <a href="{{ rowLink }}" rel="noindex,nofollow" target="_blank">{{ rowLinkText|trans }}</a>
         {% endif %}
         </dd>
 </dl></li>

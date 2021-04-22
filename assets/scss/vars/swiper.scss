@@ -1,6 +1,13 @@
-$swiper-thumbs-bgColor: $primary-color !default;
-$swiper-thumbs-icon: 024-loupe !default;
-$swiper-zoomActive-shadow: true !default;
+// ------
+// Swiper
+// ------
+
+//Globals
+$swiper-offset-size: 5% !default;
+$swiperOverflow-opacity : .5 !default;
+
+//Justified
+$justifiedSwiperBlankSpace : calc(((100vw - #{$global-width}) / 2) + (#{map-get($grid-column-gutter, medium)} / 2));
 
 // Landswipers
 $wicon-landswpr-size: 30 !default;
@@ -10,3 +17,29 @@ $landswpr-search-field-placeholder-style : italic !default;
 $landswpr-search-field-placeholder-color : $medium-gray !default;
 $landswpr-search-button-bgcolor : $primary-color !default;
 $landswpr-search-button-border:none !default;
+
+// Thumbs
+$swiper-thumbs-bgColor: $primary-color !default;
+$swiper-thumbs-icon: 024-loupe !default;
+$swiper-zoomActive-shadow: true !default;
+$grayScale-zoomActive-swiper: true !default;
+
+// Pagination
+$swiper-bullet-color-active: $primary-color !default;
+$swiper-bullet-color: $swiper-bullet-color-active !default;
+$swiper-bullet-opacity: .4 !default;
+$swiper-bullet-radius: 50% !default;
+
+$swiper-fraction-size: rem-calc(32) !default;
+$swiper-fraction-weight: $global-weight-bold !default;
+$swiper-fraction-color: $primary-color !default;
+$swiper-fraction-total-opacity: .4 !default;
+$swiper-fraction-font-family: $header-font-family !default;
+$swiper-fraction-separator: '/' !default;
+
+$swiper-progressbar-width: 200px !default;
+$swiper-progressbar-height: 2px !default;
+$swiper-progressbar-color: $primary-color !default;
+$swiper-progressbar-color-active: $swiper-progressbar-color !default;
+$swiper-progressbar-opacity: .2 !default;
+$swiper-progressbar-radius: $global-radius !default;

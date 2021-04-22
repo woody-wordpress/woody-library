@@ -138,7 +138,7 @@
 }
 
 .tabs-pill {
-    display: inline-flex;
+    display: flex;
     background: $tabs-pill-bgcolor;
     border-radius: $tabs-pill-radius;
     max-width: $grid-container;
@@ -211,32 +211,81 @@
     }
 }
 
+.tabs-swiper{
+    .swiper-button-prev,.swiper-button-next{
+        .wicon{
+            color:$black;
+        }
+    }
+}
+
 .woody-component-tabs {
-    &.tpl_01 {
+    @include breakpoint(xmedium down) {
+        .tabs-wrapper{
+            position: relative;
+            &:after,&:before{
+                content: "";
+                position: absolute;
+                top:0px;
+                right: 0px;
+                width: 100px;
+                height: 100%;
+                background-image: linear-gradient(to right, transparent, $white);
+                pointer-events: none;
+            }
+            &:before{
+                left: 0px;
+                z-index: 1;
+                right: unset;
+                background-image: linear-gradient(to left, transparent, $white);
+            }
+            &.isLeft{
+                &:before{
+                    display: none;
+                }
+            }
+            &.isRight{
+                &:after{
+                    display: none;
+                }
+            }
+        }
         .tabs {
-            @include breakpoint(large down) {
-                overflow-x: scroll;
-                flex-wrap: nowrap;
+            overflow-x: scroll;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            position: relative;
+            max-width: 100%;
+            .tab-link{
+                padding: .75rem 2rem;
+            }
+        }
+        .tabs-rail-bottom{
+            position: relative;
+            padding-bottom: 10px;
 
-                &.tabs-rail-bottom {
-                    position: relative;
-                    padding-bottom: 10px;
-
-                    &:after {
-                        width: 100%;
-                        position: absolute;
-                        bottom:calc(#{$inactive-tab-dot-size} / 2);
-                        left: 0;
-                        margin-bottom: 0;
+            &:after {
+                width: 100%;
+                position: absolute;
+                bottom:calc(#{$inactive-tab-dot-size} / 2);
+                left: 0;
+                margin-bottom: 0;
+            }
+        }
+        @each $color,
+        $hex in $foundation-palette {
+            &.bg-#{$color} {
+                .tabs-wrapper{
+                    &:after{
+                        background-image: linear-gradient(to right, transparent, $hex );
+                    }
+                    &:before{
+                        background-image: linear-gradient(to left, transparent, $hex );
                     }
                 }
             }
-
         }
     }
-
-    &.tpl_02 {
-        display: flex;
-        flex-direction: column;
-    }
 }
+
+

@@ -238,6 +238,14 @@
         .table-scroll{
             overflow-x: auto !important;
         }
+        th{
+            top: 0px;
+        }
+        td.sticky-col{
+            span:nth-of-type(1n+2){
+                display:none;
+            }
+        }
 
         .date{
             padding: 10px 5px;

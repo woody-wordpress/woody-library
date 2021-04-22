@@ -38,6 +38,29 @@
         }
     }
 
+    .plyr--video {
+        opacity: 0;
+        transition: opacity .3s;
+
+        &.playing {
+            opacity: 1;
+        }
+    }
+
+    .landSwprPlyr {
+        opacity: 0;
+
+        &-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: auto;
+            z-index: -1;
+        }
+    }
+
     .media-op90 {
         .landswprMediaWrapper {
             opacity: .9;
@@ -51,7 +74,11 @@
     }
 
     .landswpr-search-form {
-        margin-top: 40px;
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
 
         .input-group-field {
             min-width: 220px;
@@ -100,6 +127,37 @@
         }
     }
 
+    &.fadingSwiper {
+        .swiper-slide:after {
+            display: block;
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            z-index: 1;
+            background: linear-gradient(to top, $white 12%, transparent);
+
+            // @include breakpoint(medium down) {
+            //     height: 40%;
+            // }
+        }
+
+        @include breakpoint(medium down) {
+            height: 115vh;
+
+            .swiper-slide:not(.slide-type-embed) {
+                height: 115vh;
+            }
+        }
+
+        @include breakpoint(large) {
+            height: 150vh;
+        }
+    }
+
+
     &.tpl_06 {
         .landswpr-titles {
             margin-bottom: 30px;
@@ -107,6 +165,26 @@
             @include breakpoint(large) {
                 margin-bottom: 80px;
             }
+        }
+    }
+
+    &.tpl_07 {
+        .landswpr-titles-wrapper {
+            // Text aligned to left in 100% width box but div is in border-box:content-box, so we won't see the padding without max width
+            max-width: calc(100% - 60px);
+            padding-top: 60vh;
+        }
+    }
+
+    .landSwprPlyr,
+    .plyr--video {
+        height: 100%;
+    }
+
+    .plyr__video-wrapper {
+        @include breakpoint(large) {
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 }
@@ -130,7 +208,7 @@ body:not(.no-page-header) {
     }
 
     @include breakpoint(xmedium down) {
-        .swiper-slide {
+        .swiper-slide:not(.slide-type-embed) {
             padding-top: 0;
             padding-bottom: 0;
             height: 100vw;
@@ -479,6 +557,56 @@ body:not(.no-page-header) {
             transform-origin: 0 100%;
             transform: scaleY(0);
             transition: all .25s ease-in;
+        }
+    }
+}
+
+.woody-landing-swiper.swiper-container {
+    &.navigation-bottom-left {
+        .swiper-navigation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            .swiper-button {
+                &-prev, &-next {
+                    position: relative;
+                    left: inherit;
+                    right: inherit;
+                    top: inherit;
+                    margin: 0;
+                }
+                &-prev {
+                    margin-bottom: 1px;
+                }
+            }
+        }
+    }
+    &.pagination-bottom-left {
+        .swiper-pagination {
+            width: auto !important;
+            left: 45px;
+            bottom: 10px;
+        }
+    }
+    &.pagination-vertical {
+        .swiper-pagination {
+            display: flex;
+            flex-direction: column;
+            .swiper-pagination-bullet {
+                margin: 5px;
+            }
+        }
+    }
+}
+
+// Set default colors to bullets
+.swiper-pagination.swiper-pagination-bullets {
+    .swiper-pagination-bullet {
+        transition: all ease-in-out .2s;
+        opacity: .95;
+        background-color: $white;
+        &.active {
+            background-color: $primary-color;
         }
     }
 }

@@ -20,5 +20,14 @@
         "gallery_no_padding",
         "gallery_items",
         "gallery_link"
-    ]
+    ],
+    "display": [{
+        "type": "grid",
+        "length": 5,
+        "infinite": "true",
+        "img_ratio": [
+            "square"
+        ],
+        "roadbook": true
+    }]
 }

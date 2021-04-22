@@ -95,3 +95,23 @@
         <span class="address-complement plo-block _plu-push-top--small">{{ formated_object.addressComplement|nl2br }}</span>
     </li>
 {% endif %}
+
+{# sfEventPlaces #}
+{% if formated_object.sfEventPlaces|default %}
+    <li class="list-group-item">
+        <dl class="row">
+            <dt class="col-xs-12  _plu-push--tiny">
+                <span>{{ formated_object.sfEventPlaces._label|default(formated_object.sfEventPlaces.label) }}</span>
+            </dt>
+            <dd class="col-xs-12 col-sm-offset-1 col-sm-10">
+                <ul class="plo-list-bare">
+                    {% for eventPlace in formated_object.sfEventPlaces.data %}
+                        <li><span>{{ eventPlace._type|default }}</span></li>
+                    {% endfor %}
+                </ul>
+            </dd>
+        </dl>
+    </li>
+{% endif %}
+
+

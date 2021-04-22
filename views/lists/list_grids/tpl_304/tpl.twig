@@ -3,6 +3,7 @@
 {% block the_card %}
     {% include "cards/overlayed_card/tpl_03/tpl.twig" with {
         'image_style' : "ratio_4_3",
-        'page_type' : item.page_type
+        'page_type' : item.page_type,
+        'card_index':key + 1
     } %}
 {% endblock %}

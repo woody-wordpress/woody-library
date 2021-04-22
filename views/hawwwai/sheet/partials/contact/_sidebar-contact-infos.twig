@@ -1,22 +1,24 @@
-{% if options.displayed_contacts is not defined or formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.establishment) %}
-    <li id="li-contact-infos" class="sidebar-contact-infos contact-establishment">
-        <section class="panel panel-default">
+<li id="li-contact-infos" class="sidebar-contact-infos contact-establishment">
+    <section class="panel panel-default">
 
-            {% include TWIG.SIDEBAR_MAP %}
-            <ul class="list-group">
-                {% include TWIG.ADDRESS %}
-                {% if not hasEmptyComMeans(formated_object.contacts.establishment, true) %}
+        {% include TWIG.SIDEBAR_MAP %}
+        <ul class="list-group">
+            {% include TWIG.ADDRESS %}
+            {% if options.displayed_contacts is not defined or formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.establishment) %}
+                {% if not hasEmptyComMeans(formated_object.contacts.establishment, true) or formated_object.tripadvisorLink|default %}
                     {% include TWIG.VCARD
                             with {  'phones': formated_object.contacts.establishment.phones,
+                            'descriptionPhones': formated_object.contacts.establishment.descriptionPhones,
                             'fax': formated_object.contacts.establishment.fax,
-                            'websites': formated_object.contacts.establishment.websites
+                            'websites': formated_object.contacts.establishment.websites,
+                            'tripadvisorLink': formated_object.tripadvisorLink|default
                         }
                     %}
                 {% endif %}
-            </ul>
-        </section>
-    </li>
-{% endif %}
+            {% endif %}
+        </ul>
+    </section>
+</li>
 
 {% if (formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.owner)) and formated_object.bordereau not in ['HLO'] %}
     {% if not hasEmptyComMeans(formated_object.contacts.owner) %}
@@ -45,6 +47,7 @@
                 <ul class="list-group">
                     {% include TWIG.VCARD
                         with {  'phones': formated_object.contacts.owner.phones,
+                                'descriptionPhones': formated_object.contacts.owner.descriptionPhones,
                                 'fax': formated_object.contacts.owner.fax,
                                 'websites': formated_object.contacts.owner.websites
                             }
@@ -89,6 +92,7 @@
                 <ul class="list-group">
                     {% include TWIG.VCARD
                         with {  'phones': formated_object.contacts.booking.phones,
+                                'descriptionPhones': formated_object.contacts.booking.descriptionPhones,
                                 'fax': formated_object.contacts.booking.fax,
                                 'websites': formated_object.contacts.booking.websites
                             }
@@ -123,6 +127,7 @@
             <ul class="list-group">
                 {% include TWIG.VCARD
                     with {  'phones': formated_object.contacts.group.phones,
+                            'descriptionPhones': formated_object.contacts.group.descriptionPhones,
                             'fax': formated_object.contacts.group.fax,
                             'websites': formated_object.contacts.group.websites
                         }

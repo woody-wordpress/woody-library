@@ -31,14 +31,14 @@
         &:before {
             display: block;
             position: absolute;
-            left: 12px;
-            top: 10px;
+            left: 9px;
+            top: 7px;
             line-height: 1em;
-            font-size: 24px;
+            font-size: 20px;
             color: $black;
             font-weight: bold;
             content: attr(data-step-index);
-            z-index: 10;
+            z-index: 1000;
         }
 
         .marker-full {
@@ -52,6 +52,13 @@
 
         &[data-step-index="last"] {
             @include wicon(a02-arrivee);
+        }
+    }
+
+    .minimaps {
+        .circuit-marker:before {
+            left: 12px;
+            top: 10px;
         }
     }
 }

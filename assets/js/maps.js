@@ -64,6 +64,7 @@ $('.accordion.has_map').on({
     'down.zf.accordion': function() {
         var $this = $(this);
         var map_id = $this.find("div[class^='geomap-']").attr('id');
+
         if (typeof map_id != 'undefined') {
             reloadMapBounds(map_id);
 
@@ -75,18 +76,23 @@ $('.accordion.has_map').on({
                     mapObj = rcModule.rcTouristicMap[map_id];
 
                 // Si les limites de la carte n'ont pas encore été définies, on les calcule pour les passer en viewbox au nominatim OSM
-                if (typeof mapObj.alreadyBounded == 'undefined') {
-                    var mapBounds = mapObj.getBounds(),
-                        limits = [];
+                var checkMap = setInterval(function() {
+                    if (typeof mapObj != "undefined") {
+                        clearInterval(checkMap);
+                        if (typeof mapObj.alreadyBounded == 'undefined') {
+                            var mapBounds = mapObj.getBounds(),
+                                limits = [];
 
-                    limits.push(mapBounds['_southWest']['lng']);
-                    limits.push(mapBounds['_northEast']['lat']);
-                    limits.push(mapBounds['_northEast']['lng']);
-                    limits.push(mapBounds['_southWest']['lat']);
+                            limits.push(mapBounds['_southWest']['lng']);
+                            limits.push(mapBounds['_northEast']['lat']);
+                            limits.push(mapBounds['_northEast']['lng']);
+                            limits.push(mapBounds['_southWest']['lat']);
 
-                    mapObj.viewBox = limits.join(',');
-                    mapObj.alreadyBounded = true;
-                }
+                            mapObj.viewBox = limits.join(',');
+                            mapObj.alreadyBounded = true;
+                        }
+                    }
+                }, 300);
 
                 // Ajout de l'élément html de recherche par ville
                 $mapEl.append('<div class="city-filter-wrapper isAbs"><input type="text" class="city-filter" placeholder="Recherche par ville"/><span class="wicon wicon-024-loupe isAbs"></span></div>');
@@ -148,11 +154,34 @@ function getCity(cityName, map, viewBox, $wrapper) {
 $('.tabs').on({
     'change.zf.tabs	': function(e) {
         var $tabs = $(e.target);
-        var map_id = $tabs.siblings('.tabs-content').find('.tabs-panel.is-active').find("div[class^='geomap-']").attr('id');
+        var map_id = $tabs.closest('.woody-component').find('.tabs-content .tabs-panel.is-active').find("div[class^='geomap-']").attr('id');
+
         if (typeof map_id != 'undefined') {
             reloadMapBounds(map_id);
         }
     }
+});
+
+$('.woody-component-focus-map.hidden-map').each(function() {
+    var $this = $(this);
+    var $toggleMap = $this.find('.toggle-map');
+
+    $toggleMap.click(function() {
+        if ($(this).hasClass('map-opened')) {
+            $(this).removeClass('map-opened');
+            $this.removeClass('map-opened');
+        } else {
+            $(this).addClass('map-opened');
+            $this.addClass('map-opened');
+            var elHeight = $this.find('.woody-component-basic-swiper').height();
+            var $map = $this.find("div[id^='geomap-']");
+            var map_id = $map.attr('id');
+            $map.height(parseInt(elHeight) - 10);
+            if (typeof map_id != 'undefined') {
+                reloadMapBounds(map_id);
+            }
+        }
+    });
 });
 
 $('.tabs-panel.is-active').each(function() {
@@ -174,8 +203,8 @@ $('.tabs-panel.is-active').each(function() {
 //
 function reloadMapBounds(map_id) {
     if (typeof rcModule.rcTouristicMap[map_id] !== 'undefined' && typeof rcModule.rcTouristicMap[map_id].loaded == 'undefined') {
-        rcModule.rcTouristicMap[map_id].invalidateSize();
         rcModule.rcTouristicMap[map_id].on('moveend', getAndFitBounds);
+        rcModule.rcTouristicMap[map_id].invalidateSize();
         rcModule.rcTouristicMap[map_id].loaded = true;
     }
 }
@@ -183,10 +212,15 @@ function reloadMapBounds(map_id) {
 function getAndFitBounds() {
     var bounds = [];
     this.eachLayer(function(layer) {
-        if (typeof layer._latlng != 'undefined') {
+        if (typeof layer.bounds != 'undefined') {
+            bounds.push(layer.bounds);
+        } else if (typeof layer._latlng != 'undefined') {
             bounds.push(layer._latlng);
         }
     });
-    this.fitBounds(bounds);
     this.off('moveend', getAndFitBounds);
+
+    if (bounds.length != 0) {
+        this.fitBounds(bounds, { paddingTopLeft: [50, 50], paddingBottomRight: [50, 50] });
+    }
 }

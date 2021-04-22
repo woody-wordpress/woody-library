@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import WoodyFilter from './filter';
 
 // On click main menu link
 $('.is-dropdown-submenu-parent > a').click(function(e) {
@@ -45,11 +46,17 @@ function hideDropdown() {
     }
 }
 
-$(document).on("scroll", function() {
-    if ($('body').hasClass('scrolling-down')) {
-        hideDropdown();
-    }
-});
+//Apply Filter scroll_hide_menu_modifier
+var scroll_hide_menu_modifier = true;
+scroll_hide_menu_modifier = WoodyFilter.apply('scroll_hide_menu_modifier'); //Hook var
+if (scroll_hide_menu_modifier != false) {
+    $(document).on("scroll", function() {
+        if ($('body').hasClass('scrolling-down')) {
+            hideDropdown();
+        }
+    });
+}
+
 
 // On close dropdown menu AND click outside dropdown menu
 $(document).on("close.zf.dropdownmenu click.zf.dropdownmenu", function () {

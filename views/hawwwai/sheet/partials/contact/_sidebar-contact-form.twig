@@ -12,6 +12,9 @@
 {% endif %}
 
 {% if contractsLevels.sidebar.vcard and email|default %}
+
+    <li class="panel-title-responsive hidden-xs"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span></li>
+
     <li id="li-contact-form" class="show-when-angular-ready clearfix hidden-xs">
 
         {% if object.data.specificFields|default and object.data.specificFields.sfProfilElId is defined %}
@@ -36,12 +39,12 @@
                     <div class="plo-box plo-avatar sidebar-contact-form-avatar">
                         <div class="plo-box-content _plu-glue">
                             {% if formated_object.user|default %}
-                                <a class="sidebar-contact-form-avatar-link" target="_blank">
+                                <a class="sidebar-contact-form-avatar-link" rel="noindex,nofollow" target="_blank">
                                     <img class="bubble-img sidebar-contact-form-avatar-img" src="{{ formated_object.user.picture| rcImg(130, 130, 70, 'png', 'crop') }}">
                                 </a>
                             {% else %}
                                 <span class="icon-font-user ink-winter sidebar-contact-form-avatar-icon" ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)"></span>
-                                <a class="sidebar-contact-form-avatar-link" target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}" ng-if="userProfile && userPicture && userProfile.link.url">
+                                <a class="sidebar-contact-form-avatar-link" rel="noindex,nofollow" target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}" ng-if="userProfile && userPicture && userProfile.link.url">
                                     <img class="bubble-img sidebar-contact-form-avatar-img" ng-src="{{ '{{userProfile.picture}}' }}">
                                 </a>
                             {% endif %}
@@ -69,7 +72,7 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                        <h2 ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)" class="sidebar-contact-business-name pl-heading _plu-flush--top">
+                        <div ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)" class="sidebar-contact-business-name pl-heading _plu-flush--top">
                             {% if formated_object.user|default and formated_object.contacts.owner.peopleLastName|default %}
                                 {{ formated_object.contacts.owner.civility|default }} {{ formated_object.contacts.owner.peopleFirstName|default }} {{ formated_object.contacts.owner.peopleLastName|default }}
                             {% elseif formated_object.mailContact|default and formated_object.contacts[formated_object.mailContact].businessName|default and token not in ['bocage_v2'] %}
@@ -85,14 +88,14 @@
                             {% else %}
                                 {{ formated_object.businessName }}
                             {% endif %}
-                        </h2>
+                        </div>
                         <div ng-if="userProfile && userProfile.link.url" class="sidebar-contact-business-name pl-heading show-when-angular-ready">
-                            <a target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}">
+                            <a rel="noindex,nofollow" target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}">
                                 {{ '{{userProfile.name}}' }}
                             </a>
                         </div>
                         <span ng-if="userProfile && userProfile.link.url" class="">
-                            <a target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}">
+                            <a rel="noindex,nofollow" target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}">
                                 {{ '{{userProfile.link.title|rcTranslate}}' }}
                             </a>
                         </span>
@@ -159,23 +162,16 @@
 
                         {# Contact button #}
                         <a class="plo-btn sidebar-default-btn"
-                        interact event-type="SHEET_CONTACT_FORM_OPENED"
-                        analytics-mediaveille {# Tracking MediaVeille #}
-                        data-type="MAILTO" {# Tracking Tourinsoft #}
-                        rc-modal size="lg"
-                        ng-if="sheet"
-                        window-class="contact-modal"
-                        tpl-url="sections/tourism/sheet-detail/modals/contact-form.html"
-                        action="click"
-                        check-params="form_contact">
-
-                            {# button text #}
+                            interact event-type="SHEET_CONTACT_FORM_OPENED"
+                            analytics-mediaveille {# Tracking MediaVeille #}
+                            data-type="MAILTO" {# Tracking Tourinsoft #}
+                            rc-modal size="lg"
+                            ng-if="sheet"
+                            window-class="contact-modal"
+                            tpl-url="sections/tourism/sheet-detail/modals/contact-form.html"
+                            action="click"
+                            check-params="form_contact">
                             {{ 'GLOBAL.SEND'|trans }}
-
-                            {# button icon #}
-                            {# <div class="[ plo-media__img plo-media__img--rev ] contact-icon">
-                                <span class="icon-font-mail plo-fonticon"></span>
-                            </div> #}
                         </a>
                     {% endif %}
 

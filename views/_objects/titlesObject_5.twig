@@ -1,3 +1,4 @@
+{% spaceless %}
 {% set cardDatesClasses = 'grid-y align-center align-middle' %}
 
 <div class="{{ contextPrefix }}-info {{ leftWrapperClasses|default }}">
@@ -39,7 +40,9 @@
             {% if titles.sheet_type %}
             <span class="{{ contextPrefix }}-type">{{ titles.sheet_type }}</span>
             {% endif %}
-
+            {% if titles.created %}
+			    <span class="{{ contextPrefix }}-created">{{ titles.created }}</span>
+		      {% endif %}
             {{ block("sheetLocomotions", "_objects/titlesObject.twig") }}
 
             {% if titles.sheet_rating|default %}
@@ -56,3 +59,4 @@
         </div>
     {% endif %}
 </div>
+{% endspaceless %}

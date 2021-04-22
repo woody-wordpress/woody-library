@@ -21,10 +21,10 @@
 
     <ul class="pagination playlist-pager" data-current="{{ currentPage }}">
         {% if currentPage > 1 %}
-            <li class="page-item"><a class="page-link" data-page="-" href="?listpage={{currentPage - 1}}">&#10094</a></li>
+            <li class="page-item"><a class="page-link" data-page="-" {% if currentPage - 1 == 1 %}href="."{% else %}href="?listpage={{ currentPage - 1 }}"{% endif %}">&#10094</a></li>
 
             {% for i in range(1, extremePagesLimit) if ( i < currentPage - nearbyPagesLimit ) %}
-                <li class="page-item"><a class="page-link" data-page={{ i }} href="?listpage={{ i }}">{{ i }}</a></li>
+                <li class="page-item"><a class="page-link" data-page={{ i }}" {% if i == 1 %}href="."{% else %}href="?listpage={{ i }}"{% endif %}>{{ i }}</a></li>
             {% endfor %}
 
             {% if extremePagesLimit + 1 < currentPage - nearbyPagesLimit %}
@@ -32,10 +32,10 @@
             {% endif %}
 
             {% for i in range(currentPage - nearbyPagesLimit, currentPage - 1) if ( i > 0 ) %}
-                <li class="page-item"><a class="page-link" data-page={{ i }} href="?listpage={{ i }}">{{ i }}</a></li>
+                <li class="page-item"><a class="page-link" data-page={{ i }} {% if i == 1 %}href="."{% else %}href="?listpage={{ i }}"{% endif %}>{{ i }}</a></li>
             {% endfor %}
         {% elseif showAlwaysFirstAndLast %}
-            <li class="page-item disabled"><a class="page-link" href="?listpage=1">1</a></li>
+            <li class="page-item disabled"><a class="page-link" href=".">1</a></li>
         {% endif %}
 
         <li class="page-item active"><a data-page="{{ currentPage }}">{{ currentPage }}</a></li>

@@ -1,0 +1,72 @@
+.woody-component-story {
+
+    .story {
+        &-texts {
+            box-sizing: border-box;
+        }
+
+        &-title {
+            @include header-size($story-title-size);
+            font-weight: $story-title-weight;
+        }
+
+        &-author {
+            &-img {
+                width: $story-author-img-size;
+                height: $story-author-img-size;
+                border-radius: 50%;
+                margin-right: 10px;
+                overflow: hidden;
+            }
+
+            &-name {
+                @include header-size($story-author-name-size);
+            }
+
+            .imageObject-caption {
+                display: none !important;
+            }
+        }
+
+        &-chapter {
+            &-title {
+                @include header-size($story-chapter-title-size);
+                font-weight: $story-chapter-title-weight;
+            }
+
+            &-audio {
+                .audio-player {
+                    max-width: 190px;
+                }
+            }
+        }
+
+        &-chapter-img,
+        &-img {
+            opacity: $story-img-opacity;
+        }
+
+    }
+
+    .swiper-pagination {
+        &.swiper-pagination-bullets {
+            .swiper-pagination-bullet {
+                background-color: rgba($black, .7);
+
+                &-active {
+                    background-color: $white;
+                }
+            }
+        }
+    }
+
+    &.tpl_01 {
+
+        .story-title,
+        .story-chapter-content {
+            @include breakpoint(large) {
+                max-width: 50%;
+            }
+        }
+    }
+}

@@ -1,0 +1,187 @@
+.woody-component-socialize-tabs {
+
+    .tabs {
+        padding: 0 $global-padding;
+        border: 0;
+        a {
+            padding: 1.25rem 1.25rem;
+        }
+    }
+
+    .tabs-title {
+        margin: 0 5px;
+        border: 1px solid #ededed;
+        border-radius: 50px;
+
+        &.is-active {
+            color: $white;
+
+            a.facebook {
+                color: $white;
+                background-color: #3b5998;
+            }
+
+            a.twitter {
+                color: $white;
+                background-color: #1da1f2;
+            }
+
+            a.instagram {
+                color: $white;
+                background-image: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            }
+        }
+
+        a {
+            border-radius: 50px;
+        }
+
+        a.facebook:hover {
+            color: $white;
+            background-color: #3b5998;
+        }
+
+        a.twitter:hover {
+            color: $white;
+            background-color: #1da1f2;
+        }
+
+        a.instagram:hover {
+            color: $white;
+            background-image: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+        }
+    }
+
+    .socialwall-live {
+        position: relative;
+        margin: 0 auto;
+        min-width: 100%;
+        min-height: 100%;
+
+        .tw-head,
+        .fb-head,
+        .in-head {
+            margin-bottom: 30px;
+        }
+
+        .head-links {
+            display: flex;
+            flex-direction: column;
+            width: 85%;
+
+            .fb-title {
+                color: #3b5998;
+            }
+
+            .tw-title {
+                color: #1da1f2;
+            }
+        }
+
+        .msry-grid-sizer,
+        .msry-item {
+            float: left;
+            margin: 1%;
+            padding: 10px;
+            width: 98%;
+            box-shadow: 1px 1px 5px $light-gray;
+
+            @include breakpoint(medium) {
+                width: 48%;
+            }
+            @include breakpoint(large) {
+                width: 31%;
+            }
+        }
+        .msry-grid-sizer {
+            box-shadow: none;
+        }
+
+        .fb-img,
+        .tw-img {
+            margin-top: 10px;
+        }
+
+        .wicon-002-twitter {
+            border-top: 30px solid #1da1f2;
+            border-right: 30px solid #1da1f2;
+        }
+
+        .wicon-000-facebook {
+            border-top: 30px solid #3b5998;
+            border-right: 30px solid #3b5998;
+        }
+
+        .wicon-011-instagram {
+            border-top: 30px solid  #C13584;
+            border-right: 30px solid  #C13584;
+        }
+
+        .wicon-002-twitter,
+        .wicon-011-instagram,
+        .wicon-000-facebook {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            color: $white;
+            border-radius: 15;
+            border-bottom: 30px solid transparent;
+            border-left: 30px solid transparent;
+
+            &:before{
+                position: absolute;
+                top: -21px;
+                left: 5px;
+            }
+        }
+
+        .socialwall-live-twitter {
+            .tw-head,
+            .tw-footer {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .tw-desc {
+                margin: 10px;
+            }
+
+            .links {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 0;
+                list-style-type: none;
+            }
+
+            .tw-user,
+            .tw-created {
+                color: rgba(0,0,0,.5);
+                font-style: italic;
+                font-size: .852em;
+            }
+        }
+
+        .socialwall-live-facebook {
+            .fb-created,
+            .fb-user {
+                color: rgba(0,0,0,.5);
+                font-style: italic;
+                font-size: .852em;
+            }
+
+            .fb-desc {
+                margin: 10px;
+            }
+        }
+
+        .socialwall-live-instagram {
+            .in-created {
+                color: rgba(0,0,0,.5);
+                font-style: italic;
+                font-size: .852em;
+            }
+        }
+    }
+}

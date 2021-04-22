@@ -1,0 +1,23 @@
+{
+    "approved": true,
+    "name": "SocialWall 10 éléments - 02",
+    "description": "3 images gauche + 2 au dessus de l'en-tête + 2 sous l'en-tête + 3 à droite",
+    "lib_type": "lite",
+    "acf_groups": [
+
+    ],
+    "vars": [
+        "background_color",
+        "background_img",
+        "background_img_opacity",
+        "sw_no_padding",
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "gallery_items"
+    ]
+}

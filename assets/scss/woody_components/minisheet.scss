@@ -1,0 +1,164 @@
+.woody-component-minisheet {
+    position: relative;
+
+    .grid-wrapper {
+        background-color: var(--minisheet-bg-color);
+        border: var(--minisheet-border);
+    }
+
+    .img-wrapper {
+        background-color: var(--minisheet-bg-color-hover);
+
+        img {
+            transition: opacity .2s;
+        }
+
+        &:hover {
+            img {
+                opacity: .6;
+            }
+        }
+    }
+
+    .anchor-wrapper {
+        border: var(--minisheet-border);
+
+        @include breakpoint(large) {
+            border: none;
+            min-height: var(--minisheet-anchor-min-height);
+        }
+
+        a {
+            padding: $global-padding;
+            font-weight: var(--minisheet-anchor-weight);
+            font-size: var(--minisheet-anchor-size);
+            color: var(--minisheet-anchor-color);
+            transition: color .2s, background-color .2s;
+
+            .wicon,
+            .label {
+                color: currentColor;
+            }
+
+            &:hover {
+                background-color: var(--minisheet-bg-color-hover);
+                color: var(--minisheet-anchor-color-hover);
+            }
+        }
+    }
+
+    .booking-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--minisheet-booking-bg-color);
+
+        @include breakpoint(medium) {
+            order: -1;
+        }
+
+        @include breakpoint(large) {
+            position: absolute;
+            z-index: 1;
+            bottom: calc(100% - 4rem);
+            left: var(--minisheet-booking-position);
+            max-width: var(--minisheet-booking-max-with);
+            box-shadow: var(--minisheet-booking-box-shadow);
+        }
+
+        .booking-price {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: $global-padding;
+
+            font-weight: var(--minisheet-booking-font-weight);
+            text-transform: uppercase;
+
+            .booking-prefix {
+                font-size: rem-calc(12);
+                color: var(--minisheet-booking-prefix-color);
+                text-align: center;
+            }
+
+            .price-value {
+                position: relative;
+                color: var(--minisheet-booking-price-color);
+
+                .price {
+                    font-size: rem-calc(46);
+                }
+
+                .suffix {
+                    position: absolute;
+                    top: 5px;
+                    left: 100%;
+                }
+            }
+        }
+        .price-details {
+            background-color: var(--minisheet-booking-bg-color);
+            color: var(--minisheet-booking-price-color);
+            font-weight: var(--minisheet-booking-font-weight);
+            box-shadow: var(--minisheet-booking-box-shadow);
+            padding: $global-padding;
+            top: 50%;
+            transform: translateY(-50%) translateX(5px);
+            right: calc(100% + 12px);
+            border-radius: 7px;
+            pointer-events: none;
+            width: 200px;
+            transition: all .2s ease-out;
+            opacity: 0;
+            p {
+                margin-bottom: 0;
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                top: calc(50% - 10px);
+                left: 100%;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 10px 0 10px 10px;
+                border-color: transparent transparent transparent var(--minisheet-booking-bg-color);
+            }
+        }
+        &:hover {
+            .price-details {
+                opacity: 1;
+                transform: translateY(-50%) translateX(0px);
+            }
+        }
+
+        .button {
+            padding: $global-padding;
+            margin-bottom: 0;
+            background-color: var(--minisheet-booking-link-bg-color);
+
+            @include breakpoint(large) {
+                border-top: var(--minisheet-booking-link-border);
+            }
+
+            &:hover {
+                background-color: var(--minisheet-booking-link-bg-color-hover);
+            }
+        }
+    }
+
+    a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+
+        &.not-defined {
+            background-color: var(--minisheet-bg-color-hover);
+        }
+    }
+}

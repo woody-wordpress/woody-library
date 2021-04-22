@@ -1,7 +1,8 @@
 // Basic
 $coloredbg-cardsection-bgcolor : $white !default;
 $nobg-cardsection-bgcolor : $light-gray !default;
-
+$nobg-splitcardsection-bgcolor : $nobg-cardsection-bgcolor !default;
+$nobg-profileCardsection-bgcolor : $nobg-cardsection-bgcolor !default;
 // Overlayed
 $overlayed-bgcolor : $black !default;
 
@@ -87,3 +88,27 @@ $round-card-button-font-size:44 !default;
 $round-card-button-bgcolor:$primary-color !default;
 $round-card-button-color:$white !default;
 $round-card-button-border:none !default;
+
+// Profile
+$card-profile-padding: $global-padding !default;
+$card-profile-img-size: 70px !default;
+$card-profile-img-shadow:1px 3px 5px rgba($black, .1) !default;
+$card-profile-img-radius: 50% !default;
+$card-profile-img-border: 2px solid $white !default;
+
+$card-profile-font-size: rem-calc(12) !default;
+$card-profile-font-family: $body-font-family !default;
+$card-profile-font-weight: $global-weight-normal !default;
+$card-profile-font-style: italic !default;
+
+$basiccard-profile-position: absolute !default;
+$basiccard-profile-coords: (top: -3rem, right: 1rem) !default;
+
+
+// Card index
+$cardIndex-top-pos : 0 !default;
+$cardIndex-left-pos : 0 !default;
+$cardIndex-color : $white !default;
+$cardIndex-opacity : 1 !default;
+$cardIndex-font-size : 44 !default;
+$cardIndex-font-family : $header-font-family !default;

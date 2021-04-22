@@ -3,10 +3,6 @@
         display: block;
     }
 
-    &-title {
-        @extend .h2 !optional;
-    }
-
     &-pretitle,
     &-subtitle {
         @extend .h4 !optional;

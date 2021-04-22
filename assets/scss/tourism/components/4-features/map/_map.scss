@@ -1,7 +1,7 @@
 #map-container {
     position: relative;
     z-index: 2;
-    & > #map {
+    & > div {
         border-top: 1px solid $panel-default-border;
     }
 }
@@ -16,10 +16,15 @@
     z-index: 1;
     position: relative;
 
+    #show-map{
+        background-image: url(https://api.tourism-system.com/static/assets/images/see_map.png);
+        background-size: cover;
+        padding: 20px;
+    }
+
     .sidebar-map {
         height: 190px;
-        pointer-events: none;
-
+        & > a { color: white; }
         .gm-style > * {
             &:not(:first-child) {
                 display: none;

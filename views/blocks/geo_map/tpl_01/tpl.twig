@@ -1,35 +1,51 @@
 {% set random_number = ''|random_number %}
+{% if map_controls_pos is not defined %}
+    {% set map_controls_pos = 'topright' %}
+{% endif %}
 <div class="woody-component woody-component-geomap tpl_01">
     <script>
     var mapData = {
         id: "geomap-{{ random_number }}",
-            default: {
-                lat: {{ default_lat }},
-                lng: {{ default_lng }},
-                zoom: {{ map_zoom|default(7) }},
-                fitBounds: {{ map_zoom_auto|default(0) }},
-                tm_conf_id : {{ tmaps_confid|default('false') }},
-                controls: {
-                    "fullScreenControl": true,
-                    "zoomControl": true,
-                    "zoomControlPosition": "topright",
-                    "layerControl": true
-                }
+        default: {
+            position:{
+                latitude:{{ default_lat }},
+                longitude:{{ default_lng }},
+                zoom:{{ map_zoom|default(7) }}
             },
-            {% if markers|default %}
-                markers: [
-                    {% for marker in markers %}
-                        {% if marker.map_position|default %}
-                            {
-                                lat: {{ marker.map_position.lat }},
-                                lng: {{ marker.map_position.lng }},
-                                customMarker: "{{ marker.compiled_marker|e('js') }}",
-                                html: "{{ marker.marker_thumb_html|default|e('js') }}"
-                            },
-                        {% endif %}
-                    {% endfor %}
-                ]
-            {% endif %}
+            zoom:{
+                state:true,
+                position:"{{map_controls_pos}}"
+            },
+            fullscreen: {
+                position:"{{map_controls_pos}}"
+            },
+            locate: {
+                position:"{{map_controls_pos}}"
+            },
+            geosearch: {
+                position:"{{map_controls_pos}}"
+            },
+            carto: {
+                position:"{{map_controls_pos}}"
+            },
+            fitBounds: {{ map_zoom_auto|default(0) }},
+            tm_conf_id : {{ tmaps_confid|default('false') }},
+            clustering : true
+        },
+        {% if markers|default %}
+            markers: [
+                {% for marker in markers %}
+                    {% if marker.map_position|default %}
+                        {
+                            lat: {{ marker.map_position.lat }},
+                            lng: {{ marker.map_position.lng }},
+                            customMarker: "{{ marker.compiled_marker|e('js') }}",
+                            html: "{{ marker.marker_thumb_html|default|e('js') }}"
+                        },
+                    {% endif %}
+                {% endfor %}
+            ]
+        {% endif %}
         }
 
         {% if routes %}
@@ -55,15 +71,13 @@
                     if(index.indexOf('geomap') != -1){
                         value.eachLayer(function(e){
                             if('feature' in e && 'route' in e['feature']){
-                                let stroke_color = e['feature']['properties']['stroke'];
-                                let fill_color = e['feature']['properties']['fill'];
-                                let opacity = e['feature']['properties']['fill-opacity'];
-                                let weight = e['feature']['properties']['stroke-width'];
                                 e.setStyle({
-                                    color: stroke_color,
-                                    fillColor: fill_color,
-                                    fillOpacity: opacity,
-                                    weight: weight
+                                    color: e['feature']['properties']['stroke'],
+                                    fillColor: e['feature']['properties']['fill'],
+                                    fillOpacity: e['feature']['properties']['fill-opacity'],
+                                    weight: e['feature']['properties']['stroke-width'],
+                                    fill: e['feature']['properties']['fill'] ? true : false,
+                                    stroke: true
                                 });
                             }
                         });

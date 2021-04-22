@@ -1,19 +1,19 @@
 import $ from 'jquery';
 import flatpickr from "flatpickr";
 
-$('.woody-component-bookblock').each(function() {
+$('.woody-component-bookblock').each(function () {
 
-    var updateFromOption = function() {
+    var updateFromOption = function () {
 
         var $optionSelected = $('option:selected', $plSelect);
 
-        if (typeof($optionSelected.data('daterange')) !== 'undefined') {
+        if (typeof ($optionSelected.data('daterange')) !== 'undefined') {
             $dateRangeInput.show();
 
             if (dateSingle.length !== 0) {
                 dateSingle.clear();
             }
-        } else if (typeof($optionSelected.data('singledate')) !== 'undefined') {
+        } else if (typeof ($optionSelected.data('singledate')) !== 'undefined') {
             $dateRangeInput.hide();
 
             if (datesRange.length !== 0) {
@@ -23,7 +23,7 @@ $('.woody-component-bookblock').each(function() {
             $dateRangeInput.hide();
         }
 
-        if (typeof($optionSelected.data('singledate')) !== 'undefined') {
+        if (typeof ($optionSelected.data('singledate')) !== 'undefined') {
             $singleDateInput.add($periodInput).show();
 
             if (datesRange.length !== 0) {
@@ -31,12 +31,12 @@ $('.woody-component-bookblock').each(function() {
             }
 
             var $options = $periodInput.find('option');
-            $options.each(function() {
+            $options.each(function () {
                 if ($(this).data('plid') != $optionSelected.val()) {
                     $(this).remove();
                 }
             });
-        } else if (typeof($optionSelected.data('daterange')) !== 'undefined') {
+        } else if (typeof ($optionSelected.data('daterange')) !== 'undefined') {
             $singleDateInput.add($periodInput).hide();
 
             if (dateSingle.length !== 0) {
@@ -46,13 +46,13 @@ $('.woody-component-bookblock').each(function() {
             $singleDateInput.add($periodInput).hide();
         }
 
-        if (typeof($optionSelected.data('adults')) !== 'undefined') {
+        if (typeof ($optionSelected.data('adults')) !== 'undefined') {
             $adultsInput.show();
         } else {
             $adultsInput.hide();
         }
 
-        if (typeof($optionSelected.data('children')) !== 'undefined') {
+        if (typeof ($optionSelected.data('children')) !== 'undefined') {
             $childrenInput.show();
         } else {
             $childrenInput.hide();
@@ -60,11 +60,11 @@ $('.woody-component-bookblock').each(function() {
 
     };
 
-    var tabulationForms = function() {
+    var tabulationForms = function () {
         var $tabulator = $this.find('.form-tabs .tabs-title button');
-        $tabulator.each(function() {
+        $tabulator.each(function () {
             var $tab = $(this);
-            $tab.click(function() {
+            $tab.click(function () {
                 $tab.parents('.tabs-list').find('.is-active').removeClass('is-active');
                 $tab.addClass('is-active');
                 $plSelect.find('option').removeAttr('selected');
@@ -74,7 +74,7 @@ $('.woody-component-bookblock').each(function() {
         });
     }
 
-    var seasonslangs = function(locale) {
+    var seasonslangs = function (locale) {
         if (locale == 'hiver' || locale == 'ete') {
             return 'fr';
         } else if (locale == 'winter' || locale == 'summer') {
@@ -87,15 +87,15 @@ $('.woody-component-bookblock').each(function() {
 
     }
 
-    var flatpickrSingle = function($e) {
+    var flatpickrSingle = function ($e) {
         flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday
-        var the_locale = seasonslangs(window.siteConfig.current_lang);
+        var the_locale = seasonslangs(window.globals.current_lang);
         const bookingSingledate = flatpickr('.singledate-input', {
             mode: 'single',
             minDate: "today",
             dateFormat: "d/m/Y",
             locale: the_locale,
-            onClose: function(selectedDates, dateStr, el) {
+            onClose: function (selectedDates, dateStr, el) {
                 $(el.input).parents('.woody-component-bookblock').find('.form-submit').removeData('tooltip').removeAttr('title').removeClass('disabled');
             }
         });
@@ -103,15 +103,15 @@ $('.woody-component-bookblock').each(function() {
         return bookingSingledate;
     }
 
-    var flatpickrRange = function($e) {
+    var flatpickrRange = function ($e) {
         flatpickr.l10ns.default.firstDayOfWeek = 1; // Monday
-        var the_locale = seasonslangs(window.siteConfig.current_lang);
+        var the_locale = seasonslangs(window.globals.current_lang);
         const bookingRangesdates = flatpickr('.daterange-input', {
             mode: 'range',
             minDate: "today",
             dateFormat: "d/m/Y",
             locale: the_locale,
-            onClose: function(selectedDates, dateStr, el) {
+            onClose: function (selectedDates, dateStr, el) {
                 $(el.input).parents('.woody-component-bookblock').find('.form-submit').removeData('tooltip').removeAttr('title').removeClass('disabled');
             }
         });
@@ -120,7 +120,7 @@ $('.woody-component-bookblock').each(function() {
 
     }
 
-    var facetConstructor = function(adult_count, children_count, selectedDates, customValues, conf_id) {
+    var facetConstructor = function (adult_count, children_count, selectedDates, customValue, conf_id) {
         var facets = {};
 
         facets = {
@@ -133,18 +133,16 @@ $('.woody-component-bookblock').each(function() {
             "childrenData": [],
             "availableOnly": true,
             "confId": conf_id,
-            "customValues": []
+            "customValue": {}
         }
 
         for (var i = 0; i < children_count; i++) {
             facets.childrenData.push({ "age": 5 });
         }
 
-        if (customValues !== null && typeof customValues != 'undefined' && customValues.length != 0) {
-            facets.customValues.push({
-                "value": customValues.val(),
-                "unit": customValues.data('unit')
-            })
+        if (customValue !== null && typeof customValue != 'undefined' && customValue.length != 0) {
+            facets.customValue.value = customValue.val();
+            facets.customValue.unit = customValue.data('unit');
         }
 
         return facets;
@@ -164,7 +162,7 @@ $('.woody-component-bookblock').each(function() {
 
     updateFromOption();
 
-    $plSelect.on('change', function() {
+    $plSelect.on('change', function () {
         updateFromOption();
     });
 
@@ -172,7 +170,7 @@ $('.woody-component-bookblock').each(function() {
         tabulationForms($this, $plSelect);
     }
 
-    $counterButton.click(function() {
+    $counterButton.click(function () {
         var $target = $($(this).parent().find('.item-counter-value'));
 
         if ($(this).hasClass('incre')) {
@@ -190,7 +188,7 @@ $('.woody-component-bookblock').each(function() {
         }
     });
 
-    $submit.click(function(e) {
+    $submit.click(function (e) {
         e.preventDefault();
 
         var selectedDates = [];
@@ -200,7 +198,7 @@ $('.woody-component-bookblock').each(function() {
                 selectedDates.push(element);
             });
 
-            var customValues = null;
+            var customValue = null;
 
         } else if (dateSingle.selectedDates.length >= 1) {
             dateSingle.selectedDates.forEach(element => {
@@ -214,7 +212,7 @@ $('.woody-component-bookblock').each(function() {
                 selectedDates.push(endDate);
             });
 
-            var customValues = $('option:selected', $this.find('.period-input .select-input'));
+            var customValue = $('option:selected', $this.find('.period-input .select-input'));
 
         }
 
@@ -222,7 +220,7 @@ $('.woody-component-bookblock').each(function() {
             conf_id = $('option:selected', $plSelect).data('conf_id'),
             adult_count = $this.find('.adults-input .item-counter-value').val() || 0,
             children_count = $this.find('.children-input .item-counter-value').val() || 0,
-            the_facets = facetConstructor(adult_count, children_count, selectedDates, customValues, conf_id),
+            the_facets = facetConstructor(adult_count, children_count, selectedDates, customValue, conf_id),
             datesGlobal = [],
             datesToStore = {
                 date: moment().format(),

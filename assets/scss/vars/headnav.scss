@@ -5,7 +5,7 @@ $headnavs-has-shadow: false !default;
 $headnavs-shadow: 0 0 40px -25px rgba($black, .5) !default;
 
 // Topheader
-$topheader-height: 40px; // HAUTEUR DU MENU
+$topheader-height: 40px !default; // HAUTEUR DU MENU
 
 // Top bar links (excludind submenus)
 $topbar-link-txt-transform : uppercase !default;

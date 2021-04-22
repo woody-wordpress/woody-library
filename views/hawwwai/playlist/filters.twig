@@ -178,15 +178,17 @@
                 {# filter won't show #}
                 {% else %}
                     {% if filter.title|default %}
-                        <div id="facet-filter-{{filter.id}}" class="filter-base
+                        <div id="facet-filter-{{filter.id}}" class="filter-base {% if filter.color|default %}colored{% endif %}
                         {% if filter.type in ['basic-slider','range-slider'] and filter.values.count|default != '0' and filter.values.min|default('0') == filter.values.max|default('200') %}empty-slider{% endif %}
                         filter-type-{{filter.type|default}}"
                             style="order: {% if filter.type|default == 'tags' and display.version|default == 1 %}-1;{% else %}{{filter.weight|default('1')}};{% endif %}"
                             data-id="{{filter.id}}">
 
-                            <div class="h3">
-                                {{filter.title}}
-                            </div>
+                            {% if filter.color|default %}
+                            <style>.active-filter[data-filter="{{filter.id}}"],#facet-filter-{{filter.id}} {--highlight-facet-color: {{ filter.color }};}</style>
+                            {% endif %}
+
+                            <div class="h3">{{filter.title}}</div>
 
                             <form id="{{ filter.id }}" class="{{ filter.customClass|default }}">
                                 {% if filter.type in ['daterange','daterangeWithAvailabilities','capacitiesAvailabilities'] %}
@@ -200,13 +202,17 @@
                                         {% for item in filter.values %}
                                             {% if item.count|default %}
                                             <div class="{% if filter.type == 'tags' %}{% endif %}item">
+
                                                 <input type="checkbox" data-translation="{{ item.name }}" name="{{ item.name }}"
                                                     id="{{ filter.id ~ '_' ~ item.alias }}" value="{{ item.alias }}"
                                                     class="facet hidden">
+
                                                 <label for="{{ filter.id ~ '_' ~ item.alias }}"
-                                                    class="item {% if filter.type == 'tags' %}btn btn-default {% endif %}">{% if filter.type == 'checkbox' %}
-                                                        <span class="fake-checkbox"></span> {% endif %}{{ item.name }}
-                                                        <span class="badge count">{{ item.count|default }}</span></label>
+                                                    class="item {% if filter.type == 'tags' %}btn btn-default {% endif %}">
+                                                        {% if filter.type == 'checkbox' %}<span class="fake-checkbox"></span>{% endif %}
+                                                        {{ item.name }}
+                                                        <span class="badge count">{{ item.count|default }}</span>
+                                                </label>
                                             </div>
                                             {% endif %}
                                         {% endfor %}
@@ -330,10 +336,10 @@
 
             <div class="filter-type-search-text left-addon" style="order:9998;">
                 <i class="icon icon-font-loupe"></i>
-                <input type="text" name="searchText" id="filter-searchtext" placeholder="{{ TR.SEARCH|default('.Rechercher') }}">
+                <input type="text" name="searchText" id="filter-searchtext" placeholder="{{ TR.TERMSEARCH|default('.Rechercher') }}">
             </div>
 
-            <div class="reset-filters row" style="order:9999;">
+            <div class="reset-filters row" style="display:none;order:9999;">
                 <i class="icon icon-font-switch"></i>
                 <p>{{ TR.RESET_FILTERS|default('.Réinitialiser les filtres') }}</p>
             </div>

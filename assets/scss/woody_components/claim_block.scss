@@ -9,6 +9,17 @@
         z-index: 9999;
         box-shadow: 0 6px 4px rgba($black, .15);
         background-color: $white;
+
+        &.bottom-left {
+            left: 20px;
+            right: auto;
+        }
+
+        &.center {
+            bottom: 50%;
+            right: 50%;
+            transform: translateX(50%) translateY(50%);
+        }
     }
 
     .claim {
@@ -52,7 +63,9 @@
         }
 
         &-button {
-            @include xy-gutters($gutter-position: top left);
+            @include xy-gutters($gutter-position: top left right);
+            display: flex;
+            justify-content: center; 
         }
     }
 
@@ -91,5 +104,11 @@
 body.fullScrolled {
     .woody-component-claims-block {
         transform: translateY(-50px); // To stay above cookie consent banner
+    }
+    
+    .claim-content {
+        @include breakpoint(large down) {
+            font-size: 14px;
+        }
     }
 }

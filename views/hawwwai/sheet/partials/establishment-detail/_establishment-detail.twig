@@ -57,67 +57,90 @@
 
         <ul class="list-group stripes-odd">
             {% if formated_object.arrangementsDefault|default %}
-                <li class="list-group-item establishment-detail-arrangement">
-                    <dl class="row">
-                        <dt class="col-xs-12 col-sm-3 _plu-push--tiny">
-                            <span class="pl-heading">{{ 'SECTIONS.TOURISM.SHEET.ARRANGEMENT'|trans }}</span>
-                        </dt>
-                        <dd class="col-xs-12 col-sm-9">
-                            {% for arrangement in formated_object.arrangementsDefault %}
-                                <div class="_plu-push--tiny">
-                                    {% if arrangement.unitsNumber|default %}
-                                        <span class="arrangement_unitsNumber">{{ arrangement.unitsNumber }}</span>
-                                    {% endif %}
-                                    <span class="">{{ arrangement._type|default }}</span>
-                                    {% if arrangement._name|default %}
-                                        <span class="arrangement__type">{{ arrangement._name }}</span>
-                                    {% endif %}
-                                    {% if arrangement._description|default %}
-                                        <span class="arrangement_description"> - {{ arrangement._description }}</span>
-                                    {% endif %}
-                                    {% if arrangement.maxSurface is defined and (arrangement.maxSurface| number_format != 0) %}
-                                        <span class="arrangement_maxSurface">({{arrangement.maxSurface| number_format}} m<sup>2</sup>)</span>
-                                    {% elseif arrangement.averageSurface is defined and (arrangement.averageSurface| number_format != 0) %}
-                                        <span class="arrangement_averageSurface">({{arrangement.averageSurface| number_format}} m<sup>2</sup>)</span>
-                                    {% endif %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'establishment-detail-arrangement'} %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.ARRANGEMENT'|trans }}{% endblock %}
+                    {% block content %}
+                        {% for arrangement in formated_object.arrangementsDefault %}
+                            <div class="_plu-push--tiny">
+                                {% if arrangement.unitsNumber|default %}
+                                    <span class="arrangement_unitsNumber">{{ arrangement.unitsNumber }}</span>
+                                {% endif %}
+                                <span class="">{{ arrangement._type|default }}</span>
+                                {% if arrangement._name|default %}
+                                    <span class="arrangement__type">{{ arrangement._name }}</span>
+                                {% endif %}
+                                {% if arrangement._description|default %}
+                                    <span class="arrangement_description"> - {{ arrangement._description }}</span>
+                                {% endif %}
+                                {% if arrangement.maxSurface is defined and (arrangement.maxSurface| number_format != 0) %}
+                                    <span class="arrangement_maxSurface">({{arrangement.maxSurface| number_format}} m<sup>2</sup>)</span>
+                                {% elseif arrangement.averageSurface is defined and (arrangement.averageSurface| number_format != 0) %}
+                                    <span class="arrangement_averageSurface">({{arrangement.averageSurface| number_format}} m<sup>2</sup>)</span>
+                                {% endif %}
 
-                                    {% if arrangement.layouts|default %}
-                                        <ul class="_plu-cushion-left--tiny _plu-push--tiny arrangement_layouts">
-                                            {% for layout in arrangement.layouts %}
-                                                <li class="zeta _plu-text-muted--light">
-                                                    &bull;
-                                                    {% if thesaurus.fulldictionary[layout.type] %}
-                                                        {{ thesaurus.fulldictionary[layout.type] }}
-                                                    {% endif %}
-                                                    {% if layout.maxCapacity is defined and layout.maxCapacity is not empty %}
-                                                        ({{ layout.maxCapacity }}
-                                                        {% if thesaurus.fulldictionary[layout._code] %}
-                                                            {{ thesaurus.fulldictionary[layout._code] }}
-                                                        {% endif %})
-                                                    {% endif %}
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                        </dd>
-                    </dl>
-                </li>
+                                {% if arrangement.layouts|default %}
+                                    <ul class="_plu-cushion-left--tiny _plu-push--tiny arrangement_layouts">
+                                        {% for layout in arrangement.layouts %}
+                                            <li class="zeta _plu-text-muted--light">
+                                                &bull;
+                                                {% if thesaurus.fulldictionary[layout.type] %}
+                                                    {{ thesaurus.fulldictionary[layout.type] }}
+                                                {% endif %}
+                                                {% if layout.maxCapacity is defined and layout.maxCapacity is not empty %}
+                                                    ({{ layout.maxCapacity }}
+                                                    {% if thesaurus.fulldictionary[layout._code] %}
+                                                        {{ thesaurus.fulldictionary[layout._code] }}
+                                                    {% endif %})
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# Hack for accessibleLink when no accessibility services are found #}
+            {% set hasAccessibilityServices = false %}
+            {% for service in formated_object.servicesOffers %}
+                {% if service.type == '15.01' %}
+                    {% set hasAccessibilityServices = true %}
+                {% endif %}
+            {% endfor %}
+            {% if not hasAccessibilityServices and formated_object.accessibleLink|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'establishment-detail'} %}
+                    {% block title %}{{thesaurus.fulldictionary['15.01']}}{% endblock %}
+                    {% block content %}
+                        <div class="_plu-push">
+                            <span class="icon-font-globe plo-fonticon"></span>
+                            <span class="_plu-hard--left website ellipsis" {# interact event-type="WEBSITE_TOURISTIC_PROVIDER" #}>
+                                <a rel="noindex,nofollow" data-type="URL" class='nowrap' itemprop="url" href="{{ formated_object.accessibleLink }}" target="_blank">{{ formated_object.accessibleLink|simpleURL }}</a>
+                            </span>
+                        </div>
+                    {% endblock %}
+                {% endembed %}
             {% endif %}
 
             {% for service in formated_object.servicesOffers %}
                 {% if service.servicesDetail|default and thesaurus.fulldictionary[service.type] is defined %}
-                    <li class="list-group-item establishment-detail-{{service.type}}">
-                        <dl class="row">
-                            <dt class="col-xs-12 col-sm-3 _plu-push--tiny"><span class="pl-heading">{{thesaurus.fulldictionary[service.type]}}</span></dt>
-                            <dd class="col-xs-12 col-sm-9">
-                                {% if service.type == '15.01' %} {# if accessibilities #}
-                                <ul class="plo-list-bare accessibilities">
-                                {% else %}
-                                <ul class="plo-list-bare col-xs-6">
+                    {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'establishment-detail' } %}
+                        {% block title %}{{thesaurus.fulldictionary[service.type]}}{% endblock %}
+                        {% block content %}
+                            {% if service.type == '15.01' %} {# if accessibilities #}
+                                {% if formated_object.accessibleLink|default %}
+                                <div class="_plu-push">
+                                        <span class="icon-font-globe plo-fonticon"></span>
+                                        <span class="_plu-hard--left website ellipsis" {# interact event-type="WEBSITE_TOURISTIC_PROVIDER" #}>
+                                            <a rel="noindex,nofollow" data-type="URL" class='nowrap' itemprop="url" href="{{ formated_object.accessibleLink }}" target="_blank">{{ formated_object.accessibleLink|simpleURL }}</a>
+                                        </span>
+                                </div>
                                 {% endif %}
-
+                            <ul class="plo-list-bare accessibilities">
+                            {% else %}
+                            <ul class="plo-list-bare col-xs-6">
+                            {% endif %}
                                 {% for servicedetail in service.servicesDetail  %}
                                     {% if servicedetail.service|default and servicedetail._service is defined %}
                                         {% if service.type != '15.01' and loop.index0 == ((loop.length/2)|round) %}</ul><ul class="plo-list-bare col-xs-6">{% endif %}
@@ -132,14 +155,11 @@
                                                 <div class="zeta _plu-text-muted--light _plu-cushion--tiny"><em>&bull;&nbsp;{{ servicedetail._description }}</em></div>
                                             {% endif %}
                                         </li>
-
                                     {% endif %}
                                 {% endfor %}
-
-                                </ul>
-                            </dd>
-                        </dl>
-                    </li>
+                            </ul>
+                        {% endblock %}
+                    {% endembed %}
                 {% endif %}
             {% endfor %}
 

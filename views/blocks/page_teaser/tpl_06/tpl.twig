@@ -1,0 +1,9 @@
+{% extends 'blocks/page_teaser/tpl_03/tpl.twig' %}
+{% block index_class %} tpl_06{% endblock %}
+{% block imagObject %}
+{% include '_objects/imageObject.twig' with {
+'img' : page_teaser_img,
+'image_style' : "ratio_free",
+'containerClass' : "pageTeaserMedia"
+} %}
+{% endblock %}

@@ -1,0 +1,259 @@
+
+
+@function woody-fx-templates($template) {
+    $options: null;
+    @if ($template == 'grayscale_in_01') {
+        $options: (
+            (target:img, fx: grayscale-in),
+        );
+    }
+    @if ($template == 'overflow_01') {
+        $options: (
+            (fx: display, target: card, css: (overflow: hidden, position: relative,)),
+        );
+    }
+    // Image zoom in
+    @if ($template == 'img_zoom-in_01') {
+        $options: (
+            (target: img, fx: zoom-in),
+            (target: img, fx: overlay),
+        );
+    }
+    // Image zoom out
+    @if ($template == 'img_zoom-out_01') {
+        $options: (
+            (target: img, fx: zoom-out),
+            (target: img, fx: overlay),
+        );
+    }
+    // Overlay Slide in from bottom
+    @if ($template == 'overlay_01') {
+        $options: (
+            (extend: 'overflow_01'),
+            (target: after, fx: display, css:(opacity: .8)),
+            (target: after, fx: slide-in-up, value:100%),
+        );
+    }
+    // Overlay Slide in from top
+    @if ($template == 'overlay_02') {
+        $options: (
+            (extend: 'overflow_01'),
+            (target: after, fx: display, css:(opacity: .8)),
+            (target: after, fx: slide-in-down, value:100%),
+        );
+    }
+    // Overlay Slide in from left
+    @if ($template == 'overlay_03') {
+        $options: (
+            (extend: 'overflow_01'),
+            (target: after, fx: display, css:(opacity: .8)),
+            (target: after, fx: slide-in-right, value:100%),
+        );
+    }
+    // Overlay Slide in from right
+    @if ($template == 'overlay_04') {
+        $options: (
+            (extend: 'overflow_01'),
+            (target: after, fx: display, css:(opacity: .8)),
+            (target: after, fx: slide-in-left, value:100%),
+        );
+    }
+    // Overlay Slide in from bottom
+    @if ($template == 'overlay_01b') {
+        $options: (
+            (extend: 'overflow_01'),
+            (target: before, fx: display, css:(opacity: .5, background-color: $secondary-color)),
+            (target: before, fx: slide-in-up, value:100%, time: '+1s'),
+        );
+    }
+    // Overlay Slide in and Zoom in from Left
+    @if ($template == 'overlay_05') {
+        $options: (
+            (target: section-before, fx: display, css:(z-index:-1, opacity: .6, top: 50%)),
+            (target: section-before, fx: bg-color, value: $primary-color),
+            (target: section-before, fx: slide-in-right, value:0,),
+            (target: section-before, fx: zoom-in, value:(0, 2), time:('+.2s')),
+            (target: section-before, fx: slide-up, value:(-50%, -50%), time:('+.2s')),
+        );
+    }
+    // Overlay Fade in
+    @if ($template == 'overlay_fade_in') {
+        $options: (
+            (target: after, fx: display),
+            (target: after, fx: fade-in, value: .8),
+        );
+    }
+    // Overlay Fade out
+    @if ($template == 'overlay_fade_out') {
+        $options: (
+            (target: after, fx: display),
+            (target: after, fx: fade-out, value: .3),
+        );
+    }
+    // Overlay Color
+    @if ($template == 'overlay_secondary_color') {
+        $options: (
+            (target: after, fx: custom, css:(background-color: $secondary-color,)),
+        );
+    }
+    // Remove shadow on hover
+    @if ($template == 'remove_shadow_hover') {
+        $options: (
+            (target: img-after, hover: true, fx: custom, css:(box-shadow: 0 0 0 rgba(0,0,0,0),)),
+        );
+    }
+    // All texts to white
+    @if ($template == 'texts_to_white') {
+        $options: (
+            (target: texts, fx: color-to, value:$white),
+            (target: title, fx: color-to, value:$white),
+        );
+    }
+    // Square in
+    @if ($template == 'square_in') {
+        $options: (
+            (target: section-before, fx: display, css:(z-index:-1, opacity: .5, background-color: transparent,)),
+            (target: section-before, fx: border, value:((0px $secondary-color), (4px $secondary-color)), time:('+0.2s', '+0.3s')),
+            (target: section-before, fx: space-in, time:('+0.3s', '+0.3s')),
+        );
+    }
+    // Square into middle
+    @if ($template == 'square_to_middle') {
+        $options: (
+            (target: section-before, fx: display, css:(z-index:-1, opacity: 1, background-color: transparent,)),
+            (target: section-before, fx: border, value:((0px $secondary-color), (100px $secondary-color)), time:('+0.2s', '+0.3s')),
+            (target: section-before, fx: zoom-in, value:0.2, ease:(ease-out, default), time:('-0.40s', default), delay:(.05s, default)),
+            (target: section-before, fx: fade-out, value:(1,0), ease:(ease-out, default), time:('-0.35s', default), delay:(.05s, default)),
+            (target: section-before, fx: blur-in, ease:(ease-out, default), time:('-0.35s', default), delay:(.05s, default)),
+        );
+    }
+
+    // Skewed squares
+    @if ($template == 'skewed_fx_01') {
+        $options: (
+            (target: section-after, fx: skew-top),
+            (target: section-before, fx: skew),
+        );
+    }
+
+    // Rounded Full ratio
+    @if ($template == 'rounded_full_ratio') {
+        $options: (
+            (target: after, fx: custom, css:(
+                height: 0,
+                padding-top: 100%,
+                border-radius: 100%,
+                transform-origin: top,
+            )),
+        );
+    }
+
+    @if ($template == 'fx_01') {
+        $options: (
+            (extend: 'img_zoom-in_01'),
+            (extend: 'overlay_fade_in'),
+            (extend: 'overlay_secondary_color'),
+            (extend: 'remove_shadow_hover'),
+        );
+    }
+    @if ($template == 'fx_02') {
+        $options: (
+            (extend: 'img_zoom-out_01'),
+            (extend: 'overlay_fade_in', with:(value:(.3, .8), time:('+.5s'))),
+            (target: after, fx: bg-color, value:($black, $secondary-color), time:('+.5s')),
+            (extend: 'remove_shadow_hover'),
+        );
+    }
+    @if ($template == 'fx_03') {
+        $options: (
+            (extend: 'texts_to_white'),
+            (extend: 'square_to_middle'),
+            (target: section-after, fx: display, css:(z-index:-1,)),
+            (target: section-after, fx: bg-color, value:(transparent, rgba($secondary-color, .7)), ease:(ease-out, default), time:('-0.2s', default)),
+            (target: section-after, fx: fade-in, ease:(ease-out, default), time:('-0.2s', default)),
+            (target: section-after, fx: border, value:((0px $secondary-color), (15px $secondary-color)), time:('+0.2s', '+0.3s')),
+            (target: section, fx: custom, css:(padding:25px,)),
+        );
+    }
+    @if ($template == 'fx_04') {
+        $options: (
+            (extend: 'fx_03'),
+            (extend: 'img_zoom-out_01'),
+            (extend: 'square_in'),
+            (target: section-before, fx: border, value:((0px $secondary-color), (50px $secondary-color)), time:('+0.2s', '+0.3s')),
+        );
+    }
+    @if ($template == 'fx_05') {
+        $options: (
+            (extend: 'texts_to_white'),
+            (fx: custom, target: card, css: (overflow: hidden, position: relative)),
+            (target: section-after, fx: display, css:(z-index:-1, opacity: .8)),
+            (target: section-after, fx: slide-in-up, value:(100%, 0%)),
+            (target: section-before, fx: display, css:(z-index:-1, opacity: 1)),
+            (target: section-before, fx: bg-color, value: $primary-color),
+            (target: section-before, fx: slide-in-up, value:(100%, calc(100% - 10px))),
+            (target: img, fx: slide-up, value: 10px, delay: (.0s, .1s)),
+            (target: texts, fx: slide-up, delay: (.0s, .05s)),
+            (target: button, fx: slide-up, delay: (.0s, .08s)),
+        );
+    }
+    @if ($template == 'fx_06') {
+        $options: (
+            (extend: 'texts_to_white'),
+            (extend: 'skewed_fx_01'),
+            (fx: custom, target: card, css: (overflow: hidden, position: relative)),
+            (target: section-after, fx: display, css:(z-index:-1, opacity: .8)),
+            (target: section-after, fx: slide-in-up, value:0),
+
+            (target: section-before, fx: display, css:(z-index:-1, opacity: .7, background: linear-gradient(to right, transparent, $white))),
+            (target: section-before, fx: slide-in-right, value:0, delay: (0s, .12s), time: (0s, default)),
+            (target: section-before, fx: fade-out, delay: (0s, .12s), time: (0s, '+1.5s')),
+
+            (target: img, fx: slide-right, value: 10px, delay: (.0s, .18s)),
+            (target: img, fx: custom, hover: true, css:(transform: scale(1.08))),
+        );
+    }
+    @if ($template == 'fx_07') {
+        $options: (
+            (extend: 'texts_to_white'),
+            (extend: 'img_zoom-in_01'),
+            (extend: 'fx_08'),
+            (extend: 'skewed_fx_01'),
+        );
+    }
+    @if ($template == 'fx_08') {
+        $options: (
+            (extend: 'texts_to_white'),
+            (extend: 'img_zoom-in_01'),
+            (fx: custom, target: card, css: (overflow: hidden, position: relative)),
+            (target: section-after, fx: display, css:(z-index:-1, opacity: .6)),
+            (target: section-after, fx: slide-in-up, value:0),
+
+            (target: section-before, fx: display, css:(z-index:-1, opacity: .6,)),
+            (target: section-before, fx: bg-color, value: $primary-color),
+            (target: section-before, fx: slide-in-right, value:0,),
+        );
+    }
+    @if ($template == 'fx_09') {
+        $options: (
+            (extend: 'texts_to_white'),
+            (extend: 'img_zoom-in_01', with:(time:('+.4s'))),
+
+            (fx: custom, target: card, css: (overflow: hidden, position: relative)),
+            (extend: 'overlay_05'),
+            (extend: 'rounded_full_ratio', with:(target: section-before)),
+        );
+    }
+    @if ($template == 'fx_10') {
+        $options: (
+            (extend: 'fx_09'),
+            (target: section-after, fx: display, css:(z-index:-1, opacity: .6, top: 100%)),
+            (target: section-after, fx: zoom-in, value:(0, 2), time:('+.3s'), delay: (.05s)),
+            (target: section-after, fx: slide-in-up, value:(-50%), time:('+.3s'), delay: (.05s)),
+            (target: section-after, fx: translation, value: (100%, 50%), time:('+.3s'), specs: 'top', delay: (.05s)),
+            (target: section-after, fx: translation, value: (80%, 0%), time:('+.3s'), specs: 'left', delay: (.05s)),
+            (extend: 'rounded_full_ratio', with:(target: section-after)),
+        );
+    }
+    @return $options;
+}

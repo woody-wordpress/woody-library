@@ -2,4 +2,8 @@
     p>.button {
         @include xy-gutters($gutter-position: right);
     }
+
+    p .wicon:before {
+        font-size: $icons-in-text-size;
+    }
 }

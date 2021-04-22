@@ -1,4 +1,4 @@
-@import 'maps';
+@import "maps";
 
 @mixin bgimg-op {
 
@@ -20,8 +20,8 @@
     }
 }
 
-@mixin dynamic-spaces($attribute:padding, $size_type:basic) {
-    $deep-spaces-sizes: map-deep-get($spaces-sizes, '#{$size_type}');
+@mixin dynamic-spaces($attribute: padding, $size_type: basic) {
+    $deep-spaces-sizes: map-deep-get($spaces-sizes, "#{$size_type}");
 
     @each $size,
     $space in $deep-spaces-sizes {
@@ -36,81 +36,84 @@
     @each $color,
     $hex in $foundation-palette {
         &-#{$color} {
+
             #{$attribute}: $hex !important;
+            @include useSetColor($attribute, $hex);
+        }
+    }
+}
 
-            @if $attribute==background-color {
+@mixin useSetColor($attribute, $hex) {
+    @if $attribute==background-color {
+        color: set-color($hex);
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .woody-component-list-filter .filter-label {
+            color: set-color($hex);
+        }
+
+        .list-wicon li:before {
+            color: rgba(set-color($hex), 0.75) !important;
+        }
+
+        a:not(.button):not(.card-link):not(.accordion-title):not(.feature-link) {
+            color: rgba(set-color($hex), 0.75);
+
+            &:hover {
                 color: set-color($hex);
+            }
+        }
 
-                h2,
-                h3,
-                h4,
-                h5,
-                h6,
-                .woody-component-list-filter .filter-label {
+        table {
+            color: $black;
+        }
+
+        blockquote p {
+            color: rgba(set-color($hex), 0.65);
+        }
+
+        .sharing-button__link {
+            svg {
+                fill: set-color($hex);
+            }
+        }
+
+        .swResp,
+        .swiperOut {
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                .wicon {
                     color: set-color($hex);
-                }
-
-                .list-wicon li:before {
-                    color: rgba(set-color($hex), .75) !important;
-                }
-
-                a:not(.button):not(.card-link):not(.accordion-title):not(.feature-link) {
-                    color: rgba(set-color($hex), .75);
-
-                    &:hover {
-                        color: set-color($hex);
-                    }
-                }
-
-                table {
-                    color: $black;
-                }
-
-                blockquote p {
-                    color: rgba(set-color($hex), .65);
-                }
-
-                .sharing-button__link {
-                    svg {
-                        fill: set-color($hex);
-                    }
-                }
-
-                .swResp,
-                .swiperOut {
-
-                    .swiper-button-next,
-                    .swiper-button-prev {
-                        .wicon {
-                            color: set-color($hex);
-                        }
-                    }
-
-                }
-
-                select,
-                input {
-                    background: lighten($hex, 5%);
-                    color: set-color($hex);
-
-                    &:not(.button):focus {
-                        background: lighten($hex, 7%);
-                    }
-
-                    @include placeholder {
-                        color: rgba(set-color($hex), .5);
-                    }
-                }
-
-                .item-counter-button {
-                    background-color: $white;
-                    color: $hex;
-                }
-
-                .weatherDay-details {
-                    background-color: rgba(darken($hex, 10%), .2);
                 }
             }
+        }
+
+        select,
+        input {
+            background: lighten($hex, 5%);
+            color: set-color($hex);
+
+            &:not(.button):focus {
+                background: lighten($hex, 7%);
+            }
+
+            @include placeholder {
+                color: rgba(set-color($hex), 0.5);
+            }
+        }
+
+        .item-counter-button {
+            background-color: $white;
+            color: $hex;
+        }
+
+        .weatherDay-details {
+            background-color: rgba(darken($hex, 10%), 0.2);
         }
     }
 }
@@ -128,7 +131,7 @@
         width: $size;
         height: $size;
         border-radius: 50%;
-        content: '';
+        content: "";
     }
 
     @each $color,
@@ -182,6 +185,14 @@
     }
 }
 
+@mixin header-lh($type) {
+    line-height: rem-calc(map-get(map-get(map-get($header-styles, small), $type), font-size) * 1px + 6px);
+
+    @include breakpoint(medium) {
+        line-height: rem-calc(map-get(map-get(map-get($header-styles, medium), $type), font-size) * 1px + 6px);
+    }
+}
+
 @mixin flags-positions($size: medium) {
     $i: 0;
     $step: 13;
@@ -192,7 +203,7 @@
 
     @each $lang in $langs {
         &.#{$lang} {
-            background-position : 0 #{$i}px;
+            background-position: 0 #{$i}px;
         }
 
         $i: $i - $step;

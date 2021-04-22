@@ -1,3 +1,48 @@
+.booking-content {
+    width: 100%;
+
+    a {
+        text-decoration: none;
+        padding: 15px 30px;
+        font-weight: bold;
+    }
+
+    .booking-info {
+        text-align: center;
+
+        .booking-tariff-text {
+            color: #cccccc;
+            font-size: $font-size-base*1.1;
+
+            .booking-from {
+                display: inline-block;
+                vertical-align: bottom;
+                color: $text-light;
+                font-size: 1em;
+            }
+
+            .booking-tariff {
+                color: $primary-color;
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 50px;
+                line-height: 40px;
+                font-weight: bold;
+
+                .booking-tariff-sup {
+                    top: -10px;
+                }
+            }
+        }
+
+        .booking-tariff-info {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.3em
+        }
+    }
+}
+
 #splashload-elloha {
     background: #979797;
     padding: 20px;
@@ -163,6 +208,22 @@
 #booking {
     min-height: 40px;
     padding: 15px;
+
+    &.booking-elloha {
+        padding: 0;
+        .list-group-item {
+            background-color: $primary-color;
+            text-align: left;
+            border-radius: unset;
+            .pl-heading {
+                color: white;
+            }
+        }
+
+        @media (min-width:991px) {
+            box-shadow: 0px 0px 7px -5px black !important;
+        }
+    }
 
     &.fullscreen {
         -webkit-overflow-scrolling: touch;

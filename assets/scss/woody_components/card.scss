@@ -10,6 +10,17 @@
         border-radius: $card-border-radius;
     }
 
+    &-index {
+        top: $cardIndex-top-pos;
+        left: $cardIndex-left-pos;
+        z-index: 1;
+        color: $cardIndex-color;
+        font-size: rem-calc($cardIndex-font-size);
+        font-family: $cardIndex-font-family;
+        line-height: 1;
+        opacity: $cardIndex-opacity;
+    }
+
     &-titles {
         &.has-icon-img img {
             max-width: $icon-img-max-width;
@@ -119,6 +130,33 @@
         right: $card-bookable-right-pos;
     }
 
+    &-profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: $global-margin*2;
+
+        .profile-img {
+            width: $card-profile-img-size;
+            box-shadow: $card-profile-img-shadow;
+            border-radius: $card-profile-img-radius;
+            border: $card-profile-img-border;
+
+            .imageObject-caption {
+                visibility: hidden;
+            }
+        }
+
+        .profile-name {
+            font-size: $card-profile-font-size;
+            font-family: $card-profile-font-family;
+            font-weight: $card-profile-font-weight;
+            font-style: $card-profile-font-style;
+            text-shadow: $card-profile-img-shadow;
+        }
+    }
+
     &.basicCard {
         .card-link {
             display: flex;
@@ -135,10 +173,64 @@
             &.text-center {
                 align-items: center;
             }
+
+            &.has-profile {
+                position: relative;
+            }
         }
 
-        .imageObject {
+        .cardMediaWrapper {
             border-radius: $card-border-radius $card-border-radius 0 0;
+        }
+
+        .card-profile {
+            position: $basiccard-profile-position;
+            margin: 0;
+
+            @each $element,
+            $value in $basiccard-profile-coords {
+                #{$element}: #{$value};
+            }
+        }
+    }
+
+    &.splitCard {
+        .card-section {
+            background-color: $nobg-splitcardsection-bgcolor;
+        }
+
+        @include breakpoint(xlarge up) {
+            .is-abs {
+                position: absolute;
+                top: 50%;
+                transform: translate(0%, -50%);
+                justify-content: space-around;
+
+                &.abs-left {
+                    left: 10%;
+                }
+
+                &.abs-right {
+                    right: 10%;
+                }
+
+                .card-title {
+                    @include header-size(h2);
+                    margin-bottom: 30px;
+                }
+            }
+
+            .bg-primary {
+                .card-button {
+                    color: set-color($primary-color)
+                }
+            }
+
+            .bg-secondary {
+                .card-button {
+                    color: set-color($secondary-color)
+                }
+            }
         }
     }
 
@@ -150,13 +242,20 @@
             color: $white;
         }
 
-        .imageObject {
+        .cardMediaWrapper {
             height: 100%;
             border-radius: $card-border-radius;
         }
 
         .card-description {
             max-width: 600px;
+        }
+
+        .card-profile {
+            .profile-img {
+                height: auto;
+                border-radius: 50%;
+            }
         }
 
         &.tpl_01,
@@ -168,7 +267,8 @@
             }
         }
 
-        &.tpl_02 {
+        &.tpl_02,
+        &.tpl_04 {
             .card-description {
                 margin-left: auto;
             }
@@ -201,12 +301,12 @@
             }
         }
     }
-
 }
 
 .card.overlayedCard,
 .card.basicCard.tpl_01,
-.card.basicCard.tpl_02 {
+.card.basicCard.tpl_02,
+.card.splitCard {
     .card-tripInfos-wrapper {
         top: $card-tripInfos-top-position;
         bottom: $card-tripInfos-bottom-position;
@@ -304,6 +404,29 @@
             }
         }
     }
+    &.trip{
+        &.media-left{
+            .card-tripInfos-wrapper{
+                right: 0px;
+                left: auto;
+            }
+            .card-title{
+                padding-right: 100px;
+            }
+        }
+        &.media-right{
+            .card-tripInfos-wrapper{
+                left: 0px;
+                right: auto;
+            }
+        }
+    }
+    &.tpl_07{
+        .card-tripInfos-wrapper{
+            width: 100%;
+        }
+    }
+
 }
 
 .geomapCard {
@@ -314,11 +437,147 @@
     }
 }
 
+.card.profileCard {
+    background-color: $nobg-profileCardsection-bgcolor;
+
+    .profile {
+        &-title {
+            @extend h4;
+        }
+
+        &-complement {
+            @include header-size(h6);
+            display: block;
+            margin-bottom: 10px;
+            font-style: $profile-focus-complement-font-style;
+            color: $profile-focus-complement-color;
+        }
+
+        &-img {
+            border: solid $profile-focus-img-border-width $profile-focus-img-border-color;
+            border-radius: $profile-focus-img-radius;
+        }
+
+    }
+
+    .profile-expression {
+        margin-top: 15px;
+    }
+
+    .expression-title {
+        @include header-size(h5);
+        color: $profile-focus-exp-title-color;
+    }
+
+    .expression-content p {
+        font-size: rem-calc($profile-focus-complement-size);
+        color: $profile-focus-complement-color;
+    }
+
+    .social-item {
+        margin-left: 8px;
+        font-size: rem-calc($profile-focus-social-size);
+
+        &.linkedin {
+            @include wicon(006-linkedin);
+        }
+
+        &.twitter {
+            @include wicon(002-twitter);
+        }
+    }
+
+    &.tpl_01,
+    &.tpl_201 {
+        @include breakpoint(medium down) {
+            text-align: center;
+
+            .title-wrapper {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        .profile {
+
+
+            &-contacts {
+                font-size: rem-calc(14);
+
+                .profile-address {
+                    width: 100%;
+                }
+
+                a:not(:nth-of-type(1)):before {
+                    @include breakpoint(medium) {
+                        content: '';
+                        display: block;
+                        width: 4px;
+                        height: 2px;
+                        background-color: $black;
+                        margin: 0 5px;
+                    }
+
+                }
+            }
+        }
+
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.card-slideshow-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $black;
+    opacity: 0;
+}
+
+.card-slideshow-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card.has-slideshow:hover {
+    .card-slideshow-wrapper {
+        opacity: 1;
+        transition: opacity .5s;
+    }
+
+    .card-slideshow-img {
+        &.imgL1 {
+            @include Xfader(1, 1, .5);
+        }
+
+        &.imgL2 {
+            @include Xfader(2, 1, .5);
+        }
+
+        &.imgL3 {
+            @include Xfader(3, 1, .5);
+        }
+
+        &.imgL4 {
+            @include Xfader(4, 1, .5);
+        }
+    }
+}
+
 .bg {
 
     @each $color,
     $hex in $foundation-palette {
         &-#{$color} {
+
+            .profileCard .card-section,
+            .splitCard .card-section,
             .basicCard .card-section {
                 background-color: $coloredbg-cardsection-bgcolor;
             }

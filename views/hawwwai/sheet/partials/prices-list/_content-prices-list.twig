@@ -1,35 +1,26 @@
 {% if formated_object.paymentMethods|default and contractsLevels.content.paymentMethods %}
-
     <div class="panel-title-responsive"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TARIFFS'|trans }}</span></div>
     <section id="tariffs" class="row panel panel-default">
-        <div class="payments-wrapper">
-            <dl class="row">
-
-                <dt class="col-xs-12 col-sm-4">
-                    <span class="pl-heading">{{ 'SECTIONS.TOURISM.SHEET.PAYMENTS_METHODS'|trans }}</span>
-                </dt>
-
-                <dd class="col-xs-12 col-sm-8">
-                    <ul class="plo-nav md-icon-list _plu-flush">
-                    {% for payment in formated_object.paymentMethods %}
-
-                        {# MicroData payment #}
-                        {% if object.data.bordereau not in ['FMA','VIL','PNA'] and payment.libelle|default %}
-                            <meta itemprop="paymentAccepted" content="{{payment.libelle}}">
-                        {% endif %}
-
-                        {# Images #}
-                        <li class="payment-methods-icon-wrapper" {% if payment.libelle|default %}tooltip="{{payment.libelle}}"{% endif %}>
-                            <img class="payment-methods-icon" alt="{{payment.libelle|default}}" src={{ payment.urlHD |default(payment.url) | rcImg(50, 35, 80, 'png', 'clip') }}>
-                        </li>
-
-                    {% endfor %}
-                    </ul>
-                </dd>
-            </dl>
-        </div>
+        {% embed "@LOCAL/helper/row-item.twig" %}
+            {% block title %}{{ 'SECTIONS.TOURISM.SHEET.PAYMENTS_METHODS'|trans }}{% endblock %}
+            {% block content %}
+                <ul class="plo-nav md-icon-list _plu-flush">
+                {% for payment in formated_object.paymentMethods %}
+                    {# MicroData payment #}
+                    {% if object.data.bordereau not in ['FMA','VIL','PNA'] and payment.libelle|default %}
+                        <meta itemprop="paymentAccepted" content="{{payment.libelle}}">
+                    {% endif %}
+                    {# Images #}
+                    <li class="payment-methods-icon-wrapper" {% if payment.libelle|default %}tooltip="{{payment.libelle}}"{% endif %}>
+                        <img class="payment-methods-icon" alt="{{payment.libelle|default}}" src={{ payment.urlHD |default(payment.url) | rcImg(50, 35, 80, 'png', 'clip') }}>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endblock %}
+        {% endembed %}
     </section>
 {% endif %}
+
 {% if formated_object.tariffs|default and contractsLevels.content.tariffs %}
     <section class="row panel panel-default {% if formated_object.tariffPeriods is not empty %}sheet-tab{% endif %}"
         {% if formated_object.paymentMethods is empty or not contractsLevels.content.paymentMethods %}
@@ -39,81 +30,70 @@
 
             {# if no period defined for tariffs #}
             {% if formated_object.tariffPeriods is empty %}
-                <div class="panel-body">
-                    <dl class="row">
-                        <dt class="col-xs-3">
-                            <span class="pl-heading">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}}</span>
-                        </dt>
-                        <dd class="col-xs-9">
-                            <ul class="container-fluid">
-                                {% for tariff in formated_object.tariffs %}
-                                    <li class="row _plu-push">
-                                        <div class="col-xs-6 plo-fit">
-                                            {# Type #}
-                                            {% if thesaurus.fulldictionary[tariff.type] is defined %}
-                                                <span>
-                                                    {{ thesaurus.fulldictionary[tariff.type] }}
-                                                </span>
-                                            {% endif %}
-                                            {# Description #}
-                                            {% if tariff._description is defined %}
-                                                <p class="_plu-text-muted--light zeta"><em>&bull;&nbsp;{{ tariff._description|raw }}</em></p>
-                                            {% endif %}
-                                        </div>
+                {% embed "@LOCAL/helper/row-item.twig" with {layout: 3.9} %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}}{% endblock %}
+                    {% block content %}
+                        <ul class="container-fluid">
+                            {% for tariff in formated_object.tariffs %}
+                                <li class="row _plu-push">
+                                    <div class="col-xs-6 plo-fit">
+                                        {# Type #}
+                                        <span>{{ tariff._type }}</span>
+                                        {# Description #}
+                                        {% if tariff._description is defined %}
+                                            <p class="_plu-text-muted--light zeta"><em>&bull;&nbsp;{{ tariff._description|raw }}</em></p>
+                                        {% endif %}
+                                    </div>
 
-                                        {# Rates #}
-                                        <div class="col-xs-6 plo-fit _plu-text-right _plu-text-muted _plu-emphasis--default epsilon prices">
+                                    {# Rates #}
+                                    <div class="col-xs-6 plo-fit _plu-text-right _plu-text-muted _plu-emphasis--default epsilon prices">
 
-                                            {# if only one tariff defined #}
-                                            {% if tariff.tariffStandard is defined %}
-                                                {# if tarriff = 0 → FREE case #}
-                                                {% if tariff.tariffStandard == '0' %}
-                                                    <span class"pl-heading">{{ 'GLOBAL.FREE'|trans }}</span>
-                                                {% else %}
-                                                    <span class="pl-heading">{{ tariff.tariffStandard }}<sup>&nbsp;&euro;</sup></span>
-                                                {% endif %}
-
-                                                {# if tariffMin & tariffMax are equal #}
-                                            {% elseif tariff.tariffMin is defined and tariff.tariffMax is defined and tariff.tariffMin == tariff.tariffMax %}
-                                                {# if tarriff = 0 → FREE case #}
-                                                {% if tariff.tariffMin == '0' %}
-                                                    <span class"pl-heading">{{ 'GLOBAL.FREE'|trans }}</span>
-                                                {% else %}
-                                                    <span class="pl-heading">{{ tariff.tariffMin }}<sup>&nbsp;&euro;</sup></span>
-                                                {% endif %}
-
-                                                {# if tariffMin & tariffMax are different #}
-                                            {% elseif tariff.tariffMin is defined and tariff.tariffMax is defined %}
-                                                {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.FROM'|trans }}
-                                                <span class="pl-heading">{{ tariff.tariffMin }}<sup>&nbsp;&euro;</sup></span>
-                                                {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TO'|trans }}
-                                                <span class="pl-heading">{{ tariff.tariffMax }}<sup>&nbsp;&euro;</sup></span>
-
-                                                {# if only tariffMin #}
-                                            {% elseif tariff.tariffMin is defined %}
-                                                {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.FROMTO'|trans }}
-                                                <span class="pl-heading">{{ tariff.tariffMin }}<sup>&nbsp;&euro;</sup></span>
-                                                {# if only tariffMax #}
-                                            {% elseif tariff.tariffMax is defined %}
-                                                <span class="pl-heading">{{ tariff.tariffMax }}<sup>&nbsp;&euro;</sup></span>
+                                        {# if only one tariff defined #}
+                                        {% if tariff.tariffStandard is defined %}
+                                            {# if tarriff = 0 → FREE case #}
+                                            {% if tariff.tariffStandard == '0' %}
+                                                <span class"pl-heading">{{ 'GLOBAL.FREE'|trans }}</span>
+                                            {% else %}
+                                                <span class="pl-heading">{{ tariff.tariffStandard|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
                                             {% endif %}
 
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                            {% if formated_object.tariffComplement|default %}
-                                <div class="tariff-complement">
-                                    {{ formated_object.tariffComplement|nl2br }}
-                                </div>
-                            {% endif %}
-                        </dd>
-                    </dl>
-                </div>
+                                            {# if tariffMin & tariffMax are equal #}
+                                        {% elseif tariff.tariffMin is defined and tariff.tariffMax is defined and tariff.tariffMin == tariff.tariffMax %}
+                                            {# if tarriff = 0 → FREE case #}
+                                            {% if tariff.tariffMin == '0' %}
+                                                <span class"pl-heading">{{ 'GLOBAL.FREE'|trans }}</span>
+                                            {% else %}
+                                                <span class="pl-heading">{{ tariff.tariffMin|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
+                                            {% endif %}
 
-                {# else display Tariff Periods #}
+                                            {# if tariffMin & tariffMax are different #}
+                                        {% elseif tariff.tariffMin is defined and tariff.tariffMax is defined %}
+                                            {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.FROM'|trans }}
+                                            <span class="pl-heading">{{ tariff.tariffMin|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
+                                            {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TO'|trans }}
+                                            <span class="pl-heading">{{ tariff.tariffMax|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
+
+                                            {# if only tariffMin #}
+                                        {% elseif tariff.tariffMin is defined %}
+                                            {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.FROMTO'|trans }}
+                                            <span class="pl-heading">{{ tariff.tariffMin|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
+                                            {# if only tariffMax #}
+                                        {% elseif tariff.tariffMax is defined %}
+                                            <span class="pl-heading">{{ tariff.tariffMax|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
+                                        {% endif %}
+
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% if formated_object.tariffComplement|default %}
+                            <div class="tariff-complement">{{ formated_object.tariffComplement|nl2br }}</div>
+                        {% endif %}
+                    {% endblock %}
+                {% endembed %}
+
+            {# else display Tariff Periods #}
             {% else %}
-
 
                 <div class="sheet-tab-nav">
 
@@ -139,8 +119,6 @@
                                                 <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
                                                 <span class="end-date">{{ tariffPeriod.endDate | localizeddate('long', 'none', lang)}}</span>
                                             </span>
-                                            {# {{ 'GLOBAL.DATE.FROM'|trans }} <time datetime="{{tariffPeriod.startDate}}">{{ tariffPeriod._formatedStartDate }}</time><br />
-                                            {{ 'GLOBAL.DATE.TO'|trans }} <time datetime="{{tariffPeriod.endDate}}">{{ tariffPeriod._formatedEndDate }}</time> #}
                                         {% endif %}
                                     </option>
                                 {% endfor %}
@@ -174,8 +152,6 @@
                                                 <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
                                                 <span class="end-date">{{ tariffPeriod.endDate | localizeddate('long', 'none', lang)}}</span>
                                             </span>
-                                            {# {{ 'GLOBAL.DATE.FROM'|trans }} <time datetime="{{tariffPeriod.startDate}}">{{ tariffPeriod._formatedStartDate }}</time><br />
-                                            {{ 'GLOBAL.DATE.TO'|trans }} <time datetime="{{tariffPeriod.endDate}}">{{ tariffPeriod._formatedEndDate }}</time> #}
                                         {% endif %}
                                     </div>
                                     {# arrow icon #}
@@ -198,11 +174,7 @@
                                         <div class="col-xs-6 plo-flag__body">
 
                                             {# Type #}
-                                            {% if thesaurus.fulldictionary[tariff.type] is defined %}
-                                                <span class="pl-heading _plu-soft--bottom">
-                                                    {{ thesaurus.fulldictionary[tariff.type] }}
-                                                </span>
-                                            {% endif %}
+                                            <span class="pl-heading _plu-soft--bottom">{{ tariff._type }}</span>
 
                                             {# Description #}
                                             {% if tariff._description is defined %}
@@ -219,7 +191,7 @@
                                                 {% if tariff.tariffStandard == '0' %}
                                                     <span class"pl-heading">{{ 'GLOBAL.FREE'|trans }}</span>
                                                 {% else %}
-                                                    <span class="pl-heading">{{ tariff.tariffStandard }}<sup>&nbsp;&euro;</sup></span>
+                                                    <span class="pl-heading">{{ tariff.tariffStandard|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
                                                 {% endif %}
 
                                                 {# if tariffMin & tariffMax are equal #}
@@ -228,23 +200,23 @@
                                                 {% if tariff.tariffMin == '0' %}
                                                     <span class"pl-heading">{{ 'GLOBAL.FREE'|trans }}</span>
                                                 {% else %}
-                                                    <span class="pl-heading">{{ tariff.tariffMin }}<sup>&nbsp;&euro;</sup></span>
+                                                    <span class="pl-heading">{{ tariff.tariffMin|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
                                                 {% endif %}
 
                                                 {# if tariffMin & tariffMax are different #}
                                             {% elseif tariff.tariffMin is defined and tariff.tariffMax is defined %}
                                                 {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.FROM'|trans }}
-                                                <span class="pl-heading">{{ tariff.tariffMin }}<sup>&nbsp;&euro;</sup></span>
+                                                <span class="pl-heading">{{ tariff.tariffMin|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
                                                 {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TO'|trans }}
-                                                <span class="pl-heading">{{ tariff.tariffMax }}<sup>&nbsp;&euro;</sup></span>
+                                                <span class="pl-heading">{{ tariff.tariffMax|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
 
                                                 {# if only tariffMin #}
                                             {% elseif tariff.tariffMin is defined %}
                                                 {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.FROMTO'|trans }}
-                                                <span class="pl-heading">{{ tariff.tariffMin }}<sup>&nbsp;&euro;</sup></span>
+                                                <span class="pl-heading">{{ tariff.tariffMin|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
                                                 {# if only tariffMax #}
                                             {% elseif tariff.tariffMax is defined %}
-                                                <span class="pl-heading">{{ tariff.tariffMax }}<sup>&nbsp;&euro;</sup></span>
+                                                <span class="pl-heading">{{ tariff.tariffMax|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
                                             {% else %}
                                                 <span class="pl-heading">&#8212;</span>
                                             {% endif %}
@@ -253,35 +225,27 @@
                                     {% endif %}
                                 {% endfor %}
                             {% if formated_object.tariffComplement|default %}
-                                <div class="tariff-complement">
-                                    {{ formated_object.tariffComplement|nl2br }}
-                                </div>
+                                <div class="tariff-complement">{{ formated_object.tariffComplement|nl2br }}</div>
                             {% endif %}
                         </ul> {# End of pane #}
                     {% endfor %}
                 </div> {# End of panes #}
             {% endif %}
         </div>
-
     </section>
+
 {% elseif formated_object.tariffFree|default and contractsLevels.content.tariffs %}
     <section class="row panel panel-default"
         {% if object.data.tariffs.paymentMethods is not defined %}
             id="tariffs"
         {% endif %}>
         <ul class="list-group">
-            <li class="list-group-item">
-                <dl class="row">
-
-                    <dt class="col-xs-12 col-sm-4">
-                        <span class="pl-heading">{{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TARIFFS'|trans }}</span>
-                    </dt>
-
-                    <dd class="col-xs-12 col-sm-8">
-                        <span>{{ formated_object.tariffFree|nl2br }}</span>
-                    </dd>
-                </dl>
-            </li>
+            {% embed "@LOCAL/helper/list-group-item.twig" with {id: '' ,class: '', disable_title: false} %}
+                {% block title %}{{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TARIFFS'|trans }}{% endblock %}
+                {% block content %}
+                    <span>{{ formated_object.tariffFree|nl2br }}</span>
+                {% endblock %}
+            {% endembed %}
         </ul>
     </section>
 {% endif %}

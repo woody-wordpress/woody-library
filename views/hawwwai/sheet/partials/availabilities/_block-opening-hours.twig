@@ -28,24 +28,29 @@
             </span>
         </div>
 
+        {% if formated_object.covidOpenings|default %}
+            <div class="panel-default panel-body dynamic-opening-periods">
+                <span class="opening-state opening-state-{{formated_object.covidOpenings.light|default('soon')}}">
+                    <span class="opening-state--light"></span>
+                    <span class="opening-state--text">{{ formated_object.covidOpenings.text }}</span>
+                </span>
+            </div>
+        {% endif %}
+
         {# if no period has days defined or oneday period (1) #}
         {% if not formated_object.openingPeriods.hasHours
         	or formated_object.openingPeriods.hasOnlyOneDayPeriods %}
 
             <div class="panel-body pl-paint-winter">
-                <dl class="row">
-
-                    <dt class="col-xs-12 col-sm-3">
-                        <span class="pl-heading">
-                            {% if object.data.bordereau != 'FMA' %}
-                                {{ 'SECTIONS.TOURISM.SHEET.OPENINGS'|trans }}
-                            {% else %}
-                                {{ 'SECTIONS.TOURISM.SHEET.PERIODS.SCHEDULES'|trans }}
-                            {% endif %}
-                        </span>
-                    </dt>
-
-                    <dd class="col-xs-12 col-sm-9">
+                {% embed "@LOCAL/helper/row-item.twig" with {layout: 3.9} %}
+                    {% block title %}
+                        {% if object.data.bordereau != 'FMA' %}
+                            {{ 'SECTIONS.TOURISM.SHEET.OPENINGS'|trans }}
+                        {% else %}
+                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.SCHEDULES'|trans }}
+                        {% endif %}
+                    {% endblock %}
+                    {% block content %}
                         <ul class="row">
                             {% if formated_object.openingPeriods.periods|length > 10 %}
                                 <input type="checkbox" id="period-load-more"/>
@@ -62,6 +67,8 @@
                                                 {{ period.endDate | date ('Y') }}
                                             {% endif %}
                                         </span>
+
+                                        {% include TWIG.OPENING_HOURS__DAYS_IN_CLEAR %}
 
                                     {% elseif period._isMultipleOneDays is defined and period._isMultipleOneDays %}
                                     	<span period-parser-disabled type="bloc" multiple="true"
@@ -119,7 +126,7 @@
                                             {% if formated_object.openingPeriods.hasHours %}
                                                 <span class="opening-hours">
                                                     {% for currentday in period._formated_days %}
-                                                        {% if not loop.first %},{% endif %}
+                                                        {% if not loop.first and currentday.schedules|default %},{% endif %}
 
                                                         {% for schedule in currentday.schedules|default %}
                                                             {% if schedule.startTime is defined %}
@@ -158,27 +165,8 @@
                                             <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
                                     	</span>
 
-                                        {% if period._formated_days|default %}
-                                            {% set hasClosures = false %}
-                                            {% for day in period._formated_days if day.closure|default %}
-                                            {% spaceless %}
-                                                {% if loop.first %}
-                                                {% set hasClosures = true %}
-                                                <div class="epsilon text-muted _plu-push-left--large _plu-push--tiny">
-                                                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.CLOSED'| trans}}
-                                                {% endif %}
-                                                {% if not loop.first %}
-                                                    ,
-                                                {% endif %}
-                                                {% endspaceless %}
-                                                <span class="text-lowercase">
-                                                {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}} {{thesaurus.fulldictionary[day.day]|default(day.day)}}
-                                                </span>
-                                            {% endfor %}
-                                            {% if hasClosures|default %}
-                                            </div>
-                                            {% endif %}
-                                        {% endif %}
+                                        {% include TWIG.OPENING_HOURS__DAYS_IN_CLEAR %}
+
                                     {% endif %}
 
                                     {% if period._description|default %}
@@ -200,8 +188,8 @@
                                 </li>
                             {% endif %}
                         </ul>
-                    </dd>
-                </dl>
+                    {% endblock %}
+                {% endembed %}
             </div>
 
             {# if any period has days defined #}
@@ -411,8 +399,6 @@
 
                                 {% else %}
 
-
-
                                     {# if many days period #}
                                     <li class="plo-flag">
                                         <div class="container-fluid">
@@ -504,24 +490,20 @@
 {% if contractsLevels.content.periods and not formated_object.openingPeriods.periods|default and formated_object.openingPeriods.description|default %}
     <section id="openings" class="panel panel-default row sheet-tab">
         <div class="panel-body pl-paint-winter">
-            <dl class="row">
-
-                <dt class="col-xs-12 col-sm-3">
-                    <span class="pl-heading">
-                        {% if object.data.bordereau != 'FMA' %}
-                            {{ 'SECTIONS.TOURISM.SHEET.OPENINGS'|trans }}
-                        {% else %}
-                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.SCHEDULES'|trans }}
-                        {% endif %}
-                    </span>
-                </dt>
-
-                <dd class="col-xs-12 col-sm-9">
+            {% embed "@LOCAL/helper/row-item.twig" with {layout: 3.9} %}
+                {% block title %}
+                    {% if object.data.bordereau != 'FMA' %}
+                        {{ 'SECTIONS.TOURISM.SHEET.OPENINGS'|trans }}
+                    {% else %}
+                        {{ 'SECTIONS.TOURISM.SHEET.PERIODS.SCHEDULES'|trans }}
+                    {% endif %}
+                {% endblock %}
+                {% block content %}
                     <div class="plo-flag period-description">
                         <span class="epsilon text-muted">{{ formated_object.openingPeriods.description }}</span>
                     </div>
-                </dd>
-            </dl>
+                {% endblock %}
+            {% endembed %}
         </div>
     </section>
 {% endif %}

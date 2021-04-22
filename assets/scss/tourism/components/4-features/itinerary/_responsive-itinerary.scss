@@ -296,11 +296,6 @@
                 font-size: $locomotionIconSize;
                 line-height: $locomotionIconSize+3;
             }
-
-            .locomotion-icon::after {
-                font-size: $locomotionIconSize;
-                // @extend .icon-font-item;
-            }
         }
     }
 }

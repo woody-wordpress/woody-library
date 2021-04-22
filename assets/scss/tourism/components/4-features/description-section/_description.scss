@@ -1,0 +1,52 @@
+/**
+ * Documents
+ */
+
+#description {
+
+    box-shadow: 0px 0px 7px -5px #000000 !important;
+
+    .establishment-light-description,
+    .establishment-description {
+        display: inline-block;
+        text-align: justify;
+    }
+
+    .establishment-light-description .load-more-btn {
+        display: inline-block;
+    }
+    .establishment-description .load-more-btn {
+        display: block;
+    }
+
+    .slogan-description {
+        margin: 0;
+    }
+    .checked {
+        margin-top: 10px;
+    }
+    .load-more-btn {
+        cursor: pointer;
+        text-decoration: underline;
+        font-weight: normal;
+        margin: 0;
+    }
+
+    #description-load-more  ~ .establishment-description,
+    .load-more-btn > .checked {
+        display: none;
+    }
+
+    #description-load-more:checked {
+
+        & ~ .establishment-light-description,
+        & ~ .load-more-btn > .unchecked {
+            display: none;
+        }
+
+        & ~ .establishment-description .load-more-btn > .checked,
+        & ~ .establishment-description {
+            display: block;
+        }
+    }
+}

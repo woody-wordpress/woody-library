@@ -1,0 +1,12 @@
+{# Covid label #}
+{% if formated_object.covidRatings|default %}
+    <span class="tourism-labels sheet-territory-label-brands">
+        {% for image in formated_object.covidRatings %}
+            <span class="sheet-territory-label-brand">
+                {% if image.urlInfo|default %}<a rel="noindex,nofollow" href="{{image.urlInfo}}" target="_blank">{% endif %}
+                    <img class="img-responsive" alt="{{thesaurus.fulldictionary[image.code]|default}}" src={{ image.urlHD|default(image.url) | rcImg(200, 200, 80, 'png', 'clip') }}>
+                {% if image.urlInfo|default %}</a>{% endif %}
+            </span>
+        {% endfor %}
+    </span>
+{% endif %}

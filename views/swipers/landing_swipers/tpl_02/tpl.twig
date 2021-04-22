@@ -7,31 +7,16 @@
                 {% include '_objects/titlesObject.twig' with {
                     'titles' : slide,
                     'contextPrefix' : "landswpr",
-                    'lazy': false,
                     'textsClasses' : "flex-container flex-dir-column"
                 } %}
 
                 {% if slide.landswpr_slide_smart_links.links|default %}
                     <div class="landswpr-links-wrapper">
                         {% for button in slide.landswpr_slide_smart_links.links %}
-                            {% if button.link.url|default %}
-                                <a class="button {{ button.button_size|default('normal') }} landswpr-link" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}">
-                                    <span class="wicon {{ button.button_woody_icon }}"></span>
-                                    {{ button.link.title }}
-                                </a>
-                            {% endif %}
+                            {% include 'swipers/_objects/landswprButtonObject.twig' with button %}
                         {% endfor %}
                     </div>
                 {% endif %}
-
-                {% if landswpr_scroll_down %}
-                    {% block scrollDown %}
-                        {% include '_objects/scrolldownObject.twig' with {
-                            target : '#pageSection-0'
-                        } %}
-                    {% endblock %}
-                {% endif %}
-
             </div>
         </div>
     {% endif %}
