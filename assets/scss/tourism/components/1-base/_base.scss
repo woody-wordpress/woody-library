@@ -456,6 +456,13 @@ ul[datepicker-popup-wrap] {
         outline: none !important;
     }
 
+    thead {
+        background: none !important;
+    }
+    th, td {
+        padding: 0 !important;
+    }
+
     th {
         font-size: .8em;
         text-transform: uppercase;

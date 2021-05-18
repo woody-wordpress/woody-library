@@ -6,10 +6,6 @@
             @include breakpoint(large) {
                 -webkit-font-smoothing: antialiased;
 
-                @if $swiper-zoomActive-shadow {
-                    margin-bottom: -30px;
-                }
-
                 .swiper-wrapper {
                     transform-style: preserve-3d;
                 }
@@ -40,7 +36,7 @@
                         z-index: 1;
 
                         @if $swiper-zoomActive-shadow {
-                            padding-bottom: 30px;
+                            //padding-bottom: 30px; //Without equalizer it makes a lil glitch
 
                             &:before {
                                 display: block;

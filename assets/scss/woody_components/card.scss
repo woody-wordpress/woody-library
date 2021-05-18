@@ -195,8 +195,21 @@
     }
 
     &.splitCard {
+        @include breakpoint(xmedium down) {
+            .cell {
+                padding: 0;
+            }
+        }
         .card-section {
             background-color: $nobg-splitcardsection-bgcolor;
+
+            &.card-section-colored {
+                background-color: $cardsection-bgcolor;
+            }
+            
+            @include breakpoint(xmedium down) {
+                padding-top: map-get($grid-column-gutter, medium);
+            }
         }
 
         @include breakpoint(xlarge up) {

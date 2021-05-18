@@ -24,7 +24,7 @@
                 default:
                     // Create Plyrs objects to get smart controls over medias files
                     if (initialize(component)) {
-                        const options = { muted: true };
+                        const options = { muted: true, youtube: {noCookie: true} };
                         plyrComponent = new Plyr(component, options);
 
                         // Manages play/pause
@@ -52,6 +52,9 @@
                     heroPlyr = new Plyr(heroPlyrWrapper, {
                         autoplay: true,
                         muted: true,
+                        youtube: {
+                            noCookie: true,
+                        }
                     });
                     heroPlyr.on('ready', () => {
                         heroPlyr.play();
@@ -67,7 +70,7 @@
                     toggleMovieButton.addEventListener('click', () => {
                         if (heroPlyr == null) {
                             if (initialize(heroPlyrWrapper)) {
-                                heroPlyr = new Plyr(heroPlyrWrapper);
+                                heroPlyr = new Plyr(heroPlyrWrapper, {youtube: {noCookie: true}});
                                 heroPlyr.on('ready', () => {
                                     heroPlyr.play();
                                 });
@@ -93,8 +96,10 @@
         }
 
         landswprVideo(component) {
-            const options = JSON.parse(component.dataset.options);
+            var options = JSON.parse(component.dataset.options);
             if (initialize(component)) {
+                if (typeof options.youtube === 'undefined') {options.youtube = {}}
+                options.youtube.noCookie = true;
                 let landSwprPlyr = new Plyr(component, options);
 
                 // Manages play/pause

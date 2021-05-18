@@ -33,6 +33,30 @@
     margin: 0;
 }
 
+.generic-block-header {
+    &.fullwidth {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .generic-block-texts {
+        >span {
+            display: block;
+        }
+    }
+
+    .generic-block-wicon,
+    .generic-block-title {
+        @extend .h2 !optional;
+    }
+
+    .generic-block-pretitle,
+    .generic-block-subtitle {
+        @extend .h4 !optional;
+    }
+}
 
 // Tooltip
 [w-tooltip-up] {

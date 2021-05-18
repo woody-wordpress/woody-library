@@ -20,5 +20,11 @@ $tabs-pill-radius: 5em !default;
 $border-tab-size: 5px !default;
 $border-tab-side: true !default;
 
+//Tabs vertical
+$tabs-vertical-separator-color : $black !default;
+$tabs-vertical-separator-height: 30px !default;
+$tabs-vertical-separator-width: 1px !default;
+$tabs-vertical-separator-left-position :3rem !default;
+
 
 $tabs-titles-font-size:(small:rem-calc(11), large:rem-calc(16)) !default;

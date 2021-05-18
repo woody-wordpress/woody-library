@@ -29,6 +29,7 @@
                 position:"{{map_controls_pos}}"
             },
             fitBounds: {{ map_zoom_auto|default(0) }},
+            map_provider:"{{ map_provider|default(false) }}",
             tm_conf_id : {{ tmaps_confid|default('false') }},
             clustering : true
         },
@@ -72,11 +73,11 @@
                         value.eachLayer(function(e){
                             if('feature' in e && 'route' in e['feature']){
                                 e.setStyle({
-                                    color: e['feature']['properties']['stroke'],
-                                    fillColor: e['feature']['properties']['fill'],
-                                    fillOpacity: e['feature']['properties']['fill-opacity'],
-                                    weight: e['feature']['properties']['stroke-width'],
-                                    fill: e['feature']['properties']['fill'] ? true : false,
+                                    color: e['feature']['properties']['stroke'] ? e['feature']['properties']['stroke'] : e.options.color ,
+                                    fillColor: e['feature']['properties']['fill'] ? e['feature']['properties']['fill'] : e.options.fill,
+                                    fillOpacity: e['feature']['properties']['fill-opacity'] ? e['feature']['properties']['fill-opacity'] : e.options.fillOpacity ,
+                                    weight: e['feature']['properties']['stroke-width'] ? e['feature']['properties']['stroke-width'] : 1,
+                                    fill: e['feature']['properties']['fill'] ? true : e.options.fill,
                                     stroke: true
                                 });
                             }

@@ -286,6 +286,41 @@
             }
         }
     }
+    @include breakpoint (large){
+        &.tpl_05{
+            display: flex;
+            flex-direction: row;
+            .tabs-wrapper{
+                flex: 1;
+            }
+            .tabs-content{
+                flex: 4;
+            }
+            .tabs-vertical{
+                flex-direction: column;
+                align-items:stretch;
+                .tabs-title:not(:first-child){
+                    position: relative;
+                    &:after{
+                        content: "";
+                        position: absolute;
+                        bottom:calc( 100% - ( #{$tabs-vertical-separator-height} / 2 ) );
+                        left:$tabs-vertical-separator-left-position;
+                        height: $tabs-vertical-separator-height;
+                        width: $tabs-vertical-separator-width;
+                        background-color:$tabs-vertical-separator-color;
+                    }
+                }
+                .tab-link{
+                    flex-direction: row;
+                    .wicon{
+                        margin-bottom: 0px;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
 }
 
 

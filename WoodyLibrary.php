@@ -28,7 +28,11 @@ class WoodyLibrary
 {
     public static function getTemplatesDirname()
     {
-        return __DIR__ . '/views';
+        $dirs = [__DIR__ . '/views'];
+        if (function_exists('apply_filters')) {
+            $dirs = apply_filters('woody_library_templates_directorys', $dirs); // Filter to add directory
+        }
+        return $dirs;
     }
 
     public static function getTemplatesByAcfGroup($components, $id)
@@ -49,7 +53,6 @@ class WoodyLibrary
     public static function getTwigsPaths($components)
     {
         $return = [];
-
         foreach ($components as $key => $val) {
             $return[$key] = $val['twig'];
         }
@@ -59,12 +62,22 @@ class WoodyLibrary
 
     public static function getComponents()
     {
-        $components = [];
-
         // Get all folders named tpl_* in $name folder
+        $path = self::getTemplatesDirName();
         $finder = new Finder();
-        $finder->name('tpl_*')->directories()->in(self::getTemplatesDirName());
+        $finder->name('tpl_*')->directories()->in($path);
+        $components = self::getComponentsData($finder);
 
+        if (function_exists('apply_filters')) {
+            $components = apply_filters('get_woody_components', $components); // Filter to remove blocks
+        }
+
+        return $components;
+    }
+
+    public static function getComponentsData($finder)
+    {
+        $components = [];
         foreach ($finder as $key => $folder) {
 
             // Foreach folder, get full and relative path
@@ -127,7 +140,6 @@ class WoodyLibrary
                 $components[$name]['twig'] = $twigRealPath;
             }
         }
-
         return $components;
     }
 }

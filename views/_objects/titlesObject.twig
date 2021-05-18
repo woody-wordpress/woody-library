@@ -124,7 +124,7 @@
 							<span class="{{ contextPrefix }}-pretitle">{{ titles.pretitle }}</span>
 						{% endif %}
 						{% if titles.title|default %}
-							{% if contextPrefix == 'section' or title_as_h2 %}
+							{% if contextPrefix == 'section' or title_as_h2 or (globals.blocs_title_as_h2 and contextPrefix == 'focus-block' or contextPrefix == 'generic-block') %}
 								<h2 class="{{ contextPrefix }}-title">{{ titles.title }}</h2>
 							{% elseif titles.title_as_h1 %}
 								<h1 class="{{ contextPrefix }}-title">{{ titles.title }}</h1>

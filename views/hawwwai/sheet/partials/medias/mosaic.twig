@@ -362,7 +362,9 @@
     {% if (formated_object.contacts.establishment.phones|default and contractsLevels.sidebar.phone|default) or (contractsLevels.content.booking and (formated_object.bookingUrl|default or formated_object.centralResa|default)) %}
     <div style="display: none;" class="responsive-chips">
         {% if formated_object.contacts.establishment.phones|default and contractsLevels.sidebar.phone|default %}
-            <div class="responsive-chip chip-phone" onclick="event.preventDefault(); window.open('tel:{{ formated_object.contacts.establishment.phones[0] }}', '_self');">
+            <div class="responsive-chip chip-phone" 
+                onclick="event.preventDefault(); window.open('tel:{{ formated_object.contacts.establishment.phones[0] }}', '_self');"
+                interact event-type="SHEET_REVEAL_PHONE">
                 <span class="item-infos-phone">{{'LIST.CALL'|trans}}</span>
                 <span class="icon-font-phone"></span>
             </div>
@@ -371,7 +373,7 @@
         {% if contractsLevels.content.booking and formated_object.bookingUrl|default %}
             <a class="responsive-chip chip-booking"
                 target="_blank" href="{{formated_object.bookingUrl}}"
-                rel="noindex,nofollow"
+                rel="nofollow"
                 analytics-mediaveille {# Tracking MediaVeille #}
                 data-fs-tracking="RESERVATION" {# Tracking Tourinsoft #}
                 interact event-type="SHEET_BOOK_URL">

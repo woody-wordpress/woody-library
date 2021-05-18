@@ -9,6 +9,31 @@
     .rc_lego {
         margin-bottom: 20px;
     }
+
+    .dynamic-opening-periods {
+        margin: 5px 0;
+        &:not(.covid-openings) {
+            display: none;
+        }
+        span {
+            text-align: left;
+        }
+        .opening-time,
+        .opening-state {
+            font-size: 0.9rem;
+        }
+        .opening-state {
+            &--text {
+                color: initial;
+                text-transform: none;
+            }
+        }
+        .opening-time {
+            display: inline-block;
+            text-transform: none;
+            // &:before { content: "- "; }
+        }
+    }
 }
 
 // REALTIME OPENINGS

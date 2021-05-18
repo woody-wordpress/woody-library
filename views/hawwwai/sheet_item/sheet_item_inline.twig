@@ -279,6 +279,35 @@
                         {% endif %}
                     {% endif %}
 
+                    {% if covidOpenings|default and covidOpenings.text|default %}
+                        <div class="dynamic-opening-periods covid-openings">
+                            <span class="opening-state opening-state-{{covidOpenings.light|default('soon')}}">
+                                <span class="opening-state--light"></span>
+                                <span class="opening-state--text">{{ covidOpenings.text }}</span>
+                            </span>
+                        </div>
+                    {% endif %}
+                    {% if openingPeriods|default %}
+                        <div class="dynamic-opening-periods"
+                            {% if openingPeriods.periods|default and openingPeriods.periods|length > 0 %}
+                                guessclosed="true"
+                            {% endif %}
+                            {% if (options.interpolate_periods is not defined or options.interpolate_periods) and bordereau not in ['FMA','PRD','ITI'] %}
+                                interpolate="true"
+                            {% endif %}
+                            bordereau='{{ bordereau }}'
+                            periods='{{ openingPeriods.periods|json_encode }}'>
+
+                            <span class='opening-state opening-state-undefined'>
+                                <span class='opening-state--light'></span>
+                                <span class='opening-state--text'></span>
+                                <span class='opening-time'></span>
+                            </span>
+                            {# <span class="opening-extra-info" style="display: none;"></span> #}
+                            {# <span class='opening-unguaranteed' style="display: none;">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNGUARANTEED'|trans }}</span> #}
+                        </div>
+                    {% endif %}
+
                     {% if desc|default  %}
                         {# {% if not display.infos|default or display.infos.description|default %} #}
                             <p class="item-infos-desc">{{ desc|truncate(300) }}</p>
@@ -294,10 +323,11 @@
                         <div class="item-infos-locomotions">
                             {% for locomotion in locomotions %}
                             <p class="item-infos-locomotion">
-                                {% if locomotion.icon|default %}<span type="{{ locomotion.type }}" class="icon-font-{{ locomotion.icon }} d-inline-block"></span>{% endif %}
+                                {% if locomotion.icon|default %}<span {% if locomotion.type|default %}type="{{ locomotion.type }}"{% endif %} class="icon-font-{{ locomotion.icon }} d-inline-block"></span>{% endif %}
                                 <span class="locomotion-infos">
-                                    <span class="locomotion-infos-duration d-block">{{ locomotion.duration|default }}</span>
-                                    <span class="locomotion-infos-difficulty d-block">{{ locomotion.difficulty }}</span>
+                                    {% if locomotion.duration|default %}<span class="locomotion-infos-duration d-block">{{ locomotion.duration }}</span>{% endif %}
+                                    {% if locomotion.difficulty|default %}<span class="locomotion-infos-difficulty d-block">{{ locomotion.difficulty }}</span>{% endif %}
+                                    {% if locomotion.typeTraceItinerary|default %}<span class="locomotion-infos-typetrace d-block">{{ locomotion.typeTraceItinerary }}</span>{% endif %}
                                 </span>
                             </p>
                             {% endfor %}
@@ -361,34 +391,6 @@
                                 <span class="item-infos-nb-mark">{{ reviews.nbReviewsText|default }}</span>
                             </div>
                         {% endif %}
-                    </div>
-                {% endif %}
-                {% if covidOpenings|default and covidOpenings.text|default %}
-                    <div class="dynamic-opening-periods covid-openings bottom-right">
-                        <span class="opening-state opening-state-{{covidOpenings.light|default('soon')}}">
-                            <span class="opening-state--text">{{ covidOpenings.text }}</span>
-                            <span class="opening-state--light"></span>
-                        </span>
-                    </div>
-                {% endif %}
-                {% if openingPeriods|default and openingPeriods.periods|default %}
-                    <div class="dynamic-opening-periods bottom-right"
-                        {# {% if object.data.periods|default %} #}
-                        guessclosed="true"
-                        {# {% endif %} #}
-                        {# {% if (options.interpolate_periods is not defined or options.interpolate_periods) and bordereau not in ['FMA','PRD','ITI'] %} #}
-                        interpolate="true"
-                        {# {% endif %} #}
-                        periods='{{ openingPeriods|json_encode }}'>
-
-                        <span class='opening-state opening-state-undefined'>
-                            <span class='opening-state--text'></span>
-                            <span class='opening-state--light'></span>
-                            {# <span class='opening-time'></span> #}
-                        </span>
-
-                        {# <span class="opening-extra-info" style="display: none;"></span> #}
-                        {# <span class='opening-unguaranteed' style="display: none;">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNGUARANTEED'|trans }}</span> #}
                     </div>
                 {% endif %}
             </section>

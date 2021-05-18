@@ -34,9 +34,8 @@ $(document).on("show.zf.dropdownmenu", function(e) {
 // Hide the dropdown menu
 function hideDropdown() {
     if ($('body').hasClass('menu-is-open')) {
-        var $childrenDropdown = $($('.is-dropdown-submenu-parent > a').siblings('.is-dropdown-submenu'));
+        var $childrenDropdown = $('.is-dropdown-submenu-parent > a').siblings('.is-dropdown-submenu');
         var $parentDropdown = $('.is-dropdown-submenu-parent');
-
         $childrenDropdown.removeClass('js-dropdown-active');
         $parentDropdown.removeClass('is-active');
         $parentDropdown.attr('data-is-click', 'false');
@@ -47,8 +46,8 @@ function hideDropdown() {
 }
 
 //Apply Filter scroll_hide_menu_modifier
-var scroll_hide_menu_modifier = true;
-scroll_hide_menu_modifier = WoodyFilter.apply('scroll_hide_menu_modifier'); //Hook var
+var scroll_hide_menu_modifier = WoodyFilter.apply('scroll_hide_menu_modifier'); //Hook var
+scroll_hide_menu_modifier = typeof scroll_hide_menu_modifier === 'undefined' ? true : scroll_hide_menu_modifier;
 if (scroll_hide_menu_modifier != false) {
     $(document).on("scroll", function() {
         if ($('body').hasClass('scrolling-down')) {
@@ -59,8 +58,10 @@ if (scroll_hide_menu_modifier != false) {
 
 
 // On close dropdown menu AND click outside dropdown menu
-$(document).on("close.zf.dropdownmenu click.zf.dropdownmenu", function () {
-    if (!$('.woody-component-header').hasClass('woody-burger')) {
-        hideDropdown();
-    }
-});
+if (scroll_hide_menu_modifier != false) {
+    $(document).on("close.zf.dropdownmenu click.zf.dropdownmenu", function () {
+        if (!$('.woody-component-header').hasClass('woody-burger')) {
+            hideDropdown();
+        }
+    });
+}

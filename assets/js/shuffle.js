@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import Swiper from "swiper";
 
-var shuffleFocuses = function () {
-    $('a[href="#shuffle"]').each(function () {
-        $(this).click(function (e) {
+var shuffleFocuses = function() {
+    $('a[href="#shuffle"]').each(function() {
+        $(this).click(function(e) {
             e.preventDefault(); // On suspend l'action du lien
             var $this = $(this),
 
@@ -23,7 +23,7 @@ var shuffleFocuses = function () {
             $.ajax({
                 type: 'GET',
                 url: '/wp-json/woody/shuffle/focus?section_index=' + sectionIndex + '&block_index=' + blockIndex + '&post_id=' + window.globals.post_id + '&length=' + cardsLength + '&rand=' + rand,
-                success: function (items) {
+                success: function(items) {
                     var $i = 0;
                     if (typeof items != undefined) {
                         // On remplace le contenu du block woody par le nouveau
@@ -35,12 +35,13 @@ var shuffleFocuses = function () {
                             $swiperWrapper.initSwiper();
                         }
 
-                        $targetBlockParent.find('.woody-component-focus').each(function () {
-                            var equalizer = new Foundation.Equalizer($(this));
-                        });
+                        // Removed equalizer
+                        // $targetBlockParent.find('.woody-component-focus').each(function () {
+                        //     var equalizer = new Foundation.Equalizer($(this));
+                        // });
 
-                        $targetBlockParent[0].addEventListener('lazybeforeunveil', function () {
-                            setTimeout(function () {
+                        $targetBlockParent[0].addEventListener('lazybeforeunveil', function() {
+                            setTimeout(function() {
                                 $targetBlockParent.removeClass('ajaxloader');
                             }, 300);
                         });
@@ -49,7 +50,7 @@ var shuffleFocuses = function () {
                         shuffleFocuses();
                     }
                 },
-                error: function (items) {
+                error: function(items) {
                     console.error('shuffle', items);
                 },
             });
@@ -57,6 +58,6 @@ var shuffleFocuses = function () {
     });
 }
 
-$('.woody-component-focus .focus-buttons').each(function () {
+$('.woody-component-focus .focus-buttons').each(function() {
     shuffleFocuses();
 });

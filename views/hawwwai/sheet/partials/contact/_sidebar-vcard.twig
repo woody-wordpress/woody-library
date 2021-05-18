@@ -90,7 +90,7 @@
                 {% for website in websites %}
                     <div class="website ellipsis"
                         analytics-mediaveille interact event-type="WEBSITE_TOURISTIC_PROVIDER">
-                        <a data-type="URL" class='nowrap' itemprop="url" rel="noindex,nofollow" href="{{ website|default }}" target="_blank">{{ website|simpleURL }}</a>
+                        <a data-type="URL" class='nowrap' itemprop="url" rel="nofollow" href="{{ website|default }}" target="_blank">{{ website|simpleURL }}</a>
                     </div>
                 {% endfor %}
             </dt>
@@ -105,7 +105,7 @@
             <dt class="col-xs-2"><span class="icon-font-tripadvisor plo-fonticon"></span></dt>
             <dt class="col-xs-10 _plu-hard--left">
                 <div class="website ellipsis" interact event-type="WEBSITE_TOURISTIC_PROVIDER">
-                    <a data-type="URL" class='nowrap' itemprop="url" rel="noindex,nofollow" href="{{ tripadvisorLink|default }}" target="_blank">{{ tripadvisorLink|simpleURL }}</a>
+                    <a data-type="URL" class='nowrap' itemprop="url" rel="nofollow" href="{{ tripadvisorLink|default }}" target="_blank">{{ tripadvisorLink|simpleURL }}</a>
                 </div>
             </dt>
         </dl>

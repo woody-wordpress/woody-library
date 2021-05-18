@@ -385,8 +385,8 @@
     z-index: 1;
     &.right { right: 20px; }
     &.middle-right { right: 50%; margin-right: 20px;}
-    &.left { left: 80px; }
     &.left { left: auto; right: 50%; margin-right: 20px; }
+    &.plain-left { left: 20px; }
     &.top { top: 20px; }
     &.bottom { bottom: 20px; }
     &.extra-left { right: 100%; margin-right: 20px; }

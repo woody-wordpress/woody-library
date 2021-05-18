@@ -7,6 +7,11 @@
             } %}
             <div class="content isRel">
             {% endif %}
+            {% include '_objects/genericBlocTitles.twig' with {
+                display: display_block_titles|default(),
+                margin: block_titles_margin|default('marg-bottom-sm'),
+                flex_options: 'flex-container flex-dir-column align-center text-left'
+            } %}
             <div class="cta-desc">
                 {{ block("cta_desc", "blocks/call_to_action/tpl_01/tpl.twig") }}
             </div>

@@ -9,7 +9,7 @@
             {% if contractsLevels.content.booking and formated_object.bookingUrl|default %}
                 <li class="sheet-nav-actions_item nav-booking">
                     <a target="_blank"
-                       rel="noindex,nofollow"
+                       rel="nofollow"
                        href="{{formated_object.bookingUrl}}"
                        class="plo-btn dark sheet-nav-actions_button"
                        analytics-mediaveille {# Tracking MediaVeille #}
@@ -75,7 +75,7 @@
 
             {% if formated_object.sfMenuUrl|default%}
                 <li class="sheet-nav-actions_item nav-menuurl">
-                    <a target="_blank" rel="noindex,nofollow" href="{{formated_object.sfMenuUrl}}"
+                    <a target="_blank" rel="nofollow" href="{{formated_object.sfMenuUrl}}"
                      class="plo-btn dark sheet-nav-actions_button">
                         {{'SECTIONS.TOURISM.SHEET.SEE_MENU'|trans}}
                     </a>
@@ -84,7 +84,7 @@
 
             {% if formated_object.dataItinerary|default and formated_object.dataItinerary.issueReport|default %}
                 <li class="sheet-nav-actions_item nav-booking">
-                    <a target="_blank" rel="noindex,nofollow" href="{{formated_object.dataItinerary.issueReport}}"
+                    <a target="_blank" rel="nofollow" href="{{formated_object.dataItinerary.issueReport}}"
                      class="plo-btn dark sheet-nav-actions_button">
                         {{'SECTIONS.TOURISM.SHEET.ITINERARY.ISSUE_REPORT'|trans}}
                     </a>
