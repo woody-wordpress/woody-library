@@ -1,10 +1,10 @@
 <div class="woody-component woody-component-list-filter type-checkboxes tpl_01">
-    <label class="filter-label">{{ filter.list_filter_name }}</label>
+    <label class="filter-label">{{ filter.filter_name }}</label>
     <ul class="list-unstyled flex-container align-middle wrap">
         {% for filter_term in filter.list_filter_custom_terms %}
         {% set random_number = ''|random_number %}
         <li class="button_boxinside">
-            <input id="tag-box-{{ random_number }}" type="checkbox" name="taxonomy_terms_{{ filter_index }}[]" value="{{ filter_term.value|default }}" {% if filter_term.checked|default %}checked="checked"{% endif %}>
+            <input id="tag-box-{{ random_number }}" type="checkbox" name="{{ uniqid }}_tt_{{ filter_index }}[]" value="{{ filter_term.value|default }}" {% if filter_term.checked|default %}checked="checked"{% endif %}>
             <label class="button border-lightgray" for="tag-box-{{ random_number }}">{{ filter_term.label|default }}</label>
         </li>
         {% endfor %}

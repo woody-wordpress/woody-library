@@ -1,13 +1,5 @@
+{# TODO: on ne peut pas set une var ici et essayer de la changer dans le tpl 06 #}
 {% extends 'cards/split_card/tpl_01/tpl.twig' %}
-{% block index_class %}
-    tpl_05
-{% endblock %}
-{% block first_part_classes %}
-    large-3
-{% endblock %}
-{% block second_part_classes %}
-    large-9 align-top
-{% endblock %}
-{% block grid_class %}
-    align-stretch
-{% endblock %}
+{% set index_class = 'tpl_05' %}
+{% set first_part_classes = 'large-3' %}
+{% set second_part_classes = 'large-9 align-top align-center' %}

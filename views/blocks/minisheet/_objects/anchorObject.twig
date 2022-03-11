@@ -1,0 +1,10 @@
+<div class="cell small-6 medium-3 anchor-wrapper" data-equalizer-watch>
+    {% if anchor.url is defined %}
+        <a href="{{ anchor.url }}" class="no-ext" title="{{ title }}" target="{{ link.target }}">
+            <span class="wicon {{ anchor.icon }}"></span>
+            <span class="label">{{ anchor.title }}</span>
+        </a>
+    {% else %}
+        <a href="{{ link.url }}" class="no-ext not-defined" title="{{ title }}" target="{{ link.target }}"></a>
+    {% endif %}
+</div>

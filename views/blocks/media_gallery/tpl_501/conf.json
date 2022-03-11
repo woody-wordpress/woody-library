@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Grille 5 colonnes - 20% (image carrée)",
+    "name": "Template 501 - Carré",
     "description": "Grille 5 colonnes égales - 20% de large",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b04314e0ec21"
     ],
@@ -19,5 +20,14 @@
         "gallery_no_padding",
         "gallery_items",
         "gallery_link"
-    ]
+    ],
+    "display": [{
+        "type": "grid",
+        "length": 5,
+        "infinite": "true",
+        "img_ratio": [
+            "square"
+        ],
+        "roadbook": true
+    }]
 }

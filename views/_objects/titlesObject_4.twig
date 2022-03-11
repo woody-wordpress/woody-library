@@ -1,0 +1,57 @@
+{% spaceless %}
+{% set cardPriceClasses = 'priceTag flex-container flex-dir-column align-center align-middle' %}
+
+<div class="{{ contextPrefix }}-titles {{ flexOptions|default }} isRel">
+
+    {{ block("cardIcon", "_objects/titlesObject.twig") }}
+    {{ block("cardDates", "_objects/titlesObject.twig") }}
+    {{ block("sheetLength", "_objects/titlesObject.twig") }}
+    {{ block("sheetLocomotions", "_objects/titlesObject.twig") }}
+
+    {% if titles.the_price.price or titles.the_duration.count_days or titles.the_duration.count_hours or titles.the_duration.count_minutes or title.the_length.length or titles.the_peoples.peoples_max %}
+    <div class="{{ contextPrefix }}-tripInfos-wrapper{{ titles.the_price.price ? ' has-price' }}">
+
+        {{ block("cardPrice", "_objects/titlesObject.twig") }}
+
+        {% if titles.the_duration.count_days or titles.the_duration.count_hours or titles.the_duration.count_minutes or title.the_length.length or titles.the_peoples.peoples_max %}
+        <div class="flex-container align-spaced align-middle">
+
+            {% block cardDuration %}
+                {% if titles.the_duration.count_days or titles.the_duration.count_hours or titles.the_duration.count_minutes %}
+                <div class="tripInfos-duration">
+                    <span class="value fat-text">
+                        <span class="wicon wicon-015-horloge"></span>
+                        {% if titles.the_duration.duration_unit == 'hours' and titles.the_duration.count_hours %}
+                            {{ titles.the_duration.count_hours|pluralizeUnit(__('heure', 'woody-theme'), __('heures', 'woody-theme')) }}
+                        {% elseif titles.the_duration.duration_unit == 'minutes' and titles.the_duration.count_minutes %}
+                            {{ titles.the_duration.count_minutes|pluralizeUnit(__('min.', 'woody-theme')) }}
+                        {% elseif titles.the_duration.count_days %}
+                            {{ titles.the_duration.count_days|pluralizeUnit(__('jour', 'woody-theme'), __('jours', 'woody-theme')) }}
+                        {% endif %}
+                    </span>
+                </div>
+                {% endif %}
+            {% endblock %}
+
+            {{ block("cardLength", "_objects/titlesObject.twig") }}
+
+            {% block cardCapacity %}
+                {% if titles.the_peoples.peoples_max|default %}
+                <div class="tripInfos-peoples">
+                    <span class="value fat-text">
+                        <span class="wicon wicon-033-coeur"></span>
+                        <span class="unit">{{ titles.the_peoples.peoples_max|pluralizeUnit(__('personne', 'woody-theme'), __('personnes', 'woody-theme')) }}</span>
+                    </span>
+                </div>
+                {% endif %}
+            {% endblock %}
+
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {{ block("cardTitles", "_objects/titlesObject.twig") }}
+
+</div>
+{% endspaceless %}

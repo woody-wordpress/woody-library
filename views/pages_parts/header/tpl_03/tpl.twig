@@ -1,10 +1,10 @@
-<header class="woody-component-header tpl_03 site-header show-for-xlarge" data-click-open="true" data-disable-hover="true" data-dropdown-menu="data-dropdown-menu" data-sticky-container="data-sticky-container" role="banner">
+<header class="woody-component-header tpl_03 site-header show-for-xlarge" data-click-open="true" data-disable-hover="true" data-dropdown-menu="data-dropdown-menu" data-sticky-container="data-sticky-container">
     <div class="main-menu-wrapper">
         <nav class="top-bar title-bar" id="main-menu">
             <ul class="menu dropdown horizontal align-center align-middle fullwidth-dropdowns">
                 {% for menu_link in main_menu_links %}
                     {% if menu_link.is_frontlink == true %}
-                        <li class="is-brand-logo{{ globals.post.ID|theRootAncestor == menu_link.the_id ? ' is-active' }}">
+                        <li class="is-brand-logo{{ globals.post_id|theRootAncestor == menu_link.the_id ? ' is-active' }}">
                             {% if obfuscation %}
                                 <span class="menuLogo obf" data-obf="{{ menu_link.the_url|default|base64Encode }}" data-target="{{ menu_link.the_target|default('_self') }}" data-post-id="{{ menu_link.the_id }}">
                                 {% else %}
@@ -20,7 +20,7 @@
                     {% elseif menu_link.content|default %}
                         {{ menu_link.content }}
                     {% else %}
-                        <li class="{{ menu_link.is_frontlink == true ? 'is-brand-logo' }}{% if menu_link.subitems|default and menu_link.subitems is not iterable %} is-dropdown-submenu-parent{% endif %}{{ globals.post.ID|theRootAncestor == menu_link.the_id ? ' is-active' }}">
+                        <li class="{{ menu_link.is_frontlink == true ? 'is-brand-logo' }}{% if menu_link.subitems|default and menu_link.subitems is not iterable %} is-dropdown-submenu-parent{% endif %}{{ globals.post_id|theRootAncestor == menu_link.the_id ? ' is-active' }}">
                             {% if obfuscation %}
                                 <span class="menuLink obf" data-obf="{{ menu_link.the_url|default|base64Encode }}" data-target="{{ menu_link.the_target|default('_self') }}" data-post-id="{{ menu_link.the_id }}">
                                 {% else %}
@@ -46,7 +46,7 @@
                                 </a>
                             {% endif %}
                             {% if menu_link.subitems|default and menu_link.subitems is not iterable %}
-                                <ul class="menu" data-link-parent="{{ menu_link.the_id }}" data-title="{{ menu_link.the_fields.title|default }}">
+                                <ul class="menu is-dropdown-submenu" data-link-parent="{{ menu_link.the_id }}" data-title="{{ menu_link.the_fields.title|default }}">
                                     {{ menu_link.subitems }}
                                 </ul>
                             {% endif %}
@@ -54,6 +54,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            {% include '_objects/toolsMenu.twig' %}
         </nav>
     </div>
 </header>

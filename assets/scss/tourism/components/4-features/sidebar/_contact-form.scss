@@ -2,25 +2,16 @@
  * Sidebar Contact form
  */
 
-.tourism-detail-sidebar {
+
+.sidebar-contact-form-section {
+
+    $avatar-size: 140px;
 
     @media only screen and (max-width: 768px) {
-        .sticky-element {
+        &.sticky-element {
             top: 0 !important;
         }
     }
-
-    .icon-font-mountain {
-        font-weight: 600;
-        margin-top: $vr--tiny;
-    }
-
-    .altitude {
-        display: inline-block;
-        margin-top: $vr--tiny;
-        vertical-align: text-top;
-    }
-
     @keyframes anim1 {
         from {
             transform: translateY(-120%);
@@ -33,119 +24,124 @@
         }
     }
 
+    .icon-font-mountain {
+        font-weight: 600;
+        margin-top: $vr--tiny;
+    }
+    .altitude {
+        display: inline-block;
+        margin-top: $vr--tiny;
+        vertical-align: text-top;
+    }
     .contact-transition {
         animation: anim1 0.5s ease-out;
     }
 
-    .sidebar-contact-form-section {
+    fieldset {
+        width: 100%;
 
-        $avatar-size: 140px;
+        label {
+            @extend ._plu-flush;
 
-        fieldset {
-            width: 100%;
-
-            label {
-                @extend ._plu-flush;
-
-                textarea {
-                    border-radius: 4px;
-                    -webkit-border-radius: 4px;
-                    width: 100%;
-                }
+            textarea {
+                border-radius: 4px;
+                -webkit-border-radius: 4px;
+                width: 100%;
             }
         }
+    }
 
-        .bubble-bspace {
-            padding-top: $vr;
-        }
+    .bubble-bspace {
+        padding-top: $vr;
+    }
 
-        margin-top :0;
+    margin-top :0;
 
-        &.sticky-fixed-bottom {
-            margin-bottom: 0;
-            top: auto !important;
-            bottom: 20px !important;
-        }
+    &.sticky-fixed-bottom {
+        margin-bottom: 0;
+        top: auto !important;
+        bottom: 20px !important;
+    }
 
-        &.sidebar-contact-form-has-avatar {
-            margin-top: (($avatar-size /2) - $panel-body-padding) !important;
-        }
+    &.sidebar-contact-form-has-avatar {
+        margin-top: (($avatar-size /2) - $panel-body-padding) !important;
+    }
 
-        .sidebar-contact-form-avatar {
-            margin: -($avatar-size /2) auto 0;
-            width: $avatar-size;
-            text-align: center;
+    .sidebar-contact-form-avatar {
+        margin: -($avatar-size /2) auto 0;
+        width: $avatar-size;
+        text-align: center;
 
-            &-link {
-                position: relative;
-
-                img {
-                    transition: all ease-in-out 200ms;
-                    transform: scale(1);
-                }
-
-                &:hover {
-                    img {
-                        transform: scale(0.9);
-                    }
-                }
-            }
-
-            &-icon {
-                position: relative;
-                display: block;
-                font-size: 130px;
-                margin-bottom: -25px !important;
-                line-height: 1;
-            }
-
-            &-img {
-                border-radius: 50%;
-            }
-        }
-
-
-        .sidebar-contact-form {
+        &-link {
             position: relative;
-            padding-top: 5px;
-            text-align: center;
 
-            .sidebar-default-btn {
-                margin-top: $vr--small;
+            img {
+                transition: all ease-in-out 200ms;
+                transform: scale(1);
             }
 
-            .sidebar-contact-info {
-                text-align: center;
-                margin-bottom: $vr;
-
-                a {
-                    text-decoration: none;
-                }
-
-                .sidebar-contact-text {
-                    color: $text-muted;
-                    opacity: 0.6;
-                    @include header-size(h6);
-                }
-
-                .sidebar-contact-business-name {
-                    font-weight: normal;
-                    // font-size: ($font-size-h3 + $font-size-h4)/2 !important;
-                    @include header-size(h4);
-                    line-height: ($font-size-h3 + $font-size-h4)/2;
+            &:hover {
+                img {
+                    transform: scale(0.9);
                 }
             }
-
-            .sidebar-contact-form-message {
-                min-height: 100px;
-                max-height: 130px;
-                padding: $vr--small;
-            }
-
         }
+
+        &-icon {
+            position: relative;
+            display: block;
+            font-size: 130px;
+            margin-bottom: -25px !important;
+            line-height: 1;
+        }
+
+        &-img {
+            border-radius: 50%;
+        }
+    }
+
+
+    .sidebar-contact-form {
+        position: relative;
+        padding-top: 5px;
+        text-align: center;
+
+        .sidebar-default-btn {
+            margin-top: $vr--small;
+        }
+
+        .sidebar-contact-info {
+            text-align: center;
+            margin-bottom: $vr;
+
+            a {
+                text-decoration: none;
+            }
+
+            .sidebar-contact-text {
+                color: $text-muted;
+                opacity: 0.6;
+                @include header-size(h6);
+            }
+
+            .sidebar-contact-business-name {
+                font-weight: normal;
+                // font-size: ($font-size-h3 + $font-size-h4)/2 !important;
+                @include header-size(h4);
+                line-height: ($font-size-h3 + $font-size-h4)/2;
+            }
+        }
+
+        .sidebar-contact-form-message {
+            min-height: 100px;
+            max-height: 130px;
+            padding: $vr--small;
+        }
+
     }
 }
 
+#external-grc,
 #nurtik-form {
     &.modal-opened {
         display: flex;
@@ -167,16 +163,21 @@
     }
 
     // media query big screens
-        .modal-dialog.small {
-            width: 50%;
-            max-width: 75rem;
-            min-width: 500px;
-            height: auto;
-            margin: auto;
-            .modal-content {
-                min-height: auto;
-            }
+    .modal-dialog.small {
+        width: 50%;
+        max-width: 75rem;
+        min-width: 500px;
+        height: auto;
+        margin: auto;
+        .modal-content {
+            min-height: auto;
         }
+    }
+    @media screen and (max-width: $ts_screen-sm) {
+        .modal-dialog.small {
+            min-width: 90vw;
+        }
+    }
 
     .g-recaptcha {
         display: inline-block;

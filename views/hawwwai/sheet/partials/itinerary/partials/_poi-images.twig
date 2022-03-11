@@ -1,0 +1,17 @@
+{% if step.medias.images|default %}
+    <section class="step-images">
+        <kaarousel displayed="1" time-interval="5000" hide-pager="true" autoplay="true">
+            {% for media in step.medias.images %}
+                <kaarousel-slide ng-style="itemStyles()" slide="media"
+                    ng-class="{selected: isActive(), visible: isVisible({{ loop.index0 }})}"
+                    index="{{ loop.index0 }}"
+                    {% if loop.last %} last="true" {% endif %}>
+                        <img class="kaarousel-item-media-img step-media" src="{{ media.url | rcImg(800, 448, 75, 'jpg', 'clip') }}" />
+                        {% if media.copyright|default %}
+                            <span class="photo-label">{{media._copyright}}</span>
+                        {% endif %}
+                </kaarousel-slide>
+            {% endfor %}
+        </kaarousel>
+    </section>
+{% endif %}

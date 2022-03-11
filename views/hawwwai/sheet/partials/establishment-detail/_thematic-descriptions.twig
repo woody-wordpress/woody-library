@@ -1,0 +1,89 @@
+{% macro datablockfields(fields) %}
+    {% for field in fields %}
+        {% if field.value|default is iterable %}
+            {{ _self.datablockfields(field.value) }}
+        {% else %}
+            <div class="datablock-field">
+                <span class="datablock-field-title">{{ field.type|default }} {% if field.value is defined %}:{% endif %}</span>
+                <span class="datablock-field-value">{{ field.value|default|raw }}</span>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% if formated_object.sfThematicDescription|default %}
+    <section id="sfThematicDescription" class="panel panel-default row s-stripes s-stripes--contrast">
+        <ul class="list-group stripes-even">
+        {% for datablock in formated_object.sfThematicDescription %}
+            <li class="thematic-description list-group-item" data-tiff="{{ datablock.code|default }}">
+
+                {% if datablock.icon|default %}
+                    <div class="datablock-icon" {% if datablock.icon.libelle|default %}tooltip="{{datablock.icon.libelle}}"{% endif %}>
+                        {% if datablock.icon.urlInfo|default %}
+                            <a href="{{ datablock.icon.urlInfo }}">
+                        {% endif %}
+                        <img class="{{datablock.icon.code}}" alt="{{datablock.icon.libelle|default}}" src="{{ datablock.icon.urlHD | rcImg(100, 100, 75, 'png', 'clip') }}" />
+                        {% if datablock.icon.urlInfo|default %}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if datablock.image|default %}
+                    <div class="datablock-icon">
+                        <img class="" alt="" src="{{ datablock.image }}" />
+                    </div>
+                {% endif %}
+
+                <div class="datablock-fields">
+                    <div class="datablock-field-body">
+                        <div>
+                            <span class="datablock-title _plu-emphasis--high">{{ datablock.type|default }}</span>
+                        </div>
+                        <div class="_plu-push-top--small">
+                        {% if datablock.fields|default %}
+                            {{ _self.datablockfields(datablock.fields) }}
+                        {% else %}
+                            {{ datablock.value|raw|nl2br }}
+                        {% endif %}
+                        </div>
+                        {% if datablock.startDate|default and datablock.endDate|default %}
+                            <div class="_plu-push-top--tiny">
+                                <span period-parser type="select" start={{datablock.startDate| date('Y-m-d')}} end={{datablock.endDate| date('Y-m-d')}}>
+                                    <span class="icon-font-event plo-fonticon"></span>
+                                    <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>
+                                    <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', lang)}}</span>
+                                    <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
+                                    <span class="end-date">{{ datablock.endDate | localizeddate('long', 'none', lang)}}</span>
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if datablock.link|default or datablock.file|default %}
+                        <div class="datablock-field-links _plu-push-top--small">
+                            {% if datablock.link|default %}
+                                <div class="datablock-link">
+                                    <a target="_blank" rel="noindex,nofollow" itemprop="url" href="{{ datablock.link }}" download>
+                                        <span class="icon-font-globe plo-fonticon"></span>
+                                        {{ datablock.linkText|default('Infos & réservation') }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% if datablock.file|default %}
+                                <div class="datablock-file">
+                                    <a target="_blank" data-type="FICHIER" event-type="SHEET_DOWNLOAD_PDF"
+                                        rel="noindex,nofollow"
+                                        interact itemprop="url" href="{{ datablock.file }}" download>
+                                        <span class="{{ true ? 'icon-font-download':'icon-font-file-3'}} plo-fonticon"></span>
+                                        {{ datablock.fileText|default('Télécharger la doc') }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </section>
+{% endif %}

@@ -1,0 +1,128 @@
+{% if contractsLevels.sidebar.sharing %}
+    <li id="li-social-networks">
+        <section class="panel panel-default">
+
+            {% if formated_object.hashtag|default %}
+                <div class="sidebar-hashtag">
+                    <span class="hashtag-pre">
+                        Suivez nous sur
+                    </span>
+                    <span class="hashtag">
+                        {{ formated_object.hashtag }}
+                    </span>
+                </div>
+            {% endif %}
+
+            <div class="panel-body tourism-detail-sharing social-buttons-wrapper">
+                <ul class="social-icons-list">
+
+                    {% if formated_object.socials.facebook.particular|default or formated_object.canonical|default %}
+                        <!-- FACEBOOK -->
+                        <li class="social-icon-wrapper item-facebook" ng-click="shareToggle('facebook')">
+                            <span class="social-icon" ng-class="{active: shares.facebook}"></span>
+                        </li>
+                    {% endif %}
+
+                    {% if formated_object.socials.twitter.particular|default or formated_object.canonical|default %}
+                        <!-- TWITTER -->
+                        <li class="social-icon-wrapper item-twitter" ng-click="shareToggle('twitter')">
+                            <span class="social-icon" ng-class="{active: shares.twitter}"></span>
+                        </li>
+                    {% endif %}
+
+                    <!-- INSTAGRAM / ONLY IF DATAS -->
+                    {% if formated_object.socials.instagram.particular is defined %}
+                        <li class="social-icon-wrapper item-instagram" ng-click="shareToggle('instagram')">
+                            <span class="social-icon" ng-class="{active: shares.instagram}"></span>
+                        </li>
+                    {% endif %}
+
+                </ul>
+
+                <span class="opened-share-item">
+
+                    {% if formated_object.socials.facebook.particular|default or formated_object.canonical|default %}
+                    <!-- FACEBOOK -->
+                    <span class="social-tooltip" collapse="!shares.facebook" ng-class="{show: shares.facebook}">
+                        <span class="social-tooltip-wrapper">
+
+                            {% if formated_object.socials.facebook.particular|default %}
+                            <span class="social-item">
+                                <span class="tooltip-label">{{ 'SECTIONS.SOCIAL.FOLLOW_ON'|trans }}&nbsp;Facebook</span>
+                                    <span class="iframe-wrapper follow-facebook">
+                                        <div class="fb-like-box" data-colorscheme="light"
+                                            data-show-faces="false" data-header="true"
+                                            data-stream="false" data-show-border="true"
+                                            data-href={{formated_object.socials.facebook.particular}}>
+                                        </div>
+                                    </span>
+                            </span>
+                            {% endif %}
+
+                            {% if formated_object.canonical|default %}
+                                <a  analytics-mediaveille media="facebook"
+                                    interact event-type="SHEET_SOCIAL_MEDIA_SHARE" event-data='{"social_network": "facebook"}'
+                                    href={{'https://facebook.com/sharer/sharer.php?u=' ~ formated_object.canonical}} target="_blank"
+                                    rel="noindex,nofollow"
+                                    class="share-button facebook">
+                                    {{ 'SECTIONS.SOCIAL.SHARE_ON'|trans }}&nbsp;Facebook
+                                </a>
+                            {% endif %}
+
+                         </span>
+                    </span>
+                    {% endif %}
+
+                    {% if formated_object.socials.twitter.particular|default or formated_object.canonical|default %}
+                    <!-- TWITTER -->
+                    <span class="social-tooltip" ng-class="{show: shares.twitter}">
+                        <span class="social-tooltip-wrapper">
+
+                            {% if formated_object.socials.twitter.particular|default %}
+                                <span class="social-item" ng-social-network-twitter>
+                                    <span class="tooltip-label">{{ 'SECTIONS.SOCIAL.FOLLOW_ON'|trans }}&nbsp;Twitter</span>
+                                    <span class="iframe-wrapper follow-twitter">
+                                        <a href={{formated_object.socials.twitter.particular}} class="twitter-follow-button"
+                                        rel="noindex,nofollow"
+                                        data-show-count="false">Follow {{formated_object.socials.twitter.username}}</a>
+                                    </span>
+                                </span>
+                            {% endif %}
+
+                            {% if formated_object.canonical|default %}
+                                <span class="social-item">
+                                    <a  analytics-mediaveille media="twitter"
+                                        interact event-type="SHEET_SOCIAL_MEDIA_SHARE" event-data='{"social_network": "twitter"}'
+                                        href={{'https://twitter.com/intent/tweet/?url=' ~ formated_object.canonical}} target="_blank"
+                                        rel="noindex,nofollow"
+                                        class="share-button twitter">
+                                        {{ 'SECTIONS.SOCIAL.SHARE_ON'|trans }}&nbsp;Twitter
+                                    </a>
+                                </span>
+                            {% endif %}
+
+                        </span>
+                    </span>
+                    {% endif %}
+
+                    <!-- INSTAGRAM -->
+                    {% if formated_object.socials.instagram.particular|default %}
+                    <span class="social-tooltip" collapse="!shares.instagram" ng-class="{show: shares.instagram}">
+                        <span class="social-tooltip-wrapper" interact event-type="SHEET_SOCIAL_MEDIA_SHARE" event-data='{"social_network": "instagram"}'>
+
+                            <span class="social-item">
+                                <span class="tooltip-label">{{ 'SECTIONS.SOCIAL.FOLLOW_ON'|trans }}&nbsp;Instagram</span>
+                                <span class="iframe-wrapper follow-instagram">
+                                    <a href={{formated_object.socials.instagram.particular}} target="_blank" rel="noindex,nofollow" class="instagram-icon">Instagram</a>
+                                </span>
+                            </span>
+
+                        </span>
+                    </span>
+                    {% endif %}
+
+                </span>
+            </div>
+        </section>
+    </li>
+{% endif %}

@@ -1,26 +1,14 @@
-<div class="woody-component woody-component-quote tpl_01">
-    <div class="grid-x grid-padding-x grid-padding-y">
-        {% if img|default %}
-            <div class="cell small-12 medium-3 item-img">
-                {% include '_objects/imageObject.twig' with {
-            'img' : _context.img,
-            'image_style' : 'ratio_square',
-            'containerClass' : "quoteMediaWrapper"
-            } %}
-            </div>
-        {% endif %}
-        {% if text|default %}
-            <div class="cell auto quote-texts flex-container flex-dir-column align-center">
-                <div class="lead">
-                    {{ text }}
-                </div>
-                {% if signature|default %}
-                    <div class="text-right item-author">
-                        <strong>
-                            {{ signature }}</strong>
-                    </div>
-                {% endif %}
-            </div>
-        {% endif %}
-    </div>
-</div>
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}quote{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('01') }}{% endblock %}
+{% block woodyComponentContent %}
+	<div class="grid-x grid-padding-x grid-padding-y {{ flexDirection|default }}">
+		{% include "blocks/quote/_objects/quoteImageObject.twig" with {
+            'customClass' : 'cell small-12 medium-3 rounded-img'
+        } %}
+		{% include "blocks/quote/_objects/quoteTextObject.twig" with {
+            'withSignature' : true,
+            'customClass' : 'cell auto quote-texts flex-container flex-dir-column align-center'
+        } %}
+	</div>
+{% endblock %}

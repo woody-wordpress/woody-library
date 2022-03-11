@@ -1,0 +1,15 @@
+// Body max-width
+$body-has-maxwidth: true !default;
+$body-maxwidth: 2560px !default;
+// Body shadow (visible avec max-width)
+$body-shadow: true !default;
+$body-shadow-distance: 0px !default;
+$body-shadow-blur: 60px !default;
+$body-shadow-color: $black !default;
+$body-shadow-opacity: .1 !default;
+$body-shadow-layers: 5 !default;
+$body-shadow-curve: .2 !default;
+
+// Icons
+$duration-icon: 015-horloge !default;
+$distance-icon: 039-pin !default;

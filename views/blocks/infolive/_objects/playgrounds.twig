@@ -1,0 +1,20 @@
+<div class="text-center marg-bottom-sm title-wrapper">
+    <span class="title h6">{{ __('Espaces Ludiques','woody-theme') }}</span>
+</div>
+<div class="grid-x playground-wrapper">
+    {% for index, playground  in playgrounds %}
+    <div class="cell playground-{{ index }}">
+        <div class="title-playground h6">{{ playground.title }}</div>
+        <div class="state-playground state-{{ playground.state.slug }}">
+            {{ playground.state.title }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if lifts %}
+<div class="flex-container flex-dir-column align-center align-middle marg-top-sm">
+    {% include "blocks/infolive/_objects/lifts.twig" with {
+        'open_only': true
+    } %}
+</div>
+{% endif %}

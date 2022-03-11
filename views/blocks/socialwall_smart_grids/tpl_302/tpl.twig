@@ -1,0 +1,28 @@
+<div class="cell large-8">
+    <div class="grid-x {{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+        <div class="cell">
+            <div class="grid-y {{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+                {% for item in gallery_items[1:1]%}
+                    <div class="cell">
+                        {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                            'containerClass' : "socialwall",
+                            'reveal': true
+                        } %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cell large-4">
+    <div class="grid-x {{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+        {% for item in gallery_items[2:2]%}
+            <div class="cell">
+                {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                    'containerClass' : "socialwall",
+                    'reveal': true
+                } %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{% if image|default %}
+	<span class="item-image-wrapper">
+		<span class="link-wrapper sheet-image-item">
+			<a href="{{linkToSheet.URL}}" rel="{{linkToSheet.rel}}" target="{{linkToSheet.target}}">
+				<span class="list-image"
+					rc-img rc-img-quality="80"
+					rc-img-method="{{image.resize.type|default('crop')}}"
+					rc-img-width="{{image.resize.width|default('460')}}"
+					rc-img-height="{{image.resize.height|default('345')}}"
+					rc-img-src="{{image.URL}}">
+				</span>
+			</a>
+		</span>
+	</span>
+{% else %}
+	<span class="item-image-wrapper no-image">
+		<a href="{{linkToSheet.URL}}" rel="{{linkToSheet.rel}}" target="{{linkToSheet.target}}"></a>
+	</span>
+{% endif %}

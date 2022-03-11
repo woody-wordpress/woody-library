@@ -1,0 +1,20 @@
+<div class="swiper-wrapper swRespW" {% if equalize_swiper %} data-equalizer="data-equalizer"{% endif %}>
+    {% for key, item in items %}
+        <div class="swiper-slide swRespS">
+            {% if isReveal == true %}
+                <div class="cell">
+            {% endif %}
+            {% include "cards/#{card}/tpl.twig" with {
+                'desequalize' : desequalize,
+                'image_style' : image_style,
+                'page_type' : item.page_type,
+                'ellipsis': item.ellipsis|default(false),
+                'card_index':loop.index0 + card_index_offset|default(1),
+                'reveal' : isReveal|default()
+            } %}
+            {% if isReveal == true %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

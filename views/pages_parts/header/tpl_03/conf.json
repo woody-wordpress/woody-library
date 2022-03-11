@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Header template 3",
     "description": "Header logo centré",
+    "lib_type": "lite",
     "acf_groups": [],
     "vars": []
 }

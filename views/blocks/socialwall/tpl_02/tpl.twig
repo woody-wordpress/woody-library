@@ -1,7 +1,9 @@
 <div class="woody-component woody-component-socialwall isRel tpl_02 {{ background_color|default }} {{ border_color|default }} {{ background_img_opacity|default }}{{ background_img ? ' has-bgimg' }}">
     {% if background_img %}
-    <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
-    <div class="content isRel">
+        {% include '_objects/bgImageObject.twig' with {
+                'img': background_img,
+        } %}
+        <div class="content isRel">
         {% endif %}
         <div class="gallery-wrapper">
             <div class="woodyGallery grid-x{{ sw_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">

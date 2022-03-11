@@ -1,0 +1,18 @@
+.submenu-block-links-list {
+    .submenu-item {
+        a {
+            padding: 0;
+            transition: $submenus-global-transition;
+        }
+    }
+
+    .submenu-block-content {
+        grid-gap: calc(#{$submenu-grid-gap} / 2);
+    }
+
+    .submenu-texts {
+        span:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+}

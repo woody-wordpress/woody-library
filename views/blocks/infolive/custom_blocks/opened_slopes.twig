@@ -1,0 +1,6 @@
+{% if 'open' in databloc.show_data %}<span class="val open">{{databloc.data.global.open}}</span>{% endif %}
+{% if 'open' in databloc.show_data and 'total' in databloc.show_data %}<span class="sep">/</span>{% endif %}
+{% if 'total' in databloc.show_data %}<span class="val total">{{databloc.data.global.total}}</span>{% endif %}
+
+
+

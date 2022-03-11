@@ -1,0 +1,34 @@
+// FONCTIONNEMENT WOODY ANIMATIONS
+// Activation des animations dans le sous-thème
+$subthemeAnimations: false !default;
+
+// Si les animations sont activées dans le sous-thème, on rend accessibles les variables propres au fonctionnement du js
+@if $subthemeAnimations {
+    // Possibilité d'utiliser les classes d'animation de base de Woody, ou des animations et déclencheur custom créés dans le sous-thème
+    $animationBaseList: (fade-up, fade-down, fade-left, fade-right, gallery-zoom);
+    $animationCustomList: () !default; // Ajout de classes d'animation custom dans le sous-theme sous forme de tableau
+    $animationTrigger: animation-trigger !default;
+    $animationTreshold: 0.4 !default;
+    $animationList: join($animationBaseList, $animationCustomList); // Merge du tableau des animations de base et des animations custom déclarées dans le sous-theme
+
+    :root {
+        --animSubtheme: #{$subthemeAnimations};
+        --animList: #{$animationList};
+        --animTrigger: #{$animationTrigger};
+        --animTreshold: #{$animationTreshold};
+    }
+}
+
+// ANIMATIONS
+// Fade
+$anim-fade-transition: transform .5s ease-in-out .1s,
+opacity .5s ease .1s !default;
+$anim-fade-distance: 15px !default;
+
+// Gallery zoom
+$anim-gallery-transition: .3s ease-in-out !default;
+$anim-gallery-zoom-outline: true !default;
+$anim-gallery-zoom-outline-width: 30px !default;
+$anim-gallery-zoom-outline-transition: 1.2s cubic-bezier(.75, 0, .5, 1) !default;
+$anim-gallery-zoom-img-scale: scale(1.05) !default;
+$anim-gallery-zoom-img-transition: 1.2s cubic-bezier(.75, 0, .5, 1) !default;

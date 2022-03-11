@@ -1,9 +1,9 @@
-{% if visual_effects|default %}
-    <div class="visualModifier {{ visual_effects.transform }}">
+{% if visual_effects.transform %}
+    <div class="visualModifier {{ visual_effects.transform }} {{ visual_effects.deep|default }}">
     {% endif %}
     {% block content %}
         {# Here's the content of the block #}
     {% endblock %}
-    {% if visual_effects|default %}
+    {% if visual_effects.transform %}
     </div>
 {% endif %}

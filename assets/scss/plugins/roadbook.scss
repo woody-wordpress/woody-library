@@ -1,0 +1,584 @@
+// $rbdk-front-site-logo-width : 80px !default;
+// $rbdk-leaflets-site-logo-width : 60px !default;
+
+// body.is-roadbook {
+//     padding-bottom: 120px;
+//     margin: 0 auto;
+//     box-shadow: 0 0 12px rgba($black, .2);
+//     background-color: $light-gray;
+
+//     @include breakpoint(large) {
+//         padding-left: 95px;
+//         padding-bottom: 0;
+
+//         &.is-feed {
+//             padding-top: 150px;
+//         }
+
+//         .rdbk-feed-header {
+//             position: fixed;
+//             z-index: 100;
+//             right: 0;
+//             top: 0;
+//             width: calc(100% - 95px);
+//         }
+//     }
+
+//     .woody-component-rbmenu {
+//         position: fixed;
+//         bottom: 0;
+//         left: 0;
+//         width: 100%;
+//         z-index: 1000;
+
+//         @include breakpoint(large) {
+//             width: 95px;
+//             height: 100vh;
+//         }
+
+//         .title-bar {
+//             padding: 0 20px 20px 20px;
+//             border-radius: 30px 30px 0 0;
+//             box-shadow: none;
+
+//             @include breakpoint(large) {
+//                 height: 100%;
+//                 border-radius: 0;
+//                 box-shadow: 2px 0 2px rgba($black, .2);
+//             }
+//         }
+
+//         .menu {
+//             justify-content: center;
+
+//             @include breakpoint(large) {
+//                 flex-direction: column;
+//             }
+
+//             &-item {
+//                 &:not(.feed-menu-item) {
+//                     width: calc(100%/6);
+
+//                     @include breakpoint(large) {
+//                         width: 100%;
+//                         padding: 20px 0;
+//                     }
+//                 }
+
+//                 &.feed-menu-item {
+//                     width: calc(100%/3);
+
+//                     @include breakpoint(large) {
+//                         width: 100%;
+//                     }
+
+//                     &.is-active {
+//                         &:before {
+//                             width: 95px;
+//                             height: 95px;
+//                             border-radius: 50%;
+//                             top: 50%;
+//                             transform: translateY(-50%) translateX(-50%);
+//                             border: 6px solid $white;
+//                         }
+
+//                         .menu-link {
+//                             color: $white;
+//                         }
+//                     }
+//                 }
+//             }
+
+//             &-link {
+//                 display: flex;
+//                 color: $medium-gray;
+
+//                 &-icon {
+//                     font-size: rem-calc(28);
+//                 }
+
+//                 &-title {
+//                     font-size: rem-calc(9);
+//                     line-height: 1em;
+//                     margin-top: 3px;
+//                 }
+//             }
+
+//             .is-active {
+//                 position: relative;
+
+//                 &:before {
+//                     content: '';
+//                     display: block;
+//                     width: 50px;
+//                     height: 4px;
+//                     position: absolute;
+//                     top: 0;
+//                     left: 50%;
+//                     transform: translateX(-50%);
+//                     background-color: $primary-color;
+//                     border-radius: 0 0 4px 4px;
+//                 }
+
+//                 >a {
+//                     background-color: transparent;
+//                     color: $primary-color;
+//                     position: relative;
+
+//                     svg {
+//                         fill: $primary-color;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+
+//     .rdbk-feed-header {
+//         background-color: $white;
+//         padding: 20px 0 0 20px;
+//         box-shadow: 0 2px 6px rgba($black, .3);
+
+//         @include breakpoint(large) {
+//             padding: 0 0 0 20px;
+//             display: flex;
+//             align-items: stretch;
+//             justify-content: space-between;
+//         }
+
+//         h1 {
+//             font-weight: bold;
+//             transform-origin: bottom left;
+//             transition: font-size .3s;
+
+//             @include breakpoint(large) {
+//                 margin-bottom: 0;
+//                 display: flex;
+//                 align-items: center;
+//                 padding-right: 40px;
+//             }
+//         }
+
+//         .tabs {
+//             border: none;
+//             overflow-x: scroll;
+//             padding-top: 15px;
+
+//             @include breakpoint(large) {
+//                 padding-left: 40px;
+//                 max-width: 560px;
+//             }
+//         }
+
+//         &.isScrolled {
+//             position: fixed;
+//             top: 0;
+//             left: 0;
+//             width: 100%;
+//             z-index: 100;
+//             padding-top: 5px;
+
+//             h1 {
+//                 font-size: rem-calc(0);
+//                 margin-bottom: 0;
+//             }
+
+//             .tabs {
+//                 padding-top: 3px;
+//             }
+
+//             .feed-author {
+//                 &-link {
+//                     width: 80px;
+//                 }
+
+//                 &-img {
+//                     width: 60px;
+//                     height: auto;
+//                 }
+
+//                 &-name {
+//                     font-size: 0;
+//                     margin: 0;
+//                 }
+//             }
+//         }
+//     }
+
+//     .feed-author {
+
+//         &:after {
+//             content: '';
+//             display: block;
+//             width: 50px;
+//             height: 3px;
+//             position: absolute;
+//             bottom: 0;
+//             left: 50%;
+//             transform: translateX(-50%) scaleY(0);
+//             background-color: $primary-color;
+//             border-radius: 4px 4px 0 0;
+//             transform-origin: center bottom;
+//             transition: transform .3s ease-in;
+//         }
+
+//         &-link {
+//             display: flex !important;
+//             flex-direction: column;
+//             align-items: center;
+//             justify-content: center;
+//             padding: 0;
+//             width: 110px;
+//             text-align: center;
+//         }
+
+//         &-img {
+//             width: 90px;
+//             height: 90px;
+//             border-radius: 90px;
+//             transition: box-shadow .3s;
+//         }
+
+//         &-name {
+//             display: block;
+//             margin: 12px auto;
+//             font-size: rem-calc(11);
+//             padding-bottom: 10px;
+//             transition: font-size .3s;
+//         }
+
+//         &.is-active {
+//             position: relative;
+
+//             &:after {
+//                 transform: translateX(-50%) scaleY(1);
+//             }
+
+//             .feed-author-img {
+//                 box-shadow: 0 0 0 3px $primary-color;
+//             }
+//         }
+//     }
+
+//     .rdbk-feed-content {
+//         border: none;
+
+//         .tabs-panel {
+//             padding: 0;
+//         }
+
+//         .woody-component-faq,
+//         .woody-component-quote {
+//             margin-top: 50px;
+//             padding: 0 20px;
+
+//             @include breakpoint(large) {
+//                 padding: 0 50px;
+//             }
+//         }
+
+//         .woody-component-quote {
+//             .cell {
+//                 @include breakpoint(large) {
+//                     padding-left: 0;
+//                     padding-right: 0;
+//                 }
+//             }
+
+//             .quote-texts {
+//                 text-align: left;
+
+//                 .title {
+//                     @include header-size(h4);
+//                     color: $black;
+//                     margin-bottom: 30px;
+//                     @include wicon(037-citation-02, after);
+//                     position: relative;
+//                     padding-right: 50px;
+//                     display: flex;
+
+//                     &:after {
+//                         color: $primary-color;
+//                         opacity: .4;
+//                         position: absolute;
+//                         right: 0;
+//                         top: 50%;
+//                         font-size: rem-calc(44);
+//                         transform: translateY(-50%) scaleX(-1);
+//                     }
+//                 }
+
+//                 .lead {
+//                     font-size: rem-calc(14);
+//                     margin-top: 20px;
+//                     color: lighten($black, 20%);
+
+//                     &:after,
+//                     &:before {
+//                         display: none;
+//                     }
+
+
+//                 }
+//             }
+//         }
+
+//         .woody-component-focus.tpl_406 {
+//             position: relative;
+
+//             @include breakpoint(large) {
+//                 padding: 0 0 0 50px !important;
+
+//                 .woody-swiper {
+//                     padding-right: 120px !important;
+//                     padding-bottom: 20px;
+//                     width: calc(100% + 16px); // card shadows hack
+//                     padding-left: 16px; // card shadows hack
+//                     margin-left: -16px; // card shadows hack
+//                 }
+
+//                 .swiper-controls {
+//                     width: 80px;
+//                     right: 10px;
+//                     left: auto;
+//                     top: -24px;
+//                     height: auto;
+
+//                     .swiper-nav {
+//                         display: flex;
+//                     }
+
+//                     .swiper-button-next,
+//                     .swiper-button-prev {
+//                         position: static;
+//                         padding: 0;
+//                         width: 38px !important;
+//                         height: 38px !important;
+//                         display: flex;
+//                         align-items: center;
+//                         justify-content: center;
+//                         background-color: $primary-color;
+
+//                         .wicon {
+//                             color: $white !important;
+//                             font-size: rem-calc(14);
+//                             transform: translateY(1px);
+//                         }
+//                     }
+
+//                     .swiper-button-prev {
+//                         border-radius: 30px 0 0 30px;
+//                         border-right: 1px solid $light-gray;
+//                     }
+
+//                     .swiper-button-next {
+//                         border-radius: 0 30px 30px 0;
+//                         border-left: 1px solid $light-gray;
+//                     }
+//                 }
+//             }
+
+//             .woody_bases_grid {
+//                 justify-content: flex-start;
+
+//                 >.cell {
+//                     @include breakpoint(xmedium) {
+//                         width: calc(100%/2 - 15px);
+//                     }
+
+//                     @include breakpoint(large) {
+//                         width: calc(100%/3 - 15px);
+//                     }
+
+//                     @include breakpoint(xlarge) {
+//                         width: calc(100%/4 - 15px);
+//                     }
+//                 }
+//             }
+
+
+//             .focus-header {
+//                 padding: 50px 20px 0 30px;
+//                 margin-bottom: 15px;
+
+//                 @include breakpoint(large) {
+//                     padding-left: 0;
+//                 }
+
+//                 .focus-block-title {
+//                     @include header-size(h4);
+//                     text-align: left;
+//                     font-weight: normal;
+//                 }
+//             }
+
+//             .focus-buttons {
+//                 position: absolute;
+//                 top: 50px;
+//                 right: 20px;
+//                 padding: 0;
+
+//                 @include breakpoint(large) {
+//                     right: 100px;
+//                 }
+
+//                 .woody-component-button {
+//                     margin: 0;
+
+//                     .button {
+//                         text-transform: none;
+//                         margin-top: -0.85em;
+//                         font-size: rem-calc(12);
+//                         line-height: 1.4em;
+//                         border-radius: 30px;
+
+//                         @include breakpoint(xmedium down) {
+//                             text-decoration: underline;
+//                             background: transparent;
+//                             color: $primary-color;
+//                         }
+//                     }
+//                 }
+//             }
+
+//             .empty-section {
+//                 position: absolute;
+//                 bottom: 0;
+//                 width: 100%;
+//                 left: 30px;
+//                 font-size: rem-calc(12);
+//                 font-style: italic;
+//                 color: lighten($black, 20%);
+//             }
+
+//             .woody-mobile-swiper {
+//                 @include breakpoint(large) {
+//                     margin-left: -32px;
+//                     padding-left: 16px;
+//                 }
+//             }
+//         }
+//     }
+
+//     .focus-block-titles {
+//         align-items: flex-start;
+//     }
+
+//     .swResp {
+//         @include breakpoint(xmedium down) {
+//             &:not(.no-padding) {
+//                 padding-left: 30px !important;
+//                 padding-right: 120px !important;
+//             }
+//         }
+//     }
+
+//     .card,
+//     .woody-component-faq .accordion-item {
+//         border-radius: 30px;
+//         overflow: hidden;
+//         box-shadow: 0 0 16px rgba($black, .2);
+//     }
+
+//     .woody-component-faq {
+
+//         .faq-title {
+//             display: block;
+//             @include header-size(h4);
+//             font-weight: normal;
+//             margin-bottom: 30px;
+//         }
+
+//         .accordion {
+//             background: transparent;
+//         }
+
+//         .accordion-item:not(:nth-last-of-type(1)) {
+//             margin-bottom: 15px;
+//         }
+
+//         .accordion-title {
+//             color: $black;
+//             background-color: $white;
+//             padding: 1rem;
+//         }
+
+//         .accordion-content {
+//             font-size: rem-calc(14);
+//             color: lighten($black, 20%);
+//         }
+//     }
+
+//     .card {
+//         .card-title {
+//             font-size: rem-calc(14);
+//         }
+
+//         .card-pretitle,
+//         .card-subtitle,
+//         .card-description {
+//             font-size: rem-calc(12);
+//         }
+
+//         .card-button {
+//             text-decoration: underline;
+//             text-transform: none;
+//             background-color: transparent;
+//         }
+
+//         &.basicCard,
+//         &.splitCard {
+//             .card-titles {
+//                 color: $primary-color;
+
+//                 .card-description {
+//                     color: lighten($black, 20%);
+//                 }
+//             }
+
+//             .card-button {
+//                 color: $primary-color;
+//             }
+//         }
+
+//         &.basicCard {
+//             .card-section {
+//                 padding: 30px;
+//                 text-align: center;
+//             }
+
+//             .card-date {
+//                 position: absolute;
+//                 top: 0;
+//                 left: 50%;
+//                 transform: translateX(-50%);
+//                 background: $primary-color;
+//                 color: white;
+//                 padding: 5px 10px;
+//                 border-radius: 0 0 20px 20px;
+//                 width: 70%;
+
+//                 .date-part {
+//                     flex-direction: row;
+
+//                     span[class$="-day"] {
+//                         margin-right: 5px;
+//                     }
+
+//                     span[class$="-day"],
+//                     span[class$="-month"] {
+//                         font-size: rem-calc(13);
+//                     }
+
+//                     .card-dateDivider {
+//                         margin: 0 10px;
+//                         font-size: rem-calc(11);
+//                     }
+//                 }
+//             }
+//         }
+//     }
+
+//     .woody_footer {
+//         border-top: none;
+//     }
+// }

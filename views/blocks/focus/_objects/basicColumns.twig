@@ -1,0 +1,11 @@
+{% include 'blocks/focus/_objects/headerObject.twig' with {
+    display: display_block_titles|default(),
+    margin: block_titles_margin|default('marg-bottom-md')
+} %}
+
+{% include "lists/#{grid}/tpl.twig" with {
+    block_titles: false
+} %}
+
+{% include 'blocks/focus/_objects/focus_buttons.twig' %}
+

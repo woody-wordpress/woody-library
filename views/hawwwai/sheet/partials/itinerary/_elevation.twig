@@ -1,0 +1,88 @@
+{# original at api-front elevation.html #}
+
+{% if formated_object.bordereau in ['ITI'] %}
+<section id="profile" class="row panel panel-default">
+    <div class="itinerary-elevation-wrapper _plu-wrapper">
+
+        <dl class="row">
+            <dt class="_plu-push--tiny">
+                <span class="pl-heading section-title">
+                    {{ formated_object.dataItinerary.itinerary.topographieMetrics._positiveElevation }}
+                    {{ 'SECTIONS.TOURISM.SHEET.ITINERARY.METERS_OF_DIFFERENCE_IN_HEIGHT'|trans }}
+                </span>
+            </dt>
+
+            <dd class="">
+                <div ng-if="!useLeafletLibrary"
+                    itinerary-elevation-lite
+                    metrics='{{formated_object.dataItinerary.itinerary.topographieMetrics|json_encode}}'
+                    tab-points='{{formated_object.dataItinerary.itinerary.tabPoints|json_encode}}'
+                    class="itinerary-chart" ng-class="{isLoading: loading}">
+                    <div id="chart_div"></div> {# hooked by itinerary-elevation-lite directive #}
+                </div>
+                {% if formated_object.dataItinerary.itinerary.topographiePoints|default %}
+                    <div ng-if="useLeafletLibrary"
+                        itinerary-elevation-lite-leaflet
+                        class="itinerary-chart" ng-class="{isLoading: loading}">
+                        <div id="chart_div"></div>
+                    </div>
+                {% endif %}
+                <div class="itinerary-elevation-datas no-gutter">
+                    <ul class="col-xs-12 col-lg-6 _plu-flush--bottom">
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._startAltitude|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.START_ALTITUDE'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._startAltitude }} m</span>
+                            </li>
+                        {% endif %}
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._endAltitude|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.END_ALTITUDE'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._endAltitude }} m</span>
+                            </li>
+                        {% endif %}
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._altitudeMax|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.MAX_ALTITUDE'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._altitudeMax }} m</span>
+                            </li>
+                        {% endif %}
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._altitudeMin|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.MIN_ALTITUDE'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._altitudeMin }} m</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <ul class="col-xs-12 col-lg-6 _plu-flush--bottom">
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._positiveElevation|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.TOTAL_POSITIVE_ELEVATION'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._positiveElevation }} m</span>
+                            </li>
+                        {% endif %}
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._negativeElevation|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.TOTAL_NEGATIVE_ELEVATION'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._negativeElevation }} m</span>
+                            </li>
+                        {% endif %}
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._positiveElevationMax|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.MAX_POSITIVE_ELEVATION'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._positiveElevationMax }} m</span>
+                            </li>
+                        {% endif %}
+                        {% if formated_object.dataItinerary.itinerary.topographieMetrics._negativeElevationMax|default %}
+                            <li class="elevation-data">
+                                <span class="data-label">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.MAX_NEGATIVE_ELEVATION'|trans }} : </span>
+                                <span class="data-value">{{ formated_object.dataItinerary.itinerary.topographieMetrics._negativeElevationMax }} m</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </dd>
+        </dl>
+    </div>
+</section>
+{% endif %}

@@ -1,30 +1,29 @@
 <div class="woody-component woody-component-list-filter type-select tpl_04 large-flex-container {{ alignment_classes|default('align-center align-middle padd-all-sm') }}">
     <div class="label-wrapper {{ label_padding|default('padd-all-sm') }}">
-        <label class="filter-label">{{ filter.list_filter_name }}</label>
+        <label class="filter-label">{{ filter.filter_name }}</label>
     </div>
     <div class="select-wrapper">
-
-         {% if filter.list_filter_type == 'taxonomy' or filter.list_filter_type == 'custom_terms' %}
-            <select name="taxonomy_terms_{{ filter_index }}" value="">
-                {% if filter.list_filter_type == 'taxonomy' or filter.list_filter_type == 'custom_terms' %}
-                    {% for filter_term in filter.list_filter_custom_terms %}
-                        <option value="{{ filter_term.value }}"{% if filter_term.checked|default %} selected="selected"{% endif %}>{{ filter_term.label }}</option>
-                    {% endfor %}
-                {% endif %}
+         {% if filter.filter_type == 'custom_terms' %}
+            <select name="{{ uniqid }}_tt_{{ filter_index }}" value="">
+                <option value="all"{% if filter_term.checked|default %} selected="selected"{% endif %}>{{ __('Tout', 'woody-theme') }}</option>
+                {% for filter_term in filter.list_filter_custom_terms %}
+                    <option value="{{ filter_term.value }}"{% if filter_term.checked|default %} selected="selected"{% endif %}>{{ filter_term.label }}</option>
+                {% endfor %}
             </select>
-         {% elseif filter.list_filter_type == 'price' %}
-             <select name="trip_price_{{ filter_index }}_max" value="{{ filter.minmax.default_max }}">
+         {% elseif filter.filter_type == 'price' %}
+             <select name="{{ uniqid }}_tp_{{ filter_index }}_max" value="{{ filter.minmax.default_max }}">
                 {% set step = (filter.minmax.max - filter.minmax.min) / 10 %}
                 {% for i in 1..10 %}
                     {% set value = filter.minmax.min + step * i %}
-                    <option name="trip_price_{{ filter_index }}_min" value="{{ value }}"{% if value == filter.minmax.default_max %} selected="selected"{% endif %}>{{ value }}€</option>
+                    <option name="tp_{{ filter_index }}_min" value="{{ value }}"{% if value == filter.minmax.default_max %} selected="selected"{% endif %}>{{ value }}€</option>
                 {% endfor %}
             </select>
             <input class="price_min" name="trip_price_{{ filter_index }}_min" type="hidden" value="{{ filter.minmax.default_min|default(filter.minmax.min) }}">
-         {% elseif filter.list_filter_type == 'duration' %}
-             <select name="trip_count_days_{{ filter_index }}" value="{{ filter.minmax.default }}">
+         {% elseif filter.filter_type == 'duration' %}
+             <select name="{{ uniqid }}_td_{{ filter_index }}" value="{{ filter.minmax.default }}">
                 {% for value in 1..filter.minmax.max %}
-                    <option name="trip_count_days_{{ filter_index }}" value="{{ value }}"{% if value == filter.minmax.default %} selected="selected"{% endif %}>{{ value }} {{ loop.first ? 'jour' : 'jours'  }}</option>
+                {# TODO: La gestion du singulier/pluriel par du principe que la plus petite durée est 1 #}
+                    <option name="td_{{ filter_index }}" value="{{ value }}"{% if value == filter.minmax.default_min %} selected="selected"{% endif %}>{{ value }} {{ loop.first ? __('jour', 'woody-theme') : __('jours', 'woody-theme')  }}</option>
                 {% endfor %}
             </select>
          {% endif %}

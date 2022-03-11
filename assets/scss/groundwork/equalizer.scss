@@ -1,0 +1,23 @@
+[data-equalizer="data-equalizer"] {
+    .swiper-slide {
+        align-self: stretch;
+        height: auto;
+        &.multiRows {
+            height: 100%;
+        }
+    }
+    @include breakpoint(xmedium down) {
+        .splitCard {
+            .grid-x {
+                height: 100%;
+                flex-direction: column;
+                > .cell:not(.card-section) {
+                    height: max-content;
+                }
+            }
+            .card-titles {
+                flex-grow: 1;
+            }
+        }
+    }
+}

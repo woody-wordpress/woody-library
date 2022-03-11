@@ -1,5 +1,20 @@
 .woody-component-quote {
+    .title {
+        color: $quote-title-color;
+        font-size: $quote-title-size;
+        font-weight: $quote-title-weight;
+        font-family: $quote-title-font-family;
+        text-transform: $quote-title-text-transform;
+        line-height: $header-lineheight;
+    }
+
     .lead {
+        color: $quote-lead-color;
+        font-size: $quote-lead-size;
+        font-weight: $quote-lead-weight;
+        font-family: $quote-lead-font-family;
+        text-transform: $quote-lead-text-transform;
+
         @if $has-quote-icon {
             position: relative;
             @include wicon(037-citation-02, before);
@@ -9,8 +24,8 @@
             &:before {
                 position: absolute;
                 opacity: .25;
-                color: $quote-icon-color;
                 line-height: 1;
+                color: $quote-icon-color;
                 font-size: $quote-icon-size;
             }
 
@@ -29,12 +44,23 @@
     }
 
     .item-author {
-        position: relative;
+        color: $quote-author-color;
+        font-size: $quote-author-size;
+        font-weight: $quote-author-weight;
+        font-family: $quote-author-font-family;
+        text-transform: $quote-author-text-transform;
+        font-style: $quote-author-style;
     }
 
-    .imageObject {
+    .rounded-img .quoteMediaWrapper {
         @if $quote-img-rounded {
             border-radius: 50%;
+        }
+    }
+
+    .quoteMediaWrapper {
+        .imageObject-caption {
+            display: none;
         }
 
         @if $quote-img-border {
@@ -45,16 +71,63 @@
                 background-color: $quote-img-border-color;
             }
         }
+    }
 
-        &-caption {
-            display: none;
+    &.tpl_02,
+    &.tpl_04 {
+        .quoteMediaWrapper {
+            margin: 20px auto 0 auto;
+            max-width: $quote-02-img-size;
+        }
+    }
+}
+
+@each $color,
+$hex in $foundation-palette {
+    .section.bg-#{$color} {
+
+        .woody-component-quote {
+
+            .title,
+            .item-author {
+                color: set-color($hex);
+            }
+
+            .lead {
+                @if $has-quote-icon {
+
+                    &:after,
+                    &:before {
+                        position: absolute;
+                        opacity: .25;
+                        line-height: 1;
+                        color: set-color($hex);
+                        font-size: $quote-icon-size;
+                    }
+                }
+            }
         }
     }
 
-    &.tpl_02 {
-        .item-img .imageObject {
-            margin: 20px auto 0 auto;
-            max-width: $quote-02-img-size;
+    .woody-component-quote.bg-#{$color} {
+
+        .title,
+        .item-author {
+            color: set-color($hex) !important;
+        }
+
+        .lead {
+            @if $has-quote-icon {
+
+                &:after,
+                &:before {
+                    position: absolute;
+                    opacity: .25;
+                    line-height: 1;
+                    color: set-color($hex);
+                    font-size: $quote-icon-size;
+                }
+            }
         }
     }
 }

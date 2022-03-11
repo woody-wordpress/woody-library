@@ -1,17 +1,17 @@
 {% set random_number = ''|random_number %}
-<div class="woody-component woody-component-faq tpl_01">
+<div class="woody-component woody-component-faq tpl_01" itemscope itemtype="https://schema.org/FAQPage">
     {% if title|default %}
     <span class="faq-title">{{ title }}</span>
     {% endif %}
     {% if accordion|default %}
-    <ul id="accordion-{{ random_number }}" class="accordion" data-accordion data-allow-all-closed="true">
+    <ul id="accordion-{{ random_number }}" class="accordion" data-accordion data-allow-all-closed="true" data-accordion data-multi-expand="true">
         {% for key, row in accordion %}
-        <li class="accordion-item" data-accordion-item>
+        <li class="accordion-item" data-accordion-item itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
             <!-- Accordion tab title -->
-            <a href="#accordion-row-{{ random_number }}-{{ key }}" class="accordion-title">{{ row.title }}</a>
+            <a href="#accordion-row-{{ random_number }}-{{ key }}" class="accordion-title"><span itemprop="name">{{ row.title }}</span></a>
             <!-- Accordion tab content -->
-            <div id="accordion-row-{{ random_number }}-{{ key }}" class="accordion-content" data-tab-content>
-                {{ row.text }}
+            <div id="accordion-row-{{ random_number }}-{{ key }}" class="accordion-content" data-tab-content itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <div itemprop="text">{{ row.text }}</div>
             </div>
         </li>
         {% endfor %}

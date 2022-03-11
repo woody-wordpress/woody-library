@@ -2,15 +2,55 @@
     p>.button {
         @include xy-gutters($gutter-position: right);
     }
-    img{
-        display: block;
-        &.aligncenter{
-            margin-left: auto;
-            margin-right: auto;
+
+    p .wicon:before {
+        font-size: $icons-in-text-size;
+    }
+}
+
+/**
+ * SHOW MORE BUTTON
+ */
+.woody-component-custom-text {
+    &.has-show-more-button {
+        &>div>.cell {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-clamp: $show-more-max-line;
+            -webkit-line-clamp: $show-more-max-line;
         }
-        &.alignright{
-            margin-left: auto;
+
+        &.show-more-button-open {
+            &>div>.cell {
+                line-clamp: initial;
+                -webkit-line-clamp: initial;
+            }
+
+            .showMoreButton {
+                @include wicon($show-more-button-close-wicon, after);
+            }
+        }
+
+        &:not(.show-more-button-open) {
+            .showMoreButton {
+                margin-top: 15px;
+                @include wicon($show-more-button-open-wicon, after);
+            }
+        }
+
+        .showMoreButton {
+            display: flex;
+            justify-content: center;
+            color: $show-more-button-color;
+            padding: 5px 10px;
+            width: fit-content;
+            margin: auto;
+            font-weight: $show-more-button-weight;
+
+            &:after {
+                margin-left: 10px;
+            }
         }
     }
-
 }

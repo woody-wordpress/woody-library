@@ -1,0 +1,63 @@
+{#
+    Source: http://dev.dbl-a.com/symfony-2-0/symfony2-and-twig-pager/
+    Parameters:
+        * currentPage (int) : the current page you are in
+        * showAlwaysFirstAndLast (bool) : Always show first and last link (just disabled)
+        * lastPage (int) : represents the total number of existing pages
+#}
+
+{% spaceless %}
+<nav id="pagination" aria-label="playlist-pager">
+{% if lastPage|default and lastPage > 1 %}
+    {# the number of first and last pages to be displayed #}
+    {% set extremePagesLimit = 3 %}
+
+    {# the number of pages that are displayed around the active page #}
+    {% set nearbyPagesLimit = 2 %}
+
+    {% if currentFilers is not defined %}{% set currentFilters = {} %}{% endif %}
+    {% if pagerPath is not defined %}{% set pagerPath = global.request.attributes.get('_route') %}{% endif %}
+    {% if showAlwaysFirstAndLast is not defined %}{% set showAlwaysFirstAndLast = true %}{% endif %}
+
+    <ul class="pagination playlist-pager" data-current="{{ currentPage }}">
+        {% if currentPage > 1 %}
+            <li class="page-item"><a class="page-link" data-page="-" {% if currentPage - 1 == 1 %}href="."{% else %}href="?listpage={{ currentPage - 1 }}"{% endif %}">&#10094</a></li>
+
+            {% for i in range(1, extremePagesLimit) if ( i < currentPage - nearbyPagesLimit ) %}
+                <li class="page-item"><a class="page-link" data-page={{ i }}" {% if i == 1 %}href="."{% else %}href="?listpage={{ i }}"{% endif %}>{{ i }}</a></li>
+            {% endfor %}
+
+            {% if extremePagesLimit + 1 < currentPage - nearbyPagesLimit %}
+                <li class="page-item"><span class="sep-dots">...</span></li>
+            {% endif %}
+
+            {% for i in range(currentPage - nearbyPagesLimit, currentPage - 1) if ( i > 0 ) %}
+                <li class="page-item"><a class="page-link" data-page={{ i }} {% if i == 1 %}href="."{% else %}href="?listpage={{ i }}"{% endif %}>{{ i }}</a></li>
+            {% endfor %}
+        {% elseif showAlwaysFirstAndLast %}
+            <li class="page-item disabled"><a class="page-link" href=".">1</a></li>
+        {% endif %}
+
+        <li class="page-item active"><a data-page="{{ currentPage }}">{{ currentPage }}</a></li>
+
+        {% if currentPage < lastPage %}
+            {% for i in range(currentPage+1, currentPage + nearbyPagesLimit) if ( i <= lastPage ) %}
+                <li class="page-item"><a class="page-link" data-page={{ i }} href="?listpage={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+
+            {% if  (lastPage - extremePagesLimit) > (currentPage + nearbyPagesLimit) %}
+                <li class="page-item"><span class="sep-dots">...</span></li>
+            {% endif %}
+
+            {% for i in range(lastPage - extremePagesLimit + 1, lastPage) if ( i > currentPage + nearbyPagesLimit ) %}
+                <li class="page-item"><a class="page-link" data-page={{ i }} href="?listpage={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+
+            <li class="page-item"><a class="page-link" data-page="+" href="?listpage={{ currentPage + 1}}">&#10095</a></li>
+        {% elseif showAlwaysFirstAndLast %}
+            <li class="page-item disabled"><a class="page-link" href="?listpage={{ lastPage }}">{{lastPage}}</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</nav>
+{% endspaceless %}

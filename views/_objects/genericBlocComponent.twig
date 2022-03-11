@@ -1,0 +1,15 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% if vertical_alignement and vertical_alignement != 'align-top' %}
+    {% set classes = classes ~ ' flex-container flex-dir-column ' ~ vertical_alignement %}
+{% endif %}
+
+
+{% set display = {
+    'classes': classes|default,
+    'border_color': border_color|default,
+    'background_img' : background_img|default,
+    'background_color' : background_color|default,
+    'background_color_opacity' : background_color_opacity|default,
+    'background_img_opacity' : background_img_opacity|default,
+    'padding' : padding|default
+} %}

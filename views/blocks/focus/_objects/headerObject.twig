@@ -1,0 +1,41 @@
+{% if block_titles.title or block_titles.pretitle or block_titles.subtitle or block_titles.description %}
+<div class="focus-header {{ block_titles.fullwidth|default }} {{ display.classes|default }}{{ display.background_img or display.classes ? ' padd-all-md' }}{{ display.background_img ? ' has-bgimg' }} {{ pagination ? 'has-pagination' : '' }} {{ swiper_controls ? 'has-swiper-controls isRel' }} {{ margin|default }}">
+
+    {% if display.background_img %}
+        {% include '_objects/bgImageObject.twig' with {
+                'img': display.background_img,
+        } %}
+        <div class="content isRel">
+    {% endif %}
+
+        {% if block_titles.fullwidth %}
+            <div class="grid-container">
+        {% endif %}
+
+        {% include '_objects/titlesObject.twig' with {
+            'titles' : block_titles,
+            'contextPrefix' : context_prefix|default("focus-block"),
+            'flexOptions' : flex_options|default("flex-container flex-dir-column align-center align-middle text-center"),
+            'textsClasses' : texts_classes|default()
+        } %}
+
+        {% if display_block_titles_button %}
+            {% include 'blocks/focus/_objects/focus_buttons.twig' with {
+                'align' : block_titles_button_align|default("align-center"),
+                'padding' : block_titles_button_padding|default('padd-all-sm'),
+            } %}
+        {% endif %}
+
+        {% if swiper_controls %}
+            {% include "swipers/_objects/controlsObject.twig" %}
+        {% endif %}
+
+        {% if block_titles.fullwidth %}
+            </div>
+        {% endif %}
+
+        {% if display.background_img %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}

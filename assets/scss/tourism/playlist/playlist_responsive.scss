@@ -192,6 +192,19 @@
             display: flex;
             flex-grow: 1;
             cursor: pointer;
+            position: relative;
+            .playlist-results-count {
+                display: block;
+                position: absolute;
+                top: 6px;
+                left: 55%;
+                background: $primary-color;
+                font-weight: 400;
+                border-radius: 50%;
+                font-size: 16px;
+                line-height: 1;
+                padding: 6px;
+            }
             label {
                 padding: 10px;
                 line-height: $ggw-div;

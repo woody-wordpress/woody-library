@@ -1,0 +1,352 @@
+{% if onLego|default %}
+<div class="test-lego col-sm-12 col-md-4 col-lg-3" style="padding: 0px;">
+{% endif %}
+
+<div class="rc_lego api_filter_alpha s01 {{ lego_style|default }}">
+    <aside class="main-filters ">
+        {% if playlist.hasDateFacet|default %}
+        <section class="section-header-filters">
+            {% for filter in filters if filter.type in ['daterange','daterangeWithAvailabilities','capacitiesAvailabilities'] %}
+                <div class="filter-base filter-type-date">
+                    <div class="h3">{{ TR.START|default('.Arrivée') }}
+                        {% if true and not playlist.isSinglePicker|default %}- {{ TR.END|default('.Départ') }}{% endif %}
+                    </div>
+                    <form id="{{ filter.id }}"
+                            {% if filter.type|default in ['daterangeWithAvailabilities','capacitiesAvailabilities'] %}availableonly{% endif %}>
+                        <div class="wrap-date">
+                            <input type="text" name="daterange" class="item-date"
+                                {% if playlist.isSinglePicker|default %}
+                                    placeholder="{{ TR.START|default('.Arrivée') }}"
+                                {% else %}
+                                    placeholder="{{ TR.START|default('.Arrivée') }} → {{ TR.END|default('.Départ') }}"
+                                {% endif %}
+                                value />
+                            <i class="clear-filter-date icon icon-font-suppr" style="display: none;"></i>
+                        </div>
+                    </form>
+
+                </div>
+                {% if filter.display_options|default and filter.display_options.booking_range|default %}
+
+                    {% for value in filter.display_options.booking_range.values %}
+                        {% if value.display|default==true and value.mode|default==3 and value.customValue.end|default %}
+                            <div class="filter-type-list">
+                                <div class="h3">{{ TR.JOURNEY_DURATION|default('.Durée séjour') }}</div>
+
+                                <select id="journey_duration" class="wrap-date" name="{{ filter.name }}">
+                                    {% for i in range(value.customValue.start, value.customValue.end) %}
+                                        {% set TR_KEY = (i==1) ? value.customValue.unit|upper|trim('S') : value.customValue.unit|upper %}
+                                        <option value="{{ i }}">{{ i }} {{TR[TR_KEY]|default('.Durée séjour')}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% if filter.display_options|default %}
+                    {% for key,option in filter.display_options %}
+                        {% if (key == 'persons') and (option|length > 0) and (option.display == true) %}
+                            <div id="filter-count-block" class="filter-base">
+                                <div class="h3">{{ TR.TRAVELERS|default('.Voyageurs') }}</div>
+                                <div class="filter-type-counter">
+                                    {% for value in option.values %}
+                                        {% if value.display|default == true %}
+                                            <div id="filter-counter-{{value.field}}" class="filter-counter-{{value.field}} counter-block">
+                                                <div class="counters">
+                                                    <div id="item-counter-{{value.field}}" class="item-counter item-counter-{{value.field}}"
+                                                        data-value="{% if value.field == 'adults' %}1{% else %}0{% endif %}" data-min="0">
+                                                        {% if value.field == 'adults' %}
+                                                            <input type="number" class="item-counter-value" value="1">
+                                                        {% else %}
+                                                            <input type="number" class="item-counter-value" value="0">
+                                                        {% endif %}
+                                                        <span class="name">{{ attribute(TR, value.field|upper)|default(value.name) }}</span>
+                                                        <button type="button" name="item-counter-decre" class="btn btn-default" disabled="true">-</button>
+                                                        <button type="button" name="item-counter-incre" class="btn btn-default">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {% if (value.display_multipleAges is defined) and (value.display_multipleAges == true) %}
+                                                <div class="multiple-ages-container" disabled>
+                                                    <div class="h3">{{ TR.CHOOSE_AGE|default('Choisir l\'âge des enfants') }}</div>
+                                                    <div class="selectors-ages-container"></div>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if (key == 'availability_type') and (option|length > 0) %}
+                            {% if option.display|default == true %}
+                                <div class="filter-type-camping-option filter-base">
+                                {% for value in option.values %}
+                                    {% if value.display|default == true %}
+                                    <span>
+                                        <input type="checkbox" name="option-type-{{value.type}}" id="option-camping-{{value.type}}"
+                                            value="{{value.type}}" class="facet-camping hidden">
+                                        <label for="option-camping-{{value.type}}" class="item">
+                                            <span class="fake-checkbox"></span>
+                                            {{ attribute(TR, value.type|upper)|default(value.name) }}
+                                        </label>
+                                    </span>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% if display.centralParams|default %}
+                    {% if display.centralParams.adults or display.centralParams.children %}
+                        <div id="filter-counter-block" class="filter-base">
+                            <div class="h3">{{ TR.TRAVELERS|default('.Voyageurs') }}</div>
+                            <div class=" filter-type-counter">
+                                {% if display.centralParams.adults %}
+                                    <div id="filter-counter-adults" class="filter-counter-adults counter-bloc">
+                                        <div class="counters">
+                                            <div id="item-counter-adults" class="item-counter item-counter-adults" data-value="1" data-min="1">
+                                                <input type="number" class="item-counter-value" value="1">
+                                                <span class="">{{ TR.ADULTS|default('.adultes') }}</span>
+                                                <button type="button" name="item-counter-decre" class="btn btn-default"disabled="true">-</button>
+                                                <button type="button" name="item-counter-incre" class="btn btn-default">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if display.centralParams.children %}
+                                    <div id="filter-counter-children" class="filter-counter-children counter-bloc">
+                                        <div class="counters">
+                                            <div id="item-counter-children" class="item-counter item-counter-children" data-value="0" data-min="0">
+                                                <input type="number" class="item-counter-value" value="0">
+                                                <span class="">{{ TR.CHILDREN|default('.enfants') }}</span>
+                                                <button type="button" name="item-counter-decre" class="btn btn-default" disabled="true">-</button>
+                                                <button type="button" name="item-counter-incre" class="btn btn-default">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if display.centralParams.age %}
+                                    <div class="multiple-ages-container" disabled>
+                                        <div class="h3">{{ TR.CHOOSE_AGE|default('Choisir l\'âge des enfants') }}</div>
+                                        <div class="selectors-ages-container"></div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% if display.list|default and display.list.camping|default and display.list.camping %}
+                    <div class="filter-type-camping-option">
+                        <span>
+                            <input type="checkbox" name="option-camping-location" id="option-camping-location"
+                                value="location" class="facet-camping hidden">
+                            <label for="option-camping-location" class="item"><span
+                                        class="fake-checkbox"></span>{{ TR.LOCATIONS|default('.Locations') }}</label>
+                        </span>
+                        <span>
+                            <input type="checkbox" name="option-camping-campground_spot"
+                                id="option-camping-campground_spot" value="campground_spot"
+                                class="facet-camping hidden">
+                            <label for="option-camping-campground_spot" class="item"><span
+                                        class="fake-checkbox"></span>{{ TR.CAMPGROUND_SPOT|default('.Emplacements') }}</label>
+                        </span>
+                    </div>
+                {% endif %}
+                <div class="actions-dates-facet">
+                    <span class="search-date-action">
+                        {% if filter.isBooking|default %}
+                            {{ TR.BOOK|default('.Réserver') }}
+                        {% else %}
+                            {{ TR.SEARCH|default('.Rechercher') }}
+                        {% endif %}
+                    </span>
+                </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <section id="active-filters-zone2"></section>
+
+        <section class="section-body-filters col-xs-12">
+            {% set filtersCount = 0 %}
+
+            {% for filter in filters if filter.type not in ['daterange','daterangeWithAvailabilities','capacitiesAvailabilities','geoBoundingBox','highlighted'] %}
+                {% if ((filter.type in ['basic-slider','range-slider']) and (filter.values.count|default == '0' or (filter.values.min|default(0) == filter.values.max|default(0)))) or filter.visibility|default == 'backend' %}
+                {# filter won't show #}
+                {% else %}
+                    {% if filter.title|default %}
+                        <div id="facet-filter-{{filter.id}}" class="filter-base {% if filter.color|default %}colored{% endif %}
+                        {% if filter.type in ['basic-slider','range-slider'] and filter.values.count|default != '0' and filter.values.min|default('0') == filter.values.max|default('200') %}empty-slider{% endif %}
+                        filter-type-{{filter.type|default}}"
+                            style="order: {% if filter.type|default == 'tags' and display.version|default == 1 %}-1;{% else %}{{filter.weight|default('1')}};{% endif %}"
+                            data-id="{{filter.id}}">
+
+                            {% if filter.color|default %}
+                            <style>.active-filter[data-filter="{{filter.id}}"],#facet-filter-{{filter.id}} {--highlight-facet-color: {{ filter.color }};}</style>
+                            {% endif %}
+
+                            <div class="h3">{{filter.title}}</div>
+
+                            <form id="{{ filter.id }}" class="{{ filter.customClass|default }}">
+                                {% if filter.type in ['daterange','daterangeWithAvailabilities','capacitiesAvailabilities'] %}
+                                {% elseif filter.type == 'tags' or filter.type == 'checkbox' %}
+
+                                    {% if filter.values|length > filter.shown_tags|default(4) %}
+                                        <input type="checkbox" id="{{ filter.id }}-load-more" class="load-more-filters show-{{filter.shown_tags|default(4)}}"/>
+                                    {% endif %}
+
+                                    <div class="facet-items">
+                                        {% for item in filter.values %}
+                                            {% if item.count|default %}
+                                            <div class="{% if filter.type == 'tags' %}{% endif %}item">
+
+                                                <input type="checkbox" data-translation="{{ item.name }}" name="{{ item.name }}"
+                                                    id="{{ filter.id ~ '_' ~ item.alias }}" value="{{ item.alias }}"
+                                                    class="facet hidden">
+
+                                                <label for="{{ filter.id ~ '_' ~ item.alias }}"
+                                                    class="item {% if filter.type == 'tags' %}btn btn-default {% endif %}">
+                                                        {% if filter.type == 'checkbox' %}<span class="fake-checkbox"></span>{% endif %}
+                                                        {{ item.name }}
+                                                        <span class="badge count">{{ item.count|default }}</span>
+                                                </label>
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if filter.shown_tags|default != 'all' and filter.values|length > filter.shown_tags|default(4) %}
+                                        <label class="load-more-btn" for="{{ filter.id }}-load-more">
+                                            <span class="unloaded">{{ TR.SEE_ALL|default('.Tout afficher') }}
+                                                ({{ filter.values|length }})</span>
+                                            <span class="loaded">{{ TR.SEE_LESS|default('.Afficher moins') }}</span>
+                                        </label>
+                                    {% endif %}
+
+                                {% elseif filter.type == 'radio' %}
+                                    {% for item in filter.values %}
+                                        <div>
+                                            <input type="radio" name="{{ filter.name }}" data-translation="{{ item.name }}"
+                                                id="{{ filter.id ~ '_' ~ item.alias }}" value="{{ item.alias }}"
+                                                class="facet hidden">
+                                            <label for="{{ filter.id ~ '_' ~ item.alias }}">
+                                                <span class="fake-radio"></span> {{ item.name }}
+                                                {% if item.count|default %}<span class="badge count">{{ item.count|default }}</span>{% endif %}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+
+                                {% elseif filter.type in ['list'] %}
+                                    <div class="facet-items">
+                                    {% if filter.placeHolder|default %}
+                                    <style>:root{--placeholder: "{{filter.placeHolder}}" }</style>
+                                    {% endif %}
+                                    <select class="facet" name="{{ filter.name }}" data-placeholder="{{ filter.placeHolder|default ? filter.placeHolder : filter.title }}"
+                                            {% if filter.multiple|default %}multiple{% endif %}>
+                                        {% if not filter.multiple|default %}
+                                            <option value=""></option>{% endif %}
+                                        {% for item in filter.values %}
+                                            <option value="{{ item.alias }}">{{ item.name }} {% if item.count|default %}({{ item.count }}){% endif %}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <span class="icon icon-font-nav-next"></span>
+                                    </div>
+
+                                {% elseif filter.type == 'rating' %}
+
+                                    {% for item in filter.values %}
+                                        <div class="btn col-xs-12 col-lxs-6 col-sm-6 col-md-6">
+                                            <input type="checkbox" name="{{ filter.name }}" id="{{ filter.id ~ '_' ~ item.alias }}"
+                                                value="{{ item.alias }}" class="facet hidden">
+                                            <label for="{{ filter.id ~ '_' ~ item.alias }}">
+                                            <span class="stars">
+
+                                                {% if item.rate == 0 %}
+                                                    <span>{{ item.name }}</span>
+                                                {% else %}
+                                                    {% for i in 0..(item.rate - 1) %}
+                                                        <span class="star star-on icon-font-star-2"></span>
+                                                    {% endfor %}
+                                                    {% if item.rate != 5 %}
+                                                        {% for i in 0..(4 - item.rate) %}
+                                                            <span class="star star-off icon-font-star-2"></span>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            </span>
+
+                                                {% if item.count|default %}
+                                                    <span class="badge count">{{ item.count }}</span>
+                                                {% endif %}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+
+                                {% elseif filter.type == 'reviews-fairguest' %}
+                                    {% for item in filter.values %}
+                                        <a class="d-inline {% if item.count == '0' %}uncolored{% else %}colored{% endif %}">
+                                            <input type="checkbox" reviews-fairguest name="{{ item.name }}"
+                                                id="{{ filter.id ~ '_' ~ item.alias }}" value="{{ item.alias }}"
+                                                class="facet hidden">
+                                            <label for="{{ filter.id ~ '_' ~ item.alias }}"><span
+                                                        class="btn btn-default icon icon-font-avis{{ loop.index }}"></span> </label>
+                                        </a>
+                                    {% endfor %}
+
+                                {% elseif filter.type == 'reviews' %}
+                                    {% for i in range(1,5) %}
+                                        {% set class = 'uncolored' %}
+                                        {% for item in filter.values if item.alias|default == i and item.count|default %}
+                                            {% set class = 'colored' %}
+                                        {% endfor %}
+                                        <a class="d-inline {{ class }}">
+                                            <input type="checkbox" name="checkbox-avis{{ i }}" id="{{ filter.id ~ '_rate' ~ i }}"
+                                                value="{{ i }}" class="facet hidden">
+                                            <label for="{{ filter.id ~ '_rate' ~ i }}"><span
+                                                        class="btn btn-default icon icon-font-avis{{ i }}"></span> </label>
+                                        </a>
+                                    {% endfor %}
+
+                                {% elseif filter.type == 'range-slider' %}
+                                    {% if filter.values.min|default('0') != filter.values.max|default('200') and filter.values.count|default != '0' %}
+                                    <div class="range-slider disable-{{filter.disableHandler|default('none')}}" data-start-min="{{ filter.values.start.min|default('50') }}"
+                                        data-start-max="{{ filter.values.start.max|default('150') }}"
+                                        data-min="{{ filter.values.min|default('0') }}"
+                                        data-max="{{ filter.values.max|default('200') }}"
+                                        data-unit="{{ filter.values.unit|default }}"
+                                        {% if filter.step|default %} data-step="{{filter.step}}" {% endif %}>
+                                    </div>
+                                    {% endif %}
+
+
+                                {% elseif filter.type == 'basic-slider' and filter.values.min|default('0') != filter.values.max|default('200') %}
+                                    <div class="basic-slider" data-min="{{ filter.values.min|default('0') }}"
+                                        data-max="{{ filter.values.max|default('200') }}"
+                                        data-unit="{{ filter.values.unit|default }}">
+                                    </div>
+                                {% endif %}
+                            </form>
+                        </div>
+                    {% endif %} {# endif filter.title #}
+                {% endif %}
+            {% endfor %}
+
+            <div class="filter-type-search-text left-addon" style="order:9998;">
+                <i class="icon icon-font-loupe"></i>
+                <input type="text" name="searchText" id="filter-searchtext" placeholder="{{ TR.TERMSEARCH|default('.Rechercher') }}">
+            </div>
+
+            <div class="reset-filters row" style="display:none;order:9999;">
+                <i class="icon icon-font-switch"></i>
+                <p>{{ TR.RESET_FILTERS|default('.Réinitialiser les filtres') }}</p>
+            </div>
+
+        </section>
+    </aside>
+</div>
+
+{% if onLego|default %}</div>{% endif %}

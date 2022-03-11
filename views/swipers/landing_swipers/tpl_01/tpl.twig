@@ -1,69 +1,72 @@
-<div class="woody-component-landswpr isRel {{ index_class|default('tpl_01') }} bg-black">
+<div class="woody-component-landswpr isRel {{ index_class|default('tpl_01') }} bg-black" >
     <div class="swiper-container woody-landing-swiper {{ styleClass|default }}" data-options="{{ json_swiper_options }}">
         <div class="swiper-wrapper">
             {% for slide in landswpr_slides %}
-                <div class="swiper-slide slide-{{ loop.index }} {{ slide.landswpr_slide_media.landswpr_media_op }}">
+                <div class="swiper-slide slide-{{ loop.index }} {{ slide.landswpr_slide_media.landswpr_media_op }} slide-type-{{ slide.landswpr_slide_media.landswpr_slide_media_type }}">
                     {% block landswpr_media_wrapper %}
-                        {% if slide.landswpr_slide_media.landswpr_slide_media_type == 'img' and slide.landswpr_slide_media.landswpr_slide_img|default %}
+                        {% if slide.landswpr_slide_media.landswpr_slide_media_type == 'img' and slide.landswpr_slide_media.landswpr_slide_img %}
                             {% include '_objects/imageObject.twig' with {
                                 'img' : slide.landswpr_slide_media.landswpr_slide_img,
-                                'image_style' : 'ratio_16_9',
-                                'lazy' : false,
+                                'image_style' : customImageStyle|default('ratio_16_9'),
                                 'containerClass' : "landswprMediaWrapper"
                             } %}
-                        {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'movie' and slide.landswpr_slide_media.landswpr_slide_movie|default %}
-                            {% if landswpr_slides|length %}
+                        {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'movie' and slide.landswpr_slide_media.landswpr_slide_movie %}
                                 {% include '_objects/videoObject.twig' with {
                                     'movie' : slide.landswpr_slide_media.landswpr_slide_movie,
-                                    'image_style' : 'ratio_16_9',
+                                    'image_style' : customImageStyle|default('ratio_16_9'),
                                     'containerClass' : "landswprMediaWrapper",
                                     'ratio' : 1.777778,
                                     'loop' : true,
                                     'muted' : true,
-                                    'autoplay' : true
+                                    'autoplay' : true,
+                                    'playsinline' : true
                                 } %}
-                            {% else %}
-                                {% include '_objects/videoObject.twig' with {
-                                    'movie' : slide.landswpr_slide_media.landswpr_slide_movie,
-                                    'image_style' : 'ratio_16_9',
-                                    'containerClass' : "landswprMediaWrapper",
-                                    'ratio' : 1.777778,
-                                    'loop' : false,
-                                    'muted' : true,
-                                    'autoplay' : false
-                                } %}
+                        {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'embed' and slide.landswpr_slide_media.landswpr_slide_embed %}
+                            {% if slide.landswpr_slide_media.landswpr_slide_embed_thumbnail_url %}
+                                <img class="landSwprPlyr-thumbnail responsive-img" src="{{ slide.landswpr_slide_media.landswpr_slide_embed_thumbnail_url }}"/>
                             {% endif %}
+                            <div class="landSwprPlyr" data-options='{{ plyr_options|default }}'>
+                                {{ slide.landswpr_slide_media.landswpr_slide_embed }}
+                            </div>
                         {% endif %}
                     {% endblock %}
                     {% block landswpr_titles_wrapper %}
                         {% if slide.title or slide.subtitle or slide.pretitle or slide.landswpr_slide_smart_links.links %}
-                            <div class="landswpr-titles-wrapper grid-container padd-all-lg fullcenterbox fcbCol">
+                            <div class="landswpr-titles-wrapper grid-container padd-all-lg {{ titlesAlignment|default('fullcenterbox fcbCol') }}">
                                 {% include '_objects/titlesObject.twig' with {
                                     'titles' : slide,
                                     'contextPrefix' : "landswpr",
-                                    'textsClasses' : "flex-container flex-dir-column align-center align-middle text-center"
+                                    'textsClasses' : customTextClasses|default("flex-container flex-dir-column align-center align-middle text-center")
                                 } %}
                                 {% if slide.landswpr_slide_smart_links.links|default %}
-                                    <div class="landswpr-links-wrapper">
+                                    <div class="landswpr-links-wrapper flex-container{{ slide.landswpr_slide_smart_links.alignement == 'vertical' ? ' flex-dir-column' }}">
                                         {% for button in slide.landswpr_slide_smart_links.links %}
-                                            {% if button.link.url|default %}
-                                                <a class="button {{ button.button_style|default }} {{ button.button_size|default('normal') }} landswpr-link" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}">
-                                                    {% if button.button_woody_icon %}
-                                                        <span class="wicon {{ button.button_woody_icon }}"></span>
-                                                    {% endif %}
-                                                    <span class="title">{{ button.link.title }}</span>
-                                                </a>
-                                            {% endif %}
+                                            {% include 'swipers/_objects/landswprButtonObject.twig' with button %}
                                         {% endfor %}
                                     </div>
                                 {% endif %}
-                                {% block search_form %}{% endblock %}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                    {% block landswpr_social_movie %}
+                        {% if slide.landswpr_slide_social_movie and slide.landswpr_slide_has_social_movie  %}
+                            <div class="toggling-movie-container{{ slide.landswpr_slide_social_movie ? ' embed-plyr' }}">
+                                <div class="movie-toggle">
+                                    <span class="toggle-icon"></span>
+                                    <span class="toggle-text">{{ __("Voir la vidéo", 'woody-theme') }}</span>
+                                </div>
+                                <div class="hidden toggling-movie">
+                                    <div class="heroPlyr-wrapper">
+                                        {{ slide.landswpr_slide_social_movie }}
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     {% endblock %}
                 </div>
             {% endfor %}
         </div>
+        {% block search_form %}{% endblock %}
         {% if landswpr_slides|length > 1 %}
             {% block landswpr_pagination %}
                 <div class="swiper-pagination"></div>

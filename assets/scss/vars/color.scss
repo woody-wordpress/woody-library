@@ -1,0 +1,14 @@
+:root {
+    --primary-color: #{$primary-color};
+    --secondary-color: #{$secondary-color};
+    --black:#{$black};
+    --dark-gray:#{$dark-gray};
+    --medium-gray:#{$medium-gray};
+    --light-gray:#{$light-gray};
+    --white:#{$white};
+}
+$dark-list: (black, dark-gray) !default;
+$color_divider_width : 50px !default;
+$color_divider_height : 5px !default;
+$color_divider_margin_top : 15px !default;
+$color_divider_margin_bottom : $color_divider_margin_top !default;

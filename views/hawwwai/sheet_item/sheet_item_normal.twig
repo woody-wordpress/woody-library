@@ -1,0 +1,525 @@
+<article class="rc_lego item_sheet item_sheet_alpha {{itemClasses|default}} {{lego_style|default}}
+    {%- if sheetId|default %} sheet-id-{{sheetId}}{% endif %}"
+    {% for datum in itemData %}
+        {% for key, data in datum %}
+            data-{{key}}="{{data}}"
+        {% endfor %}
+    {% endfor %}>
+
+    {% if tagCorner|default %}
+        <div class="item-tag-corner">
+            <span class="corner"></span>
+            <span class="icon icon-font-{{ tagCorner.icon|default('star') }}" {% if tagCorner._type|default %}data-toggle="tooltip" data-placement="right" title="{{ tagCorner._type }}"{% endif %}></span>
+        </div>
+    {% endif %}
+
+    <a {% if link|default %}href="{{ link }}"{% endif %}{% if targetBlank|default %}rel="opener" target="_blank"{% endif %}>
+        <section class="item-thumbnail" {% if allImgs|default %}data-images='{{allImgs}}'{% endif %}>
+            {% if img.url|default %}
+                {% if display.list.imageMode|default == 'manual' and display.list.imageDimensions|default and display.list.imageDimensions.width|default and display.list.imageDimensions.height|default %}
+                    <img class="main-img img-thumb img-responsive manual-mode" src="{{ img.url.manual|replace({'%width%': display.list.imageDimensions.width, '%height%': display.list.imageDimensions.height}) }}" alt="{{ img.alt }}" {% if img.title|default %} title="{{ img.title }}"{% endif %}>
+                {% elseif display.list.imageMode|default == 'square' %}
+                    <img class="main-img img-thumb img-responsive square-mode" src="{{ img.url.square }}" alt="{{ img.alt }}" {% if img.title|default %} title="{{ img.title }}"{% endif %}>
+                {% elseif (bordereau|default == 'FMA' or display.list.imageMode|default == 'portrait') and display.list.imageMode|default != 'landscape' %}
+                    <img class="main-img img-thumb img-responsive portrait-mode" src="{{ img.url.portrait }}" alt="{{ img.alt }}" {% if img.title|default %} title="{{ img.title }}"{% endif %}>
+                {% else %}
+                    <img class="main-img img-thumb img-responsive landscape-mode" src="{{ img.url.landscape }}" alt="{{ img.alt }}" {% if img.title|default %} title="{{ img.title }}"{% endif %}>
+                {% endif %}
+            {% endif %}
+
+            <div class="top-left-corner col-xs-6">
+                {% if tariffs.price is defined and tariffs.price is not null and true and
+                    ((tariffs.position.left|default and not display.topLeft|default)
+                    or (display.topLeft|default and display.topLeft.tariffs)) %}
+                    {% if tariffs.price|default != '0' %}
+                        <div class="item-tariffs">
+                            {% if tariffs.label|default %}
+                            <span class="item-tariffs-label">{{ tariffs.label }}</span>
+                            {% endif %}
+
+                            {% if tariffs.price|default %}
+                            <span class="item-tariffs-value">{{ tariffs.price }} {{ tariffs.currency|default('€') }}</span>
+                            {% endif %}
+
+                            {% if tariffs.type|default %}
+                            <span class="item-tariffs-type">{{ tariffs.type }}</span>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="item-tariffs-free">
+                            <span class="item-tariffs-value">{{ tariffs.free|default('Gratuit')}}</span>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {% if services|default and true and
+                    ((services.position.left|default and not display.topLeft|default)
+                    or (display.topLeft|default and display.topLeft.services|default)) %}
+                    <span class="item-services">
+                        {% for service in services.data %}
+                            <span class="item-service item-{{ service.name }}">
+                                <span class="icon-font-{{ service.icon }}" data-toggle="tooltip" data-placement="bottom" title="{{ service.name }}" ></span>
+                            </span>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                {% if territoryLabelBrands.data|default and true and
+                    ((territoryLabelBrands.position.left|default and not display.topLeft|default)
+                    or (display.topLeft|default and display.topLeft.territory_label_brand|default)) %}
+                    <span class="item-territory-label-brands">
+                        {% for territoryLabelBrand in territoryLabelBrands.data if territoryLabelBrand.img.url|default %}
+                        <span class="item-territory-label-brand">
+                            <img src="{{ territoryLabelBrand.img.url }}" class="img-responsive" {% if territoryLabelBrand.img.title %}data-toggle="tooltip" data-placement="right" title="{{ territoryLabelBrand.img.title }}"{% endif %}>
+                        </span>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                {% if chains.data|default and true and
+                    ((chains.position.left|default and not display.topLeft|default)
+                    or (display.topLeft|default and display.topLeft.chain|default)) %}
+                    <span class="item-chains">
+                        {% for chain in chains.data if chain.img.url|default %}
+                        <span class="item-chain">
+                            <img src="{{ chain.img.url }}" class="img-responsive" {% if chain.img.title %}data-toggle="tooltip" data-placement="right" title="{{ chain.img.title }}"{% endif %}>
+                        </span>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                {% if deals|default and true and
+                    ((deals.position.left|default and not display.topLeft|default)
+                    or (display.topLeft|default and display.topLeft.deals|default)) %}
+                    <span class="item-deals" dates={{deals.data|json_encode|raw}}>
+                        <span class="deal-min icon-font-bonplan2">
+                    </span>
+                {% endif %}
+
+                {% if specials.data|default and true and
+                    ((specials.position.left|default and not display.topLeft|default)
+                    or (display.topLeft|default and display.topLeft.specials|default)) %}
+                    {% for special in specials.data if special.img.url|default %}
+                    <span class="item-specials">
+                        <img src="{{ special.img.url }}" {% if special.link|default %}data-link={{ special.link }}{% endif %} {% if special.img.title %}data-toggle="tooltip" data-placement="right" title="{{ special.img.title }}"{% endif %}>
+                    </span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="top-right-corner col-xs-6">
+                    {% if tariffs.price is defined and tariffs.price is not null and true and
+                    ((tariffs.position.right|default and not display.topRight|default)
+                    or (display.topRight|default and display.topRight.tariffs|default)) %}
+                    {% if tariffs.price|default != '0' %}
+                        <div class="item-tariffs">
+                            {% if tariffs.label|default %}
+                            <span class="item-tariffs-label">{{ tariffs.label }}</span>
+                            {% endif %}
+
+                            {% if tariffs.price|default %}
+                            <span class="item-tariffs-value">{{ tariffs.price }} {{ tariffs.currency|default('€') }}</span>
+                            {% endif %}
+
+                            {% if tariffs.type|default %}
+                            <span class="item-tariffs-type">{{ tariffs.type }}</span>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="item-tariffs-free">
+                            <span class="item-tariffs-value">{{ tariffs.free|default('Gratuit')}}</span>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {% if services|default and true and
+                    ((services.position.right|default and not display.topRight|default)
+                    or (display.topRight|default and display.topRight.services|default)) %}
+                    <span class="item-services">
+                        {% for service in services.data %}
+                            <span class="item-service item-{{ service.name }}">
+                                <span class="icon-font-{{ service.icon }}" data-toggle="tooltip" data-placement="bottom" title="{{ service.name }}" ></span>
+                            </span>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                {% if territoryLabelBrands.data|default and true and
+                    ((territoryLabelBrands.position.right|default and not display.topRight|default)
+                    or (display.topRight|default and display.topRight.territory_label_brand|default)) %}
+                    <span class="item-territory-label-brands">
+                        {% for territoryLabelBrand in territoryLabelBrands.data if territoryLabelBrand.img.url|default %}
+                        <span class="item-territory-label-brand">
+                            <img src="{{ territoryLabelBrand.img.url }}" class="img-responsive" {% if territoryLabelBrand.img.title %}data-toggle="tooltip" data-placement="left" title="{{ territoryLabelBrand.img.title }}"{% endif %}>
+                        </span>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                {% if chains.data|default and true and
+                    ((chains.position.right|default and not display.topRight|default)
+                    or (display.topRight|default and display.topRight.chain|default)) %}
+                    <span class="item-chains">
+                        {% for chain in chains.data if chain.img.url|default %}
+                        <span class="item-chain">
+                            <img src="{{ chain.img.url }}" class="img-responsive" {% if chain.img.title %}data-toggle="tooltip" data-placement="left" title="{{ chain.img.title }}"{% endif %}>
+                        </span>
+                        {% endfor %}
+                    </span>
+                {% endif %}
+
+                {% if deals|default and true and
+                    ((deals.position.right|default and not display.topRight|default)
+                    or (display.topRight|default and display.topRight.deals|default)) %}
+                    <span class="item-deals" dates={{deals.data|json_encode|raw}}>
+                        <span class="deal-min icon-font-bonplan2">
+                    </span>
+                {% endif %}
+
+                {% if specials.data|default and true and
+                    ((specials.position.right|default and not display.topRight|default)
+                    or (display.topRight|default and display.topRight.specials|default)) %}
+                    {% for special in specials.data if special.img.url|default %}
+                    <span class="item-specials">
+                        <img src="{{ special.img.url }}" {% if special.link|default %}data-link={{ special.link }}{% endif %} {% if special.img.title %}data-toggle="tooltip" data-placement="left" title="{{ special.img.title }}"{% endif %}>
+                    </span>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+
+        </section>
+
+        <section class="infos">
+            {% if itineraryLength.value|default and itineraryLength.unit|default %}
+                {% if not display.infos|default or display.infos.locomotions|default %}
+                <div class="item-itineraryLength">
+                    <span class="item-itineraryLength-value">{{ itineraryLength.value|split('.')[0] }}{% if itineraryLength.value|split('.')|length > 1 %}<span class="item-itineraryLength-decvalue">{{ ',' ~ itineraryLength.value|split('.')|last  }}</span>{% endif %}</span>
+                    <span class="item-itineraryLength-unit">{{ itineraryLength.unit }}</span>
+                </div>
+                {% endif %}
+            {% endif %}
+
+            {% if wishlistBtn.iconOff|default and wishlistBtn.iconOn|default %}
+                <button class="wishlist-button" {% if wishlistBtn.title|default %}title="{{wishlistBtn.title}}"{% endif %}
+                    data-toggle="tooltip" data-placement="auto top">
+
+                    <span class="wishOff wicon" ga-event
+                        ga-category="{{ title|default ~ ' | idFiche | ' ~ sheetId }}"
+                        ga-action="SHEET_BOOKMARK"> {# heart #}
+                        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M118.247347,69.6445969 C120.873078,64.633108 122.488032,59.1524305 123,53.5155022 L123,51.7692419 C122.947608,35.8871118 110.079891,23.042361 94.2306083,23.0511983 C84.4118063,23.0831242 75.2841545,28.120045 70.0079211,36.4180268 C63.1801617,25.5817565 50.0250751,20.5746489 37.7399235,24.1361361 C25.4547718,27.6976233 16.9994753,38.9696193 17,51.785117 L17,53.4996271 C18.710955,82.3764217 62.9423106,117 69.9762367,117 C74.1902556,117 85.0896727,108.363949 91.1730683,102.998168 C100.376723,107.573682 111.515448,105.152804 118.000465,97.1675306 C124.485481,89.1822575 124.587987,77.7613374 118.247347,69.660472 L118.247347,69.6445969 Z M109.613361,85.6943162 L103.276491,85.6943162 L103.276491,92.0443534 C103.276491,93.3857919 102.191295,94.4732427 100.852638,94.4732427 C99.5139809,94.4732427 98.4287849,93.3857919 98.4287849,92.0443534 L98.4287849,85.6943162 L92.0919145,85.6943162 C90.7532575,85.6943162 89.6680616,84.6068654 89.6680616,83.2654269 C89.6680616,81.9239884 90.7532575,80.8365376 92.0919145,80.8365376 L98.4287849,80.8365376 L98.4287849,74.4865003 C98.4287849,73.1450618 99.5139809,72.0576111 100.852638,72.0576111 C102.191295,72.0576111 103.276491,73.1450618 103.276491,74.4865003 L103.276491,80.8365376 L109.613361,80.8365376 C110.952018,80.8365376 112.037214,81.9239884 112.037214,83.2654269 C112.037214,84.6068654 110.952018,85.6943162 109.613361,85.6943162 L109.613361,85.6943162 Z M114.571962,66.0250756 C105.206455,58.8666949 91.872717,60.3887547 84.3538124,69.4745084 C76.8349079,78.5602621 77.8097082,91.9725937 86.5629951,99.8707744 L86.9907338,100.235902 C77.4854282,108.49095 71.0535047,112.094596 69.9762367,112.173972 C65.0017935,111.935845 23.4319235,79.7887815 21.8477059,53.2138754 L21.8477059,51.7374917 C21.8301061,38.5556512 32.4565922,27.8431938 45.61097,27.7819761 C55.2542305,27.7604458 63.9543128,33.5809149 67.6315947,42.5140626 C67.8769948,43.1101504 68.3488603,43.5839905 68.9431954,43.8311521 C69.5375305,44.0783136 70.2055509,44.0785091 70.8000299,43.8316953 C71.389082,43.5752701 71.859037,43.1043386 72.1149305,42.5140626 C76.4451058,31.8969004 87.6894121,25.8571847 98.9100088,28.1214758 C110.130606,30.3857669 118.165564,40.3159946 118.057241,51.785117 L118.057241,53.1821252 C117.689075,57.6350376 116.524618,61.9852833 114.619489,66.0250756 L114.571962,66.0250756 Z"></path>
+                        </svg>
+                    </span>
+
+                    <span class="wishOn wicon"> {# fav heart #}
+                        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M109.616147,85.3838527 L92.3838527,85.3838527 C91.0672872,85.3838527 90,84.3165655 90,83 C90,81.6834345 91.0672872,80.6161473 92.3838527,80.6161473 L109.616147,80.6161473 C110.932713,80.6161473 112,81.6834345 112,83 C112,84.3165655 110.932713,85.3838527 109.616147,85.3838527 Z M118.292184,69.1483778 L118.292184,69.164084 C124.573006,77.17877 124.471467,88.4781909 118.04763,96.3785143 C111.623793,104.278838 100.590151,106.673962 91.4733224,102.147123 C85.4473173,107.455822 74.6507249,116 70.4764609,116 C63.5088925,116 19.6948139,81.7447576 18,53.175163 L18,51.4788924 C17.9994802,38.7997297 26.3750098,27.6476486 38.5442638,24.1240496 C50.7135178,20.6004505 63.7444998,25.554291 70.5078464,36.2752818 C75.734304,28.0655765 84.7758459,23.0822399 94.5020176,23.0506536 C110.201779,23.0419103 122.948102,35.7500149 123,51.4631862 L123,53.1908692 C122.492862,58.7678302 120.893143,64.1902026 118.292184,69.1483778 Z M101.171424,65.5673621 L101.171424,65.6301869 C91.7974777,65.6388459 84.2005511,73.2423019 84.1918996,82.6243053 C84.2265367,92.0016414 91.843798,99.5786373 101.213117,99.5555474 C110.582436,99.5324574 118.162323,91.9180093 118.15082,82.5406163 C118.139317,73.1632232 110.540772,65.5674262 101.171424,65.5673621 Z"></path>
+                        </svg>
+                    </span>
+                </button>
+            {% endif %}
+
+            <div style="display: none;" class="responsive-chips">
+                {% if phone|default and phone.number|default and display.infos.phone|default %}
+                    <div class="responsive-chip chip-phone" onclick="event.preventDefault(); window.open('tel:{{ phone.number }}', '_self');">
+                        <span class="item-infos-phone">{{phone.text}}</span>
+                        <span class="icon-font-phone"></span>
+                    </div>
+                {% endif %}
+                {% if booking.link|default and display.infos.booking|default %}
+                    <div {% if booking.central %}{% else %}
+                        ga-event ga-category="{{ title|default ~ ' | idFiche | ' ~ sheetId }}" ga-action="PLAYLIST_BOOK_URL"{% endif %}
+                        data-link="{{booking.link}}"
+                        class="responsive-chip chip-booking">
+                        <span>{{ booking.text|default('.Réserver') }}</span>
+                        <span class="icon-font-nav-next"></span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="bottom-left-corner">
+                {% if userId|default and display.infos.user|default %}
+                    <div class="item-infos-user within-img"
+                        id="user-wrapper-{{userId}}" data-userid={{userId}} style="display: none;">
+                        <div class="user-link"><img class="user-img"></div>
+                    </div>
+                {% endif %}
+
+                {% if covidServices|default or covidCharterStatus|default %}
+                    <div class="item-block-covid item-block-covidservices">
+                    {% if covidServices|default or covidCharterStatus|default %}
+                        {% for covidService in covidServices %}
+                            <div class="covidservice">{{ covidService }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if covidCharterStatus|default %}
+                        {% for covidCharter in covidCharterStatus %}
+                            <div class="mobile-only item-block-covid item-block-covidcharterstatus">{{ covidCharter }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if covidCharterStatus|default %}
+                {% for covidCharter in covidCharterStatus %}
+                    <div class="item-block-covid item-block-covidcharterstatus">{{ covidCharter }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if validity|default %}
+                <div class="item-block-infos-date">
+                    <p class="item-infos-validity">{{ validity }}</p>
+                </div>
+            {% endif %}
+
+            {% if dates|default %}
+                {% if not display.infos|default or display.infos.dates|default %}
+                    <div class="item-block-infos-date">
+                        {% for date in dates %}
+                            <span class="item-infos-date" timestamp={{date.end.endDate}} {% if date.oneday %}oneday{% endif %} {% if loop.last %}over={{date.over}}{% endif %}
+                                {% if not loop.first and not (date.oneday and loop.index0 == 1 and dates[0].oneday)%}style="display: none;"{% endif %}>
+
+                                {% if not date.oneday %}
+                                    {% if date.start.label|default %}<span class="item-infos-date-label">{{ date.start.label }}</span>{% endif %}
+                                    <span class="item-infos-date-day">{{ date.start.day }}</span>
+                                    {% if date.start.month|default and date.start.month != date.end.month %}<span class="item-infos-date-month">{{ date.start.month }}</span>{% endif %}
+                                    {% if date.start.year|default %}<span class="item-infos-date-year">{{ date.start.year }}</span>{% endif %}
+                                {% endif %}
+
+                                {% if date.end.label|default %}<span class="item-infos-date-label">{{ date.end.label }}</span>{% endif %}
+
+                                {% if date.oneday %}<span class="item-infos-date-weekday">{{ date.end.weekday }}</span>{% endif %}
+                                <span class="item-infos-date-day">{{ date.end.day }}</span>
+                                {% if date.oneday %}
+                                    {% if date.end.shortMonth|default %}<span class="item-infos-date-shortmonth">{{ date.end.shortMonth }}</span>{% endif %}
+                                {% else %}
+                                    {% if date.end.month|default %}<span class="item-infos-date-month">{{ date.end.month }}</span>{% endif %}
+                                {% endif %}
+
+                                {% if date.end.year|default %}<span class="item-infos-date-year">{{ date.end.year }}</span>{% endif %}
+                                {% if date.oneday and loop.length > 1 %}
+                                    {% if not loop.last %},
+                                        {% if loop.first and not dates[1].oneday %}<span class="date-ellipsis">...</span>{% endif %}
+                                        {% if loop.index0 == 1 and dates[0].oneday %}<span class="date-ellipsis">...</span>{% endif %}
+                                    {% endif %}
+                                {% else %}
+                                    {% if not loop.last %}, <span class="date-ellipsis">...</span>{% endif %}
+                                {% endif %}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+
+            <div class="infos-wrapper {% if booking.link|default %}{% if not display.infos|default or display.infos.booking|default %}has-booking{% endif %}{% endif %}">
+
+                <div class="item-infos">
+                    <div class="item-infos-left">
+                        <div class="item-infos-header">
+                            <div class="item-infos-header-left">
+                                {% if dealTitle|default %}
+                                    <h3 class="item-infos-title h3 deal-title">{{ dealTitle}}</h3>
+                                {% endif %}
+
+                                {% if title|default and not dealTitle|default %}
+                                    <h3 class="item-infos-title h3">{{ title }}</h3>
+                                {% endif %}
+
+                                {% if type|default %}
+                                    {% if not display.infos|default or display.infos.type|default %}
+                                        <p class="item-infos-type">{{ type }}</p>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if ratings|default %}
+                                    {% if not display.infos|default or display.infos.labelRatings|default %}
+                                        <div class="item-infos-ratings">
+                                        {% for rating in ratings if rating.icon|default %}
+                                            {% if rating.icon != 'diamond' %}
+                                                {% for i in range(1, rating.value|default) %}
+                                                    <span class="icon-font-{{rating.icon}}"></span>
+                                                {% endfor %}
+                                            {% else %}
+                                            {# diamond stlary case #}
+                                                </div><div class="item-infos-ratings">
+                                                {% for i in range(1, rating.value|default) %}
+                                                    <span class="icon-font-{{rating.icon}}"></span>
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                            <div class="ratings-logos">
+                                                {% for rating in ratings if rating.position|default == 'label_rating' and rating.urlHD|default %}
+                                                    <img src="{{rating.urlHD}}" />
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="item-infos-body">
+                            {% if covidOpenings|default and covidOpenings.text|default %}
+                                <div class="dynamic-opening-periods covid-openings">
+                                    <span class="opening-state opening-state-{{covidOpenings.light|default('soon')}}">
+                                        <span class="opening-state--light"></span>
+                                        <span class="opening-state--text">{{ covidOpenings.text }}</span>
+                                    </span>
+                                </div>
+                            {% endif %}
+                            {% if openingPeriods|default %}
+                                <div class="dynamic-opening-periods"
+                                    {% if openingPeriods.periods|default and openingPeriods.periods|length > 0 %}
+                                        guessclosed="true"
+                                    {% endif %}
+                                    {% if (options.interpolate_periods is not defined or options.interpolate_periods) and bordereau not in ['FMA','PRD','ITI'] %}
+                                        interpolate="true"
+                                    {% endif %}
+                                    bordereau='{{ bordereau }}'
+                                    periods='{{ openingPeriods.periods|json_encode }}'>
+
+                                    <span class='opening-state opening-state-undefined'>
+                                        <span class='opening-state--light'></span>
+                                        <span class='opening-state--text'></span>
+                                        <span class='opening-time'></span>
+                                    </span>
+                                    {# <span class="opening-extra-info" style="display: none;"></span> #}
+                                    {# <span class='opening-unguaranteed' style="display: none;">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNGUARANTEED'|trans }}</span> #}
+                                </div>
+                            {% endif %}
+
+                            {% if desc|default %}
+                                {% if not display.infos|default or display.infos.description|default %}
+                                    <p class="item-infos-desc">{{ desc|truncate(150)}}</p>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if dealTitle|default and title|default %}
+                                <p class="item-infos-desc">{{ title}}</p>
+                            {% endif %}
+
+                            {% if locomotions|default %}
+                                {% if not display.infos|default or display.infos.locomotions|default %}
+                                <div class="item-infos-locomotions">
+                                    {% for locomotion in locomotions %}
+                                    <div class="item-infos-locomotion">
+                                        {% if locomotion.icon|default %}<span {% if locomotion.type|default %}type="{{ locomotion.type }}"{% endif %} class="icon-font-{{ locomotion.icon }} d-inline-block"></span>{% endif %}
+                                        <span class="locomotion-infos">
+                                            {% if locomotion.duration|default %}<span class="locomotion-infos-duration d-block">{{ locomotion.duration }}</span>{% endif %}
+                                            {% if locomotion.difficulty|default %}<span class="locomotion-infos-difficulty d-block">{{ locomotion.difficulty }}</span>{% endif %}
+                                            {% if locomotion.typeTraceItinerary|default %}<span class="locomotion-infos-typetrace d-block">{{ locomotion.typeTraceItinerary }}</span>{% endif %}
+                                        </span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if (phone|default and phone.number|default and display.infos.phone|default) or (website|default and display.infos.website|default) %}
+                                <div class="item-infos-comm-means">
+                                    {% if phone|default and phone.number|default and display.infos.phone|default %}
+                                        <div class="item-infos-phone">{{ phone.number }}</div>
+                                    {% endif %}
+                                    {% if website|default and display.infos.website|default %}
+                                        <div class="item-infos-website" data-link="{{ website }}">{{ website }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+                            {% if adress|default %}
+                                {% if not display.infos|default or display.infos.address|default %}
+                                    <p class="item-infos-adress"><adress>{{ adress|nl2br }}</adress></p>
+                                {% endif %}
+                            {% endif %}
+
+
+                        </div>
+
+                        {% if town|default %}
+                            <div class="item-infos-bottom">
+                            {% if not display.infos|default or display.infos.town|default %}
+                                <p class="item-infos-town"><adress><span class="icon-font-localize"></span>&nbsp;{% if distance|default %}{{ distance }} ({% endif %}{{town}}{% if distance|default -%}){% endif %}</adress></p>
+                            {% elseif distance|default and true %}
+                                <p class="item-infos-town"><adress><span class="icon-font-localize"></span>{{ distance }}</adress></p>
+                            {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="item-infos-right">
+                        {# Reviews #}
+                        {% if not display.infos|default or display.infos.comments|default %}
+                            {% if fairguestReview|default %} {# FAIRGUEST REVIEW CASE #}
+                                <div class="item-infos-fairguest" {% if link|default %}data-link="{{link~'#reviews'}}"{% endif %}>
+                                    <div class="top_container fullHeight">
+                                        {% if fairguestReview.isValid %}
+                                            <span class="rating" style="background-color: {{fairguestReview.color}}">{{ fairguestReview.mark|default }}</span>
+                                            <span class="rating_text" style="color: {{fairguestReview.color}}">{{ fairguestReview.ratingText|default('Bon.') }}</span>
+                                            <span class="rating_count">{{ fairguestReview.nbMarkText }}</span>
+                                        {% else %}
+                                            <span class="rating" style="background-color: #fff; border: 1px solid #ccc; color: #ccc;">-</span>
+                                            <span class="rating_text"></span>
+                                            <span class="rating_count">{{ fairguestReview.nbMarkText }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% elseif reviews is defined and reviews.overall is defined %} {# NON FAIRGUEST REVIEW CASE #}
+                                <div class="item-block-infos-mark">
+                                    <span class="item-infos-mark"><i style="color:{{reviews.color}}" class="icon-font-avis{{reviews.overall.moyenne}}"></i></span>
+                                    <span class="item-infos-nb-mark">{{ reviews.nbReviewsText|default }}</span>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if extralabels|default %}
+                    <div class="item-infos-extralabels">
+                        <div class="extralabels-logos">
+                            {% for rating in extralabels if rating.urlHD|default %}
+                                <img src="{{rating.urlHD}}" />
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            {% if booking.link|default %}
+                {% if not display.infos|default or display.infos.booking|default %}
+                <div {% if booking.central %}{% else %}
+                        ga-event ga-category="{{ title|default ~ ' | idFiche | ' ~ sheetId }}" ga-action="PLAYLIST_BOOK_URL"{% endif %}
+                    class="item-infos-down">
+                    <button class="btn btn-booking" {% if booking.reveal|default %}data-open="revealModal-{{sheetId}}" data-link{% else %}data-link="{{booking.link}}"{% endif %}>{{ booking.text|default('.Réserver') }}</button>
+                </div>
+                {% endif %}
+            {% endif %}
+
+        </section>
+    </a>
+</article>
+
+{% if script|default %}
+    <rcAnalytics style="display:none;">{{ script|raw }}</rcAnalytics>
+{% endif %}
+
+{% if booking.link|default and booking.reveal|default %}
+    {% if not display.infos|default or display.infos.booking|default %}
+        <div class="reveal" id="revealModal-{{sheetId}}" data-reveal>
+            <p class="lead">{{TR.EXTERNAL_LINK_TITLE}}</p>
+            <p>{{TR.EXTERNAL_LINK_TEXT}}</p>
+            <button class="close-button" data-close aria-label="Annuler" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span class="plo-btn inverse" data-close type="button">{{TR.CANCEL}}</span>
+            <span class="booking-link-wrapper">
+                <a href="{{booking.link}}"
+                    target="_blank" data-close
+                    class="plo-btn" rel="nofollow"
+                    interact event-type="SHEET_BOOK_URL">{{TR.VALIDATE}}</a>
+            </span>
+        </div>
+    {% endif %}
+{% endif %}

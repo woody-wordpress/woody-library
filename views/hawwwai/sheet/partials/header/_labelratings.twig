@@ -1,0 +1,13 @@
+<sup>
+{% for labelRating in labelRatings if labelRating|default %}
+    {% for i in 1..labelRating.repeated %}
+        <i class="icon-font-{{labelRating.character}} plo-fonticon"></i>
+    {% endfor %}
+{% endfor %}
+</sup>
+
+<div class="label-ratings-logos _plu-push--tiny">
+{% for labelRating in labelRatings if labelRating.position|default == 'label_rating' and labelRating.urlHD|default %}
+    <img width="80px" style="display: flex;" src="{{labelRating.urlHD}}" />
+{% endfor %}
+</div>

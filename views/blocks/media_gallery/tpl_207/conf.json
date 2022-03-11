@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Split galerie 2",
+    "name": "Template 207 - Paysage B",
     "description": "Grille ligne 1 -> 1 colonne (Paysage B) puis 2 colonnes égales (Paysage B)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b04314e0ec21"
     ],
@@ -19,5 +20,14 @@
         "gallery_no_padding",
         "gallery_items",
         "gallery_link"
-    ]
+    ],
+    "display": [{
+        "type": "grid",
+        "length": 3,
+        "infinite": "true",
+        "img_ratio": [
+            "16_9"
+        ],
+        "roadbook": true
+    }]
 }

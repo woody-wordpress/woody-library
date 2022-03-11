@@ -1,11 +1,13 @@
 {
     "approved": true,
-    "name": "Grille de liste 2 colonnes - Images Paysage C",
+    "name": "Template Liste 204 - Paysage C",
     "description": "2 colonnes égales",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5bc6005838259",
         "group_5b0d1ed32a384",
         "group_5b2788b48d04c",
+        "group_5d7908eadaa46",
         "group_5b33890e6fa0b",
         "field_5d16118093cc1"
     ],
@@ -13,10 +15,15 @@
         "items",
         "no_padding"
     ],
-    "items_count": [
-        {
-            "fitted_for": 2,
-            "accepts_max": 36
-        }
-    ]
+    "display": [{
+        "type": "grid",
+        "length": 2,
+        "infinite": "true",
+        "card_type": "overlay",
+        "img_ratio": [
+            "4_3"
+        ],
+        "text_align": "middlecenter",
+        "roadbook": true
+    }]
 }

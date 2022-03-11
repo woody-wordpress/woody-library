@@ -1,0 +1,139 @@
+<li id="li-contact-infos" class="sidebar-contact-infos contact-establishment">
+    <section class="panel panel-default">
+
+        {% include TWIG.SIDEBAR_MAP %}
+        <ul class="list-group">
+            {% include TWIG.ADDRESS %}
+            {% if options.displayed_contacts is not defined or formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.establishment) %}
+                {% if not hasEmptyComMeans(formated_object.contacts.establishment, true) or formated_object.tripadvisorLink|default %}
+                    {% include TWIG.VCARD
+                            with {  'phones': formated_object.contacts.establishment.phones,
+                            'descriptionPhones': formated_object.contacts.establishment.descriptionPhones,
+                            'descriptionWebsites': formated_object.contacts.establishment.descriptionWebsites,
+                            'fax': formated_object.contacts.establishment.fax,
+                            'websites': formated_object.contacts.establishment.websites,
+                            'tripadvisorLink': formated_object.tripadvisorLink|default
+                        }
+                    %}
+                {% endif %}
+            {% endif %}
+        </ul>
+    </section>
+</li>
+
+{% if (formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.owner)) and formated_object.bordereau not in ['HLO'] %}
+    {% if not hasEmptyComMeans(formated_object.contacts.owner) %}
+        <li id="li-contact-infos-owner" class="sidebar-contact-infos contact-owner">
+            <section class="panel panel-default">
+                <div class="sidebar-vcard-label">{{ formated_object.owner.group._type|default('SECTIONS.TOURISM.SHEET.ORGANIZER'|trans) }}</div>
+
+                {% if formated_object.contacts.owner.peopleLastName|default %}
+                    <div class="panel-body">
+                        <dl class="row">
+                            <dt class="col-xs-2"><span class="icon-font-user plo-fonticon"></span></dt>
+                            <dd class="col-xs-10 _plu-hard--left">
+                                <span class="sidebar-vcard-names">
+                                    {% if formated_object.contacts.owner.civility is not null %}
+                                        {% if thesaurus.fulldictionary[formated_object.contacts.owner.civility]|default  %}
+                                            {{ thesaurus.fulldictionary[formated_object.contacts.owner.civility] }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {{formated_object.contacts.owner.peopleFirstName}} {{formated_object.contacts.owner.peopleLastName}}
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                {% endif %}
+
+                <ul class="list-group">
+                    {% include TWIG.VCARD
+                        with {  'phones': formated_object.contacts.owner.phones,
+                                'descriptionPhones': formated_object.contacts.owner.descriptionPhones,
+                                'fax': formated_object.contacts.owner.fax,
+                                'websites': formated_object.contacts.owner.websites
+                            }
+                    %}
+                </ul>
+            </section>
+        </li>
+    {% endif %}
+{% endif %}
+
+
+{% if formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.booking) %}
+    {% if not hasEmptyComMeans(formated_object.contacts.booking) %}
+        <li id="li-contact-infos-booking" class="sidebar-contact-infos contact-booking">
+            <section class="panel panel-default">
+                <div class="sidebar-vcard-label">{{ formated_object.contacts.booking._type|default('SECTIONS.TOURISM.SHEET.RESERVATION'|trans) }}</div>
+
+                {% if formated_object.contacts.booking.peopleLastName|default or formated_object.contacts.booking.businessName|default %}
+                    <div class="panel-body">
+                        <dl class="row">
+                            <dt class="col-xs-2"><span class="icon-font-user plo-fonticon"></span></dt>
+                            <dd class="col-xs-10 _plu-hard--left">
+                                <span class="sidebar-vcard-names">
+                                    {% if formated_object.contacts.booking.businessName|default %}
+                                        {{ formated_object.contacts.booking.businessName }}
+                                        {% if formated_object.contacts.booking.peopleLastName|default %}
+                                            <br />
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if formated_object.contacts.booking.civility|default and formated_object.contacts.booking.peopleLastName|default %}
+                                        {{ formated_object.contacts.booking._civility|default(formated_object.contacts.booking._civility) }}
+                                    {% endif %}
+                                    {% if formated_object.contacts.booking.peopleLastName|default %}
+                                        {{formated_object.contacts.booking.peopleFirstName}} {{formated_object.contacts.booking.peopleLastName}}
+                                    {% endif %}
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                {% endif %}
+
+                <ul class="list-group">
+                    {% include TWIG.VCARD
+                        with {  'phones': formated_object.contacts.booking.phones,
+                                'descriptionPhones': formated_object.contacts.booking.descriptionPhones,
+                                'fax': formated_object.contacts.booking.fax,
+                                'websites': formated_object.contacts.booking.websites
+                            }
+                    %}
+                </ul>
+            </section>
+        </li>
+    {% endif %}
+{% endif %}
+
+{% if not hasEmptyComMeans(formated_object.contacts.group) %}
+    <li id="li-contact-infos-group" class="sidebar-contact-infos">
+        <section class="panel panel-default">
+            <div class="sidebar-vcard-label">{{ formated_object.contacts.group._type|default('SECTIONS.TOURISM.SHEET.GROUPS_VISITS'|trans) }}</div>
+
+            {% if formated_object.contacts.group.peopleLastName|default %}
+                <div class="panel-body">
+                    <dl class="row">
+                        <dt class="col-xs-2"><span class="icon-font-user plo-fonticon"></span></dt>
+                        <dd class="col-xs-10 _plu-hard--left">
+                            <span class="sidebar-vcard-names">
+                                {% if formated_object.contacts.group.civility|default %}
+                                    {{ formated_object.contacts.group._civility|default(formated_object.contacts.group._civility) }}
+                                {% endif %}
+                                {{formated_object.contacts.group.peopleFirstName}} {{formated_object.contacts.group.peopleLastName}}
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+            {% endif %}
+
+            <ul class="list-group">
+                {% include TWIG.VCARD
+                    with {  'phones': formated_object.contacts.group.phones,
+                            'descriptionPhones': formated_object.contacts.group.descriptionPhones,
+                            'fax': formated_object.contacts.group.fax,
+                            'websites': formated_object.contacts.group.websites
+                        }
+                %}
+            </ul>
+        </section>
+    </li>
+{% endif %}

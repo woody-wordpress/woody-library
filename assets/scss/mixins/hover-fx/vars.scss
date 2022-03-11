@@ -1,0 +1,47 @@
+$WOODY_SPECIAL_PROPERTIES_WITHOUT_COMMA: 'transform', 'filter' !default;
+$WOODY_SPECIAL_PROPERTIES_WITH_COMMA: 'transition', 'box-shadow', !default;
+
+$WOODY_FRAMEWORK_FX_TARGETS: (
+    card: ('.card', '.overlayedCard', '.basicCard', '.geomapCard', '.profileCard', '.splitCard', '.card-link'),
+) !default;
+
+$woody_cards_transitions_ease-out: cubic-bezier(0.010, 0.775, 0.095, 0.995) !default;
+$woody_cards_transitions_ease-in-out: cubic-bezier(.62,.01,.1,.99) !default;
+$woody_cards_transitions_ease-out-soft: cubic-bezier(.05,0,.14,.99) !default;
+$woody_cards_transitions_duration: .5s !default;
+
+$woody_cards_transitions_duration_short: .25s !default;
+
+
+$woody-card-fx-defaults: (
+    zoom: 1.1,
+    fade: (0, 1),
+    slide: 15px,
+    border: 1px,
+    overlay: inset 0 0 60px 30px rgba(black,.6),
+    color: $white,
+    blur: 10px,
+    space: 18px,
+    grayscale: 1,
+    skew: 50px,
+    after: ( // === The css rules below can be removed or added if needed
+        width: 100%,
+        height: 100%,
+        position: absolute,
+        top: 0,
+        left: 0,
+        opacity: 0,
+        background-color: $primary-color,
+        content: ''
+    ),
+    before: ( // === The css rules below can be removed or added if needed
+        width: 100%,
+        height: 100%,
+        position: absolute,
+        top: 0,
+        left: 0,
+        opacity: 0,
+        content: '',
+        z-index: 1
+    ),
+) !default;

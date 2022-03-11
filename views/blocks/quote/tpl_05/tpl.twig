@@ -1,0 +1,15 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}quote{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('05') }}{% endblock %}
+{% set customImageStyle = "ratio_3_4" %}
+{% block woodyComponentContent %}
+	<div class="grid-x grid-padding-x grid-padding-y {{ flexDirection|default }} align-middle">
+		{% include "blocks/quote/_objects/quoteImageObject.twig" with {
+            'customClass': 'cell small-12 medium-4',
+        } %}
+		{% include "blocks/quote/_objects/quoteTextObject.twig" with {
+            'withSignature' : true,
+            'customClass' : 'cell auto quote-texts flex-container flex-dir-column align-center'
+        } %}
+	</div>
+{% endblock %}

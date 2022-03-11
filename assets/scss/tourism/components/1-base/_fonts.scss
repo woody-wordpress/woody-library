@@ -21,6 +21,20 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.rating-font {
+    @extend .icon-font-item;
+    width: auto;
+    height: auto;
+    line-height: 1em;
+
+    [character="\\e64e"]:before { content: "\e64e"; }
+    [character="\\e64f"]:before { content: "\e64f"; }
+    [character="\\e650"]:before { content: "\e650"; }
+    [character="\\e651"]:before { content: "\e651"; }
+    [character="\\e909"]:before { content: "\e909"; }
+}
+
+
 .icon-contact-book {
     content: "\e662";
 }

@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Appel à l'action - Template 3",
     "description": "Affiche un bloc avec texte centré et/ou lien ou fichier à télécharger en dessous + couleur et image de fond possible",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b461a3831284"
     ],

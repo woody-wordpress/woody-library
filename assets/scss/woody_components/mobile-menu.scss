@@ -29,10 +29,15 @@
 
 .woody-component-mobilenavs {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
+    bottom: $mobile-nav-offset;
+    left: $mobile-nav-offset;
+    width: calc(100vw - #{$mobile-nav-offset} *2);
     z-index: 1000;
+
+    .title-bar {
+        border-radius: $mobile-nav-radius;
+        box-shadow: $mobile-nav-shadow;
+    }
 
     .tools {
         position: absolute;

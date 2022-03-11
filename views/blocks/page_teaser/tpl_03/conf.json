@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "En tête de page - Template 3",
+    "name": "Template 03 - Paysage C",
     "description": "Affiche les infos indispensables d'une page : titre + desc + social shares + ajout aux favoris + image/video ou widget à droite (7 colones - 5 colonnes)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b2bbb46507bf"
     ],

@@ -1,0 +1,51 @@
+{% spaceless %}
+<div class="{{ contextPrefix }}-titles {{ flexOptions|default }}">
+    <div class="{{ contextPrefix }}-texts {{ textsClasses|default }}">
+        {% if titles.pretitle|default %}
+            <span class="{{ contextPrefix }}-pretitle">{{ titles.pretitle }}</span>
+        {% endif %}
+        {% if titles.title|default %}
+            {% if contextPrefix == 'section' %}
+                <h2 class="{{ contextPrefix }}-title">{{ titles.title }}</h2>
+            {% else %}
+                <span class="{{ contextPrefix }}-title">{{ titles.title }}</span>
+            {% endif %}
+        {% endif %}
+        {% if titles.icon_type == 'picto' and titles.woody_icon|default %}
+            <span class="{{ contextPrefix }}-wicon wicon wicon-woody-icons {{ titles.woody_icon }}"></span>
+        {% elseif titles.icon_type == 'img' and titles.icon_img %}
+            <img class="img-responsive img-circle" src="{{ titles.icon_img.sizes.thumbnail }}" {% if titles.icon_img.alt %} alt="{{ titles.icon_img.alt }}" {% endif %}/>
+        {% endif %}
+        {% if titles.subtitle|default %}
+            <span class="{{ contextPrefix }}-subtitle">{{ titles.subtitle }}</span>
+        {% endif %}
+        {% if titles.sheet_type %}
+            <span class="{{ contextPrefix }}-type">{{ titles.sheet_type }}</span>
+        {% endif %}
+        {% if titles.created %}
+            <span class="{{ contextPrefix }}-created">{{__('Publié le', 'woody-theme')}} {{ titles.created }}</span>
+        {% endif %}
+        {% if titles.sheet_rating|default %}
+            <div class="{{ contextPrefix }}-ratings">{{ titles.sheet_rating|raw }}</div>
+        {% endif %}
+        {% if titles.description|default and not no_desc %}
+            {% if ellipsis %}
+                <div class="{{ contextPrefix }}-description">{{ titles.description|ellipsis(ellipsis, '...', false, false) }}</div>
+            {% else %}
+                <div class="{{ contextPrefix }}-description">{{ titles.description }}</div>
+            {% endif %}
+        {% endif %}
+        {% if titles.sheet_town|default %}
+            <span class="{{ contextPrefix }}-town">
+                <span class="wicon wicon-039-pin"></span>
+                <small>{{ titles.sheet_town }}</small>
+            </span>
+        {% endif %}
+        {% if titles.sheet_itinerary|default %}
+            <span class="{{ contextPrefix }}-itinerary">
+                <small>{{ titles.itinerary }}</small>
+            </span>
+        {% endif %}
+    </div>
+</div>
+{% endspaceless %}

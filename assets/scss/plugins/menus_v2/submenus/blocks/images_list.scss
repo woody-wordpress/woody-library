@@ -1,0 +1,39 @@
+.submenu-block-images-list {
+
+    // Combiné à .submenu-block{height:100%}
+    // Permet aux images de prenrdre la hauteur de toute la zone qui leur est affectée quel que soit le ratio d'image choisi
+    .submenu-block-content {
+        height: 100%;
+
+        >li>a {
+
+            height: 100%;
+
+            >figure {
+                height: 100%;
+            }
+        }
+    }
+
+    .submenu-item {
+        a {
+            color: $white;
+            display: block;
+
+            &:hover,
+            &:focus {
+                color: $white;
+            }
+        }
+
+        .submenu-item-section {
+            padding: 1rem;
+        }
+
+        .submenu-titles {
+            @if $texts-shadow {
+                @include smooth-shadow($type:text, $y:$texts-shadow-distance, $blur:$texts-shadow-blur, $color:$texts-shadow-color, $opacity:$texts-shadow-opacity, $layers:$texts-shadow-layers, $ratio:$texts-shadow-curve, $oRatio:0);
+            }
+        }
+    }
+}

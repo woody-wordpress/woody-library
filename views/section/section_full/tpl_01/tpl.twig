@@ -1,30 +1,34 @@
-{% set random_number = ''|random_number %}
-{% if display.section_divider|default %}
-    <div class="section-divider {{ display.gridContainer|default }} marg-top-md marg-bottom-md">
-        <hr></div>
+{% if not is_empty %}
+	{% set random_number = ''|random_number %}
+	{% if display.section_divider|default %}
+		<div class="section-divider {{ display.gridContainer|default }} marg-top-md marg-bottom-md">
+			<hr></div>
+	{% endif %}
+	<section {% if summary_id %} id="summary-{{ summary_id }}" {% endif %} class="section {{ display.classes|default }}{{ display.section_divider ? ' has-divider' }}{{ display.background_img ? ' has-bgimg' }}{{ banner_top or banner_bottom ? ' isRel has-banner' }}" {% if display.animations %} data-animate="{{ display.animations }}" {% endif %}>
+		{{ banner_top|default }}
+		{% if display.background_img %}
+			{% include '_objects/bgImageObject.twig' with {
+            'img': display.background_img,
+        } %}
+			<div class="content isRel">
+			{% endif %}
+			{% if display.parallax %}
+				<div class="section-rellax section-rellax-{{ random_number }}" data-rellax-speed="4">
+				{% endif %}
+				{% if header|default %}
+					<header class="section-header-wrapper {{ display.gridContainer|default('padd-left-md padd-right-md') }}{{ display.heading_alignment == 'center' and not display.gridContainer ? ' grid-container' }}{{ display.heading_alignment == 'center' ? ' container-min' }}">
+						{{ header }}
+					</header>
+				{% endif %}
+				<article class="section-layout-wrapper {{ display.gridContainer|default }}">
+					{{ layout|default }}
+				</article>
+				{% if display.parallax %}
+				</div>
+			{% endif %}
+			{% if display.background_img %}
+			</div>
+		{% endif %}
+		{{ banner_bottom|default }}
+	</section>
 {% endif %}
-<section class="section {{ display.classes|default }}{{ display.section_divider ? ' has-divider' }}{{ display.background_img ? ' has-bgimg' }}{{ banner_top or banner_bottom ? ' isRel has-banner' }}">
-    {{ banner_top|default }}
-    {% if display.background_img %}
-        <div class="backgroundMedia fullcenterbox" data-title="{{ display.background_img.title }}" style="background-image: url('{{ display.background_img.url }}'); background-size:cover; background-position:center center;"></div>
-        <div class="content isRel">
-        {% endif %}
-        {% if display.parallax %}
-            <div class="section-rellax section-rellax-{{ random_number }}" data-rellax-speed="4">
-            {% endif %}
-            {% if header|default %}
-                <header class="section-header-wrapper grid-container container-min">
-                    {{ header }}
-                </header>
-            {% endif %}
-            <article class="section-layout-wrapper {{ display.gridContainer|default }}">
-                {{ layout|default }}
-            </article>
-            {% if display.parallax %}
-            </div>
-        {% endif %}
-        {% if display.background_img %}
-        </div>
-    {% endif %}
-    {{ banner_bottom|default }}
-</section>

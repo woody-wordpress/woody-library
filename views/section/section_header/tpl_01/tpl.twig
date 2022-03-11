@@ -1,7 +1,8 @@
-<div class="section-header text-center ">
-    {% include '_objects/titlesObject.twig' with {
-        'titles' : _context,
-        'contextPrefix' : "section",
-        'flexOptions' : "flex-container flex-dir-column align-center align-middle text-center"
-    } %}
+<div class="section-header text-{{ heading_alignment }}">
+    {% set middle = heading_alignment == 'center' ? 'align-middle'%}
+	{% include '_objects/titlesObject.twig' with {
+    'titles' : _context,
+    'contextPrefix' : "section",
+    'flexOptions' : "flex-container flex-dir-column "~middle~" align-"~heading_alignment~" text-"~heading_alignment~"",
+	}%}
 </div>

@@ -1,0 +1,25 @@
+// Sidemenu
+$sideMenu-position: right !default; // left || right
+$sideMenu-height: 100% !default;
+$sideMenu-align: center !default;
+$sideMenu-bg-color: $white !default;
+$sideMenu-border-radius: 0px !default;
+$sideMenu-box-shadow: 0px 0px 20px rgba($black, 0.20) !default;
+$sideMenu-translate-closed: 65% !default;
+
+// Menu item
+$sideMenu-link-color: $primary-color !default;
+$sideMenu-title-font-size: 0.85rem !default;
+$sideMenu-title-font-weight: 500 !default;
+$sideMenu-title-text-transform: uppercase !default;
+$sideMenu-icon-font-size: 1.6rem !default;
+
+// Arrow
+$sideMenu-arrow-position: 75% !default;
+$sideMenu-arrow-font-size: 1rem !default;
+$sideMenu-arrow-color: $black !default;
+$sideMenu-arrow-icon: '\E01B' !default; // Value of your woody-icon
+
+// When page is on top
+$isTop-sideMenu-bg-color: transparent !default;
+$isTop-sideMenu-link-color: $white !default;

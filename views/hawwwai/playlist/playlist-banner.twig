@@ -1,0 +1,48 @@
+<section  class="playlist-infos-banner">
+        {# id="playlist-infos-banner{% if type|default == 'booking' %}-{{type}}{% endif %}" #}
+    <div class="playlist-features-wrapper">
+
+        {% if type|default == 'booking' %}
+            {# <span class="playlist-features-label booking">{{ TR.BOOK|default('.Réserver') }}</span>
+            {% if playlist.destinationName|default %}
+                <span class="playlist-features-type">{{ TR.BANNER_BOOKING|default('.Meilleur prix garanti sans commision par') }}
+                    <span class="playlist-features-destination">&nbsp;{{ playlist.destinationName }}</span>
+                </span>
+            {% endif %} #}
+        {% else %}
+            <div class="playlist-results-label">
+                <span class="playlist-results-count">{{ playlist.total|default('0') }}</span>
+                {% if display.mode|default == 'deals' or display.mode.deals|default(false)  %}
+                    <span>{{ TR.ESTABLISHMENTS|default('.établissements trouvés') }}</span>
+                {% else %}
+                    <span class="playlist-results-text">{{ ((playlist.total|default and playlist.total > 1) ? TR.RESULTS : TR.RESULT)|default('.résultats') }}</span>
+                {% endif %}
+            </div>
+            <div class="playlist-features-label {{playlist.type|default}}">
+                <div class="">{{ TR.BANNER_NORMAL|default('.Le plus grand choix pour préparer votre séjour')}}</div>
+            </div>
+            {# <span class="playlist-features-type">{{ playlist.name|default('.Hotels à La Rochelle') }}</span> #}
+        {% endif %}
+
+    </div>
+    <div class="playlist-switch-list switch-block">
+        <div class="switch-block-header">{{ TR.LIST|default('.Liste') }}</div>
+        <div class="switch-block-content">
+            <div class="list-icon-wrapper" data-changemodel="SIMPLE"><span class="icon icon-font-nav-back"></span></div>
+            <div class="list-icon-wrapper" data-changemodel="INLINE"><span class="icon icon-font-list"></span></div>
+        </div>
+    </div>
+
+    {% if display.list.map|default %}
+        <div class="playlist-switch-map switch-block">
+            <div class="switch-block-header">{{ TR.MAP|default('.Carte') }}</div>
+            <div class="switch-block-content">
+                <div class="background-layer"></div>
+                <svg class="map-marker" viewBox="50.302 134.829 30 40" xml:space="preserve">
+                    <path d="M65.302,135.829c7.731,0,14,6.204,14,13.857s-5.819,16.045-14,24.143c-8.854-8.764-14-16.49-14-24.143 S57.571,135.829,65.302,135.829z"/>
+                    <circle fill="#fff" cx="65.302" cy="148.829" r="6.938"/>
+                </svg>
+            </div>
+        </div>
+    {% endif %}
+</section>

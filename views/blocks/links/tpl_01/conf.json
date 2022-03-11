@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Liens - Template 1",
+    "name": "Template 01",
     "description": "Affiche un groupe liens sous forme de boutons",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b043614df4a6"
     ],

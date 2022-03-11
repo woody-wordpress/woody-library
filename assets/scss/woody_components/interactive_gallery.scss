@@ -1,13 +1,27 @@
-.woody-component-interactive_gallery{
+.woody-component-interactive_gallery {
     .tooltip {
         display: inline;
         position: relative;
         z-index: 999;
-        &.is-open{
-            .tooltip-item{
-                &:before{
-                    transform-origin: 50%  51%;
-                    transform:rotate(0deg);
+
+        &.is-open {
+            .tooltip-item {
+                &:before {
+                    transform-origin: 50% 51%;
+                    transform: rotate(0deg);
+                }
+            }
+        }
+
+        @include breakpoint(large) {
+            &:hover {
+                .tooltip-item {
+                    background-color: $tooltip-circle-color-hover;
+
+                    &:before {
+                        transform-origin: 50% 51%;
+                        transform: rotate(0deg);
+                    }
                 }
             }
         }
@@ -19,40 +33,61 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
+        width: $tooltip-circle-size;
+        height: $tooltip-circle-size;
         font-size: 1.5rem;
-        height: 40px;
-        color: $white;
-        background-color: $black;
+        color: $tooltip-circle-text-color;
+        background-color: $tooltip-circle-color;
         border-radius: 50%;
         transform: rotate(0deg);
-        &:before{
-            transform:rotate(45deg);
+        cursor: pointer;
+        transition: background-color .2s;
+
+        &:before {
+            transform: rotate(45deg);
             transition: transform 0.2s;
         }
     }
 
 
     /* Tooltip */
+    .tooltip-resp-close {
+        opacity: 0;
+    }
+
+    /* Tooltip content*/
 
     .tooltip-content {
         position: absolute;
         z-index: -1;
         width: $tooltip-box-maxwidth;
         text-align: left;
-        font-size: 0.765em;
+        font-size: rem-calc(12);
         line-height: 1.4;
-        box-shadow: -5px -5px 15px rgba(48,54,61,0.2);
+        box-shadow: -5px -5px 15px rgba(48, 54, 61, 0.2);
         background: $tooltip-text-background;
         opacity: 0;
         cursor: default;
         pointer-events: none;
+        padding: $tooltip-gutter-size;
+
+        img {
+            position: relative;
+            height: 170px;
+            display: block;
+            float: left;
+            margin-right: 1em;
+        }
+
+        .tooltip-resp-close {
+            display: none;
+        }
     }
 
-    .tooltip-effect{
+    .tooltip-effect {
         position: absolute;
-        z-index: 9999;
-        .tooltip-content{
+
+        .tooltip-content {
             @include tooltip-effect($tooltip-position, $tooltip-effect);
         }
     }
@@ -61,76 +96,316 @@
     .tooltip.is-open .tooltip-content {
         pointer-events: auto;
         opacity: 1;
-        transform: translate3d(0,0,0) rotate3d(0,0,0,0);
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0);
     }
+
     .tooltip.tooltip-effect-2:hover .tooltip-content {
-        transform: perspective(1000px) rotate3d(1,0,0,0deg);
-    }
-
-    /* Tooltip content*/
-
-    .tooltip-content img {
-        position: relative;
-        height: 170px;
-        display: block;
-        float: left;
-        margin-right: 1em;
+        transform: perspective(1000px) rotate3d(1, 0, 0, 0deg);
     }
 
     .tooltip-text {
         display: block;
-        padding: 1rem;
         color: $tooltip-text-color;
-        p{
+
+        p {
             margin: 0;
             font-size: 1rem;
         }
     }
 
+    .tooltip-audio-player {
+        &.bottom {
+            margin-top: 20px;
+        }
+    }
+
     /* Text container positioning */
-    @if $tooltip-position == 'top-left'{
-        .tooltip-content{
+    @if $tooltip-position=='top-left' {
+        .tooltip-content {
             left: 50%;
             top: 50%;
             right: auto;
             bottom: auto;
         }
-        .tooltip-effect{
+
+        .tooltip-effect {
             top: 20%;
             left: 20%;
         }
-    }@else if $tooltip-position == 'top-right'{
-        .tooltip-content{
+    }
+
+    @else if $tooltip-position=='top-right' {
+        .tooltip-content {
             right: 50%;
             top: 50%;
             left: auto;
             bottom: auto;
         }
-        .tooltip-effect{
-            top:20%;
+
+        .tooltip-effect {
+            top: 20%;
             right: 20%;
         }
-    }@else if $tooltip-position == 'bottom-right'{
-        .tooltip-content{
+    }
+
+    @else if $tooltip-position=='bottom-right' {
+        .tooltip-content {
             right: 50%;
             bottom: 50%;
             left: auto;
             top: auto;
         }
-        .tooltip-effect{
-            bottom:20% ;
-            right: 20% ;
+
+        .tooltip-effect {
+            bottom: 20%;
+            right: 20%;
         }
-    }@else if $tooltip-position == 'bottom-left'{
-        .tooltip-content{
+    }
+
+    @else if $tooltip-position=='bottom-left' {
+        .tooltip-content {
             right: auto;
             bottom: 50%;
             left: 50%;
             top: auto;
         }
-        .tooltip-effect{
-            left:20% ;
-            bottom: 20% ;
+
+        .tooltip-effect {
+            left: 20%;
+            bottom: 20%;
+        }
+    }
+
+    @include breakpoint(xmedium down) {
+        .tooltip {
+            .tooltip-item.wicon {
+                position: absolute;
+                top: 20%;
+                left: 20%;
+            }
+
+            .tooltip-text {
+                p {
+                    font-size: 0.9rem;
+                }
+            }
+
+            .tooltip-resp-close {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                padding: 5px;
+                font-size: 1rem;
+                top: 15%;
+                z-index: 10;
+                color: $tooltip-circle-text-color;
+                background-color: $tooltip-circle-color;
+                border-radius: 50%;
+                transform: translateX(-50%) translateY(calc(-50% - 20px));
+            }
+
+            .tooltip-content {
+                height: 70%;
+                overflow: scroll;
+                left: 0px;
+                top: 50%;
+                position: absolute;
+                padding: 20px 0px;
+                width: 100%;
+                transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0) translateY(-50%) !important;
+                z-index: 2;
+
+                &>[class^="tooltip"] {
+                    padding: 0px 30px;
+                }
+            }
+
+            &.is-open {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 90%;
+                height: 100%;
+                ;
+                margin: 0px 5%;
+
+                .tooltip-item.wicon {
+                    opacity: 0;
+                }
+
+                .tooltip-resp-close {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .woody-component-audio-player {
+            .the-player {
+                .description {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &.tpl_103,
+    &.tpl_104 {
+        @include breakpoint(xmedium down) {
+
+            .tooltip,
+            .tooltip.is-open {
+                height: auto;
+                width: 90%;
+                margin: auto;
+
+                .tooltip-item.wicon {
+                    position: relative;
+                    opacity: 1;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                .tooltip-content {
+                    width: 100%;
+                    height: auto;
+                    top: unset;
+                    left: 50%;
+                    right: unset;
+                    bottom: 100%;
+                    transform: translateX(-50%) !important;
+                }
+            }
+        }
+    }
+
+    &.tpl_103 {
+
+        .woody-swiper,
+        .gallery-no-swiper {
+            padding-bottom: 50px;
+        }
+
+        .woody-swiper {
+            .tooltip-effect {
+                bottom: 0px;
+            }
+        }
+
+        .gallery-no-swiper {
+            .tooltip-effect {
+                bottom: 50px;
+            }
+        }
+
+        .tooltip-effect {
+            left: 50%;
+            top: unset;
+            right: unset;
+            transform: translate(-50%, 50%);
+
+            .tooltip-resp-close {
+                display: none;
+            }
+        }
+
+        .tooltip-content {
+            top: unset;
+            left: 50%;
+            right: unset;
+            bottom: 100%;
+        }
+
+        .tooltip.is-open {
+            .tooltip-content {
+                transform: translateX(-50%);
+            }
+        }
+    }
+
+    &.tpl_104 {
+
+        .swiper-slide-active,
+        .gallery-no-swiper {
+            padding-left: 50px;
+        }
+
+        .swiper-nav {
+
+            .swiper-button-prev,
+            .swiper-button-next {
+                bottom: 20px;
+                top: unset;
+                padding: 0px;
+            }
+
+            .swiper-button-next {
+                right: 20px;
+            }
+
+            .swiper-button-prev {
+                left: unset;
+                right: 60px;
+            }
+        }
+
+        .tooltip-effect {
+            top: 50%;
+            left: 50px;
+            bottom: unset;
+            right: unset;
+            transform: translate(-50%, -50%);
+
+            .tooltip-resp-close {
+                display: none;
+            }
+        }
+
+        .tooltip-content {
+            top: 50%;
+            left: 100%;
+            right: unset;
+            bottom: unset;
+        }
+
+        .tooltip.is-open {
+            .tooltip-content {
+                transform: translateY(-50%);
+            }
+        }
+
+        @include breakpoint(xmedium down) {
+
+            .woody-swiper,
+            .gallery-no-swiper {
+                padding-bottom: 50px;
+            }
+
+            .swiper-slide-active,
+            .gallery-no-swiper {
+                padding-left: 0px;
+            }
+
+            .gallery-no-swiper {
+                .tooltip-effect {
+                    bottom: 50px;
+                }
+            }
+
+            .woody-swiper {
+                .tooltip-effect {
+                    bottom: 0px;
+                }
+            }
+
+            .tooltip-effect {
+                left: 50%;
+                top: unset;
+                right: unset;
+                transform: translate(-50%, 50%);
+            }
         }
     }
 }

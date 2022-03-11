@@ -1,0 +1,54 @@
+{% if tw_inSidebar|default %}
+<li id="li-dynamic-openings" class="hidden-xs" {% if formated_object.bordereau == 'FMA' %}event-ended periods='{{ formated_object.openingPeriods.periods|json_encode(constant('JSON_HEX_QUOT'))|e('html_attr') }}'{% endif %}>
+{% endif %}
+    {% if formated_object.covidOpenings|default %}
+         <section class="panel panel-default panel-body dynamic-opening-periods{% if mobile_only|default %} visible-xs-block visible-sm-block{% endif %}">
+            <div>
+                <span class='opening-state opening-state-{{formated_object.covidOpenings.light|default('soon')}}'>
+                    <span class='opening-state--light'></span>
+                    <span class='opening-state--text'>{{ formated_object.covidOpenings.text }}</span>
+                </span>
+            </div>
+        </section>
+    {% elseif contractsLevels.sidebar.dynamicOpening and (options.realtimeopenings is not defined or options.realtimeopenings) %}
+        {% if formated_object.bordereau != 'HLO' %}
+            <section class="panel panel-default panel-body dynamic-opening-periods{% if mobile_only|default %} visible-xs-block visible-sm-block{% endif %}"
+                {% if formated_object.openingPeriods|default and formated_object.openingPeriods.periods|default %}
+                anchor-link ng-click="scrollTo('#openings')"
+                {% endif %}
+                style="display: none !important;">
+
+                <div dynamic-openings
+                    {% if object.data.periods|default %}
+                        guessclosed="true"
+                    {% endif %}
+                    {% if (options.interpolate_periods is not defined or options.interpolate_periods) and formated_object.bordereau not in ['FMA','PRD','ITI'] %}
+                        interpolate="true"
+                    {% endif %}
+                    periods='{{ formated_object.openingPeriods.periods|json_encode(constant('JSON_HEX_QUOT'))|e('html_attr') }}'>
+
+                    <span class='opening-state'>
+                        <span class='opening-state--light'></span>
+                        <span class='opening-state--text'></span>
+                        <span class='opening-time'></span>
+                    </span>
+
+                    <span class="opening-extra-info" style="display: none;"></span>
+                    <span class='opening-unguaranteed' style="display: none;">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNGUARANTEED'|trans }}</span>
+                </div>
+            </section>
+        {% endif %}
+    {% endif %}
+
+{% if tw_inSidebar|default %}
+    {% if formated_object.bordereau == 'FMA' %}
+        <section class="panel panel-default panel-body ended-event" style="display: none;">
+            <span class="icon"></span>
+            <div class="text-elements">
+                <p class="neutral">{{ 'GLOBAL.EVENT'|trans }}</p>
+                <p class="red">{{ 'GLOBAL.OVER'|trans }}</p>
+            </div>
+        </section>
+    {% endif %}
+</li>
+{% endif %}

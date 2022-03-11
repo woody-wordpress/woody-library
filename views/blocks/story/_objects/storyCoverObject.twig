@@ -1,0 +1,31 @@
+<div class="story-cover isRel bg-black">
+    <div class="story-cover-img">
+        {% include '_objects/imageObject.twig' with {
+            'img' : story_main_img,
+            'containerClass' : "storyMediaWrapper",
+            'hide_caption' : true
+        } %}
+    </div>
+    <div class="story-texts padd-all-lg {{ storyTextsClasses|default('bottomleftbox flex-dir-column') }}">
+        <div class="grid-container padd-all-md">
+            <span class="story-title">{{ story_title }}</span>
+            {% if story_author.story_author_name or story_author.story_picture %}
+                <div class="story-author flex-container align-middle">
+                    <div class="story-author-img">
+                        {% if story_author.story_author_img %}
+                            {% include '_objects/imageObject.twig' with {
+                                'img' : story_author.story_author_img,
+                                'image_style' : 'ratio_square',
+                                'containerClass' : "storyAuthorMediaWrapper",
+                                'hide_caption' : true
+                            } %}
+                        {% endif %}
+                    </div>
+                    {% if story_author.story_author_name %}
+                        <span class="story-author-name">{{ story_author.story_author_name }}</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

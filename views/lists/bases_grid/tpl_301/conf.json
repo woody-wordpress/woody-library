@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Variation de grille 3, 6 ou 9 éléments",
     "description": "3 colonnes égales",
+    "lib_type": "lite",
     "acf_groups": [],
     "vars": [
         "items",

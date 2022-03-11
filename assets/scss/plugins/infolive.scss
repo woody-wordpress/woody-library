@@ -1,0 +1,1187 @@
+@keyframes infolive-fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    100% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes infolive-fade-in-up2 {
+    0% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    15% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    100% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes infolive-fade-in-up3 {
+    0% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    30% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    100% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes infolive-fade-out-up {
+    0% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-180px);
+    }
+}
+
+@keyframes infolive-fade-out-up2 {
+    0% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    15% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-180px);
+    }
+}
+
+@keyframes infolive-fade-out-up3 {
+    0% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    15% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-180px);
+    }
+}
+
+.woody-component-infolive {
+
+    .infolive-component {
+        .title {
+            text-transform: uppercase;
+        }
+    }
+
+    .playground-wrapper {
+        pointer-events: none;
+        text-align: center;
+        margin-bottom: $global-margin;
+
+        .title-playground {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: rem-calc(14);
+            margin-bottom: $global-margin / 2;
+        }
+
+        .cell {
+            padding: $global-padding / 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .state-playground {
+            position: relative;
+            font-size: rem-calc(12);
+            transform: translateX(4px);
+
+            &:after {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 8px;
+                height: 8px;
+                top: 4px;
+                left: -12px;
+                border-radius: 50%;
+                animation: littleExpansion 2s ease-out infinite alternate;
+            }
+
+            &.state-opened {
+                &:after {
+                    background-color: $success-color;
+                    box-shadow: 0 0 10px rgba($success-color, .5);
+                }
+            }
+
+            &.state-closed {
+                &:after {
+                    background-color: $alert-color;
+                    box-shadow: 0 0 10px rgba($alert-color, .5);
+                }
+            }
+        }
+    }
+
+    .snowdepth-wrapper {
+        .snowdepth-icon {
+            color: $dark-gray;
+            font-size: rem-calc(96);
+        }
+
+        .snowdepth-levels {
+            transform: translateX(30px);
+
+            .value {
+                font-weight: $global-weight-bold;
+            }
+
+            .max,
+            .min {
+                position: relative;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    height: 1px;
+                    background-color: $medium-gray;
+                }
+            }
+
+            .min {
+                transform: translateY(10px);
+
+                &:after {
+                    width: 20px;
+                    right: calc(100% + 5px);
+                }
+            }
+
+            .max {
+                transform: translateY(-23px);
+
+                &:after {
+                    width: 75px;
+                    right: calc(100% + 5px);
+                }
+            }
+        }
+    }
+
+    .infolive-webcam {
+        .media-wrapper {
+            position: relative;
+            max-width: 80%;
+            @include wicon($infolive-webcam-icon);
+
+            &:before {
+                z-index: 1;
+                position: absolute;
+                text-align: center;
+                background: $primary-color;
+                color: $white;
+                left: 0;
+                top: 0;
+                pointer-events: none;
+                padding: $global-padding/2;
+                width: $global-padding*2.5;
+                height: $global-padding*2.5;
+            }
+        }
+    }
+
+    .infolive-weather {
+
+        .weather-icon {
+            color: $dark-gray;
+            font-size: rem-calc(96);
+        }
+
+        .weather-temp {
+            font-weight: $global-weight-bold;
+            font-size: rem-calc(22);
+            cursor: default;
+        }
+    }
+
+    .infolive-slopes-info {
+
+        .slopes-wrapper {
+            &.single-area {
+
+                &,
+                .slopes-alpine,
+                .slopes-nordic {
+                    height: 100%;
+                }
+
+                .alpine-levels,
+                .nordic-levels {
+                    flex: 1 1 auto;
+                }
+            }
+        }
+
+        .lifts-wrapper {
+            cursor: default;
+
+            .wicon {
+                font-size: rem-calc(30);
+            }
+
+            .opened {
+                vertical-align: super;
+
+            }
+        }
+
+        .circular-progressbar {
+            .circle-shape {
+                width: 100%;
+                position: relative;
+
+                .value {
+                    position: absolute;
+                    display: flex;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+                    cursor: default;
+
+                    .open {
+                        font-weight: $global-weight-bold;
+                    }
+
+                    @if $infolive-slopes-total-hide {
+                        .total {
+                            display: none;
+                        }
+                    }
+                }
+
+                svg {
+                    display: block;
+                }
+            }
+
+            .circle-bg {
+                fill-opacity: $infolive-progressbar-bg-opacity;
+            }
+
+            &.init,
+            .circle-fill {
+                transition: stroke .2s;
+            }
+
+            &:not(.init) {
+
+                .circle-fill,
+                .value {
+                    visibility: hidden;
+                }
+            }
+        }
+
+        .level {
+            &-global {
+                .circular-progressbar {
+                    width: $circular-progressbar-global-width;
+
+                    .circle-shape {
+                        .wicon {
+                            font-size: rem-calc(30);
+                            position: absolute;
+                            top: 40%;
+                            left: 50%;
+                            transform: translateX(-50%) translateY(-50%);
+                        }
+
+                        .value {
+                            top: 60%;
+                        }
+
+                        svg {
+                            width: $circular-progressbar-global-width;
+                            height: $circular-progressbar-global-width;
+                        }
+                    }
+
+                }
+            }
+
+            &-colors {
+                .circular-progressbar {
+                    width: $circular-progressbar-levels-width;
+
+                    .circle-shape {
+                        svg {
+                            width: $circular-progressbar-levels-width;
+                            height: $circular-progressbar-levels-width;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    .infolive-links {
+        .links-wrapper {
+
+            &,
+            li {
+                width: 100%;
+            }
+
+            .button {
+                min-width: 200px;
+                width: 50%;
+            }
+        }
+    }
+
+    .infolive-alert {
+        .alert-wrapper {
+            background-color: $infolive-alert-bg;
+
+            .alert-icon {
+                width: 75px;
+                height: 75px;
+                font-size: rem-calc(30);
+                color: $infolive-alert-color-icon;
+                background-color: $infolive-alert-bg-icon;
+            }
+
+            .alert-text {
+                margin-left: $global-margin;
+
+                .msg {
+                    font-style: $infolive-alert-text-style;
+                    font-weight: $infolive-alert-text-weight;
+                    color: $infolive-alert-text-color;
+                }
+            }
+        }
+    }
+
+    &.tpl_02 {
+        &.has-snowdepth.has-slopes-info {
+
+            .infolive-slopes-info {
+                position: relative;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 1px;
+                    height: 90%;
+                    top: 5%;
+                    left: 0;
+                    background-color: rgba($black, .25);
+                }
+            }
+        }
+
+        .infolive-weather {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                width: 90%;
+                height: 1px;
+                bottom: 0;
+                left: 5%;
+                background-color: rgba($black, .25);
+            }
+        }
+
+        .snowdepth-wrapper {
+            height: 100%;
+
+            .snowdepth-content {
+                flex: 1 1 auto;
+            }
+        }
+
+        .infolive-slopes-info {
+            .level-colors {
+                flex-wrap: wrap;
+                max-width: $circular-progressbar-levels-width * 2;
+            }
+        }
+
+        .infolive-webcam {
+            .media-wrapper {
+                max-width: 100%;
+            }
+
+            .button {
+                width: 200px;
+                margin-left: auto;
+            }
+        }
+    }
+
+    &.tpl_03 {
+
+        .infolive-boards-wrapper {
+            @include breakpoint(large down) {
+                width: 100%;
+            }
+        }
+
+        .infolive-infos-board {
+            //background-color: $color--rgba-primary-15;
+            overflow: hidden;
+
+            //height: 100%;
+            @include breakpoint(large down) {
+                flex-basis: 100%;
+            }
+
+            >div {
+                padding-top: 0;
+                position: relative;
+
+                &:not(:last-child) {
+                    .info-content {
+                        position: relative;
+
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            top: 0;
+                            right: -15px;
+                            width: 1px;
+                            height: 100%;
+                            background: $primary-color;
+
+                            @include breakpoint(medium down) {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bloc {
+                @include breakpoint(large down) {
+                    flex-basis: 150px;
+                    flex-grow: 1;
+                }
+            }
+
+            .info-content {
+                .meteo {
+                    flex-basis: 120px;
+                    flex-grow: 1;
+                }
+            }
+
+            .info-header {
+                text-transform: uppercase;
+
+                span {
+
+                    &:before,
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        background: $white;
+                        width: 15px;
+                        height: 1px;
+                        top: 50%;
+                        opacity: 0.5;
+                    }
+
+                    &:before {
+                        right: 100%;
+                    }
+
+                    &:after {
+                        left: 100%;
+                    }
+                }
+            }
+
+            &.hide {
+                display: flex !important;
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                cursor: default;
+                background: transparent;
+
+                .bloc {
+                    animation-name: infolive-fade-out-up;
+                    animation-duration: .6s;
+                    opacity: 0;
+
+                    &:nth-child(2) {
+                        animation-name: infolive-fade-out-up2;
+                        animation-duration: .7s;
+                    }
+
+                    &:nth-child(3) {
+                        animation-name: infolive-fade-out-up3;
+                        animation-duration: .8s;
+                    }
+                }
+            }
+
+            &.active {
+                .bloc {
+                    animation-name: infolive-fade-in-up;
+                    animation-duration: .6s;
+                    transform: translateY(0px);
+                    opacity: 1;
+
+                    &:nth-child(2) {
+                        animation-name: infolive-fade-in-up2;
+                        animation-duration: .7s;
+                    }
+
+                    &:nth-child(3) {
+                        animation-name: infolive-fade-in-up3;
+                        animation-duration: .8s;
+                    }
+                }
+            }
+        }
+
+        .info-header {
+            padding: 10px 0;
+
+            span {
+                position: relative;
+                padding: 0 15px;
+            }
+        }
+
+        .val {
+            @include header-size(h5);
+            font-weight: 600;
+        }
+
+        .info-content {
+            flex-grow: 1;
+        }
+
+        .wicon {
+            font-size: 45px;
+            height: 45px;
+        }
+
+        .meteo {
+            .wicon {
+                margin-bottom: 15px;
+            }
+        }
+
+        .small {
+            font-size: 0.8rem;
+        }
+
+        .big {
+            @include header-size(h1);
+        }
+
+        .infolive-webcams {
+            flex-grow: 1;
+            min-height: 120px;
+
+            @include breakpoint(large down) {
+                padding-left: 0;
+                margin-top: 10px;
+                flex-basis: 100%;
+            }
+        }
+
+        .webcam-link {
+            flex-grow: 1;
+            text-transform: uppercase;
+            font-weight: 700;
+            ;
+            @include header-size(h2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            transition: all .15s ease-out;
+            @include wicon(-d4-webcam, after);
+
+            &:after {
+                color: $white;
+                opacity: 0.1;
+                position: absolute;
+                top: 0;
+                left: 0;
+                font-size: 100px;
+                line-height: 120px;
+            }
+
+            &:hover {
+                background: $secondary-color;
+                border: 1px solid $secondary-color;
+            }
+        }
+
+        //Infolive Zones select
+        .infolive-zones-select-wrapper {
+            position: relative;
+            z-index: 15;
+
+            @include breakpoint(large down) {
+                flex-basis: 100%;
+            }
+
+            .infolive-zone {
+                position: relative;
+                cursor: pointer;
+                font-weight: 700;
+
+                span {
+                    transition: all .15s ease-out;
+                    position: relative;
+                    z-index: 10;
+                    opacity: 0.6;
+
+                    .altitude {
+                        opacity: 0.3;
+                    }
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: calc(100% + 10px);
+                    height: 100%;
+                    transition: all .15s ease-out;
+                    clip-path: polygon(calc(70% - 10px) 0, 70% 50%, calc(70% - 10px) 100%, 0 100%, 0 0);
+                }
+
+                &.active {
+                    color: $primary-color;
+
+                    span {
+                        opacity: 1;
+                    }
+
+                    &:after {
+                        background: $white;
+                        clip-path: polygon(calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 0 0);
+                    }
+                }
+
+                &:not(.active):hover {
+                    span {
+                        opacity: 1;
+                        color: $white;
+                    }
+
+                    &:after {
+                        background: $secondary-color;
+                        clip-path: polygon(calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 0 0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+.infolive__close-btn {
+    font-size: 35px;
+    line-height: 35px;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    .wicon-woody-icons {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all .15s ease-out;
+
+        &:hover {
+            background: $secondary-color;
+        }
+    }
+}
+
+/**
+ * Blocs List Infolive Sectors
+ */
+.woody-component-infolive {
+
+    .infolive-sector-single {
+        .info-content {
+            flex-basis: 100%;
+            flex-grow: 1;
+        }
+
+        .sector-content {
+            font-size: rem-calc(11px);
+            line-height: rem-calc(12px);
+            display: flex;
+            flex-wrap: wrap;
+            width: calc(100% + 1px);
+            margin-right: -1px;
+            overflow: hidden;
+
+            .title {
+                color: $black;
+                font-weight: 500;
+                margin-right: 12px;
+            }
+
+            li.item {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 2px 8px;
+                align-items: center;
+                flex-flow: row;
+                border-right: 1px solid rgba(0, 0, 0, 0.08);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+                .wicon {
+                    height: 25px;
+                    width: 25px;
+                    min-width: 25px;
+                    border-radius: 30px;
+                    margin-right: 7px;
+                    font-size: 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $light-gray;
+
+                    &.wicon-055-vtt {
+                        font-size: 22px;
+                    }
+                }
+
+                &[data-color] {
+                    .wicon {
+                        color: $white;
+                    }
+                }
+
+                .horraires {
+                    margin-right: 10px;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-flow: row;
+                }
+
+                .status {
+                    border-radius: 20px;
+                    padding: 0px 10px;
+                    color: $white;
+                    height: 20px;
+                    font-size: 11px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &.closed {
+                        background: $alert-color;
+                    }
+
+                    &.open {
+                        background: $success-color;
+                    }
+
+                    &.openning {
+                        background: $warning-color;
+                    }
+                }
+            }
+        }
+
+        .close-expander-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 5;
+
+            &:hover {
+                color: $white;
+            }
+        }
+
+        .sector-sub-header {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            .title {
+                color: $black;
+                font-weight: 700;
+                padding: 0 15px;
+            }
+
+            .val {
+                font-weight: 300;
+                opacity: .7;
+                @include header-size(h6);
+            }
+        }
+    }
+
+    .infolive-sectors {
+        width: calc(100% + 10px);
+        margin-right: -10px;
+    }
+
+    .infolive-card {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+
+        .info-header {
+            background-color: $primary-color;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 0;
+            display: flex;
+
+            .txt {
+                padding: 0;
+                font-size: rem-calc(13px);
+            }
+
+            .val {
+                @include header-size(h5);
+                padding: 0;
+                margin-right: 10px;
+            }
+
+            .sector-name {
+                font-weight: 700;
+                @include header-size(h4);
+                @include header-lh(h4);
+            }
+        }
+
+        .card__expander {
+            transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            background-color: $white;
+            color: $black;
+        }
+    }
+}
+
+/**
+* Template LIST ROWS
+*/
+.woody-component-infolive {
+
+    .infolive-row-list,
+    .infolive-2cols-list {
+        .infolive-card {
+            .info-header {
+                background-color: $white;
+                color: $black;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .sector-content {
+            li.item {
+                width: 100%;
+            }
+        }
+    }
+}
+
+/**
+* Template LIST ROW 1 COL
+*/
+.woody-component-infolive {
+    .infolive-card {
+        width: 100%;
+    }
+
+    .infolive-row-list {
+        .sector-content {
+            li.item {
+                width: 100%;
+                border-right: none;
+            }
+        }
+    }
+}
+
+/**
+* Template LIST ROW 2 COLs
+*/
+.woody-component-infolive {
+
+    .infolive-2cols-list {
+        .sector-content {
+            li.item {
+                @include breakpoint(xmedium) {
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
+/**
+* Template LIST CARDS
+*/
+.woody-component-infolive .infolive-cards-template {
+    .infolive-card {
+        .info-header {
+            transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+            height: 140px;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column;
+            color: $white;
+            cursor: pointer;
+        }
+
+        .infolive__visible-card {
+            transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+
+            &:after {
+                content: '';
+                opacity: 1;
+                display: block;
+                height: 0;
+                width: 0;
+                position: absolute;
+                top: 100%;
+                left: calc(50% - 12px);
+                border-style: solid;
+                border-width: 15px 15px 0 15px;
+                border-color: $white transparent transparent transparent;
+                transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000) 0s;
+                transform-origin: center top;
+            }
+
+            &:before {
+                content: '';
+                opacity: 1;
+                display: block;
+                height: 0;
+                width: 0;
+                position: absolute;
+                top: 100%;
+                left: calc(50% - 4px);
+                border-style: solid;
+                border-width: 8px 8px 0 8px;
+                border-color: $secondary-color transparent transparent transparent;
+                transition: all .3s cubic-bezier(0.250, 0.460, 0.065, 1.000) 0s;
+                transform-origin: center top;
+                transform: scale(0);
+            }
+        }
+
+        &.is-collapsed {
+            .infolive__visible-card {
+                &:hover {
+                    &:before {
+                        transform: scale(1);
+                        border-color: $secondary-color transparent transparent transparent;
+                    }
+                }
+            }
+
+            .info-header {
+                &:hover {
+                    background-color: $secondary-color;
+                }
+            }
+
+            .infolive__visible-card {
+                &:after {
+                    content: '';
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+
+            .card__expander {
+                height: 0;
+                overflow: hidden;
+                margin-top: 0;
+                opacity: 0;
+            }
+        }
+
+        &.is-expanded {
+            .info-header {
+                background: $white;
+                color: $black;
+            }
+
+            .infolive__visible-card {
+                margin-bottom: 25px;
+
+                &:after {
+                    transform: scale(1);
+                }
+            }
+
+            .card__expander {
+                height: auto;
+                overflow: visible;
+                opacity: 1;
+                margin-bottom: 25px;
+            }
+        }
+    }
+
+    &.infolive-sectors {
+        @media all and (max-width: 1023px) {
+            .infolive-card.infolive-sector-single {
+                flex-basis: calc(100% / 2 - 10px);
+            }
+
+            .sector-content {
+                li.item {
+                    width: calc(100% / 2);
+                }
+            }
+
+            .infolive-card:nth-of-type(2n+2) .card__expander {
+                margin-left: calc(-100% - 10px);
+            }
+
+            .infolive-card:nth-of-type(2n+3) {
+                clear: left;
+            }
+
+            .card__expander {
+                width: calc(200% + 10px);
+            }
+        }
+
+        @media all and (max-width: 639px) {
+            .infolive-card.infolive-sector-single {
+                flex-basis: calc(100% - 10px);
+            }
+
+            .sector-content {
+                li.item {
+                    width: 100%;
+                }
+            }
+
+            .card__expander {
+                width: 100%;
+                margin-left: 0 !important;
+            }
+        }
+    }
+
+    //when 3 cards in a row
+    @media all and (min-width: 1024px) {
+        .infolive-card {
+            flex-basis: calc(100% / 3 - 10px);
+        }
+
+        .sector-content {
+            li.item {
+                width: calc(100% / 3);
+            }
+        }
+
+        .infolive-card:nth-of-type(3n+2) .card__expander {
+            margin-left: calc(-100% - 10px);
+        }
+
+        .infolive-card:nth-of-type(3n+3) .card__expander {
+            margin-left: calc(-200% - 20px);
+        }
+
+        .infolive-card:nth-of-type(3n+4) {
+            clear: left;
+        }
+
+        .card__expander {
+            width: calc(300% + 20px);
+        }
+    }
+}
+
+
+// Infolive Data block custom
+.woody-component-infolive {
+    .title {
+        color: $black;
+
+        @include root-bg((black, darkgray)) {
+            color: $white;
+        }
+    }
+
+    .bg-white,
+    .bg-lightgray {
+        &.bloc {
+            .title {
+                color: $black;
+            }
+        }
+    }
+
+    .infolive-datablock {
+        .pre-title {
+            &.small {
+                font-size: rem-calc(13px);
+                font-weight: 400;
+            }
+        }
+    }
+
+    .weather-icon {
+        font-size: rem-calc(90px);
+        height: 50px;
+    }
+}

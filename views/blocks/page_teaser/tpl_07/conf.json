@@ -1,0 +1,19 @@
+{
+    "approved": true,
+    "name": "Template 07",
+    "description": "Affiche les infos indispensables d'une page - Textes alignés en bas à gauche",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b2bbb46507bf"
+    ],
+    "vars": [
+        "classes",
+        "background_img",
+        "breadcrumb",
+        "page_teaser_title",
+        "page_teaser_display_favs_btn",
+        "page_teaser_desc",
+        "page_teaser_buttons",
+        "page_teaser_display_shares"
+    ]
+}

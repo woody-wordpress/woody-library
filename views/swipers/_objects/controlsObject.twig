@@ -1,0 +1,10 @@
+<div class="swiper-controls {{ controlsClasses|default }}">
+    {% if pagination %}
+    {% include "swipers/_objects/paginationObject.twig" with {
+        'paginationClasses' : alignmentClasses|default()
+    } %}
+    {% endif %}
+    {% if items|length > 1 %}
+    {% include "swipers/_objects/navigationObject.twig" %}
+    {% endif %}
+</div>

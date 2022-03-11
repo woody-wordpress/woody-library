@@ -1,0 +1,25 @@
+{% set index_class = 'tpl_08' %}
+{% set img_caption_position = 'top right' %}
+{% set styleClass = 'navigation-bottom-left pagination-bottom-left pagination-vertical padd-all-none' %}
+{% extends 'swipers/landing_swipers/tpl_01/tpl.twig' %}
+{% block landswpr_titles_wrapper %}
+    {% if slide.title or slide.subtitle or slide.pretitle or slide.landswpr_slide_smart_links.links %}
+        <div class="landswpr-titles-wrapper isAbs full-fill at-top at-left align-bottom flex-container box-sizing">
+            <div class="grid-container grid-y align-center full-width padd-bottom-lg">
+                {% include '_objects/titlesObject.twig' with {
+                    'titles' : slide,
+                    'contextPrefix' : "landswpr",
+                    'textsClasses' : "flex-container flex-dir-column"
+                } %}
+
+                {% if slide.landswpr_slide_smart_links.links|default %}
+                    <div class="landswpr-links-wrapper flex-container{{ slide.landswpr_slide_smart_links.alignement == 'vertical' ? ' flex-dir-column' }}">
+                        {% for button in slide.landswpr_slide_smart_links.links %}
+                            {% include 'swipers/_objects/landswprButtonObject.twig' with button %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

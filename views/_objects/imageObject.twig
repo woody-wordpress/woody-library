@@ -1,7 +1,9 @@
+{% spaceless %}
 {% if img|default %}
+
     {% if img.url is empty and img.sizes is empty and img is iterable %}
         {% set img = img|merge({'resizer': true}) %}
-        {% set img = img|merge({'url': 'https://api.tourism-system.com/resize/crop/%width%/%height%/70/aHR0cHM6Ly9hcGkudG91cmlzbS1zeXN0ZW0uY29tL3N0YXRpYy9hc3NldHMvaW1hZ2VzL3Jlc2l6ZXIvd29vZHlfNDA0LmpwZw==/404.jpg'}) %}
+        {% set img = img|merge({'url': 'https://api.cloudly.space/resize/crop/%width%/%height%/75/aHR0cHM6Ly9hcGkudG91cmlzbS1zeXN0ZW0uY29tL3N0YXRpYy9hc3NldHMvaW1hZ2VzL3Jlc2l6ZXIvd29vZHlfNDA0LmpwZw==/404.jpg'}) %}
     {% endif %}
 
     {% if img.resizer|default %}
@@ -73,14 +75,14 @@
         {% set srcset = "#{ small_size } 360w, #{ medium_size } 640w, #{ original_size } 1200w" %}
     {% endif %}
 
-    <figure itemscope itemtype="http://schema.org/ImageObject" class="isRel imageObject {{ containerClass|default }}{{ img.attachment_more_data.is_instagram ? ' is_instagram' }}">
-        {% if lazy|default(true) and lazy is same as(false) %}
-            <img class="imageObject-img img-responsive" src="{{ original_size }}" alt="{{ img.alt|default(img.filename) }}" itemprop="contentUrl" {% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
+    <figure itemscope itemtype="http://schema.org/ImageObject" class="isRel imageObject {{ noRespCrop }} {{ containerClass|default }}{{ img.attachment_more_data.is_instagram ? ' is_instagram' }}">
+        {% if img.lazy == 'disabled' %}
+            <img class="imageObject-img img-responsive" src="{{ original_size }}" alt="{{ img.alt|default(img.filename) }}" srcset="{{ srcset }}" itemprop="thumbnail"  {% if img_mobile_url %} data-mobile-img="{{ img_mobile_url }}" {% endif %} {% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
         {% else %}
             <noscript>
                 <img class="imageObject-img img-responsive {{ img.class|default }}" src="{{ medium_size }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail"/>
             </noscript>
-            <img class="imageObject-img img-responsive {{ lazyClass|default("lazyload") }}" src="{{ blank_ratio }}" srcset="{{ blank_ratio }}" data-src="{{ medium_size }}" data-sizes="auto" data-srcset="{{ srcset }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail"{% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
+            <img class="imageObject-img img-responsive {{ lazyClass|default("lazyload") }}" src="{{ blank_ratio }}" srcset="{{ blank_ratio }}" data-src="{{ medium_size }}" data-sizes="auto" data-srcset="{{ srcset }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail" {% if img_mobile_url %} data-mobile-img-url="{{ img_mobile_url }}" {% endif %} {% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
         {% endif %}
         {% if img.date %}
             <meta itemprop="datePublished" content="{{ img.date }}">
@@ -88,22 +90,32 @@
         {% if img.description %}
             <span class="hide imageObject-description" itemprop="description">{{ img.description }}</span>
         {% endif %}
-        {% if img.attachment_more_data.is_instagram %}
-            <div class="imageObject-instagram flex-container align-middle align-start">
-                <span class="wicon wicon-011-instagram"></span>
-                {# <span class="instagram-user">{{ img.attachment_more_data.author }}</span> #}
-                {# <span class="created-time">{{ img.attachment_more_data.instagram_metadata.date.date|date('d/m/Y') }}</span> #}
-            </div>
-        {% endif %}
-        {% if img.caption|default or img.attachment_more_data.author|default %}
-            <span class="imageObject-caption">
-                {% if img.caption|default %}
-                    <span itemprop="caption">{{ img.caption }}</span>
-                {% endif %}
-                {% if img.attachment_more_data.author|default %}
-                    <span class="imageObject-author" itemprop="copyrightHolder">© {{ img.attachment_more_data.author }}</span>
-                {% endif %}
-            </span>
-        {% endif %}
+
+        {% block imageCaption %}
+            {% if img.caption|default or img.attachment_more_data.author|default %}
+                <div class="imageObject-caption flex-container align-middle isAbs {{ img_caption_position|default('bottom left') }}" {% if hide_caption == true %} style="display:none"{% endif %}>
+                    {% if img.attachment_more_data.is_instagram %}
+                        <span class="imageObject-icon wicon wicon-011-instagram flex-container align-center align-middle"></span>
+                    {% else %}
+                        <span class="imageObject-icon copyright-icon flex-container align-center align-middle">©</span>
+                    {% endif %}
+                    {% if img.caption|default %}
+                        <span class="imageObject-text imageObject-description" itemprop="caption">{{ img.caption }}</span>
+                        {% if img.attachment_more_data.author|default %}
+                            <span class="imageObject-text separator">|</span>
+                        {% endif %}
+                    {% endif %}
+                    {% if img.attachment_more_data.author|default %}
+                        <span class="imageObject-text imageObject-author" itemprop="copyrightHolder">{{ img.attachment_more_data.author }}</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endblock %}
+
     </figure>
+    {% if item.slideshow %}
+    <div class="hide slideshow-srcs" data-ratio="{{ image_style }}" data-srcs='{{ item.slideshow|json_encode|base64Encode }}'>
+    </div>
+    {% endif %}
 {% endif %}
+{% endspaceless %}

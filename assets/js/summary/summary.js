@@ -1,0 +1,134 @@
+import WoodyFilter from '../filter';
+import SummarySwiper from './ext_swiper';
+import SummaryAccordion from './ext_accordion';
+
+export default class Summary {
+    constructor(el) {
+        this.element = el;
+        this.offset = this.element.getBoundingClientRect().top + document.documentElement.scrollTop;
+        this.summaryItems = this.element.querySelectorAll('.summary-item');
+        this.sections = [];
+        this.scrollPos = 0;
+        this.currentSection;
+        this.OffsetRatio;
+        this.currentIndex = 0;
+        this.init();
+    }
+
+    init() {
+        this.trigger('summary:init');
+        this.setOffsetRatio();
+        this.manageSections();
+        this.events();
+        this.loadChildClasses();
+    }
+
+    // ******** Run Classes ********
+    loadChildClasses() {
+        if (this.element.classList.contains('is-horizontal-summary')) new SummarySwiper(this);
+        if (this.element.classList.contains('summary-accordion')) new SummaryAccordion(this.element);
+    }
+
+    setOffsetRatio() {
+        this.OffsetRatio = window.innerHeight / 4;
+    }
+
+    manageSections() {
+        let self = this;
+        this.element.querySelectorAll('.summary-item > [data-section]').forEach(el => {
+            self.sections.push({
+                id: el.dataset.section,
+                element: document.querySelector(el.dataset.section),
+            })
+        })
+    }
+
+    scrollEvent() {
+        //TODO: REFAC: This should be into a Singleton
+        let self = this;
+        let lastKnownScrollPosition = 0;
+        let ticking = false;
+        window.addEventListener('scroll', function (e) {
+            lastKnownScrollPosition = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    self.scrollPos = lastKnownScrollPosition;
+                    self.scrolling();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    }
+
+    events() {
+        let self = this;
+        // On Scroll
+        this.scrollEvent();
+        // On Resize
+        let resize;
+        window.onresize = function () {
+            clearTimeout(resize);
+            resize = setTimeout(function () {
+                self.setOffsetRatio();
+                self.manageActiveSection();
+                self.trigger('summary:resized');
+            }.bind(self), 100);
+        }
+    }
+
+    // Self class Events
+    on(event, callback) {
+        this.element.addEventListener(event, callback);
+    }
+
+    trigger(event) {
+        this.element.dispatchEvent(new Event(event));
+    }
+
+    scrolling() {
+        if (this.element.classList.contains('fixed-summary')) this.manageFixedSummary();
+        this.manageActiveSection();
+        this.trigger('summary:scrolling');
+    }
+
+    manageFixedSummary() {
+        let adminbar = document.querySelector('#wpadminbar') ? document.querySelector('#wpadminbar').offsetHeight : 0;
+        let summary_offset_modifier = WoodyFilter.apply('summary_offset_modifier', 0); //Hook var
+        if (this.scrollPos - summary_offset_modifier >= this.offset - adminbar) {
+            WoodyFilter.apply('summary_start_fixed', this.element); //Hook function
+            this.element.classList.add('isFixed');
+            this.trigger('summary:fixed:start');
+        } else {
+            WoodyFilter.apply('summary_stop_fixed', this.element); //Hook function
+            this.element.classList.remove('isFixed');
+            this.trigger('summary:fixed:stop');
+        }
+    }
+
+    manageActiveSection() {
+        let self = this;
+        let index = 0;
+        this.sections.forEach(section => {
+            let screenOffset = section.element.getBoundingClientRect();
+            if (screenOffset.top <= 0 + self.OffsetRatio && screenOffset.bottom >= 0 + self.OffsetRatio) {
+                if (self.currentSection !== section.id) {
+                    self.currentSection = section.id;
+                    let oldActive = self.element.querySelector('.summary-item [data-section].active');
+                    let newActive = self.element.querySelector('[data-section="' + section.id + '"]');
+                    if (!!oldActive) {
+                        oldActive.classList.remove('active');
+                        oldActive.closest('.summary-item').classList.remove('active');
+                    }
+                    if (!!newActive) {
+                        newActive.classList.add('active');
+                        newActive.closest('.summary-item').classList.add('active');
+                        self.currentIndex = index;
+                        self.trigger('summary:section:changed');
+                    }
+                }
+            }
+            index++;
+        })
+    }
+}

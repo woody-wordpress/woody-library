@@ -1,0 +1,76 @@
+{# SLIDES #}
+<section id="poi" class="row tourism-detail-pois panel panel-default">
+
+    <dl class="row">
+        <dt class="_plu-push--tiny">
+            <span class="pl-heading section-title">
+                {{ 'SECTIONS.TOURISM.SHEET.ITINERARY.POINTS_OF_INTEREST'|trans }}
+            </span>
+        </dt>
+    </dl>
+
+    {# Mobile : List all POIs #}
+    <div class="poi-wrapper-responsive hidden-md hidden-lg">
+        <ul class="list-group stripes-odd">
+            {% for step in formated_object.dataItinerary.itinerary.poiList %}
+            <div class="step-title-responsive h4">
+                <span class="step-title-number"><span class="number-wrapper">{{step.markerWording|default(loop.index)}}</span></span>
+                <span class="step-title-value">{{step._name|default}}</span>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {# {% spaceless %} #}
+    <div class="itinerary-poi-wrapper top-dots {% if formated_object.dataItinerary.itinerary.poiList|length > 1 %}slick-slider{% endif %}">
+
+            {% for step in formated_object.dataItinerary.itinerary.poiList %}
+                <div class="poi-wrapper">
+
+                    <div class="step-title h4">
+                        <span class="step-title-number"><span class="number-wrapper">{{step.markerWording|default(loop.index)}}</span></span>
+                        <span class="step-title-value">{{step._name|default}}</span>
+                    </div>
+
+                    <div class="steps-wrapper">
+                        {% if step.type == 'simple' %}
+                            {% include TWIG.POI_SIMPLE with {'step': step} only %}
+                        {% elseif step.type == 'fiche' %}
+                            {% include TWIG.POI_SHEET
+                                with {'step': step, 'externalSheets': formated_object.externalSheets|default} only %}
+                        {% elseif step.type == 'image' %}
+                            {% include TWIG.POI_IMAGES with {'step': step} only %}
+                        {% elseif step.type == 'video' %}
+                            {% include TWIG.POI_VIDEO with {'step': step} only %}
+                        {% elseif step.type == 'audio' %}
+                            {% include TWIG.POI_AUDIO with {'step': step} only %}
+                        {% elseif step.type == 'panorama' %}
+                            {% include TWIG.POI_PANORAMA with {'step': step} only %}
+                        {% elseif step.type == 'mixte' and step.medias|default %}
+                            <div class="mixte-step-wrapper">
+                                {% for subkey, substep in step.medias %}
+                                    {% if subkey == 'simple' and substep._description|default %}
+                                        {% include TWIG.POI_SIMPLE with {'step': step} only %}
+                                    {% elseif subkey == 'sheets' %}
+                                        {% include TWIG.POI_SHEET
+                                            with {'step': step, 'externalSheets': formated_object.externalSheets|default} only %}
+                                    {% elseif subkey == 'images' %}
+                                        {% include TWIG.POI_IMAGES with {'step': step} only %}
+                                    {% elseif subkey == 'videos' %}
+                                        {% include TWIG.POI_VIDEO with {'step': step} only %}
+                                    {% elseif subkey == 'audios' %}
+                                        {% include TWIG.POI_AUDIO with {'step': step} only %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+                {# </kaarousel-slide> #}
+            {% endfor %}
+        {# </kaarousel> #}
+    </div>
+    {# {% endspaceless %} #}
+
+</section>

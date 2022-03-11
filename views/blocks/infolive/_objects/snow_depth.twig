@@ -1,0 +1,21 @@
+<div class="flex-container flex-dir-column align-center align-middle marg-bottom-sm snowdepth-wrapper">
+    {% if snowdepth_title %}
+    <div class="text-center marg-bottom-sm title-wrapper">
+        <span class="title h6">{{ __('Hauteurs de neige','woody-theme') }}</span>
+    </div>
+    {% endif %}
+    <div class="flex-container align-center align-middle snowdepth-content">
+        <div class="snowdepth-icon">
+            <span class="wicon wicon-006-station-montagne"></span>
+        </div>
+        <div class="snowdepth-levels">
+            <div class="max">
+                <span class="value" w-tooltip-up="{{ altitude.max ~ 'm' }}">{{ snow_depth.max ~ '<small>cm</small>' }}</span>
+
+            </div>
+            <div class="min">
+                <span class="value" w-tooltip-down="{{ altitude.min ~ 'm' }}">{{ snow_depth.min ~ '<small>cm</small>' }}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.woody-component-tides-timer{
+    .tides{
+        &-text{
+            position: absolute;
+            font-size: rem-calc(16);
+            font-weight: 500;
+        }
+        &-icon{
+            font-size: 3rem;
+            margin-right: 10px;
+        }
+        &-timer{
+            margin-top:10px;
+        }
+    }
+    .icon-tide-up{
+        @include wicon($tide-up-icon, before);
+    }
+    .icon-tide-down{
+        @include wicon($tide-down-icon, before);
+    }
+}

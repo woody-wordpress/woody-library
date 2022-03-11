@@ -1,0 +1,12 @@
+{% if contractsLevels.content.maps %}
+
+	<div id="map-container" class="hidden-xs show-when-angular-ready">
+        {% if formated_object.dataItinerary.itineraryLayout|default %}
+	    {% else %}
+            {# BlaBlaCar #}
+            <div id="hww_map" ng-if="useLeafletLibrary" blablacar-leaflet class="blablacar-widget leaflet"></div>
+            <div id="hww_map" ng-if="!useLeafletLibrary" blablacar class="blablacar-widget"></div>
+	    {% endif %}
+
+	</div>
+{% endif %}

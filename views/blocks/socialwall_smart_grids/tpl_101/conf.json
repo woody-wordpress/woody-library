@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Fallback SocialWall 1 élément",
     "description": "Une image à droite de l'en-tête",
+    "lib_type": "lite",
     "acf_groups": [
 
     ],

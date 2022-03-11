@@ -1,0 +1,21 @@
+{% if formated_object.panoramas|default %}
+<div id="panorama" class="{{formated_object.panoramas|length > 1 ? 'slickify ' : ''}}row _plu-push--large">
+    {% for media in formated_object.panoramas %}
+    <div>
+        {# -- if mediatype is Embed (Gsphere|360|Youtube|etc) --  #}
+        {% if media.type in ['99.03.01.06','99.03.01.07','99.03.01.03','99.03.01.04'] %}
+            <span class="gsphere-element-wrapper">
+                <iframe src="{{media.URL}}"></iframe>
+            </span>
+        {# -- if mediatype is a StreetView --  #}
+        {% elseif media.type in ['99.03.01.04'] and media._description|default %}
+            <street-view datas="{{media._description|json_encode}}" sviewid='{{loop.index0}}'></street-view>
+
+        {# -- if mediatype is a KrPano --  #}
+        {% elseif media.type in ['99.03.01.02','99.03.01.05'] %}
+        {% endif %} {# End if "type-of-media" #}
+
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

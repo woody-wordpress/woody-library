@@ -4,9 +4,74 @@
 
 #item_sheet_list {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
     .rc_lego {
         margin-bottom: 20px;
     }
+}
+
+// REALTIME OPENINGS
+.rc_lego { 
+    .dynamic-opening-periods {
+        margin: 5px 0;
+        &:not(.covid-openings) {
+            display: none;
+        }
+        span {
+            text-align: left;
+        }
+        .opening-time,
+        .opening-state {
+            font-size: 0.9rem;
+        }
+        .opening-state {
+            &--text {
+                color: initial;
+                text-transform: none;
+            }
+        }
+        .opening-time {
+            display: inline-block;
+            text-transform: none;
+            // &:before { content: "- "; }
+        }
+    }
+}
+
+.item-infos-ratings {
+    .ratings-logos img {
+        display: flex;
+        height: 24px;
+    }
+}
+
+.item-thumbnail {
+    position: relative;
+
+    .item-thumbnail-nav {
+        display: flex;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 6;
+        align-items: center;
+        justify-content: space-between;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+
+        .prev,
+        .next {
+            background-color: #ffffff99;
+            font-size: 35px;
+            padding: 15px 19px;
+            color: #333;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+    }
+    &:hover .item-thumbnail-nav { opacity: 1; }
 }
 
 #playlist-context {
@@ -151,9 +216,11 @@
             text-transform: uppercase;
         }
 
+        .playlist-features-label { line-height: 1; }
         .playlist-results-label {
             color: $primary-color;
             font-size: 1.4em;
+            line-height: 1;
             font-weight: 700;
         }
     }

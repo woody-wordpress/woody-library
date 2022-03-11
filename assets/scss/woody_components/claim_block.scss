@@ -1,11 +1,26 @@
 .woody-component-claims-block {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 280px;
-    z-index: 9999;
-    box-shadow: 0 6px 4px rgba($black, .15);
-    background-color: $white;
+
+    &:not(.inSection) {
+
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 280px;
+        z-index: 9999;
+        box-shadow: 0 6px 4px rgba($black, .15);
+        background-color: $white;
+
+        &.bottom-left {
+            left: 20px;
+            right: auto;
+        }
+
+        &.center {
+            bottom: 50%;
+            right: 50%;
+            transform: translateX(50%) translateY(50%);
+        }
+    }
 
     .claim {
         &-titles {
@@ -47,8 +62,10 @@
             z-index: 2;
         }
 
-        &-link {
-            @include xy-gutters($gutter-position: top left);
+        &-button {
+            @include xy-gutters($gutter-position: top left right);
+            display: flex;
+            justify-content: center; 
         }
     }
 
@@ -87,5 +104,11 @@
 body.fullScrolled {
     .woody-component-claims-block {
         transform: translateY(-50px); // To stay above cookie consent banner
+    }
+    
+    .claim-content {
+        @include breakpoint(large down) {
+            font-size: 14px;
+        }
     }
 }

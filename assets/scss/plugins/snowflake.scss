@@ -1,0 +1,1234 @@
+//vars
+$snowflake-component-title-text-transform: uppercase !default;
+$snowflake--slope-green: #2CC66F !default;
+$snowflake--slope-blue: #00A6ED !default;
+$snowflake--slope-red: #EB4F4A !default;
+$snowflake--slope-black: #131313 !default;
+
+.woody-component-snowflake{
+    .weather-wrapper{
+        .swiper-pagination{
+            bottom:0;
+            &.swiper-pagination-bullets .swiper-pagination-bullet{
+                background-color: $black;
+            }
+        }
+
+        .weather-temp {
+            font-weight: $global-weight-bold;
+            font-size: rem-calc(22);
+            cursor: default;
+        }
+
+        .weather-icon {
+            color: $dark-gray;
+            font-size: rem-calc(90);
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:before{
+                line-height: 50px;
+                display: block;
+            }
+        }
+
+        .weather-name{
+            display: block;
+            margin-bottom: 15px;
+        }
+    }
+
+    .playzone-state{
+        .dot{
+            width: 10px;
+            height: 10px;
+            border-radius: 20px;
+            display: inline-block;
+
+            &.open{
+                background-color: $snowflake--slope-green;
+            }
+
+            &.close{
+                background-color: $snowflake--slope-red;
+            }
+        }
+    }
+
+    .simple-opening-wrapper{
+        .length{
+            display: block;
+        }
+    }
+
+    &.tpl_04{
+        .block {
+            min-width: 0;
+            flex-basis: 350px;
+        }
+    }
+}
+
+
+@each $color,
+$hex in $foundation-palette {
+    .woody-component-snowflake.bg-#{$color} {
+        .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet{
+            background-color: set-color($hex);
+        }
+
+        .weather-wrapper .weather-icon{
+            color: set-color($hex);
+        }
+    }
+}
+
+
+.woody-component-snowflake.tpl_02 {
+
+    &.has-snowdepth.has-slopes-info {
+
+        .snowflake-slopes-info {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                width: 1px;
+                height: 90%;
+                top: 5%;
+                left: 0;
+                background-color: rgba($black, .25);
+            }
+        }
+    }
+
+    .snowflake-weather {
+        position: relative;
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 1px;
+            bottom: 0;
+            left: 5%;
+            background-color: rgba($black, .25);
+        }
+    }
+
+    .snowdepth-wrapper {
+        height: 100%;
+
+        .snowdepth-content {
+            flex: 1 1 auto;
+        }
+    }
+
+    .snowflake-slopes-info {
+        .level-colors {
+            flex-wrap: wrap;
+            max-width: $circular-progressbar-levels-width * 2;
+        }
+    }
+
+    .snowflake-webcam {
+        .media-wrapper {
+            max-width: 100%;
+        }
+
+        .button {
+            width: 200px;
+            margin-left: auto;
+        }
+    }
+}
+
+.woody-component-snowflake.tpl_03 {
+
+    .snowflake-boards-wrapper {
+        @include breakpoint(large down) {
+            width: 100%;
+        }
+    }
+
+    .snowflake-infos-board {
+        //background-color: $color--rgba-primary-15;
+        overflow: hidden;
+
+        //height: 100%;
+        @include breakpoint(large down) {
+            flex-basis: 100%;
+        }
+
+        >div {
+            padding-top: 0;
+            position: relative;
+
+            &:not(:last-child) {
+                .info-content {
+                    position: relative;
+
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        right: -15px;
+                        width: 1px;
+                        height: 100%;
+                        background: $primary-color;
+
+                        @include breakpoint(medium down) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        .bloc {
+            @include breakpoint(large down) {
+                flex-basis: 150px;
+                flex-grow: 1;
+            }
+        }
+
+        .info-content {
+            .meteo {
+                flex-basis: 120px;
+                flex-grow: 1;
+            }
+        }
+
+        .info-header {
+            text-transform: uppercase;
+            span {
+                padding: 0 15px;
+                &:before,
+                &:after {
+                    content: '';
+                    position: absolute;
+                    background: $white;
+                    width: 15px;
+                    height: 1px;
+                    top: 50%;
+                    opacity: 0.5;
+                }
+
+                &:before {
+                    right: 100%;
+                }
+
+                &:after {
+                    left: 100%;
+                }
+            }
+        }
+
+        &.hide {
+            display: flex !important;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            cursor: default;
+            background: transparent;
+
+            .bloc {
+                animation-name: infolive-fade-out-up;
+                animation-duration: .6s;
+                opacity: 0;
+
+                &:nth-child(2) {
+                    animation-name: infolive-fade-out-up2;
+                    animation-duration: .7s;
+                }
+
+                &:nth-child(3) {
+                    animation-name: infolive-fade-out-up3;
+                    animation-duration: .8s;
+                }
+            }
+        }
+
+        &.active {
+            .bloc {
+                animation-name: infolive-fade-in-up;
+                animation-duration: .6s;
+                transform: translateY(0px);
+                opacity: 1;
+
+                &:nth-child(2) {
+                    animation-name: infolive-fade-in-up2;
+                    animation-duration: .7s;
+                }
+
+                &:nth-child(3) {
+                    animation-name: infolive-fade-in-up3;
+                    animation-duration: .8s;
+                }
+            }
+        }
+    }
+
+    .info-header {
+        padding: 10px 0;
+
+        span {
+            position: relative;
+        }
+    }
+
+    .val {
+        @include header-size(h5);
+        font-weight: 600;
+    }
+
+    .info-content {
+        flex-grow: 1;
+    }
+
+    .wicon {
+        font-size: 45px;
+        height: 45px;
+    }
+
+    .meteo {
+        .wicon {
+            margin-bottom: 15px;
+        }
+    }
+
+    .small {
+        font-size: 0.8rem;
+    }
+
+    .big {
+        @include header-size(h1);
+    }
+
+    .snowflake-webcams {
+        flex-grow: 1;
+        min-height: 120px;
+
+        @include breakpoint(large down) {
+            padding-left: 0;
+            margin-top: 10px;
+            flex-basis: 100%;
+        }
+    }
+
+    .webcam-link {
+        flex-grow: 1;
+        text-transform: uppercase;
+        font-weight: 700;
+        ;
+        @include header-size(h2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        transition: all .15s ease-out;
+        @include wicon(-d4-webcam, after);
+
+        &:after {
+            color: $white;
+            opacity: 0.1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 100px;
+            line-height: 120px;
+        }
+
+        &:hover {
+            background: $secondary-color;
+            border: 1px solid $secondary-color;
+        }
+    }
+
+    //Infolive Zones select
+    .snowflake-zones-select-wrapper {
+        position: relative;
+        z-index: 15;
+
+        @include breakpoint(large down) {
+            flex-basis: 100%;
+        }
+
+        .snowflake-zone {
+            position: relative;
+            cursor: pointer;
+            font-weight: 700;
+
+            span {
+                transition: all .15s ease-out;
+                position: relative;
+                z-index: 10;
+                opacity: 0.6;
+
+                .altitude {
+                    opacity: 0.3;
+                }
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: calc(100% + 10px);
+                height: 100%;
+                transition: all .15s ease-out;
+                clip-path: polygon(calc(70% - 10px) 0, 70% 50%, calc(70% - 10px) 100%, 0 100%, 0 0);
+            }
+
+            &.active {
+                color: $primary-color;
+
+                span {
+                    opacity: 1;
+                }
+
+                &:after {
+                    background: $white;
+                    clip-path: polygon(calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 0 0);
+                }
+            }
+
+            &:not(.active):hover {
+                span {
+                    opacity: 1;
+                    color: $white;
+                }
+
+                &:after {
+                    background: $secondary-color;
+                    clip-path: polygon(calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 0 0);
+                }
+            }
+        }
+    }
+}
+
+.snowflake-links {
+    .links-wrapper {
+
+        &,
+        li {
+            width: 100%;
+        }
+
+        .button {
+            min-width: 200px;
+            width: 50%;
+        }
+    }
+}
+
+.snowflake-alert {
+    .alert-wrapper {
+        background-color: $infolive-alert-bg;
+
+        .alert-icon {
+            width: 75px;
+            height: 75px;
+            font-size: rem-calc(30);
+            color: $infolive-alert-color-icon;
+            background-color: $infolive-alert-bg-icon;
+        }
+
+        .alert-text {
+            margin-left: $global-margin;
+
+            .msg {
+                font-style: $infolive-alert-text-style;
+                font-weight: $infolive-alert-text-weight;
+                color: $infolive-alert-text-color;
+            }
+        }
+    }
+}
+
+
+.snowflake-slopes-info {
+
+    .slopes-wrapper {
+        &.single-area {
+
+            &,
+            .slopes-alpine,
+            .slopes-nordic {
+                height: 100%;
+            }
+
+            .alpine-levels,
+            .nordic-levels {
+                flex: 1 1 auto;
+            }
+        }
+    }
+
+    .lifts-wrapper {
+        cursor: default;
+
+        .wicon {
+            font-size: rem-calc(30);
+        }
+
+        .opened {
+            vertical-align: super;
+
+        }
+    }
+
+    .circular-progressbar {
+        .circle-shape {
+            width: 100%;
+            position: relative;
+            text-align: center;
+
+            .value {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                cursor: default;
+
+                .open {
+                    font-weight: $global-weight-bold;
+                }
+
+                // .length{
+                //     display: ;
+                // }
+
+                @if $infolive-slopes-total-hide {
+                    .total {
+                        display: none;
+                    }
+                }
+            }
+
+            svg {
+                display: block;
+            }
+        }
+
+        .circle-bg {
+            fill-opacity: $infolive-progressbar-bg-opacity;
+        }
+
+        &.init,
+        .circle-fill {
+            transition: stroke .2s;
+        }
+
+        &:not(.init) {
+
+            .circle-fill,
+            .value {
+                visibility: hidden;
+            }
+        }
+    }
+
+    .level {
+        &-global {
+            .circular-progressbar {
+                width: $circular-progressbar-global-width;
+
+                .circle-shape {
+                    .wicon {
+                        font-size: rem-calc(30);
+                        position: absolute;
+                        top: 40%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(-50%);
+                    }
+
+                    .value.alpine {
+                        top: 60%;
+                    }
+
+                    svg {
+                        width: $circular-progressbar-global-width;
+                        height: $circular-progressbar-global-width;
+                    }
+                }
+
+            }
+        }
+
+        &-colors {
+            .circular-progressbar {
+                width: $circular-progressbar-levels-width;
+
+                .circle-shape {
+                    svg {
+                        width: $circular-progressbar-levels-width;
+                        height: $circular-progressbar-levels-width;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+.snowflake-webcam {
+    .media-wrapper {
+        position: relative;
+        max-width: 80%;
+        @include wicon($infolive-webcam-icon);
+
+        &:before {
+            z-index: 1;
+            position: absolute;
+            text-align: center;
+            background: $primary-color;
+            color: $white;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            padding: $global-padding/2;
+            width: $global-padding*2.5;
+            height: $global-padding*2.5;
+        }
+    }
+}
+
+.snowflake-snowdepth-wrapper {
+    .snowdepth-icon {
+        color: $dark-gray;
+        font-size: rem-calc(96);
+        height: rem-calc(96);
+        display: flex;
+        align-items: center;
+    }
+
+    .snowdepth-levels {
+        transform: translateX(30px);
+
+        .value {
+            font-weight: $global-weight-bold;
+        }
+
+        .max,
+        .min {
+            position: relative;
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                height: 1px;
+                background-color: $medium-gray;
+            }
+        }
+
+        .min {
+            transform: translateY(10px);
+
+            &:after {
+                width: 20px;
+                right: calc(100% + 5px);
+            }
+        }
+
+        .max {
+            transform: translateY(-23px);
+
+            &:after {
+                width: 75px;
+                right: calc(100% + 5px);
+            }
+        }
+    }
+}
+
+.snowflake-component {
+    .title {
+        text-transform: $snowflake-component-title-text-transform;
+    }
+}
+
+.snowflake__close-btn {
+    font-size: 24px;
+    line-height: 24px;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    .wicon-woody-icon {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+            background: $secondary-color;
+        }
+    }
+}
+
+/**
+ * Blocs List Infolive Sectors
+ */
+.snowflake-sector-single {
+    .info-content {
+        flex-basis: 100%;
+        flex-grow: 1;
+    }
+
+    .sector-content {
+        font-size: rem-calc(11px);
+        line-height: rem-calc(12px);
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% + 1px);
+        margin-right: -1px;
+        overflow: hidden;
+
+        .title {
+            color: $black;
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        li.item {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2px 8px;
+            align-items: center;
+            flex-flow: row;
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+            .wicon {
+                height: 25px;
+                width: 25px;
+                min-width: 25px;
+                border-radius: 30px;
+                margin-right: 7px;
+                font-size: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: rgba($black, .6);
+                &.green {
+                    background-color: $snowflake--slope-green;
+                }
+                &.blue {
+                    background-color: $snowflake--slope-blue;
+                }
+                &.red {
+                    background-color: $snowflake--slope-red;
+                }
+                &.black {
+                    background-color: $snowflake--slope-black;
+                }
+
+                &.wicon-055-vtt {
+                    font-size: 22px;
+                }
+            }
+
+            &[data-color] {
+                .wicon {
+                    color: $white;
+                }
+            }
+
+            .horaires {
+                margin-right: 10px;
+                flex-grow: 1;
+                display: flex;
+                flex-flow: row;
+            }
+
+            .status {
+                border-radius: 20px;
+                padding: 0px 10px;
+                color: $white;
+                height: 20px;
+                font-size: 11px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &.closed {
+                    background: $alert-color;
+                }
+
+                &.open {
+                    background: $success-color;
+                }
+
+                &.openning {
+                    background: $warning-color;
+                }
+            }
+        }
+    }
+
+    .close-expander-btn {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        z-index: 5;
+
+        &:hover {
+            color: $white;
+        }
+    }
+
+    .sector-sub-header {
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+        .title {
+            color: $black;
+            font-weight: 700;
+            padding: 0 15px;
+        }
+
+        .val {
+            font-weight: 300;
+            opacity: .7;
+            @include header-size(h6);
+        }
+    }
+}
+
+.snowflake-sectors {
+    width: calc(100% + 10px);
+    margin-right: -10px;
+}
+
+.snowflake-card {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+
+    .info-header {
+        background-color: $primary-color;
+        padding: 15px;
+        text-align: center;
+        margin-bottom: 0;
+        display: flex;
+
+        .txt {
+            padding: 0;
+            font-size: rem-calc(13px);
+        }
+
+        .val {
+            @include header-size(h5);
+            padding: 0;
+            margin-right: 10px;
+        }
+
+        .sector-name {
+            font-weight: 700;
+            @include header-size(h4);
+            @include header-lh(h4);
+        }
+    }
+
+    .card__expander {
+        transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: $white;
+        color: $black;
+    }
+}
+
+
+
+/**
+* Template LIST ROWS
+*/
+.snowflake-row-list,
+.snowflake-2cols-list {
+    .snowflake-card {
+        .info-header {
+            background-color: $white;
+            color: $black;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .sector-content {
+        li.item {
+            width: 100%;
+        }
+    }
+}
+
+/**
+* Template LIST ROW 1 COL
+*/
+.snowflake-card {
+    width: 100%;
+}
+
+.snowflake-row-list {
+    .sector-content {
+        li.item {
+            width: 100%;
+            border-right: none;
+        }
+    }
+}
+
+/**
+* Template LIST ROW 2 COLs
+*/
+.snowflake-2cols-list {
+    .sector-content {
+        li.item {
+            @include breakpoint(xmedium) {
+                width: 50%;
+            }
+        }
+    }
+}
+
+/**
+* Template LIST CARDS
+*/
+.woody-component-snowflake .snowflake-cards-template {
+    .snowflake-card {
+        .info-header {
+            transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+            height: 140px;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column;
+            color: $white;
+            cursor: pointer;
+        }
+
+        .snowflake__visible-card {
+            transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000);
+
+            &:after {
+                content: '';
+                opacity: 1;
+                display: block;
+                height: 0;
+                width: 0;
+                position: absolute;
+                top: 100%;
+                left: calc(50% - 12px);
+                border-style: solid;
+                border-width: 15px 15px 0 15px;
+                border-color: $white transparent transparent transparent;
+                transition: all .4s cubic-bezier(0.250, 0.460, 0.065, 1.000) 0s;
+                transform-origin: center top;
+            }
+
+            &:before {
+                content: '';
+                opacity: 1;
+                display: block;
+                height: 0;
+                width: 0;
+                position: absolute;
+                top: 100%;
+                left: calc(50% - 4px);
+                border-style: solid;
+                border-width: 8px 8px 0 8px;
+                border-color: $secondary-color transparent transparent transparent;
+                transition: all .3s cubic-bezier(0.250, 0.460, 0.065, 1.000) 0s;
+                transform-origin: center top;
+                transform: scale(0);
+            }
+        }
+
+        &.is-collapsed {
+            .snowflake__visible-card {
+                &:hover {
+                    &:before {
+                        transform: scale(1);
+                        border-color: $secondary-color transparent transparent transparent;
+                    }
+                }
+            }
+
+            .info-header {
+                &:hover {
+                    background-color: $secondary-color;
+                }
+            }
+
+            .snowflake__visible-card {
+                &:after {
+                    content: '';
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+
+            .card__expander {
+                height: 0;
+                overflow: hidden;
+                margin-top: 0;
+                opacity: 0;
+            }
+        }
+
+        &.is-expanded {
+            .info-header {
+                background: $white;
+                color: $black;
+            }
+
+            .snowflake__visible-card {
+                margin-bottom: 25px;
+
+                &:after {
+                    transform: scale(1);
+                }
+            }
+
+            .card__expander {
+                height: auto;
+                overflow: visible;
+                opacity: 1;
+                margin-bottom: 25px;
+            }
+        }
+    }
+
+    &.snowflake-sectors {
+        @media all and (max-width: 1023px) {
+            .snowflake-card.snowflake-sector-single {
+                flex-basis: calc(100% / 2 - 10px);
+            }
+
+            .sector-content {
+                li.item {
+                    width: calc(100% / 2);
+                }
+            }
+
+            .snowflake-card:nth-of-type(2n+2) .card__expander {
+                margin-left: calc(-100% - 10px);
+            }
+
+            .snowflake-card:nth-of-type(2n+3) {
+                clear: left;
+            }
+
+            .card__expander {
+                width: calc(200% + 10px);
+            }
+        }
+
+        @media all and (max-width: 639px) {
+            .snowflake-card.snowflake-sector-single {
+                flex-basis: calc(100% - 10px);
+            }
+
+            .sector-content {
+                li.item {
+                    width: 100%;
+                }
+            }
+
+            .card__expander {
+                width: 100%;
+                margin-left: 0 !important;
+            }
+        }
+    }
+
+    //when 3 cards in a row
+    @media all and (min-width: 1024px) {
+        .snowflake-card {
+            flex-basis: calc(100% / 3 - 10px);
+        }
+
+        .sector-content {
+            li.item {
+                width: calc(100% / 3);
+            }
+        }
+
+        .snowflake-card:nth-of-type(3n+2) .card__expander {
+            margin-left: calc(-100% - 10px);
+        }
+
+        .snowflake-card:nth-of-type(3n+3) .card__expander {
+            margin-left: calc(-200% - 20px);
+        }
+
+        .snowflake-card:nth-of-type(3n+4) {
+            clear: left;
+        }
+
+        .card__expander {
+            width: calc(300% + 20px);
+        }
+    }
+}
+
+.snowflake-array-1col-template .sector-content .item {
+    width: 100%;
+}
+
+.snowflake-array-2cols-template .sector-content .item {
+    width: 50%;
+}
+
+.woody-component-snowflake {
+    .title {
+        color: $black;
+
+        @include root-bg((black, darkgray)) {
+            color: $white;
+        }
+    }
+    .bg-white, .bg-lightgray {
+        &.bloc {
+            .title {
+                color: $black;
+            }
+        }
+    }
+    .block-header {
+        .wicon {
+            color: $primary-color;
+        }
+        .title {
+            font-weight: 700;
+        }
+    }
+
+    .snowflake-datablock {
+        .pre-title {
+            &.small {
+                font-size: rem-calc(13px);
+                font-weight: 400;
+            }
+        }
+        .val {
+            &.open {
+                font-size: 160%;
+            }
+            &.total {
+                font-size: 80%;
+            }
+        }
+    }
+    .slope-color-wrapper {
+        padding: 10px;
+        .simple-opening-wrapper {
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+// Keyframes
+
+@keyframes infolive-fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    100% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes infolive-fade-in-up2 {
+    0% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    15% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    100% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes infolive-fade-in-up3 {
+    0% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    30% {
+        opacity: 0;
+        transform: translateY(180px);
+    }
+
+    100% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes infolive-fade-out-up {
+    0% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-180px);
+    }
+}
+
+@keyframes infolive-fade-out-up2 {
+    0% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    15% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-180px);
+    }
+}
+
+@keyframes infolive-fade-out-up3 {
+    0% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    15% {
+        opacity: 100;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-180px);
+    }
+}

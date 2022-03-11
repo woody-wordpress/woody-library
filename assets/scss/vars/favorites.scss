@@ -1,3 +1,4 @@
-$favorites-icon-color: #{$black};
-$favorites-counter-color: #{$primary-color};
-$favorites-counter-color-hover: #{$secondary-color};
+$favorites-icon-color: $black !default;
+$favorites-counter-color: $primary-color !default;
+$favorites-counter-color-hover: $secondary-color !default;
+$favorites-block-title-position: top !default;

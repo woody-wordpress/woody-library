@@ -1,0 +1,24 @@
+.woody-component-mobile-menu.menus-v2 {
+
+    #mobile-main-menu {
+        left: 50%;
+        bottom: $mobile-nav-offset;
+        transform: translateX(-50%) translateY(calc(100% + #{$mobile-nav-offset}));
+        display: flex !important;
+        width: calc(100% - (2 * #{$mobile-nav-offset}));
+        border-radius: $mobile-nav-radius;
+        transition: $menu-global-transition;
+
+        .wicon {
+            display: none;
+        }
+    }
+}
+
+body.menus-v2.menu-is-open {
+    #mobile-main-menu {
+        @include breakpoint(xlarge down) {
+            transform: translateX(-50%) translateY(0%);
+        }
+    }
+}

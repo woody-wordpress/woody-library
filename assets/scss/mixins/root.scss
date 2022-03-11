@@ -1,0 +1,177 @@
+/// @author Soheil Saheb-Jamii
+/// @param {String} - Pre Path
+/// @param {Boolean} - Pre Path is sticky with parent ? (Example: body.selector)
+/// @example @include root('.scrolled') {...}
+@mixin root($withs, $stickySelector:null) {
+    $path: &;
+    $withs: str-to-list($withs, ',');
+    @at-root {
+        @if $path {
+            @each $pat in $path {
+                // Targets origin element (Example: body.selector)
+                @if $stickySelector {
+                    $first: first($pat);
+                    $pat: nth-delete($pat, 1);
+                    @each $with in $withs {
+                        #{$first}#{str-trim($with)} #{$pat} {
+                            @content;
+                        }
+                    }
+                }
+                // Targets parents of origin element (Example: body .selector)
+                @else {
+                    @each $with in $withs {
+                        #{$with} #{$pat} {
+                            @content;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/// @author Soheil Saheb-Jamii
+/// @param {list} - List of the colors used to reverse the light and dark colors
+/// The list can accept only 1 parameter... :
+/// @example @include root-bg-colors(primary) {...}
+/// @example include the mixin like this :
+///         @include bg-colors {.button {background: $white;}    }
+/// @return {$dark - $light} Theses variables will be reversed by bg-yourlist
+@mixin root-bg-colors($list:$dark-list, $path:null, $stickySelector:null) {
+
+    @each $color,
+    $hex in $list {
+        $current-loop-color: $color !global;
+        $current-loop-hex: $hex !global;
+        @if $current-loop-hex == null {
+            $current-loop-hex: map-get($foundation-palette, $color) !global;
+        }
+
+        @if $path {
+            @each $pat in $path {
+                @if (str-index(first($pat), 'woody-component')) {
+
+                    .bg-#{$color} #{$pat},
+                    [class*="bg-"] .bg-#{$color} #{$pat},
+                    .bg-#{$color}#{$pat} {
+                        @content;
+                    }
+                }
+
+                @else if (str-index(first($pat), 'section') or $stickySelector) {
+                    .bg-#{$color}#{$pat} {
+                        @content;
+                    }
+                }
+
+                @else {
+
+                    .bg-#{$color} #{$pat},
+                    [class*="bg-"] .bg-#{$color} #{$pat} {
+                        @content;
+                    }
+                }
+            }
+        }
+
+        @else {
+
+            .bg-#{$color},
+            [class*="bg-"] .bg-#{$color} {
+                @content;
+            }
+        }
+    }
+}
+
+/// @param {List} - List colors
+/// @example @include root-bg(primary, black, darkgray) {...}
+@mixin root-bg($list:$dark-list, $stickySelector:null) {
+    $path: &;
+
+    @at-root {
+        @include root-bg-colors($list:$list, $path:$path, $stickySelector:$stickySelector) {
+            @content;
+        }
+    }
+}
+
+/// @author Soheil Saheb-Jamii
+/// Description: Similar to root-state mixin except it doesn't change the root selectors
+/// and will instead add selector to the hierarchy. Usefull when using premade selectors
+/// @param {String} $state - keyname of the map "$selectors-states"
+/// @param {Bool} $stickySelector - if true, the selector will be added to the parent selector
+/// @requires {Map} $selectors-states - Configure the selectors states
+/// @example
+///     body {
+///         @include at-state(transparent, true) {...}
+///     }
+/// @returns {String} - The selector
+/// @return body.woodypage-front_page, ... {...}
+@mixin at-state($state:null, $stickySelector:null) {
+    @each $selector in map-get($selectors-states, $state) {
+        @if ($stickySelector and & != null) {
+            &#{$selector} {
+                @content;
+            }
+        } @else {
+            #{$selector} {
+                @content;
+            }
+        }
+    }
+}
+
+/// @author Soheil Saheb-Jamii
+/// Description: Similar to at-state mixin except it changes the root selectors
+/// dnd will instead add selector to the top of hierarchy. Usefull when using premade selectors
+/// @param {String} $state - keyname of the map "$selectors-states"
+/// @param {Bool} $stickySelector - if true, the selector will be added to the parent selector
+/// @requires {Map} $selectors-states - Configure the selectors states
+/// @example
+///     .woody-component-header {
+///         @include at-state(transparent) {...}
+///         @include at-state(mini) {...}
+///     }
+/// @returns {String} - The selector
+/// @return .woodypage-front_page .woody-component-header, ... {...}
+@mixin root-state($state:null, $stickySelector:null) {
+    @each $static_state, $selectors in $selectors-states {
+        @if ($state == $static_state) {
+            @each $selector in $selectors {
+                @include root($selector, $stickySelector) {
+                    @content;
+                }
+            }
+        }
+    }
+}
+
+/// @author Soheil Saheb-Jamii
+/// Description: Usefull to add a selector to an upper level selector without leaving current level.
+/// @param {Selector} $selector - The upper hierarchy level to add the selector // ! (quoted)
+/// @param {Selector} $add - The selector to add // ! (quoted)
+/// @example
+///     body {
+///         .test {
+///             .wrapper {
+///                 @include root-add('.test', ':hover') {...}
+///             }
+///         }
+///     }
+/// @returns {String} - The selector
+/// @return body .test:hover .wrapper {...}
+@mixin root-add($selector, $add){
+    $path: &;
+    $newPath: replace-in-list($path, $selector, $selector + $add);
+    $commaPath : ();
+    @each $item in $newPath {
+        $commaPath: append($commaPath, $item, comma);
+    }
+    @at-root {
+        #{$commaPath} {
+            @content;
+        }
+    }
+}

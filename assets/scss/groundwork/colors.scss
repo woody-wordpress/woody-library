@@ -1,18 +1,47 @@
 .bg {
     @include colors-apply();
 
+    &-lightgray,
+    &-white {
+        a:not(.button):not(.card-link):not(.tab-link):not(.feature-link) {
+            color: $primary-color;
+        }
+    }
+}
+
+[class*='bg-'] {
+
     @each $color,
     $hex in $foundation-palette {
-        &-#{$color} {
+        .bg {
+            @include colors-apply();
+        }
+    }
+
+    [class*='bg-'] {
+
+        @each $color,
+        $hex in $foundation-palette {
             .bg {
                 @include colors-apply();
             }
         }
     }
 
-    &-lightgray {
-        a:not(.button):not(.card-link):not(.tab-link):not(.feature-link) {
-            color: $primary-color;
+}
+
+.bg- {
+
+    @each $color,
+    $hex in $foundation-palette {
+        &#{$color} {
+
+            @each $name,
+            $opacity in $opacities-bg-colors {
+                &.bgcolor-op#{$name} {
+                    background-color: rgba($hex, $opacity) !important;
+                }
+            }
         }
     }
 }

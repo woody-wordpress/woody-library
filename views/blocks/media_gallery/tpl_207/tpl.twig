@@ -1,10 +1,4 @@
-{# Extending tpl_1 and override grid part with the right grid #}
-{% extends 'blocks/media_gallery/tpl_206/tpl.twig' %}
-{% block index_class %}tpl_207{% endblock %}
-{% block firstItem %}
-    <div class="cell small-12">
-        {% include 'cards/media_card/tpl_01/tpl.twig' with {
-            'image_style' : "ratio_16_9"
-        } %}
-    </div>
-{% endblock %}
+{% set customIndexClass = '207' %}
+{% set galleryType = 'mixed' %}
+{% set customImageStyleFirst = 'ratio_16_9' %}
+{% extends 'blocks/media_gallery/_objects/galleryObject.twig' %}

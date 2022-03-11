@@ -1,0 +1,14 @@
+{# FORMAT 2:1 #}
+{% extends "blocks/hero/tpl_01/tpl.twig" %}
+{% block index_class %}tpl_12 hero-full-height ratio-2-1{% endblock %}
+{% block heroText %}
+    <div class="centerleftbox grid-container padd-all-lg">
+        {% if parallax %}<div class="rellax" data-rellax-speed="2">{% endif %}
+        {% include '_objects/titlesObject.twig' with {
+            'titles' : _context,
+            'contextPrefix' : "hero",
+            'flexOptions' : "flex-container flex-dir-column align-left text-left"
+        } %}
+        {% if parallax %}</div>{% endif %}
+    </div>
+{% endblock %}

@@ -1,23 +1,50 @@
-<div class="card overlayedCard tpl_01 isRel {{ page_type|default }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
+<div class="card overlayedCard {{ index_class|default('tpl_01') }} isRel {{ page_type|default }}{{ item.slideshow ? ' has-slideshow' }} {{ item.card_class|default }}{{ item.link.url ? '' : ' has-not-card-link' }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
+    {% if display_index and card_index %}
+        <div class="isAbs card-index">
+            {{ card_index|zeroise(2) }}
+        </div>
+    {% endif %}
+
     {% if item.link.url %}
         {% if obfuscation %}
             <span class="card-link obf" data-obf="{{ item.link.url|base64Encode }}" data-target="{{ item.link.target|default('_self') }}">
-            {% else %}
-                <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}">
-                {% endif %}
+        {% else %}
+            <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" {% if item.datahref%}data-href="{{  item.datahref }}"{% endif %}>
+        {% endif %}
+    {% endif %}
 
-            {% endif %}
-            {{ block('card_media_wrapper', 'cards/basic_card/tpl_01/tpl.twig') }}
-            <div class="card-section bottomcenterBox fcbCol bgimg-op-85">
-                {{ block('card_terms', 'cards/basic_card/tpl_01/tpl.twig') }}
-                {{ block('card_titles', 'cards/basic_card/tpl_01/tpl.twig') }}
-                {% if item.booking.link %}
-                    <span class="card-bookable">{{ __('Réservable', 'woody_theme') }}</span>
-                {% endif %}
-            </div>
-            {% if obfuscation %}
+    {% if image_style and (item.img.ID or item.img.url) %}
+        {% include '_objects/imageObject.twig' with {
+            'img' : item.img,
+            'image_style' : image_style,
+            'containerClass' : "cardMediaWrapper",
+            'noRespCrop' : noRespCrop|default(),
+            'hide_caption' : true
+        } %}
+    {% elseif item.movie %}
+        {% include '_objects/videoObject.twig' with {
+            'movie' : item.movie,
+            'image_style' : image_style,
+            'containerClass' : "cardMediaWrapper",
+            'autoplay': true,
+            'muted' : true,
+            'loop': true
+        } %}
+    {% endif %}
+
+    <div class="card-section {{ texts_pos|default('bottomcenterBox') }} fcbCol {% if item.profil %}has-profile{% endif %}">
+        {{ block('card_terms', 'cards/basic_card/tpl_01/tpl.twig') }}
+        {{ block('card_titles', 'cards/basic_card/tpl_01/tpl.twig') }}
+        {{ block('card_profile', 'cards/basic_card/tpl_01/tpl.twig') }}
+        {{ block('card_button', 'cards/basic_card/tpl_01/tpl.twig') }}
+        {{ block('card_bookable', 'cards/basic_card/tpl_01/tpl.twig') }}
+    </div>
+
+    {% if item.link.url %}
+        {% if obfuscation %}
             </span>
-    {% elseif item.link.url %}
-        </a>
+        {% else %}
+            </a>
+        {% endif %}
     {% endif %}
 </div>

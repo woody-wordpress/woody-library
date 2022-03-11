@@ -4,68 +4,90 @@
     {% set image_style = "ratio_square" %}
 {% endif %}
 {% if reveal == true %}
-    {% set random_number = ''|random_number %}
-    <div class="reveal-mediaCard tpl_01 has-reveal" data-open="revealMedia-{{ random_number }}">
-        {% include '_objects/imageObject.twig' with {
-            'img' : item,
-            'image_style' : image_style
-        } %}
-    </div>
-    <div class="reveal media-reveal" data-close-on-click="true" data-reveal data-v-offset="80" id="revealMedia-{{ random_number }}">
-        <div class="grid-x">
-            <div class="cell isRel">
-                {% include '_objects/imageObject.twig' with {
-                    'img' : item,
-                    'image_style' : image_style
-                } %}
-                {% if item.attachment_more_data.linked_page|default %}
-                    <div class="media-button-wrapper fullcenterbox">
-                        <a href="{{ item.attachment_more_data.linked_page.url|default }}" class="button" target="{{ item.attachment_more_data.linked_page.target|default('_self') }}">
-                            {{ item.attachment_more_data.linked_page.title|default }}
-                        </a>
+    <div class="media-zoom">
+        <div class="media-zoom-img isRel">
+            {% include '_objects/imageObject.twig' with {
+                'img' : item,
+                'noRespCrop' : "noRespCrop"
+            } %}
+            {% if item.attachment_more_data|default and item.attachment_more_data.linked_page|default %}
+                <div class="media-button-wrapper fullcenterbox">
+                    <a href="{{ item.attachment_more_data.linked_page.url|default }}" class="button" target="{{ item.attachment_more_data.linked_page.target|default('_self') }}">
+                        {{ item.attachment_more_data.linked_page.title|default }}
+                    </a>
+                </div>
+            {% elseif item.attachment_more_data|default and item.attachment_more_data.instagram_metadata|default and item.attachment_more_data.instagram_metadata.permalink|default %}
+                <div class="media-button-wrapper fullcenterbox">
+                    <div class="obf button no-ext" data-obf="{{ item.attachment_more_data.instagram_metadata.permalink|base64Encode }}" data-target="_blank">
+                        {{ __('Voir sur Instagram', 'woody-theme') }}
                     </div>
-                {% endif %}
-            </div>
-            <div class="cell media-reveal-texts padd-all-md">
-                {% if item.attachment_more_data.author|default %}
-                    <div class="author">
-                        <span class="wicon wicon-011-instagram"></span>
-                        <span class="instagram-user">
-                            <strong>
-                                {{ item.attachment_more_data.author }}</strong>
-                        </span>
-                    </div>
-                {% endif %}
-                {% if item.attachment_more_data.instagram_metadata.date.sec %}
+                </div>
+            {% endif %}
+        </div>
+
+        {% if item.attachment_more_data.instagram_metadata.date.sec or item.attachment_more_data.instagram_metadata.caption %}
+            <div class="cell media-zoom-texts padd-all-md">
                     <div class="created">
-                        <small>
-                            {{ item.attachment_more_data.instagram_metadata.date.sec|createdFrom() }}</small>
+                        <small>{{ item.attachment_more_data.instagram_metadata.date.sec|createdFrom() }}</small>
                     </div>
-                {% endif %}
-                {% if item.attachment_more_data.instagram_metadata.caption|default and item.attachment_more_data.instagram_metadata.caption is not iterable  %}
-                    <div class="description marg-top-sm">
-                        <p>{{ item.attachment_more_data.instagram_metadata.caption }}</p>
-                    </div>
-                {% endif %}
+
+                    {% if item.attachment_more_data|default and item.attachment_more_data.author|default %}
+                        <div class="author">
+                            {% if item.attachment_more_data.is_instagram == true %}
+                                <span class="instagram-user">
+                                    {% if item.attachment_more_data.instagram_metadata.permalink %}
+                                        <div class="obf no-ext text-black" data-obf="{{ item.attachment_more_data.instagram_metadata.permalink|base64Encode }}" data-target="_blank">
+                                    {% endif %}
+                                    <strong>{{ item.attachment_more_data.author }}</strong>
+                                    {% if item.attachment_more_data.instagram_metadata.permalink %}
+                                        </div>
+                                    {% endif %}
+                                </span>
+                            {% else %}
+                                <strong>{{ item.attachment_more_data.author }}</strong>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if item.attachment_more_data.instagram_metadata.caption is not iterable  %}
+                        <div class="description marg-top-sm">
+                            <p>{{ item.attachment_more_data.instagram_metadata.caption }}</p>
+                        </div>
+                    {% endif %}
             </div>
-        </div>
-        <div class="media-reveal-nav">
-            <button class="prev-button" type="button">
-                <span class="wicon wicon-026-precedent"></span>
-            </button>
-            <button aria-label="Close modal" class="close-button" data-close type="button">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <button class="next-button" type="button">
-                <span class="wicon wicon-025-suivant"></span>
-            </button>
-        </div>
+        {% endif %}
     </div>
+{% else %}
+    {% if item.type == 'image' %}
+        <span class="mediaCard tpl_01" {% if gallery_lightbox == false %}lightbox="0" {% endif %} data-src="{{ item.attachment_more_data['linked_video']|default(item.sizes.ratio_free) }}" title="{{ item.title|default(item.filename) }}" data-lgthumb="{{ item.attachment_more_data['linked_video_thumbnail']|default(item.sizes.ratio_16_9_small) }}">
+            {% if  item.attachment_more_data['linked_video'] %}
+                <span class="movie-icon"></span>
+            {% endif %}
+            {% include '_objects/imageObject.twig' with {
+                'img' : item,
+                'noRespCrop' : "noRespCrop"
+            } %}
+        </span>
     {% else %}
-    <a class="mediaCard tpl_01" href="{{ item.sizes.ratio_free }}" title="{{ item.title|default(item.filename) }}" itemprop="contentUrl" data-download-url="false">
-        {% include '_objects/imageObject.twig' with {
-            'img' : item,
-            'image_style' : image_style
-        } %}
-    </a>
+        {% if item.type == 'video' %}
+            <span class="mediaCard tpl_01 is-movie" {% if gallery_lightbox == false %}lightbox="0" {% endif %} title="{{ item.title|default(item.filename) }}" data-lgthumb="{{ item.sizes.ratio_16_9_small|default(item.icon) }}" data-poster="{{item.icon}}" data-video='{"source": [{"src":"{{item.url}}", "type":"{{item.mime_type}}"}], "attributes": {"preload":true, "playsinline": true, "controls":true}}'>
+
+            {% if item.subtype == 'mp4' %}
+                {% set movie = {'mp4_movie_file' : item, 'movie_poster_file' : {'title' : item.filename}} %}
+            {% elseif item.subtype == 'webm' %}
+                {% set movie = {'webm_movie_file' : item, 'movie_poster_file' : {'title' : item.filename}} %}
+            {% elseif item.subtype == 'ogg' %}
+                {% set movie = {'ogg_movie_file' : item, 'movie_poster_file' : {'title' : item.filename}} %}
+            {% endif %}
+            <span class="movie-icon top"></span>
+            {% include '_objects/videoObject.twig' with {
+                movie,
+                autoplay : false,
+                muted : true,
+                controls : false,
+                loop:false
+            } %}
+        {% endif %}
+        </span>
+    {% endif %}
 {% endif %}

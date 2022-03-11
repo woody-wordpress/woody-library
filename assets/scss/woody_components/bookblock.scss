@@ -17,9 +17,9 @@
     .pl-select {
         width: 100%;
         margin-right: 0;
+        position: relative;
 
         @include breakpoint(xmedium) {
-            margin-right: 20px;
             width: 160px;
 
         }
@@ -32,6 +32,9 @@
         @include breakpoint(xlarge) {
             width: 250px;
 
+            &.single-date {
+                max-width: 150px;
+            }
         }
     }
 
@@ -40,11 +43,30 @@
     }
 
     .dates-input {
+        @include breakpoint(xmedium) {
+            margin-right: 20px;
+        }
+
         .wicon {
             right: 8px;
             top: 6px;
             pointer-events: none;
         }
+    }
+
+    .period-input {
+        >label {
+            width: 120px;
+        }
+
+        >select {
+            max-width: 120px;
+        }
+    }
+
+    .pl-select-wrapper,
+    .period-input {
+        position: relative;
     }
 
     select,
@@ -163,31 +185,48 @@
 }
 
 .woody-component-bookblock.tpl_03 {
+    @include breakpoint(xlarge) {
+        label {
+            display: none;
+        }
 
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        -webkit-appearance: inner-spin-button;
-        opacity: 0;
-        margin: 0;
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: inner-spin-button;
+            opacity: 0;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: inner-spin-button;
+        }
+
+        .item-counter {
+            @include caret-spin($black, 10px);
+        }
     }
 
-    input[type=number] {
-        -moz-appearance: inner-spin-button;
+    .bookblock-form {
+        align-items: flex-end;
     }
 
     .item-counter {
-        @include caret-spin($black, 10px);
+        flex-direction: column-reverse;
+
+        @include breakpoint(medium down) {
+            width: 50%;
+        }
     }
 
     .dates-input {
         width: auto;
+        flex-wrap: wrap;
     }
 
     .start-date,
     .end-date {
         width: 100%;
-        margin-right: 0;
-
+        margin: 0 $global-margin;
 
         @include breakpoint(xmedium) {
             margin-right: 20px;
@@ -203,12 +242,39 @@
         }
     }
 
+    .pl-select-wrapper {
+        @include breakpoint(medium down) {
+            margin-top: $global-margin;
+            width: 100%;
+        }
+    }
+
     .date-input,
     .pl-select {
+        margin-top: 0;
         @include color-caret(rgba($black, .9), 10px, 95%);
     }
-}
 
+    select {
+        color: $input-color;
+        background-color: $select-background;
+        border-radius: $select-radius;
+    }
+
+    input {
+        color: $input-color;
+        background-color: $input-background;
+        border-radius: $input-radius;
+
+        &::placeholder {
+            color: $input-placeholder-color;
+        }
+    }
+
+    .form-submit {
+        border-radius: $input-radius;
+    }
+}
 
 .woody-component-bookblock.tabulation {
     .form-tabs {

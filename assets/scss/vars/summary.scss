@@ -1,0 +1,48 @@
+$summary-fixed-position: 0 !default;
+
+// Summary item index
+$summary-item-index-reset-style: false !default;
+$summary-item-size: 28px !default;
+$summary-item-color: $black !default;
+$summary-item-bgcolor: $light-gray !default;
+$summary-item-color-hover: $white !default;
+$summary-item-bgcolor-hover: $primary-color !default;
+$summary-item-font-size: 14px !default;
+$summary-item-font-weight: $global-weight-normal !default;
+$summary-item-border-radius: 50% !default;
+
+// ------------------------------
+// Summary tpl_02 with item index in fixed position
+// ------------------------------
+
+// Summary block
+$summary-border-radius: 0 !default;
+$summary-box-shadow: none !default;
+$summary-side-fixed-position: left !default;
+$summary-side-fixed-border-radius: 40px !default;
+
+// Summary side title
+$summary-side-title-font-size: 12px !default;
+$summary-side-title-font-weight: $global-weight-normal !default;
+$summary-side-title-color: $white !default;
+$summary-side-title-bgcolor: rgba($black, 0.5) !default;
+$summary-side-title-border-radius: 25px !default;
+$summary-side-title-padding: 5px 10px !default;
+
+// Summary geomap anchor
+$summary-geomap-anchor-height: 30px;
+$summary-geomap-anchor-bg-color: $white;
+$summary-geomap-anchor-border-radius: 50%;
+$summary-geomap-anchor-border: 2px solid $primary-color;
+$summary-geomap-anchor-font-weight: bold;
+
+// ------------------------------
+// Summary tpl_03 with vertical menu
+// ------------------------------
+
+// Summary block
+$summary-max-width: 265px !default;
+
+// Summary arrow icon (< large)
+$summary-arrow-color: $primary-color !default;
+$summary-arrow-font-size: 18px !default;

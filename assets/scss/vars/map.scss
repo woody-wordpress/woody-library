@@ -1,0 +1,26 @@
+// markerObject
+$markerObject-icon-font-size : rem-calc(23) !default;
+$markerObject-circle-size : 14px !default;
+$markerObjectSize : 40px !default;
+$markerObject-icon-top:-42px !default;
+$markerObject-color:$primary-color !default;
+
+// Geomaps
+$geomap-marker-width : $markerObjectSize !default;
+$geomap-popup-content-min-width : 200px !default;
+$geomap-title-font-size : rem-calc(20) !default;
+$geomap-titles-text-align : center !default;
+
+// Map pane toggler title
+$marker-pane-title-weight: bold !default;
+$marker-pane-title-size: rem-calc(16) !default;
+$marker-pane-title-padding: 10px !default;
+$marker-pane-title-radius: 8px !default;
+$marker-pane-title-color: $primary-color !default;
+$marker-pane-title-bg: $white !default;
+$marker-pane-title-transition: opacity .3s ease-in-out,
+bottom .3s ease-in-out !default;
+
+// Active pane
+$marker-activePane-color: $primary-color !default;
+$marker-activePane-title-shift: 8px !default;

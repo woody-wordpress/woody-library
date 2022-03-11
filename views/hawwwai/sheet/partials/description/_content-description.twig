@@ -1,0 +1,550 @@
+{% if contractsLevels.content.description and formated_object.passDescription|default %}
+    <section id="pass-description" class="tourism-detail-pass-description panel panel-default s-stripes s-stripes--contrast row list-group-item">
+        <dl>
+            <dt class="col-xs-12 col-sm-12 _plu-push--tiny"><span class="pl-heading">{{ 'Notre offre « Chartrexpérience, Le Pass’ »' }}</span></dt>
+            <dd class="col-xs-12 col-sm-12"><span>{{ formated_object.passDescription }}</span></dd>
+        </dl>
+    </section>
+{% endif %}
+
+{% if (contractsLevels.content.description and formated_object.description|default) or (contractsLevels.content.slogan and formated_object.slogan|default) %}
+    <section id="description" class="tourism-detail-description panel panel-default s-stripes s-stripes--contrast row">
+        <ul class="list-group {% if formated_object.slogan|default %} stripes-odd{% endif %}">
+            {% if formated_object.slogan|default %}
+                <li class="list-group-item">
+                    <p class="slogan-description _plu-emphasis--high {{ formated_object.description is null ? '_plu-flush' : '' }}">{{ formated_object.slogan|nl2br }}</p>
+                </li>
+            {% endif %}
+
+            {% if formated_object.description|default %}
+                <li class="list-group-item">
+                    {# Description__body #}
+                    {% if formated_object.lightDescription|default %}
+                        <input style="display:none;" type="checkbox" id="description-load-more" class="load-more-description"/>
+                        <span class="establishment-light-description">
+                            {{ formated_object.lightDescription|raw|nl2br }}
+                            <label class="card-buttonbutton load-more-btn" for="description-load-more">
+                                <span class="unchecked">{{ 'GLOBAL.READ_MORE'|trans }}</span>
+                            </label>
+                        </span>
+                    {% endif %}
+
+                    {% if formated_object.description|default %}
+                        <div class="establishment-description" itemprop="description">
+                            {{ formated_object.description|raw|nl2br }}
+                        </div>
+                    {% endif %}
+
+                    {# Description__further_informations #}
+                    {% if formated_object.practicalInfos|default %}
+                        <div class="establishment-description _plu-push-top--small">
+                            {{ formated_object.practicalInfos|raw|nl2br }}
+                        </div>
+                    {% endif %}
+
+                    {% if formated_object.lightDescription|default %}
+                        <div class="establishment-description">
+                            <label class="card-buttonbutton load-more-btn" for="description-load-more">
+                                <span class="checked">{{ 'LIST.SEE_LESS'|trans }}</span>
+                            </label>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endif %}
+        </ul>
+    </section>
+{% endif %}
+
+{% include TWIG.BOOKING_ELLOHA with { splash: true } %}
+{% include TWIG.BOOKING %}
+{% include TWIG.THEMATIC_DESCRIPTION %}
+
+
+{% if formated_object.sfArtWorksRoadData|default
+    or (formated_object.bordereau in ['RES'] and formated_object.chefName|default)
+    or formated_object.goodDealsDescription|default
+    or (formated_object.dataItinerary.additionals|default or (formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation|default and formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation > 0))
+    or formated_object.accessPoints|default
+    or (formated_object.environmentPoints|default and contractsLevels.content.environment)
+    or (contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default))
+    or (object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos)
+    or (formated_object.langs|default and contractsLevels.content.lang)
+    or (contractsLevels.content.labels and formated_object.labels.simpleLabels._labels|default)
+    or formated_object.sfTourismHandicapDordogne|default
+    or (contractsLevels.content.labels and extralabels|default)
+    or (contractsLevels.content.handicap and formated_object.labels.tourismHandicap._labels|default)
+    or (contractsLevels.content.docs and formated_object.documents|default)
+    or (formated_object.audiofiles|default and contractsLevels.content.audios)
+%}
+    <section id="blockdescription" class="tourism-detail-description panel panel-default s-stripes s-stripes--contrast row">
+
+        <ul class="list-group stripes-odd">
+
+            {# ArtWorksRoad #}
+            {% if formated_object.sfArtWorksRoadData|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ 'Route des métiers d\'art'|trans }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare">
+                            <li>{{ formated_object.sfArtWorksRoadData.title|default }}</li>
+                            {% if formated_object.sfArtWorksRoadData.domains|default %}
+                                <li><span class="_plu-emphasis--high">&bull;&nbsp;{{ formated_object.sfArtWorksRoadData.domains._label|default('Domaines') }}&nbsp;:&nbsp;</span>
+                                    {% for domain in formated_object.sfArtWorksRoadData.domains.data|default %}
+                                        {{ domain._type|default }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                            {% if formated_object.sfArtWorksRoadData.services|default %}
+                                <li><span class="_plu-emphasis--high">&bull;&nbsp;{{ formated_object.sfArtWorksRoadData.services._label|default('Prestations') }}&nbsp;:&nbsp;</span>
+                                    {% for service in formated_object.sfArtWorksRoadData.services.data %}
+                                        {{ service._type|default }} {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# ChefName #}
+            {% if formated_object.bordereau in ['RES'] and formated_object.chefName|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig"%}
+                    {% block title %}{{ 'Chef'|trans }}{% endblock %}
+                    {% block content %}{{ formated_object.chefName }}{% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# Good Deals Description #}
+            {% if formated_object.goodDealsDescription|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig"%}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.DEALS.DEALS'|trans }}{% endblock %}
+                    {% block content %}{{ formated_object.goodDealsDescription }}{% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# Trip #}
+            {% if formated_object.bordereau in ['PRD','ITI'] %}
+                {% include TWIG.TRIP_SECONDARY %}
+            {% endif %}
+
+            {# accessPoints #}
+            {% if formated_object.accessPoints|default  %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.ACCESS'|trans }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare plo-list-even">
+                            {% for access in formated_object.accessPoints %}
+                                <li>
+                                    <span class="">{{ access._type }}</span>
+                                    {% if access._name|default %}
+                                        &nbsp;:&nbsp;
+                                        <span class="pl-heading">{{ access._name }}</span>
+                                    {% endif %}
+                                    {% if access._distance is defined %}
+                                        {{ 'GLOBAL.AT' | trans }}
+                                        <span class="pl-heading">
+                                            {{ access._distance| number_format}}
+                                            {{ access._distanceUnit|default }}
+                                        </span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# environmentPoints #}
+            {% if formated_object.environmentPoints|default and contractsLevels.content.environment %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: ''} %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.ENVIRONMENT'|trans }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare plo-list-even">
+                            {% for env in formated_object.environmentPoints %}
+                                <li>
+                                    <span class="">{{ env._type }}</span>
+                                    {% if env._name|default  %}
+                                        &nbsp;:&nbsp;
+                                        <span class="pl-heading">{{ env._name }}</span>
+                                    {% endif %}
+                                    {% if env._distance|default %}
+                                        {{ 'GLOBAL.AT' | trans }}
+                                        <span class="pl-heading">
+                                            {{ env._distance| number_format}}
+                                            {{ env._distanceUnit|default }}
+                                        </span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+
+            {# Capacities #}
+            {% if contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default) %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.CAPACITY'|trans }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare plo-list-even">
+                            {% for typedCapacity in formated_object.capacities %}
+                                {% for capacity in typedCapacity %}
+                                    {% if capacity.type|default and capacity.type != '99.14.01.07' %} {# no groupCapacities #}
+                                        {% if capacity.capacity|default %}
+                                            <li class="{{capacity.type}}">
+                                                {% if thesaurus.fulldictionary[capacity.type]|default %}
+                                                        {% if thesaurus.fulldictionary[capacity.type]|default %}
+                                                            <span class="_plu-emphasis--high">{{ thesaurus.fulldictionary[capacity.type] }}&nbsp;:&nbsp;</span>
+                                                        {% endif %}
+                                                        {{ capacity.capacity }}&nbsp;{{ thesaurus.fulldictionary[capacity.unitCapacity] }}
+                                                {% endif %}
+
+                                                {% if capacity.superficy|default %}
+                                                        <span>&bull;&nbsp;{{ 'SECTIONS.TOURISM.SHEET.SUPERFICY'|trans }}&nbsp;:&nbsp;</span>
+                                                        {{ capacity.superficy }} m<up>2</up>
+                                                {% elseif capacity.averageSurface|default %}
+                                                        <span>&bull;&nbsp;{{ 'SECTIONS.TOURISM.SHEET.AVERAGE_SUPERFICY'|trans }}&nbsp;:&nbsp;</span>
+                                                        {{ capacity.averageSurface }} m<up>2</up>
+                                                {% endif %}
+                                            </li>
+                                        {% elseif capacity.superficy|default %}
+                                            <li class="{{capacity.type}}">
+                                                <span class="_plu-emphasis--high">{{ 'SECTIONS.TOURISM.SHEET.SUPERFICY'|trans }}&nbsp;:&nbsp;</span>
+                                                {{ capacity.superficy }} m<up>2</up>
+                                            </li>
+                                        {% elseif capacity.averageSurface|default %}
+                                            <li class="{{capacity.type}}">
+                                                <span class="_plu-emphasis--high">{{ 'SECTIONS.TOURISM.SHEET.AVERAGE_SUPERFICY'|trans }}&nbsp;:&nbsp;</span>
+                                                {{ capacity.averageSurface }} m<up>2</up>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# Legal Information #}
+            {% if object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'legal-informations'} %}
+                    {% block title %}{{ 'GLOBAL.LEGAL_INFORMATION.LEGAL_INFORMATIONS'|trans }}{% endblock %}
+                    {% block content %}
+                        {% for information in object.data.legalInformations %}
+                            <div>
+                                <span class="_plu-emphasis--high">{{ ('GLOBAL.LEGAL_INFORMATION.'~information.type|upper)|trans}}&nbsp;:</span>
+                                <span class="">{{ thesaurus.fulldictionary[information.value]|default(information.value) }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# Langs #}
+            {% if contractsLevels.content.lang and formated_object.langs|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'spoken-languages'} %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.SPOKEN_LANGUAGES'|trans }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-nav md-icon-list">
+                            {% for spokenlang in formated_object.langs %}
+                                <li class="langs-icon" {% if spokenlang._lang|default %} tooltip="{{ spokenlang._lang }}" {% endif %}>
+                                    <img width="24" {% if spokenlang._lang|default %} alt="{{ spokenlang._lang }}" {% endif %} src="{{ spokenlang._url }}"/>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+
+            {# Labels #}
+            {% if contractsLevels.content.labels and formated_object.labels.simpleLabels._labels|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'tourism-labels', disable_title: true} %}
+                    {% block title %}{{ formated_object.labels.simpleLabels._title|default('Labels') }}{% endblock %}
+                    {% block content %}
+                        <ul class="nav-inline sheet-labels-list">
+                            {% for simplelabel in formated_object.labels.simpleLabels._labels %}
+                                {# display label #}
+                                <li class="sheet-labels-list_item">
+                                    <div class="sheet-labels-list_wrapper">
+                                        {% if simplelabel.urlInfo|default %}
+
+                                        <a rel="noindex,nofollow" href="{{ simplelabel.urlInfo }}">
+                                        {% endif %}
+                                            <div class="sheet-labels-list_icon"
+                                                {% if simplelabel.libelle|default %}tooltip="{{simplelabel.libelle}}"{% endif %}>
+                                                {% if simplelabel.urlHD|default %}
+                                                <img class="{{simplelabel.code}}" alt="{{simplelabel.libelle|default}}" src="{{ simplelabel.urlHD | rcImg(100, 100, 75, 'png', 'clip') }}" />
+                                                {% else %}
+                                                {# <img alt="{{simplelabel.libelle|default}}" src="{{ simplelabel.url | rcImg(100, 100, 75, 'png', 'clip') }}" /> #}
+                                                {% endif %}
+                                            </div>
+                                        {% if simplelabel.urlInfo|default %}
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %} {# End of labels #}
+
+            {% if formated_object.sfTourismHandicapDordogne|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'tourism-handicap-dordognelabels', disable_title: true} %}
+                    {% block title %}{{ formated_object.labels.tourismHandicap._title|default('Handicap') }}{% endblock %}
+                    {% block content %}
+                        <ul>
+                            {% for thDordogneLabel in formated_object.sfTourismHandicapDordogne if thDordogneLabel.icon|default %}
+                                <li class="_plu-push--small" {% if thDordogneLabel.css|default %}style="{{thDordogneLabel.css}}"{% endif %} {% if thDordogneLabel.icon.libelle|default %}tooltip="{{thDordogneLabel.icon.libelle}}"{% endif %}>
+                                    {% if thDordogneLabel.icon.urlInfo|default %}
+                                        <a href="{{ thDordogneLabel.icon.urlInfo }}">
+                                    {% endif %}
+                                    <img class="{{thDordogneLabel.icon.code}} _plu-push-right" alt="{{thDordogneLabel.icon.libelle|default}}" src="{{ thDordogneLabel.icon.urlHD | rcImg(300, 40, 60, 'png', 'clip') }}" />
+                                    {% if thDordogneLabel.icon.urlInfo|default %}
+                                        </a>
+                                    {% endif %}
+                                    <span class="tourism-handicap-dordognelabels-description">{{ thDordogneLabel.value|raw|nl2br }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %} {# End of sfTourismHandicapDordogne #}
+
+            {% if contractsLevels.content.labels and formated_object.extralabels|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'tourism-labels', disable_title: true} %}
+                    {% block title %}{{ test|default('Labels') }}{% endblock %}
+                    {% block content %}
+                        <ul class="nav-inline sheet-labels-list">
+                            {% for xlabel in formated_object.extralabels if xlabel.urlHD|default %}
+                                <li class="sheet-labels-list_item" {% if xlabel.css|default %}style="{{xlabel.css}}"{% endif %}>
+                                    <div class="sheet-labels-list_wrapper">
+                                        {% if xlabel.urlInfo|default %}<a rel="noindex,nofollow" href="{{ xlabel.urlInfo }}">{% endif %}
+                                        <div class="sheet-labels-list_icon"
+                                            {% if xlabel.libelle|default %}tooltip="{{xlabel.libelle}}"{% endif %}>
+                                            {% if xlabel.urlHD|default %}
+                                            <img class="{{xlabel.code|default}}" alt="{{xlabel.libelle|default}}" src="{{ xlabel.urlHD | rcImg(100, 100, 75, 'png', 'clip') }}" />
+                                            {% endif %}
+                                        </div>
+                                        {% if xlabel.urlInfo|default %}</a>{% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %} {# End of extralabels #}
+
+            {# Tourisme & handicap #}
+            {% if contractsLevels.content.handicap and formated_object.labels.tourismHandicap._labels %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'tourism-handicap-labels'} %}
+                    {% block title %}{{ formated_object.labels.tourismHandicap._title|default('Handicap') }}{% endblock %}
+                    {% block content %}
+                        <ul class="nav-inline sheet-labels-list">
+                            {% for key, label in formated_object.labels.tourismHandicap._labels %}
+                                <li class="sheet-labels-list_item col-xs-3"
+                                    {% if label.libelle|default %}tooltip="{{label.libelle}}"{% endif %}>
+
+                                    <div class="sheet-labels-list_wrapper">
+                                        {% if formated_object.labels.tourismHandicap._display[key]|default
+                                            and formated_object.labels.tourismHandicap._display[key] %}
+                                            {# Display label normally #}
+                                            <div class="sheet-labels-list_icon sheet-labels-list_icon-thlabel">
+                                        {% else %}
+                                            {# Display label disabled #}
+                                            <div class="sheet-labels-list_icon sheet-labels-list_icon-thlabel unavailable">
+                                        {% endif %}
+
+                                            {% if label.urlHD|default %}
+                                            <img src={{ label.urlHD | rcImg(40, 40, 100, 'png', 'clip') }}>
+                                            {% else %}
+                                            <img src={{ label.url | rcImg(40, 40, 100, 'png', 'clip') }}>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %} {# End of Tourisme & handicap #}
+
+            {# Pdfs / docs #}
+            {% if contractsLevels.content.docs and formated_object.documents|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" with {id: 'download'} %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.DOCUMENTATION'|trans }}{% endblock %}
+                    {% block content %}
+                        {% set mapDocs = false %}
+                        <ul class="document-list">
+                            {% for document in formated_object.documents %}
+                                <li>
+                                    <a {% if document.type == '99.03.01.01' %}data-type="TRACE" event-type="SHEET_DOWNLOAD_TRACE"
+                                        {% else %}target="_blank" data-type="FICHIER" event-type="SHEET_DOWNLOAD_PDF"{% endif %}
+                                        rel="noindex,nofollow"
+                                        interact itemprop="url" href="{{ document.URL }}" download>
+                                        <span class="{{document.type == '99.03.01.01' ? 'icon-font-download':'icon-font-file-3'}} plo-fonticon"></span>
+                                        {{ document._name|default }}
+                                    </a>
+                                </li>
+                                {% if document.type == '99.03.01.01' %}
+                                    {% set mapDocs = true %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        {% if object.data.bordereau in ['ITI','PRD'] and mapDocs %}
+                            <span class="itinerary-download-text">
+                                {{ 'SECTIONS.TOURISM.SHEET.ITINERARY.FILES'|trans }}
+                                {% if formated_object.dataItinerary|default and formated_object.dataItinerary.helpLink|default %}
+                                <a href="{{ formated_object.dataItinerary.helpLink }}" class="itinerary-how-to-use">{{ 'GLOBAL.FILES.HOW_TO_USE'|trans }}</a>
+                                {% endif %}
+                            </span>
+
+                        {% endif %}
+                    {% endblock %}
+                {% endembed %}
+            {% endif %} {# End of Pdfs / docs #}
+
+            {# Audio files #}
+            {% if formated_object.audiofiles|default and contractsLevels.content.audios %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ 'SECTIONS.TOURISM.SHEET.AUDIO'|trans }}{% endblock %}
+                    {% block content %}
+                        <ul>
+                            {% for audio in formated_object.audiofiles %}
+                                <li class="audio-element">
+                                    <div class="audio-element-wrapper">
+                                        <audio rc-media rc-media-src="{{audio.URL}}" rc-media-id="" width="100%" controls></audio>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+        </ul>
+    </section>
+
+    {% if (formated_object.dataCustomers|default and contractsLevels.content.customers)
+        or (formated_object.groupsDescription.description|default and formated_object.capacities|default)
+        or (contractsLevels.content.capacities and formated_object.capacities|default and formated_object.capacities.groupCapacities|default)
+        or formated_object.sfGolfCourse|default or formated_object.sfBeachType|default %}
+    <section id="groups" class="tourism-detail-groups panel panel-default s-stripes s-stripes--contrast row">
+        <ul class="list-group stripes-odd">
+
+            {# dataCustomers #}
+            {% if formated_object.dataCustomers|default and contractsLevels.content.customers %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ formated_object.dataCustomers.label }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare">
+                            {% if formated_object.dataCustomers.showIndividuals|default %}
+                                <li><span>{{ 'SECTIONS.TOURISM.SHEET.INDIVIDUALS' | trans}}</span></li>
+                            {% endif %}
+                            {% for customer in formated_object.dataCustomers.customers %}
+                                <li><span>{{ customer|default }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# groupDescription #}
+            {% if formated_object.groupsDescription.description|default and contractsLevels.content.description %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ formated_object.groupsDescription.label }}{% endblock %}
+                    {% block content %}{{ formated_object.groupsDescription.description|nl2br }}{% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# Group Capacities #}
+            {% if contractsLevels.content.capacities and formated_object.capacities|default and formated_object.capacities.groupCapacities|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ formated_object.capacities.groupCapacities[0]._type|default('SECTIONS.TOURISM.SHEET.GROUPS_VISITS'|trans) }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare plo-list-even">
+                            {% for capacity in formated_object.capacities.groupCapacities %}
+                                {% if capacity.type|default %}
+                                    {% if capacity.capacity|default %}
+                                        <li class="{{capacity.type}}">
+                                            {% if thesaurus.fulldictionary[capacity.unitCapacity]|default %}
+                                                {{ capacity.capacity }}&nbsp;
+                                                {# dev spec for bethune ?? hide capacité des personnes #}
+                                                {{ thesaurus.fulldictionary[capacity.unitCapacity] }}
+                                            {% endif %}
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# sfBeachType #}
+            {% if formated_object.sfBeachType|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ formated_object.sfBeachType._label|default(formated_object.sfBeachType.label) }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare">
+                            {% for beachType in formated_object.sfBeachType.data %}
+                                <li><span>{{ beachType._type|default }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+
+            {# sfGolfCourse #}
+            {% if formated_object.sfGolfCourse|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ formated_object.sfGolfCourse._label|default(formated_object.sfGolfCourse.label) }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare">
+                            {% for golfCourse in formated_object.sfGolfCourse.data %}
+                                <li {% if not loop.last %}class="_plu-push"{% endif %}>
+                                    <div>{{ formated_object.sfGolfCourse.labels._sfGolfCourseHolesCount|default }} : {{ golfCourse.sfGolfCourseHolesCount|default }}</div>
+                                    <div>{{ formated_object.sfGolfCourse.labels._sfGolfCoursePar|default }} : {{ golfCourse.sfGolfCoursePar|default }}</div>
+                                    <div>{{ formated_object.sfGolfCourse.labels._sfGolfCourseLength|default }} : {{ golfCourse.sfGolfCourseLength|default }}</div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+        </ul>
+    </section>
+    {% endif %}
+
+
+    {# thalasso #}
+    {% if formated_object.thalassoData|default %}
+    <section id="thalasso" class="panel panel-default row">
+        {% embed "@LOCAL/helper/list-group-item.twig"%}
+            {% block title %}{{ formated_object.thalassoData._label }}{% endblock %}
+            {% block content %}
+                <ul class="plo-list-bare">
+                    {% for thalassoDesc in formated_object.thalassoData.data %}
+                        <li class="_plu-push--tiny thalasso-item">
+                            <div class="_plu-emphasis--high">{{ thalassoDesc._type }}</div>
+                            {% if thalassoDesc._desc|default  %}
+                                <div class="">{{ thalassoDesc._desc|raw }}</div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endblock %}
+        {% endembed %}
+    </section>
+    {% endif %}
+
+    {% include TWIG.MORE_NAV %}
+
+{% elseif object.data.multimedia|default %}
+
+    {% include TWIG.MORE_NAV %}
+
+{% endif %}

@@ -1,0 +1,42 @@
+{% macro datablockfields(fields) %}
+    {% for field in fields %}
+        {% if field.value|default is iterable %}
+            {{ _self.datablockfields(field.value) }}
+        {% else %}
+            <div class="datablock-field">
+                <span class="datablock-field-title">{{ field.type|default }} {% if field.value is defined %}:{% endif %}</span>
+                <span class="datablock-field-value">{{ field.value|default|raw }}</span>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% if formated_object.sfMaBoiteInvite|default %}
+    {% for datablock in formated_object.sfMaBoiteInvite %}
+
+        <section class="complex-specificfield row">
+
+            {% if datablock.icon|default %}
+                <div class="datablock-icon" {% if datablock.icon.libelle|default %}tooltip="{{datablock.icon.libelle}}"{% endif %}>
+                    {% if datablock.icon.urlInfo|default %}
+                        <a href="{{ datablock.icon.urlInfo }}">
+                    {% endif %}
+                    <img class="{{datablock.icon.code}}" alt="{{datablock.icon.libelle|default}}" src="{{ datablock.icon.urlHD | rcImg(100, 100, 75, 'png', 'clip') }}" />
+                    {% if datablock.icon.urlInfo|default %}
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <div class="datablock-fields">
+                <div class="col-xs-12 _plu-push--tiny">
+                    <span class="datablock-title _plu-emphasis--high">{{ datablock.type|default }}</span>
+                </div>
+                <div class="col-xs-12">
+                    {{ _self.datablockfields(datablock.fields) }}
+                </div>
+            </div>
+        </section>
+
+    {% endfor %}
+{% endif %}

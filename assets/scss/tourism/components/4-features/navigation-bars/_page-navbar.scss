@@ -245,6 +245,10 @@ body.mapFull {
         li {
             margin: 0 !important;
 
+            &:not(:first-child) {
+                border-top: 1px dotted #cecece;
+            }
+
             &.first {
                 border-top-width: 1px;
             }
@@ -254,6 +258,12 @@ body.mapFull {
             }
 
             a {
+                .media-left {
+                    vertical-align: middle;
+                }
+                .plo-fonticon {
+                    font-size: 18px;
+                }
                 .media-body {
                     width: 100%;
                 }
@@ -281,9 +291,6 @@ body.mapFull {
             }
 
             a {
-                // box-shadow: 0 0 0 1px $brand-primary inset !important;
-                // color: $brand-primary;
-                padding: 15px;
                 &:hover {
                     text-decoration: none;
                 }
@@ -291,7 +298,8 @@ body.mapFull {
 
             &.navbar-booking-btn {
                 text-align: center;
-                a {
+                & > * {
+                    padding: 15px;
                     background: $primary-color;
                     color: white;
                     box-shadow: none;

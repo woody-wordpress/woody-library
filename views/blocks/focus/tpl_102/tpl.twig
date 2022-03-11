@@ -1,29 +1,4 @@
-{% if no_padding == 0 %}{% set spaceBetween = 30 %}
-{% else %}{% set spaceBetween = 0 %}
-{% endif %}
 
-{% extends '_objects/visualModifier.twig' %}
-{% block content %}
-<div class="woody-component woody-component-focus tpl_102 {{ items|length > 1 ? 'isRel' }}">
-
-    {% if items|length == 1 %}
-        {% for item in items %}
-            {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
-                'card' : "overlayed_card/tpl_03",
-                'image_style' : "ratio_16_9",
-                'page_type' : item.page_type
-            } %}
-        {% endfor %}
-    {% elseif items|length > 1 %}
-        {% set swiper_options = {'spaceBetween' : spaceBetween,}%}
-        {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
-        {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
-            'items' : items,
-            'card' : "overlayed_card/tpl_03",
-            'image_style' : "ratio_16_9",
-            'swiper_options' : json_swiper_options
-        } %}
-    {% endif %}
-
-</div>
-{% endblock %}
+{% set customIndexClass = "102" %}
+{% set customImageStyle = "ratio_16_9" %}
+{% extends 'blocks/focus/tpl_101/tpl.twig' %}

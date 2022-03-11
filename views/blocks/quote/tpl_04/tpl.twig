@@ -1,0 +1,16 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}quote{% endblock %}
+{% block indexClass %}04{% endblock %}
+{% block woodyComponentContent %}
+        <div class="grid-x grid-padding-y grid-padding-x align-middle align-center">
+        {% include "blocks/quote/_objects/quoteImageObject.twig" with {
+            'customClass' : 'rounded-img'
+        } %}
+	{% include "blocks/quote/_objects/quoteTextObject.twig" with {
+            'customClass' : 'cell quote-texts text-center'
+        } %}
+	{% include "blocks/quote/_objects/quoteSignatureObject.twig" with {
+            'customClass' : 'cell text-center'
+        } %}
+	</div>
+{% endblock %}

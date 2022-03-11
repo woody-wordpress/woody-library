@@ -9,6 +9,9 @@
     padding-right: ($grid-gutter-width/2);
 
     &_item {
+        & > div, & > a {
+            display: block;
+        }
         &:not(:last-child) {
             margin-bottom: ($vr/2);
         }
@@ -23,5 +26,9 @@
             margin-right: ($vr/2);
             margin-bottom: 0;
         }
+    }
+
+    .plo-btn {
+        line-height: initial;
     }
 }

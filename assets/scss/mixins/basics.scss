@@ -1,3 +1,14 @@
+@mixin isAbs {
+    position: absolute;
+    $sides: top, right, bottom, left;
+
+    @each $side in $sides {
+        &.at-#{$side} {
+            #{$side}: 0;
+        }
+    }
+}
+
 @mixin the_box {
     position: absolute;
     top: 50%;
@@ -6,6 +17,13 @@
     width: 100%;
     height: 100%;
     display: flex;
+
+    @include root('.card') {
+        transform: none;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
 }
 
 @mixin fullcenterBox() {
@@ -13,7 +31,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    @include improve_transition;
+    //@include improve_transition;
 }
 
 @mixin bottomcenterBox() {
@@ -21,7 +39,7 @@
     align-items: center;
     justify-content: flex-end;
     text-align: center;
-    @include improve_transition;
+    //@include improve_transition;
 }
 
 @mixin topleftBox() {
@@ -29,7 +47,15 @@
     align-items: flex-start;
     justify-content: flex-start;
     text-align: left;
-    @include improve_transition;
+    //@include improve_transition;
+}
+
+@mixin centerleftBox() {
+    @include the_box;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    //@include improve_transition;
 }
 
 @mixin bottomrightBox() {
@@ -37,7 +63,15 @@
     align-items: flex-end;
     justify-content: flex-end;
     text-align: right;
-    @include improve_transition;
+    //@include improve_transition;
+}
+
+@mixin bottomleftBox() {
+    @include the_box;
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: left;
+    //@include improve_transition;
 }
 
 @mixin toprightBox() {
@@ -45,7 +79,15 @@
     align-items: flex-start;
     justify-content: flex-start;
     text-align: right;
-    @include improve_transition;
+    //@include improve_transition;
+}
+
+@mixin centerrightBox() {
+    @include the_box;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    //@include improve_transition;
 }
 
 @mixin improve_transition() {
@@ -148,7 +190,6 @@
     }
 }
 
-
 // Placeholder mixin usage :
 // @include placeholder {
 //     font-style:italic;
@@ -157,18 +198,892 @@
 // }
 @mixin placeholder {
     &::-webkit-input-placeholder {
-        @content
+        @content;
     }
 
     &:-moz-placeholder {
-        @content
+        @content;
     }
 
     &::-moz-placeholder {
-        @content
+        @content;
     }
 
     &:-ms-input-placeholder {
-        @content
+        @content;
     }
+}
+
+// Create a triangle using the borders
+@mixin triangle($size, $color, $direction) {
+    height: 0;
+    width: 0;
+
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size;
+
+    @if $direction==up {
+        border-bottom-color: $color;
+    }
+
+    @else if $direction==right {
+        border-left-color: $color;
+    }
+
+    @else if $direction==down {
+        border-top-color: $color;
+    }
+
+    @else if $direction==left {
+        border-right-color: $color;
+    }
+
+    @else {
+        @error "Aucune direction #{$direction}.";
+    }
+}
+
+@mixin tooltip($direction: right) {
+    cursor: $w-tooltip-cursor;
+
+    &:before {
+        content: attr(w-tooltip-#{$direction});
+        position: absolute;
+        z-index: 9;
+        min-height: $w-tooltip-box-size*2;
+        padding: $w-tooltip-box-size/4 $w-tooltip-box-size;
+        opacity: 0;
+        pointer-events: none;
+        color: $w-tooltip-color;
+        background-color: $w-tooltip-bg;
+        font-size: $w-tooltip-font-size;
+        font-weight: $w-tooltip-font-weight;
+        text-align: center;
+        box-shadow: $w-tooltip-boxshadow;
+        transform-origin: left;
+        transition: transform .2s ease-out;
+
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 9;
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .2s ease-out;
+    }
+
+    // UP
+    @if $direction==up {
+        &:before {
+            right: calc(0% - #{$w-tooltip-box-size} * 1.5);
+            bottom: calc(100% + #{$w-tooltip-box-size});
+            border-top: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateY(10px) scale(1.1);
+            transform-origin: bottom center;
+        }
+
+        &:after {
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, down);
+            right: 0;
+            bottom: calc(100% - #{$w-tooltip-box-size} / 2);
+            transform: translateY(10px) scale(1.1);
+            transform-origin: bottom center;
+        }
+    }
+
+    // LEFT
+    @else if $direction==left {
+        &:before {
+            top: -$w-tooltip-box-size/4;
+            right: calc(100% + (#{$w-tooltip-box-size} * 1.5));
+            border-left: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateX(10px) scale(1.1);
+            transform-origin: center right;
+        }
+
+        &:after {
+            right: 100%;
+            top: calc(50% - #{$w-tooltip-box-size});
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, right);
+            transform: translateX(10px) scale(1.1);
+            transform-origin: center right;
+        }
+    }
+
+    // DOWN
+    @else if $direction==down {
+        &:before {
+            right: calc(0% - #{$w-tooltip-box-size} * 1.5);
+            top: calc(100% + #{$w-tooltip-box-size});
+            border-bottom: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateY(-10px) scale(1.1);
+            transform-origin: top center;
+        }
+
+        &:after {
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, up);
+            right: 0;
+            top: calc(100% - #{$w-tooltip-box-size} / 2);
+            transform: translateY(-10px) scale(1.1);
+            transform-origin: top center;
+        }
+    }
+
+    // RIGHT
+    @else if $direction==right {
+        &:before {
+            top: -$w-tooltip-box-size/4;
+            left: calc(100% + (#{$w-tooltip-box-size} * 1.5));
+            border-right: $w-tooltip-border;
+            border-radius: $w-tooltip-radius;
+            transform: translateX(-10px) scale(1.1);
+            transform-origin: center left;
+        }
+
+        &:after {
+            left: 100%;
+            top: calc(50% - #{$w-tooltip-box-size});
+            @include triangle($w-tooltip-box-size, $w-tooltip-bg, left);
+            transform: translateX(-10px) scale(1.1);
+            transform-origin: center left;
+        }
+    }
+
+    @else {
+        @error "Aucune direction #{$direction}.";
+    }
+
+    &:hover {
+
+        &:before,
+        &:after {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+}
+
+@mixin swiperOverflow($left : true, $right : true, $size : large, $context : fullwidth) {
+    @if $context==contained {
+        @if $left==true {
+            .swiper-container {
+                padding-left: 20px;
+            }
+        }
+
+        @if $right==true {
+            .swiper-container {
+                padding-right: 20px;
+            }
+        }
+
+        @if $size==small {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 40px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 50px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 40px;
+                    }
+
+                    .swiper-button-next {
+                        right: 50px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 60px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 70px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 60px;
+                    }
+
+                    .swiper-button-next {
+                        right: 70px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==medium {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 50px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 60px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 50px;
+                    }
+
+                    .swiper-button-next {
+                        right: 60px;
+                    }
+                }
+
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 75px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 85px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 75px;
+                    }
+
+                    .swiper-button-next {
+                        right: 85px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==large {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 60px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 70px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 60px;
+                    }
+
+                    .swiper-button-next {
+                        right: 70px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 90px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 100px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 90px;
+                    }
+
+                    .swiper-button-next {
+                        right: 100px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==xlarge {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 100px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 110px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 100px;
+                    }
+
+                    .swiper-button-next {
+                        right: 30px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 200px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 210px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 200px;
+                    }
+
+                    .swiper-button-next {
+                        right: 210px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==xxlarge {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 150px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 160px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 150px;
+                    }
+
+                    .swiper-button-next {
+                        right: 30px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 200px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 210px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 200px;
+                    }
+
+                    .swiper-button-next {
+                        right: 210px;
+                    }
+                }
+            }
+
+            @include breakpoint(xxlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 240px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 250px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 240px;
+                    }
+
+                    .swiper-button-next {
+                        right: 250px;
+                    }
+                }
+            }
+        }
+    }
+
+    @else if $context==fullwidth {
+        @if $left==true {
+            .swiper-container {
+                padding-left: 40px;
+            }
+        }
+
+        @if $right==true {
+            .swiper-container {
+                padding-right: 40px;
+            }
+        }
+
+        @if $size==small {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 60px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 70px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 60px;
+                    }
+
+                    .swiper-button-next {
+                        right: 70px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 90px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 100px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 90px;
+                    }
+
+                    .swiper-button-next {
+                        right: 100px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==medium {
+            @include breakpoint(medium) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 90px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 100px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 90px;
+                    }
+
+                    .swiper-button-next {
+                        right: 100px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 180px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 190px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 180px;
+                    }
+
+                    .swiper-button-next {
+                        right: 190px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==large {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 120px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 130px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 120px;
+                    }
+
+                    .swiper-button-next {
+                        right: 130px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 240px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 250px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 240px;
+                    }
+
+                    .swiper-button-next {
+                        right: 250px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==xlarge {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 200px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 210px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 200px;
+                    }
+
+                    .swiper-button-next {
+                        right: 210px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 400px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 410px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 400px;
+                    }
+
+                    .swiper-button-next {
+                        right: 410px;
+                    }
+                }
+            }
+        }
+
+        @else if $size==xxlarge {
+            @include breakpoint(large) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 250px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 260px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 250px;
+                    }
+
+                    .swiper-button-next {
+                        right: 260px;
+                    }
+                }
+            }
+
+            @include breakpoint(xlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 400px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 410px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 400px;
+                    }
+
+                    .swiper-button-next {
+                        right: 410px;
+                    }
+                }
+            }
+
+            @include breakpoint(xxlarge) {
+                @if $left==true {
+                    .swiper-container {
+                        padding-left: 490px;
+                    }
+
+                    .swiper-button-prev {
+                        left: 500px;
+                    }
+                }
+
+                @if $right==true {
+                    .swiper-container {
+                        padding-right: 490px;
+                    }
+
+                    .swiper-button-next {
+                        right: 500px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin Xfader($items, $visibility, $transition) {
+    // Number of items
+    $n: $items;
+
+    // Item visibility (seconds)
+    $a: $visibility;
+
+    // Transition speed (seconds)
+    $b: $transition;
+
+    // Animation length
+    $t: ($a + $b) * $n;
+
+    // Item delay length
+    $d: $t / $n;
+
+    // Keyframe percentages
+    $pct-1: percentage(0);
+    $pct-2: percentage($a / $t);
+    $pct-3: percentage(($a + $b) / $t);
+    $pct-4: percentage(1 - $b / $t);
+    $pct-5: percentage(1);
+
+    // Animation properties
+    @if $n>1 {
+        $id: unique-id();
+
+        animation-name: $id;
+        animation-duration: $t * 1s;
+        animation-iteration-count: infinite;
+
+        @for $i from 1 to $n {
+            &:nth-child(#{$i}) {
+                animation-delay: $d * ($n - $i) * 1s;
+            }
+        }
+
+        @keyframes #{$id} {
+
+            #{$pct-1},
+            #{$pct-2},
+            #{$pct-5} {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            #{$pct-3},
+            #{$pct-4} {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    }
+}
+
+
+/// @author Soheil Saheb-Jamii
+/// @param {Value} $y - Max distance of shadow
+/// @param {Value} $blur - Max Blur strength
+/// @param {Color} $color - Color of the shadow, use rgb or hex
+/// @param {Number} $opacity - Max opacity, value between 0 - 1
+/// @param {Number} $layers - Number of shadow layers to use
+/// @param {Number} $ratio - Ease of the curve, [0->1]; 0 = ease-in, 0.5 = linear, 1 = ease-out
+/// @param {Number} $oRatio - Ease of the opacity, [0->1]; 0 = ease-in, 0.5 = linear, 1 = ease-out
+/// @param {String} $type - Type of param [box|text|drop]
+@mixin smooth-shadow($y:50px, $blur:80px, $color:rgb(0, 0, 0), $opacity:.15, $layers:5, $ratio: 0, $oRatio: .5, $type:box) {
+    $shadows: ();
+    $ratio: $ratio + 1;
+    $oRatio: $oRatio + 1;
+
+    @for $i from 1 through $layers {
+        $curve-dir: $layers - $i + 1;
+        $expo: exp-maclaurin(1 * $ratio, $curve-dir);
+        $oExpo: exp-maclaurin(1 * $oRatio, $curve-dir);
+        $xpoY: $y * ($expo / $ratio);
+        $xpoBlur: $blur * ($expo / $ratio);
+        $xpoOpacity: $opacity * ($oExpo / $oRatio);
+        $shadow: 0 $xpoY $xpoBlur rgba($color, $xpoOpacity);
+        $shadows: append($shadows, $shadow);
+    }
+
+    $output: false;
+
+    @if $type==box or $type==text {
+        @each $shad in $shadows {
+            @if $output {
+                $output: $output, $shad;
+            }
+
+            @else {
+                $output: $shad;
+            }
+        }
+
+        #{$type}-shadow: $output;
+    }
+
+    @else {
+        @each $shad in $shadows {
+            @if $output {
+                $output: $output drop-shadow(#{$shad});
+            }
+
+            @else {
+                $output: drop-shadow(#{$shad});
+            }
+        }
+
+        filter: $output;
+    }
+}
+
+/// Description : Change Foundation grid gutters size
+/// @param {Value px} $size - Value in px for the size of grid foundation margins
+/// @example .woody-component-teaser {@include gap(50px);}
+@mixin gap($size) {
+
+    .grid-padding-x,
+    &.grid-padding-x {
+        @include xy-gutters($size, margin, top bottom left right, true);
+
+        >.cell {
+            @include xy-gutters($size, padding, top bottom left right);
+        }
+    }
+}
+
+/// Description : Limit the width of the woody_base_grid_wrapper to have smaller basicCards
+/// @author Orphée Besson
+/// @param {Value} $nb-cols - Maximum number of columns that the loop will increment
+@mixin maxWidthGridBasicCards($nb-cols: 2) {
+    @for $i from 1 through $nb-cols {
+        &-#{$i} {
+            margin: 0 auto; // Center cards in the .woody_base_grid_wrapper
+
+            @if $i<2 {
+                @include breakpoint(medium) {
+                    max-width: calc(100vw / calc(1.5 / #{$i}));
+                }
+
+                @include breakpoint(xmedium) {
+                    max-width: calc(100vw / calc(2 / #{$i}));
+                }
+            }
+
+            @include breakpoint(large) {
+                max-width: calc(100vw / calc(3 / #{$i}));
+            }
+
+            @include breakpoint(xlarge) {
+                max-width: calc(100vw / calc(4 / #{$i}));
+            }
+
+            @include breakpoint(xxlarge) {
+                max-width: calc(100vw / calc(5 / #{$i}));
+            }
+        }
+    }
+}
+
+@mixin border($size: 1px, $type: solid, $color: $black, $opacity: .2, $side: all) {
+    $opacity: $opacity * 100%;
+    @if $side == all {
+        border: $size $type mix($color, $white, $opacity);
+    } @else {
+        border-#{$side}: $size $type mix($color, $white, $opacity);
+    }
+    @include root-bg($foundation-palette) {
+        @if in_list($dark-list, $current-loop-color) {
+            @if $side == all {
+                border-color: mix($white, $current-loop-hex, $opacity);
+            } @else {
+                border-#{$side}-color: mix($white, $current-loop-hex, $opacity);
+            }
+        }
+    }
+}
+
+@mixin grid-borders($size: 1px, $type: solid, $color: $black, $opacity: .3) {
+    @include border($size, $type, $color, $opacity);
+    margin-top: -1px;
+    margin-left: -1px;
 }

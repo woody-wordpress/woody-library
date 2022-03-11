@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Split Carte - Template 3",
     "description": "Carte de contenu avec média à gauche + textes centré à droite (ratio 8/4)",
+    "lib_type": "lite",
     "acf_groups": [],
     "vars": [
         "item"

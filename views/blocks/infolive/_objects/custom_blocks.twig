@@ -1,0 +1,36 @@
+{# Custom blocks #}
+{% for bloc in custom_blocks %}
+    {% set bloc_container_classes = [
+        'large-' ~ bloc.block_width,
+        'cell infolive-component infolive-custom-block flex-container flex-dir-column align-justify align-middle',
+
+    ] %}
+    <div class="{{ bloc_container_classes|join(' ')|spacing }}">
+        {% set bloc_wrapper_classes = [
+            bloc.background_color|default,
+            bloc.no_padding ? 'no-padding':'padd-all-md',
+            'bloc infolive-infos-board flex-container flex-dir-column align-justify align-middle full-width full-height'
+        ] %}
+        <div class="{{ bloc_wrapper_classes|join(' ')|spacing }}">
+            <div class="text-center marg-bottom-sm title-wrapper full-height">
+                <div class="infolive-block-header info-header">
+                    {% if bloc.woody_icon %}<span class="wicon {{bloc.woody_icon}}"></span>{% endif %}
+                    {% if bloc.title %}<span class="title h6">{{bloc.title}}</span>{% endif %}
+                </div>
+                <div class="info-content infolive-data-wrapper full-height flex-container align-middle align-center {{bloc.flex_direction}}">
+                    {% for databloc in bloc.subblock_custom_data %}
+                        <div class="infolive-datablock{% if not bloc.no_padding %} padd-all-sm{% endif %}">
+                            <div class="infolive-datablock-header flex-container align-center align-middle">
+                                {% if databloc.woody_icon %}<span class="flex-container align-center align-middle small wicon {{databloc.woody_icon}}"></span>{% endif %}
+                                {% if databloc.pretitle %}<small class="pre-title">{{databloc.pretitle}}</small>{% endif %}
+                            </div>
+                            <div class="infolive-datablock-content {{databloc.typo_size}}">
+                                {% include "blocks/infolive/custom_blocks/"~ databloc.acf_fc_layout ~".twig" %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

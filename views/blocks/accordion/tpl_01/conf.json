@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "FAQ - Template 1",
+    "name": "Template 01",
     "description": "Titres avec textes associés dépliables",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b0433ff0bb17"
     ],

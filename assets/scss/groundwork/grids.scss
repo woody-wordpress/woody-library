@@ -1,16 +1,32 @@
+// ? This has been added to fix splitgrids heights with centered stretched blocs
 [class^='splitgrid_'] {
     @include breakpoint(medium) {
-
-        .cell {
-            [class^='grid-'] {
-                height: 100%;
-
-                >.cell {
-                    >.woody-component {
-                        height: calc(100% + #{map-get($grid-padding-gutters, medium)});
+        > .cell {
+            display: flex;
+            > [class^='grid-'] {
+                width: 100%;
+                > .cell {
+                    display: flex;
+                    > .visualModifier {
+                        display: flex;
+                        width: 100%;
+                    }
+                    .woody-component {
+                        width: 100%;
                     }
                 }
             }
         }
     }
+}
+// ? ---
+
+@include breakpoint(small down) {
+    .mobile-order-first {
+        order: -1;
+    }
+}
+
+.grid-borders {
+    @include grid-borders;
 }

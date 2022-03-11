@@ -1,0 +1,33 @@
+{% if total_num > 0 %}
+    <div class="info-content piste-wrapper isRel">
+        <div class="sector-sub-header">
+            <span class="title">{{ title }}</span>
+            <span class="val">{{opened_num}}/{{total_num}}</span>
+        </div>
+        <ul class="sector-content list-unstyled">
+            {% for item in items %}
+
+            {# Colors #}
+            {% set color = '' %}
+            {% if colors %}
+                {% set color = colors.global %}
+                {% if item.color == 'V' %}{% set color = colors.green %}{% endif %}
+                {% if item.color == 'B' %}{% set color = colors.blue %}{% endif %}
+                {% if item.color == 'R' %}{% set color = colors.red %}{% endif %}
+                {% if item.color == 'N' %}{% set color = colors.black %}{% endif %}    
+            {% endif %}
+                                                        
+                {# The item #}
+                <li class="item"{% if colors %} data-color="{{ item.color }}"{% endif %} >
+                    <span class="wicon wicon-woody-icons align-center {{ item.icon }}"{% if colors %} style="background-color:{{color}};"{% endif %}></span>
+                    <span class="title">{{ item.nom }}</span>
+                    <div class="horraires">
+                        <span class="heuredeb">{{ item.heuredeb }}</span> - 
+                        <span class="heurefin">{{ item.heurefin }}</span>
+                    </div>                                                    
+                    <span class="status {{ item.etat.slug }}">{{ item.etat.txt }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %} 

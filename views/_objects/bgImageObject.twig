@@ -1,0 +1,6 @@
+{% spaceless %}
+{% if img|default %}
+    {% set original_size = img.sizes.ratio_free %}
+    <div class="bgImageObject backgroundMedia fullcenterbox lazyload" data-title="{{ img.title }}" data-img-id="{{ img.id }}"></div>
+{% endif %}
+{% endspaceless %}

@@ -1,0 +1,44 @@
+{% if type == "alpine" %}
+{% if level.total == 0 %}
+    {% set data_progress = '0%' %}
+{% else %}
+    {% set data_progress = (level.open / level.total * 100) ~ '%' %}
+{% endif%}
+{% set data_open = level.open %}
+{% set data_total = level.total %}
+{% endif %}
+{% if type == "nordic" %}
+{% if level.km_total == 0 %}
+    {% set data_progress = '0%' %}
+{% else %}
+    {% set data_progress = (level.km_open / level.km_total * 100) ~ '%' %}
+{% endif %}
+{% set data_open = level.km_open %}
+{% set data_total = level.km_total %}
+{% endif %}
+
+<div class="circular-progressbar" data-progress="{{ data_progress|default }}" data-open="{{ data_open|default }}" data-total="{{ data_total|default }}">
+    <div class="circle-shape">
+        {% if global and type == "alpine" %}
+        <span class="wicon wicon-009-station-ski-alpin"></span>
+        {% endif %}
+        {% if global and type == "nordic" %}
+        <span class="wicon wicon-010-station-ski-de-fond"></span>
+        {% endif %}
+        <div class="value">
+            <span class="open">{{ data_open }}</span>
+            <span class="total">
+                {% if type == "alpine" %}
+                <small>{{ '/' ~ data_total }}</small>
+                {% endif %}
+                {% if type == "nordic" %}
+                <small>{{ '/' ~ data_total ~ 'km' }}</small>
+                {% endif %}
+            </span>
+        </div>
+        <svg viewbox="0 0 100 100" stroke-width="4" fill="none" stroke-linecap="round">
+            <circle class="circle-bg" cx="50" cy="50" r="44" stroke="{{ color|default("#CECECE") }}" stroke-opacity="0.2" fill="{{ color|default("#CECECE") }}"></circle>
+            <circle class="circle-fill" cx="50" cy="50" r="44" stroke="{{ color|default("#CECECE") }}"></circle>
+        </svg>
+    </div>
+</div>

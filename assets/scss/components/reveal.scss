@@ -1,5 +1,14 @@
 .reveal {
     z-index: 100000;
+    box-shadow: 0 5px 25px rgba($black, .3);
+
+    &:focus {
+        outline: none;
+    }
+
+    >.flex-container {
+        height: 100%;
+    }
 
     .close-button {
         font-size: 3em;
@@ -16,152 +25,39 @@
             padding: 20px 5px;
         }
     }
-}
-
-.reveal {
-    box-shadow: 0 5px 25px rgba($black, .3);
-
-    &:focus {
-        outline: none;
-    }
 
     &.large {
         height: 80vh;
     }
+    &.full {
+        left: 0 !important;
+        box-shadow: 0 5px 25px 15px rgba($black, .3);
+        margin: 10px !important;
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        min-height: calc(100vh - 20px);
 
-    >.flex-container {
+        @include breakpoint(large) {
+            margin: 20px !important;
+            width: calc(100vw - 40px);
+            height: calc(100vh - 40px);
+            min-height: calc(100vh - 40px);
+            top: -20px;
+            left: -20px;
+        }
+    }
+
+    &.large,
+    &.full {
+        iframe {
+            min-height: 100%;
+        }
+    }
+
+    &-overlay {
+        z-index: 10000;
+    }
+    > .content-wrapper {
         height: 100%;
-    }
-}
-
-.reveal-mediaCard {
-    cursor: pointer;
-
-    &:focus {
-        outline: none;
-    }
-}
-
-.media-reveal {
-    padding: 0;
-    border: none;
-    width: 80vw;
-    position: relative;
-    overflow-y: visible;
-
-    @include breakpoint(medium down) {
-        height: auto;
-        min-height: 0;
-        margin-left: auto;
-    }
-
-    @include breakpoint(medium) {
-        width: 50vw;
-        max-width: 460px;
-    }
-
-    &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        background: linear-gradient(to top, $white 0%, transparent);
-
-    }
-
-    .media-button-wrapper {
-        .button {
-            background-color: transparent;
-            color: $white;
-            border: 1px solid $white;
-            padding: 20px 40px;
-            opacity: 0;
-            transform: translatey(5px);
-            transition: all .3s ease-out;
-
-            &:hover {
-                background-color: $white;
-                color: $primary-color;
-            }
-        }
-
-        &:hover {
-            .button {
-                opacity: 1;
-                transform: translatey(0);
-            }
-        }
-    }
-
-    .created {
-        font-size: rem-calc(14);
-        color: rgba($black, .4);
-    }
-
-    .author {
-        display: flex;
-        align-items: flex-end;
-        font-size: 20px;
-
-        .wicon {
-            margin-right: 6px;
-        }
-    }
-
-    &-texts {
-        overflow-x: scroll;
-        max-height: 250px;
-        padding-bottom: 80px;
-    }
-
-    .imageObject-instagram {
-        display: none;
-    }
-
-    &-nav {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translateX(-50%) translateY(calc(-100% - 10px));
-        color: #fff;
-        padding: 10px 10px 0 10px;
-        display: flex;
-
-        button {
-            color: $white !important;
-            border: 2px solid $white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: rem-calc(15);
-            opacity: .6;
-            cursor: pointer;
-            transition: opacity .3s;
-
-            &:not(:nth-last-of-type(1)) {
-                margin-right: 10px;
-            }
-
-            &:hover {
-                opacity: 1;
-            }
-
-            &.disable {
-                opacity: .2;
-                cursor: not-allowed;
-                pointer-events: none;
-            }
-        }
-
-        .close-button {
-            position: static;
-            font-size: rem-calc(24);
-        }
     }
 }

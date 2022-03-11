@@ -1,0 +1,189 @@
+{% set email = formated_object.emails.establishment %}
+{% if formated_object.mailContact|default %}
+    {% if formated_object.mailContact == 'booking' and formated_object.emails.booking|default %}
+        {% set email = formated_object.emails.booking %}
+    {% elseif formated_object.mailContact == 'owner' and formated_object.emails.owner|default %}
+        {% set email = formated_object.emails.owner %}
+    {% endif %}
+{% elseif options.proprio is defined and options.proprio and formated_object.emails.owner|default %}
+    {% set email = formated_object.emails.owner %}
+{% elseif options.bookingcontact is defined and options.bookingcontact %}
+    {# {% set email = formated_object.emails.booking %} #} {# if active -> bug lot (no booking emails -> no form) #}
+{% endif %}
+
+{% if contractsLevels.sidebar.vcard and email|default %}
+
+    <li class="panel-title-responsive hidden-xs"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span></li>
+
+    <li id="li-contact-form" class="show-when-angular-ready clearfix hidden-xs">
+
+        {% if object.data.specificFields|default and object.data.specificFields.sfProfilElId is defined %}
+            {# start user scope #}
+            <user user-id={{ object.data.specificFields.sfProfilElId }}>
+            {# var 'user' is now available in scope until end of <user> #}
+        {% endif %}
+
+
+        <section {% if contractsLevels.stickyContact %}
+                    sticky-contacts keep-original-width='true'
+                 {% endif %}
+                  class="panel panel-default sidebar-contact-form-section
+                    {% if (options.avatar is defined and options.avatar) or formated_object.user|default %}
+                        sidebar-contact-form-has-avatar
+                    {% endif %}">
+
+            <div class="panel-body">
+
+                {# Avatar #}
+                {% if (options.avatar is defined and options.avatar) or formated_object.user|default %}
+                    <div class="plo-box plo-avatar sidebar-contact-form-avatar">
+                        <div class="plo-box-content _plu-glue">
+                            {% if formated_object.user|default %}
+                                <a class="sidebar-contact-form-avatar-link" rel="noindex,nofollow" target="_blank">
+                                    <img class="bubble-img sidebar-contact-form-avatar-img" src="{{ formated_object.user.picture| rcImg(130, 130, 70, 'png', 'crop') }}">
+                                </a>
+                            {% else %}
+                                <span class="icon-font-user ink-winter sidebar-contact-form-avatar-icon" ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)"></span>
+                                <a class="sidebar-contact-form-avatar-link" rel="noindex,nofollow" target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}" ng-if="userProfile && userPicture && userProfile.link.url">
+                                    <img class="bubble-img sidebar-contact-form-avatar-img" ng-src="{{ '{{userProfile.picture}}' }}">
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+
+                {# Contact form #}
+                <div class="sidebar-contact-form">
+
+                    {# Establishment infos #}
+                    <div class="sidebar-contact-info">
+                        <div class="sidebar-contact-text">
+                            {% if formated_object.contractCode|default == '311.20.02.01.03' %}
+                                {{ 'GLOBAL.QUOTE_REQUEST'|trans }}
+                            {% else %}
+                                {% if options.help_label is defined and options.help_label %}
+                                    {{ 'GLOBAL.NEED_HELP'|trans }} {{ 'SECTIONS.TOURISM.SHEET.FORM.CONTACT.CONTACT_THE'|trans }}
+                                {% else %}
+                                    {{ 'SECTIONS.TOURISM.SHEET.FORM.CONTACT.CONTACT'|trans }}
+                                {% endif %}
+                                {% if formated_object.bordereau == 'FMA' and formated_object.contacts.owner.peopleLastName|default and not formated_object.mailContact|default %}
+                                    {{ 'SECTIONS.TOURISM.SHEET.THE_ORGANIZER'|trans }}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)" class="sidebar-contact-business-name pl-heading _plu-flush--top">
+                            {% if formated_object.user|default and formated_object.contacts.owner.peopleLastName|default %}
+                                {{ formated_object.contacts.owner.civility|default }} {{ formated_object.contacts.owner.peopleFirstName|default }} {{ formated_object.contacts.owner.peopleLastName|default }}
+                            {% elseif formated_object.mailContact|default and formated_object.contacts[formated_object.mailContact].businessName|default and token not in ['bocage_v2'] %}
+                                {{ formated_object.contacts[formated_object.mailContact].businessName }}
+                            {% elseif formated_object.bordereau == 'FMA' %}
+                                {% if formated_object.contacts.owner.peopleLastName|default %}
+                                    {{ formated_object.contacts.owner.civility|default }} {{ formated_object.contacts.owner.peopleFirstName|default }} {{ formated_object.contacts.owner.peopleLastName|default }}
+                                {% elseif formated_object.contacts.owner.businessName|default %}
+                                    {{ formated_object.contacts.owner.businessName }}
+                                {% else %}
+                                    {{ 'SECTIONS.TOURISM.SHEET.THE_ORGANIZER'|trans }}
+                                {% endif %}
+                            {% else %}
+                                {{ formated_object.businessName }}
+                            {% endif %}
+                        </div>
+                        <div ng-if="userProfile && userProfile.link.url" class="sidebar-contact-business-name pl-heading show-when-angular-ready">
+                            <a rel="noindex,nofollow" target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}">
+                                {{ '{{userProfile.name}}' }}
+                            </a>
+                        </div>
+                        <span ng-if="userProfile && userProfile.link.url" class="">
+                            <a rel="noindex,nofollow" target="_blank" ng-href="{{ '{{userProfile.link.url}}' }}">
+                                {{ '{{userProfile.link.title|rcTranslate}}' }}
+                            </a>
+                        </span>
+                        {% if formated_object.user|default and formated_object.user.description|default %}
+                            <div class="sidebar-contact-text">
+                                {{ formated_object.user.description }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if formated_object.nurtikForm|default  %}
+                        {# Form #}
+                        <form contact-form-pre class="plo-form">
+                            <fieldset class="cell-wrapper">
+                                {# Message textarea #}
+                                <div>
+                                    <label class="plo-input-group plo-input-group--band">
+                                        <textarea type="textarea" placeholder="{{ 'SECTIONS.TOURISM.SHEET.FORM.CONTACT.TYPE_MESSAGE'|trans }} :" class="plo-input-group__input sidebar-contact-form-message" required></textarea>
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                        <a class="plo-btn sidebar-default-btn"
+                            analytics-mediaveille {# Tracking MediaVeille #}
+                            data-type="MAILTO" {# Tracking Tourinsoft #}
+                            interact event-type="SHEET_CONTACT_FORM_OPENED"
+                            data-toggle="rcModal" data-target="#nurtik-form" data-id="{{object.metadata.id|default}}">
+                                {{ 'GLOBAL.SEND'|trans }}
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="nurtik-form" role="dialog">
+                            <div class="modal-dialog small">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times; Fermer</button>
+                                        <div class="modal-title"></div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <script src="{{ formated_object.nurtikForm }}" async></script>
+                                    </div>
+                                    {# <div class="modal-footer">
+                                    </div> #}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+
+                        {# Form #}
+                        <form contact-form-pre class="plo-form">
+                            {# Period selector #}
+
+                            <fieldset class="cell-wrapper">
+                                {# Message textarea #}
+                                <div>
+                                    <label class="plo-input-group plo-input-group--band">
+                                        <textarea type="textarea" placeholder="{{ 'SECTIONS.TOURISM.SHEET.FORM.CONTACT.TYPE_MESSAGE'|trans }} :" class="plo-input-group__input sidebar-contact-form-message" ng-model="garbage" ng-change="saveText(garbage)" required></textarea>
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                        {# Contact button #}
+                        <a class="plo-btn sidebar-default-btn"
+                            interact event-type="SHEET_CONTACT_FORM_OPENED"
+                            analytics-mediaveille {# Tracking MediaVeille #}
+                            data-type="MAILTO" {# Tracking Tourinsoft #}
+                            rc-modal size="lg"
+                            ng-if="sheet"
+                            window-class="contact-modal"
+                            tpl-url="sections/tourism/sheet-detail/modals/contact-form.html"
+                            action="click"
+                            check-params="form_contact">
+                            {{ 'GLOBAL.SEND'|trans }}
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div> {# End of panel body #}
+        </section>
+
+
+        {% if object.data.specificFields is defined and object.data.specificFields is not empty and object.data.specificFields.sfProfilElId is defined %}
+            {# end of <user> #}
+            </user>
+        {% endif %}
+
+    </li>
+{% endif %}

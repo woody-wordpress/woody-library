@@ -1,17 +1,18 @@
+.woody-component-trip-infos-card {
+    position: relative;
+}
+
 .woody-component-trip-infos {
     text-transform: $trip_info_text_transform;
     font-weight: $trip_infos_font_weight;
 
     flex-direction: column;
 
-    @include breakpoint(medium) {
+    @include breakpoint(large) {
         position: absolute;
         top: $trip_info_top_position;
         right: 10px;
         width: calc(100% - 10px);
-    }
-
-    @include breakpoint(large) {
         right: 0;
         width: 100%;
     }
@@ -24,70 +25,166 @@
         @include xy-gutters($gutter-position: bottom);
     }
 
-    .trip-button{
+    .trip-button {
         padding: 0px;
-        a{
-            padding:1em;
-            width:100%;
+
+        a {
+            padding: 1em;
+            width: 100%;
         }
-        &:nth-of-type(1){
-            margin-top:30px;
+
+        &:nth-of-type(1) {
+            margin-top: 30px;
         }
     }
 }
 
-.woody-component-teaser.tpl_05{
+.trip-info-banner {
     .woody-component-trip-infos {
-
+        margin-top: 20px;
         flex-direction: row;
-
+        flex-wrap: wrap;
         position: relative;
-
-        top:0px;
+        top: 0px;
         right: 0px;
         justify-content: center;
-        align-items: center;
-        position: initial;
+        align-items: stretch;
         padding: 0px;
-        @if ($trip-info-border){
-            border: 2px solid $trip-info-border-color;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        background-color: $black;
+
+        &:not(.single-block) {
+            width: calc(100vw - 15px);
         }
-        &>*{
+
+        &.single-block {
+            display: inline-flex;
+            width: auto;
+        }
+
+        &>.trip-infos-wrapper {
             flex: 1;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            @include breakpoint(medium down) {
+                flex: none;
+                width: 100%;
+            }
         }
+
         @if ($trip-info-separator) {
-            &>div:not(:last-of-type){
+            &>div.trip-infos-wrapper:not(:last-of-type) {
                 position: relative;
-                &:after{
+
+                &:after {
                     content: "";
                     position: absolute;
-                    width: 1px ;
-                    height : 20px;
-                    background-color:lighten($black,10);
+                    width: 1px;
+                    height: 20px;
+                    background-color: lighten($black, 10);
                     right: 0px;
                     top: 50%;
                     transform: translateY(-50%);
                 }
             }
         }
-        .trip-peoples-wrapper{
-            display: flex;
-            flex-direction: column;
-        }
-        .trip-duration-wrapper{
+
+        .trip-duration-wrapper {
             margin: 0px;
         }
-        button{
-            height: 100px;
-            background-color: $trip-info-button-color;
-            margin: 0px!important;
-            a{
-                color:$white;
+
+        button.trip-infos-wrapper {
+            margin: 0px;
+            padding: 20px;
+
+            a {
+                color: $white;
             }
         }
-        .text-fat{
+
+        .text-fat,
+        .price {
             font-size: 1.5rem;
         }
 
+        //add style for clock before duration & length
+        .trip-length-wrapper,
+        .trip-duration-wrapper {
+            &>div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:before {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        //add arrow on quotation button
+        .quotation-button {
+            &>a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @include wicon(034-fleche-suivant, after);
+
+                &:after {
+                    margin-left: 10px;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        //add icons
+        @if ($trip-has-icon) {
+            .trip-duration-wrapper>div {
+                @include wicon($trip-infos-duration-icon, before);
+            }
+
+            .trip-length-wrapper>div {
+                @include wicon($trip-infos-distance-icon, before);
+            }
+        }
+    }
+
+    .woody-component-trip-infos {
+        &:not(.bg-lightgray) {
+            color: $white;
+        }
+
+        &.bg-primary {
+            button.trip-infos-wrapper {
+                background-color: $black;
+
+                a {
+                    color: $white;
+                }
+
+                &:hover,
+                &:focus {
+                    background-color: darken($black, 10%);
+                }
+            }
+        }
+
+        &:not(.bg-primary) {
+            button.trip-infos-wrapper {
+                background-color: $trip-info-bandeau-button-color;
+
+                a {
+                    color: $white;
+                }
+
+                &:hover,
+                &:focus {
+                    background-color: darken($trip-info-bandeau-button-color, 10%);
+                }
+            }
+        }
     }
 }

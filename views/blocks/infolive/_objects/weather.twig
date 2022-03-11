@@ -1,0 +1,22 @@
+{% if title %}
+<div class="text-center marg-bottom-sm title-wrapper">
+    <span class="title h6">{{ __('Météo','woody-theme') }}</span>
+</div>
+{% endif %}
+{% if weather.icon is not empty and weather.temp is not empty %}
+<div class="flex-container {{ weather_classes|default('align-center align-middle marg-bottom-sm') }} weather-wrapper">
+    <span class="weather-icon {{ weather.icon }}"></span>
+    <span class="weather-temp">{{ weather.temp ~ '°C' }}</span>
+</div>
+{% endif %}
+{% if (data.slopes.settings.type == 'alpine' or data.slopes.settings.type == 'all') and (snow_depth or altitude) %}
+{% include "blocks/infolive/_objects/snow_depth.twig" with {
+    'snow_depth' : snow_depth ? snow_depth : false,
+    'altitude' : altitude ? altitude : false
+}%}
+{% endif %}
+{% if weather.link is not empty and link %}
+<a class="woody-component-button button primary" href="{{ weather.link }}" title="{{ __('Voir le bulletin météo', 'woody-theme') }}">
+    <span class="button-label">{{ __('Bulletin complet', 'woody-theme') }}</span>
+</a>
+{% endif %}

@@ -1,42 +1,15 @@
-<div class="woody-component-basic-swiper {{ index_class|default('tpl_01') }}">
-    <div class="swiper-container swResp woody-swiper {{ styleClass|default }}{% if pagination|default %} has-pagination{% endif %}" data-options="{{ swiper_options|default }}">
-        <div class="swiper-wrapper swRespW">
-            {% for key, item in items %}
-                <div class="swiper-slide swRespS">
-                    {% include "cards/#{card}/tpl.twig" with {
-                        'desequalize' : desequalize,
-                        'image_style' : image_style,
-                        'page_type' : item.page_type
-                    } %}
-                </div>
-            {% endfor %}
-        </div>
-        {% if pagination|default %}
-            <div class="swiper-{{ paginationStyle|default('thumbs') }}">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        {% for key, item in items %}
-                            <div class="swiper-slide">
-                                {% include "cards/#{card}/tpl.twig" with {
-                                    'desequalize' : desequalize,
-                                    'image_style' : image_style,
-                                    'page_type' : item.page_type
-                                } %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+<div class="woody-component-basic-swiper {{ index_class|default('tpl_01 ') }}{{ swiperCustomClasses|default }}{{ hide_controls ? ' not-controls ' }}{{ isRel ? ' isRel' }}{{ swResp ? ' is-swResp' }}">
+    <div class="swiper-container {{ swResp ? ' swResp' }} woody-swiper {{ styleClass|default }} {{ thumbs ? 'has-thumbs' : '' }} {{ pagination ? 'has-pagination' : '' }} {{ hide_controls ? '' : 'has-navigation' }}" data-options="{{ swiper_options|default }}">
+        {% include "swipers/_objects/swiperObject.twig" with {
+            'isReveal' : isReveal|default()
+        } %}
+        {% if thumbs %}
+        {% include "swipers/_objects/thumbsObject.twig" %}
         {% endif %}
     </div>
-    {% if items|length > 1 %}
-        <div class="swiper-nav">
-            <div class="swiper-button-prev">
-                <i aria-hidden="true" class="wicon wicon-026-precedent"></i>
-            </div>
-            <div class="swiper-button-next">
-                <i aria-hidden="true" class="wicon wicon-025-suivant"></i>
-            </div>
-        </div>
+    {% if not hide_controls %}
+        {% include "swipers/_objects/controlsObject.twig" with {
+            'controlsClasses': 'show-for-large'
+        } %}
     {% endif %}
 </div>

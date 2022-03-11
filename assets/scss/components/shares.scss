@@ -1,18 +1,12 @@
 .sharing-links {
-    display: flex;
-    @include xy-gutters($gutter-position: top);
 
-    .sharing-button__link {
+    .sharing-item {
         width: 20px;
         opacity: .8;
         transition: opacity .3s, transform .3s;
 
         &:not(:nth-last-of-type(1)) {
             margin-right: 20px;
-        }
-
-        &:after {
-            display: none !important;
         }
 
         &:hover {

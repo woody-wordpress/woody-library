@@ -1,0 +1,119 @@
+{% if true and (contractsLevels.sidebar.referenceTariff and formated_object.referenceTariff|default and formated_object.referenceTariff.price|default) or
+    (contractsLevels.content.tariffs and formated_object.tariffPeriods|default) or
+    (   (contractsLevels.sidebar.booking and formated_object.bookingUrl|default) or
+        (contractsLevels.sidebar.booking and formated_object.centralResa|default and formated_object.centralResa.mode|default != 'availability' and
+            (formated_object.centralResa.type not in ['99.20.02.02.04'] or site_key in ['ot-beaune'])
+    )) %}
+    <li id="li-booking" reference-tariff>
+
+        <section class="panel panel-default show-when-angular-ready hidden-xs hidden-sm"
+                {% if contractsLevels.stickyBooking %}
+                    sticky-contacts keep-original-width='true'
+                {% endif %}
+                {% if contractsLevels.sidebar.booking and formated_object.centralResa|default and formated_object.centralResa.type != '99.20.02.02.04' or (site_key in ['ot-beaune'] and formated_object.centralResa|default and formated_object.centralResa.type == '99.20.02.02.04') %}
+                id="sidebar_booking"
+                {% endif %}>
+
+            <div class="booking-content panel-body">
+
+                {# REFERENCE TARIFF #}
+                {% if contractsLevels.sidebar.referenceTariff and formated_object.referenceTariff|default and formated_object.referenceTariff.price is defined %}
+                    <div class="booking-info">
+                        {% if formated_object.referenceTariff.price is sameas(0) or formated_object.referenceTariff.price is sameas("0") %}
+                        <span class="booking-tariff-text">
+                            <span class="booking-tariff">{{ formated_object.referenceTariff.free }}</span>
+                        </span>
+                        {% else %}
+                        <span class="booking-tariff-text">
+                            {% if formated_object.referenceTariff.label|default %}
+                            <span class="booking-from">{{ formated_object.referenceTariff.label }}&nbsp;:&nbsp;</span>
+                            {% endif %}
+                            <span class="booking-tariff">{{ formated_object.referenceTariff.price|replace('.',',') }}<sup class="booking-tariff-sup">{{ formated_object.referenceTariff.currency|default('€') }}</sup></span>
+                        </span>
+                        <span class="booking-tariff-info">{{ formated_object.referenceTariff.type|default }}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if contractsLevels.sidebar.booking and formated_object.centralResa|default and formated_object.centralResa.mode|default != 'availability' %}
+                    {# Input dates #}
+                    {% if formated_object.centralResa.type not in ['99.20.02.02.04', '99.20.02.02.12', '99.20.02.02.14', '99.20.02.02.15', '99.20.02.02.17', '99.20.02.02.18'] or (formated_object.centralResa.type == '99.20.02.02.04' and site_key in ['ot-beaune']) %}
+                        <div id="sidebar-booking" class="booking-central-wrapper text-center"
+                            {% if contractsLevels.sidebar.referenceTariff %}
+                                ng-class="{'_plu-push-top': ref && ref.price}"
+                            {% endif %}>
+                            <span class="pl-heading">{{formated_object.centralResa.title|default('Réservez') }}</span>
+                            <ng-include src="'components/dates-global/apir-dates-global.html'"
+                                    ng-controller="datesGlobalCtrl" ng-if="localeLoaded"></ng-include>
+                        </div>
+                    {% elseif formated_object.centralResa.type in ['99.20.02.02.12', '99.20.02.02.14', '99.20.02.02.15', '99.20.02.02.17'] %}
+                        <div class="booking-link-wrapper sidebar-default-btn"
+                        anchor-link ng-click="scrollTo('#booking')">
+                            <span class="plo-btn _plu-fullwidth">
+                                {% if 'availability' in [formated_object.centralResa.mode|default, formated_object.centralResa.subtype|default] %}
+                                    {{ 'SECTIONS.TOURISM.SHEET.TABS.AVAILABILITIES'|trans }}
+                                {% else %}
+                                    {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endif %}
+
+                {# BOOKING LINK BUTTON #}
+                {% elseif contractsLevels.sidebar.booking and formated_object.bookingUrl|default %}
+
+                    {% if options.warningExternalLink is defined and options.warningExternalLink %}
+
+                        <div class="booking-link-wrapper sidebar-default-btn" data-open="warningExternalLink_modal">
+                            <span class="plo-btn _plu-fullwidth">{{'SECTIONS.PLANNING.MENU.ORDER'|trans}}</span>
+                        </div>
+
+                        <div class="reveal" id="warningExternalLink_modal" data-reveal>
+                            <p class="lead">{{'NOTIFICATIONS.EXTERNAL_LINK.TITLE'|trans}}</p>
+                            <p>{{'NOTIFICATIONS.EXTERNAL_LINK.TEXT'|trans}}</p>
+                            <button class="close-button" data-close aria-label="Annuler" type="button">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span class="plo-btn inverse" data-close type="button">{{'GLOBAL.CANCEL'|trans}}</span>
+                            <span class="booking-link-wrapper">
+                                <a href="{{formated_object.bookingUrl}}"
+                                    target="_blank" data-close
+                                    class="plo-btn" rel="nofollow"
+                                    interact event-type="SHEET_BOOK_URL">{{'GLOBAL.VALIDATE'|trans}}</a>
+                            </span>
+                        </div>
+
+                    {% else %}
+
+                        <div class="booking-link-wrapper sidebar-default-btn">
+                            <a target="_blank" rel="nofollow"
+                            href="{{formated_object.bookingUrl}}"
+                            class="plo-btn _plu-fullwidth"
+                            analytics-mediaveille {# Tracking MediaVeille #}
+                            data-fs-tracking="RESERVATION" {# Tracking Tourinsoft #}
+                            interact event-type="SHEET_BOOK_URL">
+                                {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
+                            </a>
+                        </div>
+                    {% endif %}
+
+
+                {% endif %}
+
+                {# "SEE ALL TARIFFS" BUTTON #}
+                {% if contractsLevels.content.tariffs and formated_object.tariffPeriods|default %}
+                    <div class="btn-wrapper sidebar-default-btn">
+                        <span class="plo-btn _plu-fullwidth" anchor-link ng-click="scrollTo('#tariffs')">
+                            <span class="icon-font-store plo-fonticon"></span>
+                            <span class="_plu-soft--left">
+                                {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.SEE_ALL'|trans }}
+                            </span>
+                        </span>
+                    </div>
+                {% endif %}
+
+            </div>
+        </section>
+
+    </li>
+{% endif %}

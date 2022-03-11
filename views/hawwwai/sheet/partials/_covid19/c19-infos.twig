@@ -1,0 +1,24 @@
+{% if formated_object.covidCharterStatus|default or formated_object.covidServices|default %}
+
+    <li id="li-c19-infos">
+        <section class="panel panel-default panel-body">
+
+            <div class="covidinfo-title _plu-push text-center">{{ 'COVID.INFOS'|trans }}</div>
+
+            {% if formated_object.covidCharterStatus|default %}
+                {% for covidCharter in formated_object.covidCharterStatus %}
+                    <div class="covidinfo-item covidcharterstatus">
+                        {{ covidCharter }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if formated_object.covidServices|default %}
+                {% for covidService in formated_object.covidServices %}
+                    <div class="covidinfo-item covidservice">{{ covidService }}</div>
+                {% endfor %}
+            {% endif %}
+
+        </section>
+    </li>
+
+{% endif %}

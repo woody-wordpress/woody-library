@@ -1,0 +1,23 @@
+{
+    "approved": true,
+    "name": "SocialWall 6 éléments - 02",
+    "description": "3 images dessus + en-tête + 3 images dessous",
+    "lib_type": "lite",
+    "acf_groups": [
+
+    ],
+    "vars": [
+        "background_color",
+        "background_img",
+        "background_img_opacity",
+        "sw_no_padding",
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "gallery_items"
+    ]
+}

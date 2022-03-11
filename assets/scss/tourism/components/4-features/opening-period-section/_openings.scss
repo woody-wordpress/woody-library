@@ -9,6 +9,9 @@
 
 #openings {
     position: relative;
+    .panel-body > .row {
+        width: 100%;
+    }
 }
 
 #load-more-btn {

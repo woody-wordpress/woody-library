@@ -1,0 +1,26 @@
+.woody-component-movie {
+    .plyr {
+        &__poster {
+            pointer-events: none;
+        }
+    }
+
+    .movie-title,
+    .movie-caption {
+        display: block;
+        text-align: $movie-text-align;
+    }
+
+    .movie-title {
+        @extend #{$movie-title-hstyle};
+        margin-bottom: 10px;
+        padding: $movie-title-padding;
+        background-color: $movie-title-bgcolor;
+    }
+
+    .movie-caption {
+        padding: $movie-caption-padding;
+        background-color: $movie-caption-bgcolor;
+        color: set-color($movie-caption-bgcolor);
+    }
+}

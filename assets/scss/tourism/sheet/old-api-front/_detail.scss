@@ -78,6 +78,7 @@
                 width: 100%;
                 overflow: hidden;
                 margin: 0;
+                display: flex;
 
                 label {
                     float: left;
@@ -108,6 +109,12 @@
         padding: 5px;
         font-size: 0.7em;
         color: $sheetDetailTitlesColor;
+    }
+
+    #contact-form-recaptcha {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
     }
 
     .field-wrapper {

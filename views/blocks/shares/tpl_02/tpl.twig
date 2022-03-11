@@ -1,0 +1,6 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}share{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('02') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% include "blocks/shares/tpl_01/tpl.twig" %}
+{% endblock %}

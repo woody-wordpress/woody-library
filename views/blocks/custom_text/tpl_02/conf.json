@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Template 02",
+    "description": "Affiche l'éditeur visuel avec titres alignés à gauche",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b042f5ad9ecc"
+    ],
+    "vars": [
+        "text"
+    ]
+}

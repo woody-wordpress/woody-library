@@ -1,12 +1,10 @@
 .rc_lego.item_sheet_booking_alpha {
-
     p {
         margin: 0;
     }
 
     a {
         padding: 0;
-
         &:focus,
         &:hover {
             text-decoration: none;
@@ -18,7 +16,7 @@
     }
 
     .clearfix {
-        background-color: #FFF;
+        background-color: #fff;
         display: flex;
         position: relative;
     }
@@ -27,6 +25,14 @@
         position: relative;
         width: 100%;
         height: 100%;
+    }
+
+    @media (max-width: 991px) {
+
+        .responsive-chips {
+            bottom: -$chip-size/2;
+            top: initial;
+        }
     }
 
     .item-tag-corner {
@@ -42,7 +48,7 @@
         &:after {
             position: absolute;
             z-index: -1;
-            content: '';
+            content: "";
             display: block;
             border: 4px solid darken($primary-color, 20%);
         }
@@ -60,7 +66,7 @@
             display: block;
             width: 160px;
             height: 80px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             top: -15px;
             right: 0;
             transform: rotate(-45deg);
@@ -76,55 +82,58 @@
         }
     }
 
-    .wishlist-button{
-        position: absolute;
-        right: 0;
+    .wishlist-button {
         bottom: 0;
     }
 
-    .item-infos-user {
-        width: 70px;
-        height: 70px;
-        cursor: pointer;
+    .bottom-left-corner {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 80%;
+    }
 
-        img {
-            width: 100%;
-            height: 100%;
-            border: 3px solid #FFF;
-            border-radius: 50%;
-            transition: transform $transition-delay;
+    .item-block-covid {
+        color: white;
+        text-align: center;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+    }
+    .item-block-covidcharterstatus {
+        background-color: #2d6c99;
+        border-bottom: 1px solid white;
+        padding: 10px 15px;
+        margin: 15px;
+    }
 
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
-
-        &.within-img {
-            margin: $ggw-div;
-            position: absolute;
-            bottom: 0;
-            left: 0;
+    .item-block-covidservices {
+        display: flex;
+        margin: 10px 0 5px;
+        font-size: 0.9em;
+        .covidservice {
+            flex-grow: 0.4;
+            background-color: #e1a600;
+            margin-right: 10px;
+            padding: 8px 15px;
         }
     }
 
-    .item-infos-wrapper {
+    .infos-wrapper {
         display: flex;
         flex-direction: column;
+        line-height: 1em;
     }
 
-    .item-infos-desc {
-        margin-bottom: 5px;
-    }
-
-    .item-thumbnail{
+    .item-thumbnail {
         padding: 0;
         display: flex;
         justify-content: center;
         position: relative;
         background-color: $color-fond-thumbnail-img;
         font-size: 0.9em;
+        min-width: 270px;
 
-        &>img {
+        & > img {
             width: 100%;
             height: auto;
             align-self: center;
@@ -137,117 +146,6 @@
             top: 0;
             left: 0;
             padding: 0;
-
-        }
-
-        .item-services {
-            display: flex;
-
-            &>span {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                padding: 5px;
-                margin-right: 4px;
-                width: 30px;
-                height: 40px;
-                color: #FFF;
-                background-color: rgba(0, 0, 0, 0.5);
-            }
-        }
-
-        .item-chains {
-            display: inline-flex;
-            padding: 4px;
-            margin: 10px 10px 0px 10px;
-            background-color: #FFF;
-            border-radius: 5px;
-
-            .item-chain {
-                display: inline-flex;
-                align-items: center;
-                max-width: 50px;
-                max-height: 50px;
-                margin: 0;
-                padding: 0;
-                float: none;
-                clear: none;
-            }
-        }
-
-        .item-territory-label-brands {
-            display: inline-flex;
-            margin: 10px 10px 0px 10px;
-            .item-territory-label-brand {
-                display: inline-flex;
-                align-items: center;
-                width: 58px;
-                height: 58px;
-                margin: auto;
-            }
-        }
-
-        .item-specials {
-            display: block;
-            padding: 4px;
-            margin: 10px 10px 0px 10px;
-            width: 50px;
-            height: 50px;
-            background-color: #FFF;
-            border-radius: 5px;
-        }
-
-
-
-        .top-right-corner {
-            left: auto;
-            right: 0;
-            text-align: right;
-
-            transition: transform $transition-delay;
-
-
-
-            .item-services {
-                justify-content: flex-end;
-
-                &>span {
-                    margin-right: 0px;
-                    margin-left: 4px;
-                }
-            }
-
-            .item-chain,
-            .item-specials,
-            .item-deals {
-                float: right;
-                clear: right;
-            }
-        }
-
-        .item-itineraryLength {
-            display: inline-block;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            padding: 5px 15px;
-            text-align: center;
-            font-size: 2em;
-            line-height: 1.7em;
-            font-weight: 300;
-            color: #FFF;
-            background-color: $primary-color;
-
-            .item-itineraryLength-decvalue {
-                font-size: 0.7em; // 70% of parent
-            }
-
-            .item-itineraryLength-unit {
-                display: inline-block;
-                font-size: 0.8em;
-                font-weight: 200;
-            }
         }
     }
 
@@ -264,51 +162,23 @@
             color: #7a7a7a;
         }
 
-        .infos-wrapper p {
-            margin-bottom: 5px;
-        }
 
-        .item-block-infos-date{
+        .item-block-infos-date {
             margin-top: -5px;
             margin-bottom: 10px;
-        }
-
-        .item-infos-date {
-            font-weight: 400;
-            font-size: 16px;
-            .item-infos-date-label {
-                font-size: 15px;
-            }
-            .item-infos-date-day {
-                font-size: 21px;
-            }
-            .item-infos-date-month {
-                font-size: 16px;
-            }
         }
 
         .item-infos-header {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .item-infos-title {
-            margin: 0;
-            color: #222;
-            font-size: 1.4em;
-        }
-
-        .item-infos-type {
-            margin-top: 5px;
         }
 
         .item-infos-ratings {
-            margin-top: 5px;
+            @include hw_space_elements;
 
             span {
-                color: #F0CB00;
+                color: #f0cb00;
                 font-size: 0.85em;
                 line-height: 0.85em;
             }
@@ -322,72 +192,17 @@
 
         .item-block-infos-mark {
             padding-left: $ggw-div/2;
-            line-height: 1;
-            text-align: center;
-
             .item-infos-mark {
-                display: block;
-                margin-bottom: 5px;
-
                 i {
+                    font-size: 40px;
+                }
+                span {
                     color: $primary-color;
                     font-size: 40px;
                 }
-
-                span {
-                    color: $primary-color;
-                    font-size: 40px;
-                }
             }
-
-            .item-infos-nb-mark {
-                display: block;
-                white-space: nowrap;
-
-                span {
-                    font-weight: bold;
-                }
-            }
-        }
-
-        .item-infos-locomotions {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-
-        }
-
-        .item-infos-locomotion {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 10px;
-
-            &:not(:last-child) {
-                margin-right: 10px;
-            }
-
-            &>span:first-of-type {
-                display: inline-block;
-                width: 40px;
-                height: 40px;
-                color: $primary-color;
-                font-size: 35px;
-                text-align: center;
-                line-height: 40px;
-                &.icon-font-swimming { font-size: 22px; }
-            }
-
-            .locomotion-infos {
-                display: flex;
-                flex-direction: column;
-
-                span {
-                    display: block;
-                    margin: auto;
-                    float: left;
-                    clear: both;
-                    line-height: 1.3em;
-                }
+            .item-infos-nb-mark span {
+                font-weight: bold;
             }
         }
 
@@ -457,7 +272,7 @@
             padding-left: $ggw-div;
             // vertical-align: top;
 
-            color: #A1A1A1;
+            color: #a1a1a1;
             text-align: left;
             font-size: 0.9em;
         }
@@ -503,37 +318,7 @@
     }
 }
 
-
 ///# MEDIASQUERIES
-
-@media screen and (min-width: $ts_screen-lxs) {
-    .rc_lego.item_sheet_booking_alpha.s01 {
-        .item-booking {
-            .tariffs-value {
-                margin: 0;
-                // font-size: 3.5vw;
-            }
-
-            .tariffs-subinfos {
-                margin: $ggw-div 0;
-            }
-
-            .btn-booking {
-                padding: $ggw-div 60px;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: $ts_screen-sm) {
-    .rc_lego.item_sheet_booking_alpha.s01 {
-        .item-booking {
-            .btn-booking {
-                padding: 10px 30px;
-            }
-        }
-    }
-}
 
 @media screen and (min-width: $ts_screen-md) {
     .rc_lego.item_sheet_booking_alpha.s01 {
@@ -585,11 +370,11 @@
             }
 
             .tariffs-subinfos {
-                margin: $ggw-div*2/3 0 !important;
+                margin: $ggw-div * 2/3 0 !important;
 
                 .icon-font-info {
-                    padding: $ggw-div*2/3 !important;
-                    margin-left: $ggw-div*2/3 !important;
+                    padding: $ggw-div * 2/3 !important;
+                    margin-left: $ggw-div * 2/3 !important;
                 }
             }
 
@@ -598,52 +383,21 @@
                 font-size: 1em !important;
             }
         }
-
-        .item-infos-fairguest {
-            .w-note {
-                span {
-                    font-size: 28px !important;
-                    line-height: 38px !important;
-                }
-
-                span:nth-child(2) {
-                    font-size: 18px !important;
-                    line-height: 28px !important;
-                }
-            }
-
-            .w-resume {
-                font-size: 10px !important;
-                line-height: 10px !important;
-            }
-        }
     }
 }
 
 @media screen and (max-width: 800px) {
-    .rc_lego.item_sheet_booking_alpha.s01 {
-        .item-infos {
-            font-size: 0.8em !important;
-
-            .item-infos-title {
-                font-size: 1.2em !important;
-            }
-        }
-    }
-
     .item-infos-fairguest {
         .w-note {
             span {
                 font-size: 23px !important;
                 line-height: 33px !important;
             }
-
             span:nth-child(2) {
                 font-size: 13px !important;
                 line-height: 23px !important;
             }
         }
-
         .w-resume {
             font-size: 0.9em !important;
             line-height: 0.9em !important;
@@ -652,8 +406,9 @@
 }
 
 // superposition
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1100px) {
     .rc_lego.item_sheet_booking_alpha.s01 {
+
         .clearfix {
             flex-direction: column;
         }
@@ -686,37 +441,31 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .rc_lego.item_sheet_booking_alpha.s01 {
-        .item-infos-desc {
-            display: none;
+        // Responsive chips
+        .responsive-chips {
+            display: flex !important;
         }
 
+        &.option-chips .item-infos-comm-means .item-infos-phone,
+        .sidebloc {
+            display: none !important;
+        }
+
+        &.option-chips .item-infos{
+            padding-top: 15px + $chip-size/2 !important;
+        }
+        &.option-chips .bottom-left-corner {
+            margin-bottom: 15px;
+        }
+
+
+        // .item-infos-desc {
+        //     display: none;
+        // }
         .mainbloc {
             flex-direction: column !important;
-        }
-
-        .item-booking {
-            .tariffs-value {
-                font-size: 2.5em !important;
-                margin-bottom: 0 !important;
-            }
-
-            .tariffs-subinfos {
-                display: none;
-            }
-
-            .tariffs-infos {
-                padding-left: 0 !important;
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 425px) {
-    .rc_lego.item_sheet_booking_alpha.s01 {
-        .item-booking .item-booking-wrapper {
-            flex-direction: column;
         }
     }
 }

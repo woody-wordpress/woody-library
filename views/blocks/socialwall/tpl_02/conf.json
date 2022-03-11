@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Grille SocialWall - 02",
+    "name": "Template 02 - Carré",
     "description": "Affiche l'en-tête centré en haut de la grille",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b5b2fbc3460d"
     ],

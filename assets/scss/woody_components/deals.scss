@@ -1,0 +1,43 @@
+.woody-component-deals-block {
+    .woody-deals-cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding-right: 6px;
+        color: $deals-icon-color;
+
+        >div {
+            position: relative;
+        }
+
+        .wicon {
+            display: block;
+        }
+
+        &:hover {
+            color: $deals-icon-color;
+
+            .counter {
+                background-color: $deals-counter-color-hover;
+            }
+        }
+    }
+
+    .wicon::before {
+        font-size: 28px;
+    }
+
+    .counter {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 50%;
+        bottom: 5px;
+        text-align: center;
+        font-size: rem-calc(11);
+        color: $white;
+        background-color: $deals-counter-color;
+        border-radius: 50%;
+    }
+}

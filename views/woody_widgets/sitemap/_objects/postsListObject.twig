@@ -1,0 +1,14 @@
+<ul class="sitemap-list" data-depth="depth-{{ depth }}" data-accordion>
+    {% for post in posts %}
+        <li class="sitemap-post">
+            <a class="sitemap-link" href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+            {% if post.children %}
+            {% set depth = depth + 1 %}
+            {% include 'woody_widgets/sitemap/_objects/postsListObject.twig' with {
+                'posts' : post.children,
+                'depth' : depth
+            } %}
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>

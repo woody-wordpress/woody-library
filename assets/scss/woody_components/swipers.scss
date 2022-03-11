@@ -1,5 +1,19 @@
 .woody-component-basic-swiper {
     width: 100%;
+
+    @include breakpoint(large) {
+        .zoomActive {
+            &.nopadding {
+                .swiper-slide-prev {
+                    transform-origin: right;
+                }
+
+                .swiper-slide-next {
+                    transform-origin: left;
+                }
+            }
+        }
+    }
 }
 
 .woody-component-landswpr {
@@ -34,7 +48,45 @@
         }
 
         &-link {
-            @include xy-gutters($gutters: 5px, $gutter-position: left right);
+            @include xy-gutters($gutters: 30px, $gutter-position: right);
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .plyr--video {
+        opacity: 0;
+        transition: opacity .3s;
+
+        &.playing {
+            opacity: 1;
+        }
+    }
+
+    .landSwprPlyr {
+        opacity: 0;
+
+        &-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: auto;
+            z-index: -1;
+        }
+    }
+
+    .toggling-movie-container.embed-plyr {
+        .plyr--video {
+            opacity: 1;
+        }
+
+        .plyr__video-wrapper {
+            transform: unset;
+            top: unset;
         }
     }
 
@@ -51,7 +103,11 @@
     }
 
     .landswpr-search-form {
-        margin-top: 40px;
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
 
         .input-group-field {
             min-width: 220px;
@@ -100,13 +156,65 @@
         }
     }
 
-    &.tpl_06 {
+    &.fadingSwiper {
+        .swiper-slide:after {
+            display: block;
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            z-index: 1;
+            background: linear-gradient(to top, $white 12%, transparent);
+
+            // @include breakpoint(medium down) {
+            //     height: 40%;
+            // }
+        }
+
+        @include breakpoint(medium down) {
+            height: 115vh;
+
+            .swiper-slide:not(.slide-type-embed) {
+                height: 115vh;
+            }
+        }
+
+        @include breakpoint(large) {
+            height: 150vh;
+        }
+    }
+
+
+    &.tpl_06,
+    &.tpl_09 {
         .landswpr-titles {
             margin-bottom: 30px;
 
             @include breakpoint(large) {
                 margin-bottom: 80px;
             }
+        }
+    }
+
+    &.tpl_07 {
+        .landswpr-titles-wrapper {
+            // Text aligned to left in 100% width box but div is in border-box:content-box, so we won't see the padding without max width
+            max-width: calc(100% - 60px);
+            padding-top: 60vh;
+        }
+    }
+
+    .landSwprPlyr,
+    .plyr--video {
+        height: 100%;
+    }
+
+    .plyr__video-wrapper {
+        @include breakpoint(large) {
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 }
@@ -129,11 +237,12 @@ body:not(.no-page-header) {
         height: 100%;
     }
 
-    @include breakpoint(xmedium down) {
-        .swiper-slide {
+    @media screen and (max-width: 1024px) {
+        .swiper-slide:not(.slide-type-embed) {
             padding-top: 0;
             padding-bottom: 0;
             height: 100vw;
+            max-height: 100vh;
         }
     }
 
@@ -479,6 +588,108 @@ body:not(.no-page-header) {
             transform-origin: 0 100%;
             transform: scaleY(0);
             transition: all .25s ease-in;
+        }
+    }
+}
+
+.woody-component-landswpr.tpl_09 {
+
+    .landswpr-titles,
+    .landswpr-links-wrapper {
+        padding-right: $global-padding;
+    }
+}
+
+.woody-landing-swiper.swiper-container {
+    &.navigation-bottom-left {
+        .swiper-navigation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: $navigation-bottom-left-mobile-direction;
+
+            @include breakpoint(xxlarge) {
+                flex-direction: $navigation-bottom-left-direction;
+            }
+
+            .swiper-button {
+
+                &-prev,
+                &-next {
+                    position: relative;
+                    left: inherit;
+                    right: inherit;
+                    top: inherit;
+                    margin: 0;
+                    background-color: $navigation-bottom-left-background-color;
+                    height: $navigation-bottom-left-mobile-size !important;
+                    width: $navigation-bottom-left-mobile-size !important;
+
+                    @include breakpoint(xxlarge) {
+                        height: $navigation-bottom-left-size !important;
+                        width: $navigation-bottom-left-size !important;
+                    }
+
+                    &>i {
+                        color: $navigation-bottom-left-arrow-color;
+                        font-size: $navigation-bottom-left-arrow-mobile-size;
+
+                        @include breakpoint(xxlarge) {
+                            font-size: $navigation-bottom-left-arrow-size;
+                        }
+                    }
+                }
+
+                &-prev {
+                    margin-bottom: 1px;
+                }
+            }
+        }
+    }
+
+    &.pagination-bottom-left {
+        .swiper-pagination {
+            width: auto !important;
+            left: $navigation-bottom-left-mobile-size;
+            margin-left: 10px;
+            bottom: 10px;
+
+            @if $navigation-bottom-left-mobile-direction=="row" {
+                left: $navigation-bottom-left-mobile-size * 2;
+            }
+
+            @include breakpoint(xxlarge) {
+                left: $navigation-bottom-left-size;
+            }
+        }
+    }
+
+    &.pagination-vertical {
+        .swiper-pagination {
+            display: flex;
+            flex-direction: $swiper-pagination-vertical-mobile-direction;
+
+            @include breakpoint(xxlarge) {
+                flex-direction: column;
+            }
+
+            .swiper-pagination-bullet {
+                margin: 5px;
+            }
+        }
+    }
+}
+
+// Set default colors to bullets
+.swiper-pagination.swiper-pagination-bullets {
+    .swiper-pagination-bullet {
+        transition: all ease-in-out .2s;
+        opacity: .95;
+        background-color: $white;
+
+        &.active {
+            background-color: $primary-color;
         }
     }
 }

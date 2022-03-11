@@ -1,0 +1,11 @@
+<div class="links-wrapper">
+    <ul class="no-bullet flex-container flex-dir-column align-middle align-center">
+        {% for item in links %}
+        <li class="text-center">
+            <a class="woody-component-button button primary" href="{{ item.link.url }}" title="{{ item.link.title }}" target="{{ item.link.target|default('_self') }}">
+                <span class="button-label">{{ item.link.title }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

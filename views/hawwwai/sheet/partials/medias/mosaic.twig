@@ -1,0 +1,376 @@
+
+{% set MAX_MEDIAS = 5 %}
+{% if formated_object.bordereau == 'FMA' %}{% set MAX_MEDIAS = 1 %}{% endif %}
+{% set nbDisplayed = min(formated_object.mosaicMedias|length, MAX_MEDIAS) %}
+{% set hasVideo = false %}
+<div id="mosaic-header" class="{{ 'has-'~ nbDisplayed }}">
+    {% if formated_object.mosaicMedias|default %} {# MAX 5 by default | MAX 1 FMA #}
+        <div id="mosaic" class="divide-row {{ 'has-'~ nbDisplayed }}">
+
+            <div class="back-img"{% if nbDisplayed == 1 and formated_object.medias.photos|default %}
+                style="background-image: url({{formated_object.medias.photos[0].URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}})"
+                {% endif %}>
+            </div>
+
+            {% for media in formated_object.mosaicMedias|slice(0, MAX_MEDIAS) %}
+
+                {# left column #}
+                {% if loop.index == 1 %}
+                <div class="left column">
+                {# right column #}
+                {% elseif loop.index == 2 %}
+                <div class="right column {% if loop.length > 2 %}divide-row{% endif %}">
+                {% endif %}
+
+                {% if (loop.length >= 4 and loop.index == 2) or loop.index == 4 %}
+                    <div class="divide-col">
+                {% endif %}
+
+                {# portrait #}
+                {% if (loop.index in [2,3] and loop.length == 3) or (loop.index == 4 and loop.length == 4) %}
+
+                        <div class="img-wrapper portrait lightgallery"
+                            data-src="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                            data-thumb="{{media.URL| rcImg(200, 200, 75, 'jpg', 'clip')}}"
+                            {% if media._caption|default or media._copyright|default %}
+                                data-sub-html="<div>{{ media._caption|default }}</div>{% if media._copyright|default %}<div>©&nbsp;{{ media._copyright|trim('©', 'left') }}{% endif %}</div>"
+                            {% endif %}
+                            href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                            data-frescox-group="gallery_media"
+                            data-frescox-options="loop: true, preload: [1,1]"
+                            itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                            <meta itemprop="url" content="{{media.URL}}">
+                            <div class="background-img" style="background-image: url({{ media.URL | rcImg(1200, 760, 75, 'jpg', 'clip') }});"></div>
+                        </div>
+
+                {# landscape #}
+                {% else %}
+                    {% if media.player|default and (media.player == 'youtube' or media.player == 'vimeo' or media.player == 'dailymotion') %}
+                        {% set hasVideo = true %}
+                        <div class="gallery-video-wrapper">
+                            <iframe id="ytplayer"
+                                width="100%" height="100%"
+                                ng-src={{ media._embedURL }}
+                                frameborder="0" allowfullscreen>
+                            </iframe>
+                        </div>
+
+                    {% else %}
+                        {% if nbDisplayed == 1 %}
+                        <div class="img-wrapper">
+                            <div class="inner-wrapper">
+                                <div id="nav-btn-wrapper" class="relative-to-wrapper">
+                                    <div class="prev-next-wrapper">
+                                        <div class="btn" {# ng-class="{disabled: !prevSheet.metadata.id}" ng-if="prevSheet.metadata.id" #} ng-click="goUrl('prev')">
+                                            <span class="icon-font-nav-prev plo-fonticon"></span>
+                                        </div>
+                                        <div class="btn" {# ng-class="{disabled: !nextSheet.metadata.id}" ng-if="nextSheet.metadata.id"  #} ng-click="goUrl()">
+                                            <span class="icon-font-nav-next plo-fonticon"></span>
+                                        </div>
+                                    </div>
+                                    <div class="btn" ng-click="goBack()">
+                                        <span class="icon-font-nav-back plo-fonticon"></span>
+                                        <span class="hidden-xs">&nbsp;&nbsp;{{ 'SECTIONS.TOURISM.BACK_TO_LIST'| trans }}</span>
+                                    </div>
+                                </div>
+
+                                {% set nbPhotos = formated_object.mosaicMedias|length %}
+                                {% if nbPhotos > 1 %}
+                                <div id="see-all-photos" class="relative-to-wrapper">
+                                    <div onclick="$('#mosaic>.left img').click();"
+                                        class="btn">
+                                        <span class="icon-font-image plo-fonticon"></span>
+                                        <span class="">&nbsp;&nbsp;{{ 'SECTIONS.TOURISM.SHEET.SEE_PHOTOS'|trans }} ({{ nbPhotos }})</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                {% if options.wishlist %}
+                                <div id="add-favorites" class="relative-to-wrapper {% if nbPhotos > 1 %}add-offset{% endif %} show-when-angular-ready">
+                                    <div rc-sheet-state ng-class="{'favorited': isFav(sheet.metadata.id)}" ng-click="toggleFav(sheet)">
+                                        {% if formated_object.wishlistConfig.iconOff|default('heart-2') in ['heart', 'heart-2'] %}
+                                            <div class="wicon" ng-if="!isFav(sheet.metadata.id)"> {# heart #}
+                                                <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M118.247347,69.6445969 C120.873078,64.633108 122.488032,59.1524305 123,53.5155022 L123,51.7692419 C122.947608,35.8871118 110.079891,23.042361 94.2306083,23.0511983 C84.4118063,23.0831242 75.2841545,28.120045 70.0079211,36.4180268 C63.1801617,25.5817565 50.0250751,20.5746489 37.7399235,24.1361361 C25.4547718,27.6976233 16.9994753,38.9696193 17,51.785117 L17,53.4996271 C18.710955,82.3764217 62.9423106,117 69.9762367,117 C74.1902556,117 85.0896727,108.363949 91.1730683,102.998168 C100.376723,107.573682 111.515448,105.152804 118.000465,97.1675306 C124.485481,89.1822575 124.587987,77.7613374 118.247347,69.660472 L118.247347,69.6445969 Z M109.613361,85.6943162 L103.276491,85.6943162 L103.276491,92.0443534 C103.276491,93.3857919 102.191295,94.4732427 100.852638,94.4732427 C99.5139809,94.4732427 98.4287849,93.3857919 98.4287849,92.0443534 L98.4287849,85.6943162 L92.0919145,85.6943162 C90.7532575,85.6943162 89.6680616,84.6068654 89.6680616,83.2654269 C89.6680616,81.9239884 90.7532575,80.8365376 92.0919145,80.8365376 L98.4287849,80.8365376 L98.4287849,74.4865003 C98.4287849,73.1450618 99.5139809,72.0576111 100.852638,72.0576111 C102.191295,72.0576111 103.276491,73.1450618 103.276491,74.4865003 L103.276491,80.8365376 L109.613361,80.8365376 C110.952018,80.8365376 112.037214,81.9239884 112.037214,83.2654269 C112.037214,84.6068654 110.952018,85.6943162 109.613361,85.6943162 L109.613361,85.6943162 Z M114.571962,66.0250756 C105.206455,58.8666949 91.872717,60.3887547 84.3538124,69.4745084 C76.8349079,78.5602621 77.8097082,91.9725937 86.5629951,99.8707744 L86.9907338,100.235902 C77.4854282,108.49095 71.0535047,112.094596 69.9762367,112.173972 C65.0017935,111.935845 23.4319235,79.7887815 21.8477059,53.2138754 L21.8477059,51.7374917 C21.8301061,38.5556512 32.4565922,27.8431938 45.61097,27.7819761 C55.2542305,27.7604458 63.9543128,33.5809149 67.6315947,42.5140626 C67.8769948,43.1101504 68.3488603,43.5839905 68.9431954,43.8311521 C69.5375305,44.0783136 70.2055509,44.0785091 70.8000299,43.8316953 C71.389082,43.5752701 71.859037,43.1043386 72.1149305,42.5140626 C76.4451058,31.8969004 87.6894121,25.8571847 98.9100088,28.1214758 C110.130606,30.3857669 118.165564,40.3159946 118.057241,51.785117 L118.057241,53.1821252 C117.689075,57.6350376 116.524618,61.9852833 114.619489,66.0250756 L114.571962,66.0250756 Z"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="wicon" ng-if="isFav(sheet.metadata.id)"> {# fav heart #}
+                                                <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M109.616147,85.3838527 L92.3838527,85.3838527 C91.0672872,85.3838527 90,84.3165655 90,83 C90,81.6834345 91.0672872,80.6161473 92.3838527,80.6161473 L109.616147,80.6161473 C110.932713,80.6161473 112,81.6834345 112,83 C112,84.3165655 110.932713,85.3838527 109.616147,85.3838527 Z M118.292184,69.1483778 L118.292184,69.164084 C124.573006,77.17877 124.471467,88.4781909 118.04763,96.3785143 C111.623793,104.278838 100.590151,106.673962 91.4733224,102.147123 C85.4473173,107.455822 74.6507249,116 70.4764609,116 C63.5088925,116 19.6948139,81.7447576 18,53.175163 L18,51.4788924 C17.9994802,38.7997297 26.3750098,27.6476486 38.5442638,24.1240496 C50.7135178,20.6004505 63.7444998,25.554291 70.5078464,36.2752818 C75.734304,28.0655765 84.7758459,23.0822399 94.5020176,23.0506536 C110.201779,23.0419103 122.948102,35.7500149 123,51.4631862 L123,53.1908692 C122.492862,58.7678302 120.893143,64.1902026 118.292184,69.1483778 Z M101.171424,65.5673621 L101.171424,65.6301869 C91.7974777,65.6388459 84.2005511,73.2423019 84.1918996,82.6243053 C84.2265367,92.0016414 91.843798,99.5786373 101.213117,99.5555474 C110.582436,99.5324574 118.162323,91.9180093 118.15082,82.5406163 C118.139317,73.1632232 110.540772,65.5674262 101.171424,65.5673621 Z"></path>
+                                                </svg>
+                                            </div>
+                                        {% else %}
+                                            <span class="icon-font-{{formated_object.wishlistConfig.iconOff}} plo-fonticon"></span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+
+
+                                <img class="img-reponsive {{formated_object.bordereau|default }} lightgallery"
+                                    data-src="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                                    data-thumb="{{media.URL| rcImg(200, 200, 75, 'jpg', 'clip')}}"
+                                    {% if media._caption|default or media._copyright|default %}
+                                        data-sub-html="<div>{{ media._caption|default }}</div>{% if media._copyright|default %}<div>©&nbsp;{{ media._copyright|trim('©', 'left') }}{% endif %}</div>"
+                                    {% endif %}
+                                    itemprop="image" itemscope itemtype="https://schema.org/ImageObject"
+
+                                    href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                                    data-frescox-group="gallery_media"
+                                    data-frescox-options="loop: true, preload: [1,1]"
+
+                                    alt="{{ media._name|default('img-name-mising') }}"
+                                    src="{{ media.URL | rcImg(1200, 760, 75, 'jpg', 'clip') }}"
+                                    itemprop="url"
+                                    />
+                            </div>
+                        </div>
+                        {% else %}
+                            <div class="img-wrapper lightgallery"
+                                data-src="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                                data-thumb="{{media.URL| rcImg(200, 200, 75, 'jpg', 'clip')}}"
+                                {% if media._caption|default or media._copyright|default %}
+                                    data-sub-html="<div>{{ media._caption|default }}</div>{% if media._copyright|default %}<div>©&nbsp;{{ media._copyright|trim('©', 'left') }}{% endif %}</div>"
+                                {% endif %}
+                                href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                                data-frescox-group="gallery_media"
+                                data-frescox-options="loop: true, preload: [1,1]"
+                                itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                                <meta itemprop="url" content="{{media.URL}}">
+                            <div class="background-img" style="background-image: url({{ media.URL | rcImg(1200, 760, 75, 'jpg', 'clip') }});"></div>
+                        </div>
+                        {% endif %}
+
+                    {% endif %}
+                {% endif %}
+
+                {% if loop.length >= 4 and (loop.index == 3 or loop.last) %}
+                    </div> {# end divide col #}
+                {% endif %}
+
+                {% if loop.length > 1 and loop.first %}
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+
+            {# add the rest of the photos in fullscreen library (frescox) #}
+            {% for media in formated_object.mosaicMedias|slice(MAX_MEDIAS) %}
+                {% if media.URL %}
+                    <div class="img-wrapper lightgallery"
+                        data-src="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                        data-thumb="{{media.URL| rcImg(200, 200, 75, 'jpg', 'clip')}}"
+                        {% if media._caption|default or media._copyright|default %}
+                            data-sub-html="<div>{{ media._caption|default }}</div>{% if media._copyright|default %}<div>©&nbsp;{{ media._copyright|trim('©', 'left') }}{% endif %}</div>"
+                        {% endif %}
+                        href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
+                        data-frescox-group="gallery_media"
+                        data-frescox-options="loop: true, preload: [1,1]"
+                        itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="{{media.URL}}">
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            {# Bottom plain left corner #}
+            <div class="mosaic-abs-block bottom plain-left">
+                {# territoryLabelBrands #}
+                {% if formated_object.territoryLabelBrands|default %}
+                    <span class="tourism-labels sheet-territory-label-brands">
+                        {% for image in formated_object.territoryLabelBrands %}
+                            <span class="sheet-territory-label-brand">
+                                {% if image.urlInfo|default %}<a href="{{image.urlInfo}}" rel="noindex,nofollow" target="_blank">{% endif %}
+                                    <img class="img-responsive" alt="{{image.libelle|default}}" src={{ image.urlHD|default(image.url) | rcImg(200, 200, 80, 'png', 'clip') }}>
+                                {% if image.urlInfo|default %}</a>{% endif %}
+                            </span>
+                        {% endfor %}
+                    </span>
+                {# End of territoryLabelBrands #}
+                {% elseif formated_object.specialLabels|default %}
+                {# SpecialLabels #}
+                <li class="tourism-labels tourism-special-labels">
+                    {% for simplelabel in formated_object.specialLabels %}
+                        {% for image in thesaurus.images %}
+                            {% if image.code == simplelabel.type %}
+                            <span class="tourism-special-label">
+                                <img class="img-responsive" alt="{{thesaurus.fulldictionary[image.code]|default}}" src={{ image.urlHD|default(image.url) | rcImg(95, 95, 80, 'png', 'clip') }}>
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </li>
+                {% endif %} {# End of labels #}
+            </div>
+
+        </div>
+
+        {# TopLeftCorner #}
+        {% if formated_object.tagCorner|default %}
+        <div class="sheet-tag-corner">
+            <span class="corner"></span>
+            <span class="icon icon-font-{{ formated_object.tagCorner.icon|default('star') }}" {% if formated_object.tagCorner._type|default %}data-toggle="tooltip" data-placement="right" title="{{ formated_object.tagCorner._type }}"{% endif %}></span>
+        </div>
+        {% endif %}
+
+        {% if nbDisplayed != 1 %}
+            <div class="mosaic-abs-block top left">
+                {# Ajout wishlist #}
+                {% if options.wishlist %}
+                <div id="add-favorites" class="show-when-angular-ready">
+                    <div rc-sheet-state ng-class="{'favorited': isFav(sheet.metadata.id)}" ng-click="toggleFav(sheet)">
+                        {% if formated_object.wishlistConfig.iconOff|default('heart-2') in ['heart', 'heart-2'] %}
+                            <div class="wicon" ng-if="!isFav(sheet.metadata.id)"> {# heart #}
+                                <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M118.247347,69.6445969 C120.873078,64.633108 122.488032,59.1524305 123,53.5155022 L123,51.7692419 C122.947608,35.8871118 110.079891,23.042361 94.2306083,23.0511983 C84.4118063,23.0831242 75.2841545,28.120045 70.0079211,36.4180268 C63.1801617,25.5817565 50.0250751,20.5746489 37.7399235,24.1361361 C25.4547718,27.6976233 16.9994753,38.9696193 17,51.785117 L17,53.4996271 C18.710955,82.3764217 62.9423106,117 69.9762367,117 C74.1902556,117 85.0896727,108.363949 91.1730683,102.998168 C100.376723,107.573682 111.515448,105.152804 118.000465,97.1675306 C124.485481,89.1822575 124.587987,77.7613374 118.247347,69.660472 L118.247347,69.6445969 Z M109.613361,85.6943162 L103.276491,85.6943162 L103.276491,92.0443534 C103.276491,93.3857919 102.191295,94.4732427 100.852638,94.4732427 C99.5139809,94.4732427 98.4287849,93.3857919 98.4287849,92.0443534 L98.4287849,85.6943162 L92.0919145,85.6943162 C90.7532575,85.6943162 89.6680616,84.6068654 89.6680616,83.2654269 C89.6680616,81.9239884 90.7532575,80.8365376 92.0919145,80.8365376 L98.4287849,80.8365376 L98.4287849,74.4865003 C98.4287849,73.1450618 99.5139809,72.0576111 100.852638,72.0576111 C102.191295,72.0576111 103.276491,73.1450618 103.276491,74.4865003 L103.276491,80.8365376 L109.613361,80.8365376 C110.952018,80.8365376 112.037214,81.9239884 112.037214,83.2654269 C112.037214,84.6068654 110.952018,85.6943162 109.613361,85.6943162 L109.613361,85.6943162 Z M114.571962,66.0250756 C105.206455,58.8666949 91.872717,60.3887547 84.3538124,69.4745084 C76.8349079,78.5602621 77.8097082,91.9725937 86.5629951,99.8707744 L86.9907338,100.235902 C77.4854282,108.49095 71.0535047,112.094596 69.9762367,112.173972 C65.0017935,111.935845 23.4319235,79.7887815 21.8477059,53.2138754 L21.8477059,51.7374917 C21.8301061,38.5556512 32.4565922,27.8431938 45.61097,27.7819761 C55.2542305,27.7604458 63.9543128,33.5809149 67.6315947,42.5140626 C67.8769948,43.1101504 68.3488603,43.5839905 68.9431954,43.8311521 C69.5375305,44.0783136 70.2055509,44.0785091 70.8000299,43.8316953 C71.389082,43.5752701 71.859037,43.1043386 72.1149305,42.5140626 C76.4451058,31.8969004 87.6894121,25.8571847 98.9100088,28.1214758 C110.130606,30.3857669 118.165564,40.3159946 118.057241,51.785117 L118.057241,53.1821252 C117.689075,57.6350376 116.524618,61.9852833 114.619489,66.0250756 L114.571962,66.0250756 Z"></path>
+                                </svg>
+                            </div>
+                            <div class="wicon" ng-if="isFav(sheet.metadata.id)"> {# fav heart #}
+                                <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M109.616147,85.3838527 L92.3838527,85.3838527 C91.0672872,85.3838527 90,84.3165655 90,83 C90,81.6834345 91.0672872,80.6161473 92.3838527,80.6161473 L109.616147,80.6161473 C110.932713,80.6161473 112,81.6834345 112,83 C112,84.3165655 110.932713,85.3838527 109.616147,85.3838527 Z M118.292184,69.1483778 L118.292184,69.164084 C124.573006,77.17877 124.471467,88.4781909 118.04763,96.3785143 C111.623793,104.278838 100.590151,106.673962 91.4733224,102.147123 C85.4473173,107.455822 74.6507249,116 70.4764609,116 C63.5088925,116 19.6948139,81.7447576 18,53.175163 L18,51.4788924 C17.9994802,38.7997297 26.3750098,27.6476486 38.5442638,24.1240496 C50.7135178,20.6004505 63.7444998,25.554291 70.5078464,36.2752818 C75.734304,28.0655765 84.7758459,23.0822399 94.5020176,23.0506536 C110.201779,23.0419103 122.948102,35.7500149 123,51.4631862 L123,53.1908692 C122.492862,58.7678302 120.893143,64.1902026 118.292184,69.1483778 Z M101.171424,65.5673621 L101.171424,65.6301869 C91.7974777,65.6388459 84.2005511,73.2423019 84.1918996,82.6243053 C84.2265367,92.0016414 91.843798,99.5786373 101.213117,99.5555474 C110.582436,99.5324574 118.162323,91.9180093 118.15082,82.5406163 C118.139317,73.1632232 110.540772,65.5674262 101.171424,65.5673621 Z"></path>
+                                </svg>
+                            </div>
+                        {% else %}
+                            <span class="icon-font-{{formated_object.wishlistConfig.iconOff}} plo-fonticon"></span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            {# TopRightCorner #}
+            <div class="mosaic-abs-block top right">
+                {# Voir les photos #}
+                {% set nbPhotos = formated_object.mosaicMedias|length %}
+                {% if hasVideo %}{% set nbPhotos = nbPhotos - 1 %}{% endif %}
+                {% if nbPhotos > 1 %}
+                <div id="see-all-photos">
+                    <div onclick="$('#mosaic>.left .img-wrapper').click();"
+                        class="btn">
+                        <span class="icon-font-image plo-fonticon"></span>
+                        <span class="">&nbsp;&nbsp;{{ 'SECTIONS.TOURISM.SHEET.SEE_PHOTOS'|trans }} ({{nbPhotos}})</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div id="nav-btn-wrapper">
+                    <div class="prev-next-wrapper">
+                        <div class="btn" {# ng-class="{disabled: !prevSheet.metadata.id}" ng-if="prevSheet.metadata.id" #} ng-click="goUrl('prev')">
+                            <span class="icon-font-nav-prev plo-fonticon"></span>
+                        </div>
+                        <div class="btn" {# ng-class="{disabled: !nextSheet.metadata.id}" ng-if="nextSheet.metadata.id"  #} ng-click="goUrl()">
+                            <span class="icon-font-nav-next plo-fonticon"></span>
+                        </div>
+                    </div>
+                    <div class="btn" ng-click="goBack()">
+                        <span class="icon-font-nav-back plo-fonticon"></span>
+                        <span class="hidden-xs">&nbsp;&nbsp;{{ 'SECTIONS.TOURISM.BACK_TO_LIST'| trans }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    {% else %}
+        <div id="mosaic">
+
+            {# Bottom plain left corner #}
+            <div class="mosaic-abs-block bottom plain-left">
+                {# territoryLabelBrands #}
+                {% if formated_object.territoryLabelBrands|default %}
+                    <span class="tourism-labels sheet-territory-label-brands">
+                        {% for image in formated_object.territoryLabelBrands %}
+                            <span class="sheet-territory-label-brand">
+                                {% if image.urlInfo|default %}<a href="{{image.urlInfo}}" target="_blank">{% endif %}
+                                    <img class="img-responsive" alt="{{image.libelle|default}}" src={{ image.urlHD|default(image.url) | rcImg(200, 200, 80, 'png', 'clip') }}>
+                                {% if image.urlInfo|default %}</a>{% endif %}
+                            </span>
+                        {% endfor %}
+                    </span>
+                {# End of territoryLabelBrands #}
+                {% elseif formated_object.specialLabels|default %}
+                {# SpecialLabels #}
+                <li class="tourism-labels tourism-special-labels">
+                    {% for simplelabel in formated_object.specialLabels %}
+                        {% for image in thesaurus.images %}
+                            {% if image.code == simplelabel.type %}
+                            <span class="tourism-special-label">
+                                <img class="img-responsive" alt="{{thesaurus.fulldictionary[image.code]|default}}" src={{ image.urlHD|default(image.url) | rcImg(95, 95, 80, 'png', 'clip') }}>
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </li>
+                {% endif %} {# End of labels #}
+            </div>
+
+            <div class="mosaic-abs-block top left">
+                {# Ajout wishlist #}
+                {% if options.wishlist %}
+                <div id="add-favorites" class="show-when-angular-ready">
+                    <div rc-sheet-state ng-class="{'favorited': isFav(sheet.metadata.id)}" ng-click="toggleFav(sheet)">
+                        {% if formated_object.wishlistConfig.iconOff|default('heart-2') in ['heart', 'heart-2'] %}
+                            <div class="wicon" ng-if="!isFav(sheet.metadata.id)"> {# heart #}
+                                <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M118.247347,69.6445969 C120.873078,64.633108 122.488032,59.1524305 123,53.5155022 L123,51.7692419 C122.947608,35.8871118 110.079891,23.042361 94.2306083,23.0511983 C84.4118063,23.0831242 75.2841545,28.120045 70.0079211,36.4180268 C63.1801617,25.5817565 50.0250751,20.5746489 37.7399235,24.1361361 C25.4547718,27.6976233 16.9994753,38.9696193 17,51.785117 L17,53.4996271 C18.710955,82.3764217 62.9423106,117 69.9762367,117 C74.1902556,117 85.0896727,108.363949 91.1730683,102.998168 C100.376723,107.573682 111.515448,105.152804 118.000465,97.1675306 C124.485481,89.1822575 124.587987,77.7613374 118.247347,69.660472 L118.247347,69.6445969 Z M109.613361,85.6943162 L103.276491,85.6943162 L103.276491,92.0443534 C103.276491,93.3857919 102.191295,94.4732427 100.852638,94.4732427 C99.5139809,94.4732427 98.4287849,93.3857919 98.4287849,92.0443534 L98.4287849,85.6943162 L92.0919145,85.6943162 C90.7532575,85.6943162 89.6680616,84.6068654 89.6680616,83.2654269 C89.6680616,81.9239884 90.7532575,80.8365376 92.0919145,80.8365376 L98.4287849,80.8365376 L98.4287849,74.4865003 C98.4287849,73.1450618 99.5139809,72.0576111 100.852638,72.0576111 C102.191295,72.0576111 103.276491,73.1450618 103.276491,74.4865003 L103.276491,80.8365376 L109.613361,80.8365376 C110.952018,80.8365376 112.037214,81.9239884 112.037214,83.2654269 C112.037214,84.6068654 110.952018,85.6943162 109.613361,85.6943162 L109.613361,85.6943162 Z M114.571962,66.0250756 C105.206455,58.8666949 91.872717,60.3887547 84.3538124,69.4745084 C76.8349079,78.5602621 77.8097082,91.9725937 86.5629951,99.8707744 L86.9907338,100.235902 C77.4854282,108.49095 71.0535047,112.094596 69.9762367,112.173972 C65.0017935,111.935845 23.4319235,79.7887815 21.8477059,53.2138754 L21.8477059,51.7374917 C21.8301061,38.5556512 32.4565922,27.8431938 45.61097,27.7819761 C55.2542305,27.7604458 63.9543128,33.5809149 67.6315947,42.5140626 C67.8769948,43.1101504 68.3488603,43.5839905 68.9431954,43.8311521 C69.5375305,44.0783136 70.2055509,44.0785091 70.8000299,43.8316953 C71.389082,43.5752701 71.859037,43.1043386 72.1149305,42.5140626 C76.4451058,31.8969004 87.6894121,25.8571847 98.9100088,28.1214758 C110.130606,30.3857669 118.165564,40.3159946 118.057241,51.785117 L118.057241,53.1821252 C117.689075,57.6350376 116.524618,61.9852833 114.619489,66.0250756 L114.571962,66.0250756 Z"></path>
+                                </svg>
+                            </div>
+                            <div class="wicon" ng-if="isFav(sheet.metadata.id)"> {# fav heart #}
+                                <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M109.616147,85.3838527 L92.3838527,85.3838527 C91.0672872,85.3838527 90,84.3165655 90,83 C90,81.6834345 91.0672872,80.6161473 92.3838527,80.6161473 L109.616147,80.6161473 C110.932713,80.6161473 112,81.6834345 112,83 C112,84.3165655 110.932713,85.3838527 109.616147,85.3838527 Z M118.292184,69.1483778 L118.292184,69.164084 C124.573006,77.17877 124.471467,88.4781909 118.04763,96.3785143 C111.623793,104.278838 100.590151,106.673962 91.4733224,102.147123 C85.4473173,107.455822 74.6507249,116 70.4764609,116 C63.5088925,116 19.6948139,81.7447576 18,53.175163 L18,51.4788924 C17.9994802,38.7997297 26.3750098,27.6476486 38.5442638,24.1240496 C50.7135178,20.6004505 63.7444998,25.554291 70.5078464,36.2752818 C75.734304,28.0655765 84.7758459,23.0822399 94.5020176,23.0506536 C110.201779,23.0419103 122.948102,35.7500149 123,51.4631862 L123,53.1908692 C122.492862,58.7678302 120.893143,64.1902026 118.292184,69.1483778 Z M101.171424,65.5673621 L101.171424,65.6301869 C91.7974777,65.6388459 84.2005511,73.2423019 84.1918996,82.6243053 C84.2265367,92.0016414 91.843798,99.5786373 101.213117,99.5555474 C110.582436,99.5324574 118.162323,91.9180093 118.15082,82.5406163 C118.139317,73.1632232 110.540772,65.5674262 101.171424,65.5673621 Z"></path>
+                                </svg>
+                            </div>
+                        {% else %}
+                            <span class="icon-font-{{formated_object.wishlistConfig.iconOff}} plo-fonticon"></span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+
+        </div>
+    {% endif %}
+
+    {% if (formated_object.contacts.establishment.phones|default and contractsLevels.sidebar.phone|default) or (contractsLevels.content.booking and (formated_object.bookingUrl|default or formated_object.centralResa|default)) %}
+    <div style="display: none;" class="responsive-chips">
+        {% if formated_object.contacts.establishment.phones|default and contractsLevels.sidebar.phone|default %}
+            <div class="responsive-chip chip-phone"
+                onclick="event.preventDefault(); window.open('tel:{{ formated_object.contacts.establishment.phones[0] }}', '_self');"
+                interact event-type="SHEET_REVEAL_PHONE">
+                <span class="item-infos-phone">{{'LIST.CALL'|trans}}</span>
+                <span class="icon-font-phone"></span>
+            </div>
+        {% endif %}
+
+        {% if contractsLevels.content.booking and formated_object.bookingUrl|default %}
+            {% if options.warningExternalLink is defined and options.warningExternalLink %}
+                <div class="responsive-chip chip-booking" data-open="warningExternalLink_modal">
+                    <span>{{'SECTIONS.PLANNING.MENU.ORDER'|trans}}</span>
+                    <span class="icon-font-nav-next"></span>
+                </div>
+            {% else %}
+                <a class="responsive-chip chip-booking"
+                    target="_blank" href="{{formated_object.bookingUrl}}"
+                    rel="nofollow"
+                    analytics-mediaveille {# Tracking MediaVeille #}
+                    data-fs-tracking="RESERVATION" {# Tracking Tourinsoft #}
+                    interact event-type="SHEET_BOOK_URL">
+                    <span>{{ 'SECTIONS.PLANNING.MENU.ORDER'|trans }}</span>
+                    <span class="icon-font-nav-next"></span>
+                </a>
+            {% endif %}
+        {% elseif contractsLevels.content.booking and formated_object.centralResa|default %}
+            <div class="responsive-chip chip-booking" anchor-link ng-click="scrollTo('#booking')">
+                <span>{% if 'availability' in [formated_object.centralResa.mode|default, formated_object.centralResa.subtype|default] %}
+                            {{ 'SECTIONS.TOURISM.SHEET.TABS.AVAILABILITIES'|trans }}
+                        {% else %}
+                            {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
+                        {% endif %}</span>
+                <span class="icon-font-nav-next"></span>
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {# Title Block #}
+    {% include TWIG.SHEET_HEADER %}
+</div>

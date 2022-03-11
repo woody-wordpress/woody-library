@@ -1,0 +1,48 @@
+{% spaceless %}
+{% if not block_button_prefix %}
+    {% set block_button_prefix = 'generic' %}
+{% else %}
+    {% set block_buttons = attribute(_context, block_button_prefix ~ '_buttons') %}
+{% endif %}
+{% if block_buttons.links or attribute(_context, block_button_prefix ~ '_phone') %}
+    <div class="cell medium-4 {{block_button_prefix}}-actions flex-container flex-dir-column align-center">
+        {% if block_buttons.alignement == 'horizontal' %}
+            {% if layout == 'centered' %}
+                {% set list_classes = 'align-center align-top wrap' %}
+            {% else %}
+                {% set list_classes = 'align-left align-top wrap' %}
+            {% endif %}
+        {% elseif block_buttons.alignement == 'vertical' %}
+            {% if layout == 'centered' %}
+                {% set list_classes = 'flex-dir-column align-center align-middle' %}
+            {% else %}
+                {% set list_classes = 'flex-dir-column align-left align-top' %}
+            {% endif %}
+        {% endif %}
+        {% block block_link %}
+            {% if block_buttons.links|default %}
+                <ul class="list-unstyled flex-container {{ list_classes|default }}">
+                    {% for button in block_buttons.links %}
+                        <li class="list-item">
+                            {% include '_objects/buttonObject.twig' %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+        {% block block_phone %}
+            {% if attribute(_context, block_button_prefix ~ '_display_phone')|default and attribute(_context, block_button_prefix ~ '_phone')|default %}
+                <div class="{{block_button_prefix}}-phone padd-top-sm padd-bottom-sm">
+                    <a class="phone-number-action hidden" href="tel:{{ attribute(_context, block_button_prefix ~ '_phone') }}" data-phone="{{ attribute(_context, block_button_prefix ~ '_phone') }}" data-page-type="{{ globals.page_type }}" data-title="{{ globals.post_title }}"  data-id="{{ globals.post_id }}">
+                        {% if attribute(_context, block_button_prefix ~ '_phone_before')|default %}
+                            <span class="{{block_button_prefix}}-phone-before">{{ attribute(_context, block_button_prefix ~ '_phone_before') }}</span>
+                        {% endif %}
+                        <span class="{{block_button_prefix}}-phone-number">{{ attribute(_context, block_button_prefix ~ '_phone')|phone_click }}</span>
+                        {# <span class="{{block_button_prefix}}-phone-tip bg-black">{{ __('Cliquez pour afficher le numéro', 'woody-theme') }}</span> #}
+                    </a>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endif %}
+{% endspaceless %}

@@ -1,0 +1,26 @@
+$grid-dimensions: 13;
+$grid-columns: 8;
+
+@for $i from 1 through $grid-dimensions {
+    [data-position*="grid-col-start-#{$i}"] {
+        grid-column-start: $i;
+    }
+
+    [data-position*="grid-col-end-#{$i}"] {
+        grid-column-end: $i;
+    }
+
+    [data-position*="grid-row-start-#{$i}"] {
+        grid-row-start: $i;
+    }
+
+    [data-position*="grid-row-end-#{$i}"] {
+        grid-row-end: $i;
+    }
+}
+
+@for $i from 1 through $grid-columns {
+    [data-columns="#{$i}cols"] {
+        grid-template-columns: repeat($i, 1fr);
+    }
+}

@@ -1,0 +1,26 @@
+{% if formated_object.covidDescription|default %}
+
+    <section id="c19-description" class="row">
+        <div class="col-xs-12 col-sm-12 _plu-push--tiny">
+            <span class="_plu-emphasis--high">{{ thesaurus.fulldictionary['99.16.02.32']|default('Descriptif Covid-19') }}</span>
+        </div>
+        <div class="col-xs-12 col-sm-12">
+            {% if formated_object.lightCovidDescription|default %}
+                <input style="display:none;" type="checkbox" id="covid-description-load-more" class="load-more-description"/>
+                <span class="establishment-light-description">
+                    {{ formated_object.lightCovidDescription|raw|nl2br }}
+                </span>
+            {% endif %}
+
+            <span class="establishment-description">{{ formated_object.covidDescription|raw|nl2br }}</span>
+
+            {% if formated_object.lightCovidDescription|default %}
+                <label {# interact event-type="SHEET_DESCRIPTION_SEE_MORE" #} class="card-buttonbutton load-more-btn" for="covid-description-load-more">
+                    <span class="unchecked">{{ 'GLOBAL.READ_MORE'|trans }}</span>
+                    <span class="checked">{{ 'LIST.SEE_LESS'|trans }}</span>
+                </label>
+            {% endif %}
+        </div>
+    </section>
+
+{% endif %}

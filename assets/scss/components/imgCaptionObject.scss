@@ -1,0 +1,121 @@
+.imageObject-caption {
+    height: $img-caption-size;
+    max-width: calc(100% - #{$img-caption-margin});
+    color: $img-caption-color;
+    font-family: $img-caption-font-family;
+    font-size: $img-caption-font-size;
+    font-weight: $img-caption-font-weight;
+    line-height: 1;
+    padding: $img-caption-padding $img-caption-padding*1.5;
+    z-index: 1;
+    pointer-events: auto;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease-in-out;
+
+    &.top {
+        top: $img-caption-offset;
+    }
+
+    &.bottom {
+        bottom: $img-caption-offset;
+    }
+
+    &.left {
+        left: $img-caption-offset;
+    }
+
+    &.right {
+        right: $img-caption-offset;
+
+        &::before {
+            left: initial;
+            right: 0;
+        }
+
+        .imageObject-icon {
+            order: 1;
+            margin-right: -$img-caption-padding*1.5;
+        }
+
+        .imageObject-text {
+            transform: translateX(-5px);
+        }
+
+        .imageObject-author {
+            margin-right: 5px;
+        }
+    }
+
+    &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        height: $img-caption-size;
+        width: $img-caption-size;
+        background-color: $img-caption-bgcolor;
+        border-radius: $img-caption-border-radius;
+        z-index: -1;
+        transition: 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .imageObject-icon {
+        font-size: $img-caption-icon-font-size;
+        height: $img-caption-size;
+        width: $img-caption-size;
+        margin-left: -$img-caption-padding*1.5;
+        transition: 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .imageObject-text {
+        font-size: 0;
+        opacity: 0;
+        transform: translateX(5px);
+        transition: transform 1.1s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease-in-out;
+    }
+
+    .separator {
+        margin: 0 5px;
+    }
+
+    &:hover {
+        &::before {
+            width: 100%;
+        }
+
+        .imageObject-text {
+            font-size: $img-caption-font-size;
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+// Hide copyright for specific component & display it on hover
+.mediaCard,
+.woody-component-socialwall {
+    .imageObject:not(.is_instagram) {
+        .imageObject-caption {
+            opacity: 0;
+        }
+
+        &:hover {
+            .imageObject-caption {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.woody-component-landswpr,
+.woody-component-hero {
+    .imageObject-caption {
+        opacity: 0;
+    }
+
+    &:hover {
+        .imageObject-caption {
+            opacity: 1;
+        }
+    }
+}

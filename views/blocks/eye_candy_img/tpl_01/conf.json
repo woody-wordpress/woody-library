@@ -1,0 +1,8 @@
+{
+    "approved": true,
+    "name": "Template 01",
+    "description": "Affiche une image non clicable",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": []
+}

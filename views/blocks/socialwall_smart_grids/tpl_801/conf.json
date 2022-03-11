@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Fallback SocialWall 8 éléments",
     "description": "8 images à droite de l'en-tête",
+    "lib_type": "lite",
     "acf_groups": [
 
     ],

@@ -1,0 +1,117 @@
+{% if formated_object.contacts.establishment is not empty and contractsLevels.sidebar.adresses %}
+    <!-- // Address -->
+    <li class="list-group-item sidebar-contact-address _plu-noborder-top">
+        <dl class="row">
+            <dt class="col-xs-2">
+                <span class="icon-font-localize plo-fonticon"></span>
+            </dt>
+
+            <dd class="col-xs-10 _plu-hard--left">
+                <span itemscope itemprop="location" itemtype="https://schema.org/Place">
+                    <meta itemprop="name" content="{{ 'GLOBAL.ADDRESS'|trans }}"/>
+                    <address class="_plu-flush" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+
+                        {# peopleFirstName #}
+                        {% if formated_object.contacts.establishment.peopleFirstName is not empty
+                            or formated_object.contacts.establishment.peopleLastName is not empty %}
+                        <div class="peopleFirstName">
+                            {{ formated_object.contacts.establishment.peopleFirstName }} {{ formated_object.contacts.establishment.peopleLastName }}
+                        </div>
+                        {% endif %}
+
+                        {% if object.data.bordereau == 'HLO' and formated_object.contacts.owner.businessName is not empty and token not in ['bocage_v2'] %}
+                        <div class="businessName">{{ formated_object.contacts.owner.businessName }}</div>
+                        {% endif %}
+
+                        {# Address #}
+                        {% if formated_object.contacts.establishment.address1 is not empty
+                            or formated_object.contacts.establishment.address2 is not empty
+                            or formated_object.contacts.establishment.address3 is not empty %}
+                            <div itemprop="streetAddress">
+                                {% if formated_object.contacts.establishment.address1 is not empty %}
+                                    <div class="address1">{{ formated_object.contacts.establishment.address1 }}</div>
+                                {% endif %}
+
+                                {% if formated_object.contacts.establishment.address2 is not empty %}
+                                    <div class="address2">{{ formated_object.contacts.establishment.address2 }}</div>
+                                {% endif %}
+
+                                {% if formated_object.contacts.establishment.address3 is not empty %}
+                                    <div class="address3">{{ formated_object.contacts.establishment.address3 }}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        {# ZipCode + Locality #}
+                        {% if formated_object.contacts.establishment.zipCode is not empty
+                            or formated_object.contacts.establishment.deliveryOffice is not empty
+                            or formated_object.contacts.establishment.commune is not empty %}
+                            <div class="_plu-caps _plu-inline">
+                                {% spaceless %}
+                                {% if formated_object.contacts.establishment.zipCode is not empty %}
+                                    <span itemprop="postalCode">{{formated_object.contacts.establishment.zipCode}}</span>&nbsp;
+                                {% endif %}
+
+                                {% if formated_object.contacts.establishment.deliveryOffice is not empty %}
+                                    <span itemprop="addressLocality">{{ formated_object.locality }}</span>
+                                {% else %}
+                                    <span itemprop="addressLocality">{{ formated_object.contacts.establishment.commune }}</span>
+                                {% endif %}
+                                {% endspaceless %}
+                            </div>
+                        {% endif %}
+                    </address>
+
+                    <!-- // GeoCoordinates -->
+                    {% if formated_object.geolocations is not empty %}
+                        <span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+                            {% if formated_object.geolocations.latitude is defined %}<meta itemprop="latitude" content="{{formated_object.geolocations.latitude}}">{% endif %}
+                            {% if formated_object.geolocations.longitude is defined %}<meta itemprop="longitude" content="{{formated_object.geolocations.longitude}}">{% endif %}
+                        </span>
+                    {% endif %}
+                </span>
+            </dd>
+        </dl>
+
+        {# Altitude #}
+        {% if formated_object.geolocations.altitude|default %}
+            <dl class="row">
+                <dt class="col-xs-2">
+                    <span class="icon-font-mountain plo-fonticon"></span>
+                </dt>
+
+                <dd class="col-xs-10 _plu-hard--left">
+                    <span class="altitude">{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.ELEVATION' | trans }} : {{ formated_object.geolocations.altitude }} m</span>
+                </dd>
+            </dl>
+        {% endif %}
+    </li>
+{% endif %}
+
+{# adressComplement #}
+{% if formated_object.addressComplement|default and not (formated_object.bordereau in ['PRD','ITI']) %}
+    <li class="list-group-item">
+        <span class="pl-heading">{{ 'SECTIONS.TOURISM.SHEET.ENVIRONMENT'|trans }} / {{ 'SECTIONS.TOURISM.SHEET.ACCESS'|trans }}&nbsp;:</span>
+        <span class="address-complement plo-block _plu-push-top--small">{{ formated_object.addressComplement|nl2br }}</span>
+    </li>
+{% endif %}
+
+{# sfEventPlaces #}
+{% if formated_object.sfEventPlaces|default %}
+    <li class="list-group-item">
+        <dl class="row">
+            <dt class="col-xs-12  _plu-push--tiny">
+                <span>{{ formated_object.sfEventPlaces._label|default(formated_object.sfEventPlaces.label) }}</span>
+            </dt>
+            <dd class="col-xs-12 col-sm-offset-1 col-sm-10">
+                <ul class="plo-list-bare">
+                    {% for eventPlace in formated_object.sfEventPlaces.data %}
+                        <li><span>{{ eventPlace._type|default }}</span></li>
+                    {% endfor %}
+                </ul>
+            </dd>
+        </dl>
+    </li>
+{% endif %}
+
+

@@ -1,0 +1,29 @@
+{# Vars to give : items (array), card (str : overlayed_card/tpl_02), image_style (str : ratio_4_3), swResp (bool) #}
+
+{% if items|default %}
+    {% if items|length == 1 %}
+        {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
+            block_titles: false
+        } %}
+    {% elseif items|length == 2 %}
+        {% include 'lists/bases_grid/tpl_201/tpl.twig' with {
+            block_titles: false
+        } %}
+    {% elseif items|length == 3 or items|length == 6 or items|length == 9 %}
+        {% include 'lists/bases_grid/tpl_301/tpl.twig' with {
+            block_titles: false
+        } %}
+    {% elseif items|length == 4 or items|length == 8 %}
+        {% include 'lists/bases_grid/tpl_401/tpl.twig' with {
+            block_titles: false
+        } %}
+    {% elseif items|length == 5 %}
+        {% include 'lists/bases_grid/tpl_501/tpl.twig' with {
+            block_titles: false
+        } %}
+    {% elseif items|length == 7 %}
+        {% include 'lists/bases_grid/tpl_601/tpl.twig' with {
+            block_titles: false
+        } %}
+    {% endif %}
+{% endif %}

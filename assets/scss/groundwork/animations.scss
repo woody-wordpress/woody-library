@@ -1,0 +1,90 @@
+// Si les animations sont activées dans le sous-thème
+@if $subthemeAnimations {
+    .woody-component {
+        // ------------------
+        // WOODY ANIMATIONS
+        // Animations de base de Woody
+
+        // Fade
+        &[class*="fade-"] {
+            transition: $anim-fade-transition;
+            opacity: 0;
+        }
+
+        &.fade-up {
+            transform: translateY($anim-fade-distance);
+        }
+
+        &.fade-down {
+            transform: translateY(-$anim-fade-distance);
+        }
+
+        &.fade-right {
+            transform: translateX($anim-fade-distance);
+        }
+
+        &.fade-left {
+            transform: translateX(-$anim-fade-distance);
+        }
+
+        // Gallery zoom
+        &.gallery-zoom {
+            transition: $anim-gallery-transition;
+            opacity: 0;
+
+            .woodyGallery {
+                figure.imageObject {
+                    @if $anim-gallery-zoom-outline {
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            display: block;
+                            top: -1px;
+                            left: -1px;
+                            width: calc(100% + 2px);
+                            height: calc(100% + 2px);
+                            outline: solid #{$anim-gallery-zoom-outline-width} white;
+                            outline-offset: -#{$anim-gallery-zoom-outline-width};
+                            z-index: 1;
+                            transition: $anim-gallery-zoom-outline-transition;
+                        }
+                    }
+
+                    .imageObject-img {
+                        transform: $anim-gallery-zoom-img-scale;
+                        transition: $anim-gallery-zoom-img-transition;
+                    }
+                }
+            }
+        }
+
+        // ------------------
+        // DECLENCHEUR
+        // Annulation de toutes les règles mises par les classes d'animation => Déclencheur en js
+        &.animation-trigger {
+            // Réapparition
+            opacity: 1;
+
+            // Annulation Fade
+            &[class*="fade-"] {
+                transform: none;
+            }
+
+            // Annulation Gallery zoom
+            &.gallery-zoom {
+                .woodyGallery {
+                    figure.imageObject {
+                        &:before {
+                            outline-width: 0;
+                            outline-offset: 0;
+                        }
+
+                        .imageObject-img {
+                            transform: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

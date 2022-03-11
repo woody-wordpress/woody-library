@@ -1,0 +1,21 @@
+{
+    "approved": false,
+    "name": "Template Liste 209 - Paysage C",
+    "description": "2 colonnes égales - Durée et Nombre de personnes au dessus des titres - Prix dans une cartouche",
+    "lib_type": "pro",
+    "acf_groups": [
+        "group_5bc6005838259",
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "group_5d7908eadaa46",
+        "group_5b33890e6fa0b",
+        "field_5d16118093cc1"
+    ],
+    "vars": [
+        "items",
+        "no_padding"
+    ],
+    "display": [{
+        "deprecated": true,
+    }]
+}

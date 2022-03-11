@@ -1,0 +1,19 @@
+{% spaceless %}
+<div class="{{ contextPrefix }}-titles {{ flexOptions|default }}">
+
+    {{ block("cardIcon", "_objects/titlesObject.twig") }}
+    {{ block("cardDates", "_objects/titlesObject.twig") }}
+    {{ block("sheetLength", "_objects/titlesObject.twig") }}
+    {{ block("sheetLocomotions", "_objects/titlesObject.twig") }}
+    {{ block("cardTitles", "_objects/titlesObject.twig") }}
+
+    {% if titles.the_price.price|default or titles.the_duration.count_days|default or title.the_length.length %}
+        <div class="{{ contextPrefix }}-tripInfos-wrapper flex-container align-bottom marg-top-md">
+            {{ block("cardPrice", "_objects/titlesObject.twig") }}
+            {{ block("cardDuration", "_objects/titlesObject.twig") }}
+            {{ block("cardLength", "_objects/titlesObject.twig") }}
+        </div>
+    {% endif %}
+
+</div>
+{% endspaceless %}

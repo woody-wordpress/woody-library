@@ -1,0 +1,10 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}sheet-summary {{ summary_type|default }}{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('01') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% if content.error %}
+        {{ content.error }}
+    {% endif %}
+    {% block summaryContent %}
+    {% endblock %}
+{% endblock %}

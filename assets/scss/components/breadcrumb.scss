@@ -1,15 +1,31 @@
 .breadcrumb-wrapper {
     background-color: $breadcrumb-bgcolor;
     margin: $breadcrumb-margin;
+    font-family: $breadcrumb-fontfamily;
     font-size: $breadcrumb-fontsize;
+    font-weight: $breadcrumb-fontweight;
+    font-style: $breadcrumb-fontstyle;
+    position: relative;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    ol {
+        list-style: none;
+    }
 
     a {
-        color: lighten($dark-gray, 30%) !important;
+        color: lighten($dark-gray, 20%) !important;
         transition: color .3s;
 
         &:hover {
             color: $dark-gray !important;
         }
+    }
+
+    .wicon {
+        margin: 0 6px;
+        font-size: rem-calc(15);
+        line-height: 1em;
     }
 }
 
@@ -25,7 +41,6 @@
         }
     }
 }
-
 
 .bg-lightgray {
     .breadcrumb-wrapper a {

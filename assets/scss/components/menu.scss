@@ -33,6 +33,28 @@
         span.menuLink {
             padding: $global-menu-padding;
         }
+
+        @if $submenu-animation-delay {
+            .is-dropdown-submenu-parent {
+                &.is-active {
+                    .menu.submenu {
+                        .grid-x {
+                            >.cell {
+                                animation: 1s ease both fadeInSubmenu;
+                            }
+
+                            @for $i from 1 through 6 {
+                                >.cell {
+                                    &:nth-child(#{$i}) {
+                                        animation-delay: $i * (.1s);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

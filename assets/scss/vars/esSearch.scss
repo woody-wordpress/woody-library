@@ -7,7 +7,7 @@ $esSearch-button-border-width:0 !default;
 $esSearch-button-border-style:solid !default;
 $esSearch-button-border-color:transparent !default;
 $esSearch-icon-bgcolor:darken($esSearch-form-bgcolor, 7%) !default;
-$esSearch-icon-color:$white;
+$esSearch-icon-color:$white !default;
 $esSearch-tab-title-size : 18 !default;
 $esSearch-tab-title-transform:uppercase !default;
 
@@ -19,4 +19,4 @@ $esSearchBlock-link-size:rem-calc(19) !default;
 $esSearchBlock-bgcolor: $primary-color !default;
 $esSearchBlock-button-bgcolor : $white !default;
 $esSearchBlock-button-color : $esSearchBlock-bgcolor !default;
-$esSearchBlock-suggest-title-color: $esSearchBlock-button-bgcolor;
+$esSearchBlock-suggest-title-color: $esSearchBlock-button-bgcolor !default;

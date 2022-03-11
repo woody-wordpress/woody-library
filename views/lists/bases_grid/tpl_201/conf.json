@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Variation de grille 2 éléments",
     "description": "2 colonnes égales",
+    "lib_type": "lite",
     "acf_groups": [],
     "vars": [
         "items",

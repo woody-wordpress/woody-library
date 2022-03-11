@@ -3,7 +3,7 @@
 <div class="grid_2col_tpl_01 grid-x large-up-2 align-center {{ alignment|default }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
     {% if items|default %}
         {% for key, item in items %}
-            <div class="cell">
+            <div class="cell xmedium-down-order-{{resp_order[key]|default(0)}}">
                 {{ item }}
             </div>
         {% endfor %}

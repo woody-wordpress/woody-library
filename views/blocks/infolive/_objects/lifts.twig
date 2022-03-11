@@ -1,0 +1,11 @@
+<div class="text-center title-wrapper">
+    <small class="title-lifts">{{ __('Remontées mécaniques','woody-theme') }}</small>
+</div>
+<div class="lifts-wrapper">
+{% if open_only %}
+    <span class="opened only">{{ lifts.open }}</span>
+{% else %}
+    <span class="wicon wicon-000-station-teleski"></span>
+    <span class="opened">{{ lifts.open }}<small>{{ '/' ~ lifts.total }}</small></span>
+{% endif %}
+</div>

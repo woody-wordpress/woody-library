@@ -11,3 +11,13 @@ $profile-fav-border-radius : 3px !default;
 $profile-button-bgcolor: $primary-color !default;
 $profile-button-color:$white !default;
 $profile-icon-size:36 !default;
+
+// Profile focus
+$profile-focus-img-radius:50% !default;
+$profile-focus-img-border-width: $profile-img-border-width !default;
+$profile-focus-img-border-color: $profile-img-border-color !default;
+$profile-focus-social-size : 18 !default;
+$profile-focus-complement-size : 14 !default;
+$profile-focus-complement-color : $dark-gray !default;
+$profile-focus-complement-font-style : normal !default;
+$profile-focus-exp-title-color : $primary-color !default;

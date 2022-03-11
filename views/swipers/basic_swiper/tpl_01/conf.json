@@ -2,8 +2,9 @@
     "approved": true,
     "name": "Swiper - Ultra basique",
     "description": "Swiper items",
+    "lib_type": "lite",
     "acf_groups": [],
-    "vars":[
+    "vars": [
         "styleClass",
         "slidesPerView",
         "spaceBetween",

@@ -1,0 +1,181 @@
+/// Target selectors from simple names
+/// //TODO:Temp func -- might disapear and replace with woody-fx-get-selector()
+/// @param {string} $target - The name of the target
+/// @return {string} - The css selector of the target
+@function woody-fx-get-selector($target, $parent) {
+    $target: woody-get-framework-type($target, $parent);
+    @return $target;
+}
+
+@function woody-fx-filter-target($option) {
+    $target: map-get($option, target);
+    $fx_name: map-get($option, fx);
+    //Overlay on image...
+    @if str-index($target, img) and str-index($fx_name, overlay) {
+        $option: map-set($option, target, img-after);
+    }
+    @return $option;
+}
+
+/// full card
+@mixin woody-fx-full-card($target) {
+    #{$target} {
+        background-color: $nobg-splitcardsection-bgcolor;
+        &.card .card-section, .card .card-section {
+            background-color: transparent;
+        }
+    }
+}
+
+/// Description: Maps the properties to each function
+/// @param {List} $options - Main list of objects of effects
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-map-properties($option, $hover) {
+    $fx-name: map-get($option, fx);
+    //@debug OPTION $option;
+
+    $properties: ();
+    @if str-index($fx-name, 'bg-color') {
+        $properties: woody-fx-bg-color($option, $hover);
+    }
+    @else if (str-index($fx-name, 'color')) {
+        $properties: woody-fx-text-color($option, $hover);
+    }
+    @if str-index($fx-name, 'border') {
+        $properties: woody-fx-border($option, $hover);
+    }
+    @if str-index($fx-name, 'space') {
+        $properties: woody-fx-space($option, $hover);
+    }
+    @if str-index($fx-name, 'skew') {
+        $properties: woody-fx-skew($option, $hover);
+    }
+    @if str-index($fx-name, 'zoom') {
+        $properties: woody-fx-zoom($option, $hover);
+    }
+    @if str-index($fx-name, 'fade') {
+        $properties: woody-fx-fade($option, $hover);
+    }
+    @if str-index($fx-name, 'blur') {
+        $properties: woody-fx-blur($option, $hover);
+    }
+    @if str-index($fx-name, 'grayscale') {
+        $properties: woody-fx-grayscale($option, $hover);
+    }
+    @if str-index($fx-name, 'display') {
+        $properties: woody-fx-display($option, $hover);
+    }
+    @if str-index($fx-name, 'custom') {
+        $properties: woody-fx-custom($option, $hover);
+    }
+    @if str-index($fx-name, 'slide') {
+        $properties: woody-fx-slide($option, $hover);
+    }
+    @if str-index($fx-name, 'translation') {
+        $properties: woody-fx-translation($option, $hover);
+    }
+    @if str-index($fx-name, 'overlay') {
+        $properties: woody-fx-overlay($option, $hover);
+    }
+    @if str-index($fx-name, 'full-card') {
+        $properties: woody-fx-full-card($option, $hover);
+    }
+    //@debug PROPS $properties;
+    @return $properties;
+}
+
+/// Description: Convert $options to list of CSS Properties
+/// @param {List} $options - Main list of objects of effects
+/// @param {String} $hover - 'default' or 'hover' state
+@function createFxObject($options, $hover) {
+    $FxObj: ();
+    $options: woody-fx-read-settings($options);
+    //@debug $options;
+    $options: woody-fx-rework-object($options); //Clean up the options
+    @each $option in $options {
+        $option: woody-fx-filter-target($option); //Filter targets with the correct ones when needed...
+        $target: map-get($option, target);
+        @if type-of($target) == map {
+            @if map-get(map-get($option, target), parent) {
+                $parents: map-get(map-get($option, target), parent);
+                @each $parent in $parents {
+                    $properties: map-get($option, fx);
+                    $OptionKey: ($parent:($properties));
+                    $FxObj: append($FxObj, $OptionKey);
+                }
+            }
+        } @else {
+            $properties: woody-fx-map-properties($option, $hover);
+            $OptionKey: ($target:($properties));
+            $FxObj: append($FxObj, $OptionKey);
+        }
+    }
+    @return $FxObj;
+}
+
+/// Description: Apply each Map in the list into CSS
+/// @param {List} $FxObj - List of each effect to add
+/// @alias woody-card-fx--mapper
+@mixin woody-card-apply-css-object($FxObj, $framework) {
+    @each $target, $properties in $FxObj {
+        @if $properties == 'full-card' {
+            @at-root {
+                @include woody-fx-full-card($target);
+                #{$target} {
+                    background-color: $nobg-splitcardsection-bgcolor;
+                }
+            }
+        } @else {
+            $selector: woody-fx-get-selector($target, $framework);
+            #{$selector} {
+                @each $property, $value in $properties {
+                    @if type-of($property) == string {
+                        //@debug 'CSS string' $selector, (#{$property}: $value);
+                        #{$property}: $value;
+                    }
+                    @if type-of($property) == map {
+                        $property_name: nth(map-keys($property), 1);
+                        $value: map-get($property, $property_name);
+                        //@debug 'CSS Map' $selector, (#{$property_name}: $value);
+                        #{$property_name}: $value;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/// @author Soheil Saheb-Jamii
+/// @alias woody-card-fx - It is better to use this mixin, use 'custom' as first arg.
+/// Description: This mixin is OOCSS and can be used only via maps
+/// === What does it do ? ===
+/// ## Relying on the {Map} $options as single arg, it will write any animation related
+/// ## to make the writing of fx way easier and faster.
+/// @param {List} $options - List of effects to apply.
+/// -- @param {Map} - (target: {String}, fx: {String}, value: {Number}, transition: {CSS Transition (only time and ease), delay: {Number}, css: ({String:*})}
+/// @example Here is a simple example for custom effects templates :
+/// $options:
+///     (fx: display, target: after),
+///     (fx: zoom-in, target: img),
+///     (fx: fade-in, target: after),
+///     (fx: slide-up, target: titles);
+/// @include woody-card-fx--mapper($options);
+
+
+@mixin woody-card-fx--mapper($options, $framework) {
+    //@debug $options;
+    // ======= Default ======
+    $FxObj: createFxObject($options, default);
+    $FxObj: woody-fx-merge-everything($FxObj);
+    @include woody-card-apply-css-object($FxObj, $framework);
+    // =======  Hover  ======
+    //@debug '======== HOVER ==========';
+    $FxObj-hover: createFxObject($options, hover);
+    $FxObj-hover: woody-fx-merge-everything($FxObj-hover);
+    &:hover, &.hover {
+        @include woody-card-apply-css-object($FxObj-hover, $framework);
+    }
+    .card-section {
+        z-index: 10;
+    }
+}

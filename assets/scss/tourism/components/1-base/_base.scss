@@ -142,13 +142,6 @@
 
         .marker-icon {
             font-size: 22px;
-
-            // TODO clean dat shit man
-            // &.icon-font-itinerary {
-            //     &:before {
-            //         @extend .icon-walking;
-            //     }
-            // }
         }
     }
 }
@@ -461,6 +454,13 @@ ul[datepicker-popup-wrap] {
 
     *:focus {
         outline: none !important;
+    }
+
+    thead {
+        background: none !important;
+    }
+    th, td {
+        padding: 0 !important;
     }
 
     th {

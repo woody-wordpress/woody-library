@@ -1,8 +1,29 @@
 import $ from 'jquery';
+import WoodyFilter from './filter';
+
+/** --- Hooks --- */
+//Hook to disable the scroll classes & menu behaviors
+/* In Child theme :
+WoodyFilter.add('header_class_disable', function() {
+    return true;
+});
+*/
+//Hook to change scroll delta value
+/* In Child theme :
+WoodyFilter.add('header_scroll_delta', function() {
+    return 40;
+});
+*/
+//Hook to change scroll offset value
+/* In Child theme :
+WoodyFilter.add('header_scroll_delta', function() {
+    return 250;
+});
+*/
 
 $('.woody-component-headnavs').each(function() {
     var windowWidth = window.innerWidth;
-    var $body = $('body'),
+    var $body = $('body:not(.fullScrolled)'),
         $mainContent = $('#main-content'),
         $this = $(this),
         headerHeight = $this.height(),
@@ -12,6 +33,20 @@ $('.woody-component-headnavs').each(function() {
         scrollDelta = 2, // Max scroll up
         scrollOffset = 60; // Max scroll down
 
+    // --- Hooks modifiers :
+    if (typeof WoodyFilter.apply('header_scroll_delta') !== 'undefined') {
+        scrollDelta = WoodyFilter.apply('header_scroll_delta');
+    }
+    if (typeof WoodyFilter.apply('header_scroll_offset') !== 'undefined') {
+        scrollOffset = WoodyFilter.apply('header_scroll_offset');
+    }
+
+    // Good for transparent headers !
+    if (typeof WoodyFilter.apply('header_headnavs_height') !== 'undefined') {
+        headerHeight = WoodyFilter.apply('header_headnavs_height');
+    }
+    // ---
+
     if (windowWidth > 1024) {
 
         if ($mainContent.hasClass('front_page')) {
@@ -19,14 +54,16 @@ $('.woody-component-headnavs').each(function() {
             var visualPageTopTitles = visualPageTop.find('.landswpr-titles');
             var visualPageTopHeight = window.innerHeight;
         } else {
-            var visualPageTop = $('#main-content').find('.woody-component-hero.tpl_01');
+            var visualPageTop = $('#main-content').find('.woody-component-hero.hero-full-height');
             var visualPageTopTitles = visualPageTop.find('.hero-titles');
             var visualPageTopHeight = window.innerHeight - headerHeight;
         }
+        // Check if wpadminbar.. then remove its height from full height
+        visualPageTopHeight = ($('#wpadminbar').length) ? visualPageTopHeight - $('#wpadminbar').height() : visualPageTopHeight;
         var visualPageTopToogleMovie = visualPageTop.find('.toggling-movie-container');
 
         if (visualPageTop.length != 0) {
-            if (visualPageTop.find('.woody-component-landswpr.tpl_05').length == 0) {
+            if (visualPageTop.find('.noFullScreen').length == 0) {
                 visualPageTop.css({
                     'height': visualPageTopHeight,
                     'overflow': 'hidden'
@@ -70,8 +107,10 @@ $('.woody-component-headnavs').each(function() {
             }
 
         }
-        $body.addClass('is-top').css('padding-top', headerHeight);
-        $this.css('position', 'fixed');
+        if (typeof WoodyFilter.apply('header_class_disable') == 'undefined') { //Hook
+            $body.addClass('is-top').css('padding-top', headerHeight);
+            $this.css('position', 'fixed');
+        }
     }
 
     // Check scroll direction and add hidden class
@@ -110,15 +149,16 @@ $('.woody-component-headnavs').each(function() {
             }, 20);
         }
     };
-
-    $(window).on("scroll", function() {
-        if (!scrolling) {
-            scrolling = true;
-            !window.requestAnimationFrame ?
-                setTimeout(eventsOnScroll, 250) :
-                requestAnimationFrame(eventsOnScroll);
-        }
-    });
+    if (typeof WoodyFilter.apply('header_class_disable') == 'undefined') { //Hook
+        $(window).on("scroll", function() {
+            if (!scrolling) {
+                scrolling = true;
+                !window.requestAnimationFrame ?
+                    setTimeout(eventsOnScroll, 250) :
+                    requestAnimationFrame(eventsOnScroll);
+            }
+        });
+    }
 
 });
 

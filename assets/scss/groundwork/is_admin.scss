@@ -2,6 +2,36 @@ body.admin-bar {
     .woody-component-headnavs {
         @if $headnavs-autohide {
             top: 32px;
+            @media screen and (max-width: 782px) {
+                top: 46px;
+            }
+        }
+    }
+}
+
+.empty-section.admin-only {
+    position: relative;
+    min-height: 100px;
+
+    .section {
+        opacity: .1;
+        filter: grayscale(80%);
+    }
+
+    .empty-message {
+        text-align: center;
+        color: lighten(#000, 40%);
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        z-index: 1;
+
+        p {
+            font-size: 18px;
+            line-height: 1em;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 0;
         }
     }
 }

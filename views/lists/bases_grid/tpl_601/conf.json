@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Variation de grille 7 éléments",
     "description": "Composition basique pour 7 éléments",
+    "lib_type": "lite",
     "acf_groups": [],
     "vars": [
         "items",

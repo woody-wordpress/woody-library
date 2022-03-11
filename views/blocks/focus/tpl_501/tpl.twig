@@ -1,71 +1,57 @@
-{% if no_padding == 0 %}
-    {% set spaceBetween = 30 %}
-{% else %}
-    {% set spaceBetween = 0 %}
-{% endif %}
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}focus{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('501') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% if customCard is not defined %}
+        {% set customCard = "overlayed_card/tpl_02" %}
+    {% endif %}
 
-{% extends '_objects/visualModifier.twig' %}
-{% block content %}
-    <div class="woody-component woody-component-focus tpl_501">
-        {% if items|default %}
-            {% if items|length == 1 %}
-                {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
-                'items' : items,
-                'card' : "overlayed_card/tpl_02",
-                'image_style' : "ratio_4_3"
-            } %}
-            {% elseif items|length == 2 %}
-                {% include 'lists/bases_grid/tpl_201/tpl.twig' with {
-                'items' : items,
-                'card' : "overlayed_card/tpl_02",
-                'image_style' : "ratio_4_3",
-            } %}
-            {% elseif items|length == 3 or items|length == 6 or items|length == 9 %}
-                {% include 'lists/bases_grid/tpl_301/tpl.twig' with {
-                'items' : items,
-                'card' : "overlayed_card/tpl_02",
-                'image_style' : "ratio_4_3",
-            } %}
-            {% elseif items|length == 4 or items|length == 8 %}
-                {% include 'lists/bases_grid/tpl_401/tpl.twig' with {
-                'items' : items,
-                'card' : "overlayed_card/tpl_02",
-                'image_style' : "ratio_4_3",
-            } %}
-            {% elseif items|length >= 5 %}
-                {% set theloopindex = 0 %}
-                <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
-                    {% for item in items[: 5] %}
-                        {% if theloopindex <= 1 %}
-                            <div class="cell medium-6 large-4">
-                                {% include 'cards/overlayed_card/tpl_02/tpl.twig' with {
-                                'image_style' : "ratio_4_3",
-                                'page_type' : item.page_type,
-                            } %}
-                            </div>
-                            {% set theloopindex = theloopindex + 1 %}
-                        {% elseif theloopindex == 2 %}
-                            <div class="cell large-4">
-                                {% include 'cards/overlayed_card/tpl_02/tpl.twig' with {
-                                'image_style' : "ratio_4_3",
-                                'page_type' : item.page_type
-                            } %}
-                            </div>
-                            {% set theloopindex = theloopindex + 1 %}
-                        {% elseif theloopindex > 2 and theloopindex <= 4 %}
-                            <div class="cell medium-6">
-                                {% include 'cards/overlayed_card/tpl_02/tpl.twig' with {
-                                'image_style' : "ratio_16_9",
-                                'page_type' : item.page_type
-                            } %}
-                            </div>
-                            {% set theloopindex = theloopindex + 1 %}
-                        {% elseif theloopindex >= 5 %}
-                            {% set theloopindex = 0 %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endif %}
-    </div>
+    {% include 'blocks/focus/_objects/headerObject.twig' with {
+        display: display_block_titles,
+        margin: 'marg-bottom-md'
+    } %}
+
+    {% if items|length > 0 and items|length < 5 %}
+        {% include 'blocks/focus/_objects/fallbackGridObject.twig' with {
+            'card' : customCard|default("overlayed_card/tpl_02"),
+            'image_style' : customImageStyleFirst|default("ratio_4_3"),
+        }%}
+    {% else %}
+        <div class="woody-mobile-swiper swiper-container {{ swResp ? ' swResp' }}">
+            <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp ? ' swRespW' }}">
+                {% for key, item in items[: 2] %}
+                    <div class="cell medium-6 large-4{{ swResp ? ' swRespS' }}">
+                        {% include "cards/#{customCard}/tpl.twig" with {
+                            'image_style' : customImageStyleFirst|default("ratio_4_3"),
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(false),
+                            'card_index':key + 1
+                        } %}
+                    </div>
+                {% endfor %}
+                {% for key, item in items[2:1]%}
+                    <div class="cell large-4{{ swResp ? ' swRespS' }}">
+                        {% include "cards/#{customCard}/tpl.twig" with {
+                            'image_style' : customImageStyleFirst|default("ratio_4_3"),
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(false),
+                            'card_index':key + 3
+                        } %}
+                    </div>
+                {% endfor %}
+                {% for key, item in items[3:2] %}
+                    <div class="cell medium-6{{ swResp ? ' swRespS' }}">
+                        {% include "cards/#{customCard}/tpl.twig" with {
+                            'image_style' : customImageStyleSecond|default("ratio_16_9"),
+                            'page_type' : item.page_type,
+                            'ellipsis': item.ellipsis|default(false),
+                            'card_index':key + 4
+                        } %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'blocks/focus/_objects/focus_buttons.twig' %}
 {% endblock %}

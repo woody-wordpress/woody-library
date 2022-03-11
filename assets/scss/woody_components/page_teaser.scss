@@ -25,13 +25,26 @@
 }
 
 .woody-component-teaser {
+    padding-top: 1px; // Fixes the white margin of page_main_description if no breadcrumb or title are shown
     position: relative;
 
     .page-main-wicon {
         font-size: rem-calc($page-teaser-icon-size);
     }
 
+    .page-main-titles {
+        >span {
+            display: block;
+        }
+    }
+
+    p .wicon:before {
+        font-size: $icons-in-text-size;
+    }
+
     .direction-map-wrapper {
+        height: 100%;
+
         .leaflet-marker-icon {
             width: $geomap-marker-width !important;
 
@@ -39,12 +52,326 @@
                 max-width: 100%;
             }
         }
+
+        @if $geomap-button-position=='top-left' {
+            .iti-button {
+                left: 10px;
+                top: 10px;
+            }
+        }
+
+        @if $geomap-button-position=='top-right' {
+            .iti-button {
+                right: 50px;
+                top: 10px;
+            }
+        }
+
+        @if $geomap-button-position=='bottom-left' {
+            .iti-button {
+                left: 5px;
+                bottom: 30px;
+            }
+        }
+
+        @if $geomap-button-position=='bottom-right' {
+            .iti-button {
+                right: 10px;
+                bottom: 20px;
+            }
+        }
     }
 
-    &:not(.tpl_02) {
+    .shares-wrapper {
+        justify-content: left;
+
+        .button-add-to-favs {
+            font-size: 2rem;
+            @include xy-gutters($gutter-position: top, $negative:false);
+            margin-left: 15px;
+
+            &:only-child {
+                margin-left: 0px;
+            }
+        }
+
+        .sharing-links {
+            position: relative;
+            @include xy-gutters($gutter-position: top);
+
+            &:after {
+                content: "";
+                margin-left: 20px;
+                margin-top: -5px;
+                height: 10px;
+                width: 1px;
+                background-color: currentColor;
+            }
+
+            &:only-child {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &.content-center {
+        .woody-component-breadcrumb {
+            ol {
+                justify-content: center;
+            }
+        }
+
+        .shares-wrapper {
+            justify-content: center;
+        }
+    }
+
+    &:not(.content-center) {
         .buttons-list {
             @include xy-gutters($gutter-position: left, $negative:true);
         }
     }
 
+    &.bg-transparent {
+
+        @include breakpoint(medium) {
+            color: $white;
+        }
+
+        .sharing-button__link {
+            color: currentColor;
+            fill: currentColor;
+        }
+    }
+
+    &:not(.bg-transparent) {
+        background-color: $white;
+    }
+
+    &.tpl_05 {
+        @include breakpoint(medium) {
+            background-color: transparent !important;
+            border: none !important;
+
+            .breadcrumb-wrapper {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: max-content;
+                writing-mode: vertical-lr;
+                text-orientation: mixed;
+
+                @include breakpoint(xlarge) {
+                    right: 0;
+                    left: auto;
+                }
+
+                .wicon {
+                    transform: rotate(90deg);
+                    margin: 6px 0;
+                }
+            }
+
+            @each $color,
+            $hex in $foundation-palette {
+                &.bg-#{$color} {
+
+                    .breadcrumb-wrapper,
+                    .texts-wrapper {
+                        background-color: $hex;
+                    }
+                }
+
+                &.border-#{$color} {
+
+                    .breadcrumb-wrapper,
+                    .texts-wrapper {
+                        border: $bg-params-border-width $bg-params-border-style $hex;
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_07 {
+        @include breakpoint(medium down) {
+            padding-bottom: 0 !important;
+        }
+
+        @include breakpoint(xmedium) {
+            height: calc(100vw / 3);
+        }
+
+        >.grid-container {
+            flex-grow: 1;
+
+            @include breakpoint(medium down) {
+                padding: 30px !important;
+            }
+
+            @include breakpoint(xmedium up) {
+                height: calc(100vw / 3);
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                transform: translateX(-50%);
+                padding-bottom: 60px;
+                overflow: hidden;
+            }
+
+            .grid-x {
+                margin-top: auto;
+            }
+
+            .woody-component-breadcrumb {
+                @include breakpoint(medium down) {
+                    position: absolute;
+                    top: 0;
+                    left: 30px;
+                }
+            }
+        }
+
+        .profile-wrapper {
+
+            @include breakpoint(large) {
+                top: initial;
+                bottom: $profile-vertical-translation;
+            }
+        }
+
+        .geo-map-corner {
+            z-index: 1;
+
+            @include breakpoint(xmedium down) {
+                left: 0;
+                right: initial;
+                height: calc(100vw - 30%);
+                width: 100%;
+                padding: 0 15px;
+            }
+
+            @include breakpoint(xmedium) {
+                height: calc(100vw - 230%);
+            }
+
+            @include breakpoint(large) {
+                top: $geomap-corner-position;
+                right: $geomap-corner-position;
+                height: $geomap-corner-height;
+                width: $geomap-corner-width;
+            }
+
+            @include breakpoint(xxlarge) {
+                height: $geomap-corner-height * 1.2;
+                width: $geomap-corner-width * 1.2;
+            }
+
+            .leaflet-control-zoom,
+            .leaflet-control-attribution {
+                display: none;
+            }
+
+            .leaflet-container {
+                border-radius: $geomap-corner-border-radius;
+                box-shadow: $geomap-corner-box-shadow;
+                transform-origin: top right;
+                transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+
+                @include breakpoint(xmedium down) {
+                    pointer-events: none;
+                    opacity: 0;
+
+                    &.zoomed {
+                        pointer-events: auto;
+                        opacity: 1;
+                    }
+                }
+
+                @include breakpoint(large) {
+                    transform: scale($geomap-corner-scale);
+
+                    &.zoomed {
+                        transform: scale(1);
+                    }
+                }
+            }
+
+            &.full {
+                .iti-button {
+                    @include breakpoint(xmedium down) {
+                        pointer-events: auto;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .direction-map-wrapper {
+            &>div {
+                @include breakpoint(xmedium down) {
+                    height: 100%;
+                }
+
+                @include breakpoint(large) {
+                    height: $geomap-corner-height;
+                }
+
+                @include breakpoint(xxlarge) {
+                    height: $geomap-corner-height * 1.2;
+                }
+            }
+
+            .iti-button {
+                top: 0;
+                bottom: initial;
+                right: 0;
+                width: $geomap-corner-width * $geomap-corner-scale;
+                border-radius: $geomap-corner-border-radius $geomap-corner-border-radius 0 0;
+
+                @include breakpoint(xmedium down) {
+                    pointer-events: none;
+                    opacity: 0;
+
+                    &::after {
+                        display: none;
+                    }
+                }
+
+                @include breakpoint(xxlarge) {
+                    width: ($geomap-corner-width * 1.2) * $geomap-corner-scale;
+                }
+            }
+
+            .extend-map-icon {
+                font-size: 30px;
+                bottom: -5px;
+                right: 10px;
+                cursor: pointer;
+                transform: translateY(($geomap-corner-height * $geomap-corner-scale) - $geomap-corner-height);
+                transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+
+                @include breakpoint(xxlarge) {
+                    transform: translateY(($geomap-corner-height * 1.2 * $geomap-corner-scale) - $geomap-corner-height * 1.2);
+                }
+
+                &.translated {
+                    transform: translateY(0);
+                }
+            }
+
+            .show-geomap-mobile-button {
+                bottom: $geomap-mobile-button-bottom;
+                right: $geomap-mobile-button-right;
+                color: $geomap-mobile-button-color;
+                background-color: $geomap-mobile-button-bg-color;
+                border: $geomap-mobile-button-border;
+                border-radius: $geomap-mobile-button-border-radius;
+                margin: 0;
+                z-index: 1;
+            }
+        }
+    }
 }

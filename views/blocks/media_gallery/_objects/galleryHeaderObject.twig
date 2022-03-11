@@ -1,0 +1,9 @@
+{% if icon|default or pretitle|default or title|default or subtitle|default or description|default %}
+        <div class="gallery-header block-header marg-bottom-md {{ customClasses|default }}">
+            {% include '_objects/titlesObject.twig' with {
+            'titles' : _context,
+            'contextPrefix' : "gallery",
+            'flexOptions' : flexOptions|default("flex-container flex-dir-column align-center align-middle text-center")
+        } %}
+        </div>
+    {% endif %}

@@ -1,61 +1,15 @@
 // BOOTSTRAP BASED BREAKPOINTS
 
 /**
-* EXTRA LARGE DESKTOP
-*/
-@media (max-width: 1680px) {
-    .tourism-detail-container.itinerary-detail .tourism-detail-tabs .itinerary-tabs-wrapper .tabs-list .add {
-        .button-label {
-            display: none;
-        }
-
-        .add-icon {
-            padding: 0;
-        }
-    }
-}
-
-/**
-* LARGE DESKTOPS AND LAPTOPS
-*/
-@media (min-width: 1200px) and (max-width: 1679px) {
-    .tourism-list-item {
-        &:after {
-            padding-top: 1.2 * $defRatio;
-        }
-    }
-}
-
-@media (max-width: 1330px) {
-    .tourism-detail-container.itinerary-detail .tourism-detail-tabs .itinerary-tabs-wrapper .tabs-list {
-        .tab a {
-            padding: 15px;
-            font-size: .9em;
-        }
-    }
-}
-
-/**
 * PORTRAIT TABLETS AND MEDIUM DESKTOPS
 */
 @media (min-width: 992px) and (max-width: 1199px) {
-
     .sheet-deal .deal-wrapper .deal-description-left,
     .sheet-deal .deal-wrapper .deal-description-right {
         width: 100%;
         display: block;
     }
-
-    .tourism-detail-tabs.itinerary-tabs .tabs-contents-wrapper .itinerary-tabs-wrapper {
-        margin-left: 33.333%;
-
-        .sections-wrapper {
-            padding: 2 * $defContainersPadding;
-        }
-    }
 }
-
-
 
 /**
 * PORTRAIT TABLETS AND SMALL DESKTOPS
@@ -67,30 +21,8 @@
         width: 100%;
         display: block;
     }
-
     .deal-reference-wrapper {
         display: none;
-    }
-
-    .tourism-list-item {
-        min-height: 270px;
-
-        &:after {
-            padding-top: 1.2 * $defRatio;
-        }
-    }
-
-    .tourism-detail-tabs.itinerary-tabs .tabs-contents-wrapper .itinerary-tabs-wrapper {
-        margin-left: 33.333%;
-
-        .sections-wrapper {
-            padding: 2 * $defContainersPadding;
-        }
-    }
-
-    //ended-event
-    .tourism-detail-sidebar .sidebar-buttons-wrapper .ended-event {
-        width: 66%
     }
 }
 
@@ -98,132 +30,6 @@
 * LANDSCAPE PHONES AND PORTRAIT TABLETS
 */
 @media (max-width: 767px) {
-    .tourism-list {
-        width: 50%;
-
-        &:not(.map-on-right):not(.no-map):not(.search-list) {
-            margin-left: 50%;
-        }
-
-        .tourism-list-item {
-            min-height: 280px;
-            font-size: .9em;
-
-            &:after {
-                padding-top: 1.2 * $defRatio;
-            }
-        }
-    }
-
-    .tourism-wrapper {
-        .list-map {
-            top: 0;
-            width: 50%;
-
-            &.planner {
-                top: 0;
-            }
-        }
-
-        .pager-wrapper.top-pager {
-            display: none;
-        }
-    }
-
-    // ITINERARY
-    .tourism-detail-tabs {
-        .tabs-links-wrapper {
-            .tabs-list {
-                display: table;
-                width: 100%;
-
-                .tab {
-                    display: table-cell;
-                    vertical-align: top;
-                    float: none;
-
-                    text-align: center;
-
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                }
-            }
-        }
-
-        &.itinerary-tabs {
-            .tabs-contents-wrapper {
-                .itinerary-map-wrapper {
-                    position: relative !important;
-                    max-height: 250px;
-                }
-
-                .itinerary-tabs-wrapper {
-                    margin-left: 0;
-
-                    .sections-wrapper {
-                        padding: 10px;
-                    }
-                }
-            }
-        }
-    }
-
-    .tourism-detail-openings .openings-days td {
-        padding: 5px;
-    }
-
-    .nearby-tab .nearby-wrapper .nearby-map {
-        padding-top: 55%;
-    }
-
-    .itinerary-trip-wrapper .itinerary-advanced .section-did-you-know {
-        padding-left: 2 * $defContainersPadding;
-    }
-
-    .tourism-facets.sticky-fixed {
-        width: 50%;
-        left: 50%;
-    }
-
-    .state-tourism-list .tourism-my-stay {
-        width: 100%;
-    }
-
-    .tourism-list-item.medium-size:after {
-        padding-top: 120%;
-    }
-
-    .tourism-list-item.full-size:after {
-        padding-top: 180%;
-    }
-
-    // FACETS
-    .tourism-facets .facets-list {
-        .facet-type-wrapper {
-            .section-title {
-                display: block;
-                width: 100%;
-                padding: 0;
-                margin: 0;
-                margin-bottom: 10px;
-            }
-
-            .section-content {
-                display: block;
-
-                .facet-item,
-                .form-group {
-                    padding: 0;
-                }
-            }
-        }
-
-        .all-facets-wrapper {
-            padding-left: 0;
-            padding-right: 0;
-        }
-    }
 
     // SIDEBAR
     .tourism-detail-sidebar {
@@ -234,43 +40,8 @@
             padding: 5px;
         }
 
-        .sidebar-tariffs {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .tourism-detail-sharing {
-            display: none;
-        }
-
         .sidebar-issue-report {
             padding-top: 5px;
-        }
-
-        .tourism-detail-location {
-            border-top: none;
-        }
-
-        .sidebar-vcard .sidebar-vcard-tel .fax {
-            border-top: none;
-            padding-top: 0;
-        }
-    }
-
-    .sidebar-buttons-wrapper {
-        margin-bottom: 5px;
-
-        .sidebar-wishlist-btn,
-        .sidebar-booking-btn,
-        .sidebar-email-btn {
-            font-size: 1em;
-            max-width: none;
-            float: left;
-            width: 49%;
-        }
-
-        .sidebar-wishlist-btn {
-            margin-right: 2%;
         }
     }
 
@@ -282,216 +53,20 @@
         margin-left: -10px;
     }
 
-    .tourism-detail-comments {
-        .comment-header {
-            text-align: center;
-
-            .item-comments-count {
-                margin: 0 auto;
-                float: none;
-                display: inline;
-
-                .comments-count {
-                    line-height: 1;
-                }
-            }
-        }
-    }
-
-    // SECTIONS
-    .tourism-detail-section {
-        .section-title {
-            display: block;
-            margin-top: 0;
-            font-size: 2em;
-            font-weight: 100;
-            width: 100%;
-        }
-
-        .section-content {
-            display: block;
-        }
-    }
-
-    .tourism-detail-openings .common-select {
-        width: 100%;
-    }
 
     // NAV
     .nav-back {
         font-size: 0;
-
         a:before {
             margin: 0;
-        }
-    }
-
-    .tourism-detail-add-comment h2:after {
-        margin-left: 0;
-        margin-top: -20px;
-    }
-
-    .nearby-tab {
-        .nearby-wrapper {
-            .nearby-map {
-                width: 100%;
-            }
-
-            .nearby-sheets {
-                display: none;
-            }
-        }
-    }
-
-    .tourism-my-stay .my-stay-form .facet-daterange-embed {
-        width: 100%;
-
-        .calendar-wrapper {
-            margin-right: $defMargin;
         }
     }
 
     .deal-reference-wrapper {
         display: none;
     }
-
-    .highlights-tab .highlights-dates {
-        font-size: .9em;
-        padding: 15px;
-
-        .first-date {
-            margin-right: 15px;
-            padding-right: 15px;
-            border-right: 2px solid $bdColor;
-        }
-    }
-
-    .planning-tourism {
-        .alert-window-wrapper {
-            display: block;
-        }
-    }
 }
 
-@media screen and (max-width: 620px) {
-    .highlights-tab {
-        padding-top: 0;
-
-        .highlights-image {
-            display: none;
-        }
-
-        .highlights-dates {
-            overflow: hidden;
-            position: relative;
-            display: block;
-            top: auto;
-            height: auto;
-            left: auto;
-
-            .all-occurences {
-                h4 {
-                    margin-top: 0;
-                }
-            }
-
-        }
-    }
-}
-
-// OTHER USEFULL BREAKPOINTS
-
-@media (max-width: 1400px) {
-
-    .tourism-facets {
-        width: 100%;
-        padding: 0;
-        padding-top: 68px;
-        background-color: transparent;
-
-        .scrolling-wrapper {
-            background: #FFF;
-            padding: 15px;
-        }
-
-        &.opened {
-            left: 0;
-        }
-
-        .fullscreen & {
-            padding-top: 0 !important;
-        }
-
-        .responsive-summary {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            color: #FFF;
-            display: block;
-
-            .facet-button {
-                color: inherit;
-                display: block;
-                padding: 0;
-                margin: 0;
-                width: 100%;
-
-                .filters-label {
-                    width: 100%;
-                    padding-right: 50px;
-                    font-size: 1em;
-                    text-align: right;
-                    border-color: rgba(255, 255, 255, 0.3);
-
-                    &:after {
-                        color: inherit;
-                        left: auto !important;
-                        right: 0;
-                        margin: 0;
-                    }
-                }
-
-                .result-count {
-                    &.loading {
-                        &:after {
-                            border-width: 3px;
-                            border-color: rgba(255, 255, 255, 0.8) rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.4);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .list-map.opened:after {
-        opacity: 0;
-    }
-
-    .tourism-my-stay.fullscreen .my-stay-wrapper,
-    .bloc-event-search-engine.fullscreen .my-stay-wrapper {
-        width: 800px;
-    }
-}
-
-@media (max-width: 1300px) {
-    .tourism-detail-title {
-        padding: 0 $defMargin;
-    }
-
-    .tourism-my-stay .my-stay-form .search-text {
-        padding-left: $defMargin;
-    }
-}
-
-@media (max-width: 1280px) {}
-
-// 15.6" SCREENS
-@media (max-width: 1200px) {
-
-    .tourism-my-stay.fullscreen .my-stay-wrapper,
-    .bloc-event-search-engine.fullscreen .my-stay-wrapper {
-        width: 600px;
-    }
-}
 
 @media (max-width: 1000px) {
 
@@ -500,58 +75,6 @@
             display: none;
         }
     }
-
-    .tourism-my-stay.fullscreen .my-stay-wrapper,
-    .bloc-event-search-engine.fullscreen .my-stay-wrapper {
-        width: 100%;
-        max-width: none;
-
-        top: 0;
-        left: 0;
-        border-radius: 0;
-    }
-
-    .tourism-my-stay .my-stay-wrapper {
-        .search-text {
-            font-size: 1em;
-            padding-right: $defMargin;
-        }
-    }
-
-    .tourism-map.fullscreen,
-    .itinerary-map-wrapper.fullscreen {
-        padding-top: 70px !important;
-
-        &.list-map section {
-            position: absolute !important;
-            top: 70px !important;
-            bottom: 0 !important;
-            height: auto !important;
-        }
-
-        .tourism-facets {
-            top: 70px;
-            height: auto !important;
-            bottom: 0;
-        }
-
-        .map-mode-switcher {
-            top: 85px;
-        }
-    }
-
-    .tourism-facets {
-        padding-top: 111px;
-
-        .responsive-summary {
-            height: 111px;
-
-            .facet-button {
-                margin-top: 38px;
-            }
-        }
-    }
-
     .daterangepicker.dropdown-menu {
         max-width: 320px;
     }
@@ -578,39 +101,10 @@
                 display: block;
                 text-align: left;
                 width: 100%;
-
             }
 
             .type-item label {
                 text-align: center;
-            }
-        }
-    }
-
-    .tourism-my-stay .my-stay-buttons {
-        display: none;
-    }
-
-    .tourism-facets {
-        padding-top: 68px;
-
-        .responsive-summary {
-            height: 68px;
-            background: #FFF;
-            color: #000;
-
-            .facet-button {
-                margin-top: 0;
-                top: 15%;
-
-                .result-count {
-                    &.loading {
-                        &:after {
-                            border-width: 3px;
-                            border-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.2);
-                        }
-                    }
-                }
             }
         }
     }
@@ -621,9 +115,7 @@
 
     .tourism-list-item {
         .item-container {
-
             transition: opacity .5s $swift-out, transform .5s $swift-out, box-shadow .5s $swift-out;
-
             &:hover {
                 transform: translateY(-4px);
                 box-shadow: $defShadowLev3;
@@ -757,91 +249,15 @@
 * LANDSCAPE PHONES AND SMALLER
 */
 @media (max-width: 480px) {
-
-    .main-table-wrapper {
-        display: block;
-    }
-
-    .app-container {
-        z-index: 20;
-    }
-
     .sheet-deal .deal-wrapper {
-
         .deal-description-left,
         .deal-description-right {
             width: 100%;
             display: block;
         }
     }
-
-    .standalone-switch-buttons {
-        display: none;
-    }
-
-    .nearby-tab .nearby-wrapper .nearby-map {
-        padding-top: 80%;
-    }
-
     .deal-reference-wrapper {
         display: none;
-    }
-
-    .tourism-wrapper {
-        min-height: 0;
-
-        .tourism-list-wrapper {
-            padding: 0;
-        }
-    }
-
-    .tourism-list {
-
-        .tourism-list-item {
-            margin: 7.5px 0;
-            box-shadow: 0px 2px 5px 0px rgba(100, 100, 100, 0.2);
-
-            .item-dates ul li {
-                text-align: left;
-            }
-
-            .item-infos {
-                padding-bottom: 50px !important;
-            }
-
-            .item-secondary-infos {
-                position: absolute;
-                bottom: 10px;
-                max-width: unquote("calc(100% - 105px)");
-                border-top: 0 !important;
-            }
-
-            .sheet-list-item-buttons {
-                width: auto;
-                height: auto;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                margin: 10px;
-
-                .list-booking-btn-fixed {
-                    padding: 5px 15px;
-                    margin-bottom: 0;
-                }
-            }
-        }
-
-    }
-
-
-
-    .tourism-detail-container.itinerary-detail .tourism-detail-tabs .itinerary-tabs-wrapper .tabs-list li {
-        display: block;
-        border: none;
-
-        &.active {
-            border: none;
-        }
     }
 
     .itinerary-elevation-wrapper .itinerary-elevation-datas {
@@ -849,274 +265,6 @@
         min-width: 0;
     }
 
-    .tourism-my-stay {
-        z-index: auto;
-
-        .my-stay-wrapper {
-            height: auto;
-        }
-
-        .my-stay-form {
-
-            .calendar-wrapper,
-            .cell-wrapper {
-                display: block;
-                width: 100%;
-                margin: 0;
-            }
-
-            .cell-wrapper {
-                padding: 15px;
-                padding-left: 0px;
-                padding-top: 0;
-                height: auto;
-            }
-
-            .cell-wrapper:first-child {
-                padding-top: 15px;
-            }
-
-            .search-text {
-                padding: 0;
-                text-align: center;
-                display: block;
-            }
-
-            .dgs-icon-edit {
-                padding-left: 10px;
-                width: auto;
-                display: inline-block;
-                max-width: 300px;
-            }
-        }
-
-        .mapFull & {
-            .my-stay-form {
-                padding-top: 0 !important;
-
-                .cell-wrapper {
-                    padding: 15px 0;
-                    padding-top: 0;
-
-                    &:first-child {
-                        padding-bottom: 0;
-                        padding-top: 0;
-                    }
-
-                    &:last-child {
-                        padding-bottom: 0;
-                    }
-                }
-            }
-        }
-    }
-
-    .tourism-list {
-        width: 100%;
-        margin-left: 0 !important;
-        padding: 0;
-
-        .image-landscape {
-            .item-wrapper {
-                .item-infos {
-                    width: 70% !important;
-                }
-            }
-        }
-
-        .tourism-list-item {
-            min-height: 0;
-
-
-            .item-container {
-                position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                bottom: auto;
-
-                border: none;
-
-                .item-wrapper {
-                    position: relative;
-                    top: auto;
-                    left: auto;
-                    right: auto;
-                    bottom: auto;
-
-                    display: table;
-                    width: 100%;
-
-                    &>ng-include {
-                        position: relative;
-
-                        display: table-cell;
-                        vertical-align: top;
-
-                        width: 90px;
-                        height: 90px;
-
-                        .item-image-wrapper {
-                            height: 100% !important;
-                        }
-                    }
-
-                    .item-infos {
-                        display: table-cell;
-                        vertical-align: top;
-                        width: auto;
-
-                        position: relative;
-                    }
-
-                    .itinerary-length {
-                        bottom: -1px;
-                        right: 100%;
-                        left: auto;
-                        height: auto;
-                        padding: 5px 10px;
-
-                        opacity: .8;
-                    }
-
-                    .item-top-left-corner,
-                    .item-top-right-corner,
-                    .item-description,
-                    .wishlist-button {
-                        display: none;
-                    }
-                }
-
-            }
-
-
-            &:after {
-                content: none;
-            }
-        }
-    }
-
-    .list-map {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: 0;
-
-        #map {
-            position: relative;
-
-            &:after {
-                content: '';
-                display: block;
-
-                width: 100%;
-                padding-top: 146%;
-            }
-        }
-
-        &.fullscreen {
-            #map {
-                position: absolute !important;
-            }
-        }
-
-        &.hide-map {
-
-            .mode-switcher,
-            .map-canvas {
-                display: none;
-            }
-        }
-    }
-
-    .tourism-facets {
-        position: fixed;
-        top: 10%;
-        left: 10%;
-        width: 100%;
-        height: 100%;
-        z-index: 999;
-
-        opacity: 0;
-        visibility: hidden;
-
-        transition: top .3s $swift-out,
-            left .3s $swift-out,
-            opacity .3s $swift-out,
-            visibility .3s $swift-out;
-
-        &.opened {
-            left: 0;
-            top: 0;
-
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .filters-wrapper {
-            display: none;
-        }
-
-        .scrolling-wrapper {
-            max-height: none !important;
-        }
-    }
-
-    .tourism-map.fullscreen,
-    .itinerary-map-wrapper.fullscreen {
-        padding-top: 150px !important;
-
-        &.list-map section {
-            top: 150px !important;
-            bottom: 0 !important;
-            height: auto !important;
-        }
-
-        .tourism-facets {
-            top: 150px;
-            height: auto !important;
-            bottom: 0;
-        }
-
-        .map-mode-switcher {
-            top: 165px;
-        }
-    }
-
-    .facet-drwa.embed {
-        width: 100%;
-        padding: 15px;
-        border-bottom: 1px solid $bdColor;
-    }
-
-    .tourism-facets.sticky-fixed {
-        width: 100%;
-        left: 0%;
-    }
-
-    .tourism-detail-sidebar .sidebar-buttons-wrapper {
-
-        .sidebar-wishlist-btn,
-        .sidebar-email-btn,
-        .sidebar-booking-btn {
-            width: 100%;
-        }
-    }
-
-    .tourism-detail-tabs {
-        .tabs-links-wrapper {
-            .tabs-list {
-                display: block;
-
-                .tab {
-                    width: 100%;
-                    display: block;
-                }
-            }
-        }
-    }
-
-    .tourism-detail-title h1,
     .sheet-nav {
         display: block;
     }
@@ -1125,114 +273,18 @@
         margin: 0;
     }
 
-    .tourism-detail-add-comment .add-comment-list .add-comment-item {
-        width: 40px;
-        height: 40px;
-
-        &:before {
-            font-size: 40px;
-        }
-
-        &:hover {
-            &:before {
-                font-size: 42px;
-            }
-        }
-    }
-
-    .planning-preview {
-        display: none;
-    }
-
-    .tourism-detail-add-comment h2:after {
-        display: none;
-    }
-
-    .tourism-detail-sidebar {
-        .sidebar-buttons-wrapper {
-            margin: 0;
-            border-bottom: 1px solid darken($bdColor, 2%);
-
-            .sidebar-booking-btn,
-            .sidebar-wishlist-btn,
-            .sidebar-email-btn {
-                border-radius: 0;
-                margin: 0;
-                border: none;
-                box-shadow: none;
-
-                padding: 15px;
-                line-height: 45px;
-            }
-        }
-    }
-
-    .highlights-tab {
-        .highlights-dates {
-            font-size: .8em;
-            left: 0;
-            width: 100%;
-        }
-
-        .highlights-image {
-            display: none;
-        }
-    }
-
-    .tourism-detail-openings .openings-days {
-        text-align: center;
-
-        .day-name {
-            width: 100%;
-            display: block;
-        }
-
-        .day-schedule {
-            width: 100%;
-            display: block;
-
-            table {
-                width: 100%;
-
-                tr {
-                    width: 100%;
-                    display: block;
-
-                    td {
-                        width: 100%;
-                        padding: 0;
-                        display: block;
-                        text-align: center;
-                    }
-                }
-            }
-
-        }
-    }
-
-    .tourism-facets {
-        .responsive-summary {
-            .facet-button {
-                .filters-label {
-                    border-color: rgba(0, 0, 0, 0.2);
-
-                    &:after {
-                        background: rgba(0, 0, 0, 0.1);
-                        line-height: 32px;
-                        content: '\e63c' !important;
-                        font-size: 16px !important;
-                    }
-                }
-            }
-        }
+    .social-buttons-wrapper {
+        padding: 0;
     }
 
     .detail-form h3,
     .contact-form.detail-form h3 {
         margin: 0;
         margin-top: 15px;
+        padding-left: 50px;
+        padding-right: 50px;
+
         margin-bottom: 10px;
-        // padding-right: 50px;
         text-align: left;
         font-size: 1.5em;
         min-height: 40px;
@@ -1268,12 +320,5 @@
         .modal-content {
             min-height: 100%;
         }
-    }
-}
-
-// SPECIFIC TREATMENT FOR ENDED EVENT SECTION IN SHEET DETAIL SIDEBAR
-@media (max-width: 390px) {
-    .tourism-detail-sidebar .sidebar-buttons-wrapper .ended-event {
-        width: 75%;
     }
 }

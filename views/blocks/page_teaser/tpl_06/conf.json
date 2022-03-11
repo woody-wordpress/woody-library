@@ -1,0 +1,19 @@
+{
+    "approved": true,
+    "name": "Template 06 - Ratio original",
+    "description": "Affiche les infos indispensables d'une page : titre + desc + social shares + ajout aux favoris + image/video ou widget à droite (7 colones - 5 colonnes)",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b2bbb46507bf"
+    ],
+    "vars": [
+        "classes",
+        "background_img",
+        "breadcrumb",
+        "page_teaser_title",
+        "page_teaser_display_favs_btn",
+        "page_teaser_desc",
+        "page_teaser_buttons",
+        "page_teaser_display_shares"
+    ]
+}

@@ -1,26 +1,16 @@
-<div class="woody-component woody-component-quote tpl_02">
-    <div class="grid-x grid-padding-y grid-padding-x align-middle align-center">
-        {% if text|default %}
-            <div class="cell quote-texts">
-                <div class="lead">
-                    {{ text }}
-                </div>
-            </div>
-        {% endif %}
-        {% if img|default %}
-            <div class="item-img">
-                {% include '_objects/imageObject.twig' with {
-            'img' : _context.img,
-            'image_style' : 'ratio_square',
-            'containerClass' : "quoteMediaWrapper"
-            } %}
-            </div>
-        {% endif %}
-        {% if signature|default %}
-            <div class="cell text-center item-author">
-                <span>
-                    {{ signature }}</span>
-            </div>
-        {% endif %}
-    </div>
-</div>
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}quote{% endblock %}
+{% block indexClass %}02{% endblock %}
+{% block woodyComponentContent %}
+	<div class="grid-x grid-padding-y grid-padding-x align-middle align-center">
+		{% include "blocks/quote/_objects/quoteTextObject.twig" with {
+                'customClass' : 'cell quote-texts text-center'
+        } %}
+		{% include "blocks/quote/_objects/quoteImageObject.twig" with {
+            'customClass' : 'rounded-img'
+        } %}
+		{% include "blocks/quote/_objects/quoteSignatureObject.twig" with {
+            'customClass' : 'cell text-center'
+        } %}
+	</div>
+{% endblock %}

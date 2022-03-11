@@ -13,3 +13,23 @@ $hero-tagslist-border: 1px solid !default;
 
 $hero-tagslist-flex-dir: column !default;
 $hero-tagslist-icon-size: rem-calc(30) !default;
+
+
+// Movie toggler
+$movie-toggle-bgcolor : $primary-color !default;
+$movie-toggle-color : $white !default;
+$movie-toggle-left-position : auto !default;
+$movie-toggle-top-position : auto !default;
+$movie-toggle-right-position : 15px !default;
+$movie-toggle-bottom-position : 15px !default;
+$movie-toggle-padding:(small:5px 10px, large:8px 20px) !default;
+
+$hero-gradient-size: 350px !default;
+$hero-gradient-teaser-overflow: true !default;
+
+
+// Variables CSS
+:root {
+    --hero-gradient-size: #{$hero-gradient-size};
+    --hero-gradient-teaser-overflow: #{$hero-gradient-teaser-overflow};
+}

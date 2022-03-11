@@ -1,0 +1,17 @@
+// Webcam
+$infolive-webcam-icon: 014-station-webcam !default;
+
+// Slopes
+$circular-progressbar-global-width: 100px !default;
+$circular-progressbar-levels-width: 80px !default; // Only used for infolive (remove for snowflakes)
+$infolive-progressbar-bg-opacity: .05 !default;
+
+$infolive-slopes-total-hide: false !default;
+
+// Alert
+$infolive-alert-bg: rgba($primary-color, .5) !default;
+$infolive-alert-bg-icon: $primary-color !default;
+$infolive-alert-color-icon: $white !default;
+$infolive-alert-text-style: italic !default;
+$infolive-alert-text-weight: 500 !default;
+$infolive-alert-text-color: $white !default;

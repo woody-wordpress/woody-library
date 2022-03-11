@@ -3,34 +3,39 @@
         {% if filters|length != 0 %}
             {% set random_number = ''|random_number %}
             <div class="cell isRel accordion the_filter" data-accordion data-allow-all-closed="true" id="accordion-{{ random_number }}">
-                <div class="accordion-item" data-accordion-item>
+                <div class="accordion-item {% if filters.open_auto %} is-active{% endif %}" data-accordion-item>
                     <a class="accordion-title" href="#filters-{{ random_number }}">
                         {{ __("Affiner ma recherche", 'woody-theme') }}</a>
                     <div class="accordion-content" data-tab-content id="filters-{{ random_number }}">
-                        <form class="woody-component-filters-wrapper isRel {{ filters.display.classes|default }} padd-all-md{{ filters.display.background_img ? ' has-bgimg' }}" action="{{ permalink }}" method="post">
+                        <form class="woody-component-filters-wrapper isRel {{ filters.display.classes|default }} padd-all-md{{ filters.display.background_img ? ' has-bgimg' }}" action="{{ permalink }}" method="get">
                             {% if filters.display.background_img %}
-                                <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ filters.display.background_img.url }}'); background-size:cover; background-position:center center;"></div>
+                                {% include '_objects/bgImageObject.twig' with {
+                                        'img': filters.display.background_img,
+                                } %}
                                 <div class="content isRel">
                                 {% endif %}
                                 <div class="grid-x grid-padding-x grid-padding-y">
-                                    {% for filter_index, filter in filters %}
-                                        {% if filter.list_filter_type == 'taxonomy' or filter.list_filter_type == 'custom_terms' %}
+                                    {% block the_filters %}
+                                        {% for filter_index, filter in filters %}
+                                            {% if filter.filter_type == 'custom_terms' %}
                                             <div class="cell filter-item">
                                                 {% include 'lists/list_filters/tpl_01/tpl.twig' %}
                                             </div>
-                                            {% elseif filter.list_filter_type == 'price' %}
+                                            {% elseif filter.filter_type == 'price' %}
                                             <div class="cell filter-item">
                                                 {% include 'lists/list_filters/tpl_02/tpl.twig' %}
                                             </div>
-                                            {% elseif filter.list_filter_type == 'duration' %}
+                                            {% elseif filter.filter_type == 'duration' %}
                                             <div class="cell filter-item">
                                                 {% include 'lists/list_filters/tpl_03/tpl.twig' %}
                                             </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endblock %}
                                     {% block list_form_actions %}
                                         <div class="cell form-actions">
                                             <input type="hidden" name="uniqid" value="{{ uniqid }}">
+                                            <input type="hidden" name="seed" value="{{ ''|seed }}">
                                                 <input id="{{ uniqid|default }}-submit" type="submit" name="submit" value="{{ filters.button.filter_button_text|default }}" class="button">
                                                     {% if filters.reset|default %}
                                                         <input id="{{ uniqid|default }}-reset" type="submit" name="reset" value="{{ __('Réinitialiser', 'woody-theme') }}" class="button reset-button">

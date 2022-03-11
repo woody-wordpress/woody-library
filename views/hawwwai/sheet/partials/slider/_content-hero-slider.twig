@@ -1,0 +1,164 @@
+{% if contractsLevels.content.medias and formated_object.sortedGallery|default %}
+    <div class="row _plu-push--large hero-slider" {% if _id_medias|default %}id="gallery"{% endif %}>
+
+        {% if not _id_medias|default %}
+            {# territoryLabelBrands #}
+            {% if formated_object.territoryLabelBrands|default %}
+                <span class="tourism-labels sheet-territory-label-brands">
+                    {% for territoryLabelBrand in formated_object.territoryLabelBrands %}
+                        {% for image in thesaurus.images %}
+                            {% if image.code == territoryLabelBrand.code %}
+                            <span class="sheet-territory-label-brand">
+                                <img class="img-responsive" alt="{{thesaurus.fulldictionary[image.code]|default}}" src={{ image.urlHD|default(image.url) | rcImg(65, 65, 100, 'png', 'clip') }}>
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </span>
+            {% elseif formated_object.specialLabels|default %} {# End of territoryLabelBrands #}
+            {# SpecialLabels #}
+                <li class="tourism-labels tourism-special-labels">
+                    {% for simplelabel in formated_object.specialLabels %}
+                        {% for image in thesaurus.images %}
+                            {% if image.code == simplelabel.type %}
+                            <span class="tourism-special-label">
+                                <img class="img-responsive" alt="{{thesaurus.fulldictionary[image.code]|default}}" src={{ image.urlHD|default(image.url) | rcImg(65, 65, 100, 'png', 'clip') }}>
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </li>
+            {% endif %} {# End of labels #}
+
+            {% if formated_object.tagCorner|default %}
+                <div class="sheet-tag-corner">
+                    <span class="corner"></span>
+                    <span class="icon icon-font-{{ formated_object.tagCorner.icon|default('star') }}" {% if formated_object.tagCorner._type|default %}data-toggle="tooltip" data-placement="right" title="{{ formated_object.tagCorner._type }}"{% endif %}></span>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    {% spaceless %}
+        <article class="tourism-detail-hero-slider pl-paint-dawn {% if formated_object.sortedGallery|length == 1 %} single-media{% endif %}">
+            {# Image #}
+            <div class="panel-header show-when-angular-ready">
+                <kaarousel class="kaarousel-container"
+                    displayed="1" per-slide="1"
+                    animation="slide" autoplay="false"
+                    transition-duration="300"
+                    sync="currentIndex"
+                    hide-pager="true"
+                    is-swipable="shouldSwipe()"
+                    ng-init="currentIndex=0">
+
+                    {% for media in formated_object.sortedGallery %}
+                        <kaarousel-slide class="kaarousel-item"
+                                         ng-class="{selected: isActive(), visible: isVisible({{ loop.index0 }})}"
+                                         index="{{ loop.index0 }}"
+                                         ng-style="itemStyles()"
+                                         {% if loop.last %} last="true" {% endif %}>
+
+                            <div class="kaarousel-item-content -pl-pin -pl-pin-cover">
+                                <div class="kaarousel-item-media-container">
+
+                                    {# -- If mediatype is Photo -- #}
+                                    {% if media.type == '03.01.01' %}
+                                        {% if media.URL|default %}<div class="fresco" href="{{media.URL}}" data-fresco-group="slider_media" data-fresco-options="loop: true, preload: [1,1]"> {% endif %}
+                                            <img class="kaarousel-item-media-img img-responsive" src="{{ media.URL | rcImg(782, 400, 80, 'jpg', 'clip') }}" alt="{{ media._name|default('imgcarousel-name-mising') }}" />
+                                            {% if media._copyright|default %}
+                                                <span class="photo-label">{{ media._copyright}}</span>
+                                            {% endif %}
+                                        {% if media.URL|default %}</div>{% endif %}
+
+                                    {# -- if mediatype is a Video --  #}
+                                    {% elseif media.type == '03.01.04' %}
+                                        {# -- if Video is yt, vim, dailym -- #}
+                                        {% if media.player|default and (media.player == 'youtube' or media.player == 'vimeo' or media.player == 'dailymotion') %}
+                                            <div class="kaarousel-item-media-iframe" media-play-click thumb-url="{{ media._thumbURL | rcImg(782, 400, 80, 'jpg', 'clip') }}">
+                                                <iframe id="ytplayer" width="100%" height="400px" ng-src="{{ media._embedURL }}" frameborder="0" allowfullscreen> </iframe>
+                                            </div>
+                                        {#{% elseif %}#}
+                                            {#<video class="kaarousel-item-media-video" width="782px" height="400px" src="{{media.URL}}" controls><a href="{{media.URL}}"></a></video>#}
+                                        {% endif %}
+
+
+                                    {# -- if mediatype is Embed (Gsphere|360|Youtube|etc) --  #}
+                                    {% elseif media.type in ['99.03.01.06','99.03.01.07'] %}
+                                        <span class="gsphere-element-wrapper">
+                                            <iframe ng-src="{{media.URL}}"></iframe>
+                                        </span>
+                                    {# -- if mediatype is a StreetView --  #}
+                                    {% elseif media.type in ['99.03.01.03','99.03.01.04'] and media._description|default %}
+                                        <street-view datas="{{media._description|json_encode}}" sviewid='{{loop.index0}}'></street-view>
+
+                                    {# -- if mediatype is a KrPano --  #}
+                                    {% elseif media.type in ['99.03.01.02','99.03.01.05'] %}
+                                    {% endif %} {# End if "type-of-media" #}
+
+                                </div> {# End of kaarousel-item-media #}
+                            </div> {# End of kaarousel-item-content #}
+                        </kaarousel-slide>
+                    {% endfor %}
+                </kaarousel>
+            </div> {# End of panel header #}
+
+            {# Captions #}
+            {% if formated_object.sortedGallery|length > 1 %}
+                <div class="panel-body pl-paint-overlay sharpen show-when-angular-ready hidden-xs kaarousel-thumbnails">
+                    <kaarousel
+                        displayed="5"
+                        per-slide="5"
+                        autoplay="false"
+                        expand="false"
+                        min-width="100"
+                        transition-duration="300"
+                        sync="currentIndex"
+                        center-active="true"
+                        class="kaarousel-thumbnails-container thumbs-container"
+                        hide-nav="true"
+                        hide-pager="true">
+
+                        {% for media in formated_object.sortedGallery %}
+                            <kaarousel-slide ng-class="{selected: isActive(), visible: isVisible(), active: {{  loop.index0 }} === currentIndex}"
+                                    {# ng-style="itemStyles()" #}
+                                    index="{{ loop.index0 }}"
+                                    {%  if loop.last %}last="true"{% endif %}
+                                    ng-click="$parent.$parent.currentIndex = {{ loop.index0 }}">
+
+                                    <div class="_clickable kaarousel-thumbnail slide-container">
+                                      <span class="slide-wrapper">
+
+                                        {# -- If mediatype is a Video -- #}
+                                        {% if media.type == '03.01.04' %}
+                                            {% if media.player|default and (media.player == 'youtube' or media.player == 'vimeo' or media.player == 'dailymotion') %}
+                                                <span class="icon-font-play-video -pl-pin -pl-pin-center ink-winter beta"></span>
+                                                {% if media._thumbURL is defined %}
+                                                    <img class="thumb-image" src="{{ media._thumbURL | rcImg(140, 100, 80, 'jpg', 'crop') }}" alt="{{ media._name|default('videopreview-name-mising') }}" />
+                                                {% endif %}
+                                            {% endif %}
+
+                                        {# -- If mediatype is Photo -- #}
+                                        {% elseif media.type == '03.01.01' and media._thumbURL|default %}
+                                            <img class="thumb-image" src="{{ media._thumbURL | rcImg(140, 100, 80, 'jpg', 'crop') }}" alt="{{ media._name|default('imgpreview-name-mising') }}" />
+
+                                        {# -- if mediatype is Embed (Gsphere|360|Youtube|etc) --  #}
+                                        {% elseif media.type in ['99.03.01.06','99.03.01.07'] %}
+                                            <span class="thumb-image gsphere"></span>
+                                        {# -- if mediatype is a StreetView --  #}
+                                        {% elseif media.type in ['99.03.01.03','99.03.01.04'] and media._description|default %}
+                                            <span class="thumb-image virtualtour"></span>
+                                        {# -- if mediatype is a KrPano --  #}
+                                        {% elseif media.type in ['99.03.01.02','99.03.01.05'] %}
+                                            {#<span class="thumb-image krpano"></span>#}
+                                        {% endif %}
+                                      </span>
+                                    </div>
+                            </kaarousel-slide>
+                        {% endfor %}
+                    </kaarousel>
+                </div> {# End of panel body #}
+            {% endif %}
+        </article>
+    {% endspaceless %}
+    </div>
+{% endif %}

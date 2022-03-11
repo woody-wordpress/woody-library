@@ -1,0 +1,16 @@
+$tooltip-box-maxwidth:400px !default;
+$tooltip-text-background:$white !default; //Couleur du background du bloc texte
+$tooltip-text-color:$black !default; //Couleur du texte du bloc texte
+$tooltip-circle-size:80px !default; //La taille du bouton open/close
+$tooltip-circle-color:$primary-color !default; //La couleur du bouton open/close
+$tooltip-circle-color-hover:lighten($primary-color, 5%) !default; //La couleur du bouton open/close au hover
+$tooltip-circle-text-color:$white !default; //La couleur de la croix du bouton open/close
+$tooltip-gutter-size:50px !default; //La marge autour du texte de la tooltip
+
+//Choisir depuis quelle position le bloc texte apparait
+//Possibilité : top-left, top-right, bottom-left, bottom-right.
+$tooltip-position:'top-left' !default;
+
+//Choisir l'effet d'apparition du bloc texte
+//Possibilité : classic, getup, skew, scale, rotate.
+$tooltip-effect:'classic' !default;

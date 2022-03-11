@@ -1,0 +1,34 @@
+{% set swiperOut = 5 %}
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}focus{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('504') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% set swiper_options = {
+        'slidesPerView' : customSlidePerView|default(5),
+        'spaceBetween' : spaceBetween,
+        'loop':false,
+        'initialSlide': customInitialSlide|default(0),
+        'centeredSlides': customCenterSlides|default(false),
+        'breakpoints' : {
+            1400 : {
+                'slidesPerView' : custom1400SlidePerView|default(4),
+            },
+            1200 : {
+                'slidesPerView' : custom1400SlidePerView|default(3),
+            },
+            1024 : {
+                'slidesPerView' : 2,
+            },
+            640 : {
+                'slidesPerView' : 1,
+            },
+        }
+    }%}
+    {% include 'blocks/focus/_objects/basicWithSwiper.twig' with {
+        'card' : customCard|default("basic_card/tpl_01"),
+        'image_style' : customImageStyle|default("ratio_16_9"),
+        'fallbackMaxLength' : customSlidePerView|default(5),
+        'styleClass' : customSwiperStyleClass|default,
+        'isRel' : true
+    } %}
+{% endblock %}

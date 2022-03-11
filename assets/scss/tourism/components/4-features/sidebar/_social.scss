@@ -29,6 +29,7 @@
 
         .iframe-wrapper {
             display: inline-block;
+            position: relative;
         }
 
         &.social-buttons-wrapper {
@@ -232,6 +233,43 @@
                     color: $facebookColor;
                 }
 
+                .share-button {
+                    position: relative;
+                    text-align: center;
+                    padding: 2px $vr--small;
+                    text-decoration: none;
+                    display: inline-block;
+                    cursor: pointer;
+                    color: white;
+                    border-radius: $defRadius;
+
+                    &:before {
+                        display: inline;
+                        margin-right: 3px;
+                        @extend .icon-font-item;
+                    }
+
+                    &.facebook {
+                        border: 1px solid $facebookColor;
+                        background-color: $facebookColor;
+                        &:before { @extend .icon-facebook; }
+                        &:hover {
+                            background-color: $color-bg;
+                            color: $facebookColor;
+                        }
+                    }
+
+                    &.twitter {
+                        border: 1px solid $twitterColor;
+                        background-color: $twitterColor;
+                        &:before { @extend .icon-twitter; }
+                        &:hover {
+                            background-color: $color-bg;
+                            color: $twitterColor;
+                        }
+                    }
+                }
+
                 .social-tooltip {
                     position: absolute;
                     opacity: 0;
@@ -254,7 +292,6 @@
                             vertical-align: top;
                             margin-bottom: $defMargin;
                             font-weight: 300;
-                            font-size: $font-size-h6;
                             color: #000;
                         }
 
@@ -303,6 +340,93 @@
                         font-size: 14px;
                         @extend .icon-font-item;
                         @extend .icon-instagram;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Sidebar Social medias
+ */
+ .tourism-detail-sidebar {
+    .tourism-detail-social {
+
+        .hook-text {
+            color: $text-muted;
+            opacity: 0.6;
+        }
+        .hashtag {
+            display: block;
+            font-weight: normal;
+            font-size: $font-size-h5;
+            line-height: 1;
+            color: $primary-color;
+            margin-top: $panel-body-padding;
+        }
+
+        .social-icons-list {
+            margin-top: $panel-body-padding;
+            padding: 0;
+
+            .social-icon-wrapper {
+                border: none;
+                display: inline-flex;
+                margin: 0 -2px; // compensates for inline block spacing preventing items to be on one line
+                padding: 0 $vr--small;
+
+                .social-icon {
+                    display: flex;
+                    text-decoration: none;
+                    border-radius: 50%;
+                    transition: all .3s $swift-out;
+                    color: $primary-color;
+
+                    &:after {
+                        font-size: 20px;
+                        line-height: 30px;
+                        width: 30px;
+                        height: 30px;
+                        @extend .icon-font-item;
+                        transform: none;
+                        margin: 0;
+                    }
+                    &:hover { color: #FFF; }
+                }
+
+                &.item-facebook {
+                    .social-icon {
+                        &:after { @extend .icon-facebook; }
+                        &:hover { background: $facebookColor; }
+                    }
+                }
+
+                &.item-twitter {
+                    .social-icon {
+                        &:after { @extend .icon-twitter; }
+                        &:hover { background: $twitterColor; }
+                    }
+                }
+
+                &.item-youtube {
+                    .social-icon {
+                        &:after { @extend .icon-youtube; }
+                        &:hover { background: $youtubeColor; }
+                    }
+                }
+
+                &.item-instagram {
+                    .social-icon {
+                        &:after { @extend .icon-instagram; }
+                        &:hover { background: $instagramColor; }
+                    }
+                }
+
+                &.item-pinterest {
+                    .social-icon {
+                        &:after { @extend .icon-pinterest; }
+                        &:hover { background: $pinterestColor; }
                     }
                 }
             }

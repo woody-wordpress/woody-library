@@ -1,0 +1,115 @@
+{# should display info bar ? #}
+{% if (options.remindernavbar is defined and options.remindernavbar) or options.remindernavbar is not defined %}
+
+    {% if (contractsLevels.content.booking and (formated_object.bookingUrl|default or formated_object.centralResa|default))
+        or (contractsLevels.sidebar.vcard and formated_object.emails.establishment|default and not formated_object.contactLabel|default)
+        or contractsLevels.content.reviews %}
+        <ul class="sheet-nav-actions _plu-push">
+
+            {% if contractsLevels.content.booking and formated_object.bookingUrl|default %}
+                {% if true and options.warningExternalLink is defined and options.warningExternalLink %}
+                    <li class="sheet-nav-actions_item nav-booking" data-open="warningExternalLink_modal">
+                        <div class="plo-btn dark sheet-nav-actions_button">
+                            {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="sheet-nav-actions_item nav-booking">
+                        <a target="_blank" rel="nofollow"
+                            href="{{formated_object.bookingUrl}}"
+                            class="plo-btn dark sheet-nav-actions_button"
+                            analytics-mediaveille {# Tracking MediaVeille #}
+                            data-fs-tracking="RESERVATION" {# Tracking Tourinsoft #}
+                            interact event-type="SHEET_BOOK_URL">
+                            {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
+                        </a>
+                    </li>
+                {% endif %}
+            {% elseif contractsLevels.content.booking and formated_object.centralResa|default %}
+                <li anchor-link ng-click="scrollTo('#booking')" class="sheet-nav-actions_item nav-booking">
+                    <span class="plo-btn dark sheet-nav-actions_button">
+                        {% if 'availability' in [formated_object.centralResa.mode|default, formated_object.centralResa.subtype|default] %}
+                            {{ 'SECTIONS.TOURISM.SHEET.TABS.AVAILABILITIES'|trans }}
+                        {% else %}
+                            {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
+                        {% endif %}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if formated_object.sfExternalGrc|default %}
+                <li class="sheet-nav-actions_item nav-contact">
+                    <a data-toggle="rcModal" data-target="#nurtik-form"
+                        data-id="{{object.metadata.id|default}}"
+                        class="plo-btn sheet-nav-actions_button">
+
+                        <div class="media media-center">
+                            <span class="media-left media-middle"><span class="icon-font-mail plo-fonticon"></span></span>
+                            <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
+                        </div>
+                    </a>
+                </li>
+            {% elseif contractsLevels.sidebar.vcard and formated_object.emails.establishment|default and not formated_object.contactLabel|default %}
+                <li class="sheet-nav-actions_item nav-contact" ng-if="sheet">
+                    <a  rc-modal size="lg"
+                        tpl-url="sections/tourism/sheet-detail/modals/contact-form.html"
+                        action="click"
+                        analytics-mediaveille {# Tracking MediaVeille #}
+                        data-type="MAILTO" {# Tracking Tourinsoft #}
+                        interact event-type="SHEET_CONTACT_FORM_OPENED"
+                        check-params="form_contact"
+                        {# window-class="contact-modal" #}
+                        class="plo-btn sheet-nav-actions_button">
+
+                        <div class="media media-center">
+                            <span class="media-left media-middle"><span class="icon-font-mail plo-fonticon"></span></span>
+                            <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
+                        </div>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if contractsLevels.content.reviews %}
+                {% if (formated_object.dataFairguest|default and formated_object.dataFairguest.display) or not (options.addreviews is not defined or (options.addreviews is defined and options.addreviews)) %}
+                    <li class="sheet-nav-actions_item plo-btn nav-reviews" anchor-link ng-click="scrollTo('#reviews')">
+                        <span class="media-left"><span class="icon-font-avis4 [ plo-fonticon ]"></span></span>
+                        <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.SEE_ALL'|trans }}</span>
+                    </li>
+                {% else %} {# if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) #}
+                    <li class="sheet-nav-actions_item nav-reviews">
+                        <a rc-modal
+                            tpl-url="sections/tourism/sheet-detail/modals/comments-form.html"
+                            action="click"
+                            size="lg"
+                            class="plo-btn sheet-nav-actions_button">
+
+                            <div class="media media-center">
+                                <span class="media-left media-middle"><span class="icon-font-avis4 plo-fonticon"></span></span>
+                                <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.ADD_COMMENT'|trans }}</span>
+                            </div>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            {% if formated_object.sfMenuUrl|default%}
+                <li class="sheet-nav-actions_item nav-menuurl">
+                    <a target="_blank" rel="nofollow" href="{{formated_object.sfMenuUrl}}"
+                     class="plo-btn dark sheet-nav-actions_button">
+                        {{'SECTIONS.TOURISM.SHEET.SEE_MENU'|trans}}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if formated_object.dataItinerary|default and formated_object.dataItinerary.issueReport|default %}
+                <li class="sheet-nav-actions_item nav-booking">
+                    <a target="_blank" rel="nofollow" href="{{formated_object.dataItinerary.issueReport}}"
+                     class="plo-btn dark sheet-nav-actions_button">
+                        {{'SECTIONS.TOURISM.SHEET.ITINERARY.ISSUE_REPORT'|trans}}
+                    </a>
+                </li>
+            {% endif %}
+
+        </ul>
+    {% endif %}
+{% endif %}

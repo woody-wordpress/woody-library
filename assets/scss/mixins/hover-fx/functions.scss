@@ -1,0 +1,240 @@
+
+
+
+/// Description: Read special settings or extends with options
+/// @param {List} $options - List of map options (Main object)
+/// @return {List} - List of map options with the reworked main object.
+@function woody-fx-read-settings($options) {
+    $object: ();
+    @each $option in $options {
+        //Filter here
+        //@debug OPTION $option;
+        // ==== Gestion des extends ====
+        $definedExtend: map-get($option, extend);
+        @if $definedExtend {
+            //@debug OPTION EXT $option;
+            $extends: woody-fx-templates(map-get($option, extend));
+
+            //@debug EXTENDS $extends;
+            @each $extend in $extends {
+                // === Gestion des WITH ====
+                @if (map-get($option, with)) {
+                    @each $with in map-get($option, with) {
+                        //@debug EXTENDS $extends, EXTEND $extend, WITH $with;
+                        $prop: nth($with, 1);
+                        $val: null;
+                        @if length($with) == 2 {
+                            $val: nth($with, 2);
+                        }
+                        //Check if we are overiding css
+                        @if ($prop == css) and (map-get($extend, css)) {
+                            $default_val: map-get($extend, css);
+                            @each $css in $val {
+                                //@debug $css;
+                                $default_val: map-set($default_val, nth($css, 1), nth($css, 2));
+                            }
+                            $val: $default_val;
+                            //@debug EXTEND $extend VAL $val;
+                        }
+                        $extend: map-set($extend, $prop, $val);
+                        //$extend: append($extend, $with);
+                    }
+                }
+                // === IF extend contains more extends... RERUN ===
+                @if map-get($extend, extend) {
+                    $temp_object: woody-fx-read-settings(($extend,));
+                    @each $obj in $temp_object {
+                        $object: append($object, $obj);
+                    }
+                } @else {
+                    $object: append($object, $extend);
+                }
+            }
+        } @else {
+            $object: append($object, $option);
+        }
+    }
+    //@debug OBJECT $object;
+    @return $object;
+}
+
+/// Description: Rework the whole $options object to fit to the framework
+/// ## In case we are using list in effect like :
+/// ## (fx:(slide-in, zoom-out...)
+/// @param {List} $options
+/// @return {List} $options reworked
+@function woody-fx-rework-object($options) {
+    //@debug $options;
+    $rework: ();
+    @each $option in $options {
+        $list: ();
+        //@debug REWORK OPTION $option;
+        $target: map-get($option, target);
+        $fx: map-get($option, fx);
+        $value: map-get($option, value);
+        $css: map-get($option, css);
+        $hover: map-get($option, hover);
+        $transition: map-get($option, transition);
+        $delay: map-get($option, delay);
+        $time: map-get($option, time);
+        $ease: map-get($option, ease);
+        $specs: map-get($option, specs);
+        @if $target {
+            $list: map-merge($list,(target:$target));
+        }
+        @if $value {
+            $list: map-merge($list,(value:$value));
+        }
+        @if $css {
+            $list: map-merge($list,(css:$css));
+        }
+        @if $hover {
+            $list: map-merge($list,(hover:$hover));
+        }
+        @if $transition {
+            $list: map-merge($list,(transition:$transition));
+        }
+        @if $delay {
+            $list: map-merge($list,(delay:$delay));
+        }
+        @if $time {
+            $list: map-merge($list,(time:$time));
+        }
+        @if $ease {
+            $list: map-merge($list,(ease:$ease));
+        }
+        @if $specs {
+            $list: map-merge($list,(specs:$specs));
+        }
+        @if (type-of($fx) == list) {
+            @each $effect in $fx {
+                $eflist: map-merge($list,(fx:$effect));
+                $rework: append($rework, ($eflist));
+            }
+        } @else {
+            $list: (map-merge($list,(fx: $fx)));
+            $rework: append($rework, ($list));
+        }
+    }
+    @return $rework;
+}
+
+/// @author Soheil Saheb-Jamii
+/// @deprecated
+/// Description: Recombine specials properties like transform or transitions
+/// ## Some properties needs comma, some just need spaces...
+/// @param {map} $Object - Main Object of the mixin fx
+/// @return {map} - Returns the main object with special properties merged correctly.
+@function reCombineTransition($Object) {
+    $Merged: ();
+    //@debug OBJECT $Object;
+    @each $target, $properties in $Object {
+        //@debug TARGET $target;
+        $this_target: ();
+        @each $property, $value in $properties {
+            //@debug TARGET $target, PROPERTY $property, VALUE $value;
+            //@debug THIS TARGET $this_target;
+            @if ($property == 'full-card') {
+                $this_target: $property;
+            } @else {
+                @if (map-get($this_target, $property)) and (in_list($WOODY_SPECIAL_PROPERTIES_WITHOUT_COMMA, $property)) {
+                    $combined_value: map-get($this_target, $property) $value;
+                    $this_target: map-set($this_target, $property, $combined_value);
+                } @else if (map-get($this_target, $property)) and (in_list($WOODY_SPECIAL_PROPERTIES_WITH_COMMA, $property)) {
+                    $combined_value: map-get($this_target, $property), $value;
+                    $this_target: map-set($this_target, $property, $combined_value);
+                } @else {
+                    $this_target: map-set($this_target, $property, $value);
+                }
+            }
+        }
+        //$new_target: ($target:$this_target);
+        $Merged: map-set($Merged, $target, $this_target);
+    }
+    //@debug MERGED $Merged;
+    @return $Merged;
+}
+
+/// @author Soheil Saheb-Jamii
+/// Description: Combines all the keys of a map that have the same selector
+/// ## Combine any targets, any keys, any properties, any values...
+/// @example img{opacity:1}, img{transform: scale(2)} BECOME...
+/// @example img{opacity:1, transform:scale(2),}
+/// @param {Map} $FxObj - List of all targets with their css
+/// @return {Map} - List of all targets merged with their css merged
+@function woody-fx-merge-everything($FxObj) {
+    $result: ();
+    // ========== TARGETS =========
+    @each $Target in $FxObj {
+        //$target_results: (); // Stocker les propriétés de chaque target ici
+        $selector: key-get($Target); //Le nom de la target qu'on va inscrire
+        // ========== PROPERTIES ==========
+        @each $Properties in map-get($Target, $selector) {
+            @if $Properties {
+                $Properties: defaultListToMap($Properties);
+                $the_property: key-get($Properties);
+                $the_values: map-get($Properties, $the_property);
+                //@debug PROP $the_property VAL $the_values TYPE type-of($the_values);
+
+                // ==== Check if already exists in the target ====
+                $checkDoubler: map-get-strict(map-get-strict($result, $selector), $the_property);
+                @if ($checkDoubler) {
+                    //@debug '===FOUND=== '$checkDoubler '==AS==' $the_property '==IN==' $result;
+                    //TODO: Check if dupplication of same property (can have multiplie transitions opacity atm)
+                    @if in_list($WOODY_SPECIAL_PROPERTIES_WITHOUT_COMMA, $the_property) {
+                        $the_values: $checkDoubler $the_values;
+                    } @else if in_list($WOODY_SPECIAL_PROPERTIES_WITH_COMMA, $the_property) {
+                        $the_values: $checkDoubler, $the_values;
+                    }
+                }
+                // == SET Properties
+                // ==== Check if target already exists in the result ====
+                $checkDoubler: map-get-strict($result, $selector);
+                @if ($checkDoubler) {
+                    $result: map-deep-set($result, $selector $the_property, $the_values);
+                } @else {
+                    $result: map-set($result, $selector, ($the_property:$the_values));
+                }
+            }
+        }
+    }
+    //@debug RESULT $result;
+    @return $result;
+}
+
+@function woody-get-framework-root-target($parent, $framework_type) {
+    $framework: null;
+    @if in_list(map-get($WOODY_FRAMEWORK_FX_TARGETS, $framework_type), '#{$parent}') {
+        @if ('#{$parent}' == last(map-get($WOODY_FRAMEWORK_FX_TARGETS, $framework_type))) {
+            $framework: '&';
+        } @else {
+            $framework: last(map-get($WOODY_FRAMEWORK_FX_TARGETS, $framework_type))
+        }
+    }
+    @return $framework;
+}
+
+/// =============== ADD FRAMEWORKS HERE ===========
+/// Description: Get back the right framework for targets
+/// ## vars.scss - $WOODY_FRAMEWORK_FX_TARGETS : Allowed list of parents for mixin in  (last of list is the ref selector)
+/// ## selectors.scss - Used for translating easy targets into selectors
+/// @param {List} $framework - This is the parent target to know where we are in the first call of mixin
+/// @return {Map} - framework: Framework name used -- selector: CSS Selector used as main
+@function woody-get-framework-type($target, $parents) {
+    $selector: '';
+    $framework: null;
+    $parent: first($parents);
+    @if (type-of($parent) == list) {
+        $parent: last($parent);
+    }
+
+    // ==== CASE CARD ====
+    $framework: woody-get-framework-root-target($parent, 'card');
+    @if ($framework) {
+        $selector: woody-fx-selector-type-card($target, $framework); // in selectors.scss
+    } @else {
+        $selector: $target;
+    }
+
+    @return $selector;
+}

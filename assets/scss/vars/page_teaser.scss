@@ -1,2 +1,18 @@
 $button-add-to-favs-color: $primary-color !default;
 $page-teaser-icon-size:30 !default;
+$geomap-button-position : 'bottom-right' !default;
+
+// Page teaser tpl_07
+$geomap-corner-position: 15px !default;
+$geomap-corner-height: 260px !default;
+$geomap-corner-width: 322px !default;
+$geomap-corner-border-radius: 0px !default;
+$geomap-corner-box-shadow: 0 0 30px rgba($black, 0.15) !default;
+$geomap-corner-scale: 0.5 !default;
+
+$geomap-mobile-button-bottom: 0 !default;
+$geomap-mobile-button-right: 0 !default;
+$geomap-mobile-button-color: $black !default;
+$geomap-mobile-button-bg-color: $white !default;
+$geomap-mobile-button-border: none !default;
+$geomap-mobile-button-border-radius: 0 !default;

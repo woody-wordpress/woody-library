@@ -1,0 +1,32 @@
+{
+    "approved": true,
+    "name": "Template 347 - Paysage C",
+    "description": "Grille 3 blocs - 3 cartes image et textes au centre (Paysage C + slider au dela de 3)",
+    "acf_groups": [
+    "group_5b0d1ed32a384",
+    "group_5b2788b48d04c",
+    "group_5b33890e6fa0b",
+    "field_5d16118093cc1"
+    ],
+    "vars": [
+    "items"
+    ],
+    "display": [{
+    "type": "slider",
+    "length": 3,
+    "infinite": "true",
+    "card_type": "basic",
+    "img_ratio": [
+    "4_3"
+    ],
+    "text_align": "center",
+    "roadbook": true
+    }],
+    "legend": [{
+    "group_5b0d1ed32a384": "Mise en avant manuelle",
+    "group_5b2788b48d04c": "Mise en avant automatique",
+    "group_5d7908eadaa46": "Mise en avant Topics",
+    "group_5b33890e6fa0b": "Mise en avant Fiches SIT",
+    "field_5d16118093cc1": "Mise en avant Composants de séjours"
+    }]
+}

@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Template 01",
+    "description": "...",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5c1b551e599ef"
+    ],
+    "vars": []
+}

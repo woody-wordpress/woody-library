@@ -1,0 +1,13 @@
+
+{% for datatype in databloc.show_Data %}
+    <div class="zone-data">
+        <div class="infolive-datablock-header flex-container align-center align-middle">
+            {% if datatype.woody_icon %}<span class="flex-container align-center align-middle wicon mini {{datatype.woody_icon}}"></span>{% endif %}
+            {% if datatype.pretitle %}<small class="pre-title small">{{datatype.pretitle}}</small>{% endif %}
+        </div>
+        {% if 'open' in datatype.show_data %}<span class="val">{{ attribute(databloc.data, 'opened_num_' ~ datatype.acf_fc_layout)|default }}</span>{% endif %}
+        {% if 'open' in datatype.show_data and 'total' in datatype.show_data %}<span class="sep">/</span>{% endif %}
+        {% if 'total' in datatype.show_data %}<span class="val">{{ attribute(databloc.data, 'total_num_' ~ datatype.acf_fc_layout)|default }}</span>{% endif %}
+    </div>
+{% endfor %}
+

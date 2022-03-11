@@ -22,3 +22,325 @@
 
     @return $map;
 }
+
+@function encode-color($string) {
+    @if type-of($string)=='color' {
+        $hex: str-slice(ie-hex-str($string), 4);
+        $string:unquote("#{$hex}");
+    }
+
+    $string: '%23'+$string;
+    @return $string;
+}
+
+
+/// @param {Map} $map - Object to set new key/value in
+/// @param {string} $key - Key to insert/modify
+/// @param {*} $value - Value to assign to the key
+/// @return {Map} with setted key/value
+@function map-set($map, $key, $value) {
+    $new: (
+        $key: $value,
+    );
+    @return map-merge($map, $new);
+}
+
+@function behaviorFx($fx, $direction) {
+    $fxn: map-get($fx, fx);
+    @if (str-index($fxn, #{$direction})) {
+        @return true;
+    }
+    @return false;
+}
+
+/// @link https://stackoverflow.com/questions/26957753/sass-configuration-map-with-default-values
+/// @author Modified by Soheil Saheb-Jamii
+/// A function for filling in a map variable with default values
+/// Description: Create any ZOOM related effect
+/// @param {Map} $mapVariables - Object of the map to work on
+/// @param {Map} $defaultMap - Object of the map going to be implanted as default
+/// @return {Map} Merge of maps where values are not overwritten
+@function defaultTo($mapVariable: (), $defaultMap:null){
+    //if it's a map, treat each setting in the map seperately
+    @if (type-of($defaultMap) == 'map' ){
+        $finalParams: $mapVariable;
+        // We iterate over each property of the defaultMap
+        @each $key, $value in $defaultMap {
+            // If the variable map does not have the associative key
+            @if (not map-has-key($mapVariable, $key)) {
+                // add it to finalParams
+                $finalParams: map-merge($finalParams, ($key : $value));
+            }
+        }
+        @return $finalParams;
+    //Throw an error message if not a map
+    } @else {
+        @error 'The defaultTo function only works for Sass maps';
+    }
+}
+
+/// Description: Removes a key in list
+/// @param {List} $list - List to remove value from
+/// @param {Int} $n - Index of the list to remove (can also be negative)
+@function nth-delete($list, $n){
+    $result: ();
+    $n: if($n < 0, length($list) + $n + 1, $n);
+    $bracketed: is-bracketed($list);
+    $separator: list-separator($list);
+    @for $i from 1 through length($list){
+        @if $i != $n { $result: append($result, nth($list, $i)); }
+    }
+    @return join((), $result, $separator, $bracketed);
+}
+
+/// Description: Security to merge the inner key to the main map
+/// ## in case the inner key is not a map
+/// @param {Map} $map - Map to work on
+/// @param {String} $key - Key of inner Map
+/// @return {Map} with inner key mapped
+@function defaultMap($map, $key) {
+    @if (type-of($map) == 'map') {
+        $finalMap: $map;
+        @if (type-of(map-get($map, $key)) == 'map') {
+            @return $map;
+        } @else {
+            $finalMap: map-merge($map, ($key:(map-get($map, $key,))));
+            @return $finalMap;
+        }
+    } @else {
+        @error 'The defaultMap function only works for Sass maps';
+    }
+}
+
+@function map-get-strict($map, $key) {
+    @if ($map and type-of($map) == map and $key and type-of($key) == string) {
+        @if map-has-key($map, $key) {
+            @return map-get($map, $key);
+        }
+    }
+    @return null;
+}
+
+/// Description: Force a list to be a map
+/// ## If $object is a map, nothing is done
+/// @param {List | Map} $object
+/// @return {Map} - As key : the first item
+@function defaultListToMap($object) {
+    $map: ();
+    @if type-of($object) == list {
+        $map: map-set($map, first($object), nth-delete($object, 1));
+    } @else if type-of($object) == map {
+        $map: $object;
+    } @else { @error 'the defaultListToMap function only works for lists or maps';}
+    @return $map;
+}
+
+/// Description: Security to make the value a default px if not specified
+/// @param {Number} $value - Number to check if has units
+/// @return {Number} with correct value
+@function defaultPx($value) {
+    @if type-of($value) == string and str-index($value, calc) {
+        @return $value;
+    } @else if index('cm' 'mm' 'in' 'px' 'pt' 'pc' '%', unit($value)) != null {
+        @return $value;
+    } @else {
+        @return $value * 1px; //Transform num to default px
+    }
+}
+
+/// in_list — Checks if a value exists in a list
+/// @param  $value the needle
+/// @param  $list  the haystack
+/// @return boolen TRUE if $value is found in the $list, FALSE otherwise.
+@function in_list($list, $var) {
+    $_out: false;
+    @each $item in $list {@if $item == $var {$_out: true;}}
+    @return $_out;
+}
+
+/// first - Get first item of list
+/// @param {List} $list the list
+/// @return First item of the list
+@function first($list) {
+    @return nth($list, 1);
+}
+
+/// last - Get last item of list
+/// @param {List} $list the list
+/// @return Last item of the list
+@function last($list) {
+    @return nth($list, length($list));
+}
+
+/// key-get - Get first key name of map
+/// @param {Map} $map
+/// @return {String} Returns the key as string
+@function key-get($map) {
+    @return nth(map-keys($map), 1);
+}
+
+/// Deep set function to set a value in nested maps
+/// @link https://css-tricks.com/snippets/sass/deep-getset-maps/
+/// @author Hugo Giraudel
+/// @access public
+/// @param {Map} $map - Map
+/// @param {List} $keys -  Key chaine
+/// @param {*} $value - Value to assign
+/// @return {Map} -
+@function map-deep-set($map, $keys, $value) {
+    $maps: ($map,);
+    $result: null;
+    // If the last key is a map already
+    // Warn the user we will be overriding it with $value
+    @if type-of(nth($keys, -1)) == "map" {
+        @warn "The last key you specified is a map; it will be overrided with `#{$value}`.";
+    }
+    // If $keys is a single key
+    // Just merge and return
+    @if length($keys) == 1 {
+        @return map-merge($map, ($keys: $value));
+    }
+
+    // Loop from the first to the second to last key from $keys
+    // Store the associated map to this key in the $maps list
+    // If the key doesn't exist, throw an error
+    @for $i from 1 through length($keys) - 1 {
+        $current-key: nth($keys, $i);
+        $current-map: nth($maps, -1);
+        $current-get: map-get($current-map, $current-key);
+        @if $current-get == null {
+            @error "Key `#{$key}` doesn't exist at current level in map.";
+        }
+        $maps: append($maps, $current-get);
+    }
+    // Loop from the last map to the first one
+    // Merge it with the previous one
+    @for $i from length($maps) through 1 {
+        $current-map: nth($maps, $i);
+        $current-key: nth($keys, $i);
+        $current-val: if($i == length($maps), $value, $result);
+        $result: map-merge($current-map, ($current-key: $current-val));
+    }
+    // Return result
+    @return $result;
+}
+
+
+@function getMinMax($num1, $num2) {
+    @if ($num1 < $num2) {
+        @return ($num1, $num2);
+    } @else {
+        @return ($num2, $num1);
+    }
+}
+
+@function to-number($value) {
+    @if type-of($value) == 'number' {
+        @return $value;
+    } @else if type-of($value) != 'string' {
+        @error 'Value for `to-number` should be a number or a string.';
+    }
+    $result: 0;
+    $digits: 0;
+    $minus: str-slice($value, 1, 1) == '-';
+    $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+
+    @for $i from if($minus, 2, 1) through str-length($value) {
+        $character: str-slice($value, $i, $i);
+        @if (index(map-keys($numbers), $character) or $character == '.') {
+            @if $character == '.' {
+                $digits: 1;
+            } @else if $digits == 0 {
+                $result: $result * 10 + map-get($numbers, $character);
+            } @else {
+                $digits: $digits * 10;
+                $result: $result + map-get($numbers, $character) / $digits;
+            }
+        }
+    }
+    @return if($minus, -$result, $result);;
+}
+
+// === Maths functions
+/// @link https://css-tricks.com/snippets/sass/power-function/
+@function exp-maclaurin($x, $n) {
+    @return (pow($x, $n) / factorial($n));
+}
+@function factorial($value) {
+    $result: 1;
+    @if $value == 0 {
+        @return $result;
+    }
+    @for $index from 1 through $value {
+      $result: $result * $index;
+    }
+    @return $result;
+}
+
+@function str-to-list($string, $separator: ' ', $start: 1) {
+    $st: str-slice($string, $start);
+    $list: ();
+    $indexOfFirstSpace: str-index($st,$separator);
+    @if $indexOfFirstSpace == null {
+        $list: ($st);
+    } @else {
+        $list: (str-slice($st, 1, $indexOfFirstSpace - 1));
+        $list: join($list,str-to-list($st, $separator, $indexOfFirstSpace + 1));
+    }
+    @return $list;
+}
+
+// Remove first character of string if it's a space
+@function str-trim($string) {
+    @if (type-of($string) != 'string') {
+        $list: ();
+        @each $item in $string {
+            $list: append($list, str-trim($item));
+        }
+        @return $list;
+    } @else {
+        @if str-slice($string, 1, 1) == ' ' {
+            @return str-slice($string, 2);
+        } @else {
+            @return $string;
+        }
+    }
+}
+
+/// Replace `$search` with `$replace` in `$string`
+/// @author Kitty Giraudel
+/// @link https://css-tricks.com/snippets/sass/str-replace-function/
+/// @param {String} $string - Initial string
+/// @param {String} $search - Substring to replace
+/// @param {String} $replace ('') - New value
+/// @return {String} - Updated string
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+    @return $string;
+}
+
+// Replace all occurences of $search by $replace in each string of $list
+@function replace-in-list($list, $search, $replace) {
+    $output: $list;
+    @if type-of($list) == list {
+        $newlist: ();
+        @each $item in $list {
+            $newlist: append($newlist, replace-in-list($item, $search, $replace));
+        }
+        @return $newlist;
+    } @else if ($list == $search){
+        $output: unquote($replace);
+    } @else if (type-of($list) == string) {
+        $test_list: str-to-list($list, '.');
+        $search_item: str-replace($search, '.', '');
+        @each $test_item in $test_list {
+            @if ($test_item and $search_item and unquote($test_item) == unquote($search_item)) {
+                $output: str-replace($list, $search, $replace);
+            }
+        }
+    }
+    @return $output;
+}

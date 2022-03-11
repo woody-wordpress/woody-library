@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Texte",
-    "description": "Affiche l'éditeur visuel",
+    "name": "Template 01",
+    "description": "Affiche l'éditeur visuel avec titres alignés au centre",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b042f5ad9ecc"
     ],

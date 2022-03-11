@@ -1,0 +1,15 @@
+<div class="swiper-thumbs">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {% for key, item in items %}
+            <div class="swiper-slide">
+                {% include "cards/#{card}/tpl.twig" with {
+                    'desequalize' : desequalize,
+                    'image_style' : image_style,
+                    'page_type' : item.page_type
+                } %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

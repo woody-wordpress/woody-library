@@ -1,0 +1,32 @@
+
+{% if contractsLevels.content.medias and options.showgallery %}
+{% if formated_object.gallery|length > 1 %}
+
+        {# more nav bar #}
+        {% if ( (contractsLevels.content.services and (formated_object.arrangementsDefault|default or formated_object.servicesOffers|default)) or
+            (formated_object.centralResa|default and contractsLevels.content.booking) or
+            (formated_object.tariffs|default and contractsLevels.content.tariffs) or
+            formated_object.openingPeriods.periods|default and contractsLevels.content.periods and not (formated_object.bordereau in ['FMA'] and not formated_object.openingPeriods.hasHours and not formated_object.openingPeriods.hasInnerDescription and not formated_object.openingPeriods.description|default)) %}
+
+            {% include TWIG.MORE_NAV %}
+        {% endif %}
+
+        {# Gallery #}
+        <section id="gallery" class="content-medias plo-panel__fluid row">
+            <ul class="media-col odd">
+                {% for media in formated_object.gallery|slice(0, 15) %} {# LIMIT NUMBER OF MEDIAS DISPLAYED TO 15 #}
+                    {% if loop.index is odd %}
+                        {% include TWIG.MEDIA_COLUMN with {'media': media, 'index': loop.index, 'TWIG': TWIG } only %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul class="media-col even">
+                {% for media in formated_object.gallery|slice(0, 15) %}
+                    {% if loop.index is even %}
+                        {% include TWIG.MEDIA_COLUMN with {'media': media, 'index': loop.index, 'TWIG': TWIG } only %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+{% endif %}

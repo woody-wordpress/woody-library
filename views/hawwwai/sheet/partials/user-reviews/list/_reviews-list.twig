@@ -1,0 +1,103 @@
+{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %}
+    <div class="tourism-detail-add-review panel">
+        {# <span class="pl-heading">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.ADD_COMMENT' | trans}}&nbsp;:</span> #}
+        <header>
+            <div class="h4 pl-heading _plu-flush--top">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.LEAVE_REVIEW'|trans }} {{formated_object.businessName|title}}&nbsp;:</div>
+            <ul class="add-review-list" add-review>
+                <li class="">
+                    <div class="add-review-item comments-icon-image type-1" rc-modal size="lg"
+                        tpl-url="sections/tourism/sheet-detail/modals/comments-form.html" rate="1" action="click"></div>
+                    <div class="review-label type-1">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.BAD'|trans }}</div>
+                </li>
+                <li class="">
+                    <div class="add-review-item comments-icon-image type-2" rc-modal size="lg"
+                        tpl-url="sections/tourism/sheet-detail/modals/comments-form.html" rate="2" action="click"></div>
+                    <div class="review-label type-2">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.AVERAGE'|trans }}</div>
+                </li>
+                <li class="">
+                    <div class="add-review-item comments-icon-image type-3" rc-modal size="lg"
+                        tpl-url="sections/tourism/sheet-detail/modals/comments-form.html" rate="3" action="click"></div>
+                    <div class="review-label type-3">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.GOOD'|trans }}</div>
+                </li>
+                <li class="">
+                    <div class="add-review-item comments-icon-image type-4" rc-modal size="lg"
+                        tpl-url="sections/tourism/sheet-detail/modals/comments-form.html" rate="4" action="click"></div>
+                    <div class="review-label type-4">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.VERY_GOOD'|trans }}</div>
+                </li>
+                <li class="">
+                    <div class="add-review-item comments-icon-image type-5" rc-modal size="lg"
+                        tpl-url="sections/tourism/sheet-detail/modals/comments-form.html" rate="5" action="click" check-params="form_comment"></div>
+                    <div class="review-label type-5">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.EXCELLENT'|trans }}</div>
+                </li>
+                <li class="hidden-xs"><div class="add-review-text"><span>{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.CLICK'|trans }}</span></div></li>
+            </ul>
+        </header>
+    </div>
+{% endif %}
+
+{# change here the number of reviews per page #}
+{% set nbPerPage = 5 %}
+<div review-pagination items-per-page="{{nbPerPage}}" animate="500" class="reviews-panel">
+
+    {% if formated_object.reviewsInfos.reviews|default %}
+        <div class="reviews-overview">
+
+            {% set TRANS_COMMENTS = 'SECTIONS.TOURISM.SHEET.TABS.COMMENTS' %}
+            {% if formated_object.reviewsInfos.reviews|length == 1 %}
+            {% set TRANS_COMMENTS = 'SECTIONS.TOURISM.SHEET.COMMENTS.COMMENT' %}
+            {% endif %}
+
+            <div class="reviews-count">{{formated_object.reviewsInfos.reviews|length}} {{ TRANS_COMMENTS|trans|lower }}</div>
+            {% if formated_object.reviewsInfos.overall|default %}
+                <span itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating">
+                    <meta itemprop="ratingValue" content="{{formated_object.reviewsInfos.overall.moyenne}}">
+                    <meta itemprop="ratingCount" content="{{formated_object.reviewsInfos.reviews|length}}">
+                    <meta itemprop="bestRating" content="5">
+                </span>
+
+                <div class="reviews-mood-icon">
+                {% include TWIG.MOOD_ICONS
+                    with {'rating': formated_object.reviewsInfos.overall.moyenne|number_format , 'size': 'huge' , 'label': true} only %}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <ul class="plo-list-bare _plu-flush s-shelves s-shelves--keyline review-list">
+
+            {% for review in formated_object.reviewsInfos.reviews %}
+                <li {% if formated_object.reviewsInfos.reviews|length > nbPerPage %}
+                    class="review hide"
+                    {% endif %}
+                >
+                    {% include TWIG.USER_REVIEW
+                    with {'review': review, 'sitekey': site_key, 'contact': formated_object.contacts.establishment, 'TWIG': TWIG, } only %}
+                </li>
+            {% endfor %}
+
+        </ul>
+
+        {% if formated_object.reviewsInfos.reviews|length > nbPerPage %}
+            <div class="pagination-wrapper">
+                <pagination class="pagination-slider"
+                        ng-model="currentPage"
+                        total-items="{{formated_object.reviewsInfos.reviews|length}}"
+                        items-per-page="itemsPerPage"
+                        boundary-links="true"
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;"
+                        first-text={{ 'GLOBAL.FIRST' | trans}}
+                        last-text={{ 'GLOBAL.LAST' | trans}}
+                        ng-change="pageChanged()"
+                        max-size="maxSize">
+                </pagination>
+            </div>
+        {% endif %}
+    {% else %}
+        {% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %}
+            <div class="no-reviews-now">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.NO_REVIEWS'|trans }} {{formated_object.businessName|title}}, {{ 'SECTIONS.TOURISM.SHEET.COMMENTS.FIRST'|trans|lower }} !</div>
+        {% else %}
+            <div class="no-reviews-now">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.NO_REVIEWS'|trans }} {{formated_object.businessName|title}} !</div>
+        {% endif %}
+    {% endif %}
+</div>

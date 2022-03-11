@@ -1,6 +1,6 @@
 <div class="woody-component woody-component-trip-infos flex-container  text-center tpl_02 padd-all-md {{ tripinfos_background_color|default }}">
     {% if the_price.price|default %}
-        <div class="trip-price-wrapper">
+        <div class="trip-infos-wrapper trip-price-wrapper">
             {% if the_price.prefix_price %}
                 <div>
                     <small class="prefix-price">{{ __('À partir de', 'woody-theme') }}</small>
@@ -20,13 +20,14 @@
         </div>
     {% endif %}
     {% if the_duration.count_days or the_duration.count_hours or the_duration.count_minutes %}
-        <div class="trip-duration-wrapper">
+        <div class="trip-infos-wrapper trip-duration-wrapper">
             {% if the_duration.prefix_days %}
                 <small class="prefix-duration">{{ the_duration.prefix_days }}</small>
             {% endif %}
             <div class="text-fat">
                     {% if the_duration.duration_unit == 'hours' and the_duration.count_hours %}
                         {{ the_duration.count_hours|pluralizeUnit(__('heure', 'woody-theme'), __('heures', 'woody-theme')) }}
+                         {% if the_duration.count_minutes %}{{the_duration.count_minutes }}{% endif %}
                     {% elseif the_duration.duration_unit == 'minutes' and the_duration.count_minutes %}
                         {{ the_duration.count_minutes|pluralizeUnit(__('minute', 'woody-theme'), __('minutes', 'woody-theme')) }}
                     {% elseif the_duration.count_days %}
@@ -40,7 +41,7 @@
     {% endif %}
 
     {% if the_length.length %}
-        <div class="trip-length-wrapper">
+        <div class="trip-infos-wrapper trip-length-wrapper">
             {% if the_length.length_prefix|default %}
                 <small class="prefix-price">{{ the_length.length_prefix }}</small>
             {% endif %}
@@ -51,7 +52,7 @@
     {% endif %}
 
     {% if the_peoples|default %}
-        <div class="trip-peoples-wrapper">
+        <div class="trip-infos-wrapper trip-peoples-wrapper">
             {% if the_peoples.peoples_min|default %}
                 <small class="peoples-min">{{ __('min', 'woody-theme') }}
                     {{ the_peoples.peoples_min }}
@@ -67,13 +68,13 @@
     {% endif %}
 
     {% if the_button|default and not the_price_quotation %}
-    <button class="trip-button button">
+    <button class="trip-infos-wrapper trip-button button">
         <a href="{{ the_button.url }}">
             {{ the_button.title }}
         </a>
     </button>
     {% elseif the_price.activate_quotation %}
-    <button class="trip-button button quotation-button">
+    <button class="trip-infos-wrapper trip-button button quotation-button">
         <a href="{{ quotation_link.link_label }}">
             {{ __('Demander un devis', 'woody-theme') }}
         </a>

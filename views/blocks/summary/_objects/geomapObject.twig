@@ -1,0 +1,37 @@
+<script>
+    var mapData = {
+        id: "geomap-{{ map_id }}",
+        default: {
+            lang: "{{ globals.current_lang }}",
+            position: {
+                latitude: 46.161544,
+                longitude: -1.2136162,
+                zoom: {{ map_params.map_zoom|default(7) }}
+            },
+            zoom: {
+                state: true
+            },
+            fitBounds: {{ map_params.map_zoom_auto|default(1) }},
+            map_provider: "{{ map_params.map_provider|default(false) }}",
+            tm_conf_id: {{ map_params.tmaps_confid|default('false') }}
+        },
+        markers: [
+            {% for item in summary.items %}
+                {% if item.location.latitude and item.location.longitude %} {
+                    lat: {{ item.location.latitude }},
+                    lng: {{ item.location.longitude }},
+                    customMarker: "<a href='{{ item.anchor }}' data-section='{{ item.id }}' class='summary-geomap-anchor focus-map-pane-element-toggler' data-index='{{ loop.index }}'>{{ default_marker|e('js') }}</a> ",
+                    mode: "contentFixed",
+                    html: "empty"
+                },
+                {% endif %}
+            {% endfor %}
+        ]
+    };
+
+    if (!window.ExtendedMarkersV2) {
+        window.ExtendedMarkersV2 = [];
+    }
+
+    ExtendedMarkersV2.push(mapData);
+</script>

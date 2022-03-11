@@ -1,0 +1,23 @@
+// Type of icon
+$scrollDown-type : arrow !default; // Could be mouse or arrow
+
+// Global scrollDown styles
+$scrollDown-size : 80px !default;
+$scrollDown-radius : 0 !default;
+$scrollDown-color : $white !default;
+$scrollDown-bgcolor : transparent !default;
+$scrollDown-border: true !default;
+$scrollDown-border-color : transparent !default;
+$scrollDown-border-width : 1px !default;
+$scrollDown-border-style : solid !default;
+$scrollDown-opacity : .75 !default;
+$scrollDown-hover-color : $white !default;
+$scrollDown-hover-bgcolor : transparent !default;
+$scrollDown-hover-opacity : 1 !default;
+
+// Arrow styles
+$scrollDown-arrow-size : rem-calc(38) !default;
+
+// Scrolltop
+$scroll-to-top : false !default;
+$scroll-to-top-position : right !default;

@@ -1,0 +1,517 @@
+/// Make Easy effect function
+/// Description: Create simple effects via this function
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+/// @param {String} $prop-name - name of the css property
+@function woody-fx-make-easy-effect($fx, $hover, $prop-name, $prop-extras:null, $values:null, $disable-transition: null) {
+    $properties: null;
+    $value: null;
+    @if $values {
+        $value: $values;
+    } @else {
+        $value: map-get($fx, value);
+    }
+    $definedHover: map-get($fx, hover);
+    $prop-name: unquote($prop-name);
+    @if $prop-name {
+    }
+    @if ($hover == default) and not ($definedHover == true) {
+        @if ((str-index(map-get($fx, fx), -to)) and not (str-index(map-get($fx, fx), -top))) or (str-index(map-get($fx, fx), -in)) {
+            @if (length($value) == 2) {
+                $properties: ($prop-name: first($value));
+            }
+        } @else {
+            $properties: ($prop-name: first($value));
+        }
+    }
+    @if ($hover == hover) and not ($definedHover == default) {
+        //@debug LAST last($value);
+        @if (length($value) > 1) or ($definedHover == true) {
+            $properties: ($prop-name: last($value));
+        } @else if (str-index(map-get($fx, fx), -to)) or (str-index(map-get($fx, fx), -in)) {
+            $properties: ($prop-name: last($value));
+        }
+    }
+    @if $prop-extras and $properties {
+        @each $prop in $prop-extras {
+            $the_value: map-get($properties, $prop-name);
+            $the_value: append($the_value, unquote($prop));
+            $properties: map-set($properties, $prop-name, $the_value);
+        }
+    }
+    @if $disable-transition == null {
+        $properties: woody-fx-add-transition($properties, $fx, $prop-name, $hover);
+    }
+    @return $properties;
+}
+
+//slide-up || slide-down || slide-left || slide-right || slide-in-up || slide-in-down || slide-in-left || slide-in-right
+/// Description: Create any TRANSLATION related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-slide($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get($woody-card-fx-defaults, slide),
+    ));
+    $properties: null;
+    // === reverse direction ===
+    $reverseDirs: ('slide-up', 'slide-left', 'slide-in-up', 'slide-in-left', 'slide-out-up', 'slide-out-left');
+    $n: ''; $ni: '-';
+    @if (in_list($reverseDirs, map-get($fx, fx))) {
+        $n: '-'; $ni: '';
+    }
+    $value: map-get($fx, value);
+    $apply-on-default: false;
+    // === Force values to 2 ===
+    @if (length($value) == 1) {
+        @if behaviorFx($fx, -in) {
+            $value: (#{$ni}100%, $value);
+        } @else if behaviorFx($fx, -out) {
+            $value: ($value, #{$ni}100%);
+        } @else {
+            $value: #{$n}#{$value};
+        }
+    }
+    // === Find direction ===
+    $direction: X;
+    @if (behaviorFx($fx, -up)) or (behaviorFx($fx, -down)) {
+        $direction: Y;
+    }
+    @if behaviorFx($fx, -in) {
+        $apply-on-default: true;
+    }
+    // === Hover settings
+    @if $hover == default {
+        $value: first($value);
+    } @else {
+        $value: last($value);
+    }
+    @if ($apply-on-default == true) or ($hover == hover) {
+        $value: unquote('(#{$value})');
+        $properties: (transform: translate#{$direction}#{$value});
+    }
+    $properties: woody-fx-add-transition($properties, $fx, transform, $hover);
+    @return $properties;
+}
+
+/// fade-in || fade-out
+/// Description: Create any OPACITY related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-fade($fx, $hover: default) {
+    $defaults: map-get($woody-card-fx-defaults, fade);
+    $value: map-get($fx, value);
+    $apply-on-default: false;
+    $properties: null;
+    // === Num of vals / In or Out ===
+    @if not $value {
+        @if behaviorFx($fx, -in) { // (fade-in)
+            $value: (first($defaults), last($defaults));
+        } @else  { // (fade-out)
+            $value: first($defaults);
+        }
+    } @else if length($value) == 1 {
+        @if behaviorFx($fx, -in) { // (fade-in)
+            $value: (first($defaults), $value);
+        }
+    } @else if length($value) == 2 {
+        @if behaviorFx($fx, -in) { // (fade-in)
+            $value: getMinMax(first($value), last($value));
+        } @else  { // (fade-out)
+            $value: getMinMax(first($value), last($value));
+            $value: (last($value), first($value));
+        }
+    }
+    // === Apply opacity on hover also if needed ===
+    @if length($value) == 2 {
+        $apply-on-default: true;
+    }
+
+    // === Apply the property ===
+    @if ($apply-on-default == true) and ($hover == default) {
+        $properties: (opacity:first($value));
+    } @else if ($hover == hover) {
+        $properties: (opacity:last($value));
+    }
+
+    $properties: woody-fx-add-transition($properties, $fx, opacity, $hover);
+    //@debug PROPERTIES $properties;
+    @return $properties;
+}
+
+@function woody-fx-translation($fx, $hover: default) {
+    $apply-on-default: true;
+    $properties: null;
+    $value: map-get($fx, value);
+    $property: map-get($fx, specs);
+    @if not $value or not $property {@return null;}
+
+    @if length($value) == 2 {
+        @if (first($value) == default) {
+            $apply-on-default: false;
+        }
+    }
+    @if ($apply-on-default == true) and ($hover == default) {
+        $properties: (#{$property}:#{first($value)});
+    } @else if ($hover == hover) {
+        $properties: (#{$property}:#{last($value)});
+    }
+    $properties: woody-fx-add-transition($properties, $fx, $property, $hover);
+    @return $properties;
+}
+
+/// zoom-in || zoom-out
+/// Description: Create any ZOOM related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-zoom($fx, $hover: default) {
+    $defaults: map-get($woody-card-fx-defaults, zoom);
+    $value: map-get($fx, value);
+    $apply-on-default: false;
+    $properties: null;
+    // === Num of vals / In or Out ===
+    @if not $value {
+        @if behaviorFx($fx, -in) { // (fade-in)
+            $value: first($defaults);
+        } @else  { // (zoom-out)
+            $value: (first($defaults), 1);
+        }
+    } @else if length($value) == 1 {
+        @if behaviorFx($fx, -out) { // (zoom-out)
+            $value: (first($value), 1);
+        }
+    } @else if length($value) == 2 {
+        @if behaviorFx($fx, -in) { // (zoom-in)
+            $value: getMinMax(first($value), last($value));
+        } @else  { // (zoom-out)
+            $value: getMinMax(first($value), last($value));
+            $value: (last($value), first($value));
+        }
+    }
+    // === Apply opacity on hover also if needed ===
+    @if length($value) == 2 {
+        $apply-on-default: true;
+    }
+
+    // === Apply the property ===
+    @if ($apply-on-default == true) and ($hover == default) {
+        $the_value: scale(#{first($value)});
+        $properties: (transform: $the_value);
+    } @else if ($hover == hover) {
+        $the_value: scale(#{last($value)});
+        $properties: (transform: $the_value);
+    }
+
+    $properties: woody-fx-add-transition($properties, $fx, transform, $hover);
+    //@debug PROPERTIES $properties;
+    @return $properties;
+}
+
+/// bg-color
+/// Description: Create any BACKGROUND-COLOR related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-bg-color($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get(map-get($woody-card-fx-defaults, after), background-color),
+    ));
+    $properties: woody-fx-make-easy-effect($fx, $hover, 'background-color');
+    @return $properties;
+}
+
+/// color-to || color
+/// Description: Create any COLOR related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-text-color($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get($woody-card-fx-defaults, color),
+    ));
+    $properties: woody-fx-make-easy-effect($fx, $hover, 'color');
+    @return $properties;
+}
+
+/// space-in || space-out
+/// Description: Create any SPACE related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-space($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get($woody-card-fx-defaults, space),
+    ));
+    $value: map-get($fx, value);
+    $fx: map-set($fx, value, blur($value));
+    $width: calc(100% - #{$value} * 2);
+    $height: calc(100% - #{$value} * 2);
+    $margin: $value;
+    $properties: ();
+    $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'width', $values: $width));
+    $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'height', $values: $height));
+    $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'margin', $values: $margin));
+    $properties_clean: ();
+    @each $propertys in $properties {
+        @each $prop in $propertys {
+            @if $prop {$properties_clean: append($properties_clean, $prop);}
+        }
+    }
+    @return $properties_clean;
+}
+
+/// skew || skew-in || skew-out
+/// Description: Create any SKEW related effect (based on clip path)
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-skew($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get($woody-card-fx-defaults, skew),
+    ));
+    $value: map-get($fx, value);
+    $properties: ();
+    $fx: map-set($fx, value, blur($value));
+
+    $width: calc(100% + #{$value} * 2);
+    $height: calc(100% + #{$value} * 2);
+    $margin: -#{$value};
+    $the_value: polygon($value 0, 100% 0, calc(100% - #{$value}) 100%, 0 100%);
+    @if (str-index(map-get($fx, fx), -top)) {
+        $the_value: polygon(0 0, 100% $value, 100% 100%, 0 calc(100% - #{$value}));
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'clip-path', $values: $the_value));
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'height', $values: $height, $disable-transition: true));
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'margin-top', $values: $margin, $disable-transition: true));
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'margin-bottom', $values: $margin, $disable-transition: true));
+    } @else {
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'clip-path', $values: $the_value));
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'width', $values: $width, $disable-transition: true));
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'margin-left', $values: $margin, $disable-transition: true));
+        $properties: append($properties, woody-fx-make-easy-effect($fx, $hover, 'margin-right', $values: $margin, $disable-transition: true));
+    }
+    $properties_clean: ();
+    @each $propertys in $properties {
+        @each $prop in $propertys {
+            @if $prop {$properties_clean: append($properties_clean, $prop);}
+        }
+    }
+    @return $properties_clean;
+}
+
+/// blur-in || blur-out
+/// Description: Create any BLUR related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-blur($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get($woody-card-fx-defaults, blur),
+    ));
+    $value: map-get($fx, value);
+    $fx: map-set($fx, value, blur($value));
+    $properties: woody-fx-make-easy-effect($fx, $hover, 'filter');
+    @return $properties;
+}
+
+/// grayscale-in || grayscale-out
+/// Description: Create any GRAYSCALE related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-grayscale($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get($woody-card-fx-defaults, grayscale),
+    ));
+    $value: map-get($fx, value);
+    $fx: map-set($fx, value, grayscale($value));
+    $properties: woody-fx-make-easy-effect($fx, $hover, 'filter');
+    @return $properties;
+}
+
+/// border
+/// Description: Create any BORDER related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-border($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get(map-get($woody-card-fx-defaults, after), border),
+    ));
+    $prop-extras: 'solid';
+    $properties: woody-fx-make-easy-effect($fx, $hover, 'border', $prop-extras);
+    @return $properties;
+}
+
+
+/// overlay
+/// Description: Create any BOX SHADOW related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-overlay($fx, $hover: default) {
+    $fx: defaultTo($fx, (
+        value: map-get($woody-card-fx-defaults, overlay),
+        transition: ($woody_cards_transitions_duration $woody_cards_transitions_ease-out,)
+    ));
+    $properties: ();
+    @if $hover == default {
+        $properties: (
+            box-shadow: map-get($fx, value),
+            content:'',
+            width:100%,
+            height:100%,
+            top:0,
+            left:0,
+            position:absolute,
+            );
+    }
+    @if $hover == hover {
+
+    }
+    $properties: woody-fx-add-transition($properties, $fx, box-shadow, $hover);
+    @return $properties;
+}
+
+/// display
+/// Description: Create any DISPLAY related effect
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-display($fx, $hover) {
+    $fx: defaultTo($fx, (
+        css: (),
+        hover: default,
+    ));
+    $css: map-get($fx, css);
+    $definedHover: map-get($fx, hover);
+    @if $hover == default and not ($definedHover == true) {
+        @if str-index(map-get($fx, target), after) {
+            $css: defaultTo(map-get($fx, css), map-get($woody-card-fx-defaults, after));
+        }
+        @if str-index(map-get($fx, target), before) {
+            $css: defaultTo(map-get($fx, css), map-get($woody-card-fx-defaults, before));
+        }
+    }
+    @if ($hover == hover) and not ($definedHover == true) {
+        $css: null;
+    }
+    @return $css;
+}
+
+/// custom
+/// Description: Create any CUSTOM related effect
+/// ## Used for custom css
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-custom($fx, $hover) {
+    $properties: ();
+    $fx: defaultTo($fx, (
+        hover: default,
+        css: (),
+    ));
+    $css: map-get($fx, css);
+    $definedHover: map-get($fx, hover);
+    // ==== Default ====
+    @if ($hover == 'default') and not ($definedHover == true) {
+        @each $property, $value in $css {
+            $properties: append($properties, ($property:$value));
+        }
+    }
+    // ==== Hover ====
+    @if ($hover == 'hover') and ($definedHover == true) {
+        @each $property, $value in $css {
+            $properties: append($properties, ($property:$value));
+        }
+    }
+    @return $properties;
+}
+
+/// Transition Function
+/// Description: Create any TRANSITION related effect
+/// @param {Map} $properties - CSS Properties already written
+/// @param {Map} $fx - Object of the effect (fx: name, target: selector...)
+/// @param {String} $property - Name of the property to use for the transition ('transform' or 'opacity' or 'all'...)
+/// @param {String} $hover - 'default' or 'hover' state
+@function woody-fx-add-transition($properties, $fx, $property, $hover) {
+    $fx: defaultTo($fx, (
+        transition: ($woody_cards_transitions_duration $woody_cards_transitions_ease-out,)
+    ));
+    $fx: defaultMap($fx, delay);
+    $default_time: (nth(first(map-get($fx, transition)), 1), nth(last(map-get($fx, transition)), 1));
+    $default_ease: (nth(first(map-get($fx, transition)), 2), nth(last(map-get($fx, transition)), 2));
+
+    // ==== Time, Delay and ease of transition ====
+    $transition_duration: nth(nth(map-get($fx, transition), 1),1);
+    $transition_ease: nth(nth(map-get($fx, transition), 1),2);
+    $transition_duration_hover: null;
+    $transition_ease_hover: null;
+    $transition_delay: null;
+    $transition_delay_hover: null;
+
+    // == Delay ==
+    $fx: defaultMap($fx, delay);
+    @if map-get($fx, delay) {
+        $user_delay: map-get($fx, delay);
+        $increment: 1;
+        @each $u_delay in $user_delay {
+            $result: null;
+            @if $u_delay == default {
+                $result: null;
+            } @else {
+                $result: to-number($u_delay) + 0s;
+            }
+            @if type-of($result) == number and $result <= 0s {$result: null;}
+            @if $increment == 1 {$transition_delay: $result;}
+            @else {$transition_delay_hover: $result;}
+            $increment: $increment + 1;
+        }
+    }
+
+    // == Time ==
+    $fx: defaultMap($fx, time);
+    @if map-get($fx, time) {
+        $user_time: map-get($fx, time);
+        $increment: 1;
+        @each $u_time in $user_time {
+            $result: null;
+            @if $u_time == default {
+                $result: nth($default_time, $increment);
+            } @else if (type-of($u_time) == string) and ((str-index($u_time, '+')) or (str-index($u_time, '-'))) {
+                $result: nth($default_time, $increment) + to-number($u_time);
+                @if $result < 0s {$result: 0s;}
+            } @else {
+                $result: to-number($u_time) + 0s;
+            }
+            @if $increment == 1 {$transition_duration: $result;}
+            @else {$transition_duration_hover: $result;}
+            $increment: $increment + 1;
+        }
+    }
+    // == Ease ==
+    $fx: defaultMap($fx, ease);
+    @if map-get($fx, ease) {
+        $transition_ease: first(map-get($fx, ease));
+        @if $transition_ease == default {$transition_ease: nth(nth(map-get($fx, transition), 1),2);} //If default is specified
+        @if (length(map-get($fx, ease)) == 2) {
+            $transition_ease_hover: nth(map-get($fx, ease), 2);
+            @if $transition_ease_hover == default {$transition_ease_hover: nth(nth(map-get($fx, transition), 1),2);} //If default is specified
+        }
+    }
+    $transition: null;
+    @if ($hover == default) or (map-get($fx, hover) == true) {
+        @if $transition_delay {
+            $transition: (transition: unquote($property) $transition_duration $transition_ease $transition_delay);
+        } @else {
+            $transition: (transition: unquote($property) $transition_duration $transition_ease);
+        }
+        $properties: $properties, $transition;
+    }
+    @if ($hover == hover) and not (map-get($fx, hover)) {
+        @if (length(map-get($fx, transition)) == 2) or $transition_delay_hover or (length(map-get($fx, time)) == 2) or (length(map-get($fx, ease)) == 2) {
+            @if $transition_duration_hover == null {
+                $transition_duration_hover: $transition_duration;
+            }
+            @if $transition_ease_hover == null {
+                $transition_ease_hover: $transition_ease;
+            }
+            @if $transition_delay_hover {
+                $transition: (transition: unquote($property) $transition_duration_hover $transition_ease_hover $transition_delay_hover);
+            } @else {
+                $transition: (transition: unquote($property) $transition_duration_hover $transition_ease_hover);
+            }
+            $properties: $properties, $transition;
+        }
+    }
+    @return $properties;
+}

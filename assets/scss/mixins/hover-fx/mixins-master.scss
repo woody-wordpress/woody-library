@@ -1,0 +1,76 @@
+/// Use premade templates for cards hovers
+/// @author Soheil Saheb-Jamii
+/// @param {String} $template - Choose a template from the list (fx_01  or fx_02...)
+/// @param {String} $framework - Choose the framework to work on.. (card, or button ...)
+/// @param {Map} $base_options - Optionnal - You can add extra options to the template such as background colors, etc...
+/// @example Usage of the mixin should always be inside a .card-link
+/// .card {
+///     .card-link {
+///         @include woody-fx(fx_04, (
+///             (fx: 'custom', target: 'after', css: (
+///                 background-color: $primary-color,
+///             )),
+///             (fx: 'zoom-out', target: 'img'),
+///         ));
+///     }
+/// }
+/// @example Another simpler example :
+/// .card-link {
+///     @include woody-fx('fx_02');
+/// }
+/// @see woody-card-fx--mapper Mixin in mixins-workers.scss to create more fx templates
+@mixin woody-fx($template:fx_01, $base_options:null, $framework:&,) {
+    $options: null;
+    @if type-of($template) == string {
+        $options: woody-fx-templates($template);
+    } @else if type-of($template) == list {
+        $options: $template;
+    }
+    //merge
+    @if $base_options {
+        $options: append($options, $base_options);
+    }
+    //run
+    @include woody-card-fx--mapper($options, $framework);
+}
+
+/// Call of mixin Example
+///.card-link {
+///    @include woody-fx('fx_10');
+///    //@debug '========== END ============';
+///}
+
+/**
+----- $options : -----
+-- fx: name of the fx
+can accept lists like : (slide-in-up, fade-in) //But then no value can be set
+(it will uses the default variable map $woody-card-fx-defaults);
+
+-- target: selector of the fx
+can accept: strings : after, img, button...
+can accept: maps : ('.basicCard', '.splitCard'...).
+
+-- value: value of the linked fx
+can accept: numbers, px, %, seconds...
+
+-- css: add custom css, works with fx "custom" or "display"
+can accept: maps : (background-color:red, color:$white,...)
+
+-- hover: when specified to true, it will avoid the applied default effect.
+Pretty usefull when used with "custom" fx.
+
+-- transition: supercharge the default transitions used in $woody-card-fx-defaults for the effect
+can accept: transition rules : .5s ease-in-out;
+
+-- delay: when specified, this adds delays to the effect.
+can accept: seconds : .15s
+can accept: map (max 2, where first is for default, and second is for hover) :
+delay:(0s, .15s) //Fx will put transition on element with 0s delay, and .15s delay on hover
+
+-- extend: when specified, this will load allows to load other templates
+can accept: string (template name)
+
+-- with: when specified with an "extend" parameter, you can specify custom values
+can accept: map with anything (same as if you were adding option)
+
+**/

@@ -1,0 +1,42 @@
+@function woody-fx-selector-type-card($target, $selector) {
+    @if str-index($target, img-after) {
+        @return '.imageObject:after';
+    }
+    @else if str-index($target, img-before) {
+        @return '.imageObject:before';
+    }
+    @else if str-index($target, img) {
+        @return '.imageObject-img';
+    }
+    @else if ($target == after) {
+        @return '#{$selector}:after';
+    }
+    @else if ($target == before) {
+        @return '#{$selector}:before';
+    }
+    @else if str-index($target, section-after) {
+        @return '.card-section:after';
+    }
+    @else if str-index($target, section-before) {
+        @return '.card-section:before';
+    }
+    @else if str-index($target, section) {
+        @return '.card-section';
+    }
+    @else if str-index($target, texts) {
+        @return '.card-texts';
+    }
+    @else if str-index($target, title) {
+        @return '.card-title';
+    }
+    @else if str-index($target, js) {
+        @return '.woody-hover-fx';
+    }
+    @else if str-index($target, button) {
+        @return '.button';
+    }
+    @else if str-index($target, card) {
+        @return '#{$selector}';
+    }
+    @return $target;
+}

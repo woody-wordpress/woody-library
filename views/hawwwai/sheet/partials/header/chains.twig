@@ -1,0 +1,15 @@
+{% if chains|default %}
+    <span class="header-chains">
+        {% for chain in chains %}
+            <div class='header-chain-wrapper'>
+                <img class="header-chain" alt="{{chain._alt|default('')}}"
+                    {% if chain.urlHD|default %}
+                        src="{{ chain.urlHD | rcImg(90, 90, 80, 'png', 'clip')  }}"
+                    {% else %}
+                        src="{{ chain.url | rcImg(90, 90, 80, 'png', 'clip')  }}"
+                    {% endif %}
+                />
+            </div>
+        {% endfor %}
+    </span>
+{% endif %}

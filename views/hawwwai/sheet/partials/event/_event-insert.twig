@@ -1,0 +1,118 @@
+{% if formated_object.fmaInsert|default and  formated_object.fmaInsert|length > 0 %}
+    <li id="li-event-insert">
+        <section class="panel panel-default event-event-insert show-when-angular-ready" event-insert-switcher>
+            <div class="panel-body">
+                {% for fmaInsert in formated_object.fmaInsert %}
+                    {% if fmaInsert.onlyOneDay %}
+                        <div class="date-oneday" data-date date-start="{{fmaInsert.startDate}}">
+                            <div class="date-format">
+                                <span class="date-day-label">{{ fmaInsert.startDateFormated['day-label']|trim }}</span>
+                                <span class="date-day-number">{{ fmaInsert.startDateFormated['day-number']|trim }}</span>
+                                <span class="date-month">{{ fmaInsert.startDateFormated['month-label']|trim }}</span>
+                            </div>
+                            {% if fmaInsert.startDateFormated['year-label'] != 'now'|date('Y') %}
+                                <div class='date-time-wrapper'>{{ fmaInsert.startDateFormated['year-label'] }}</div>
+                            {% endif %}
+                            {% if fmaInsert.startTime|default %}
+                                <span class='date-time-wrapper'>
+                                    {{ (fmaInsert.endTime|default ? 'SECTIONS.TOURISM.SHEET.TARIFFS.FROM' : 'GLOBAL.AT') |trans }}
+                                    <span class="date-time">
+                                        {{ fmaInsert.startTime | date('G:i') }}
+                                    </span>
+                                </span>
+                                {% if fmaInsert.endTime|default %}
+                                <span class='date-time-wrapper'>
+                                    {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TO'|trans }}
+                                    <span class="date-time">
+                                        {{ fmaInsert.endTime | date('G:i') }}
+                                    </span>
+                                </span>
+                                {% endif %}
+                            {% endif %}
+                            {% if fmaInsert.startTime2|default %}
+                                <span class='date-time-wrapper'>
+                                    {{ 'GLOBAL.AND'|trans }}
+                                    {{ (fmaInsert.endTime2|default ? 'SECTIONS.TOURISM.SHEET.TARIFFS.FROM' : 'GLOBAL.AT') |trans }}
+                                    <span class="date-time">
+                                        {{ fmaInsert.startTime2 | date('G:i') }}
+                                    </span>
+                                </span>
+                                {% if fmaInsert.endTime2|default %}
+                                <span class='date-time-wrapper'>
+                                    {{ 'SECTIONS.TOURISM.SHEET.TARIFFS.TO'|trans }}
+                                    <span class="date-time">
+                                        {{ fmaInsert.endTime2 | date('G:i') }}
+                                    </span>
+                                </span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if fmaInsert.onlyOneDay == false %}
+                        <div class="date-multipleday" data-date date-start="{{fmaInsert.startDate}}" date-end="{{fmaInsert.endDate}}">
+                            <div class="date-format">
+                                <span class="date-day-label">{{ 'GLOBAL.DATE.FROM'|trans }}</span>
+                                <span class="date-day-number">{{ fmaInsert.startDateFormated['day-number']|trim }}</span>
+                                <span class="date-month">{{ fmaInsert.startDateFormated['month-label']|trim }}</span>
+                            </div>
+                            <div class="date-format">
+                                <span class="date-day-label">{{ 'GLOBAL.DATE.TO'|trans }}</span>
+                                <span class="date-day-number">{{ fmaInsert.endDateFormated['day-number']|trim }}</span>
+                                <span class="date-month">{{ fmaInsert.endDateFormated['month-label']|trim }}
+                                </span>
+                            </div>
+                            {% if fmaInsert.endDateFormated['year-label'] == fmaInsert.startDateFormated['year-label'] and fmaInsert.endDateFormated['year-label'] != ('now'|date('Y')) %}
+                                <div>{{ fmaInsert.endDateFormated['year-label'] }}</div>
+                            {% endif %}
+                        </div>
+
+                    {% endif %}
+                {% endfor %}
+
+                {# Next Dates #} {# need JS improvement : bad cached dates #}
+                {#{% if formated_object.openingPeriods|default and contractsLevels.nextdates %}
+                    <div class="next-dates">
+                    {% for next in formated_object.openingPeriods.nextDates %}
+                        <div class="next-date-wrapper">
+                            <span class="next-date">
+                                {{ thesaurus.fulldictionary[next.day] }}
+                                {{ next.date | localizeddate('long', 'none', lang) }}
+                            </span>
+                        </div>
+                    {% endfor %}
+                    {% if formated_object.openingPeriods.moreDates %}
+                        <span class='text-muted'>...</span>
+                    {% endif %}
+                {% endif %}#}
+
+                {% if formated_object.openingPeriods.periods|length > 1 or (formated_object.openingPeriods.periods[0]._isMultipleOneDays is defined and formated_object.openingPeriods.periods[0]._isMultipleOneDays) %}
+                    <span class="plo-btn inverse sidebar-default-btn" anchor-link ng-click="scrollTo('#openings')">
+                        <span class="icon-font-event plo-fonticon"></span>
+                        <span class="_plu-soft--left">
+                            {{ 'SECTIONS.BLOCS.EVENT_INSERT.SHOWALL'|trans }}
+                        </span>
+                    </span>
+                {% endif %}
+
+
+                {% if options.googlecalendar is defined and options.googlecalendar %}
+                    <a class="plo-btn inverse sidebar-default-btn show-when-angular-ready"
+                        google-calendar
+                    {% if formated_object.openingPeriods.nextDates is not empty %}
+                        periods='{{ formated_object.openingPeriods.nextDates|json_encode|raw }}'
+                    {% endif %}
+                        desc="{{ formated_object.description|slice(0, 500)|json_encode|default(null) }}"
+                        address="{{ formated_object.contacts.establishment|json_encode|default(null) }}"
+                        target="_blank" ng-href="{{ '{{googlecalendarURL}}' }}" rel="noindex,nofollow">
+
+                        <span class="icon-font-calendar plo-fonticon"></span>
+                        <span class="_plu-soft--left">
+                            {{ 'GLOBAL.ADD_TO_CALENDAR'|trans }}
+                        </span>
+                    </a>
+                {% endif %}
+            </div>
+
+        </section>
+    </li>
+{% endif %}

@@ -1,0 +1,25 @@
+<div class="woodyGallery grid-x {{ gridClass|default }}{{ gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
+    {% if gallery_items %}
+        {% if swipeFrom and gallery_items|length > swipeFrom|default(1) %}
+            {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
+            {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
+                'items' : gallery_items,
+                'card' : customCard|default("media_card/tpl_01"),
+                'image_style' : customImageStyle|default("ratio_square"),
+                'isRel' : true,
+                'swResp' : true,
+                'swiper_options' : json_swiper_options,
+                'isReveal' : isReveal|default()
+            } %}
+        {% else %}
+            {% for item in gallery_items %}
+                <div class="cell">
+                    {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
+                        'image_style' : customImageStyle|default("ratio_square"),
+                        'reveal' : isReveal|default()
+                    } %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+</div>

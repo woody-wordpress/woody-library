@@ -5,11 +5,8 @@
 .api-render-container {
     line-height: 24px;
     color: $mainText;
-    min-height: 101vh;
-
-    .zeta {
-        font-size: inherit;
-    }
+    &.itinerary-layout { min-height: 101vh; }
+    .zeta { font-size: inherit; }
 }
 
 ul {
@@ -19,18 +16,9 @@ ul {
 }
 
 .sheet-model-v1 {
-
 }
 
 .sheet-model-v2.has-mosaic {
-    .sheet-navbar-checkpoint {
-        margin-top: -60px;
-        .sheet-navbar-wrapper {
-            &:not(.sticky-fixed) {
-                visibility: hidden !important;
-            }
-        }
-    }
     .sheet-sidebar {
         z-index: 1;
 
@@ -46,10 +34,31 @@ ul {
     }
     .tourism-detail-sidebar-list {
         background: white;
+        padding: 15px;
     }
 }
 
 .sheet-model-v2 {
+    .sheet-navbar-checkpoint {
+        margin-top: -60px;
+        .sheet-navbar-wrapper {
+            &:not(.sticky-fixed) {
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        .tourism-detail-sidebar {
+            padding-right: 0 !important;
+        }
+    }
+    @media (max-width: 991px) {
+        .tourism-detail-sidebar {
+            margin-left: -17px;
+        }
+    }
+
     .tourism-detail-sidebar {
         padding-right: 0 !important;
     }
@@ -57,17 +66,17 @@ ul {
         background: #fff !important;
     }
     main {
-        .booking-content {
-            background: #fff !important;
+        .list-group-item {
+            border: none !important;
         }
         .list-group-item,
         .panel-default {
             &:not(.sheet-tab) {
-                border: none !important;
+                // border: none !important;
             }
         }
     }
-    .api-render-content {
+    .itinerary-layout .api-render-content {
         display: flex;
         flex-wrap: wrap;
     }
@@ -79,8 +88,7 @@ ul {
     }
 }
 
-
-.no-gutter>[class*='col-'] {
+.no-gutter > [class*="col-"] {
     padding-right: 0;
     padding-left: 0;
 }
@@ -147,7 +155,7 @@ ul {
     .slick-track:after {
         display: table;
 
-        content: '';
+        content: "";
     }
 
     .slick-track:after {
@@ -166,7 +174,7 @@ ul {
         min-height: 1px;
     }
 
-    [dir='rtl'] .slick-slide {
+    [dir="rtl"] .slick-slide {
         float: right;
     }
 
@@ -201,8 +209,6 @@ ul {
     .slick-arrow.slick-hidden {
         display: none;
     }
-
-
 
     /* Dots */
     .slick-dotted.slick-slider {
@@ -282,16 +288,16 @@ ul {
         width: 30px;
         height: 30px;
         z-index: 10;
-        content: '•';
+        content: "•";
         text-align: center;
-        opacity: .25;
+        opacity: 0.25;
         color: black;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
     .slick-dots li.slick-active button:before {
-        opacity: .75;
+        opacity: 0.75;
         color: $primary-color;
     }
 }

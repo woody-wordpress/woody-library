@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 $('.swResp').each(function() {
     var $this = $(this),
+        swiperComponent = $this.parent(),
         swiperWrapper = $this.find('.swRespW'),
         swiperLength = swiperWrapper.children().length;
 
@@ -10,6 +11,7 @@ $('.swResp').each(function() {
         var $multirows = $($this.find('.multiRows'));
         if ($multirows.length != 0) {
             $multirows.find('.grid-y>.cell').removeClass().addClass('swRespS').unwrap('.grid-y').unwrap('.multiRows');
+            $multirows.find('.grid-x>.cell').removeClass().addClass('swRespS').unwrap('.grid-x').unwrap('.multiRows');
         }
 
         // Remove visualModifier div that causes bug
@@ -17,9 +19,8 @@ $('.swResp').each(function() {
             swiperWrapper.unwrap();
         }
 
-        if ((window.innerWidth <= 640) || (window.innerWidth > 640 && swiperLength > 2)) {
-            $this.append('<div class="swiper-pagination"></div>').append('<div class="swiper-nav"><div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"><i class="wicon wicon-026-precedent" aria-hidden="true"></i></div><div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"><i class="wicon wicon-025-suivant" aria-hidden="true"></i></div></div>');
-        }
+        swiperComponent.find('.swiper-controls').remove();
+
         var $the_wrapper = $($this.find('.swRespW'));
         if ($the_wrapper.length != 0) {
             $the_wrapper.removeClass('grid-x').addClass('swiper-wrapper');
@@ -28,40 +29,64 @@ $('.swResp').each(function() {
                 $theSlide.removeClass('cell').addClass('swiper-slide');
             }
 
-            var options = {
+            var defaultOptions = {},
+                tabletOptions = {},
+                thumbsOptions = {};
+
+            defaultOptions = {
                 spaceBetween: 25,
                 loop: false,
                 slidesPerView: 2,
-                slidesPerGroup: 2,
                 breakpoints: {
                     640: {
-                        slidesPerView: 1,
-                        slidesPerGroup: 1
+                        slidesPerView: 1
                     }
-                },
-                navigation: {
-                    nextEl: $(this).parent().find('.swiper-button-next')[0],
-                    prevEl: $(this).parent().find('.swiper-button-prev')[0]
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    type: 'bullets',
-                    dynamicBullets: true,
-                    clickable: true
-                },
+                }
             };
+
+            //la class spv-tablette-1 permet d'afficher 1 seul élément en mode tablette
+            if ($this.hasClass('spv-tablette-1')) {
+                tabletOptions = {
+                    slidesPerView: 1,
+                };
+            }
+
+            if ($this.hasClass('has-thumbs')) {
+                thumbsOptions = {
+                    slidesPerView: 1,
+                    slidesPerGroup: 1,
+                    thumbs: {
+                        swiper: {
+                            el: $($(this).find('.swiper-thumbs .swiper-container')),
+                            slidesPerView: 3,
+                            spaceBetween: 5,
+                            loop: false,
+                            watchSlidesVisibility: true,
+                            watchSlidesProgress: true
+                        }
+                    },
+                    pagination: {}
+                };
+            }
+
+            var options = $.extend(defaultOptions, tabletOptions, thumbsOptions);
 
             // New Swiper instance for current element
             var responsive_slider = new Swiper(this, options);
+            $this.data('swiper', responsive_slider);
 
+            $(document).on('lazybeforeunveil', function(event) {
+                responsive_slider.update();
+            });
         }
 
         $(window).on('change.zf.tabs', function(e) {
             var $target = $(e.target);
             if ($target.find('.swResp')) {
-                responsive_slider.update();
+                setTimeout(function() {
+                    responsive_slider.update();
+                }, 600);
             }
         });
-
     }
 });

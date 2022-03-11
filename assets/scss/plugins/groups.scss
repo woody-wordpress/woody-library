@@ -7,6 +7,16 @@
 }
 
 .group-quotation-wrapper {
+
+    hr {
+        border-bottom: 1px solid $primary-color;
+    }
+
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+        -webkit-appearance: none;
+    }
+
     .tabs {
         position: relative;
         display: flex;
@@ -153,6 +163,64 @@
     .trip {
         &-infos {
             width: 100%;
+
+            .trip-title-infos {
+                display: flex;
+
+                .trip-title {
+                    width: fit-content;
+                }
+            }
+
+            .informative-point {
+                width: fit-content;
+                margin: 0 5px;
+                cursor: pointer;
+                position: relative;
+
+                &:hover {
+                    .pop-message {
+                        display: block !important;
+                    }
+                }
+
+                .pop-message {
+                    text-align: center;
+                    width: 500px;
+                    position: absolute;
+                    top: 30px;
+                    left: -242px;
+                    z-index: 10000;
+                    background: $white;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    border-radius: 3px;
+                    display: none;
+                }
+
+                .pop-message:after,
+                .pop-message:before {
+                    bottom: 100%;
+                    left: 50%;
+                    border: solid transparent;
+                    content: " ";
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+
+                .pop-message:after {
+                    border-bottom-color: $white;
+                    border-width: 7px;
+                    margin-left: -7px;
+                }
+
+                .pop-message:before {
+                    border-bottom-color: rgba(0, 0, 0, 0.2);
+                    border-width: 8px;
+                    margin-left: -8px;
+                }
+            }
         }
 
         &-pretitle {
@@ -182,6 +250,14 @@
                     color: lighten($black, 25%);
                     font-size: rem-calc(14);
                 }
+            }
+
+            .sub-components {
+                color: lighten($black, 25%);
+                font-size: rem-calc(14);
+                display: flex;
+                flex-direction: column;
+                margin-left: 40px;
             }
 
             .chosen {
@@ -270,12 +346,28 @@
         }
     }
 
-    .added-price .less .text {
-        font-size: rem-calc(11);
-        color: $alert-color;
-        width: 100%;
-        display: block;
-        text-align: right;
+    .added-price {
+
+        .base,
+        .evolve,
+        .less .text {
+            display: block;
+            text-align: right;
+        }
+
+        .evolve {
+            font-size: rem-calc(11);
+
+            .before_evolve {
+                color: $alert-color;
+                text-decoration: line-through;
+            }
+
+            .after {
+                color: $success-color;
+                padding-left: 2px;
+            }
+        }
     }
 
     .full_total_price {
@@ -290,6 +382,19 @@
         color: lighten($black, 25%);
         font-size: rem-calc(14);
         font-style: italic;
+    }
+
+    .specialdays-lines,
+    .freebies-lines {
+        padding: 10px;
+    }
+
+    .freebies-lines {
+        background: #e6f8d9;
+
+        .freebies-price {
+            justify-content: space-between;
+        }
     }
 
     :not(.empty-quotation) .alert-box {
@@ -319,7 +424,7 @@
         }
     }
 
-    .alert-box.success{
+    .alert-box.success {
         background-color: lighten($success-color, 40%);
         color: $success-color;
         box-shadow: 0 5px 12px rgba($success-color, .15);
@@ -330,7 +435,7 @@
         color: $alert-color;
     }
 
-    .trip-list{
+    .trip-list {
         padding-top: 75px;
         padding-bottom: 75px;
     }
@@ -343,7 +448,7 @@
 #group-quotation {
     .tab-title {
         padding: 0.85em 1em 0.85em 0;
-        border-bottom: 1px solid rgba(0, 0, 0, .2);
+        border-bottom: 1px solid $primary-color;
     }
 }
 
@@ -366,8 +471,14 @@
 
         .form-group.multi-input {
             width: unset !important;
-            max-width: 280px;
-            ;
+
+            .form-control:first-of-type {
+                margin-left: auto;
+            }
+
+            .form-control {
+                max-width: 140px;
+            }
         }
     }
 
@@ -499,11 +610,22 @@
         }
     }
 
-    .form-group.multi-input{
-        .form-control.choices{
+    .form-group:not(.multi-input) {
+        .choices {
+            margin-left: auto;
+        }
+    }
+
+    .form-group.multi-input {
+        .form-control.choices:first-of-type {
+            margin-left: auto;
+        }
+
+        .form-control.choices {
             max-width: 206px !important;
         }
-        .validate{
+
+        .validate {
             white-space: nowrap;
         }
     }
@@ -515,7 +637,7 @@
 
 // LOADING
 
-.isLoading {
+.group-quotation-wrapper .isLoading {
     visibility: hidden;
 }
 
@@ -527,10 +649,43 @@
     }
 
     aside {
+        padding: 20px 0;
         display: flex;
         flex-direction: column;
         margin-left: 40px;
         width: 35%;
+
+        .help {
+            background: $black;
+            color: $white;
+            text-align: center;
+            margin: 5px 0;
+
+            h4 {
+                font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+                background: darken($black, 10%);
+            }
+
+            img {
+                width: 80px;
+                border-radius: 40px;
+                border: 2px solid $white;
+            }
+
+            div {
+                margin: 10px 0;
+            }
+
+            .phone {
+                span {
+                    justify-content: center;
+
+                    strong {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
 
         // PANIER
         .my-quotation {
@@ -589,7 +744,7 @@
     font-size: 12px;
 }
 
-.empty-quotation{
+.empty-quotation {
     .alert-box {
         background: lighten($alert-color, 40%);
         color: $alert-color;
@@ -615,11 +770,128 @@
         }
     }
 
-    .empty-form{
+    .empty-form {
         width: 100% !important;
 
-        .your-cart{
+        .your-cart {
             width: 65%;
+        }
+    }
+}
+
+// MOBILE DEVICE GROUPS
+@include breakpoint(xmedium down) {
+    #group-quotation {
+        flex-direction: column;
+
+        .quotation-form {
+            width: 100%;
+        }
+
+        .sub-components {
+            display: none;
+        }
+    }
+
+    .trip-recap::after {
+        display: none !important;
+    }
+
+    aside {
+        width: 100% !important;
+        margin-left: 0px !important;
+
+        .help {
+            width: 100%;
+        }
+
+        .cart {
+            max-width: 100%;
+        }
+    }
+}
+
+@include breakpoint(medium down) {
+    #group-quotation {
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .group-quotation-wrapper {
+
+        .form-group.multi-input {
+            .form-control {
+                max-width: 100% !important;
+            }
+
+            .form-control:first-of-type {
+                margin-left: 5px !important;
+                margin-right: 5px !important;
+            }
+        }
+
+        ul.tabs {
+            display: none;
+        }
+
+        .quotation-form {
+            width: 100%;
+        }
+
+        .trip-recap {
+            .trip-desc {
+                flex-direction: column;
+            }
+        }
+
+        .trip-recap::after {
+            display: none;
+        }
+
+        .trip-basis .form-control {
+            margin: 0px;
+            margin-bottom: 0px !important;
+
+            padding: 0px;
+        }
+
+        .component-price {
+            position: unset !important;
+            display: inline-block;
+        }
+
+        .form-control {
+            margin: 5px;
+            margin-bottom: 5px !important;
+        }
+
+        .form-group {
+            display: unset;
+        }
+
+        .form-group.edit {
+            display: block;
+        }
+
+        .form-fields-component {
+            display: block;
+
+            .selector {
+                margin-left: 0px;
+                max-width: none;
+                display: block;
+            }
+
+            .actions {
+                position: relative;
+                right: 0 !important;
+            }
+        }
+
+        aside {
+            width: 100% !important;
+            margin-left: 0 !important;
         }
     }
 }

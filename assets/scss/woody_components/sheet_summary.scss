@@ -1,0 +1,140 @@
+.woody-component-sheet-summary {
+    .summary-block {
+        &.prices {
+            .prices-table {
+                tbody {
+                    border: none;
+                    background-color: transparent;
+
+                    tr {
+                        position: relative;
+
+                        @include root-bg($dark-list) {
+                            color: $white;
+                        }
+
+                        &:after {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            height: 1px;
+                            width: calc(100% - 28px);
+                            background-color: $medium-gray;
+
+                            @include root-bg($dark-list) {
+                                background-color: $white;
+                            }
+                        }
+
+                        &:nth-child(2n) {
+                            background-color: transparent;
+                        }
+
+                        td {
+                            &.price-value {
+                                font-weight: bold;
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .show-all-prices {
+                >button {
+                    cursor: pointer;
+
+                    @include root-bg($dark-list) {
+                        color: $white;
+                    }
+
+                    span {
+                        text-decoration: underline currentColor;
+                    }
+                }
+            }
+
+            .tabs{
+                border:none;
+                border-bottom:1px solid rgba($black, .1);
+                .tabs-title{
+                    a{
+                        padding:8px 10px;
+                        line-height: 1.3em;
+                        span{
+                            display: block;
+                        }
+                    }
+
+                    &:not(:nth-last-of-type(1)){
+                        a{
+                            margin-right: 5px;
+                        }
+                    }
+
+                    &.is-active{
+                        a{
+                            box-shadow: 0 0 5px rgba($black, .2);
+                            border-bottom:2px solid $primary-color;
+                        }
+                    }
+                }
+
+            }
+
+            .tabs-content{
+                border:none;
+            }
+
+            .tabs-panel{
+                padding:1rem 0 0 0;
+            }
+        }
+    }
+}
+
+.all-prices-table {
+    top: 50% !important;
+    transform: translateY(-50%);
+
+    >.full-frame {
+        max-height: 80vh;
+        overflow-y: scroll;
+    }
+
+    .prices-table {
+        tbody {
+            border: none;
+
+            tr {
+                position: relative;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    height: 1px;
+                    width: calc(100% - 28px);
+                    background-color: $medium-gray;
+                }
+
+                &:nth-child(2n) {
+                    background-color: transparent;
+                }
+
+                td {
+                    &.price-value {
+                        font-weight: bold;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+}

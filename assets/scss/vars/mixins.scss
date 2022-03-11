@@ -1,0 +1,32 @@
+$allowed-hero-tpls-for-transparent-header: (
+    '.has-blocks-hero-tpl_01',
+    '.has-blocks-hero-tpl_10',
+    '.has-blocks-hero-tpl_11',
+    '.has-blocks-hero-tpl_12',
+) !default;
+$custom-selectors-states: (
+    test: (
+        '.testing'
+    ),
+    mini: (
+        '.added-to-mini'
+    )
+) !default;
+$selectors-states: (
+    mini: (
+        '.is-scrolled',
+        '.menu-is-open'
+    ),
+    scroll-up: (
+        '.scrolling-up'
+    ),
+    scroll-down: (
+        '.scrolling-down'
+    ),
+    transparent: (
+        '.woodypage-front_page',
+    )
+) !default;
+
+// Add $allowed-hero-tpls-for-transparent-header to $states "transparent"
+$selectors-states: map-deep-set($selectors-states, transparent, join($allowed-hero-tpls-for-transparent-header, map-get($selectors-states, transparent))) !default;

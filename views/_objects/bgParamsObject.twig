@@ -1,0 +1,48 @@
+{% extends '_objects/visualModifier.twig' %}
+
+{% block content %}
+    {% if no_padding == 0 %}
+        {% set spaceBetween = 30 %}
+    {% else %}
+        {% set spaceBetween = 0 %}
+    {% endif %}
+
+    {% set component_classes = [
+        'woody-component',
+        'woody-component-' ~ block('woodyBlockType'),
+        'tpl_' ~ block('indexClass'),
+        display.classes|default,
+        display.border_color|default,
+        display.background_color|default,
+        display.background_color_opacity|default,
+        display.background_img_opacity|default,
+        (display.background_img|default or display.background_color|default or display.border_color|default or display.classes|default) ? 'isRel padd-all-md',
+        display.background_img ? 'has-bgimg',
+        display.padding ? 'large-' ~ display.padding|default,
+        swiperOut and items|length > swiperOut ? 'swiperOut',
+        customClasses|default,
+        mobile_behaviour.hide_for_mobile ? 'show-for-xmedium'
+    ] %}
+    <div class="{{ component_classes|join(' ')|spacing }}"{% if not desequalize %} data-equalizer="data-equalizer"{% endif %}  {% if show_more_button %} data-show-more-title-close="{{ __("Afficher plus", "woody-theme")}}" data-show-more-title-open="{{ __("Afficher moins", "woody-theme")}}" {% endif %}>
+        {% if display.background_img %}
+            {% include '_objects/bgImageObject.twig' with {
+                'img': display.background_img,
+            } %}
+            <div class="content isRel">
+        {% endif %}
+
+        {% if alert %}
+            <div class="empty-section {% if not public_alert %}admin-only{% endif %}">
+                <div class="empty-message isAbs">
+                    <p>{{ alert|default }}</p>
+                </div>
+            </div>
+        {% endif %}
+        {% block woodyComponentContent %}{% endblock %}
+
+        {% if display.background_img %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

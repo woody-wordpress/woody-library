@@ -10,12 +10,30 @@
         border-radius: $card-border-radius;
     }
 
+    &-index {
+        top: $cardIndex-top-pos;
+        left: $cardIndex-left-pos;
+        z-index: 1;
+        color: $cardIndex-color;
+        font-size: rem-calc($cardIndex-font-size);
+        font-family: $cardIndex-font-family;
+        line-height: 1;
+        opacity: $cardIndex-opacity;
+    }
+
     &-titles {
         &.has-icon-img img {
             max-width: $icon-img-max-width;
         }
 
         width: 100%;
+    }
+
+    &-created {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-style: italic;
     }
 
     &-button {
@@ -119,6 +137,33 @@
         right: $card-bookable-right-pos;
     }
 
+    &-profile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: $global-margin*2;
+
+        .profile-img {
+            width: $card-profile-img-size;
+            box-shadow: $card-profile-img-shadow;
+            border-radius: $card-profile-img-radius;
+            border: $card-profile-img-border;
+
+            .imageObject-caption {
+                visibility: hidden;
+            }
+        }
+
+        .profile-name {
+            font-size: $card-profile-font-size;
+            font-family: $card-profile-font-family;
+            font-weight: $card-profile-font-weight;
+            font-style: $card-profile-font-style;
+            text-shadow: $card-profile-img-shadow;
+        }
+    }
+
     &.basicCard {
         .card-link {
             display: flex;
@@ -135,10 +180,77 @@
             &.text-center {
                 align-items: center;
             }
+
+            &.has-profile {
+                position: relative;
+            }
         }
 
-        .imageObject {
+        .cardMediaWrapper {
             border-radius: $card-border-radius $card-border-radius 0 0;
+        }
+
+        .card-profile {
+            position: $basiccard-profile-position;
+            margin: 0;
+
+            @each $element,
+            $value in $basiccard-profile-coords {
+                #{$element}: #{$value};
+            }
+        }
+    }
+
+    &.splitCard {
+        .card-section {
+            background-color: $nobg-splitcardsection-bgcolor;
+
+            &.card-section-colored {
+                color: $cardsection-color;
+                background-color: $cardsection-bgcolor;
+            }
+        }
+
+        @include breakpoint(xmedium down) {
+            .grid-x {
+                &>.cell:not(.card-section) {
+                    padding: 0 !important;
+                }
+            }
+        }
+
+        @include breakpoint(xlarge up) {
+            .is-abs {
+                position: absolute;
+                top: 50%;
+                transform: translate(0%, -50%);
+                justify-content: space-around;
+
+                &.abs-left {
+                    left: 10%;
+                }
+
+                &.abs-right {
+                    right: 10%;
+                }
+
+                .card-title {
+                    @include header-size(h2);
+                    margin-bottom: 30px;
+                }
+            }
+
+            .bg-primary {
+                .card-button {
+                    color: set-color($primary-color)
+                }
+            }
+
+            .bg-secondary {
+                .card-button {
+                    color: set-color($secondary-color)
+                }
+            }
         }
     }
 
@@ -150,55 +262,123 @@
             color: $white;
         }
 
-        .imageObject {
+        .cardMediaWrapper {
             height: 100%;
             border-radius: $card-border-radius;
+        }
+
+        .card-titles {
+            @if $texts-shadow {
+                @include smooth-shadow($type:text, $y:$texts-shadow-distance, $blur:$texts-shadow-blur, $color:$texts-shadow-color, $opacity:$texts-shadow-opacity, $layers:$texts-shadow-layers, $ratio:$texts-shadow-curve, $oRatio:0);
+            }
         }
 
         .card-description {
             max-width: 600px;
         }
 
+        .card-profile {
+            .profile-img {
+                height: auto;
+                border-radius: 50%;
+            }
+        }
+
         &.tpl_01,
         &.tpl_03 {
             .card-description {
                 text-align: center;
+                margin-left: auto;
+                margin-right: auto;
             }
+        }
+
+        &.tpl_02,
+        &.tpl_04 {
+            .card-description {
+                margin-left: auto;
+            }
+        }
+
+        .card-iti {
+            max-width: 80%;
+            background: rgba($white, .7);
+            padding: 20px;
+            box-shadow: 0 8px 10px rgba($black, .3);
         }
     }
 
     &-iti-length {
         line-height: 1em;
-        top: $iti-length-top-position;
-        right: $iti-length-right-position;
-        bottom: $iti-length-bottom-position;
-        left: $iti-length-left-position;
-        border-radius: $iti-length-border-radius;
-        background-color: $iti-length-bgcolor;
         color: $iti-length-color;
-        @include xy-gutters($gutters: 10px, $gutter-type:padding, $gutter-position: top left right bottom)
+        font-weight: bold;
+        font-size: $iti-length-size;
+        padding-right: 10px;
+        text-align: center;
+        flex-grow: 1;
+
+        // top: $iti-length-top-position;
+        // right: $iti-length-right-position;
+        // bottom: $iti-length-bottom-position;
+        // left: $iti-length-left-position;
+        // border-radius: $iti-length-border-radius;
+        // background-color: $iti-length-bgcolor;
+        // @include xy-gutters($gutters: 10px, $gutter-type:padding, $gutter-position: top left right bottom)
+    }
+
+    &-iti {
+        display: flex;
+        align-items: center;
+        margin: 10px auto;
     }
 
     &-iti-infos {
-        .iti-infos-type {
+        display: flex;
+        justify-content: stretch;
+        flex-grow: 1;
 
-            .wicon {
-                display: $iti-infos-type-icon-display;
-                color: $iti-infos-type-icon-color;
-                font-size: $iti-infos-type-icon-size;
+        >li {
+            position: relative;
+            padding: 0 10px;
+            text-align: center;
+            font-weight: bold;
+            flex-grow: 1;
+
+            &:before {
+                content: '';
+                display: block;
+                width: 1px;
+                height: 100%;
+                background-color: $light-gray;
+                position: absolute;
+                left: 0;
+                top: 0;
             }
 
-            .term {
-                display: $iti-infos-type-term-display;
+            .iti-infos-type {
+                >small {
+                    display: block;
+                    line-height: 1.1em;
+                }
+
+                .wicon {
+                    display: $iti-infos-type-icon-display;
+                    color: $iti-infos-type-icon-color;
+                    font-size: $iti-infos-type-icon-size;
+                }
+
+                .term {
+                    display: $iti-infos-type-term-display;
+                }
             }
         }
     }
-
 }
 
 .card.overlayedCard,
 .card.basicCard.tpl_01,
-.card.basicCard.tpl_02 {
+.card.basicCard.tpl_02,
+.card.splitCard {
     .card-tripInfos-wrapper {
         top: $card-tripInfos-top-position;
         bottom: $card-tripInfos-bottom-position;
@@ -244,8 +424,7 @@
     }
 }
 
-.card.basicCard.tpl_04,
-.card.basicCard.tpl_05 {
+.card.basicCard.tpl_04 {
     .card-tripInfos-wrapper.has-price {
         margin-top:calc(-#{$card-priceTag-height} / 2);
     }
@@ -297,6 +476,52 @@
             }
         }
     }
+
+    &.trip {
+        &.media-left {
+            .card-tripInfos-wrapper {
+                right: 0px;
+                left: auto;
+            }
+
+            .card-title {
+                padding-right: 100px;
+            }
+        }
+
+        &.media-right {
+            .card-tripInfos-wrapper {
+                left: 0px;
+                right: auto;
+            }
+        }
+    }
+
+    &.tpl_07 {
+        .card-tripInfos-wrapper {
+            width: 100%;
+        }
+    }
+
+    &.tpl_09,
+    &.tpl_10 {
+        @include breakpoint(medium down) {
+            figure {
+                img {
+                    max-height: 700px;
+                }
+            }
+
+            .is-abs {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 20px;
+                width: calc(100% - 40px);
+            }
+        }
+    }
+
 }
 
 .geomapCard {
@@ -307,11 +532,147 @@
     }
 }
 
+.card.profileCard {
+    background-color: $nobg-profileCardsection-bgcolor;
+
+    .profile {
+        &-title {
+            @extend h4;
+        }
+
+        &-complement {
+            @include header-size(h6);
+            display: block;
+            margin-bottom: 10px;
+            font-style: $profile-focus-complement-font-style;
+            color: $profile-focus-complement-color;
+        }
+
+        &-img {
+            border: solid $profile-focus-img-border-width $profile-focus-img-border-color;
+            border-radius: $profile-focus-img-radius;
+        }
+
+    }
+
+    .profile-expression {
+        margin-top: 15px;
+    }
+
+    .expression-title {
+        @include header-size(h5);
+        color: $profile-focus-exp-title-color;
+    }
+
+    .expression-content p {
+        font-size: rem-calc($profile-focus-complement-size);
+        color: $profile-focus-complement-color;
+    }
+
+    .social-item {
+        margin-left: 8px;
+        font-size: rem-calc($profile-focus-social-size);
+
+        &.linkedin {
+            @include wicon(006-linkedin);
+        }
+
+        &.twitter {
+            @include wicon(002-twitter);
+        }
+    }
+
+    &.tpl_01,
+    &.tpl_201 {
+        @include breakpoint(medium down) {
+            text-align: center;
+
+            .title-wrapper {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        .profile {
+
+
+            &-contacts {
+                font-size: rem-calc(14);
+
+                .profile-address {
+                    width: 100%;
+                }
+
+                a:not(:nth-of-type(1)):before {
+                    @include breakpoint(medium) {
+                        content: '';
+                        display: block;
+                        width: 4px;
+                        height: 2px;
+                        background-color: $black;
+                        margin: 0 5px;
+                    }
+
+                }
+            }
+        }
+
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.card-slideshow-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $black;
+    opacity: 0;
+}
+
+.card-slideshow-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card.has-slideshow:hover {
+    .card-slideshow-wrapper {
+        opacity: 1;
+        transition: opacity .5s;
+    }
+
+    .card-slideshow-img {
+        &.imgL1 {
+            @include Xfader(1, 1, .5);
+        }
+
+        &.imgL2 {
+            @include Xfader(2, 1, .5);
+        }
+
+        &.imgL3 {
+            @include Xfader(3, 1, .5);
+        }
+
+        &.imgL4 {
+            @include Xfader(4, 1, .5);
+        }
+    }
+}
+
 .bg {
 
     @each $color,
     $hex in $foundation-palette {
         &-#{$color} {
+
+            .profileCard .card-section,
+            .splitCard .card-section,
             .basicCard .card-section {
                 background-color: $coloredbg-cardsection-bgcolor;
             }

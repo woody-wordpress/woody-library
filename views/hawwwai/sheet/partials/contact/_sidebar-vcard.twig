@@ -1,0 +1,116 @@
+{# Phones & fax reveal button #}
+{% if (phones|default or fax|default) and contractsLevels.sidebar.phone %}
+    <!-- // Phones -->
+    <li class="list-group-item sidebar-contact-phones" reveal>
+        {% if contractsLevels.hidephones %}
+            <div class="phone-infos delete-when-reveal reveal-button">
+                {{ 'SECTIONS.TOURISM.SHEET.PHONE_REVEAL'|trans }}
+            </div>
+        {% endif %}
+
+        <dl class="row">
+            <dt class="col-xs-2">
+                <span class="icon-font-phone plo-fonticon"></span>
+            </dt>
+
+            <dd class="col-xs-10 _plu-hard--left">
+                {% if phones[0]|default %}
+                    <div class="main-tel">
+                        {% if contractsLevels.hidephones %}
+                            <div class="phone-link reveal-button delete-when-reveal"
+                                interact event-type="SHEET_REVEAL_PHONE"
+                                analytics-mediaveille>
+
+                                {{ phones[0]|hideNumber(2) }}<span class="hidden-number">▒▒</span>
+                            </div>
+                            <a class="phone-link reveal-content" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
+                        {% else %}
+                            <a class="phone-link" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
+                        {% endif %}
+                        {% if descriptionPhones[0]|default %}
+                            <div class="epsilon text-muted _plu-push-left--tiny _plu-push--tiny">{{ descriptionPhones[0] }}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if phones[1]|default %}
+                    <div class="main-tel">
+                        {% if contractsLevels.hidephones %}
+                            <div class="phone-link reveal-button delete-when-reveal"
+                                interact event-type="SHEET_REVEAL_PHONE"
+                                analytics-mediaveille>
+                                {{ phones[1]|hideNumber(2) }}<span class="hidden-number">▒▒</span>
+                            </div>
+                            <a class="phone-link reveal-content" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
+                        {% else %}
+                            <a class="phone-link" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
+                        {% endif %}
+                        {% if descriptionPhones[1]|default %}
+                            <div class="epsilon text-muted _plu-push-left--tiny _plu-push--tiny">{{ descriptionPhones[1] }}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {# Fax if available #}
+                {% if fax is not empty %}
+                    {% if contractsLevels.hidephones %}
+                        <div class="fax" itemprop="faxNumber" reveal>
+                            <div class="phone-link reveal-button delete-when-reveal"
+                                interact event-type="SHEET_REVEAL_PHONE"
+                                analytics-mediaveille>
+                                {{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|hideNumber(2) }}
+                                <span class="hidden-number">▒▒</span>
+                            </div>
+                            <div class="phone-link reveal-content" itemprop="telephone">{{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|beautyNumber }}</div>
+                        </div>
+                    {% else %}
+                        <div class="fax" itemprop="faxNumber">
+                            <div class="phone-link" itemprop="telephone">{{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|beautyNumber }}</div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {# {% if contractsLevels.hidephones %}
+                    <div class="phone-infos delete-when-reveal">
+                        {{ 'SECTIONS.TOURISM.SHEET.PHONE_REVEAL'|trans }}
+                    </div>
+                {% endif %} #}
+            </dd>
+        </dl>
+    </li>
+{% endif %}
+
+
+{# Websites #}
+{% if contractsLevels.sidebar.website and websites|default %}
+    <li class="list-group-item sidebar-contact-websites">
+        <dl class="row">
+            <dt class="col-xs-2"><span class="icon-font-globe plo-fonticon"></span></dt>
+            <dt class="col-xs-10 _plu-hard--left">
+                {% for website in websites %}
+                    <div class="website ellipsis"
+                        analytics-mediaveille interact event-type="WEBSITE_TOURISTIC_PROVIDER">
+                        <a data-type="URL" class='nowrap' itemprop="url" rel="nofollow" href="{{ website|default }}" target="_blank">{{ website|simpleURL }}</a>
+                    </div>
+                    {% if descriptionWebsites[loop.index0]|default %}
+                        <div class="epsilon text-muted _plu-push-left--tiny _plu-push--tiny">{{ descriptionWebsites[loop.index0] }}</div>
+                    {% endif %}
+                {% endfor %}
+            </dt>
+        </dl>
+    </li>
+{% endif %}
+
+{# URL TripAdvisor #}
+{% if contractsLevels.sidebar.website and tripadvisorLink|default %}
+    <li class="list-group-item sidebar-contact-websites">
+        <dl class="row">
+            <dt class="col-xs-2"><span class="icon-font-tripadvisor plo-fonticon"></span></dt>
+            <dt class="col-xs-10 _plu-hard--left">
+                <div class="website ellipsis" interact event-type="WEBSITE_TOURISTIC_PROVIDER">
+                    <a data-type="URL" class='nowrap' itemprop="url" rel="nofollow" href="{{ tripadvisorLink|default }}" target="_blank">{{ tripadvisorLink|simpleURL }}</a>
+                </div>
+            </dt>
+        </dl>
+    </li>
+{% endif %}

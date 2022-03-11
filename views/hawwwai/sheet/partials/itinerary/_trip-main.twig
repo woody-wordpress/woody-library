@@ -1,0 +1,115 @@
+{# Trip general infos #}
+{% if formated_object.dataItinerary.itinerary|default and
+    (formated_object.dataItinerary.itinerary._length|default or formated_object.dataItinerary.itinerary.locomotionType|default or formated_object.dataItinerary.itinerary.typeTraceItinerary)
+ %}
+    <section id="locomotion-infos" class="panel-default text-center {% if formated_object.dataItinerary.itinerary.locomotionType|default|length > 1 %}slick-slider{% endif %}">
+
+        {% if formated_object.dataItinerary.itinerary.locomotionType|default %}
+        {% for locomotion in formated_object.dataItinerary.itinerary.locomotionType %}
+            <div class="locomotion-features">
+            {# Trip length #}
+                {% if formated_object.dataItinerary.itinerary._length|default %}
+                <div class="locomotion-feature-wrapper">
+                    <div class="trip-length">{{ formated_object.dataItinerary.itinerary._length|default }}
+                        <span class="trip-length__unit">km</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Trip type #}
+                {% if formated_object.dataItinerary.itinerary._typeTraceItinerary.label|default %}
+                <div class="locomotion-feature-wrapper text-primary">
+                    <i class="icon-font-{{ formated_object.dataItinerary.itinerary._typeTraceItinerary.icon }}"></i>
+                    <div>{{ formated_object.dataItinerary.itinerary._typeTraceItinerary.label }}</div>
+                </div>
+                {% endif %}
+
+                {# Locomotion #}
+                {% if locomotion.locomotion|default %}
+                <div class="locomotion-feature-wrapper" {# type="{{ locomotion.locomotion }}" #}>
+                    <i class="locomotion-icon icon-font-{{ locomotion._icon }}"></i>
+                    <div>{{ locomotion._locomotion }}</div>
+                </div>
+                {% endif %}
+
+                {# duration #}
+                {% if locomotion._duree|default %}
+                <div class="locomotion-feature-wrapper">
+                    <i class="icon-font-clock"></i>
+                    <div class="locomotion-duration">{{ locomotion._duree }}</div>
+                </div>
+                {% endif %}
+
+                {# difficulty #}
+                {% if locomotion._difficulte|default %}
+                <div class="locomotion-feature-wrapper">
+                    {% if locomotion.difficulte == 'tresfacile' %}
+                    <div class="dots-wrapper">
+                        <i class="icon-font-dot"></i>
+                        <i class="icon-font-dot-outline"></i>
+                        <i class="icon-font-dot-outline"></i>
+                        <i class="icon-font-dot-outline"></i>
+                        <i class="icon-font-dot-outline"></i>
+                    </div>
+                    {% elseif locomotion.difficulte == 'facile' %}
+                        <div class="dots-wrapper">
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot-outline"></i>
+                            <i class="icon-font-dot-outline"></i>
+                            <i class="icon-font-dot-outline"></i>
+                        </div>
+                    {% elseif locomotion.difficulte == 'moyen' %}
+                        <div class="dots-wrapper">
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot-outline"></i>
+                            <i class="icon-font-dot-outline"></i>
+                        </div>
+                    {% elseif locomotion.difficulte == 'difficile' %}
+                        <div class="dots-wrapper">
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot-outline"></i>
+                        </div>
+                    {% elseif locomotion.difficulte == 'tresdifficile' %}
+                        <div class="dots-wrapper">
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                            <i class="icon-font-dot"></i>
+                        </div>
+                    {% endif %}
+                    {# <i class="icon-font-info"></i> #}
+                    <div class="locomotion-difficulty text-primary">{{ locomotion._difficulte }}</div>
+                </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% else %}
+            <div class="locomotion-features">
+                {# Trip length #}
+                {% if formated_object.dataItinerary.itinerary._length|default %}
+                <div class="locomotion-feature-wrapper">
+                    <div class="trip-length">{{ formated_object.dataItinerary.itinerary._length|default }}
+                        <span class="trip-length__unit">km</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Trip type #}
+                {% if formated_object.dataItinerary.itinerary._typeTraceItinerary.label|default %}
+                <div class="locomotion-feature-wrapper text-primary">
+                    <i class="icon-font-{{ formated_object.dataItinerary.itinerary._typeTraceItinerary.icon }}"></i>
+                    <div>{{ formated_object.dataItinerary.itinerary._typeTraceItinerary.label }}</div>
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+
+{% endif %}

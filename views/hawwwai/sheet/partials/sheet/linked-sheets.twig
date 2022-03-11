@@ -1,0 +1,76 @@
+{% if formated_object.linkedSheets|default and formated_object.externalSheets|default %}
+    {% for data in formated_object.linkedSheets if data.sheets|default %}
+        <section id="linked-sheets-{{loop.index}}" class="row panel panel-default panel-body linked-sheets _plu-wrapper">
+            <div class="pl-heading">{{ data.label }}</div>
+            <div class="clearfix"></div>
+
+            <div class="item_sheet_alpha_list slide-items slide-add-dots">
+                {% spaceless %}
+                {% for item in data.sheets %}
+                {# <div class="col-md-6 col-xs-12"> #}
+                    <div class="rc_lego_wrapper">
+                        {# {% include '@LEGO/items/api_render/item_sheet_alpha/index.html.twig' with { #}
+                        {#
+                        'ratings': item.ratings,
+                        'itineraryLength': item.itineraryLength,
+                        'reviews': item.reviews|default,
+                        'fairguestReview': item.fairguestReview|default,
+                        'tariffs': item.tariffs,
+                        'deals': item.deals,
+                        'services': item.services,
+                        'gps': item.gps,
+                        'specials': item.specials,
+                        'chains': item.chains, #}
+                        {% include '@LEGO/items/api_render/item_sheet_beta/index.html.twig' with {
+                            'bordereau': item.bordereau,
+                            'sheetId': item.sheetId,
+                            'title': item.title,
+                            'type': item.type,
+                            'targetBlank': item.targetBlank,
+                            'img': item.img,
+                            'dates': item.dates,
+                            'town': item.town,
+                            'link': item.link,
+                            'lego_style': 's02',
+                            'display': {
+                                'list' : {
+                                    'imageMode': data.imageMode,
+                                    'imageDimensions': data.imageDimensions,
+                                },
+                                'infos' : {
+                                    'address': false,
+                                    'booking': false,
+                                    'capacities': false,
+                                    'comments': true,
+                                    'dates': true,
+                                    'description': false,
+                                    'labelRatings': true,
+                                    'locomotions': true,
+                                    'phone': false,
+                                    'town': true,
+                                    'type': false,
+                                },
+                                'topLeft' : {
+                                    'alert': true,
+                                    'chain': false,
+                                    'deals': false,
+                                    'services': false,
+                                    'tariffs': true
+                                },
+                                'topRight' : {
+                                    'alert': false,
+                                    'chain': true,
+                                    'deals': false,
+                                    'services': false,
+                                    'tariffs': false
+                                }
+                            }
+                        } only %}
+                    </div>
+
+                {% endfor %}
+                {% endspaceless %}
+            </div>
+        </section>
+    {% endfor %}
+{% endif %}

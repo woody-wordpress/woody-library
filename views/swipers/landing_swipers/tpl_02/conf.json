@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Landing Swiper (Custom pagination)",
     "description": "Swiper items",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5bb325e8b6b43"
     ],
@@ -12,5 +13,12 @@
         "loop",
         "centeredSlides",
         "items"
-    ]
+    ],
+    "display": [{
+        "img_ratio": [
+            "16_9"
+        ],
+        "text_align": "middleleft",
+        "roadbook": false
+    }]
 }

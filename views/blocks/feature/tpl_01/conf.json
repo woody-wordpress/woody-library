@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Icone et texte - Template 1",
-    "description": "Icone avec textes en-dessous (pretitre, titre, sous-titre, description)",
+    "name": "Template 01",
+    "description": "Icone avec textes centrés en-dessous (pretitre, titre, sous-titre, description)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b0ec29dbd905"
     ],

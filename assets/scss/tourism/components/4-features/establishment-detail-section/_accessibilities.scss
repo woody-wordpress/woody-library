@@ -6,7 +6,7 @@
 
     .accessibilities {
         li {
-            margin-bottom: $vr--small;
+            margin-bottom: $vr--small/2;
         }
     }
 }
@@ -47,5 +47,29 @@
             color: lighten($text-muted, 20%);
             font-weight: 500;
         }
+    }
+}
+
+.complex-specificfield {
+    display: flex;
+    border: 2px solid $primary-color;
+    background-color: rgba($primary-color, .3);
+    padding: 20px;
+
+}
+
+.thematic-description {
+    display: flex;
+}
+
+.datablock {
+    &-title {
+    }
+    &-icon {
+        display: flex;
+        margin-right: 15px;
+        img { align-self: center; }
+    }
+    &-fields {
     }
 }

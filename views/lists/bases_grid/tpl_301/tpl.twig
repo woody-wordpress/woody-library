@@ -1,32 +1,46 @@
-{% extends '_objects/visualModifier.twig' %}
-{% block content %}
-    {% if is_list %}
-        <li class="grid-container">
-        {% endif %}
-        {% if menu_part_title|default %}
-            <span class="menuPart-title">{{ menu_part_title }}</span>
-        {% endif %}
-        {% if empty|default %}
-            <div class="bg-lightgray padd-all-sm flex-container">
-                <span class="h5 align-center align-middle">{{ empty }}</span>
-            </div>
-        {% endif %}
-        <div class="{% block grid_class %}woody_bases_grid tpl_301{% endblock %} align-stretch grid-x medium-up-3{{ swResp ? ' swRespW' }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+{% if is_list %}
+    <li class="grid-container">
+    {% endif %}
+    {% if menu_part_title_link or menu_part_title %}
+    <span class="menuPart-title">
+        {% if menu_part_title_link|default %}<a href="{{ menu_part_title_link }}">{% endif %}
+            {{ menu_part_title }}
+            {% if menu_part_title_link|default %}</a>{% endif %}
+    </span>
+    {% endif %}
+    {% if empty|default %}
+        <div class="bg-lightgray padd-all-sm flex-container">
+            <span class="h5 align-center align-middle">{{ empty }}</span>
+        </div>
+    {% endif %}
+
+    {% include 'blocks/focus/_objects/headerObject.twig' with {
+        display: display_block_titles|default(),
+        margin: block_titles_margin|default('marg-bottom-md')
+    } %}
+
+    <div class="woody_base_grid_wrapper{{ swResp ? ' woody-mobile-swiper swiper-container swResp' }}">
+        <div class="{% block grid_class %}woody_bases_grid tpl_301{% endblock %} align-stretch grid-x medium-up-3{{ swResp ? ' swRespW' }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp ? ' swRespW' }}">
             {% if items|default %}
                 {% for key, item in items %}
                     <div class="cell{{ swResp ? ' swRespS' }}">
                         {% block the_card %}
                             {% include "cards/#{card}/tpl.twig" with {
-                            'desequalize' : desequalize,
-                            'image_style' : image_style,
-                            'page_type' : item.page_type
-                        } %}
+                                'desequalize' : desequalize,
+                                'image_style' : image_style,
+                                'page_type' : item.page_type,
+                                'ellipsis': item.ellipsis|default(false),
+                                'card_index':key + 1
+                            } %}
                         {% endblock %}
                     </div>
                 {% endfor %}
             {% endif %}
         </div>
-        {% if is_list %}
-        </li>
-    {% endif %}
-{% endblock %}
+    </div>
+
+    {% include 'blocks/focus/_objects/focus_buttons.twig' %}
+
+    {% if is_list %}
+    </li>
+{% endif %}

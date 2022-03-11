@@ -1,0 +1,94 @@
+.tides-container {
+    display: flex;
+    overflow: auto;
+    justify-content: space-between;
+
+    .tabs-title a {
+        text-align: center;
+        text-transform: capitalize;
+    }
+
+    .month {
+        font-size: 1rem;
+        line-height: 2;
+    }
+}
+
+.tides-panel {
+    padding: 0 !important;
+
+    .empty {
+        padding: 50px;
+    }
+}
+
+.tides-panel.tabs-panel.is-active {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    thead {
+        tr {
+            pointer-events: none !important;
+        }
+    }
+
+    .table-scroll {
+        width: 100%;
+    }
+
+    .tides {
+        width: 100%;
+
+        th,
+        td {
+            text-align: center;
+        }
+
+        .tide-xlarge {
+            color: $alert-color;
+            font-weight: bold;
+        }
+
+        .tide-large {
+            color: $alert-color;
+        }
+
+        .tide-medium {
+            color: $warning-color;
+        }
+
+        .tide-small {
+            color: $success-color;
+        }
+    }
+
+    .today-tide {
+        background-color: $secondary-color;
+        color: $white;
+
+        .tide-xlarge,
+        .tide-large,
+        .tide-medium,
+        .tide-small {
+            color: $white;
+        }
+    }
+}
+
+@include breakpoint(medium down) {
+    .tides-panel.tabs-panel.is-active {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .table-scroll {
+            width: 100%;
+        }
+    }
+
+    .tides-container {
+        // flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}

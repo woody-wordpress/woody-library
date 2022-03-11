@@ -1,0 +1,25 @@
+{% if media.type == '03.01.01' %} {# if mediatype is a Photo  #}
+    <li>
+        <div class="gallery-photo-wrapper {% if media.URL %}fresco{% endif %}" {% if media.URL %}href="{{media.URL}}" data-fresco-group="gallery_media" data-fresco-options="loop: true, preload: [1,1]"{% endif %} itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+            <img class="rc-img" alt="{{ media._name|default('img-name-mising') }}" src="{{ media.URL | rcImg(380, 600, 75, 'jpg', 'clip') }}" itemprop="contentUrl" />
+            <meta itemprop="url" content="{{ media.URL | rcImg(380, 600, 75, 'jpg', 'clip') }}">
+            {% if media._copyright|default %}<span class="photo-label">{{ media._copyright}}</span>{% endif %}
+        </div>
+    </li>
+{% elseif media.type == '03.01.04' %} {# if mediatype is a Video  #}
+    <li>
+        <span class="gallery-video-wrapper">
+            {% if media.player|default and (media.player == 'youtube' or media.player == 'vimeo' or media.player == 'dailymotion') %}
+                <span class="media-middle"
+                      media-play-click
+                      thumb-url="{{ media._thumbURL | rcImg(400, 235, 75, 'jpg', 'clip') }}">
+                    <iframe id="ytplayer"
+                          width="100%" height="235px"
+                          ng-src={{ media._embedURL }}
+                          frameborder="0" allowfullscreen>
+                    </iframe>
+                </span>
+            {% endif %}
+        </span>
+    </li>
+{% endif %}

@@ -10,10 +10,17 @@
         .sky {
             text-transform: uppercase;
             font-size: rem-calc(12);
+            margin-top: 20px;
+        }
+
+        .weather-main {
+            margin-bottom: -20px;
         }
 
         .weather-icon {
             font-size: rem-calc(92);
+            line-height: 1em;
+            transform: translateY(-5px);
         }
 
         .temperature {
@@ -28,6 +35,7 @@
     }
 
     &-details {
+        padding: 15px 5px;
         text-align: center;
 
         .name {
@@ -36,12 +44,12 @@
         }
 
         .weather-icon {
-            margin-top: -15px;
+            margin-top: -10px;
             font-size: rem-calc(54);
         }
 
         .temperature {
-            margin-top: -20px;
+            margin-top: -10px;
             font-weight: bold;
             font-size: rem-calc(13);
         }

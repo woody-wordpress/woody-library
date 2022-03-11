@@ -6,6 +6,11 @@
 
     .sidebar-contact-infos {
 
+        dl {
+            display: flex;
+            align-items: center; 
+        }
+
         .plo-panel__row:not(:first-child) {
             border-top: none;
         }
@@ -35,7 +40,7 @@
 
         .sidebar-contact-phones {
 
-            div {
+            dd > div {
 
                 margin-bottom: $vr--tiny;
 
@@ -87,7 +92,7 @@
             }
         }
 
-        .sidebar-contact-websites {
+        .sidebar-contact-websites {            
             .website {
                 color: $link-color;
 

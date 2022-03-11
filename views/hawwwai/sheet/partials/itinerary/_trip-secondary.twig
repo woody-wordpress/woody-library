@@ -1,0 +1,119 @@
+{# Trip secondary infos #}
+
+{# Departure point #} {# been asked to remove in #31438 #}
+{#{% if formated_object.contacts.establishment.commune|default %}
+    {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.DEPARTURE', 'rowContent' : formated_object.contacts.establishment.commune } only %}
+{% endif %}#}
+
+
+{# Coords #} {# been asked to remove in #31438 #}
+{#{% if formated_object.bordereau == 'PRD' and formated_object.dataItinerary.gpsCoordinates|default %}
+    {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.GPS_COORDINATES', 'rowContent' : formated_object.dataItinerary.gpsCoordinates } only %}
+{% endif %}#}
+
+
+{# Difference in elevation #}
+{% if formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation|default and formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation > 0 %}
+    {# {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.DIFFERENCE_IN_HEIGHT', 'rowContent' : formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation ~ ' m' } only %} #}
+    {% embed "@LOCAL/helper/list-group-item.twig" %}
+        {% block title %}{{ 'GLOBAL.DIFFERENCE_IN_HEIGHT'|trans }}{% endblock %}
+        {% block content %}
+            <span>{{ formated_object.dataItinerary.itinerary.topographieMetrics.positiveElevation ~ ' m' |nl2br }}</span>
+        {% endblock %}
+    {% endembed %}
+{% endif %}
+
+{% if formated_object.dataItinerary.additionals|default %}
+    {# Alert : shown elsewhere #}
+    {# {% if formated_object.dataItinerary.additionals.alert|default %}
+        {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.WARNING', 'rowContent' : formated_object.dataItinerary.additionals.alert } only %}
+    {% endif %} #}
+
+    {# PRD others #}
+    {% if formated_object.dataItinerary.additionals.others|default %}
+        {% for other in formated_object.dataItinerary.additionals.others %}
+            {# {% include TWIG.PANEL_ROW with {  'rowTitle': , 'rowContent' : other._value } only %} #}
+            {% embed "@LOCAL/helper/list-group-item.twig" %}
+                {% block title %}{{ other._code }}{% endblock %}
+                {% block content %}
+                    <span>{{ other._value |nl2br }}</span>
+                {% endblock %}
+            {% endembed %}
+        {% endfor %}
+    {% endif %}
+
+    {# Tarifs en clair #}
+    {% if not (formated_object.tariffs|default and contractsLevels.content.tariffs) and formated_object.dataItinerary.additionals.tariffs_inclear|default %}
+        {% embed "@LOCAL/helper/list-group-item.twig" %}
+            {% block title %}{{ formated_object.dataItinerary.additionals.tariffs_inclear._code }}{% endblock %}
+            {% block content %}
+                <span>{{ formated_object.dataItinerary.additionals.tariffs_inclear._value |nl2br }}</span>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {# Periode en clair #}
+    {% if not (contractsLevels.content.periods and formated_object.openingPeriods.periods|default) and formated_object.dataItinerary.additionals.periods_inclear|default %}
+        {% embed "@LOCAL/helper/list-group-item.twig" %}
+            {% block title %}{{ formated_object.dataItinerary.additionals.periods_inclear._code }}{% endblock %}
+            {% block content %}
+                <span>{{ formated_object.dataItinerary.additionals.periods_inclear._value |nl2br }}</span>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {# Interest #}
+    {% if formated_object.dataItinerary.additionals.interest|default %}
+        {# {% include TWIG.PANEL_ROW with {  'rowTitle': 'SECTIONS.TOURISM.SHEET.ITINERARY.ROUTE_INTEREST', 'rowContent' : formated_object.dataItinerary.additionals.interest } only %} #}
+        {% embed "@LOCAL/helper/list-group-item.twig" %}
+            {% block title %}{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.ROUTE_INTEREST'|trans }}{% endblock %}
+            {% block content %}
+                <span>{{ formated_object.dataItinerary.additionals.interest |nl2br }}</span>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {# Equipment #}
+    {% if formated_object.dataItinerary.additionals.equipment|default %}
+        {# {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.EQUIPMENT', 'rowContent' : formated_object.dataItinerary.additionals.equipment } only %} #}
+        {% embed "@LOCAL/helper/list-group-item.twig" %}
+            {% block title %}{{ 'GLOBAL.EQUIPMENT'|trans }}{% endblock %}
+            {% block content %}
+                <span>{{ formated_object.dataItinerary.additionals.equipment |nl2br }}</span>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {# Prefectoral #}
+    {% if formated_object.dataItinerary.additionals.prefectoral|default %}
+        {# {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.PREFECTORAL_DECREE', 'rowLinkText': 'GLOBAL.KNOW_MORE', 'rowLink' : formated_object.dataItinerary.additionals.prefectoral } only %} #}
+        {% embed "@LOCAL/helper/list-group-item.twig" %}
+            {% block title %}{{ 'GLOBAL.PREFECTORAL_DECREE'|trans }}{% endblock %}
+            {% block content %}
+                <a href="{{ formated_object.dataItinerary.additionals.prefectoral }}" rel="noindex,nofollow" target="_blank">{{ 'GLOBAL.KNOW_MORE'|trans }}</a>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {# IGN ref #}
+    {% if formated_object.dataItinerary.additionals.ignId|default %}
+        {# {% include TWIG.PANEL_ROW with {  'rowTitle': 'GLOBAL.IGN_MAP', 'rowContent' : formated_object.dataItinerary.additionals.ignId } only %} #}
+        {% embed "@LOCAL/helper/list-group-item.twig" %}
+            {% block title %}{{ 'GLOBAL.IGN_MAP'|trans }}{% endblock %}
+            {% block content %}
+                <span>{{ formated_object.dataItinerary.additionals.ignId |nl2br }}</span>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {# Did you know #}
+    {% if formated_object.dataItinerary.additionals.didYouKnow|default %}
+        {# {% include TWIG.PANEL_ROW with {  'rowTitle': 'SECTIONS.TOURISM.SHEET.ITINERARY.DID_YOU_KNOW', 'rowClass': 'section-did-you-know', 'rowContent' : formated_object.dataItinerary.additionals.didYouKnow } only %} #}
+        {% embed "@LOCAL/helper/list-group-item.twig" with { 'class': 'section-did-you-know' } %}
+            {% block title %}{{ 'SECTIONS.TOURISM.SHEET.ITINERARY.DID_YOU_KNOW'|trans }}{% endblock %}
+            {% block content %}
+                <span>{{ formated_object.dataItinerary.additionals.didYouKnow |nl2br }}</span>
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+{% endif %}

@@ -1,5 +1,11 @@
-<div class="woody-component woody-component-movie tpl_01">
-    <div class="responsive-embed widescreen">
-        {{ movie|default }}
-    </div>
-</div>
+<div class="woody-component woody-component-movie tpl_01" itemscope itemtype="https://schema.org/VideoObject">
+    <span class="movie-title{{ movie_title ? '' : ' hide' }}" itemprop="name">{{ movie_title ? movie_title : __("Titre de la vidéo manquant", 'woody-theme') }}</span>
+    <meta itemprop="thumbnailUrl" content="{{ movie_thumbnail ? movie_thumbnail : 'https://api.cloudly.space/resize/crop/640/360/75/aHR0cHM6Ly9hcGkudG91cmlzbS1zeXN0ZW0uY29tL3N0YXRpYy9hc3NldHMvaW1hZ2VzL3Jlc2l6ZXIvd29vZHlfNDA0LmpwZw==/404.jpg' }}">
+    <meta itemprop="uploadDate" content="{{ movie_uploadDate }}"/>
+    {% if movie %}
+        <div class="responsive-embed widescreen plyrObject">
+            {{ movie }}
+        </div>
+    {% endif %}
+    <small class="movie-caption {{ movie_caption ? : 'hide' }}" itemprop="description">{{ movie_caption ? movie_caption : __("Légende de la vidéo manquante", 'woody-theme') }}</small>
+</p></div>

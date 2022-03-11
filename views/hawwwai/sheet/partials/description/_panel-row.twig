@@ -1,0 +1,10 @@
+<li class="list-group-item {{rowClass | default}}"><dl class="row">
+        <dt class="col-xs-12 col-sm-3 _plu-push--tiny"><span class="pl-heading _panel-title">{{ rowTitle |trans }}</span></dt>
+        <dd class="col-xs-12 col-sm-9 _panel-content">
+        {% if rowContent|default %}
+            <span>{{ rowContent |nl2br }}</span>
+        {% elseif rowLink|default and rowLinkText|default %}
+            <a href="{{ rowLink }}" rel="noindex,nofollow" target="_blank">{{ rowLinkText|trans }}</a>
+        {% endif %}
+        </dd>
+</dl></li>

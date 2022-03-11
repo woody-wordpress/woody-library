@@ -1,0 +1,19 @@
+{% if contractsLevels.sidebar.booking and formated_object.centralResa|default and
+    formated_object.centralResa.mode|default == 'booking' and formated_object.centralResa.type in ['99.20.02.02.12'] %}
+
+    <div class="panel-title-responsive row"><span class="panel-title-responsive_text">{{'SECTIONS.PLANNING.MENU.ORDER'|trans}}</span></div>
+    {% if splash|default %}
+        <div id="splashload-elloha" class="row elloha-load-msg-wrapper">
+            <div class="elloha-load-msg">
+                <div class="isLoading small"></div>
+                <span>{{ 'GLOBAL.SEARCHING_ELLOHA'|trans }}<span class="animated-ellipsis"></span></span>
+            </div>
+        </div>
+    {% endif %}
+    <section id="booking" class="content-booking booking-elloha panel panel-default row show-when-angular-ready"
+        scrolling="false" heightCalculationMethod="lowestElement"
+        ng-show="formatedDatas.resaIframe && formatedDatas.resaIframeContent">
+        <div class="panel-title-desktop list-group-item  _plu-push--tiny"><span class="pl-heading">{{'SECTIONS.PLANNING.MENU.ORDER'|trans}}</span></div>
+        <div ng-bind-html="formatedDatas.resaIframeContent"></div>
+    </section>
+{% endif %}

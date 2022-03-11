@@ -31,8 +31,190 @@
     }
 }
 
+.media-zoom {
+    cursor: pointer;
+    transform-origin: center;
+    transition: transform .3s ease-in-out;
+
+    &-zoomed {
+        .swiper-container {
+            overflow: inherit;
+
+            .swiper-slide {
+                >.cell {
+                    opacity: 0;
+                }
+                &-visible {
+                    >.cell {
+                        opacity: 0.4;
+                    }
+
+                    >.zoomIn {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    .media-button-wrapper {
+        display: none;
+
+        .button {
+            background-color: transparent;
+            color: $white;
+            border: 1px solid $white;
+            padding: 20px 40px;
+            opacity: 0;
+            transform: translatey(5px);
+            transition: all .3s ease-out;
+
+            &:hover {
+                background-color: $white;
+                color: $primary-color;
+            }
+        }
+    }
+
+    &-texts {
+        display: none;
+        overflow-x: scroll;
+        max-height: 250px;
+        padding-bottom: 80px;
+        background-color: $white;
+        color: $black;
+    }
+
+    .created {
+        font-size: rem-calc(14);
+        color: rgba($black, .4);
+    }
+}
+
+.woody-component-socialwall {
+    .grid-y.medium-grid-frame {
+        overflow: visible !important;
+    }
+
+    .cell.zoomIn {
+        .media-zoom {
+            width: 300px;
+            position: absolute;
+            z-index: 10000;
+            box-shadow: 0 10px 80px rgba(black, .7);
+            @include wicon(029-croix-fermer, before);
+
+            &:before {
+                position: absolute;
+                right: -15px;
+                top: -15px;
+                background-color: $black;
+                color: $white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 30px;
+                width: 30px;
+                height: 30px;
+                z-index: 10001;
+                cursor: pointer;
+            }
+
+            @include breakpoint(xmedium) {
+                width: 600px;
+            }
+
+            &-img {
+                height: 300px;
+
+                @include breakpoint(xmedium) {
+                    height: 600px;
+                }
+            }
+
+            &-texts {
+                display: block;
+            }
+
+            .media-button-wrapper {
+                display: flex;
+
+                &:hover {
+                    .button {
+                        opacity: 1;
+                        transform: translatey(0);
+                    }
+                }
+            }
+        }
+
+        .filigran {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            filter: blur(3px) grayscale(1);
+            opacity: .1;
+        }
+    }
+
+    .grid-padding-x {
+        >.cell.zoomIn {
+            .filigran {
+                @include breakpoint(small only) {
+                    width: calc(100% - #{map-get($grid-column-gutter, small)});
+                    height: calc(100% - #{map-get($grid-column-gutter, small)});
+                    top: calc(#{map-get($grid-column-gutter, small)} / 2);
+                    left: calc(#{map-get($grid-column-gutter, small)} / 2);
+                }
+
+                @include breakpoint(medium) {
+                    width: calc(100% - #{map-get($grid-column-gutter, medium)});
+                    height: calc(100% - #{map-get($grid-column-gutter, medium)});
+                    top: calc(#{map-get($grid-column-gutter, medium)} / 2);
+                    left: calc(#{map-get($grid-column-gutter, medium)} / 2);
+                }
+            }
+        }
+    }
+}
+
+
+.woody-component-socialwall.tpl_01,
+.woody-component-socialwall.tpl_03 {
+    .woodyGallery.grid-padding-x .header-wrapper {
+        @include breakpoint(large) {
+            margin-bottom: calc(#{map-get($grid-column-gutter, small)} / 2);
+        }
+    }
+}
+
 .woody-component-socialwall.tpl_02 {
     .woodyGallery>.cell>.grid-x {
         justify-content: flex-end; // Fix the 1px white space btw cells
+    }
+}
+
+.woody-component-socialwall.tpl_03 {
+    .middle-column {
+        >.grid-x {
+            height: 100%;
+        }
+
+        .header-wrapper {
+            width: 100%;
+            @include breakpoint(large) {
+                height: calc(100% / 3);
+            }
+        }
+    }
+}
+
+@include breakpoint(xmedium down) {
+    .woody-component-socialwall.tpl_04 {
+        .woodyGallery > .cell > .grid-x > .large-8 {
+            justify-content: center;
+        }
     }
 }

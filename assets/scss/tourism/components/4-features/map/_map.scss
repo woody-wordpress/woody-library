@@ -1,11 +1,18 @@
 #map-container {
     position: relative;
     z-index: 2;
-    &>#map {
+    & > div {
         border-top: 1px solid $panel-default-border;
+    }
+    .map-mode-switcher {
+        left: $grid-gutter-width/2;
+        right: initial;
     }
 }
 
+&.modal-open #map-container {
+    z-index: 0 !important;
+}
 
 .sidebar-map-container {
     padding: $vr--tiny;
@@ -13,12 +20,18 @@
     z-index: 1;
     position: relative;
 
+    #show-map{
+        background-image: url(https://api.tourism-system.com/static/assets/images/see_map.png);
+        background-size: cover;
+        padding: 20px;
+    }
+
     .sidebar-map {
         height: 190px;
-        pointer-events: none;
-
-        .gm-style>* {
-            &:not(:first-child) {
+        & > a { color: white; }
+        .gm-style > * {
+            // 12/07/21 - Fix hidden map (gm dom changed?) #52944
++			&:not(:first-child):not([aria-roledescription="map"]) {
                 display: none;
             }
         }

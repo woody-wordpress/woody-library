@@ -1,6 +1,7 @@
 {% extends 'cards/split_card/tpl_01/tpl.twig' %}
-{% block media_pos %}media-right{% endblock %}
-{% block index_class %} tpl_08{% endblock %}
-{% block grid_class %} flex-dir-row-reverse{% endblock %}
-{% block first_part_classes %} large-6{% endblock %}
-{% block second_part_classes %} large-6 align-center align-top{% endblock %}
+{% set index_class = 'tpl_08' %}
+{% set media_pos = 'media-right' %}
+{% set grid_class = 'flex-dir-row-reverse' %}
+{% set first_part_classes = 'large-6' %}
+{% set img_mobile_url = item.img.sizes.ratio_16_9 %}
+{% set second_part_classes = 'large-6 align-center align-top' %}

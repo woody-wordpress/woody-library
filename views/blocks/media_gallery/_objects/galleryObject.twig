@@ -1,0 +1,27 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}gallery{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('101') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% include 'blocks/media_gallery/_objects/galleryHeaderObject.twig' %}
+    {% if swipeFrom is not defined %}{% set swipeFrom = 1 %}{% endif %}
+    {% if galleryType is not defined %}{% set galleryType = 'simple' %}{% endif %}
+
+    <div class="gallery-wrapper">
+        {% if swiper_options is not defined %}
+            {% set swiper_options = {'spaceBetween' : spaceBetween}%}
+        {% else %}
+            {% set swiper_options = swiper_options|merge({'spaceBetween' : spaceBetween}) %}
+        {% endif %}
+        {% if galleryType == 'simple' %}
+            {% include 'blocks/media_gallery/_objects/simpleGalleryGrid.twig' %}
+        {% elseif galleryType == 'mixed' %}
+            {% include 'blocks/media_gallery/_objects/mixedGalleryGrid.twig' %}
+        {% elseif galleryType == 'split' %}
+            {% include 'blocks/media_gallery/_objects/splitGalleryGrid.twig' %}
+        {% endif %}
+    </div>
+
+    {% include 'blocks/media_gallery/_objects/galleryFooterObject.twig' with {
+        'customClasses' : 'isRel'
+    } %}
+{% endblock %}

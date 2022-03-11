@@ -34,15 +34,6 @@
     }
 }
 
-.w-resume [data-link] {
-    text-decoration: underline;
-
-    &:hover {
-        color: $primary-color;
-    }
-}
-
-
 
 @keyframes placeHolderShimmer {
     0% {
@@ -60,18 +51,30 @@
     .rc_lego.item_sheet_booking_alpha.s01 {
         // pointer-events: none;
 
-        .item-infos-header-right,
+        .covidservice,
         .item-infos-right,
         .item-infos-town,
+        .item-infos-locomotion > span,
+        .dynamic-opening-periods > span,
+        .item-infos-extralabels,
         .item-infos-ratings {
             visibility: hidden !important;
         }
 
+        .item-infos-down > .btn-booking,
+        .item-block-covid {
+            background: #CACACA;
+            color:rgba(202,202,202,0) !important;
+            opacity: 0.6;
+        }
+
+        .dynamic-opening-periods,
         .item-infos-type,
         .item-infos-date,
         .item-infos-locomotion,
         .item-infos-desc,
         .item-infos-phone,
+        .item-infos-website,
         .item-infos-adress,
         .item-infos-title {
             background: #CACACA;
@@ -80,13 +83,6 @@
             border-radius: 4px;
             opacity: 0.6;
             width: fit-content !important;
-
-            // background: linear-gradient(to right, #cacaca -8%, #999 0%, #cacaca 8%);
-            // animation-duration: 10s;
-            // animation-fill-mode: forwards;
-            // animation-iteration-count: infinite;
-            // animation-name: placeHolderShimmer;
-            // animation-timing-function: linear;
         }
 
         .infos {
@@ -94,8 +90,6 @@
         }
 
         .item-thumbnail {
-
-            // opacity: 0.35 !important;
             &:before {
                 content: '';
                 width: 100%;
@@ -108,12 +102,6 @@
 
         .item-booking {
             display: none !important;
-            // .item-tariffs-type,
-            // .tariffs-subinfos,
-            // .btn-booking,
-            // .tariffs-value {
-
-            // }
         }
     }
 }
@@ -123,13 +111,8 @@
     position: relative;
     float: right;
     margin-top: 0;
-
     margin-bottom: 20px;
     margin-right: 20px;
-
-
-    // margin-bottom: calc(#{map-get($grid-margin-gutter, medium)} / 2); // ex VR
-    // @include xy-gutters($gutter-position: 'right');
 
     // bootstrap override
     &.pagination>li>a,
@@ -148,20 +131,6 @@
         color: white !important;
     }
 }
-
-
-// .booking-special-weekday {
-
-//     font-weight: 700 !important;
-//     border-left: 2px solid $hd-filters-color !important;
-//     border-right: 2px solid $hd-filters-color !important;
-//     border-right-color: $hd-filters-color !important;
-//     border-left-color: $hd-filters-color !important;
-
-
-//     &.off { color: #aaa; opacity: 1 !important; }
-//     &.off.in-range { opacity: 0.8 !important; }
-// }
 
 .before-bsw {
     border-right: 0 !important;

@@ -1,0 +1,301 @@
+<!-- Generated at {{ "now"|date("Y-m-d H:i:s") }} -->
+<script>
+var metadata = {{ metadata|raw }};
+{# Print DAC in V2 (worpdress) #}
+{% if display|default and display.version|default == 2 %}
+    var DrupalAngularConfig = {{ angular_config|raw }};
+    {% if playlistId|default %}
+        DrupalAngularConfig.playlistId = "{{ playlistId }}";
+    {% endif %}
+    // Deprecated (refactor)
+    {% if season|default %}DrupalAngularConfig.season = "{{ season }}";{% endif %}
+{% endif %}
+{% if display|default %}
+    if (DrupalAngularConfig) { DrupalAngularConfig.display = {{ display|json_encode|raw }}; }
+{% endif %}
+{% if allFacets|default %}
+var allFacets = {{ allFacets|json_encode|raw }};
+{% else %}
+var allFacets = null;
+{% endif %}
+{% if filters|default %}
+var filters = {{ filters|json_encode|raw }};
+{% else %}
+var filters = null;
+{% endif %}
+{% if facetTranslations|default %}
+var facetTranslations = {{ facetTranslations|json_encode|raw }};
+{% else %}
+var facetTranslations = null;
+{% endif %}
+var itemsData = {{ items|default|json_encode|raw }};
+var playlistData = {{ playlist|json_encode|raw }};
+var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
+</script>
+
+{% for template in templates %}
+<script type="text/twig" id="{{ template.id|default(loop.index0) }}">
+    {{ template.twig | raw}}
+</script>
+{% endfor %}
+    <div class="main-tourism-wrapper newplaylist {% if (options.sheet_model_v2 is not defined or options.sheet_model_v2) %}playlist-model-v2{% endif %}">
+
+        {# Responsive tabs #}
+        <div id="responsive-layout-switcher">
+            <div class="layout-switch-wrapper">
+                <input type="radio" name="tabs" id="tab1" data-target="#playlist-context" checked />
+                <label for="tab1" id="tab-playlist" role="tab" aria-selected="true" >{{ TR.LIST|default('.Liste') }}</label>
+            </div>
+
+            {% if display.list.map|default %}
+            <div class="layout-switch-wrapper">
+                <input type="radio" name="tabs" id="tab2" data-target="#playlist-map-wrapper" />
+                <label for="tab2" id="tab-map" role="tab" aria-selected="true" >{{ TR.MAP|default('.Carte') }}</label>
+            </div>
+            {% endif %}
+
+            <div class="layout-switch-wrapper">
+                <input type="radio" name="tabs" id="tab3" data-target="#api_filter,#api_filter-header" />
+                <label for="tab3" id="tab-filters" role="tab" aria-selected="true" >{{ TR.FILTERS|default('.Filtres') }}</label>
+                <span class="playlist-results-count">{{ playlist.total|default('0') }}</span>
+            </div>
+        </div>
+
+        <div id="layout-wrapper" class="clearfix">
+            {# FILTRES (body) #}
+            <div id="api_filter" class="col-lg-3 col-md-5 col-xs-12 scrollbar-inner" data-filters="{{defaultFilters|default}}">
+                {% include TWIG.FILTERS with {
+                    'filters': filters|default,
+                    'playlist': playlist,
+                    'display': display,
+                    'TR': TR|default,
+                    'lego_style': 's01'
+                } only %}
+
+            </div>
+
+            {# PLAYLIST ( PlaylistContext + Items + Pagination) #}
+            <div id="playlist-context" class="item_sheet_alpha_list main-filters {{display.topClass|default}} col-lg-9 col-md-7 col-xs-12">
+
+                {% include TWIG.BANNER with {'type': 'normal'} %}
+                {# {% include TWIG.SORT_GROUPS %} #}
+
+                {# LISTING HEADER #}
+                {% if playlist.sortGroups|default %}
+                <section class="playlist-interaction-banner">
+                    {# <div class="playlist-sorts-label" style="">Trier par :</div> #}
+                    <div class="playlist-sortoptions-wrapper">
+                        {% for sort in playlist.sortGroups %}
+                            <div class="playlist-sort playlist-sort-dropdown"
+                                {% if sort.conditionalDisplay|default %}style="display:none" data-displayif="{{ sort.conditionalDisplay }}"{% endif %}
+                                data-sort="{{ sort|json_encode }}">
+                                <span class="playlist-sort-content">
+                                    <span class="playlist-sort-icon {{ sort.class|default('') }}"></span>
+                                    <span class="playlist-sort-label">{{ sort.trans.label }}</span>
+                                </span>
+                                {% if sort.type in ['ALL'] %}
+                                    <span class="caret"></span>
+                                    <ul class="dropdown-content">
+                                        <li class="playlist-sort-selector" data-sortorder="{{sort.order[0]}}">{{ sort.order[0] == 'DESC' ? sort.trans.desc : sort.trans.asc }}</li>
+                                        <li class="playlist-sort-selector" data-sortorder="{{sort.order[1]}}">{{ sort.order[1] == 'ASC' ? sort.trans.asc : sort.trans.desc }}</li>
+                                    </ul>
+                                {% elseif sort.type in ['ASC', 'DESC'] %}
+                                    <ul class="dropdown-content">
+                                        <li class="playlist-sort-selector" data-sortorder="{{sort.order[0]}}">{{ sort.order[0] == 'DESC' ? sort.trans.desc : sort.trans.asc }}</li>
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+
+                <div id="item_sheet_list"  class="primary-color">
+                    {% set displayItemMode = 'normal' %}
+                    {% if display.list.mixsheets|default or display.list.inlineMode|default %}
+                        {% set displayItemMode = 'inline' %}
+                    {% endif %}
+                    {% for item in items|default %}
+
+                        {% if displayItemMode in ['normal'] %}
+                            <div class="item-wrapper col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                {% include TWIG.NORMAL_SHEET_ITEM with {
+                                    'covidCharterStatus': item.covidCharterStatus|default,
+                                    'covidServices': item.covidServices|default,
+                                    'covidOpenings': item.covidOpenings|default,
+                                    'contract': item.contract|default,
+                                    'openingPeriods': item.openingPeriods|default,
+                                    'itemClasses': item.itemClasses,
+                                    'itemData': item.itemData,
+                                    'bordereau': item.bordereau,
+                                    'sheetId': item.sheetId,
+                                    'title': item.title,
+                                    'tagCorner': item.tagCorner|default,
+                                    'dealTitle': item.dealTitle|default,
+                                    'validity': item.validity|default,
+                                    'type': item.type|default,
+                                    'desc': item.desc|default,
+                                    'targetBlank': item.targetBlank|default,
+                                    'img': item.img|default,
+                                    'allImgs': item.allImgs|default|json_encode|raw,
+                                    'phone': item.phone|default,
+                                    'website': item.website|default,
+                                    'adress': item.address|default,
+                                    'town': item.town|default,
+                                    'dates': item.dates|default,
+                                    'booking': item.booking|default,
+                                    'ratings': item.ratings|default,
+                                    'extralabels': item.extralabels|default,
+                                    'itineraryLength': item.itineraryLength|default,
+                                    'locomotions': item.locomotions|default,
+                                    'reviews': item.reviews|default,
+                                    'fairguestReview': item.fairguestReview|default,
+                                    'tariffs': item.tariffs|default,
+                                    'zones': item.zones|default,
+                                    'deals': item.deals|default,
+                                    'services': item.services|default,
+                                    'gps': item.gps|default,
+                                    'distance': item.distance|default,
+                                    'specials': item.specials|default,
+                                    'chains': item.chains|default,
+                                    'territoryLabelBrands': item.territoryLabelBrands|default,
+                                    'wishlistBtn': item.wishlistBtn|default,
+                                    'link': item.link|default,
+                                    'userId': item.userId|default,
+                                    'script': item.script|default,
+                                    'lego_style': 's02',
+                                    'TR': TR|default,
+                                    'display': display  } only
+                                %}
+                            </div>
+                        {% else %}
+                            <div class="col-xs-12">
+                                {% include TWIG.BOOKING_SHEET_ITEM with {
+                                    'covidCharterStatus': item.covidCharterStatus|default,
+                                    'covidServices': item.covidServices|default,
+                                    'covidOpenings': item.covidOpenings|default,
+                                    'openingPeriods': item.openingPeriods|default,
+                                    'contract': item.contract|default,
+                                    'itemClasses': item.itemClasses,
+                                    'itemData': item.itemData,
+                                    'bordereau': item.bordereau,
+                                    'sheetId': item.sheetId,
+                                    'title': item.title,
+                                    'tagCorner': item.tagCorner|default,
+                                    'dealTitle': item.dealTitle|default,
+                                    'type': item.type,
+                                    'targetBlank': item.targetBlank|default,
+                                    'desc': item.desc|default,
+                                    'img': item.img|default,
+                                    'allImgs': item.allImgs|default|json_encode|raw,
+                                    'phone': item.phone|default,
+                                    'website': item.website|default,
+                                    'adress': item.address|default,
+                                    'town': item.town|default,
+                                    'dates': item.dates|default,
+                                    'booking': item.booking|default,
+                                    'ratings': item.ratings|default,
+                                    'extralabels': item.extralabels|default,
+                                    'itineraryLength': item.itineraryLength|default,
+                                    'locomotions': item.locomotions|default,
+                                    'reviews': item.reviews|default,
+                                    'fairguestReview': item.fairguestReview|default,
+                                    'tariffs': item.tariffs|default,
+                                    'zones': item.zones|default,
+                                    'deals': item.deals|default,
+                                    'services': item.services|default,
+                                    'gps': item.gps|default,
+                                    'specials': item.specials|default,
+                                    'chains': item.chains|default,
+                                    'territoryLabelBrands': item.territoryLabelBrands|default,
+                                    'wishlistBtn': item.wishlistBtn|default,
+                                    'link': item.link|default,
+                                    'userId': item.userId|default,
+                                    'thinerStyle' : false,
+                                    'lego_style': 's01',
+                                    'script': item.script|default,
+                                    'display': display  } only
+                                %}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="no-results">
+                            {% if display.mode|default and display.mode.deals|default %}
+                                {{ 'SECTIONS.TOURISM.SHEETLIST.NO_RESULTS_DEALS'|trans }}
+                            {% else %}
+                                {{ 'SECTIONS.TOURISM.SHEETLIST.NO_RESULTS'|trans }}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    {% if display.list.infiniteScroll|default %}
+                    <div style="display: none;" id="playlist-load-more" class="item-wrapper col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <article></article>
+                    </div>
+                    {% endif %}
+                    <div class="clearfix"></div>
+                </div>
+
+                {% if display.list.infiniteScroll|default %}
+                {% else %}
+                    {# LISTING PAGINATION #}
+                    {% include TWIG.PAGINATION with {
+                        'lastPage': lastPage|default,
+                        'showAlwaysFirstAndLast': showAlwaysFirstAndLast|default,
+                        'currentPage': currentPage|default
+                    } only %}
+                {% endif %}
+            </div>
+
+            {% if display.list.map|default %}
+            <div id="playlist-map-wrapper" class='col-lg-9 col-md-7 col-xs-12'>
+                <div id="playlist-custom-layer">
+                    <div id='playlist-map'></div>
+
+                    <div class="playlist-custom-controls full">
+                        {% include TWIG.BANNER with {'type': 'normal'} %}
+                        {% if geoBoundingBox|default %}
+                        <span class="map-change-list geoboudingbox-block">
+                            <form id="{{geoBoundingBox.id|default}}">
+                                <input type="checkbox" name="geoboundingbox" id="geoboundingbox" class="hidden">
+                                <label for="geoboundingbox" class="item">
+                                    <span class="fake-checkbox"></span>
+                                    <span id="geoBoundingBox-title">{{ geoBoundingBox.title|default('Rechercher quand je déplace la carte') }}</span>
+                                </label>
+                            </form>
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    {# <div class="playlist-custom-controls right">
+                        <div id="toggle-fullscreen-btn"><i class="icon icon-font-zoom-in"></i></div>
+                        <div class="playlist-switch-list"><i class="icon icon-font-suppr" style="display: flex;"></i></div>
+                    </div> #}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {# reveal buttons (warningExternalLinks option) #}
+        {# {% if options.warningExternalLink is defined and options.warningExternalLink %}
+            {% for item in items|default if item.booking.link|default and item.booking.reveal|default %}
+                {% if not display.infos|default or display.infos.booking|default %}
+                    <div class="reveal" id="revealModal-{{item.sheetId}}" data-reveal>
+                        <p class="lead">{{'NOTIFICATIONS.EXTERNAL_LINK.TITLE'|trans}}</p>
+                        <p>{{'NOTIFICATIONS.EXTERNAL_LINK.TEXT'|trans}}</p>
+                        <button class="close-button" data-close aria-label="Annuler" type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span class="plo-btn inverse" data-close type="button">{{'GLOBAL.CANCEL'|trans}}</span>
+                        <span class="booking-link-wrapper">
+                            <a href="{{item.booking.link}}"
+                                target="_blank" data-close
+                                class="plo-btn" rel="nofollow"
+                                interact event-type="SHEET_BOOK_URL">{{'GLOBAL.VALIDATE'|trans}}</a>
+                        </span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %} #}
+
+    </div>

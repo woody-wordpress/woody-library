@@ -1,0 +1,15 @@
+{
+    "approved": true,
+    "name": "Grille 2 colonnes - 50 | 50 + 1 colonne - 100",
+    "description": "2 colonnes égales + 1 colonne 100% en-dessous",
+    "lib_type": "lite",
+    "acf_groups": [
+        "field_5afd2c9616ecd",
+        "group_5b4726f891221",
+        "group_5b59c6f2d866c"
+    ],
+    "vars": [
+        "items",
+        "no_padding"
+    ]
+}

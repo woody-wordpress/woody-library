@@ -2,6 +2,7 @@
     "approved": true,
     "name": "SocialWall 10 éléments - 01",
     "description": "4 images sous l'en-tête + 6 à droite",
+    "lib_type": "lite",
     "acf_groups": [
 
     ],

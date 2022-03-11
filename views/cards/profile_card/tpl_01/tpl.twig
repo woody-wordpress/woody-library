@@ -1,0 +1,58 @@
+<div class="card profileCard {{ index_class|default('tpl_01')}} isRel {{ item.card_class|default }}">
+    <div class="card-section {{ card_section_class|default }}" {% if not desequalize %} data-equalizer-watch {% endif %}>
+        <div class="profile-summary">
+            {% if image_style and (item.img.ID or item.img.url) %}
+                {% include '_objects/imageObject.twig' with {
+                    'img' : item.img,
+                    'containerClass' : "profile-img profileCardMediaWrapper",
+                    'hide_caption' : true
+                } %}
+            {% endif %}
+            <div class="profile-summary-infos">
+                <div class="title-wrapper">
+                    <span class="profile-title">{{ item.title }}</span>
+                    {% if item.socials %}
+                        {% for social_key, social_url in item.socials if social_url %}
+                            <a class="social-item {{ social_key }}" href="{{ social_url }}"></a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% if item.complement %}
+                    <span class="profile-complement">{{ item.complement }}</span>
+                {% endif %}
+                {% if item.contacts %}
+                    <div class="profile-contacts flex-container wrap">
+                        {% if item.contacts.address %}
+                            <span class="profile-address">{{ item.contacts.address }}</span>
+                        {% endif %}
+                        {% if item.contacts.mail %}
+                            <a class="profile-mail flex-container align-middle" href="mailto:{{ item.contacts.mail }}">{{ item.contacts.mail }}</a>
+                        {% endif %}
+                        {% if item.contacts.phone %}
+                            <a class="profile-phone flex-container align-middle" href="tel:{{ item.contacts.phone }}">{{ item.contacts.phone }}</a>
+                        {% endif %}
+                        {% if item.contacts.mobile %}
+                            <a class="profile-mobile flex-container align-middle" href="tel:{{ item.contacts.mobile }}">{{ item.contacts.mobile }}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="profile-texts">
+            {% if item.description %}
+                <span class="profile-description">{{ item.description }}</span>
+            {% endif %}
+            {% if item.focus_expressions %}
+                <ul class="profile-expressions list-unstyled">
+                    {% for expression in item.focus_expressions|sort %}
+                        <li class="profile-expression">
+                            <span class="expression-title">{{ expression.title }}</span>
+                            <span class="expression-content">{{ expression.content }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+ {% if gallery_buttons|default %}
+        <div class="gallery-footer {{ customClasses|default }}">
+            {% if gallery_buttons.alignement == 'horizontal' %}
+                {% set list_classes = 'align-center align-middle wrap' %}
+            {% elseif gallery_buttons.alignement == 'vertical' %}
+                {% set list_classes = 'flex-dir-column align-center align-middle' %}
+            {% endif %}
+            <ul class="list-unstyled flex-container {{ list_classes|default }}">
+                {% for button in gallery_buttons.links %}
+                    <li class="list-item">
+                        {% include '_objects/buttonObject.twig' %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}

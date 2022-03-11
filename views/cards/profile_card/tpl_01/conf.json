@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Carte profil - Template 1",
+    "description": "Carte de contenu avec image et textes en dessous - Prix et distance sur l'image",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

@@ -1,62 +1,38 @@
-{% if no_padding == 0 %}{% set spaceBetween = 30 %}
-{% else %}{% set spaceBetween = 0 %}
-{% endif %}
+{% set swiperOut = 4 %}
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}focus{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('402') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% set swiper_options = {
+        'slidesPerView' : 4,
+        'spaceBetween' : spaceBetween,
+        'initialSlide': customInitialSlide|default(0),
+        'centeredSlides': customCenterSlides|default(false),
+        'loop': false,
+        'breakpoints' : {
+            1200 : {
+                'slidesPerView' : 3,
+                'centeredSlides': false,
+                'initialSlide' : 0
+            },
+            1024 : {
+                'slidesPerView' : 2,
+                'centeredSlides': false,
+                'initialSlide' : 0
+            },
+            767 : {
+                'slidesPerView' : 1,
+                'centeredSlides': false,
+                'initialSlide' : 0
+            },
+        }
+    }%}
 
-{% extends '_objects/visualModifier.twig' %}
-{% block content %}
-<div class="woody-component woody-component-focus tpl_402{{ items|length > 4 ? ' isRel swiperOut' : ' swResp' }}">
-    {% if items|length == 1 %}
-        {% include 'lists/bases_grid/tpl_101/tpl.twig' with {
-            'items' : items,
-            'card' : "overlayed_card/tpl_01",
-            'image_style' : "ratio_square"
-        } %}
-    {% elseif items|length == 2 %}
-        {% include 'lists/bases_grid/tpl_201/tpl.twig' with {
-            'items' : items,
-            'card' : "overlayed_card/tpl_01",
-            'image_style' : "ratio_square",
-            'swResp' : true
-        } %}
-    {% elseif items|length == 3 %}
-        {% include 'lists/bases_grid/tpl_301/tpl.twig' with {
-            'items' : items,
-            'card' : "overlayed_card/tpl_01",
-            'image_style' : "ratio_square",
-            'swResp' : true
-        } %}
-    {% elseif items|length == 4 %}
-        {% include 'lists/bases_grid/tpl_401/tpl.twig' with {
-            'items' : items,
-            'card' : "overlayed_card/tpl_01",
-            'image_style' : "ratio_square",
-            'swResp' : true
-        } %}
-    {% elseif items|length > 4 %}
-        {% set swiper_options = {
-            'slidesPerView' : 4,
-            'spaceBetween' : spaceBetween,
-            'centeredSlides': false,
-            'breakpoints' : {
-                1200 : {
-                    'slidesPerView' : 3,
-                },
-                1024 : {
-                    'slidesPerView' : 2,
-                },
-                767 : {
-                    'slidesPerView' : 1,
-                },
-            }
-        }%}
-        {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
-        {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
-            'items' : items,
-            'image_style' : "ratio_square",
-            'card' : "overlayed_card/tpl_01",
-            'swiper_options' : json_swiper_options
-        } %}
-    {% endif %}
-
-</div>
+    {% include 'blocks/focus/_objects/basicWithSwiper.twig' with {
+        'card' : customCard|default("overlayed_card/tpl_01"),
+        'image_style' : customImageStyle|default("ratio_square"),
+        'fallbackMaxLength' : 4,
+        'styleClass' : customSwiperStyleClass|default,
+        'isRel' : true
+    } %}
 {% endblock %}

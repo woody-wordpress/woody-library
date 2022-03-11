@@ -1,20 +1,16 @@
-<div class="woody-component woody-component-feature tpl_01 {{ border_color|default }} {{ background_color|default }} {{ background_img_opacity|default }}{% if background_img|default or background_color|default or border_color|default %} padd-all-md isRel{% endif %}{{ background_img ? ' has-bgimg' }}{{ link ? ' has-link' }}">
-    {% if background_img %}
-        <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
-        <div class="content isRel">
-        {% endif %}
-        {% if link %}
-            <a class="feature-link no-ext" href="{{ link.url }}" target="{{ link.target|default('_self') }}" title="{{ link.title|default(title) }}">
-            {% endif %}
-            {% include '_objects/titlesObject.twig' with {
-                'titles' : _context,
-                'contextPrefix' : "feature",
-                'flexOptions' : "flex-container flex-dir-column align-center align-middle text-center"
-            } %}
-            {% if link %}
-            </a>
-        {% endif %}
-        {% if background_img %}
-        </div>
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}feature{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('01') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% if link %}
+        <a class="feature-link no-ext" href="{{ link.url }}" target="{{ link.target|default('_self') }}" title="{{ link.title|default(title) }}">
     {% endif %}
-</div>
+        {% include "_objects/#{customTitlesObject|default('titlesObject')}.twig" with {
+            'titles' : _context,
+            'contextPrefix' : "feature",
+            'flexOptions' : customFlexOptions|default("flex-container flex-dir-column align-center align-middle text-center")
+        } %}
+    {% if link %}
+        </a>
+    {% endif %}
+{% endblock %}

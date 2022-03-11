@@ -1,0 +1,52 @@
+{% if contractsLevels.sidebar.maps %}
+    <div class="sidebar-map-container">
+
+        {% if options.calltoaction_sidebarmap|default and options.calltoaction_sidebarmap %}
+
+            <div id="show-map" ng-click="showMap($event)">
+                <div class="plo-btn sidebar-default-btn">{{'TOOLTIPS.DISPLAY_MAP'|trans }}</div>
+            </div>
+
+            <div class="sidebar-map"
+                ng-if="showSidebarMap && useLeafletLibrary"
+                rc-map-layout-leaflet
+                zoom="12"
+                getthere="{{ 'GLOBAL.GETTING_THERE'|trans }}"
+                latitude={{ formated_object.geolocations.latitude }}
+                longitude={{ formated_object.geolocations.longitude }}>
+                <a rel="noindex,nofollow" href="https://www.google.com/maps/dir/?api=1&destination={{ formated_object.geolocations.latitude }},{{ formated_object.geolocations.longitude }}"
+                    target="_blank" class="plo-btn show-when-angular-ready" style="z-index: 10;">{{ 'GLOBAL.GETTING_THERE'|trans }}</a>
+            </div>
+
+            <div class="sidebar-map"
+                ng-if="showSidebarMap && !useLeafletLibrary"
+                rc-map-layout
+                zoom="12"
+                latitude={{ formated_object.geolocations.latitude }}
+                longitude={{ formated_object.geolocations.longitude }}>
+            </div>
+
+        {% else %}
+
+            <div class="sidebar-map"
+                ng-if="useLeafletLibrary"
+                rc-map-layout-leaflet
+                zoom="12"
+                getthere="{{ 'GLOBAL.GETTING_THERE'|trans }}"
+                latitude={{ formated_object.geolocations.latitude }}
+                longitude={{ formated_object.geolocations.longitude }}>
+                <a rel="noindex,nofollow" href="https://www.google.com/maps/dir/?api=1&destination={{ formated_object.geolocations.latitude }},{{ formated_object.geolocations.longitude }}"
+                    target="_blank" class="plo-btn show-when-angular-ready" style="z-index: 10;">{{ 'GLOBAL.GETTING_THERE'|trans }}</a>
+            </div>
+
+            <div class="sidebar-map"
+                ng-if="!useLeafletLibrary"
+                rc-map-layout
+                zoom="12"
+                latitude={{ formated_object.geolocations.latitude }}
+                longitude={{ formated_object.geolocations.longitude }}>
+            </div>
+        {% endif %}
+
+    </div>
+{% endif %}

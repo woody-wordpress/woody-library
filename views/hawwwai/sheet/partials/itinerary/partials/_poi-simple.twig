@@ -1,0 +1,7 @@
+{% if step.medias.simple._description|default %}
+    <section class="steps-wrapper">
+        <span>{{ step.medias.simple._description|nl2br }}</span>
+    </section>
+    {#<span rc-truncate words="75" tolerance="10" tr-translate="true" text="{{ step._description |json_encode|raw }}"></span>#}
+    {# max words 45 ?? #}
+{% endif %}

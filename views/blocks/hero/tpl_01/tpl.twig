@@ -1,59 +1,60 @@
 {# FORMAT 2:1 #}
-<div class="woody-component woody-component-hero {% block index_class %}tpl_01{% endblock %} isRel {{ page_heading_background_img_opacity|default }} {% if page_heading_img or page_heading_movie.movie_poster_file|default %} bg-black has-bgimg{% endif %}{% if parallax %} parallax-hero{% endif %}{% if blur %} hero-blur{% endif %}">
+<div class="woody-component woody-component-hero {{ classes|default }} {% block index_class %}tpl_01 hero-full-height{% endblock %} isRel {{ page_heading_background_img_opacity|default }} {% if page_heading_img or page_heading_movie.movie_poster_file|default %} bg-black has-bgimg{% endif %}{% if parallax %} parallax-hero{% endif %}{% if blur %} hero-blur{% endif %}">
     {% if page_heading_img or page_heading_movie.movie_poster_file|default %}
         <div class="hero-bg backgroundMedia {{ page_heading_media_type|default }}">
-            {% if parallax %}
-                <div class="rellax" data-rellax-speed="-4">
-                {% endif %}
-                {% if page_heading_media_type == 'img' and page_heading_img.filename|default %}
-                    {% block backgroundimage %}
-                        <div class="backgroundMedia" style="background-image: url('{{ page_heading_img.sizes.ratio_2_1 }}'); background-size:cover; background-position:center center;"></div>
-                    {% endblock %}
-                    {% if page_heading_img.attachment_more_data.author|default %}
-                        <span class="img-author isAbs">©
-                            {{ page_heading_img.attachment_more_data.author }}</span>
-                    {% endif %}
-                {% elseif page_heading_media_type == 'movie'|default %}
-                    {% block heroVideo %}
-                        {% include '_objects/videoObject.twig' with {
-                        'movie' : page_heading_movie,
-                        'image_style' : "ratio_2_1",
-                        'containerClass' : "heroMediaWrapper",
-                        'ratio' : "2",
-                        'autoplay': true,
-                        'loop': true,
-                        'muted' : true
-                    } %}
-                    {% endblock %}
-                {% endif %}
-                {% if parallax %}
-                </div>
+            {% if parallax %}<div class="rellax" data-rellax-speed="-4">{% endif %}
+
+            {% if page_heading_media_type == 'img' and page_heading_img.filename|default %}
+                {% block backgroundimage %}
+                    <div class="backgroundMedia" style="background-image: url('{{ page_heading_img.sizes.ratio_2_1 }}'); background-size:cover; background-position:center center;"></div>
+                {% endblock %}
+                {% with {
+                    'img' : page_heading_img,
+                    'img_caption_position' : img_caption_position
+                } %}
+                    {{ block("imageCaption", "_objects/imageObject.twig") }}
+                {% endwith %}
+            {% elseif page_heading_media_type == 'movie'|default %}
+                {% block heroVideo %}
+                    {% include '_objects/videoObject.twig' with {
+                    'movie' : page_heading_movie,
+                    'image_style' : "ratio_2_1",
+                    'containerClass' : "heroMediaWrapper",
+                    'ratio' : "2",
+                    'autoplay': true,
+                    'loop': true,
+                    'muted' : true,
+                    'playsinline' : true
+                } %}
+                {% endblock %}
             {% endif %}
+
+            {% if parallax %}</div>{% endif %}
         </div>
     {% endif %}
+
     {% block heroText %}
         <div class="fullcenterbox fcbCol grid-container padd-all-md">
-            {% if parallax %}
-                <div class="rellax" data-rellax-speed="2">
-                {% endif %}
-                {% include '_objects/titlesObject.twig' with {
+            {% if parallax %}<div class="rellax" data-rellax-speed="2">{% endif %}
+            {% include '_objects/titlesObject.twig' with {
                 'titles' : _context,
                 'contextPrefix' : "hero",
                 'flexOptions' : "flex-container flex-dir-column align-center align-middle text-center"
             } %}
-                {% if parallax %}
-                </div>
-            {% endif %}
+            {% if parallax %}</div>{% endif %}
         </div>
     {% endblock %}
+
     {% if page_heading_add_social_movie and page_heading_social_movie|default %}
-        <div class="toggling-movie-container">
+        <div class="toggling-movie-container{{ page_heading_social_movie ? ' embed-plyr' }}">
             <div class="movie-toggle">
                 <span class="toggle-icon"></span>
                 <span class="toggle-text">{{ __("Voir la vidéo", 'woody-theme') }}</span>
             </div>
             <div class="hidden toggling-movie">
-                {{ page_heading_social_movie }}
+                <div class="heroPlyr-wrapper">
+                    {{ page_heading_social_movie }}
+                </div>
             </div>
         </div>
     {% endif %}
@@ -68,9 +69,16 @@
         {% endif %}
     {% endblock %}
 
-    {% block scrollDown %}
-        {% include '_objects/scrolldownObject.twig' with {
-            target : '#the-page-teaser'
-        } %}
+     {% block scrollDown %}
+        {% if not isfrontpage %}
+            {% include '_objects/scrolldownObject.twig' with {
+                    target : '#the-page-teaser'
+                } %}
+        {% endif %}
+        {% if isfrontpage %}
+            {% include '_objects/scrolldownObject.twig' with {
+                    target : '#pageSection-0'
+                } %}
+        {% endif %}
     {% endblock %}
 </div>

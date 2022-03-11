@@ -1,0 +1,33 @@
+<div class="col-xs-12 row _plu-push _plu-flush--x _plu-hard@sm _plu-push-top">
+
+    <div class="col-xs-12 col-md-9 _plu-hard">
+        {% include TWIG.SHEET_HEADER %}
+    </div>
+
+    {# BACK & NEXT NAVBAR ( big tablet & desktop ) #}
+    <div class="col-xs-12 col-md-3 _plu-hard _plu-push-top--small _plu-push--small hidden-xs hidden-sm">
+        <div class="nav-container sheet-nav">
+            <div class="nav-buttons-wrapper">
+
+                <span class="nav-button nav-prev"
+                    {# ng-class="{disabled: !prevSheet.metadata.id}"  #}
+                    >
+                    <a
+                        {# ng-if="prevSheet.metadata.id"  #}
+                        ng-click="goUrl('prev')"></a>
+                </span>
+                <span class="nav-button nav-next"
+                {# ng-class="{disabled: !nextSheet.metadata.id}"  #}
+                >
+                    <a
+                        {# ng-if="nextSheet.metadata.id"  #}
+                        ng-click="goUrl()"></a>
+                </span>
+                <span class="nav-button nav-back">
+                    <a ng-click="goBack()">{{ 'SECTIONS.TOURISM.BACK_TO_LIST'| trans }}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>

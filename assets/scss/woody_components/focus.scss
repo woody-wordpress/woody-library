@@ -1,118 +1,681 @@
-.woody-component-focus {
-    @include breakpoint(medium down) {
-        .grid-padding-x {
-            margin-left: 0;
-            margin-right: 0;
-
-            >.cell {
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
-
-        .cell {
-            @include xy-gutters($gutter-type: padding, $gutter-position: top bottom);
-
-            .overlayedCard {
-                .cardMediaWrapper {
-                    min-height: 100px;
-                }
-            }
-        }
-
-        .swiper-wrapper {
-            flex-wrap: wrap;
-        }
-    }
-
-    &.tpl_405{
-        .woody-grid-frame > .cell{
-            height: 100%;
-        }
-    }
-    &.tpl_313{
-        @include breakpoint(large){
-            .woody_bases_grid >.cell:nth-of-type(2n){
-                .card-link{
-                    flex-direction:column-reverse;
-                }
-                .card-section{
-                    justify-content: flex-end;
-                }
-                .card-titles{
-                    margin-bottom:30px;
-                }
-            }
-            .woody_bases_grid >.cell:nth-of-type(2n+1){
-                .card-titles{
-                    margin-top:30px;
-                }
-            }
-            .card-button{
-                position: absolute;
-                top:50%;
-                left:50%;
-                transform:translateX(-50%) translateY(-50%);
-                font-size:0;
-                border-radius:50%;
-                margin-top:0;
-                width:$round-card-button-size;
-                height:$round-card-button-size;
-                background-color: $round-card-button-bgcolor;
-                color:$round-card-button-color;
-                border: $round-card-button-border;
-                min-width: $round-card-button-size;
-                &:before{
-                    display: block;
-                    content:'+';
-                    font-size: rem-calc($round-card-button-font-size);
-                    line-height: $round-card-button-size;
-                    font-weight:normal;
-                }
-            }
-        }
-        .card-title{
-            transition:color .3s;
-        }
-        .card-link:hover{
-            .card-title{
-                color:$primary-color;
-            }
-            .card-button{
-                background-color: $button-background-hover;
-            }
-        }
-    }
+.focus-buttons {
+    position: relative;
 }
 
-.focus-block {
-    &-texts {
+.focus-header {
+
+    &.fullwidth {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .focus-block-texts {
         >span {
             display: block;
         }
     }
 
-    &-title {
+    .focus-block-wicon,
+    .focus-block-title {
         @extend .h2 !optional;
     }
 
-    &-pretitle,
-    &-subtitle {
+    .focus-block-pretitle,
+    .focus-block-subtitle {
         @extend .h4 !optional;
     }
 }
 
-.woody-component-focus-map {
-    &.tpl_01 {
-        .imageObject {
-            @include breakpoint(medium down) {
-                height: 160px;
+.woody-component-focus {
 
-                >.imageObject-img {
+    .focusLane-wrapper {
+        background-color: $focusLane-bgcolor;
+    }
+
+    .focusLane-item {
+        padding-bottom: $focusLane-space;
+
+        .button-icon {
+            position: relative;
+            margin-right: $focusLane-space;
+
+            &:before {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: $focusLane-icon-size;
+                height: $focusLane-icon-size;
+                background-color: $focusLane-color;
+                color: set-color($focusLane-color);
+                border-radius: $focusLane-icon-radius;
+                font-size: calc(#{$focusLane-icon-size} / 2);
+            }
+        }
+
+        a {
+            display: flex;
+            color: set-color($focusLane-bgcolor) !important;
+        }
+
+        &:not(:nth-last-of-type(1)) {
+            .button-icon {
+                &:after {
+                    display: block;
+                    content: '';
+                    height: calc(100% + #{$focusLane-space});
+                    width: 1px;
+                    background-color: $focusLane-color;
                     position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
+                    top: 0;
+                    left: 50%;
                 }
+            }
+        }
+
+        &:nth-of-type(1) {
+            .button-icon:after {
+                @include breakpoint(medium) {
+                    height: calc(100% + #{$focusLane-space} + #{$focusLane-space});
+                    top : -#{$focusLane-space}
+                }
+            }
+        }
+    }
+
+    .focusLane-texts {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &.tpl_127 {
+        .focusLane-wrapper {
+            padding: $focusLane-space map-get($grid-column-gutter, medium) map-get($grid-column-gutter, medium) map-get($grid-column-gutter, medium);
+            height: 100%;
+        }
+    }
+
+    &.focus-swiper-fullpage-overlayed {
+        .focus-texts {
+            &>span {
+                display: block;
+            }
+        }
+
+        .swiper-container {
+            max-height: $focusFullpageOverlayed-max-height;
+
+            @if $focusFullpageOverlayed-max-height !=90vh {
+                .swiper-wrapper {
+                    max-height: $focusFullpageOverlayed-max-height;
+
+                    .imageObject-img {
+                        max-height: $focusFullpageOverlayed-max-height;
+                    }
+                }
+            }
+        }
+
+        .swiper-slide {
+            &:not(.swiper-slide-active) {
+                pointer-events: none;
+            }
+
+            .imageObject {
+                opacity: .2;
+                filter: blur(5px);
+                transition: opacity .7s, transform .9s ease-in-out, filter .7s;
+            }
+
+            &.swiper-slide-active {
+                .imageObject {
+                    opacity: .6;
+                    transform: scale(1.04);
+                    filter: blur(0);
+                }
+            }
+
+            &:not(.swiper-slide-active) {
+                pointer-events: none;
+            }
+        }
+
+
+        .swiper-pagination {
+            bottom: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 1600px;
+            display: flex;
+
+            &.text-left {
+                text-align: left;
+            }
+
+            &.text-right {
+                text-align: right;
+            }
+
+            &.text-center {
+                text-align: center;
+            }
+
+            &.text-justify {
+                text-align: justify;
+            }
+
+            &-item {
+                color: $white;
+                padding: 10px 5px;
+                cursor: pointer;
+
+                &>span {
+                    display: block;
+                }
+
+                .pagination {
+                    &-pretitle {
+                        @include header-size(h5);
+                    }
+
+                    &-title {
+                        @include header-size(h4);
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_502,
+    &.tpl_503,
+    &.tpl_605,
+    &.tpl_404,
+    &.tpl_419,
+    &.tpl_201 {
+
+        .woody-mobile-swiper,
+        .woody-swiper {
+            &:not(.swResp) {
+                @include breakpoint(xmedium down) {
+                    padding-left: 40px;
+                    padding-right: 40px;
+                }
+            }
+        }
+    }
+
+    &.tpl_404,
+    &.tpl_419,
+    &.tpl_201 {
+
+        .woody-mobile-swiper,
+        .woody-swiper {
+            .swiper-slide {
+                @include breakpoint(xmedium down) {
+                    @include xy-gutters($gutter-position:top bottom);
+                }
+            }
+        }
+    }
+
+    &.tpl_301,
+    &.tpl_401 {
+        .splitCard {
+            @include breakpoint(xmedium down) {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+    }
+
+    &.tpl_405,
+    &.tpl_410 {
+        .woody-grid-frame>.cell {
+            height: 100%;
+        }
+    }
+
+    &.tpl_409,
+    &.tpl_411 {
+        .fullHeight {
+            height: 100%;
+        }
+    }
+
+    &.tpl_420,
+    &.tpl_421 {
+        .woody-grid-frame>.cell {
+            height: 50%;
+        }
+    }
+
+    &.tpl_313 {
+        @include breakpoint(large) {
+            .card-section {
+                position: relative;
+
+                >.card-button {
+                    top: 0;
+                }
+            }
+
+            .woody_bases_grid>.cell:nth-of-type(2n) {
+                .card-link {
+                    flex-direction: column-reverse;
+                }
+
+                .card-section {
+                    justify-content: flex-end;
+
+                    >.card-button {
+                        top: 100%;
+                    }
+                }
+
+                .card-titles {
+                    margin-bottom: 30px;
+                }
+            }
+
+            .woody_bases_grid>.cell:nth-of-type(2n+1) {
+                .card-titles {
+                    margin-top: 30px;
+                }
+            }
+
+            .card.basicCard {
+                .card-button {
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+                    font-size: 0;
+                    border-radius: 50%;
+                    margin-top: 0;
+                    width: $round-card-button-size;
+                    height: $round-card-button-size;
+                    background-color: $round-card-button-bgcolor;
+                    color: $round-card-button-color;
+                    border: $round-card-button-border;
+                    min-width: $round-card-button-size;
+
+                    &:before {
+                        display: block;
+                        content: '+';
+                        font-size: rem-calc($round-card-button-font-size);
+                        line-height: $round-card-button-size;
+                        font-weight: normal;
+                    }
+                }
+
+                .card-profile {
+                    top: calc(50% + #{map-get($basiccard-profile-coords, top)});
+                }
+            }
+        }
+
+        .card.basicCard {
+            .has-profile {
+                position: initial;
+            }
+
+            .card-title {
+                transition: color .3s;
+            }
+
+            .card-link:hover {
+                .card-title {
+                    color: $primary-color;
+                }
+
+                .card-button {
+                    background-color: $button-background-hover;
+                }
+            }
+
+        }
+    }
+
+    &.tpl_323,
+    &.tpl_319,
+    &.tpl_326 {
+        .focus-header {
+            padding: $global-padding * 3;
+
+            @include breakpoint(xlarge) {
+                padding-right: $global-padding * 6;
+            }
+        }
+
+        .woody-component-basic-swiper {
+            transform: translateY(-$swiper-offset-size);
+
+            @include breakpoint(xlarge) {
+                transform: translateX(-$swiper-offset-size) translateY(0);
+                width: calc(100% + #{$swiper-offset-size});
+            }
+        }
+    }
+
+    &.tpl_323,
+    &.tpl_319 {
+        .swiper-controls {
+            position: relative;
+            display: flex;
+
+            .swiper-nav {
+                position: relative;
+                display: flex;
+                margin-left: 150px;
+
+                >div {
+                    position: relative;
+                    left: auto;
+                    right: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0;
+                    top: 0;
+                }
+            }
+        }
+    }
+
+    &:not(.swiper-responsive-nowrap) {
+        @include breakpoint(xmedium down) {
+            .swiper-wrapper {
+                flex-wrap: wrap;
+            }
+        }
+    }
+
+    &:not(.tpl_323):not(.tpl_319):not(.tpl_326):not(.tpl_335):not(.tpl_336):not(.tpl_420):not(.tpl_421) {
+        @include breakpoint(xmedium down) {
+
+            .grid-padding-x {
+                margin-left: 0;
+                margin-right: 0;
+
+                >.cell {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+
+            .cell:not(.card-section) {
+                @include xy-gutters($gutter-type: padding, $gutter-position: top bottom);
+
+                .overlayedCard {
+                    .cardMediaWrapper {
+                        min-height: 100px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_321 {
+        @include breakpoint(large) {
+            padding-left: 120px;
+
+            .focus-buttons>.flex-container {
+                justify-content: flex-start;
+            }
+        }
+
+        &.has-bgimg>.content .grid-x>.cell,
+        .grid-x>.cell {
+            &:nth-of-type(1) {
+                @include breakpoint(large) {
+                    transform: translateY(60px);
+                }
+            }
+
+            &:nth-of-type(2) {
+                @include breakpoint(large) {
+                    transform: translateY(180px);
+                }
+            }
+
+            &:nth-of-type(3) {
+                @include breakpoint(large) {
+                    transform: translateY(-60px) translateX(180px);
+                }
+            }
+
+            &:nth-of-type(4) {
+                @include breakpoint(large) {
+                    padding-top: 180px;
+                    padding-left: 180px;
+                }
+            }
+        }
+    }
+
+    &.tpl_322 {
+
+        &.has-bgimg>.woody-mobile-swiper>.content>.grid-x>.cell,
+        >.woody-mobile-swiper>.grid-x>.cell {
+            .card {
+                height: auto;
+            }
+
+            &:nth-of-type(1) {
+                @include breakpoint(large) {
+                    padding-left: 90px;
+                }
+            }
+
+            &:nth-of-type(3) {
+                z-index: 1;
+
+                @include breakpoint(large) {
+                    transform: translateY(-120px) translateX(90px);
+
+                    .focus-buttons {
+                        padding-right: 40px;
+
+                        .list-item {
+                            margin-left: auto;
+                        }
+                    }
+                }
+            }
+
+            &:nth-of-type(4) {
+                @include breakpoint(large) {
+                    padding-left: 50px;
+                    padding-right: 50px;
+                }
+            }
+        }
+
+        .woody-mobile-swiper:not(.swResp) {
+
+            @include breakpoint(xmedium down) {
+                >.grid-x {
+                    position: relative;
+                    padding-bottom: 90px;
+                }
+
+                .cell.has-button {
+                    position: static;
+
+                    .focus-buttons {
+                        margin: 0;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_324 {
+        overflow: hidden;
+
+        @include breakpoint(large only) {
+            &.swiperOut {
+                padding-right: 0;
+            }
+
+            .swiperJustified {
+                margin-left: 0;
+            }
+        }
+    }
+
+    &.tpl_502,
+    &.tpl_503 {
+
+        .woody-swiper,
+        .woody-mobile-swiper {
+            &:not(.swResp) {
+                @include breakpoint(xmedium only) {
+                    .swiper-slide:not(.multirows) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &.tpl_801 {
+        @include breakpoint(large) {
+            >.grid-x>.cell:nth-of-type(3) .grid-x {
+                height: 100%;
+            }
+        }
+    }
+
+    // tpl_512
+    .equalHeight {
+        >.grid-y {
+            height: 100%;
+        }
+    }
+
+    &.tpl_419 {
+        .card-section {
+            height: 100%;
+        }
+
+        .card-info {
+            @include breakpoint(xmedium down) {
+                width: initial;
+                padding-right: 0;
+            }
+        }
+
+        .card-date {
+            flex-flow: row wrap;
+
+            @include breakpoint(large) {
+                margin-bottom: 0;
+            }
+        }
+
+        .card-button {
+            @include breakpoint(large) {
+                margin-left: 25%;
+            }
+        }
+    }
+}
+
+.woody-component-focus-map {
+
+    .swResp {
+        overflow: hidden;
+    }
+
+    &.adjacent-arrows {
+        &-right {
+            &.focus-map-basicCard {
+                .card-texts {
+                    @include breakpoint(large) {
+                        padding-left: 0;
+                        padding-right: 60px;
+                    }
+                }
+
+                .card-button {
+                    @include breakpoint(large) {
+                        margin-left: 0 !important;
+                    }
+                }
+            }
+
+            .map-pane-button-prev {
+                left: inherit;
+                right: 50px;
+            }
+        }
+
+        &-left {
+            &.focus-map-basicCard {
+                .card-texts {
+                    @include breakpoint(large) {
+                        padding-left: 60px;
+                        padding-right: 0;
+                    }
+                }
+
+                .card-button {
+                    @include breakpoint(large) {
+                        margin-right: 0 !important;
+                    }
+                }
+            }
+
+            .map-pane-button-next {
+                right: inherit;
+                left: 50px;
+            }
+        }
+    }
+
+    &.focus-map-basicCard {
+        .swResp {
+            @include breakpoint(xmedium down) {
+                width: 100% !important;
+                transform: translateY(-115px);
+                padding: 0 60px 0 15px !important;
+            }
+        }
+
+        .focus-map-pane-element.is-active {
+            @include breakpoint(xmedium down) {
+                .card-title {
+                    color: $secondary-color !important;
+                }
+            }
+        }
+
+        .imageObject {
+            @include breakpoint(xmedium down) {
+                flex: 1 0 34%;
+            }
+        }
+
+        .card-link {
+            @include breakpoint(xmedium down) {
+                flex-direction: row !important;
+                height: 80px;
+            }
+        }
+
+        .card-section {
+            @include breakpoint(xmedium down) {
+                background-color: $white !important;
+                flex: 1 0 66%;
+                justify-content: center !important;
+                text-align: left;
             }
         }
 
@@ -123,9 +686,297 @@
             }
         }
 
-        .card-description {
-            @include breakpoint(large down) {
-                font-size: rem-calc(13);
+        .card-button {
+            @include breakpoint(large) {
+                margin-left: 30px !important;
+                margin-right: 30px !important;
+            }
+        }
+
+        // https://css-tricks.com/line-clampin/
+        .card-title {
+            @include breakpoint(xmedium down) {
+                font-size: 0.9rem;
+                display: -moz-box;
+                display: -webkit-box;
+                line-clamp: 2;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                transition: 0.25s ease-in-out !important;
+            }
+        }
+
+        .card-pretitle,
+        .card-subtitle,
+        .card-description,
+        .card-button,
+        .card-type,
+        .card-date,
+        .card-created,
+        .card-ratings,
+        .card-address,
+        .card-phone,
+        .card-website,
+        .card-town,
+        .card-tripInfos-wrapper,
+        .card-iti-length,
+        .card-iti-infos {
+            @include breakpoint(xmedium down) {
+                display: none;
+            }
+        }
+    }
+
+    &.focus-map-splitCard {
+        .map-wrapper {
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            z-index: 10;
+            transform: scale(0);
+            opacity: 0;
+            transform-origin: top right;
+            transition: transform .3s ease-in, opacity .3s;
+        }
+
+        .toggle-map {
+            right: 10px;
+            top: 10px;
+            z-index: 11;
+            background-color: $white;
+            color: $primary-color;
+            border-radius: 200px;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+
+            .wicon {
+                margin-right: 0;
+            }
+
+            .wicon-029-croix-fermer {
+                display: none;
+            }
+        }
+
+        &.map-opened {
+            .map-wrapper {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            .toggle-map {
+                right: -25px;
+                top: -25px;
+
+                .wicon-029-croix-fermer {
+                    display: block;
+                }
+
+                .wicon-039-pin {
+                    display: none;
+                }
+            }
+
+            .swiper-nav {
+                display: none;
+            }
+        }
+
+        .swiper-controls {
+            height: 100%;
+
+            .swiper-pagination.swiper-pagination-bullets {
+                .swiper-pagination-bullet {
+                    background-color: rgba($white, .5);
+
+                    &-active {
+                        background-color: $white;
+                    }
+                }
+            }
+        }
+    }
+
+    &.focus-map-overlayedCard {
+        .leaflet-container {
+            @include breakpoint(xmedium down) {
+                margin-bottom: 25px;
+            }
+        }
+    }
+}
+
+// En-tête de bloc en surimpression de la mise en avant
+.focusH-overlayed {
+    .focus-header {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        z-index: 10;
+        color: $white;
+        width: 100%;
+        max-width: 1600px;
+        padding: 30px;
+        transform: translateX(-50%);
+    }
+
+    .cardMediaWrapper {
+        opacity: .6;
+    }
+
+    .titles-container,
+    .focusH-container {
+        max-width: 1600px;
+    }
+
+
+    .titles-container {
+        box-sizing: border-box;
+        // color: $white;
+
+        .focus {
+            &-title {
+                @extend h3;
+            }
+
+            &-pretitle,
+            &-subtitle {
+                @extend h4;
+            }
+
+            &-description {
+                max-width: 400px;
+            }
+        }
+    }
+}
+
+@each $align in $alignments {
+    &.focusH-#{$align} {
+        text-align: $align;
+    }
+}
+
+//
+// Styles spécifiques aux focus dans une section pleine largeur
+//
+.section-layout-wrapper:not(.grid-container) {
+    .woody-component-focus {
+        &[class*="swiperOff"] {
+            @include breakpoint(large) {
+                padding-right: 0;
+
+                .swiper-container {
+                    overflow: visible;
+                }
+
+                &[class*="-right"] {
+                    .swiper-container {
+                        padding-left: $swiper-offset-size;
+                    }
+                }
+
+                &[class*="-left"] {
+                    .swiper-container {
+                        padding-right: $swiper-offset-size;
+                    }
+                }
+            }
+
+            .woody-component-basic-swiper {
+                overflow: hidden;
+            }
+
+            .basicCard {
+                .card-section {
+                    align-items: flex-end;
+                }
+            }
+        }
+
+        &.tpl_504 {
+            overflow: hidden;
+
+            @include breakpoint(large) {
+                padding-right: 0;
+
+                .swiper-container {
+                    overflow: visible;
+                    padding-right: 110px;
+                }
+
+                .swiper-slide {
+                    transition: opacity .3s;
+
+                    &:not(.swiper-slide-visible) {
+                        opacity: .3;
+                    }
+                }
+
+                .swiper-button-prev {
+                    left: 0;
+                }
+
+                .swiper-button-next {
+                    right: 0;
+                }
+            }
+        }
+
+    }
+}
+
+// Mises en avant de profils
+
+.woody-component-focus.profile-focus {
+
+    .profileCard {
+        .profile {
+            &-img {
+                margin: 0 auto 20px auto;
+            }
+        }
+    }
+
+    &.mediaLeft {
+        .profileCard {
+            .profile {
+                &-summary {
+                    @include breakpoint(medium) {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+                &-img {
+                    width: 100px;
+                    margin: 0 auto 20px auto;
+
+                    @include breakpoint(xmedium) {
+                        margin: 0 20px 0 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.mediaTop {
+        .profileCard {
+            .profile {
+                &-title {
+                    margin: 0 auto 5px auto;
+                }
+
+                &-contacts {
+                    justify-content: center;
+                }
+
+                &-img {
+                    width: 140px;
+                }
             }
         }
     }

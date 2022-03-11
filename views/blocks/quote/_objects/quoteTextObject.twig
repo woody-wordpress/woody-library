@@ -1,0 +1,13 @@
+{% if text or title %}
+	<div class="{{ textsAlign|default }} {{ customClass|default }}">
+		{% if title %}
+			<span class="title">{{ title }}</span>
+		{% endif %}
+		{% if text %}
+			<div class="lead">{{ text }}</div>
+		{% endif %}
+		{% if signature and withSignature %}
+			{% include "blocks/quote/_objects/quoteSignatureObject.twig" %}
+		{% endif %}
+	</div>
+{% endif %}

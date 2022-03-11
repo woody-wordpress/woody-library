@@ -6,5 +6,10 @@ $trip-info-border : true !default;
 $trip-info-border-color : $black !default;
 $trip-info-button-color : $black !default;
 
-//for template 5
+//for template 1 & 2
 $trip-info-separator : true !default;
+$trip-info-bandeau-button-color : $primary-color !default;
+$trip-has-icon : false !default;
+
+$trip-infos-duration-icon : $duration-icon !default;
+$trip-infos-distance-icon : $distance-icon !default;

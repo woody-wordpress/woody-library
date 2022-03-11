@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Citation - Template 2",
+    "name": "Template 02 - Carré",
     "description": "Citation avec Texte + Photo + Auteur en colonne",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b042e516ef62"
     ],

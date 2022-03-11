@@ -1,80 +1,198 @@
-<div class="woody-component woody-component-teaser tpl_01 {{ classes|default }}{{ background_img ? ' has-bgimg' }}">
+<div class="woody-component woody-component-teaser tpl_01 trip-info-banner {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}">
     {% if background_img %}
-    <div class="backgroundMedia fullcenterbox" style="background-image: url('{{ background_img.url }}'); background-size:cover; background-position:center center;"></div>
+        {% include '_objects/bgImageObject.twig' with {
+                'img': background_img,
+        } %}
     {% endif %}
     {{ breadcrumb|default }}
     <div class="grid-container isRel">
-        {% block page_teaser_texts %}
-        {% if page_teaser_woody_icon %}
-        <span class="page-main-wicon wicon-woody-icons {{ page_teaser_woody_icon }}"></span>
-        {% endif %}
-        {% if page_teaser_pretitle or page_teaser_title|default or page_teaser_subtitle or (page_teaser_display_favs_btn|default and globals.options.favorites|default)  %}
-        <div class="page-main-titles">
-            {% if page_teaser_pretitle %}
-            <span class="page-main-pretitle">{{ page_teaser_pretitle }}</span>
-            {% endif %}
-            {% if page_teaser_title|default %}
+        <div class="grid-x">
+            <div class="cell texts-wrapper">
+                {% block page_teaser_texts %}
 
-            <h1 class="page-main-title">
-                {{ page_teaser_title }}
-                {% include '_objects/favoriteTeaserObject.twig'%}
-            </h1>
-            {% endif %}
-            {% if page_teaser_subtitle %}
-            <span class="page-main-subtitle">{{ page_teaser_subtitle }}</span>
-            {% endif %}
+                    {% if page_teaser_woody_icon %}
+                        <span class="page-main-wicon wicon-woody-icons {{ page_teaser_woody_icon }}"></span>
+                    {% endif %}
+
+                    {% if page_teaser_pretitle or page_teaser_title|default or page_teaser_subtitle or (page_teaser_display_favs_btn|default and globals.options.favorites|default)  %}
+                        <div class="page-main-titles {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }}">
+                            {% if page_teaser_pretitle %}
+                                <span class="page-main-pretitle">{{ page_teaser_pretitle }}</span>
+                            {% endif %}
+                            {% if page_teaser_title|default %}
+                                <h1 class="page-main-title">
+                                    {{ page_teaser_title }}
+                                    {% include '_objects/favoriteTeaserObject.twig'%}
+                                </h1>
+                            {% endif %}
+                            {% if page_teaser_subtitle %}
+                                <span class="page-main-subtitle">{{ page_teaser_subtitle }}</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if page_teaser_desc|default %}
+                        <div class="page-main-description">{{ page_teaser_desc }}</div>
+                    {% endif %}
+
+                    {% if created %}
+                        <span class="page-main-created">{{ __('Publié le', 'woody-theme') }}
+                            {{ created }}</span>
+                    {% endif %}
+
+                {% endblock %}
+
+                {% block page_teaser_links %}
+
+                    {% if page_teaser_smart_buttons.links|default %}
+
+                        {% if page_teaser_smart_buttons.alignement == 'horizontal' %}
+                            {% set list_classes = 'align-left align-top wrap buttons-list' %}
+                        {% elseif page_teaser_smart_buttons.alignement == 'vertical' %}
+                            {% set list_classes = 'flex-dir-column align-left align-top' %}
+                        {% endif %}
+
+                        <ul class="list-unstyled flex-container {{ list_classes|default }}">
+                            {% for button in page_teaser_smart_buttons.links %}
+                                <li class="list-item">
+                                    {% include '_objects/buttonObject.twig' %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    {% endif %}
+
+                {% endblock %}
+
+                {% block page_teaser_shares %}
+
+
+                <div class="shares-wrapper flex-container align-middle">
+                    {% if page_teaser_display_shares %}
+                        {{ social_shares }}
+                    {% endif %}
+                    {% if page_teaser_title == false %}
+                        {% include '_objects/favoriteTeaserObject.twig'%}
+                    {% endif %}
+                </div>
+
+                {% endblock %}
+
+                {% if trip_infos %}
+
+                    <div class="grid-x trip-infos">
+                        <div class="cell medium-12 large-12 isRel">
+                            {{ trip_infos }}
+                        </div>
+                    </div>
+
+                {% endif %}
+            </div>
+
+            {% block page_teaser_media %}
+                {% if page_teaser_add_media and (page_teaser_img or page_teaser_widget or page_teaser_movie or page_teaser_add_media == 'map') %}
+                    <div class="cell medium-6 flex-container align-middle media-wrapper">
+                        {% if page_teaser_media_type == 'img' and page_teaser_img|default %}
+                            {% block imagObject %}
+                                {% include '_objects/imageObject.twig' with {
+                                    'img' : page_teaser_img,
+                                    'image_style' : "ratio_4_3",
+                                    'containerClass' : "pageTeaserMedia"
+                            } %}
+                            {% endblock %}
+                        {% elseif page_teaser_media_type == 'movie' and page_teaser_movie %}
+                            {{ page_teaser_movie }}
+                        {% elseif page_teaser_media_type == 'widget' and page_teaser_widget %}
+                            {{ page_teaser_widget }}
+                        {% elseif page_teaser_media_type == 'map' %}
+                            {% if circuit_map %}
+                                <script>
+                                    var mapData = {
+                                        id: "circuitmap-{{ random_number }}",
+                                        default: {
+                                            fitBounds: {{ page_teaser_map_zoom ? 0 : 1}},
+                                            zoom:{{ page_teaser_map_zoom|default(12)  }},
+                                            tm_conf_id: {{ tmaps_confid|default(false) }},
+                                            controls: {
+                                                "fullScreenControl": true,
+                                                "zoomControl": false,
+                                                "layerControl": false
+                                            }
+                                        },
+                                        markers: [{% for day in circuit_map.days %}{% if day.lat and day.lng %}{
+                                                        lat: {{ day.lat }},
+                                                        lng: {{ day.lng }},
+                                                        mode: "contentFixed",
+                                                        html: "empty",
+                                                        customMarker: "{{ day.marker|e('js') }}",
+                                                        iconSize: [
+                                                            40,
+                                                            52
+                                                        ]
+                                                    },{% endif %}{% endfor %}]
+                                    };{% if circuit_map.track %}var rcModule = rcModule || {};
+                                        rcModule.GeoJSONFiles = rcModule.GeoJSONFiles || {};
+                                        rcModule.GeoJSONFiles[mapData["id"]] = [];
+                                        rcModule.GeoJSONFiles[mapData["id"]].push({{ circuit_map.track }});{% endif %}if (!window.ExtendedMarkersV2) {
+                                        window.ExtendedMarkersV2 = [];
+                                    }
+                                    ExtendedMarkersV2.push(mapData);
+                                </script>
+                                <div id="circuitmap-{{ random_number }}" class="circuit-map"></div>
+
+                            {% elseif post_coordinates %}
+
+                                <script>
+                                    var mapData = {
+                                        id: "geomap-{{ random_number }}",
+                                        default: {
+                                            position:{
+                                                latitude:{{ post_coordinates.post_latitude }},
+                                                longitude:{{ post_coordinates.post_longitude }},
+                                                zoom:{{ page_teaser_map_zoom|default(7) }}
+                                            },
+                                            zoom:{
+                                                state:true
+                                            },
+                                            fullscreen: {
+                                                state:false
+                                            },
+                                            locate: {
+                                                state:false
+                                            },
+                                            geosearch: {
+                                                state:false
+                                            },
+                                            carto: {
+                                                state:false
+                                            },
+                                            fitBounds: 0
+                                        },
+                                        markers: [
+                                            {
+                                                lat: {{ post_coordinates.post_latitude }},
+                                                lng: {{ post_coordinates.post_longitude }},
+                                                mode: "contentFixed",
+                                                html: "empty"
+                                            }
+                                        ]
+                                    };
+
+                                    if (!window.ExtendedMarkersV2) {
+                                        window.ExtendedMarkersV2 = [];
+                                    }
+                                    ExtendedMarkersV2.push(mapData);
+                                </script>
+                                <div class="direction-map-wrapper isRel">
+                                    <div id="geomap-{{ random_number }}" style="height:300px"></div>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ post_coordinates.post_latitude }},{{ post_coordinates.post_longitude }}" class="iti-button button isAbs" title="{{ __("Voir l'itinéraire", 'woody-theme') }}" target="_blank">{{ __("M'y rendre", 'woody-theme') }}</a>
+                                </div>
+
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endblock %}
         </div>
-        {% endif %}
-
-
-        {% if page_teaser_desc|default %}
-        <div class="page-main-description">{{ page_teaser_desc }}</div>
-        {% endif %}
-        {% endblock %}
-        {% block page_teaser_links %}
-        {% if page_teaser_smart_buttons.links|default %}
-        {% if page_teaser_smart_buttons.alignement == 'horizontal' %}
-        {% set list_classes = 'align-left align-top wrap buttons-list' %}
-        {% elseif page_teaser_smart_buttons.alignement == 'vertical' %}
-        {% set list_classes = 'flex-dir-column align-left align-top' %}
-        {% endif %}
-
-        <ul class="list-unstyled flex-container {{ list_classes|default }}">
-            {% for button in page_teaser_smart_buttons.links %}
-            <li class="list-item">
-                {% include '_objects/buttonObject.twig' %}
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        {# TODO: retirer la condition lorsque les sites seront corrigés #}
-        {% if page_teaser_buttons|default %}
-        <ul class="list-unstyled flex-container align-middle wrap">
-            {% for button_group in page_teaser_buttons %}
-            <li>
-                <a href="{{ button_group.button.url }}" class="button" target="{{ button_group.button.target|default('_self') }}">
-                    {{ button_group.button.title|default }}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endif %}
-        {% endblock %}
-        {% block page_teaser_external_favorite %}
-            {% if page_teaser_title == false %}
-                {% include '_objects/favoriteTeaserObject.twig' with{
-                    'containerClass' : "external-favorite"
-                } %}
-            {% endif %}
-        {% endblock %}
-        {% block page_teaser_shares %}
-        {% if page_teaser_display_shares|default and globals.post_id not in globals.woody_options_pages %}
-        <span class="sharing-links">
-            {{ social_shares }}
-        </span>
-        {% endif %}
-        {% endblock %}
-
     </div>
 </div>

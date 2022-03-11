@@ -1,0 +1,35 @@
+{
+    "approved": true,
+    "name": "Template 511 - Paysage C et B",
+    "description": "Grille de 5 contenus - Mixed 2/3 colonnes - Carte textes au mileu et centrés sur image (Paysage B)",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "group_5d7908eadaa46",
+        "group_5b33890e6fa0b",
+        "field_5d16118093cc1"
+    ],
+    "vars": [
+        "items"
+    ],
+    "display": [{
+        "type": "mozaic",
+        "length": 5,
+        "infinite": "false",
+        "card_type": "overlay",
+        "img_ratio": [
+            "16_9",
+            "4_3"
+        ],
+        "text_align": "middlecenter",
+        "roadbook": false
+    }],
+    "legend": [{
+        "group_5b0d1ed32a384": "Mise en avant manuelle",
+        "group_5b2788b48d04c": "Mise en avant automatique",
+        "group_5d7908eadaa46": "Mise en avant Topics",
+        "group_5b33890e6fa0b": "Mise en avant Fiches SIT",
+        "field_5d16118093cc1": "Mise en avant Composants de séjours"
+    }]
+}

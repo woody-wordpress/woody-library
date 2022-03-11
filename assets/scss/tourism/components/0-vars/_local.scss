@@ -5,3 +5,10 @@ $panel-body-padding : 15px;
 $widget_width : 100px;
 $widget_height : 100px;
 $widget_background : #cccccc;
+
+
+$chip-font-size: 14px;
+$chip-y-padding: 10px;
+$chip-x-padding: 15px;
+$chip-border-size : 1px;
+$chip-size: $chip-font-size + $chip-y-padding*2 + $chip-border-size;

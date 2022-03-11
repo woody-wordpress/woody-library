@@ -1,0 +1,51 @@
+<div class="sheet-header">
+
+    {% if formated_object.chains|default %}
+    <div class="sheet-header-logos">
+        {# Hotel chains #}
+        {% include TWIG.CHAINS
+            with {'chains': formated_object.chains,
+                'TWIG': TWIG,} only %}
+    </div>
+    {% endif %}
+
+    <div class="header-text">
+            <h1 class="header-title _plu-push--tiny _plu-flush sheet-header_title"><span itemprop="name">{{formated_object.businessName}}</span>
+            {% if formated_object.labelRatings|default %}
+                {% include TWIG.LABEL_RATINGS
+                    with {'labelRatings': formated_object.labelRatings } only %}
+            {% endif %}
+        </h1>
+
+        {% if formated_object.criterias|default or formated_object.contacts.establishment|default or object.data.dublinCore.isReferencedBy|default %}
+            <h2 class="_plu-caps _plu-text-muted _plu-flush sheet-header_subtitle">
+
+                {# Subtitle field #}
+                {% if formated_object.subTitle|default %}
+                    <div class="sheet-subtitle">{{ formated_object.subTitle }}</div>
+                {% endif %}
+
+                {# 'isReferencedBy' field #}
+                {% if object.data.dublinCore.isReferencedBy|default  %}
+                    {{ object.data.dublinCore.isReferencedBy }} -
+                {% endif %}
+
+                {# 'criteria' fields #}
+                {% if formated_object.criterias|default %}
+                    <span class="sheet-header-criterias">
+                    {% spaceless %}
+                    {%- for criteria in formated_object.criterias -%}
+                        <span class="sheet-controlled-vocabulary">{{criteria._criterion}}{%- if not loop.last -%},&nbsp;{%- endif -%}</span>
+                    {%- endfor -%}
+                    {% endspaceless %}
+                    </span>
+                {% endif %}
+
+                {# & city #}
+                {% if formated_object.contacts.establishment|default %}
+                    <span class="sheet-header-city">{{ 'GLOBAL.ATPLACE'|trans }}&nbsp;{{ formated_object.locality|default ? formated_object.locality : formated_object.contacts.establishment.commune }}</span>
+                {% endif %}
+            </h2>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Split Carte - Template 13",
+    "description": "Carte de contenu avec média à droite + textes alignés à gauche (ratio 8/4)",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

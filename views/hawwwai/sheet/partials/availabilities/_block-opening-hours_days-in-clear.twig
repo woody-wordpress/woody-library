@@ -1,0 +1,28 @@
+{% if period._formated_days|default %}
+
+    {# FERMETURES #}
+    {% if period._hasClosure %}
+        <div class="epsilon text-muted _plu-push-left--large _plu-push--tiny">
+            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.CLOSED'| trans}}
+            {% for day in period._formated_days if day.closure|default %}
+                {%- if not loop.first -%},{% endif %}
+                <span class="text-lowercase">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}} {{thesaurus.fulldictionary[day.day]|default(day.day)}}</span>
+            {% endfor %}
+        </div>
+
+    {# SINON OUVERTURES #}
+    {% elseif period._formated_days|length != 1 %}
+        <div class="epsilon text-muted _plu-push-left--large _plu-push--tiny">
+            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.OPENED'| trans}}
+            {% if period._isEveryDay|default %}
+                <span class="text-lowercase">{{ thesaurus.fulldictionary['09.02.08']|default('Tous les jours') }}</span>
+            {% else %}
+            {%- for day in period._formated_days -%}
+                {%- if not loop.first -%},{% endif %}
+                <span class="text-lowercase">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}} {{thesaurus.fulldictionary[day.day]|default(day.day)}}</span>
+            {%- endfor -%}
+            {% endif %}
+        </div>
+    {% endif %}
+
+{% endif %}

@@ -1,0 +1,122 @@
+<div class="woody-component woody-component-weather tpl_01{% if days|length > 4 %} swiperOut isRel{% endif %}">
+    {% if days|length == 1 %}
+        {% set grid_classes = 'grid-x grid-margin-x grid-margin-y' %}
+    {% elseif days|length == 2 %}
+        {% set grid_classes = 'grid-x grid-margin-x grid-margin-y medium-up-2' %}
+    {% elseif days|length == 3 %}
+        {% set grid_classes = 'grid-x grid-margin-x grid-margin-y large-up-3' %}
+    {% elseif days|length == 4 %}
+        {% set grid_classes = 'grid-x grid-margin-x grid-margin-y medium-up-2 xlarge-up-4' %}
+    {% elseif days|length > 4 %}
+        {% set grid_classes = 'swiper-container woody-swiper' %}
+        {% set swiper_options = {
+            'slidesPerView' : 4,
+            'spaceBetween' : 30,
+            'centeredSlides' : false,
+            'breakpoints' : {
+                1199 : {
+                    'slidesPerView' : 3,
+                },
+                767 : {
+                    'slidesPerView' : 2,
+                },
+                567 : {
+                    'slidesPerView' : 1,
+                }
+            }
+            }%}
+            {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
+    {% endif %}
+    <div class="{{ grid_classes }} swResp"{% if json_swiper_options|default %} data-options="{{ json_swiper_options }}"{% endif %}>
+        {% if days|length > 4 %}
+        <div class="swiper-wrapper swRespW">
+        {% endif %}
+            {% for day in days %}
+            {% if days|length > 4 %}
+            <div class="swiper-slide swRespS">
+            {% endif %}
+                <div class="cell weatherDay-infos {{ bg_color|default }}"{% if bg_img|default %} style="background:url('{{ day.summary.bg_img }}') center bottom / cover"{% endif %}>
+                    <div class="weatherDay-summary flex-container flex-dir-column align-middle">
+                        <div class="date h5">{{ day.date }}</div>
+                        <div class="sky">{{  day.summary.sky }}</div>
+                        <div class="weather-main flex-container align-middle">
+                            <div class="weather-icon">
+                                <span class="{{ day.summary.icon }}"></span>
+                            </div>
+                            <div class="temperature">{{ day.summary.average_temp }}<sup>°</sup><span class="unit">C</span></div>
+                        </div>
+                        {% if day.summary.min_temp|default and day.summary.max_temp|default %}
+                            <div class="minmax-temp">
+                                <small class="min-temp">min : {{ day.summary.min_temp }}<sup>°</sup><span class="unit">C</span> / </small>
+                                <small class="max-temp">max : {{ day.summary.max_temp }}<sup>°</sup><span class="unit">C</span></small>
+                            </div>
+                        {% endif %}
+                        {% if day.summary.top_temp|default and day.summary.bottom_temp|default %}
+                            <div class="topbottom-temp">
+                                <small class="bottom-temp">{{ __('Bas', 'woody-addon-weather') }} : {{ day.summary.bottom_temp }}<sup>°</sup><span class="unit">C</span> / </small>
+                                <small class="top-temp">{{ __('Haut', 'woody-addon-weather') }} : {{ day.summary.top_temp }}<sup>°</sup><span class="unit">C</span></small>
+                            </div>
+                        {% endif %}
+                        <div class="more-infos">
+                            {% if day.summary.type != 'meteofrance' %}
+                                {% if day.summary.wind|default %}<small class="wind">{{ __('Vent', 'woody-addon-weather') }} : {{ day.summary.wind }}<span class="unit">km/h</span></small>{% endif %}
+                            {% endif %}
+                            {% if day.summary.humidity|default %}<small class="humidity">{{ __('Humidité', 'woody-addon-weather') }} : {{ day.summary.humidity }}<span class="unit">%</span></small>{% endif %}
+
+                            {% if day.summary.type == 'meteofrance' %}
+                                {% if day.summary.wind|default %}
+                                    <small class="wind">{{ __('Vent', 'woody-addon-weather') }} : {% if day.summary.wind_dir|default %} {{ day.summary.wind_dir }} {% endif %}  {{ day.summary.wind }}<span class="unit">km/h</span></small>
+                                {% endif %}
+                                {% if day.summary.sea_temp|default %}
+                                    <small class="sea_temp">{{ __('Température de la mer', 'woody-addon-weather') }} : {{ day.summary.sea_temp }}<sup>°</sup><span class="unit">C</span></small>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if day.summary.type == 'meteofrancemountain' %}
+                                {% if day.summary.iso_zero|default %}
+                                    <small class="iso_zero">{{ __('ISO 0°', 'woody-addon-weather') }} : {{ day.summary.iso_zero }}<span class="unit">m</span></small>
+                                {% else %}
+                                    <small class="iso_zero"> - </small>
+                                {% endif %}
+                                {% if day.summary.snow_rain|default %}
+                                    <small class="snow_rain">{{ __('Limite Pluie/Neige', 'woody-addon-weather') }} : {{ day.summary.snow_rain }}<span class="unit">m</span></small>
+                                {% else %}
+                                    <small class="snow_rain"> - </small>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="weatherDay-details grid-x small-up-3">
+                        {% for detail in day.details %}
+                            <div class="cell weartherDay-detail">
+                                <div class="name">{{ detail.name }}</div>
+                                {# <div class="sky">{{  detail.sky }}</div> #}
+                                <div class="weather-icon">
+                                    <span class="{{ detail.icon }}"></span>
+                                </div>
+                                <div class="temperature">{{ detail.temp }}<sup>°</sup><span class="unit">C</span></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if days|length > 4 %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% if days|length > 4 %}
+        </div>
+        {% endif %}
+    </div>
+    {% if days|length > 4 %}
+    <div class="swiper-controls show-for-large">
+        <div class="swiper-nav">
+            <div class="swiper-button-prev">
+                <i class="wicon wicon-026-precedent" aria-hidden="true"></i>
+            </div>
+            <div class="swiper-button-next">
+                <i class="wicon wicon-025-suivant" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>

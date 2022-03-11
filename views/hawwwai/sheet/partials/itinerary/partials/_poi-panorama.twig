@@ -1,0 +1,5 @@
+{% if step.url|default and step.mediaId|default %}
+    <section>
+        <div krpano krpano-id="'{{step.mediaId}}'" krpano-type="'{{step.mediaId}}'" krpano-url="'{{step.url}}'" class="krpano-viewer"></div>
+    </section>
+{% endif %}

@@ -1,0 +1,513 @@
+{# if opening periods exist #}
+{% if formated_object.openingPeriods.periods|default %}
+    {# microdata startDate #}
+    {% if formated_object.openingPeriods.periods[0]._startDate|default %}
+        <meta itemprop="startDate" content="{{ formated_object.openingPeriods.periods[0]._startDate|date('Y-m-d') }}">
+    {% endif %}
+
+    {# microdata endDate #}
+    {% set lastPeriod = formated_object.openingPeriods.periods|last %}
+    {% if lastPeriod._endDate|default %}
+        <meta itemprop="endDate" content="{{ lastPeriod._endDate|date('Y-m-d') }}">
+    {% endif %}
+{% endif %}
+
+{% if contractsLevels.content.periods and formated_object.openingPeriods.periods|default %}
+
+    <section id="openings" class="panel panel-default row sheet-tab"
+    {% if (formated_object.openingPeriods.hasHours|length == 1) and formated_object.bordereau in ['FMA'] and not formated_object.openingPeriods.hasHours and not formated_object.openingPeriods.hasInnerDescription and not formated_object.openingPeriods.description|default %}
+        style="display: none;"
+    {% endif %}>
+        <div class="panel-title-responsive">
+            <span class="panel-title-responsive_text">
+                {% if object.data.bordereau != 'FMA' %}
+                    {{ 'SECTIONS.TOURISM.SHEET.OPENINGS_SM'|trans }}
+                {% else %}
+                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.SCHEDULES'|trans }}
+                {% endif %}
+            </span>
+        </div>
+
+        {% if formated_object.covidOpenings|default %}
+            <div class="panel-default panel-body dynamic-opening-periods">
+                <span class="opening-state opening-state-{{formated_object.covidOpenings.light|default('soon')}}">
+                    <span class="opening-state--light"></span>
+                    <span class="opening-state--text">{{ formated_object.covidOpenings.text }}</span>
+                </span>
+            </div>
+        {% endif %}
+
+        {# if no period has days defined or oneday period (1) #}
+        {% if not formated_object.openingPeriods.hasHours
+        	or formated_object.openingPeriods.hasOnlyOneDayPeriods %}
+
+            <div class="panel-body pl-paint-winter">
+                {% embed "@LOCAL/helper/row-item.twig" with {layout: 3.9} %}
+                    {% block title %}
+                        {% if object.data.bordereau != 'FMA' %}
+                            {{ 'SECTIONS.TOURISM.SHEET.OPENINGS'|trans }}
+                        {% else %}
+                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.SCHEDULES'|trans }}
+                        {% endif %}
+                    {% endblock %}
+                    {% block content %}
+                        <ul class="row">
+                            {% if formated_object.openingPeriods.periods|length > 10 %}
+                                <input type="checkbox" id="period-load-more"/>
+                            {% endif %}
+                            {% for period in formated_object.openingPeriods.periods %}
+                                <li class="period">
+
+                                    {% if period._isAllYear is defined and period._isAllYear %}
+                                        <span period-parser-disabled type="bloc"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+                                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}}
+                                            {% if 'now'|date('Y') < period.startDate|date('Y') or 'now'|date('Y') > period.endDate|date('Y') %}
+                                                {{ period.endDate | date ('Y') }}
+                                            {% endif %}
+                                        </span>
+
+                                        {% include TWIG.OPENING_HOURS__DAYS_IN_CLEAR %}
+
+                                    {% elseif period._isMultipleOneDays is defined and period._isMultipleOneDays %}
+                                    	<span period-parser-disabled type="bloc" multiple="true"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+                                        	<span class="prefix-text-start">
+                                        		{{ 'SECTIONS.TOURISM.SHEET.PERIODS.EACH' | trans}}
+                                        		{{ thesaurus.fulldictionary[period._multipleDay.code] | lower }}
+                                        		{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans | lower}}
+                                        	</span>
+                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        	<span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
+                                        	<span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            {% if formated_object.openingPeriods.hasHours %}
+                                                <span class="opening-hours">
+                                                    {% set displayComa = false %}
+                                                    {% for currentday in period._formated_days %}
+                                                        {% if displayComa|default and not currentday.closure|default %},{% set displayComa = false %}{% endif %}
+                                                        {% if currentday.schedules|default and not currentday.closure|default %}{% set displayComa = true %}{% endif %}
+
+                                                        {% for schedule in currentday.schedules|default %}
+                                                            {% if schedule.startTime is defined %}
+                                                                {# fisrt time range #}
+                                                                {% if schedule.endTime is not defined and currentday.schedules[loop.index0 + 1].endTime is not defined %}
+                                                                    {{ 'GLOBAL.AT'|trans }}
+                                                                {% elseif schedule.endTime is not defined
+                                                                    and currentday.schedules[loop.index0 + 1] is defined and currentday.schedules[loop.index0 + 1].startTime is defined %}
+                                                                    {{ 'GLOBAL.AT'|trans }}
+                                                                {% else %}
+                                                                    {{ 'GLOBAL.FROM'|trans }}
+                                                                {% endif %}
+                                                                {{ schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                {% if schedule.endTime is defined %}
+                                                                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.TO'|trans }} {{ schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                {% endif %}
+
+                                                                {# coordination #}
+                                                                {% if currentday.schedules[loop.index0 + 1] is defined and currentday.schedules[loop.index0 + 1].startTime is defined %}
+                                                                    {{ 'GLOBAL.AND'|trans }}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                </span>
+                                            {% endif %}
+                                        </span>
+
+                                    {% elseif period._isOneDay is defined and period._isOneDay %}
+                                       	<span period-parser-disabled
+                                              type="bloc"
+                                              oneday="true"
+                                              start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                              end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+
+                                        	<span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
+                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            {% if formated_object.openingPeriods.hasHours %}
+                                                <span class="opening-hours">
+                                                    {% set displayComa = false %}
+                                                    {% for currentday in period._formated_days %}
+                                                        {% if displayComa|default and not currentday.closure|default %},{% set displayComa = false %}{% endif %}
+                                                        {% if currentday.schedules|default and not currentday.closure|default %}{% set displayComa = true %}{% endif %}
+
+                                                        {% for schedule in currentday.schedules|default %}
+                                                            {% if schedule.startTime is defined %}
+                                                                {# fisrt time range #}
+                                                                {% if schedule.endTime is not defined and currentday.schedules[loop.index0 + 1].endTime is not defined %}
+                                                                    {{ 'GLOBAL.AT'|trans }}
+                                                                {% elseif schedule.endTime is not defined
+                                                                    and currentday.schedules[loop.index0 + 1] is defined and currentday.schedules[loop.index0 + 1].startTime is defined %}
+                                                                    {{ 'GLOBAL.AT'|trans }}
+                                                                {% else %}
+                                                                    {{ 'GLOBAL.FROM'|trans }}
+                                                                {% endif %}
+                                                                {{ schedule.startTime|localizeddate('none', 'short', lang) }}
+                                                                {% if schedule.endTime is defined %}
+                                                                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.TO'|trans }} {{ schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                {% endif %}
+
+                                                                {# coordination #}
+                                                                {% if currentday.schedules[loop.index0 + 1] is defined and currentday.schedules[loop.index0 + 1].startTime is defined %}
+                                                                    {{ 'GLOBAL.AND'|trans }}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                </span>
+    										{% endif %}
+                                        </span>
+
+                                    {% else %}
+                                    	<span period-parser-disabled type="bloc"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+                                        	<span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans}}</span>
+                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        	<span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
+                                            <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                    	</span>
+
+                                        {% include TWIG.OPENING_HOURS__DAYS_IN_CLEAR %}
+
+                                    {% endif %}
+
+                                    {% if period._description|default %}
+                                        <div class="period-description epsilon text-muted">* {{ period._description }}</div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            {% if formated_object.openingPeriods.periods|length > 10 %}
+                                <label id="load-more-btn" for="period-load-more">
+                                    <span class="unloaded">
+                                        <!-- <div class="arrows"></div> -->
+                                        {{ 'SECTIONS.TOURISM.SHEET.AGENDA.SEE_ALL_DATES'|trans|default('.Tout afficher') }} ({{formated_object.openingPeriods.periods|length}})</span>
+                                        <span class="loaded">{{ 'LIST.SEE_LESS'|trans|default('.Afficher moins') }}</span>
+                                </label>
+                            {% endif %}
+                            {% if formated_object.openingPeriods.description|default %}
+                                <li class="plo-flag period-description">
+                                    <span class="epsilon text-muted">* {{ formated_object.openingPeriods.description }}</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            </div>
+
+            {# if any period has days defined #}
+        {% else %}
+
+            {# Display periods  #}
+            <div class="sheet-tab-nav">
+
+                {# NAV MOBILE #}
+                <div class="sheet-tab-nav-mobile">
+                    <div class="form-wrapper">
+                        <select dynamictabselect class="form-control">
+                            {% for period in formated_object.openingPeriods.periods %}
+
+                                {% if period._isAllYear is defined and period._isAllYear %}
+                                    <option dynamictab ng-click="click()"
+                                            tab-target="#period-tab{{loop.index}}"
+                                            {% if loop.first %} selected {% endif %}
+                                            period-parser type="select"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+
+                                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}}
+                                            {% if 'now'|date('Y') < period.startDate|date('Y') or 'now'|date('Y') > period.endDate|date('Y') %}
+                                                {{ period.endDate | date ('Y') }}
+                                            {% endif %}
+                                    </option>>
+
+
+                                {% elseif period._isOneDay is defined and period._isOneDay %}
+                                    <option dynamictab ng-click="click()"
+                                            tab-target="#period-tab{{loop.index}}"
+                                            {% if loop.first %} selected {% endif %}
+                                            period-parser type="select" oneday="true"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+
+                                            <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
+                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                    </option>
+
+
+                                {% else %}
+                                    <option dynamictab ng-click="click()"
+                                            tab-target="#period-tab{{loop.index}}"
+                                            {% if loop.first %} selected {% endif %}
+                                            period-parser type="select"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+
+                                                <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans}}</span>
+                                                <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                                <br />
+                                                <span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
+                                                <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                    </option>
+                                {% endif %}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+                        <span class="icon icon-font-nav-full-next"></span>
+                    </div>
+                </div>
+
+                {# NAV DESKTOP #}
+                <div class="sheet-tab-nav-desktop">
+                    <ul class="plo-tabs-nav">
+                        {% for period in formated_object.openingPeriods.periods %}
+                            <li dynamictab
+                                ng-click="click()"
+                                tab-target="#period-tab{{loop.index}}"
+                                class="period media media-stretch {% if loop.first %} active {% endif %}">
+
+                                {# Leftside Field : date period #}
+                                <span class="media-body media-middle">
+                                    {% if period._isAllYear is defined and period._isAllYear %}
+                                        <span period-parser type="tab"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+                                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}}
+                                            {% if 'now'|date('Y') < period.startDate|date('Y') or 'now'|date('Y') > period.endDate|date('Y') %}
+                                                {{ period.endDate | date ('Y') }}
+                                            {% endif %}
+                                        </span>
+                                    {% elseif period._isOneDay is defined and period._isOneDay %}
+                                        <span period-parser
+                                              type="tab"
+                                              oneday="true"
+                                              start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                              end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+
+                                            <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
+                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        </span>
+                                    {% else %}
+                                        <span period-parser type="tab"
+                                            start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
+                                            end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
+                                            <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans}}</span>
+                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            <br />
+                                            <span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
+                                            <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        </span>
+                                    {% endif %}
+                                </span>
+
+                                {# arrow icon if many periods #}
+                                {# {% if formated_object.openingPeriods.periods | length > 1 %} #}
+                                <span class="media-right media-middle"><span class="icon-font-nav-next plo-tabs-nav__item__icon"></span></span>
+                                {# {% endif %} #}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sheet-tab-panes" sticky-periods>
+                {# Display Periods opening hours matching current loop Period #}
+                {% for period in formated_object.openingPeriods.periods %}
+                    <ul id="period-tab{{loop.index}}" class="{% if loop.first %}tab-active{% endif %}">
+						{# if period has only closure hours #}
+                    	{% if period._onlyClosedHours is defined %}
+                    		<li class="plo-tabs-panes__pane plo-flag plo-flag--rev plo-stand text-center">
+                                {# Display closures in a sentence #}
+                                {{ 'SECTIONS.TOURISM.SHEET.PERIODS.CLOSED' | trans}}
+                                {%- for currentday in period._formated_days -%}
+                                	{# ponctuation #}
+                                	{%- if not loop.index0 == 0 and not loop.last -%},{%- endif -%}
+                                	{% if loop.last %}&nbsp;{{ 'GLOBAL.AND' |trans }}{% endif %}
+                                	{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' |trans |lower }}
+                                	{% if thesaurus.fulldictionary[currentday.day] is defined %}
+                                		{{ thesaurus.fulldictionary[currentday.day]| lower -}}
+                            		{%- else -%} {# this is an error case #}
+                            			{{ currentday.day }}
+                                	{%- endif -%}
+                                	{# Ponctuation #}
+                                	{%- if loop.last -%}.{%- endif -%}
+                                {% endfor %}
+                            </li>
+                        {# if period has days #}
+                        {% elseif period._formated_days is defined %}
+
+                            {% for currentday in period._formated_days %}
+                                {# if one day period #}
+                                {% if period._isOneDay %}
+                                    {% if period._day == currentday.day %}
+                                        <li class="plo-flag">
+                                            <div class="container-fluid">
+                                                <div class="row">
+
+                                                    <div class="col-xs-4 text-left _plu-emphasis--default">
+                                                        {# if one day period #}
+                                                        {% if period._isOneDay %}
+                                                            {{ thesaurus.fulldictionary[period._day] }}
+                                                        {% endif %}
+                                                    </div>
+
+                                                    {# if schedules are defined,not empty && day is not closure day #}
+                                                    {% if currentday.schedules is defined and currentday.schedules is not empty and currentday.closure is not defined %}
+
+                                                        {% for schedule in currentday.schedules|default %}
+
+                                                            {% if not loop.first and loop.index0 % 2 == 0 %}<div class="col-xs-4"></div>{% endif %}
+
+                                                            <div class="col-xs-4 text-center {# col-contrast #}">
+                                                                {% if schedule.startTime is defined %}
+                                                                    {# case: if only one starttime specified #}
+                                                                    {% if schedule.endTime is not defined
+                                                                    and currentday.schedules[loop.index0 + 1] is not defined %}
+                                                                        {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                    {% elseif schedule.endTime is not defined
+                                                                    and currentday.schedules[loop.index0 + 1].endTime is not defined %}
+                                                                        {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                    {% else %}
+                                                                        {{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                                {% if schedule.endTime is defined %}
+                                                                    {# if no second schedules #}
+                                                                    {# {% if (loop.index0 + 1) < 2 and currentday.schedules[loop.index0 + 1] is not defined %}
+                                                                        </div>
+                                                                        <div class="col-xs-4 text-center">
+                                                                        {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                    {% else %} #}
+                                                                        {% if schedule.startTime|default %}-{% endif %}
+                                                                        {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                    {# {% endif %} #}
+                                                                {% endif %}
+                                                            </div>
+                                                        {% endfor %}
+
+                                                        {# if currentday is a closure day #}
+                                                    {% elseif currentday.closure is defined %}
+                                                        <div class="col-xs-4 text-center day--closed">
+                                                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.CLOSED' | trans}}
+                                                        </div>
+                                                        <div class="col-xs-4 text-center">
+                                                            -
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+
+                                {% else %}
+
+                                    {# if many days period #}
+                                    <li class="plo-flag">
+                                        <div class="container-fluid">
+                                            <div class="row">
+
+                                                <div class="col-xs-4 text-left _plu-emphasis--default">
+                                                    {% if thesaurus.fulldictionary[currentday.day] is defined %}
+                                                        {{ thesaurus.fulldictionary[currentday.day] }}
+                                                    {% else %}
+                                                        {{ currentday.day }}
+                                                    {% endif %}
+                                                </div>
+
+                                                {# if schedules are defined,not empty && day is not closure day #}
+                                                {% if currentday.schedules is defined and currentday.schedules is not empty and currentday.closure is not defined %}
+
+                                                    {% for schedule in currentday.schedules|default %}
+
+                                                        {% if not loop.first and loop.index0 % 2 == 0 %}<div class="col-xs-4"></div>{% endif %}
+
+                                                        <div class="col-xs-4 text-center {# col-contrast #}">
+                                                            {% if schedule.startTime is defined %}
+                                                                {# case: if only one starttime specified #}
+                                                                {% if schedule.endTime is not defined
+                                                                and currentday.schedules[loop.index0 + 1] is not defined %}
+                                                                    {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                {% elseif schedule.endTime is not defined
+                                                                and currentday.schedules[loop.index0 + 1].endTime is not defined %}
+                                                                    {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                {% else %}
+                                                                    {{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if schedule.endTime is defined %}
+                                                                {# if no second schedules #}
+                                                                {# {% if (loop.index0 + 1) < 2 and currentday.schedules[loop.index0 + 1] is not defined %}
+                                                                    </div>
+                                                                    <div class="col-xs-4 text-center">
+                                                                    {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                {% else %} #}
+                                                                    {% if schedule.startTime|default %}-{% endif %}
+                                                                    {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                {# {% endif %} #}
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endfor %}
+
+                                                    {# if currentday is a closure day #}
+                                                {% elseif currentday.closure is defined %}
+                                                    <div class="col-xs-4 text-center day--closed">
+                                                        {{ 'SECTIONS.TOURISM.SHEET.PERIODS.CLOSED' | trans}}
+                                                    </div>
+                                                    <div class="col-xs-4 text-center">
+                                                        -
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {# if no days defined for the current period #}
+                        {% else %}
+
+                            <li class="plo-tabs-panes__pane plo-flag plo-flag--rev plo-stand">
+                                {# No hours defined for this period → OPENED #}
+                                {{ 'SECTIONS.TOURISM.SHEET.PERIODS.OPENED' | trans}}
+                            </li>
+
+                        {% endif %}
+
+                		{% if period._description is defined or formated_object.openingPeriods.description is not null %}
+                            <li class="plo-flag period-description">
+                                {% if period._description is defined %}
+    								<span>{{ period._description }}</span>
+                                {% endif %}
+                                {% if formated_object.openingPeriods.description is not null %}
+                                    <span class="epsilon text-muted">* {{ formated_object.openingPeriods.description }}</span>
+                                {% endif %}
+                            </li>
+						{% endif %}
+                    </ul>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
+{% endif %}
+{% if contractsLevels.content.periods and not formated_object.openingPeriods.periods|default and formated_object.openingPeriods.description|default %}
+    <section id="openings" class="panel panel-default row sheet-tab">
+        <div class="panel-body pl-paint-winter">
+            {% embed "@LOCAL/helper/row-item.twig" with {layout: 3.9} %}
+                {% block title %}
+                    {% if object.data.bordereau != 'FMA' %}
+                        {{ 'SECTIONS.TOURISM.SHEET.OPENINGS'|trans }}
+                    {% else %}
+                        {{ 'SECTIONS.TOURISM.SHEET.PERIODS.SCHEDULES'|trans }}
+                    {% endif %}
+                {% endblock %}
+                {% block content %}
+                    <div class="plo-flag period-description">
+                        <span class="epsilon text-muted">{{ formated_object.openingPeriods.description }}</span>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </section>
+{% endif %}

@@ -1,0 +1,328 @@
+.woody-component-teaser .circuit-map {
+    width: 100%;
+    height: 300px;
+
+    .circuit-marker {
+        svg {
+            width: 100%;
+            height: 100%;
+
+            .marker-full {
+                fill: $primary-color;
+            }
+        }
+    }
+
+    .tooltip-marker {
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+
+        position: absolute;
+        width: max-content;
+        background-color: $white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        transition: all .3s;
+        display: none;
+        z-index: -1;
+
+        &.active {
+            display: flex;
+            z-index: 99999;
+        }
+    }
+}
+
+.woody-component-circuit,
+.woody-component-teaser {
+    .circuit-marker {
+        width: 100%;
+        height: 100%;
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        &:before {
+            display: block;
+            position: absolute;
+            left: 9px;
+            top: 7px;
+            line-height: 1em;
+            font-size: 20px;
+            color: $black;
+            font-weight: bold;
+            content: attr(data-step-index);
+            z-index: 1000;
+        }
+
+        .marker-full {
+            fill: $primary-color;
+        }
+
+        &[data-step-index="first"] {
+            @include wicon(a01-depart);
+
+        }
+
+        &[data-step-index="last"] {
+            @include wicon(a02-arrivee);
+        }
+    }
+
+    .minimaps {
+        .circuit-marker:before {
+            left: 12px;
+            top: 10px;
+        }
+    }
+}
+
+.woody-component-circuit {
+    .tourtrip-days-list {
+        margin: 0 auto;
+        border: none;
+
+        &.sticky {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            width: $global-width;
+            transform: translateX(-50%);
+            background-color: rgba($white, .95);
+            z-index: 100;
+            box-shadow: 0 0 20px rgba($black, .15);
+
+            .tabs-link {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    .tabs {
+        &-helper {
+            @extend .h5 !optional;
+        }
+
+        &-content {
+            border: none;
+            transition: none;
+        }
+
+        &-panel {
+            padding: 0;
+        }
+
+        &-link {
+            font-size: $circuit-tab-font-size;
+            text-transform: $circuit-tab-text-transform;
+            font-weight: $circuit-tab-font-weight;
+            background-color: $circuit-tab-bgcolor;
+            color: $circuit-tab-color;
+            border: $circuit-tab-border;
+            padding: $circuit-tab-padding;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        &-title {
+            &:not(:nth-last-of-type(1)) {
+                margin-right: $circuit-tab-margin;
+            }
+
+            &.is-active {
+                .tabs-link {
+                    background-color: $circuit-tab-active-bgcolor;
+                    color: $circuit-tab-active-color;
+                    border: $circuit-tab-active-border;
+                }
+            }
+        }
+    }
+
+    .day-map {
+        transition: opacity .3s;
+
+        &.over-top {
+            filter: grayscale(1);
+            opacity: .3;
+        }
+    }
+
+    .day-title {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-width: 75rem;
+        margin: 0 auto;
+        margin-bottom: 15px;
+        padding-right: 0.9375rem;
+        padding-left: 0.9375rem;
+
+        h4 {
+            color: $secondary-color;
+            font-weight: normal;
+        }
+    }
+
+    .circuit-step {
+        .step-index-wrapper {
+            font-weight: $circuit-step-index-font-weight;
+        }
+
+        .step-index {
+            color: $circuit-step-index-color;
+            font-size: rem-calc($circuit-step-index-font-size);
+            line-height: 1em;
+        }
+
+        .step-label {
+            color: $circuit-step-label-color;
+            font-size: rem-calc($circuit-step-label-font-size);
+            text-transform: uppercase;
+        }
+    }
+
+    .minimap-wrapper,
+    .day-minimap {
+        transform: translateX(100%);
+        opacity: 0;
+        transition: transform .4s ease-in, opacity .3s;
+        transform-origin: center right;
+
+        &.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .day-minimap {
+
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        .leaflet-control-container {
+            display: none;
+        }
+
+        .leaflet-marker-icon {
+            height: 50px !important;
+            width: 30px !important;
+            margin-top: -45px !important;
+            margin-left: -15px !important;
+
+            .circuit-marker {
+                &:before {
+                    font-size: rem-calc(15);
+                    transform: translateX(-5px);
+                }
+            }
+        }
+
+        .circuit-marker {
+            transform-origin: center bottom;
+            transform: scale(.5);
+            transition: transform .3s;
+
+            &:before {
+                color: $medium-gray;
+                transition: color .3s;
+            }
+
+            .marker-full {
+                fill: $medium-gray;
+                transition: fill .3s;
+            }
+
+            &.is-active {
+                transform: scale(1);
+
+                &:before {
+                    color: $black;
+                }
+
+                .marker-full {
+                    fill: $primary-color;
+                }
+            }
+        }
+    }
+
+    .minimap-wrapper {
+        position: fixed;
+        bottom: 30px;
+        right: 0;
+        width: 300px;
+        height: 200px;
+        z-index: 1000;
+        box-shadow: 0 0 20px rgba($black, .15);
+
+        .step-index {
+            background-color: $circuit-stp-indx-bgcolor;
+            color: $circuit-stp-indx-color;
+            padding: 10px 25px;
+            line-height: 1em;
+            right: 15px;
+            top: -10px;
+        }
+    }
+
+
+
+    // TODO: Retirer les lignes commentées si modif du comportement des tabs validé par le client
+    // .day-select-switcher {
+    //     bottom: 100%;
+    //     right: 0;
+    //     background-color: $circuit-slct-swtchr-bgcolor;
+    //     color: $circuit-slct-swtchr-color;
+    //     text-transform: uppercase;
+    //     border: 1px solid $circuit-slct-swtchr-color;
+    //     display: flex;
+    //     align-items: center;
+    //     padding: 5px;
+    //     line-height: 1em;
+
+    //     &:after {
+    //         content: '';
+    //         display: block;
+    //         width: 0;
+    //         height: 0;
+    //         border-style: solid;
+    //         border-width: 8px 6px 0 6px;
+    //         border-color: rgba($circuit-slct-swtchr-color, .4) transparent transparent transparent;
+    //         margin-left: 8px;
+    //     }
+    // }
+
+    .day-select-switcher-list {
+        list-style-type: none;
+        margin: 0;
+    }
+
+    .day-select-switcher-link {
+        color: $circuit-slct-swtchr-color;
+        text-transform: uppercase;
+        display: block;
+        padding: 10px 5px;
+        transition: background-color;
+
+        &:hover {
+            background-color: $light-gray;
+        }
+
+    }
+}
+
+#day-select-switcher {
+    padding: 0;
+    width: 200px;
+}

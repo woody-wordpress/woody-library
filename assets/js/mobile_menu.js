@@ -1,5 +1,9 @@
-import $ from 'jquery';
+if (!document.querySelector('body').classList.contains('menus-v2')) {
+    var menuToggler = document.querySelector('.woody-component-mobile-menu .menuToggler');
 
-$('.woody-component-mobile-menu .menuToggler').click(function() {
-    $('body').toggleClass('mobile-menu-open');
-});
+    if (menuToggler) {
+        menuToggler.addEventListener('click', function () {
+            document.querySelector('body').classList.toggle('mobile-menu-open');
+        });
+    }
+}

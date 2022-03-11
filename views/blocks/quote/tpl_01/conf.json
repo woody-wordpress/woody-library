@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Citation - Template 1",
+    "name": "Template 01 - Photo carré à gauche",
     "description": "Citation avec photo à gauche + texte et auteur à droite (auteur aligné à droite)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b042e516ef62"
     ],

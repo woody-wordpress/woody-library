@@ -1,0 +1,23 @@
+<div class="woody-component-breadcrumb breadcrumb-wrapper padd-all-sm">
+    <ol vocab="https://schema.org/" typeof="BreadcrumbList" class="flex-container align-middle wrap grid-container">
+    {% for item in items %}
+    <li property="itemListElement" typeof="ListItem">
+        {% if loop.last %}
+            <span property="item" typeof="WebPage" itemid="{{ item.url }}">
+        {% else %}
+            <a property="item" typeof="WebPage" href="{{ item.url }}">
+        {% endif %}
+        <span property="name">{{ item.title }}</span>
+        {% if loop.last %}
+            </span>
+        {% else %}
+            </a>
+        {% endif %}
+        <meta property="position" content="{{ loop.index }}">
+    </li>
+    {% if not loop.last %}
+        <span class="wicon wicon-034-fleche-suivant"></span>
+    {% endif %}
+    {% endfor %}
+</ol>
+</div>

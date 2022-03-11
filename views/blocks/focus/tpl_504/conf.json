@@ -1,0 +1,34 @@
+{
+    "approved": true,
+    "name": "Template 504 - Paysage B",
+    "description": "Grille 5 blocs - 5 cartes image et textes (Paysage B + slider au dela de 5)",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b0d1ed32a384",
+        "group_5b2788b48d04c",
+        "group_5d7908eadaa46",
+        "group_5b33890e6fa0b",
+        "field_5d16118093cc1"
+    ],
+    "vars": [
+        "items"
+    ],
+    "display": [{
+        "type": "slider",
+        "length": 5,
+        "infinite": "true",
+        "card_type": "basic",
+        "img_ratio": [
+            "16_9"
+        ],
+        "text_align": "left",
+        "roadbook": false
+    }],
+    "legend": [{
+        "group_5b0d1ed32a384": "Mise en avant manuelle",
+        "group_5b2788b48d04c": "Mise en avant automatique",
+        "group_5d7908eadaa46": "Mise en avant Topics",
+        "group_5b33890e6fa0b": "Mise en avant Fiches SIT",
+        "field_5d16118093cc1": "Mise en avant Composants de séjours"
+    }]
+}

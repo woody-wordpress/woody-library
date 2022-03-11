@@ -1,0 +1,22 @@
+{% spaceless %}
+{% if button.button_type == 'link' and button.link.url|default %}
+    <a class="button {{ button.button_style|default }} {{ button.button_size|default('normal') }} landswpr-link" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}">
+        {% if button.button_woody_icon %}
+            <span class="wicon {{ button.button_woody_icon }}"></span>
+        {% endif %}
+        <span class="title">{{ button.link.title }}</span>
+    </a>
+{% elseif button.button_type == 'file' and button.file.url %}
+    <a class="button button-download {{ button.button_style|default }} {{ button.button_size|default }}" href="{{ button.file.url }}" target="_blank" data-equalize-by-row="">
+        {% if button.button_woody_icon|default %}
+            <span class="wicon {{ button.button_woody_icon }}"></span>
+        {% endif %}
+        {% if button.button_text %}
+            <span class="button-label">{{ button.button_text }}</span>
+        {% endif %}
+        {% if button.file.filesize|default %}
+            <small class="filesize">{{ button.file.filesize|humanize_filesize(0) }}</small>
+        {% endif %}
+    </a>
+{% endif %}
+{% endspaceless %}

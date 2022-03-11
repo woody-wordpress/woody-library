@@ -1,0 +1,13 @@
+<div class="cell small-6 medium-3 img-wrapper" data-equalizer-watch>
+    {% if img is defined %}
+        <a href="{{ link.url ~ '#gallery' }}" class="no-ext" title="{{ title }}" target="{{ link.target }}">
+            {% include '_objects/imageObject.twig' with {
+                'img' : img,
+                'image_style' : 'ratio_square',
+                'hide_caption' : true
+            } %}
+        </a>
+    {% else %}
+        <a href="{{ link.url }}" class="no-ext not-defined" title="{{ title }}" target="{{ link.target }}"></a>
+    {% endif %}
+</div>

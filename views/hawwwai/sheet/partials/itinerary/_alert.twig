@@ -1,0 +1,11 @@
+{# Alert #}
+{% if formated_object.dataItinerary.additionals|default and formated_object.dataItinerary.additionals.alert|default %}
+    <section id="alert" class="panel panel-default row">
+        <ul class="list-group">
+            {% include TWIG.PANEL_ROW with {
+                'rowTitle': 'GLOBAL.WARNING',
+                'rowClass': 'section-alert',
+                'rowContent' : formated_object.dataItinerary.additionals.alert } only %}
+        </ul>
+    </section>
+{% endif %}

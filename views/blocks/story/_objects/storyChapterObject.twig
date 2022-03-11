@@ -1,0 +1,33 @@
+<div class="story-chapter isRel bg-black">
+    <div class="story-chapter-img">
+        {% include '_objects/imageObject.twig' with {
+            'img' : chapter.story_chapter_img,
+            'containerClass' : "storyMediaWrapper",
+            'hide_caption' : true
+        } %}
+    </div>
+    <div class="story-texts padd-all-lg {{ storyTextsClasses|default('topleftbox flex-dir-column') }}">
+        <div class="grid-container padd-all-md">
+            {% if chapter.story_chapter_title %}
+                <span class="story-chapter-title">{{ chapter.story_chapter_title }}</span>
+            {% endif %}
+            {% if chapter.story_chapter_content %}
+                <span class="story-chapter-content">{{ chapter.story_chapter_content }}</span>
+            {% endif %}
+            {% if chapter.story_chapter_audio.audio_files.audio_file_mp3 or chapter.story_chapter_audio.audio_files.audio_file_ogg %}
+                <span class="story-chapter-audio">
+                    {% include 'blocks/audio/tpl_01/tpl.twig' with {
+                        'audio_files' : chapter.story_chapter_audio.audio_files
+                    } %}
+                </span>
+            {% endif %}
+            {% if chapter.story_chapter_button.link or chapter.story_chapter_button.file or chapter.story_chapter_button.link.widget  %}
+                <span class="story-chapter-button">
+                    {% include '_objects/buttonObject.twig' with {
+                        'button' : chapter.story_chapter_button
+                    } %}
+                </span>
+            {% endif %}
+        </div>
+    </div>
+</div>

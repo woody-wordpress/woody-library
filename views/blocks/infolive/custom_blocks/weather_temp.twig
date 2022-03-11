@@ -1,0 +1,8 @@
+<div class="weather-wrapper">
+{% if databloc.data.temp_icon %}
+    <div class="weather-icon wicon flex-container align-center align-middle marg-bottom-sm {{databloc.data.temp_icon}}"></div>
+{% endif %}
+    <div class="weather-temp val">
+        {{databloc.data.temp}}{% if databloc.data.temp is defined %}<small>°</small>{% endif %}
+    </div>
+</div>

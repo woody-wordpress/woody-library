@@ -1,20 +1,34 @@
 {
     "approved": true,
-    "name": "Focus - Template 4 éléments - 02",
-    "description": "Grille 4 blocs - Carte textes sur image (Paysage C + slider au dela de 4)",
+    "name": "Template 402 - Carré",
+    "description": "Grille 4 blocs - Carte textes sur image (Carré + slider au dela de 4)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b0d1ed32a384",
         "group_5b2788b48d04c",
+        "group_5d7908eadaa46",
         "group_5b33890e6fa0b",
         "field_5d16118093cc1"
     ],
     "vars": [
         "items"
     ],
-    "items_count": [
-        {
-            "fitted_for": 4,
-            "accepts_max": 12
-        }
-    ]
+    "display": [{
+        "type": "slider",
+        "length": 4,
+        "infinite": "true",
+        "card_type": "overlay",
+        "img_ratio": [
+            "square"
+        ],
+        "text_align": "bottomcenter",
+        "roadbook": false
+    }],
+    "legend": [{
+        "group_5b0d1ed32a384": "Mise en avant manuelle",
+        "group_5b2788b48d04c": "Mise en avant automatique",
+        "group_5d7908eadaa46": "Mise en avant Topics",
+        "group_5b33890e6fa0b": "Mise en avant Fiches SIT",
+        "field_5d16118093cc1": "Mise en avant Composants de séjours"
+    }]
 }

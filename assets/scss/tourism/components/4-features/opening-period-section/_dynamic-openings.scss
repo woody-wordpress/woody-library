@@ -3,7 +3,9 @@
  */
 
 .dynamic-opening-periods {
-    cursor: pointer;
+    &[anchor-link] {
+        cursor: pointer;
+    }
 
     span {
         display: block;
@@ -67,7 +69,7 @@
             margin-right: $vr--small;
             vertical-align: middle;
 
-            animation-duration: 1.2s;
+            animation-duration: 5s;
             animation-name: changeradius;
             animation-iteration-count: infinite;
         }
@@ -75,12 +77,12 @@
 }
 
 @keyframes changeradius {
-
     from,
+    30%,
+    70%,
     to {
         box-shadow: 0 0 0px 0px;
     }
-
     50% {
         box-shadow: 0 0 3px 3px;
     }

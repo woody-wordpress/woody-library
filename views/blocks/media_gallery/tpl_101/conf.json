@@ -1,7 +1,8 @@
 {
     "approved": true,
-    "name": "Grille 1 colonne - 100% (image carrée)",
+    "name": "Template 101 - Carré",
     "description": "Grille 1 colonne 100% de large (image carrée)",
+    "lib_type": "lite",
     "acf_groups": [
         "group_5b04314e0ec21"
     ],
@@ -19,5 +20,14 @@
         "gallery_no_padding",
         "gallery_items",
         "gallery_link"
-    ]
+    ],
+    "display": [{
+        "type": "slider",
+        "length": 1,
+        "infinite": "true",
+        "img_ratio": [
+            "square"
+        ],
+        "roadbook": true
+    }]
 }

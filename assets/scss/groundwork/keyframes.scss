@@ -38,3 +38,35 @@
         opacity: 0;
     }
 }
+
+@keyframes customPaginationLoader {
+    0% {
+        transform: scaleX(0);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes littleExpansion {
+    0% {
+        transform: scale(.8);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes fadeInSubmenu {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

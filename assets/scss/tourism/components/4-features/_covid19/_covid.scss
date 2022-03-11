@@ -1,0 +1,69 @@
+#openings {
+    .dynamic-opening-periods {
+        padding: 15px;
+    }
+}
+
+#li-c19-infos {
+    img:not(:last-child) {
+        margin-bottom: 10px;
+    }
+    .covidinfo-title {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .covidinfo-item {
+        padding: 10px 30px;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 4px;
+        color: white;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+    .covidcharterstatus {
+        background-color: #2d6c99;
+    }
+    .covidservice {
+        background-color: #e1a600;
+    }
+}
+
+#c19-description {
+    background-color: #fff9ef;
+    border: 2px solid #f9e3c1;
+    padding: 20px;
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    .load-more-btn {
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: underline;
+        font-weight: normal;
+        margin-left: 5px;
+    }
+
+    #covid-description-load-more  ~ .establishment-description,
+    .load-more-btn > .checked {
+        display: none;
+    }
+
+    #covid-description-load-more:checked {
+        & ~ .establishment-light-description,
+        & ~ .load-more-btn > .unchecked {
+            display: none;
+        }
+
+        & ~ .load-more-btn > .checked,
+        & ~ .establishment-description {
+            display: block;
+        }
+    }
+}

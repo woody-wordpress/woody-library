@@ -1,18 +1,50 @@
 .woody-component-favorites-block {
     a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: relative;
         padding-right: 4px;
         color: $favorites-icon-color;
-        display: block;
-        .wicon{
+
+        >div {
+            position: relative;
+        }
+
+        @if $favorites-block-title-position==top {
+            flex-direction: column;
+        }
+
+        @if $favorites-block-title-position==right {
+            flex-direction: row-reverse;
+        }
+
+        @if $favorites-block-title-position==bottom {
+            flex-direction: column-reverse;
+        }
+
+        @if $favorites-block-title-position==left {
+            flex-direction: row;
+        }
+
+        .wicon {
             display: block;
         }
+
         &:hover {
             color: $favorites-icon-color;
 
             .counter {
                 background-color: $favorites-counter-color-hover;
             }
+        }
+    }
+
+    .favorites-title {
+        font-size: $small-font-size;
+
+        @include breakpoint(large down) {
+            display: none;
         }
     }
 
@@ -24,7 +56,7 @@
         position: absolute;
         width: 16px;
         height: 16px;
-        right: 0;
+        left: 50%;
         bottom: 5px;
         text-align: center;
         font-size: rem-calc(11);
@@ -46,12 +78,13 @@
     width: 40px;
     height: 40px;
     color: $white;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, .4);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color .3s, transform .3s;
-    &:hover{
+
+    &:hover {
         transform: translateY(-2px);
     }
 
@@ -69,8 +102,89 @@
     }
 }
 
-#visited-section {
+.visited-section {
     .addFavorites {
         right: 41px;
+    }
+}
+
+.win-print {
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    z-index: 1;
+
+    .wicon {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $primary-color;
+        color: set-color($primary-color);
+        transition: margin .3s ease-in-out;
+    }
+
+    small {
+        padding: 0 8px;
+    }
+
+    &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        right: 5px;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50px;
+        background-color: $light-gray;
+        transform: scaleX(0);
+        transform-origin: center right;
+        z-index: -1;
+        transition: transform .3s ease-in-out;
+    }
+
+    &:hover {
+        &:after {
+            transform: scale(1);
+        }
+
+        .wicon {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+}
+
+.favorites-section {
+    .splitCard {
+        border: 1px solid $light-gray;
+
+        .card {
+            &-section {
+                position: static;
+            }
+
+            &-type,
+            &-town {
+                position: static;
+            }
+
+            &-type {
+                color: $secondary-color;
+            }
+
+            &-tripInfos-wrapper {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    }
+
+    .card-bookable {
+        left: 5px;
+        right: auto;
     }
 }

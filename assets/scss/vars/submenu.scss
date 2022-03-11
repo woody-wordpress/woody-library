@@ -1,0 +1,69 @@
+// Global
+$menu-global-transition: 0.3s ease-in-out !default;
+
+// Header
+$header-transition: $menu-global-transition !default;
+
+// Logo
+$brand-logo-height: 75px !default;
+$brand-logo-padding: 10px !default;
+$brand-logo-transition: $menu-global-transition !default;
+
+// Menu item link
+$menu-item-link-color: $black !default;
+$menu-item-link-font-family: $body-font-family !default;
+$menu-item-link-font-size: rem-calc(16) !default;
+$menu-item-link-font-weight: $global-weight-bold !default;
+$menu-item-link-text-transform: uppercase !default;
+$menu-item-link-letter-spacing: 1px !default;
+$menu-item-link-padding: $global-menu-padding !default;
+
+// Menu burger button
+$menu-burger-position: left !default;
+$menu-burger-offset: 0 !default;
+$menu-burger-padding: 0 30px !default;
+$menu-burger-transition: $menu-global-transition !default;
+$menu-burger-title-font-size: 12px !default;
+$menu-burger-title-font-weight: $global-weight-normal !default;
+$menu-burger-title-text-transform: uppercase !default;
+$menu-burger-title-letter-spacing: 1px !default;
+$menu-burger-title-color: $black !default;
+$menu-burger-title-transition: $menu-global-transition !default;
+
+// Menu burger button bars
+$menu-burger-bars-wrapper-height: 22px !default;
+$menu-burger-bars-wrapper-width: 38px !default;
+$menu-burger-bars-bgcolor: $menu-burger-title-color !default;
+$menu-burger-bars-height: 2px !default;
+$menu-burger-bars-width: 100% !default;
+$menu-burger-bars-top-width: $menu-burger-bars-width !default;
+$menu-burger-bars-middle-width: $menu-burger-bars-width !default;
+$menu-burger-bars-bottom-width: $menu-burger-bars-width !default;
+$menu-burger-bars-animation: true !default;
+$menu-burger-bars-transition: $menu-global-transition !default;
+
+// Sliding menu
+$sliding-menu-position: $menu-burger-position !default;
+$sliding-menu-bgcolor: $white !default;
+$sliding-menu-padding: 30px !default;
+$sliding-menu-transition: 1.25s cubic-bezier(.19, 1, .22, 1) !default;
+$sliding-menu-item-justify-content: flex-start !default;
+$sliding-menu-item-transition: $menu-global-transition !default;
+
+// Submenus
+$submenu-bgcolor: $white !default;
+$submenu-grid-gap: 30px !default;
+$submenu-grid-padding: $submenu-grid-gap !default;
+$grid-max-width: 1600px !default;
+$submenus-global-transition: 0.25s ease-in-out !default;
+$submenu-grid-full-width: true !default;
+$submenu-animation: 1s ease both fadeInSubmenu !default;
+$submenu-animation-delay: true !default;
+$submenu-animation-interval-time: 0.08s !default;
+$submenu-animation-delay-time: $submenu-animation-interval-time !default;
+$submenu-wrapper-transition: $sliding-menu-transition !default;
+
+// Menu open
+$menu-item-link-color-open: $menu-item-link-color !default;
+$menu-burger-bgcolor-open: transparent !default;
+$menu-burger-color-open: $black !default;

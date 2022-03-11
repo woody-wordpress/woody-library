@@ -3,6 +3,10 @@
     font-weight: $nav-item-image-font-weight;
     font-size: $nav-item-image-font;
 
+    .imageObject-caption {
+        display: none;
+    }
+
     &:hover,
     &:focus {
         color: $white;

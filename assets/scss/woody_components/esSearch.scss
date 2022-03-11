@@ -98,6 +98,7 @@
         padding: 8px;
         color: $esSearchBlock-link-color;
         font-size: $esSearchBlock-link-size;
+        cursor: pointer;
 
         &:hover {
             color: $esSearchBlock-link-hover;
@@ -118,9 +119,9 @@
     width: 100vw;
     max-width: none;
 
-    .block-form-wrapper {
-        height: 100vh;
-    }
+    // .block-form-wrapper {
+    //     height: 100vh;
+    // }
 
     .woody-esForm {
         width: 100%;
@@ -183,6 +184,9 @@
 
     .close-button {
         color: rgba($esSearchBlock-button-bgcolor, .8);
+        display: flex;
+        align-items: center;
+        transition: 0.25s ease-in-out;
 
         &:hover {
             color: $esSearchBlock-button-bgcolor;
