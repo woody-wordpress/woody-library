@@ -1,0 +1,51 @@
+.autoTool {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    border-radius: 100%;
+    align-items: center;
+    transition: 0.3s;
+    order: 6;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      position: absolute;
+    }
+
+    &:hover {
+      background-color: rgba($primary-color, 0.25);
+      transform: scale(0.80);
+    }
+}
+
+.autoplayBar {
+    width: 100%;
+    height: 5px;
+    background-color: #151515;
+    display: flex;
+    align-items: center;
+
+    &::after {
+      height: 100%;
+      width: 0;
+      display: block;
+      background-color: $primary-color;
+      content: '';
+      animation: time 5.3s ease-out infinite;
+    }
+
+    @keyframes time {
+      0%{
+        width: 0;
+      }
+      100%{
+        width: 100%;
+      }
+    }
+  }

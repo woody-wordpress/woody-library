@@ -1,0 +1,150 @@
+@import './tools/_index';
+
+.wgGallery {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #101010;
+    z-index: 100000;
+    transition: 0.3s;
+    overflow: hidden;
+
+    section {
+        gap: 0;
+    }
+
+    .wgContent {
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .swiper {
+        width: 100%;
+        height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+
+        &-button-next, &-button-prev {
+            top: 45%;
+            background-color: rgba(black, 0.5);
+            background-size: 50% 50%;
+            padding: 20px;
+        }
+
+        &-button-prev {
+            left: 25px;
+        }
+
+        &-button-next {
+            right: 25px;
+        }
+
+        .wg-swiper-slide {
+            background-size: 40% auto;
+            transition: 0.3s;
+
+            @include breakpoint(large) {
+                background-size: 55% auto;
+            }
+        }
+
+        .wg-slide-iframe {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            >div {
+                width: calc(100% * 0.5265);
+                height: 20%;
+                transition: 0.3s;
+
+                >iframe {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                @media screen and (min-width: 500px){
+                    height: 40%;
+                }
+
+                @media screen and (min-width: 724px){
+                    height: 60%;
+                }
+
+                @media screen and (min-width: 1250px){
+                    width: calc(100% * 0.5265);
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .wg-swiper-thumbnails {
+        height: 100px;
+        background-color: #151515;
+        position: absolute;
+        bottom: 50px;
+        padding-left: 50px;
+        padding-right: 50px;
+        transition: 0.3s;
+
+        .wg-swiper-wrapper {
+            align-items: center;
+        }
+
+        .wg-swiper-slide {
+            margin: 0 5px;
+            cursor: pointer;
+            opacity: 0.25;
+            border-radius: $global-radius;
+            height: 60px;
+            width: 80px !important;
+            background-size: cover;
+            background-position: center;
+            transition: 0.3s;
+        }
+
+        .swiper-slide-thumb-active {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: 0.3s;
+
+            &::before {
+                width: 100%;
+                height: 100%;
+                content: '';
+                display: block;
+                position: absolute;
+                border: 2px solid rgba($primary-color, 0.75);
+                border-radius: $global-radius;
+            }
+        }
+    }
+
+    .wg-swiper-top {
+        height: 100%;
+        width: 100%;
+        transition: 0.3s;
+        position: relative;
+        padding-bottom: 150px;
+
+        .swiper-slide-active {
+            transition: 0.3s;
+        }
+    }
+
+    .wg-swiper-slide {
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

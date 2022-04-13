@@ -45,6 +45,7 @@
 
     .submenu-wrapper {
         background: $submenu-bgcolor;
+        border-radius: $submenu-border-radius;
         will-change: transform;
         transition: $submenu-wrapper-transition;
 

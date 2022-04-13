@@ -225,8 +225,8 @@
     &.tpl_401 {
         .splitCard {
             @include breakpoint(xmedium down) {
-                padding-left: 40px;
-                padding-right: 40px;
+                margin-left: map-get($grid-column-gutter, medium);
+                margin-right: map-get($grid-column-gutter, medium);
             }
         }
     }
@@ -804,6 +804,40 @@
         .leaflet-container {
             @include breakpoint(xmedium down) {
                 margin-bottom: 25px;
+            }
+        }
+
+        .focus-map-pane {
+            .map-pane-button {
+                @include breakpoint(large) {
+                    top: unset;
+                    transform: unset;
+                    bottom: 10px;
+                }
+            }
+        }
+
+        >.grid-x {
+            &:not(.flex-dir-row-reverse) {
+                .focus-map-pane {
+                    .map-pane-button-prev {
+                        @include breakpoint(large) {
+                            left: unset;
+                            right: 60px;
+                        }
+                    }
+                }
+            }
+
+            &.flex-dir-row-reverse {
+                .focus-map-pane {
+                    .map-pane-button-next {
+                        @include breakpoint(large) {
+                            right: unset;
+                            left: 60px;
+                        }
+                    }
+                }
             }
         }
     }

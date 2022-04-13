@@ -88,12 +88,12 @@
             <meta itemprop="datePublished" content="{{ img.date }}">
         {% endif %}
         {% if img.description %}
-            <span class="hide imageObject-description" itemprop="description">{{ img.description }}</span>
+            <span class="hide imageObject-description" itemprop="description" data-nosnippet>{{ img.description }}</span>
         {% endif %}
 
         {% block imageCaption %}
             {% if img.caption|default or img.attachment_more_data.author|default %}
-                <div class="imageObject-caption flex-container align-middle isAbs {{ img_caption_position|default('bottom left') }}" {% if hide_caption == true %} style="display:none"{% endif %}>
+                <div class="imageObject-caption flex-container align-middle isAbs {{ img_caption_position|default('bottom left') }}" {% if hide_caption == true %} style="display:none"{% endif %} data-nosnippet>
                     {% if img.attachment_more_data.is_instagram %}
                         <span class="imageObject-icon wicon wicon-011-instagram flex-container align-center align-middle"></span>
                     {% else %}

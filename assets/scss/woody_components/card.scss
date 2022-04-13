@@ -176,6 +176,7 @@
             justify-content: space-between;
             align-items: flex-start;
             background-color: $nobg-cardsection-bgcolor;
+            border-radius: 0 0 $card-border-radius $card-border-radius;
 
             &.text-center {
                 align-items: center;
@@ -209,12 +210,40 @@
                 color: $cardsection-color;
                 background-color: $cardsection-bgcolor;
             }
+
+            @include breakpoint(xmedium down){
+                border-radius: 0 0 $card-border-radius $card-border-radius;
+            }
         }
 
         @include breakpoint(xmedium down) {
             .grid-x {
                 &>.cell:not(.card-section) {
                     padding: 0 !important;
+                }
+            }
+
+            .cardMediaWrapper {
+                border-radius: $card-border-radius $card-border-radius 0 0;
+            }
+        }
+
+        @include breakpoint(large){
+            &.media-left{
+                .card-section{
+                    border-radius: 0 $card-border-radius $card-border-radius 0;
+                }
+                .cardMediaWrapper {
+                    border-radius: $card-border-radius 0 0 $card-border-radius;
+                }
+            }
+
+            &.media-right{
+                .card-section{
+                    border-radius: $card-border-radius 0 0 $card-border-radius;
+                }
+                .cardMediaWrapper {
+                    border-radius: 0 $card-border-radius $card-border-radius 0;
                 }
             }
         }
@@ -595,9 +624,13 @@
 
         .profile {
 
-
+            &-nationality,
+            &-birth,
             &-contacts {
                 font-size: rem-calc(14);
+            }
+
+            &-contacts {
 
                 .profile-address {
                     width: 100%;

@@ -1,0 +1,12 @@
+& {
+    @include breakpoint(xmedium down) {
+        height: $summary-accordion-height;
+        padding: $summary-accordion-padding !important;
+        overflow: hidden;
+
+        &.open {
+            height: inherit;
+            overflow: inherit;
+        }
+    }
+}

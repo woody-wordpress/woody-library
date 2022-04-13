@@ -59,8 +59,7 @@
         height: 30px;
         position: absolute;
         border-radius: 50%;
-        border:3px solid $white;
-        box-shadow: 2px 2px 8px 2px rgba($black, .5);
+        background-color: rgba($primary-color, 0.75);
         box-sizing: border-box;
         top:10px;
         right:10px;
@@ -109,6 +108,7 @@
         transform:scaleX(1) scaleY(1);
     }
 }
+
 
 .mediaCard:not([lightbox="0"]) {
     cursor: pointer;

@@ -8,7 +8,8 @@
                             {% include '_objects/imageObject.twig' with {
                                 'img' : slide.landswpr_slide_media.landswpr_slide_img,
                                 'image_style' : customImageStyle|default('ratio_16_9'),
-                                'containerClass' : "landswprMediaWrapper"
+                                'containerClass' : "landswprMediaWrapper",
+                                'hide_caption' : true
                             } %}
                         {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'movie' and slide.landswpr_slide_media.landswpr_slide_movie %}
                                 {% include '_objects/videoObject.twig' with {

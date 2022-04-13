@@ -6,6 +6,9 @@ $snowflake--slope-red: #EB4F4A !default;
 $snowflake--slope-black: #131313 !default;
 
 .woody-component-snowflake{
+    .flex-grow {
+        flex-grow: 1;
+    }
     .weather-wrapper{
         .swiper-pagination{
             bottom:0;

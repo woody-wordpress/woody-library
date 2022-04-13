@@ -325,6 +325,18 @@ $screen-size in $breakpoints {
     }
 }
 
+.justify-items-left {
+    justify-items: flex-start;
+}
+
+.justify-items-center {
+    justify-items: center;
+}
+
+.justify-items-right {
+    justify-items: flex-end;
+}
+
 /*********************
 **     Bordering    **
 *********************/

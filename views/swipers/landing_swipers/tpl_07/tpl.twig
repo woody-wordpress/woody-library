@@ -10,7 +10,8 @@
                                 'img' : slide.landswpr_slide_media.landswpr_slide_img,
                                 'img_mobile_url' : slide.landswpr_slide_media.landswpr_slide_img.sizes.ratio_10_16_medium,
                                 'image_style' : customImageStyle|default('ratio_4_3'),
-                                'containerClass' : "landswprMediaWrapper"
+                                'containerClass' : "landswprMediaWrapper",
+                                'hide_caption' : true
                             } %}
                         {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'movie' and slide.landswpr_slide_media.landswpr_slide_movie %}
                             {% include '_objects/videoObject.twig' with {

@@ -11,15 +11,26 @@
                 }
 
                 .swiper-slide {
-                    transition: transform .3s ease, opacity .3s ease;
+                    transition-property: transform, padding, opacity;
+                    transition-duration: .3s, .3s, 0s;
+                    transition-timing-function: ease;
+
+                    .imageObject {
+                        transition: all .3s ease;
+                    }
+                    .card-description {
+                        transition: all .3s ease;
+                        @include root-add('.swiper-slide', ':not(.swiper-slide-active)') {
+                            font-size: $swiper-zoomActive-scale * 1%;
+                        }
+                    }
 
                     &:not(.swiper-slide-active) {
-                        //backface-visibility: hidden; // For some reason it looks better without
-                        transform: $swiper-zoomActive-scale;
+                        padding-top: calc( (100 - #{$swiper-zoomActive-scale}) / 2 * 1% );
+                        padding-bottom: calc( (100 - #{$swiper-zoomActive-scale}) / 2 * 1% );
 
                         .imageObject {
                             transition: filter .3s ease;
-
                             @if $grayScale-zoomActive-swiper {
                                 filter: $swiper-zoomActive-grayscale;
                             }
@@ -28,11 +39,14 @@
 
 
                     &:not(.swiper-slide-visible):not(.swiper-slide-active) {
+                        transition-duration: .3s, .3s, .3s;
                         opacity: 0;
-
                     }
 
                     &.swiper-slide-active {
+                        .imageObject {
+                            height: inherit;
+                        }
                         z-index: 1;
 
                         @if $swiper-zoomActive-shadow {
@@ -105,7 +119,7 @@
         background-color: $swiper-thumbs-bgColor;
         @include wicon($swiper-thumbs-icon, after);
 
-        .imageObject{
+        .imageObject {
             height: 100%;
         }
 
@@ -229,6 +243,16 @@
     }
 }
 
+.wgGallery {
+    .swiper-button-next {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E") !important;
+    }
+
+    .swiper-button-prev {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E") !important;
+    }
+}
+
 .swiper-button-next {
     right: 10px;
 }
@@ -247,6 +271,7 @@
                 right: 30px;
                 transform: translateY(-85px);
             }
+
             &-button-prev,
             &-button-next {
                 left: auto;
@@ -256,6 +281,7 @@
                     color: $black;
                 }
             }
+
             &-button-prev {
                 right: 60px;
             }
@@ -447,12 +473,17 @@
             margin-left: $justifiedSwiperBlankSpace;
             max-width: calc(100vw - #{$justifiedSwiperBlankSpace});
         }
+
+        @include breakpoint(xlarge) {
+            margin-left: calc(#{$justifiedSwiperBlankSpace} - (#{map-get($grid-column-gutter, medium)} / 2));
+        }
     }
+
     .woody-component-tabs.tpl_vertical {
         .swiperJustified {
             @include breakpoint(large) {
                 margin-left: 0;
-                width: calc(100% + #{$justifiedSwiperBlankSpace});
+                width: calc(100% + #{map-get($grid-column-gutter, medium)});
             }
         }
     }
@@ -507,23 +538,48 @@
     }
 }
 
-.section .section-layout-wrapper.grid-container {
-    .swResp {
+// .section .section-layout-wrapper.grid-container {
+//     .swResp {
 
-        @include breakpoint(xmedium down) {
-            @include xy-gutters($negative:true);
+//         @include breakpoint(xmedium down) {
+//             @include xy-gutters($negative:true);
+//         }
+
+//         @include breakpoint(xmedium only) {
+//             width: calc(100% + #{map-get($grid-column-gutter, medium)});
+//         }
+
+//         @include breakpoint(medium down) {
+//             width: calc(100% + #{map-get($grid-column-gutter, small)});
+//         }
+
+//     }
+// }
+
+
+@include breakpoint(xmedium down){
+    .section .section-layout-wrapper{
+        .swResp{
+            width: 100vw;
         }
 
-        @include breakpoint(xmedium only) {
-            width: calc(100% + #{map-get($grid-column-gutter, medium)});
+        &.grid-container{
+            .swResp{
+                margin-left:calc(#{map-get($grid-column-gutter, medium)} * -1);
+            }
         }
 
-        @include breakpoint(medium down) {
-            width: calc(100% + #{map-get($grid-column-gutter, small)});
+        &:not(.grid-container){
+            .grid-padding-x{
+                .swResp{
+                    margin-left: calc(#{map-get($grid-column-gutter, small)} * -0.5);
+                }
+            }
         }
-
     }
 }
+
+
 
 .swiperOut {
     // padding-left: 25px;

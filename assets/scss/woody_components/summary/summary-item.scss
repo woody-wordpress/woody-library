@@ -1,0 +1,36 @@
+.summary-item {
+    @include breakpoint(xmedium down) {
+        order: 1;
+
+        &.active {
+            order: 0;
+
+            @include root('.isFixed', true) {
+                transform: translateY(#{$summary-accordion-transform-item});
+
+                @include root('.open', true) {
+                    transform: none;
+                    order: 1;
+                }
+            }
+        }
+    }
+}
+
+.anchor {
+    display: flex !important;
+
+    @include breakpoint(xmedium down) {
+        padding: 0.75rem 0;
+    }
+
+    &.active,
+    &:hover {
+        .summary-item-index {
+            @if $summary-item-index-reset-style==false {
+                color: $summary-item-color-hover;
+                background-color: $summary-item-bgcolor-hover;
+            }
+        }
+    }
+}

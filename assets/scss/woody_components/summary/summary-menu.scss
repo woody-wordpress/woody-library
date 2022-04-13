@@ -1,0 +1,21 @@
+.menu {
+    @include breakpoint(xmedium down) {
+        flex-direction: column;
+
+        @include root('.open', true) {
+            margin-top: $summary-accordion-open-transform-menu;
+        }
+
+        @include root('.isFixed', true) {
+            margin-top: $summary-accordion-transform-menu;
+
+            @include root('.open', true) {
+                margin-top: $summary-accordion-open-transform-menu;
+            }
+        }
+    }
+
+    .active>a {
+        background: transparent;
+    }
+}

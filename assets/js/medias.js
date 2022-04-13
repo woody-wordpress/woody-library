@@ -134,23 +134,31 @@ class Video {
                         }
                     }
 
-                    self.toggleMovieWrapper.classList.toggle('hidden');
+                    if(toggleMovieSwiper.swiper != null){
+                        toggleMovieSwiper.swiper.autoplay.stop();
+                        toggleMovieSwiper.swiper.allowTouchMove = false;
+                        toggleMovieSwiper.swiper.allowSlideNext = false;
+                        toggleMovieSwiper.swiper.allowSlidePrev = false;
+                    }
+
+                    toggleMovieWrapper.classList.toggle('hidden');
                     self.element.classList.toggle('is-open');
 
-                    if (!!self.swiper){
-                        self.swiper.autoplay.stop();
-                        self.swiper.allowTouchMove = false;
-
-
-
-                        if (self.toggleMovieButton.classList.contains('close-button')) {
-                            self.pause();
-                            self.swiper.autoplay.start();
-                            self.swiper.allowTouchMove = true;
-                        } else {
-                            self.plyr.play();
-                            self.swiper.autoplay.stop();
-                            self.swiper.allowTouchMove = false;
+                    if (toggleMovieButton.classList.contains('close-button')) {
+                        self.pause();
+                        if(toggleMovieSwiper.swiper != null){
+                            toggleMovieSwiper.swiper.autoplay.start();
+                            toggleMovieSwiper.swiper.allowTouchMove = true;
+                            toggleMovieSwiper.swiper.allowSlideNext = true;
+                            toggleMovieSwiper.swiper.allowSlidePrev = true;
+                        }
+                    } else {
+                        self.plyr.play();
+                        if(toggleMovieSwiper.swiper != null){
+                            toggleMovieSwiper.swiper.autoplay.stop();
+                            toggleMovieSwiper.swiper.allowTouchMove = false;
+                            toggleMovieSwiper.swiper.allowSlideNext = false;
+                            toggleMovieSwiper.swiper.allowSlidePrev = false;
                         }
                     }
 

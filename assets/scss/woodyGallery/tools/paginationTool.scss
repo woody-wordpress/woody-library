@@ -1,0 +1,12 @@
+.wgPagination {
+    position: absolute;
+    left: 25px;
+    top: 75px;
+    color: #B0B0B0;
+    margin-bottom: 0;
+    font-family: Arial; // Mettre la primary ou secondary familly
+
+    @media screen and (min-width : 525px) {
+        top: inherit;
+    }
+  }

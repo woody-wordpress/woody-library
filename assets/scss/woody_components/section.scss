@@ -1,5 +1,5 @@
 .section {
-    @include breakpoint(medium down) {
+    @include breakpoint(xmedium down) {
         @include xy-gutters($gutter-type: padding);
 
         .section-layout-wrapper {
@@ -82,7 +82,7 @@
     }
 
     &.grid-small-container {
-        max-width: rem-calc($grid-small-conatiner-size);
+        max-width: rem-calc($grid-small-container-size);
     }
 }
 

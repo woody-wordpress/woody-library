@@ -4,7 +4,7 @@
     <span class="faq-title">{{ title }}</span>
     {% endif %}
     {% if accordion|default %}
-    <ul id="accordion-{{ random_number }}" class="accordion" data-accordion data-allow-all-closed="true" data-accordion data-multi-expand="true">
+    <ul id="accordion-{{ random_number }}" class="accordion" data-accordion data-allow-all-closed="true" data-accordion data-multi-expand="false">
         {% for key, row in accordion %}
         <li class="accordion-item" data-accordion-item itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
             <!-- Accordion tab title -->

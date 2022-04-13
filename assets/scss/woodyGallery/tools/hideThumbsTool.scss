@@ -1,0 +1,73 @@
+.hideThumbnailsTool {
+    position: absolute;
+    right: 25px;
+    top: -50px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    transition: 0.3s;
+    border-radius: 100%;
+    cursor: pointer;
+    align-items: center;
+    z-index: 100;
+    transform: rotate(90deg);
+
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 1px;
+        background-color: white;
+        transform-origin: right;
+    }
+
+    &::before {
+        transform: rotate(45deg);
+    }
+
+    &::after {
+        transform: rotate(-45deg);
+    }
+
+    &:hover {
+        background-color: rgba($primary-color, 0.25);
+        transform: rotate(90deg) scale(0.80);
+    }
+}
+
+.wgGallery .wg-swiper-thumbnails.hideThumbs-on {
+    height: 40px;
+
+    .hideThumbnailsTool {
+        top: -50px;
+        transform: rotate(-90deg);
+
+        &:hover {
+            transform: rotate(-90deg) scale(0.80);
+        }
+    }
+
+    .wg-swiper-wrapper {
+        transform: none !important;
+
+        .wg-swiper-slide {
+            background-image: none !important;
+            background-color: #B0B0B0;
+            height: 15px !important;
+            width: 15px !important;
+            border-radius: $global-radius;
+            opacity: 0.25;
+        }
+
+        .swiper-slide-thumb-active {
+            background-color: $primary-color;
+            opacity: 1;
+
+            &::before {
+                opacity: 0;
+            }
+        }
+    }
+}

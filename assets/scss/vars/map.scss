@@ -14,6 +14,8 @@ $geomap-titles-text-align : center !default;
 // Map pane toggler title
 $marker-pane-title-weight: bold !default;
 $marker-pane-title-size: rem-calc(16) !default;
+$marker-pane-title-width: max-content !default;
+$marker-pane-title-max-width: 200px !default;
 $marker-pane-title-padding: 10px !default;
 $marker-pane-title-radius: 8px !default;
 $marker-pane-title-color: $primary-color !default;

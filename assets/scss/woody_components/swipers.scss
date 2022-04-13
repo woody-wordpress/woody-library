@@ -1,3 +1,15 @@
+.section .woody-component{
+    .swiper-container{
+        margin-top:$card-shadow-spread !important;
+        margin-bottom: $card-shadow-spread !important;
+    }
+
+    .swiper-wrapper{
+        padding-top: $card-shadow-spread !important;
+        padding-bottom: $card-shadow-spread !important;
+    }
+}
+
 .woody-component-basic-swiper {
     width: 100%;
 
@@ -82,6 +94,7 @@
     .toggling-movie-container.embed-plyr {
         .plyr--video {
             opacity: 1;
+            z-index: 1;
         }
 
         .plyr__video-wrapper {

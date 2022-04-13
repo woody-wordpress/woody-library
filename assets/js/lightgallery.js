@@ -22,14 +22,3 @@ if ($('.mediaCard:not([lightbox=0]):not(.mediaCard-duplicate)').length) {
         exThumbImage: 'data-lgthumb'
     });
 }
-
-
-// Prevent the download image option, you can simply prevent right click option on images .
-$('body').on('contextmenu', 'img, .imageObject-img, .lg-image', function(e) {
-    e.preventDefault();
-});
-
-// Prevent drag-drop image to open on new tab
-$('img').on('dragstart', function(e) {
-    e.preventDefault();
-});

@@ -2,6 +2,12 @@
     margin-top: 5px !important;
 }
 
+.single-touristic_sheet.modal-open {
+    .site-content {
+        z-index: 100000;
+    }
+}
+
 .infos-wrapper p {
     @include hw_space_elements;
 }
@@ -57,7 +63,7 @@
     }
 }
 
-.item-infos-extralabels {     
+.item-infos-extralabels {
     margin-bottom: 15px;
 
     &:before {
@@ -72,6 +78,7 @@
 
     .extralabels-logos {
         display: flex;
+
         img {
             display: flex;
             height: 45px;

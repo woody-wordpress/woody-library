@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import WoodyFilter from './filter';
 
 $('.swResp').each(function() {
     var $this = $(this),
@@ -70,6 +71,8 @@ $('.swResp').each(function() {
             }
 
             var options = $.extend(defaultOptions, tabletOptions, thumbsOptions);
+            var responsiveFocusOptions = WoodyFilter.apply('responsive_focus_options', options);
+            options = typeof responsiveFocusOptions === 'undefined' ? options : responsiveFocusOptions;
 
             // New Swiper instance for current element
             var responsive_slider = new Swiper(this, options);

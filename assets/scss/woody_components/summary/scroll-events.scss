@@ -1,0 +1,7 @@
+body.scrolling-up {
+    .woody-component-summary.is-horizontal-summary {
+        &.isFixed {
+            transform: translateY($summary-fixed-position);
+        }
+    }
+}

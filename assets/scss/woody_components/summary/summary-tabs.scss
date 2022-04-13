@@ -1,0 +1,256 @@
+&.summary-tabs {
+    padding: 0 !important;
+
+    @include breakpoint(xmedium down) {
+        .summary-header {
+            top: initial;
+            left: initial;
+            height: $summary-accordion-height;
+            width: 100%;
+        }
+
+        .summary-switcher {
+            pointer-events: none;
+        }
+
+        &.open {
+            .summary-switcher {
+                z-index: 5;
+                pointer-events: inherit;
+            }
+        }
+
+        @include root('.isFixed', true) {
+            .tabs-content {
+                display: block;
+            }
+        }
+    }
+
+    @include breakpoint(large) {
+        border-radius: $summary-border-radius;
+        box-shadow: $summary-box-shadow;
+
+        .summary-header {
+            padding: 30px;
+
+            @include root('.isFixed', true) {
+                padding: 0;
+            }
+        }
+    }
+
+    &.isFixed {
+        z-index: 10000;
+
+        @include breakpoint(large) {
+            top: 50%;
+            left: initial;
+            #{$summary-side-fixed-position}: 10px;
+            transform: translateY(-50%);
+            border-radius: $summary-side-fixed-border-radius;
+            padding: 5px !important;
+            width: initial;
+
+            ul.menu {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .anchor {
+                padding: 0.25rem;
+                position: relative;
+
+                &:after {
+                    position: absolute;
+                    content: attr(data-title);
+                    top: 50%;
+                    #{$summary-side-fixed-position}: calc(100% + 1rem);
+                    transform: translateX(-5px) translateY(-50%);
+                    font-size: $summary-side-title-font-size;
+                    font-weight: $summary-side-title-font-weight;
+                    color: $summary-side-title-color;
+                    background-color: $summary-side-title-bgcolor;
+                    border-radius: $summary-side-title-border-radius;
+                    padding: $summary-side-title-padding;
+                    pointer-events: none;
+                    opacity: 0;
+                    width: max-content;
+                    z-index: 1;
+                    transition: 0.3s ease;
+                }
+
+                &:hover {
+                    &::after {
+                        transform: translateX(0) translateY(-50%);
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .summary-switcher,
+            .summary-header,
+            .anchor .title,
+            .summary-map-wrapper,
+            .tabs-panel#tab-map {
+                display: none;
+            }
+
+            .tabs-content {
+                .tabs-panel#tab-list {
+                    display: block !important;
+                    padding: 0;
+                }
+            }
+
+            .fixed-map-container {
+                display: block !important;
+                padding: 0.25rem;
+            }
+
+            .summary-item-index {
+                margin-right: 0;
+
+                &.show-on-scroll {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    .menu {
+        @include breakpoint(large) {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    .summary-item {
+        @include breakpoint(large) {
+            flex-basis: calc(100% / 2);
+        }
+    }
+
+    .summary-item-index {
+        &.show-on-scroll {
+            display: none;
+        }
+    }
+
+    .anchor {
+        border: none !important;
+        padding: 0.75rem 1rem 0.75rem 0;
+    }
+
+    .summary-switcher {
+        top: 50%;
+        right: 55px;
+        transform: translateY(-50%);
+        opacity: 0;
+        z-index: 1;
+        transition: opacity 0.3s ease-in-out;
+
+        @include breakpoint(large) {
+            right: 30px;
+            opacity: 1;
+        }
+
+        &.show {
+            opacity: 1;
+        }
+    }
+
+    .tabs {
+        margin: 0;
+        padding: $summary-tabs-padding;
+        background-color: $summary-tabs-bg-color;
+        border-radius: $summary-tabs-border-radius;
+        width: $summary-tabs-width;
+        display: flex;
+        justify-content: space-between;
+        border: none;
+
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+
+    .tabs-title {
+        &>a {
+            display: block;
+            padding: 0;
+            font-size: initial;
+            line-height: 1;
+            color: $summary-tabs-title-color-inactive !important;
+        }
+
+        .wicon {
+            font-size: 20px;
+            position: relative;
+            z-index: 1;
+            transition: 0.3s ease-in-out;
+
+            &::after {
+                position: absolute;
+                content: '';
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                height: 45px;
+                width: 45px;
+                background-color: $summary-tabs-title-bg-color-active;
+                border-radius: 50%;
+                z-index: -1;
+                opacity: 0;
+                transition: 0.3s ease-in-out;
+            }
+        }
+
+        &.list {
+            .wicon {
+                font-size: 14px;
+            }
+        }
+
+        &.is-active {
+            .wicon {
+                color: $summary-tabs-title-color-active;
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .tabs-content {
+        border: none;
+        transition: 0.3s ease-in-out;
+
+        @include breakpoint(xmedium down) {
+            display: none;
+        }
+
+        &.open {
+            display: block;
+        }
+
+        .fixed-map-container {
+            display: none;
+        }
+
+        .tabs-panel {
+            padding: 0;
+        }
+
+        .tabs-panel#tab-list {
+            padding: $summary-accordion-padding;
+
+            @include breakpoint(large) {
+                padding: 30px;
+                padding-top: 0;
+            }
+        }
+    }
+}

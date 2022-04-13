@@ -1,0 +1,131 @@
+.single-profile {
+    .single-profile-left {
+        border: $single-profile-left-part-border;
+        border-radius: $single-profile-left-part-border-radius;
+        box-shadow: $single-profile-left-part-box-shadow;
+
+        @include breakpoint(large) {
+            padding: 30px;
+        }
+    }
+
+    .single-profile-right {
+        @include breakpoint(large) {
+            margin-top: 0;
+        }
+    }
+
+    .single-profile {
+        &-page-title {
+            font-weight: $single-profile-page-title-font-weight;
+            text-transform: $single-profile-page-title-text-transform;
+
+            @if $single-profile-page-title-line == true {
+                display: flex;
+                align-items: center;
+
+                &::after {
+                    content: '';
+                    height: $single-profile-page-title-line-size;
+                    flex: 1 1;
+                    background-color: $single-profile-page-title-line-bg-color;
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        &-header {
+            @include breakpoint(large) {
+                margin-bottom: 30px;
+            }
+        }
+
+        &-img {
+            @include breakpoint(large) {
+                padding-right: 30px;
+            }
+
+            .singleProfileMediaWrapper {
+                border: $single-profile-img-border;
+                border-radius: $single-profile-img-border-radius;
+                max-width: $single-profile-img-max-width;
+            }
+        }
+
+        &-identity {
+            @include breakpoint(large) {
+                padding-right: 30px;
+            }
+        }
+
+        &-name {
+            font-weight: $single-profile-name-font-weight;
+
+            @include breakpoint(medium) {
+                font-size: $single-profile-name-font-size;
+            }
+        }
+
+        &-complement {
+            font-size: rem-calc(14);
+            font-weight: $single-profile-complement-font-weight;
+            color: $single-profile-complement-color;
+
+            @include breakpoint(medium) {
+                font-size: $single-profile-complement-font-size;
+            }
+        }
+
+        &-actions {
+            margin-left: auto;
+
+            @include breakpoint(large) {
+                margin-top: 0;
+            }
+
+            ul {
+                margin: 0;
+
+                @include breakpoint(large) {
+                    flex-direction: column;
+                }
+
+                li:last-child {
+                    .button {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        &-description {
+            line-height: 1.6;
+
+            @include breakpoint(large) {
+                font-size: $single-profile-description-font-size;
+            }
+        }
+
+        &-information-title {
+            border-bottom: $single-profile-left-part-border;
+        }
+
+        &-information-list {
+            li {
+                line-height: 1.6;
+
+                @include breakpoint(large) {
+                    font-size: rem-calc(18);
+                }
+            }
+        }
+
+        &-information {
+            font-weight: $single-profile-information-title-font-weight;
+        }
+
+        &-socials-item {
+            font-size: rem-calc(28);
+        }
+    }
+}

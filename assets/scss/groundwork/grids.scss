@@ -1,17 +1,21 @@
 // ? This has been added to fix splitgrids heights with centered stretched blocs
 [class^='splitgrid_'] {
     @include breakpoint(medium) {
-        > .cell {
+        >.cell {
             display: flex;
-            > [class^='grid-'] {
+
+            >[class^='grid-'] {
                 width: 100%;
-                > .cell {
+
+                >.cell {
                     display: flex;
-                    > .visualModifier {
+
+                    >.visualModifier {
                         display: flex;
                         width: 100%;
                     }
-                    .woody-component {
+
+                    .woody-component:not(.isFixed) {
                         width: 100%;
                     }
                 }
@@ -19,6 +23,7 @@
         }
     }
 }
+
 // ? ---
 
 @include breakpoint(small down) {

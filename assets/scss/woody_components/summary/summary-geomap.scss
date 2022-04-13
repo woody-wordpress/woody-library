@@ -1,0 +1,102 @@
+.summary-map-wrapper {
+    height: 300px;
+
+    &>div {
+        height: 100%;
+        width: 100%;
+
+        @include breakpoint(large) {
+            border-radius: $summary-border-radius;
+        }
+
+        .leaflet-control-container {
+            display: none;
+        }
+    }
+}
+
+.leaflet-marker-icon {
+    .summary-geomap-anchor {
+        position: relative;
+        padding: 0;
+
+        svg {
+            display: none;
+        }
+
+        &:after {
+            position: absolute;
+            content: attr(data-index);
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: $summary-geomap-anchor-height;
+            width: $summary-geomap-anchor-height;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $summary-geomap-anchor-bg-color;
+            border-radius: $summary-geomap-anchor-border-radius;
+            border: $summary-geomap-anchor-border;
+            font-weight: $summary-geomap-anchor-font-weight;
+        }
+    }
+}
+
+&.isFixed {
+    .fixed-map-container {
+        display: block;
+        padding: 0.25rem;
+
+        .fixed-map-button {
+            cursor: pointer;
+            height: $summary-item-size;
+            width: $summary-item-size;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $summary-item-color;
+            background-color: $summary-item-bgcolor;
+            font-size: $summary-item-font-size;
+            border-radius: $summary-item-border-radius;
+            transition: 0.3s ease-in-out;
+
+            &.active,
+            &:hover {
+                color: $summary-item-color-hover;
+                background-color: $summary-item-bgcolor-hover;
+            }
+        }
+
+        .fixed-map-wrapper {
+            position: absolute;
+            top: 50%;
+            #{$summary-side-fixed-position}: calc(100% + 15px);
+            transform: translateX(30px) translateY(-50%);
+            height: 225px;
+            width: 450px;
+            aspect-ratio: 2/1;
+            border-radius: $summary-border-radius;
+            box-shadow: $summary-box-shadow;
+            transition: 0.3s ease-in-out;
+            pointer-events: none;
+            opacity: 0;
+
+            &.show {
+                pointer-events: auto;
+                opacity: 1;
+                transform: translateX(0) translateY(-50%);
+            }
+
+            &>div {
+                height: 100%;
+                width: 100%;
+                border-radius: $summary-border-radius;
+            }
+
+            .leaflet-control-container {
+                display: none;
+            }
+        }
+    }
+}

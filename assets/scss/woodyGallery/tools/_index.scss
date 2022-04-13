@@ -1,0 +1,67 @@
+@import './zoomTool';
+@import './fullscreenTool';
+@import './autoplayTool';
+@import './downloadTool';
+@import './flipUpDownTool';
+@import './flipLeftRightTool';
+@import './rotateLeftTool';
+@import './rotateRightTool';
+@import './paginationTool';
+@import './hideThumbsTool';
+
+.wgTools {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 25px;
+
+    .closeTool {
+        position: relative;
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        border-radius: 100%;
+        align-items: center;
+        transition: 0.3s;
+        order: 9;
+
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            width: 20px;
+            background-color: white;
+            height: 1px;
+            position: absolute;
+        }
+
+        &::before {
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+        }
+
+        &:hover {
+            background-color: rgba($primary-color, 0.25);
+            transform: scale(0.80);
+        }
+    }
+
+    &.video-tools {
+
+        .flipUpDownTool,
+        .flipLeftRightTool,
+        .RotateLeft,
+        .RotateRight,
+        .downloadTool {
+            pointer-events: none;
+            opacity: 0.25;
+        }
+    }
+}

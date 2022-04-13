@@ -93,7 +93,8 @@
 
 // Hide copyright for specific component & display it on hover
 .mediaCard,
-.woody-component-socialwall {
+.woody-component-socialwall,
+.page-teaser {
     .imageObject:not(.is_instagram) {
         .imageObject-caption {
             opacity: 0;

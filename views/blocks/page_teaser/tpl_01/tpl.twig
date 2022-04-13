@@ -7,7 +7,7 @@
     {{ breadcrumb|default }}
     <div class="grid-container isRel">
         <div class="grid-x">
-            <div class="cell texts-wrapper">
+            <div class="cell texts-wrapper {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }}">
                 {% block page_teaser_texts %}
 
                     {% if page_teaser_woody_icon %}
@@ -15,7 +15,7 @@
                     {% endif %}
 
                     {% if page_teaser_pretitle or page_teaser_title|default or page_teaser_subtitle or (page_teaser_display_favs_btn|default and globals.options.favorites|default)  %}
-                        <div class="page-main-titles {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }}">
+                        <div class="page-main-titles">
                             {% if page_teaser_pretitle %}
                                 <span class="page-main-pretitle">{{ page_teaser_pretitle }}</span>
                             {% endif %}
@@ -112,7 +112,7 @@
                                         default: {
                                             fitBounds: {{ page_teaser_map_zoom ? 0 : 1}},
                                             zoom:{{ page_teaser_map_zoom|default(12)  }},
-                                            tm_conf_id: {{ tmaps_confid|default(false) }},
+                                            tm_conf_id: {{ tmaps_confid|default('false') }},
                                             controls: {
                                                 "fullScreenControl": true,
                                                 "zoomControl": false,

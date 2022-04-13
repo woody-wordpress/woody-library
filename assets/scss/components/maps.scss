@@ -31,6 +31,8 @@
         text-align: center;
         font-weight: $marker-pane-title-weight;
         font-size: $marker-pane-title-size;
+        width: $marker-pane-title-width;
+        max-width: $marker-pane-title-max-width;
         padding: $marker-pane-title-padding;
         border-radius: $marker-pane-title-radius;
         background-color: $marker-pane-title-bg;

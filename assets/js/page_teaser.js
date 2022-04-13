@@ -1,6 +1,6 @@
 const mapPageTeaser = document.querySelector('.woody-component-teaser .geo-map-corner');
 const extendMapIcon = document.querySelector('.woody-component-teaser .geo-map-corner .extend-map-icon');
-const showGeomapMobileButton = document.querySelector('.show-geomap-mobile-button');
+const showGeomapMobileButton = document.querySelectorAll('.show-geomap-mobile-button,.hide-geomap-mobile-button');
 
 if (mapPageTeaser != null && extendMapIcon != null && showGeomapMobileButton != null) {
 
@@ -12,8 +12,10 @@ if (mapPageTeaser != null && extendMapIcon != null && showGeomapMobileButton != 
     });
 
     // On affiche la carte géographique au clic sur le bouton "Afficher la carte" en mobile
-    showGeomapMobileButton.addEventListener('click', function () {
-        mapPageTeaser.querySelector('.leaflet-container').classList.toggle('zoomed');
-        mapPageTeaser.classList.toggle('full');
-    });
+    showGeomapMobileButton.forEach(element => {
+        element.addEventListener('click', function () {
+            mapPageTeaser.querySelector('.leaflet-container').classList.toggle('zoomed');
+            mapPageTeaser.classList.toggle('full');
+        });
+    } );
 }

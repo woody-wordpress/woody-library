@@ -1,0 +1,7 @@
+.woody-component{
+    border-radius: $global-radius;
+}
+
+.woody-component-geomap{
+    overflow: hidden; // Hide map outside radius
+}

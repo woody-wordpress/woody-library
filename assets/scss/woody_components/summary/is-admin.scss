@@ -1,0 +1,14 @@
+.admin-bar {
+    .woody-component-summary.isFixed {
+        @media screen and (min-width: 600px) {
+            top: 46px;
+        }
+
+        // Only for summary templates which are sticky to the top
+        &.fixedTop {
+            @include breakpoint(xlarge) {
+                top: 32px;
+            }
+        }
+    }
+}

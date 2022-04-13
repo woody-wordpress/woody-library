@@ -1,6 +1,6 @@
 {% set random_number = ''|random_number %}
 
-<div class="woody-component woody-component-teaser flex-container flex-dir-column align-bottom {% block index_class %} tpl_07{% endblock %} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}">
+<div class="woody-component woody-component-teaser flex-container flex-dir-column align-bottom {% block index_class %} tpl_07{% endblock %} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}{{ page_teaser_add_profile and profile.profile_title ? ' has-profile' }}">
     {% if background_img %}
         {% include '_objects/imageObject.twig' with {
             'img' : background_img,
@@ -19,6 +19,7 @@
                     default: {
                     fitBounds: {{ page_teaser_map_zoom ? 0 : 1}},
                     zoom:{{ page_teaser_map_zoom|default(12)  }},
+                    tm_conf_id: {{ tmaps_confid|default('false') }},
                     controls: {
                         "fullScreenControl": true,
                         "zoomControl": false,
@@ -101,6 +102,7 @@
                 <span class="extend-map-icon wicon wicon-078-fullscreen isAbs show-for-xlarge"></span>
                 <a href="https://www.google.com/maps/dir/?api=1&destination={{ post_coordinates.post_latitude }},{{ post_coordinates.post_longitude }}" class="iti-button button isAbs" title="{{ __("Voir l'itinéraire", 'woody-theme') }}" target="_blank">{{ __("M'y rendre", 'woody-theme') }}</a>
                 <a href="#" class="show-geomap-mobile-button button isAbs hide-for-large" title="{{ __("Afficher la carte", 'woody-theme') }}"><span class="wicon wicon-039-pin"></span><span>{{ __("Afficher la carte", 'woody-theme') }}</span></a>
+                <a href="#" class="hide-geomap-mobile-button button isAbs hide-for-large" title="{{ __("Masquer la carte", 'woody-theme') }}"><span class="wicon wicon-039-pin"></span><span>{{ __("Masquer la carte", 'woody-theme') }}</span></a>
             </div>
         {% endif %}
         </div>
@@ -110,7 +112,7 @@
         {{ breadcrumb|default }}
         {% if page_teaser_title|default or page_teaser_desc|default or page_teaser_display_favs_btn|default or page_teaser_buttons %}
         <div class="grid-x grid-padding-x grid-padding-y align-justify align-bottom">
-            <div class="cell {{ page_teaser_add_media or page_teaser_add_profile or trip_infos ? 'large-6' : 'large-10' }} flex-container flex-dir-column align-center texts-wrapper">
+            <div class="cell {{ page_teaser_add_media or page_teaser_add_profile or trip_infos ? 'large-6' : 'large-10' }} flex-container flex-dir-column align-center texts-wrapper {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }}">
                 {{ block("page_teaser_texts", "blocks/page_teaser/tpl_01/tpl.twig") }}
                 {{ block("page_teaser_links", "blocks/page_teaser/tpl_01/tpl.twig") }}
                 {{ block("page_teaser_shares", "blocks/page_teaser/tpl_01/tpl.twig") }}

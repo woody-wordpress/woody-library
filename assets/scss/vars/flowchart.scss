@@ -1,0 +1,32 @@
+// Single profile left part
+$single-profile-left-part-border: 1px solid $medium-gray !default;
+$single-profile-left-part-border-radius: 0 !default;
+$single-profile-left-part-box-shadow: none !default;
+
+// Single profile image
+$single-profile-img-border: 6px solid $primary-color !default;
+$single-profile-img-border-radius: 50% !default;
+$single-profile-img-max-width: 150px !default;
+
+// Single profile page title
+$single-profile-page-title-font-weight: bold !default;
+$single-profile-page-title-text-transform: uppercase !default;
+$single-profile-page-title-line: true !default;
+$single-profile-page-title-line-size: 2px !default;
+$single-profile-page-title-line-bg-color: $primary-color !default;
+
+// Single profile name
+$single-profile-name-font-size: rem-calc(26) !default;
+$single-profile-name-font-weight: bold !default;
+
+// Single profile complement
+$single-profile-complement-font-size: rem-calc(18) !default;
+$single-profile-complement-font-weight: 400 !default;
+$single-profile-complement-color: $medium-gray !default;
+
+// Single profile description
+$single-profile-description-font-size: rem-calc(18) !default;
+
+// Single profile right part
+$single-profile-information-title-border: $single-profile-left-part-border !default;
+$single-profile-information-title-font-weight: bold !default;

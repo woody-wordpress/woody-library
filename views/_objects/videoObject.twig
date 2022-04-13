@@ -14,13 +14,13 @@
     {% endif %}
     {% if movie.mp4_movie_file  %}
         <meta itemprop="uploadDate" content="{{ movie.mp4_movie_file.date }}"/>
-        <span class="hide" itemprop="description">{{ movie.mp4_movie_file.description|default(movie.movie_poster_file.description)|default(movie.mp4_movie_file.filename) }}</span>
+        <span class="hide" itemprop="description" data-nosnippet>{{ movie.mp4_movie_file.description|default(movie.movie_poster_file.description)|default(movie.mp4_movie_file.filename) }}</span>
     {% elseif movie.ogg_movie_file %}
         <meta itemprop="uploadDate" content="{{ movie.ogg_movie_file.date }}"/>
-        <span class="hide" itemprop="description">{{ movie.ogg_movie_file.description|default(movie.movie_poster_file.description)|default(movie.ogg_movie_file.filename) }}</span>
+        <span class="hide" itemprop="description" data-nosnippet>{{ movie.ogg_movie_file.description|default(movie.movie_poster_file.description)|default(movie.ogg_movie_file.filename) }}</span>
     {% elseif movie.webm_movie_file %}
         <meta itemprop="uploadDate" content="{{ movie.webm_movie_file.date }}"/>
-        <span class="hide" itemprop="description">{{ movie.webm_movie_file.description|default(movie.movie_poster_file.description)|default(movie.webm_movie_file.filename) }}</span>
+        <span class="hide" itemprop="description" data-nosnippet>{{ movie.webm_movie_file.description|default(movie.movie_poster_file.description)|default(movie.webm_movie_file.filename) }}</span>
     {% endif %}
 </div>
 {% endspaceless %}

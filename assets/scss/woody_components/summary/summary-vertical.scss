@@ -1,0 +1,32 @@
+&.is-vertical-summary {
+    @include breakpoint(large) {
+        width: $summary-max-width;
+        border-radius: $summary-border-radius;
+        box-shadow: $summary-box-shadow;
+
+        @if $summary-side-fixed-position==right {
+            margin-left: auto;
+        }
+    }
+
+    .anchor {
+        display: inline-flex !important;
+        border: none !important;
+
+        @include breakpoint(large) {
+            padding: 0.75rem 0;
+        }
+    }
+
+    &.isFixed {
+        z-index: 10000;
+
+        @include breakpoint(large) {
+            top: 50%;
+            left: initial;
+            #{$summary-side-fixed-position}: 10px;
+            transform: translateY(-50%);
+            width: $summary-max-width;
+        }
+    }
+}

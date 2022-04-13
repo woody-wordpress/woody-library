@@ -1,0 +1,92 @@
+.summary-header {
+    position: relative;
+
+    @include breakpoint(xmedium down) {
+        display: flex;
+        align-items: center;
+        top: -#{$summary-accordion-padding};
+        left: -#{$summary-accordion-padding};
+        height: $summary-accordion-height;
+        width: calc(100% + (#{$summary-accordion-padding}*2));
+        padding: $summary-accordion-padding;
+        z-index: 2;
+
+        @include root('.open', true) {
+            height: $summary-accordion-height;
+        }
+
+        @if $summary-accordion-icon==cross {
+
+            &::before,
+            &::after {
+                position: absolute;
+                content: '';
+                top: 50%;
+                right: $summary-accordion-padding;
+                transform: translateY(-50%);
+                display: block;
+                height: 2px;
+                width: 20px;
+                background-color: $summary-arrow-color;
+                transition: 0.3s ease-in-out;
+
+                @include root-bg {
+                    background-color: $white;
+                }
+            }
+
+            &::before {
+                transform: translateY(-50%) rotate(90deg);
+            }
+
+            &.open {
+                &::before {
+                    transform: translateY(-50%) rotate(0deg);
+                    opacity: 0;
+                }
+            }
+        }
+
+        @else if $summary-accordion-icon==arrow {
+
+            @include wicon(046-bas);
+
+            &::before {
+                position: absolute;
+                top: 50%;
+                right: $summary-accordion-padding;
+                transform: translateY(-50%);
+                display: block;
+                color: $summary-arrow-color;
+                font-size: $summary-arrow-font-size;
+                transition: 0.3s ease-in-out;
+
+                @include root-bg {
+                    color: $white;
+                }
+            }
+
+            &.open {
+                &::before {
+                    transform: translateY(-50%) rotate(180deg);
+                }
+            }
+        }
+    }
+
+    .summary-title {
+        @include breakpoint(xmedium down) {
+            margin-bottom: 0 !important;
+            transition: 0.25s ease-in-out;
+
+            @include root('.isFixed', true) {
+                display: block;
+                transform: translateY(#{$summary-accordion-transform-item});
+
+                @include root('.open', true) {
+                    transform: none;
+                }
+            }
+        }
+    }
+}

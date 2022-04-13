@@ -1,5 +1,18 @@
 $summary-fixed-position: 0 !default;
 
+// ------------------------------
+// Summary accordion
+// ------------------------------
+
+$summary-accordion-height: 90px !default;
+$summary-accordion-padding: 20px !default;
+$summary-accordion-transform-item: -15px !default;
+$summary-accordion-transform-menu: -60px !default;
+$summary-accordion-open-transform-menu: -40px !default;
+$summary-accordion-icon: arrow !default;
+$summary-arrow-color: $primary-color !default;
+$summary-arrow-font-size: 20px !default;
+
 // Summary item index
 $summary-item-index-reset-style: false !default;
 $summary-item-size: 28px !default;
@@ -12,7 +25,7 @@ $summary-item-font-weight: $global-weight-normal !default;
 $summary-item-border-radius: 50% !default;
 
 // ------------------------------
-// Summary tpl_02 with item index in fixed position
+// Summary tabs
 // ------------------------------
 
 // Summary block
@@ -29,6 +42,15 @@ $summary-side-title-bgcolor: rgba($black, 0.5) !default;
 $summary-side-title-border-radius: 25px !default;
 $summary-side-title-padding: 5px 10px !default;
 
+// Summary tabs
+$summary-tabs-bg-color: $white !default;
+$summary-tabs-title-color-inactive: $black !default;
+$summary-tabs-title-color-active: $summary-tabs-bg-color !default;
+$summary-tabs-title-bg-color-active: $summary-tabs-title-color-inactive !default;
+$summary-tabs-border-radius: 25px !default;
+$summary-tabs-width: 75px !default;
+$summary-tabs-padding: 5px 10px !default;
+
 // Summary geomap anchor
 $summary-geomap-anchor-height: 30px;
 $summary-geomap-anchor-bg-color: $white;
@@ -37,12 +59,8 @@ $summary-geomap-anchor-border: 2px solid $primary-color;
 $summary-geomap-anchor-font-weight: bold;
 
 // ------------------------------
-// Summary tpl_03 with vertical menu
+// Summary with vertical menu
 // ------------------------------
 
 // Summary block
 $summary-max-width: 265px !default;
-
-// Summary arrow icon (< large)
-$summary-arrow-color: $primary-color !default;
-$summary-arrow-font-size: 18px !default;

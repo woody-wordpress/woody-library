@@ -19,9 +19,14 @@ WoodyFilter.add('header_scroll_delta', function() {
 WoodyFilter.add('header_scroll_delta', function() {
     return 250;
 });
+//Hook to change summary fixed position
+/* In Child theme :
+WoodyFilter.add('summary_more_offset', function() {
+    return 40;
+});
 */
 
-$('.woody-component-headnavs').each(function() {
+$('.woody-component-headnavs').each(function () {
     var windowWidth = window.innerWidth;
     var $body = $('body:not(.fullScrolled)'),
         $mainContent = $('#main-content'),
@@ -114,18 +119,34 @@ $('.woody-component-headnavs').each(function() {
     }
 
     // Check scroll direction and add hidden class
-    var checkNavigation = function(currentTop) {
+    var checkNavigation = function (currentTop) {
         if (previousTop - currentTop > scrollDelta) {
             // Up
             $body.removeClass("scrolling-down").addClass('scrolling-up');
+
+            if (document.querySelector('.woody-component-summary.fixedTop') && window.innerWidth > 1200) {
+                if (document.querySelector('.woody-component-summary.fixedTop').classList.contains('isFixed')) {
+                    let summaryMoreOffset = WoodyFilter.apply('summary_more_offset', 0); // Set the value in your child theme if you have a translated topheader when body is scrolling down for example
+                    if (document.querySelector('body').classList.contains('admin-bar')) {
+                        document.querySelector('.woody-component-summary.fixedTop').setAttribute('style', `top: ${document.querySelector('.woody-component-headnavs').clientHeight - summaryMoreOffset + 32}px; transition: 0.5s`)
+                    } else {
+                        document.querySelector('.woody-component-summary.fixedTop').setAttribute('style', `top: ${document.querySelector('.woody-component-headnavs').clientHeight - summaryMoreOffset}px; transition: 0.5s`);
+                    }
+                } else {
+                    document.querySelector('.woody-component-summary.fixedTop').setAttribute('style', 'transition: 0.5s');
+                }
+            }
         } else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
             // Down
+            if (document.querySelector('.woody-component-summary.fixedTop')) {
+                document.querySelector('.woody-component-summary.fixedTop').setAttribute('style', 'transition: 0.5s');
+            }
             $body.removeClass("scrolling-up").addClass("scrolling-down");
         }
     };
 
     // Manage events on scroll
-    var eventsOnScroll = function() {
+    var eventsOnScroll = function () {
         currentTop = $(window).scrollTop();
         isScrolled(currentTop);
         checkNavigation(currentTop);
@@ -134,7 +155,7 @@ $('.woody-component-headnavs').each(function() {
     };
 
     // Add class if website is scrolled
-    var isScrolled = function(currentTop) {
+    var isScrolled = function (currentTop) {
         if ((currentTop + window.innerHeight) > $(document).height() - 10) {
             $body.addClass("fullScrolled");
         } else {
@@ -144,13 +165,13 @@ $('.woody-component-headnavs').each(function() {
             $body.removeClass("is-top").addClass("is-scrolled");
         } else if (currentTop < scrollDelta) {
             $body.removeClass("is-scrolled");
-            setTimeout(function() {
+            setTimeout(function () {
                 $body.addClass("is-top");
             }, 20);
         }
     };
     if (typeof WoodyFilter.apply('header_class_disable') == 'undefined') { //Hook
-        $(window).on("scroll", function() {
+        $(window).on("scroll", function () {
             if (!scrolling) {
                 scrolling = true;
                 !window.requestAnimationFrame ?
@@ -163,6 +184,6 @@ $('.woody-component-headnavs').each(function() {
 });
 
 // Change title menu
-$('.woody-component-header.tpl_02 .menu-icon').click(function() {
+$('.woody-component-header.tpl_02 .menu-icon').click(function () {
     $('.title-bar-title > span').toggleClass('hide');
 });

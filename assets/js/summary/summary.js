@@ -1,5 +1,4 @@
 import WoodyFilter from '../filter';
-import SummarySwiper from './ext_swiper';
 import SummaryAccordion from './ext_accordion';
 
 export default class Summary {
@@ -10,7 +9,7 @@ export default class Summary {
         this.sections = [];
         this.scrollPos = 0;
         this.currentSection;
-        this.OffsetRatio;
+        this.offsetRatio;
         this.currentIndex = 0;
         this.init();
     }
@@ -25,12 +24,11 @@ export default class Summary {
 
     // ******** Run Classes ********
     loadChildClasses() {
-        if (this.element.classList.contains('is-horizontal-summary')) new SummarySwiper(this);
         if (this.element.classList.contains('summary-accordion')) new SummaryAccordion(this.element);
     }
 
     setOffsetRatio() {
-        this.OffsetRatio = window.innerHeight / 4;
+        this.offsetRatio = window.innerHeight / 4;
     }
 
     manageSections() {
@@ -111,7 +109,7 @@ export default class Summary {
         let index = 0;
         this.sections.forEach(section => {
             let screenOffset = section.element.getBoundingClientRect();
-            if (screenOffset.top <= 0 + self.OffsetRatio && screenOffset.bottom >= 0 + self.OffsetRatio) {
+            if (screenOffset.top <= 0 + self.offsetRatio && screenOffset.bottom >= 0 + self.offsetRatio) {
                 if (self.currentSection !== section.id) {
                     self.currentSection = section.id;
                     let oldActive = self.element.querySelector('.summary-item [data-section].active');

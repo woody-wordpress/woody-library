@@ -10,7 +10,7 @@
             {% endif %}
             <div class="profile-summary-infos">
                 <div class="title-wrapper">
-                    <span class="profile-title">{{ item.title }}</span>
+                    <span class="profile-title">{{ (item.firstname and item.lastname) ? item.firstname ~ ' ' ~ item.lastname : item.title }}</span>
                     {% if item.socials %}
                         {% for social_key, social_url in item.socials if social_url %}
                             <a class="social-item {{ social_key }}" href="{{ social_url }}"></a>
@@ -19,6 +19,12 @@
                 </div>
                 {% if item.complement %}
                     <span class="profile-complement">{{ item.complement }}</span>
+                {% endif %}
+                {% if item.nationality %}
+                    <div class="profile-nationality">{{ __('Nationalité', 'woody-theme') }} : {{ item.nationality }}</div>
+                {% endif %}
+                {% if item.birth %}
+                    <div class="profile-birth">{{ __('Date de naissance', 'woody-theme') }} : {{ item.birth }}</div>
                 {% endif %}
                 {% if item.contacts %}
                     <div class="profile-contacts flex-container wrap">

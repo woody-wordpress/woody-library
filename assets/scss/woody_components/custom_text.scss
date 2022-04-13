@@ -15,16 +15,47 @@
     &.has-show-more-button {
         &>div>.cell {
             overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            line-clamp: $show-more-max-line;
-            -webkit-line-clamp: $show-more-max-line;
+            //FOR ANYTHING BUT SAFARI
+            @supports (not( -moz-appearance:none )){
+                /* Add non-firefox CSS code here */
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                line-clamp: $show-more-max-line;
+                -webkit-line-clamp: $show-more-max-line;
+            }
+
+            //FOR FIREFOX ONLY
+            @supports ( -moz-appearance:none ) {
+                max-height:  calc(2em * #{$show-more-max-line});
+            }
+            //FOR SAFARI ONLY
+            @media not all and (min-resolution:.001dpcm){
+                @supports (-webkit-appearance:none) {
+                    display: block;
+                    -webkit-box-orient: unset;
+                    line-clamp: unset;
+                    -webkit-line-clamp:unset;
+                    max-height:  calc(2em * #{$show-more-max-line});
+                }
+            }
         }
 
         &.show-more-button-open {
             &>div>.cell {
-                line-clamp: initial;
-                -webkit-line-clamp: initial;
+                //FOR ANYTHING BUT SAFARI
+                @supports not( -moz-appearance:none ){
+                    line-clamp: initial;
+                    -webkit-line-clamp: initial;
+                }
+                //FOR FIREFOX ONLY
+                @supports ( -moz-appearance:none ) {
+                    max-height: unset;
+                }
+                //FOR SAFARI ONLY
+                @media not all and (min-resolution:.001dpcm)
+                { @supports (-webkit-appearance:none) {
+                    max-height: unset;
+                }}
             }
 
             .showMoreButton {
@@ -54,3 +85,4 @@
         }
     }
 }
+
