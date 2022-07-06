@@ -1,3 +1,38 @@
+// ********************
+// Flowchart block
+// ********************
+
+// Flowchart search
+$flowchart-search-icon-color: $white !default;
+$flowchart-search-icon-bg-color: $primary-color !default;
+$flowchart-search-icon-border: 1px solid $flowchart-search-icon-bg-color !default;
+
+// Flowchart item
+$flowchart-item-border: 1px solid $medium-gray !default;
+$flowchart-item-border-radius: 30px !default;
+$flowchart-item-bg-color: $white !default;
+$flowchart-item-more-button-color: $white !default;
+$flowchart-item-more-button-bg-color: $primary-color !default;
+
+// Flowchart mini item
+$flowchart-mini-item-name-font-size: rem-calc(12) !default;
+$flowchart-mini-item-img-size: 25px !default;
+
+// Flowchart separator
+$flowchart-separator-border: 2px solid $black !default;
+
+// Profile terms
+$profile-term-color: $white !default;
+$profile-term-bg-color: $primary-color !default;
+$profile-term-font-size: rem-calc(10) !default;
+$profile-term-font-weight: bold !default;
+$profile-term-text-transform: uppercase !default;
+$profile-term-padding: 5px !default;
+
+// ********************
+// Single profile page
+// ********************
+
 // Single profile left part
 $single-profile-left-part-border: 1px solid $medium-gray !default;
 $single-profile-left-part-border-radius: 0 !default;

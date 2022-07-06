@@ -187,6 +187,65 @@ body:not(.no-page-header) {
         }
     }
 
+    // Templates 15 & 16
+    &.hero-blog-header {
+        .titles-container {
+            height: 40%;
+            margin: 0 auto;
+
+            @include breakpoint(large down) {
+                @include xy-gutters($gutter-type: padding, $gutter-position: top bottom left right);
+            }
+
+            @include breakpoint(xlarge) {
+                @include xy-gutters($gutter-type: padding, $gutter-position: top bottom);
+            }
+
+            @media screen and (min-width: #{$hero-blog-header-container-max-width-xlarge}) {
+                max-width: rem-calc($hero-blog-header-container-max-width-xlarge);
+
+            }
+
+            @media screen and (min-width: #{$hero-blog-header-container-max-width-xxlarge}) {
+                max-width: rem-calc($hero-blog-header-container-max-width-xxlarge);
+            }
+        }
+
+        .tagslist {
+            top: initial;
+            bottom: 15px;
+            right: 15px;
+            left: initial;
+
+            @media screen and (min-width: #{$hero-blog-header-container-max-width-xlarge}) {
+                right: 0;
+            }
+        }
+
+        .hero-bg {
+            height: 60%;
+            background-color: $black;
+            opacity: 1;
+            margin: 0 auto;
+
+            @media screen and (min-width: #{$hero-blog-header-container-max-width-xlarge}) {
+                max-width: rem-calc($hero-blog-header-container-max-width-xlarge);
+            }
+
+            @media screen and (min-width: #{$hero-blog-header-container-max-width-xxlarge}) {
+                max-width: rem-calc($hero-blog-header-container-max-width-xxlarge);
+            }
+
+            .backgroundMedia {
+                height: 100%;
+            }
+        }
+
+        .videoObject {
+            position: relative;
+        }
+    }
+
     &.fadingHero {
         .backgroundMedia {
             position: relative;
@@ -304,14 +363,14 @@ body:not(.no-page-header) {
     // Define heigths of heros from image ratio
     @include breakpoint(medium) {
 
-        &:not(.tpl_04):not(.tpl_07):not(.fadingHero):not(.hero-text-right) {
+        &:not(.tpl_04):not(.tpl_07):not(.fadingHero):not(.hero-text-right):not(.hero-blog-header) {
             max-height: calc(100vw / 2) !important;
         }
 
         &.tpl_01,
         &.tpl_07,
         &.ratio-2-1,
-        &.hero-full-height {
+        &.hero-full-height:not(.hero-blog-header) {
             .backgroundMedia {
                 height: calc(100vw / 2);
             }

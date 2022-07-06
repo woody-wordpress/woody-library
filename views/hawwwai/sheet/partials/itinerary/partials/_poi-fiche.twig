@@ -5,6 +5,8 @@
             {% set item = externalSheets[sheet.idFiche] %}
             <div class="col-md-6 col-xs-12">
                 <div class="rc_lego_wrapper">
+                    {# 'slogan': item.slogan, #}
+                    {# 'desc': item.desc, #}
                     {% include '@LEGO/items/api_render/item_sheet_alpha/index.html.twig' with {
                         'bordereau': item.bordereau,
                         'sheetId': item.sheetId,

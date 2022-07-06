@@ -20,6 +20,8 @@ export default class Summary {
         this.manageSections();
         this.events();
         this.loadChildClasses();
+        this.fixedSummarySize();
+        this.hideFixedSummary();
     }
 
     // ******** Run Classes ********
@@ -128,5 +130,54 @@ export default class Summary {
             }
             index++;
         })
+    }
+
+    fixedSummarySize() {
+        if ((this.element.classList.contains('fixed-summary')) && (window.innerWidth >= 1200)) {
+            // Si c'est un fixed-summary au dessus de 1200 OU un summary accordion en dessous de 1200
+            let summaryContainer = this.element.closest('.cell');
+            // Ajout de la height de base à son container pour éviter le saut du contenu au scroll
+            summaryContainer.style.height = summaryContainer.offsetHeight + 'px';
+        }
+    }
+
+    hideFixedSummary() {
+        // Dans le cas d'un fixed summary qui ne se fixe pas en haut de page
+        if (this.element.classList.contains('fixed-summary') && !this.element.classList.contains('fixedTop')) {
+            let self = this,
+                pageFooter = document.querySelector('.site-footer-container'),
+                sections = document.querySelectorAll('.page-section');
+            let pageLastSection = sections[sections.length - 1];
+
+            if (pageLastSection != null && pageFooter != null) {
+                window.addEventListener('scroll', () => {
+                    // Au moment où la dernière section est vue
+                    if (self.isVisible(pageLastSection)) {
+                        // Ajout d'une classe pour que le sommaire ait une transition a l'arrivée du footer (et pas avant)
+                        self.element.classList.add('summary-visibility-transition');
+                    } else {
+                        self.element.classList.remove('summary-visibility-transition');
+                    }
+
+                    // Au moment où le footer est vu
+                    if (self.isVisible(pageFooter)) {
+                        // Ajout d'une classe pour cacher le sommaire
+                        self.element.classList.add('hide-summary');
+                    } else {
+                        self.element.classList.remove('hide-summary');
+                    }
+                });
+            }
+        }
+    }
+
+    isVisible(element) {
+        let bounding = element.getBoundingClientRect();
+
+        if ((bounding.top > 0 || bounding.bottom > 0) && bounding.top < (window.innerHeight || document.documentElement.clientHeight)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,0 +1,16 @@
+ {% if feature_buttons|default %}
+        <div class="feature-list-block-footer marg-top-md {{ customClasses|default }}">
+            {% if feature_buttons.alignement == 'horizontal' %}
+                {% set list_classes = 'align-center align-middle wrap' %}
+            {% elseif feature_buttons.alignement == 'vertical' %}
+                {% set list_classes = 'flex-dir-column align-center align-middle' %}
+            {% endif %}
+            <ul class="list-unstyled flex-container {{ list_classes|default }}">
+                {% for button in feature_buttons.links %}
+                    <li class="list-item">
+                        {% include '_objects/buttonObject.twig' %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+{% endif %}

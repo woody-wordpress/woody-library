@@ -1,0 +1,8 @@
+@import 'src/fonts/woody-icons/_icons.scss';
+
+@each $icon,
+$char in $wicons {
+    .#{$icon}:before {
+        content: $char;
+    }
+}

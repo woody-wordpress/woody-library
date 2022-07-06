@@ -6,7 +6,7 @@ $('.woody-component-esSearch-block .esSearch-button').click(function() {
     }
 })
 
-$('.woody-lang_switcher .lang_switcher-button').click(function() {
+$('.woody-lang_switcher-reveal .lang_switcher-button').click(function() {
     if ($('.lang_switcher-reveal').length) {
         $('.lang_switcher-reveal').foundation('open');
     }

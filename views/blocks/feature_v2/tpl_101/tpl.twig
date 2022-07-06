@@ -1,0 +1,24 @@
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}feature-list{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('101') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% if customFeature is not defined %}
+        {% set customFeature = 'tpl_01' %}
+    {% endif %}
+
+    {% include "blocks/feature_v2/_objects/featureHeaderObject.twig" %}
+
+    <div class="grid-x {{ gridClasses|default }} align-strech{{ feature_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+        {% for item in items %}
+            <div class="cell">
+                {% include "blocks/feature_v2/_objects/featureObject.twig" with {
+                    'feature' : customFeature|default('tpl_01')
+                } %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% include "blocks/feature_v2/_objects/featureFooterObject.twig" with {
+        'customClasses': 'isRel'
+    } %}
+{% endblock %}

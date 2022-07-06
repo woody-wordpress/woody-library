@@ -11,7 +11,19 @@
     {# {% set email = formated_object.emails.booking %} #} {# if active -> bug lot (no booking emails -> no form) #}
 {% endif %}
 
-{% if contractsLevels.sidebar.vcard and email|default %}
+{% if formated_object.openingPeriods|default and formated_object.openingPeriods.registrationEventpro|default %}
+    <li id="li-contact-form" class="registration-status">
+        <section class="panel panel-default text-center">
+            <div class="panel-body">{{ formated_object.openingPeriods.registrationEventpro }}<div>
+        </section>
+    </li>
+
+{% elseif formated_object.sfExternalGrc|default %}
+    {% if not options.externalgrcAccordion|default %}
+        {% include TWIG.CONTACT_EXTERNAL_GRC %}
+    {% endif %}
+
+{% elseif contractsLevels.sidebar.vcard and email|default %}
 
     <li class="panel-title-responsive hidden-xs"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span></li>
 

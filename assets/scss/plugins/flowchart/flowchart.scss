@@ -1,0 +1,431 @@
+.woody-component-flowchart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .search-profiles-container {
+        width: 350px;
+
+        .ajaxloader {
+            height: 100%;
+            width: 49px;
+            background-color: $flowchart-search-icon-bg-color;
+            background-image: url('../img/ajaxloader-white.gif');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 25px 25px;
+        }
+
+        .search-profiles-icon {
+            color: $flowchart-search-icon-color;
+            background-color: $flowchart-search-icon-bg-color;
+            padding: 0 1rem;
+            border: $flowchart-search-icon-border;
+            border-right: none;
+
+            &::before {
+                font-weight: bold;
+            }
+        }
+
+        .search-profiles-input {
+            margin: 0;
+        }
+
+        .search-profiles-results {
+            background-color: $white;
+            border-left: $flowchart-item-border;
+            border-right: $flowchart-item-border;
+            border-top: none;
+            width: 100%;
+            margin: 0;
+            z-index: 2;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+
+            li {
+                font-size: rem-calc(13);
+                border-bottom: $flowchart-item-border;
+                cursor: pointer;
+                padding: 0.5rem;
+                transition: 0.15s ease-in-out;
+
+                @include breakpoint(large) {
+                    font-size: rem-calc(16);
+                }
+
+                &:hover {
+                    background: rgba($primary-color, 0.07);
+                }
+            }
+        }
+    }
+
+    .flowchart-items {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        width: 100%;
+
+        @include breakpoint(large) {
+            gap: 0;
+        }
+    }
+
+    .flowchart-item {
+        width: calc(50% - 15px);
+        border: $flowchart-item-border;
+        border-radius: $flowchart-item-border-radius;
+        background-color: $flowchart-item-bg-color;
+        margin: 25px 0;
+        transition: 0.25s ease-in-out;
+
+        @include breakpoint(large) {
+            width: 330px;
+            margin: 40px 10px;
+        }
+
+        @include breakpoint(xxlarge) {
+            width: 270px;
+        }
+
+        &.item-inactive {
+            opacity: 0.4;
+        }
+
+        .flowchart-section {
+            height: 100%;
+            padding: 0 25px 25px 25px;
+        }
+
+        .flowchart-img {
+            margin-top: -35px;
+            margin-bottom: 10px;
+
+            @include breakpoint(large) {
+                margin-top: -50px;
+            }
+
+            .flowchartMediaWrapper {
+                border-radius: 50%;
+                height: 70px;
+                width: 70px;
+                max-width: 70px;
+
+                @include breakpoint(large) {
+                    height: 100px;
+                    width: 100px;
+                    max-width: 100px;
+                }
+            }
+        }
+
+        .more-actions-button {
+            top: 10px;
+            right: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+
+            .dot {
+                height: 3px;
+                width: 3px;
+                background-color: $medium-gray;
+                border-radius: 50%;
+                transition: 0.25s ease-in-out;
+            }
+
+            &:hover {
+                .dot {
+                    background-color: $black;
+                }
+            }
+        }
+
+        .more-actions-list {
+            top: 50%;
+            left: calc(100% + 10px);
+            transform: translateY(-50%);
+            width: 65%;
+            background-color: $white;
+            border: $flowchart-item-border;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+            z-index: 3;
+            opacity: 0;
+            pointer-events: none;
+            overflow: hidden;
+            transition: 0.15s ease-in-out;
+
+            li {
+                &.has-separator-bottom {
+                    border-bottom: $flowchart-item-border;
+                }
+            }
+
+            .action-item {
+                font-size: rem-calc(15);
+                display: flex;
+                color: $black;
+                padding: 10px 25px;
+                transition: 0.15s ease-in-out;
+
+                &:hover {
+                    background: rgba($primary-color, 0.07);
+
+                    .action-icon {
+                        filter: brightness(0) saturate(100%);
+                    }
+                }
+            }
+
+            .action-icon {
+                margin-right: 10px;
+                transition: 0.15s ease-in-out;
+
+                &.icon-profile {
+                    content: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M3 5.75C3 5.33579 3.33579 5 3.75 5H16.25C16.6642 5 17 5.33579 17 5.75C17 6.16421 16.6642 6.5 16.25 6.5H3.75C3.33579 6.5 3 6.16421 3 5.75Z' fill='%23A2A2A9'/%3E %3Cpath d='M3 9.75C3 9.33579 3.33579 9 3.75 9H16.25C16.6642 9 17 9.33579 17 9.75C17 10.1642 16.6642 10.5 16.25 10.5H3.75C3.33579 10.5 3 10.1642 3 9.75Z' fill='%23A2A2A9'/%3E %3Cpath d='M3.75 13C3.33579 13 3 13.3358 3 13.75C3 14.1642 3.33579 14.5 3.75 14.5H12.25C12.6642 14.5 13 14.1642 13 13.75C13 13.3358 12.6642 13 12.25 13H3.75Z' fill='%23A2A2A9'/%3E %3C/svg%3E");
+                }
+
+                &.icon-phone {
+                    content: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.31134 2.19365C5.05319 1.93534 4.63449 1.93534 4.37636 2.19365L2.98517 3.58485C1.99375 4.57609 1.72139 6.07846 2.30146 7.3548C2.4158 7.60625 2.30464 7.90256 2.05319 8.0169C1.8019 8.13108 1.50543 8.01991 1.39126 7.76863C0.638596 6.11275 0.99198 4.16376 2.27802 2.87774L3.66921 1.48655C4.31794 0.837817 5.36979 0.837817 6.01848 1.48655L7.88981 3.35804C8.39539 3.86363 8.52097 4.63588 8.20102 5.27557L7.68172 6.314C7.33099 7.01562 7.46844 7.86308 8.02324 8.41753L10.5825 10.9769C11.137 11.5315 11.9844 11.669 12.686 11.3183L13.7244 10.799C14.3641 10.4792 15.1365 10.6046 15.6421 11.1102L17.5135 12.9815C18.1622 13.6303 18.1622 14.6821 17.5135 15.3308L16.1223 16.722C14.8362 18.008 12.8872 18.3615 11.2314 17.6089C7.84783 16.0709 4.98534 13.6223 2.94619 10.5653C2.79301 10.3355 2.85495 10.0251 3.08464 9.87187C3.31449 9.71853 3.62485 9.78063 3.77807 10.0103C5.71454 12.9131 8.43238 15.2381 11.6454 16.6982C12.9217 17.2785 14.4241 17.0059 15.4153 16.0147L16.8067 14.6235C17.0649 14.3653 17.0649 13.9466 16.8067 13.6885L14.9352 11.817C14.734 11.616 14.4265 11.5661 14.172 11.6933L13.1334 12.2124C12.0468 12.7559 10.7345 12.5429 9.87552 11.6839L7.31629 9.12452C6.45713 8.26553 6.24417 6.95319 6.7876 5.86667L7.30673 4.82807C7.43413 4.5736 7.38424 4.26608 7.18301 4.06482L5.31134 2.19365Z' fill='%23A2A2A9' /%3E %3C/svg%3E");
+                }
+
+                &.icon-mail {
+                    content: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 4.5H5C4.17157 4.5 3.5 5.17157 3.5 6V15.6972L5.41603 14.4199C5.82669 14.1461 6.30921 14 6.80277 14H15C15.8284 14 16.5 13.3284 16.5 12.5V6C16.5 5.17157 15.8284 4.5 15 4.5ZM6.24808 15.6679C6.41234 15.5584 6.60535 15.5 6.80277 15.5H15C16.6569 15.5 18 14.1569 18 12.5V6C18 4.34315 16.6569 3 15 3H5C3.34315 3 2 4.34315 2 6V17.5657C2 17.9651 2.44507 18.2033 2.77735 17.9818L6.24808 15.6679Z' fill='%23B1B1B4' /%3E %3Cpath d='M6 7.75C6 7.33579 6.33579 7 6.75 7H13.25C13.6642 7 14 7.33579 14 7.75C14 8.16421 13.6642 8.5 13.25 8.5H6.75C6.33579 8.5 6 8.16421 6 7.75Z' fill='%23B1B1B4' /%3E %3Cpath d='M6 10.75C6 10.3358 6.33579 10 6.75 10H11.25C11.6642 10 12 10.3358 12 10.75C12 11.1642 11.6642 11.5 11.25 11.5H6.75C6.33579 11.5 6 11.1642 6 10.75Z' fill='%23A2A2A9' /%3E %3C/svg%3E");
+                }
+            }
+
+            &.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        .link-profile {
+            font-size: rem-calc(13);
+            color: $black;
+            transition: 0.25s ease-in-out;
+
+            @include breakpoint(large) {
+                font-size: rem-calc(16);
+            }
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+
+        .complement {
+            font-size: rem-calc(11);
+            font-weight: $global-weight-normal;
+            color: $medium-gray;
+
+            @include breakpoint(large) {
+                font-size: rem-calc(14);
+            }
+        }
+
+        .more-profiles-button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: rem-calc(14);
+            min-width: 45px;
+            color: $flowchart-item-more-button-color;
+            background-color: $flowchart-item-more-button-bg-color;
+            border-radius: 30px;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px;
+
+            @include wicon(046-bas, after);
+
+            &::after {
+                font-size: rem-calc(10);
+                font-weight: bold;
+                margin-left: 2px;
+                transition: 0.3s ease-in-out;
+            }
+
+            &:not(.not-clicked) {
+                &::after {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        &:hover,
+        &.more-actions-list-is-opened {
+            border-color: $primary-color;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+
+            .more-actions-button {
+                .dot {
+                    background-color: $black;
+                }
+            }
+        }
+    }
+
+    .flowchart-mini-item {
+        margin: 10px 0;
+
+        .name {
+            font-size: $flowchart-mini-item-name-font-size;
+        }
+
+        .flowchartMiniMediaWrapper {
+            border-radius: 50%;
+            height: $flowchart-mini-item-img-size;
+            width: $flowchart-mini-item-img-size;
+            max-width: $flowchart-mini-item-img-size;
+            margin-right: 5px;
+        }
+    }
+
+    .profile-terms-list {
+        margin: 10px 0 0 0;
+
+        li {
+            color: $profile-term-color;
+            background-color: $profile-term-bg-color;
+            font-size: $profile-term-font-size;
+            font-weight: $profile-term-font-weight;
+            text-align: center;
+            text-transform: $profile-term-text-transform;
+            line-height: 1;
+            margin: 3px 5px;
+            padding: $profile-term-padding;
+        }
+    }
+
+    .flowchart-separator {
+        display: flex;
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 50px;
+
+        .left,
+        .right {
+            border-top: $flowchart-separator-border;
+            width: 30%;
+            margin: 0 10%;
+
+            &::before,
+            &::after {
+                position: absolute;
+                content: '';
+                display: block;
+                height: 12px;
+                width: calc(10% + 1px);
+            }
+        }
+
+        .left {
+            &::before {
+                border-top: $flowchart-separator-border;
+                border-left: $flowchart-separator-border;
+                border-top-left-radius: 8px;
+                margin-top: -2px;
+                margin-left: -10%;
+            }
+
+            &::after {
+                border-bottom: $flowchart-separator-border;
+                border-right: $flowchart-separator-border;
+                border-bottom-right-radius: 6px;
+                margin-top: -12px;
+                margin-left: 30%;
+            }
+        }
+
+        .right {
+            &::before {
+                border-bottom: $flowchart-separator-border;
+                border-left: $flowchart-separator-border;
+                border-bottom-left-radius: 6px;
+                margin-top: -12px;
+                margin-left: calc(-10% - 1px);
+            }
+
+            &::after {
+                border-top: $flowchart-separator-border;
+                border-right: $flowchart-separator-border;
+                border-top-right-radius: 8px;
+                margin-top: -2px;
+                margin-left: 30%;
+            }
+        }
+
+        .collapse-profiles-button {
+            cursor: pointer;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            font-size: rem-calc(14);
+
+            @include wicon(045-haut, after);
+
+            &::after {
+                font-size: rem-calc(10);
+                font-weight: bold;
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+.add-new-profile-button {
+    color: $medium-gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .wicon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        width: 35px;
+        color: $white;
+        background-color: $medium-gray;
+        border-radius: 50%;
+        transition: 0.25s ease-in-out;
+
+        &::before {
+            font-weight: bold;
+        }
+    }
+
+    &-title {
+        font-size: rem-calc(14);
+        transition: 0.25s ease-in-out;
+    }
+
+    &[target="_blank"]::after {
+        display: none;
+    }
+
+    &:hover {
+        .wicon {
+            background-color: $primary-color;
+        }
+
+        &-title {
+            color: $primary-color;
+        }
+    }
+
+    &:focus {
+        color: $medium-gray;
+    }
+}

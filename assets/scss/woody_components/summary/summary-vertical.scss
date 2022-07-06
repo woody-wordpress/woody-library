@@ -1,5 +1,5 @@
 &.is-vertical-summary {
-    @include breakpoint(large) {
+    @include breakpoint(xlarge) {
         width: $summary-max-width;
         border-radius: $summary-border-radius;
         box-shadow: $summary-box-shadow;
@@ -13,7 +13,7 @@
         display: inline-flex !important;
         border: none !important;
 
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             padding: 0.75rem 0;
         }
     }
@@ -21,7 +21,7 @@
     &.isFixed {
         z-index: 10000;
 
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             top: 50%;
             left: initial;
             #{$summary-side-fixed-position}: 10px;

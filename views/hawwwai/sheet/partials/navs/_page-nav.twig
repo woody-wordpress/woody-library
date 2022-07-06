@@ -5,6 +5,7 @@
     or (formated_object.bordereau in ['RES'] and formated_object.chefName|default)
     or formated_object.goodDealsDescription|default
     or formated_object.accessPoints|default
+    or contractsLevels.content.reviews and formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default
     or (formated_object.environmentPoints|default and contractsLevels.content.environment)
     or (contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default))
     or (object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos)
@@ -224,7 +225,7 @@
     {% endif %}
 
     {# Reviews #}
-    {% if contractsLevels.content.reviews %}
+    {% if contractsLevels.content.reviews and formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default %}
         <li id="nav_reviews" anchor-link ng-click="scrollTo('#reviews')">
             <a href="" role="button" class="media">
                 <span class="media-left"><span class="icon-font-avis4 [ plo-fonticon ]"></span></span>
@@ -234,7 +235,7 @@
     {% endif %}
 
     {# Map #}
-    {% if contractsLevels.content.maps %}
+    {% if contractsLevels.content.maps and formated_object.geolocations|default %}
     {% if not formated_object.dataItinerary.itineraryLayout|default %}
         <li id="nav_map" class="hidden-xs" anchor-link ng-click="scrollTo('#hww_map')">
             <a href="" role="button" class="media">

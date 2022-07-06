@@ -1,5 +1,5 @@
 .summary-item {
-    @include breakpoint(xmedium down) {
+    @include breakpoint(large down) {
         order: 1;
 
         &.active {
@@ -20,7 +20,7 @@
 .anchor {
     display: flex !important;
 
-    @include breakpoint(xmedium down) {
+    @include breakpoint(large down) {
         padding: 0.75rem 0;
     }
 

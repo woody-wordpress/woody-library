@@ -30,7 +30,7 @@
                     {% endif %}
 
                     {% if formated_object.description|default %}
-                        <div class="establishment-description" itemprop="description">
+                        <div class="establishment-description">
                             {{ formated_object.description|raw|nl2br }}
                         </div>
                     {% endif %}
@@ -381,11 +381,11 @@
                         {% set mapDocs = false %}
                         <ul class="document-list">
                             {% for document in formated_object.documents %}
-                                <li>
+                                <li class="_plu-push--tiny">
                                     <a {% if document.type == '99.03.01.01' %}data-type="TRACE" event-type="SHEET_DOWNLOAD_TRACE"
                                         {% else %}target="_blank" data-type="FICHIER" event-type="SHEET_DOWNLOAD_PDF"{% endif %}
                                         rel="noindex,nofollow"
-                                        interact itemprop="url" href="{{ document.URL }}" download>
+                                        interact href="{{ document.URL }}" download>
                                         <span class="{{document.type == '99.03.01.01' ? 'icon-font-download':'icon-font-file-3'}} plo-fonticon"></span>
                                         {{ document._name|default }}
                                     </a>
@@ -394,15 +394,33 @@
                                     {% set mapDocs = true %}
                                 {% endif %}
                             {% endfor %}
+                            {% if object.data.bordereau in ['ITI'] and site_key in ['les-sept-laux'] %}
+                                {% for website in formated_object.contacts.establishment.websites %}
+                                    <li class="_plu-push--tiny">
+                                        <div class="ellipsis epsilon"
+                                            analytics-mediaveille interact event-type="WEBSITE_TOURISTIC_PROVIDER">
+                                            <a data-type="URL" class='nowrap' rel="nofollow" href="{{ website|default }}" target="_blank">
+                                                <span class="icon-font-globe plo-fonticon"></span>
+                                                {{ website|simpleURL }}
+                                            </a>
+                                        </div>
+                                        {% if formated_object.contacts.establishment.descriptionWebsites[loop.index0]|default %}
+                                            <div class="epsilon text-muted _plu-push-left--tiny _plu-push--tiny">{{ formated_object.contacts.establishment.descriptionWebsites[loop.index0] }}</div>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
                         </ul>
-                        {% if object.data.bordereau in ['ITI','PRD'] and mapDocs %}
+                        {% if mapDocs %}
                             <span class="itinerary-download-text">
+                                <span class="icon-font-infos plo-fonticon"></span>
                                 {{ 'SECTIONS.TOURISM.SHEET.ITINERARY.FILES'|trans }}
                                 {% if formated_object.dataItinerary|default and formated_object.dataItinerary.helpLink|default %}
-                                <a href="{{ formated_object.dataItinerary.helpLink }}" class="itinerary-how-to-use">{{ 'GLOBAL.FILES.HOW_TO_USE'|trans }}</a>
+                                <a href="{{ formated_object.dataItinerary.helpLink }}" class="itinerary-how-to-use">
+                                    {{ 'GLOBAL.FILES.HOW_TO_USE'|trans }}
+                                </a>
                                 {% endif %}
                             </span>
-
                         {% endif %}
                     {% endblock %}
                 {% endembed %}
@@ -427,11 +445,14 @@
             {% endif %}
         </ul>
     </section>
+{% endif %}
 
-    {% if (formated_object.dataCustomers|default and contractsLevels.content.customers)
-        or (formated_object.groupsDescription.description|default and formated_object.capacities|default)
-        or (contractsLevels.content.capacities and formated_object.capacities|default and formated_object.capacities.groupCapacities|default)
-        or formated_object.sfGolfCourse|default or formated_object.sfBeachType|default %}
+
+{% if (formated_object.dataCustomers|default and contractsLevels.content.customers)
+    or (formated_object.groupsDescription.description|default and formated_object.capacities|default)
+    or (contractsLevels.content.capacities and formated_object.capacities|default and formated_object.capacities.groupCapacities|default)
+    or formated_object.ageRangeActivity|default
+    or formated_object.sfGolfCourse|default or formated_object.sfBeachType|default %}
     <section id="groups" class="tourism-detail-groups panel panel-default s-stripes s-stripes--contrast row">
         <ul class="list-group stripes-odd">
 
@@ -515,13 +536,32 @@
                     {% endblock %}
                 {% endembed %}
             {% endif %}
+
+            {# Activities (ages) #}
+            {% if formated_object.ageRangeActivity|default %}
+                {% embed "@LOCAL/helper/list-group-item.twig" %}
+                    {% block title %}{{ formated_object.ageRangeActivity._type|default('GLOBAL.GROUPS.ACTIVITY'|trans) }}{% endblock %}
+                    {% block content %}
+                        <ul class="plo-list-bare">
+                            {% for ageEdge in formated_object.ageRangeActivity if ageEdge._type|default %}
+                                <li class="_plu-push--tiny thalasso-item">
+                                    <span class="_plu-emphasis--high">{{ ageEdge._type }} :&nbsp;</span>
+                                    {% if ageEdge._desc|default  %}
+                                        <span class="">{{ ageEdge._desc|raw }}</span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
         </ul>
     </section>
-    {% endif %}
+{% endif %}
 
 
-    {# thalasso #}
-    {% if formated_object.thalassoData|default %}
+{# thalasso #}
+{% if formated_object.thalassoData|default %}
     <section id="thalasso" class="panel panel-default row">
         {% embed "@LOCAL/helper/list-group-item.twig"%}
             {% block title %}{{ formated_object.thalassoData._label }}{% endblock %}
@@ -539,12 +579,6 @@
             {% endblock %}
         {% endembed %}
     </section>
-    {% endif %}
-
-    {% include TWIG.MORE_NAV %}
-
-{% elseif object.data.multimedia|default %}
-
-    {% include TWIG.MORE_NAV %}
-
 {% endif %}
+
+{% include TWIG.MORE_NAV %}

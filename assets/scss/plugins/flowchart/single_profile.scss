@@ -1,4 +1,9 @@
 .single-profile {
+    .single-profile-wrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     .single-profile-left {
         border: $single-profile-left-part-border;
         border-radius: $single-profile-left-part-border-radius;

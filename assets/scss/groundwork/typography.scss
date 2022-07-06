@@ -47,7 +47,10 @@
         }
     }
 
-    .generic-block-wicon,
+    .generic-block-wicon {
+        @include header-size('h2');
+    }
+
     .generic-block-title {
         @extend .h2 !optional;
     }
@@ -81,16 +84,25 @@
         font-size: $wicon-size-big;
         line-height: $wicon-size-big;
     }
+
     &.medium {
         font-size: $wicon-size-medium;
         line-height: $wicon-size-medium;
     }
+
     &.small {
         font-size: $wicon-size-small;
         line-height: $wicon-size-small;
     }
+
     &.mini {
         font-size: $wicon-size-mini;
         line-height: $wicon-size-mini;
     }
+}
+
+.no-visible-text {
+    font-size: 0;
+    margin: 0;
+    padding: 0;
 }

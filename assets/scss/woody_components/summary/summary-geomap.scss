@@ -5,7 +5,7 @@
         height: 100%;
         width: 100%;
 
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             border-radius: $summary-border-radius;
         }
 

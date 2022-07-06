@@ -13,6 +13,24 @@
             }
         }
 
+        @include breakpoint(xmedium down) {
+            &.is-open {
+                height: initial;
+                top: 30px;
+            }
+
+            .tooltip-content {
+                height: fit-content;
+                top: 0;
+                transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0) translateY(0%) !important;
+            }
+
+            .tooltip-resp-close {
+                top: 0;
+                transform: translateX(-50%) translateY(calc(-30px / 2)) !important;
+            }
+        }
+
         @include breakpoint(large) {
             &:hover {
                 .tooltip-item {

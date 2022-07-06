@@ -1,34 +1,46 @@
 
-<li class="panel-title-responsive"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span></li>
+{% if _accordionMode|default %}
 
-<li id="li-contact-form" class="clearfix">
+    <section id="external-grc" class="row panel panel-default">
+        <details id="external-grc-detail" class="list-group-item">
+            <summary class="h3 _plu-flush pl-heading pl-text-normal">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</summary>
+            <div class="">{{ formated_object.sfExternalGrc|raw }}</div>
+        </details>
+    </section>
 
-    <section class="panel panel-default">
-        <div class="panel-body">
+{% else %}
 
-            <a class="plo-btn sidebar-default-btn"
-                interact event-type="SHEET_CONTACT_FORM_OPENED"
-                data-toggle="rcModal" data-target="#nurtik-form" data-id="{{object.metadata.id|default}}">
-                    {{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}
-            </a>
+    <li class="panel-title-responsive"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span></li>
 
-            <!-- Modal -->
-            <div class="modal fade" id="nurtik-form" role="dialog">
-                <div class="modal-dialog small">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times; {{ 'GLOBAL.EXIT'|trans }}</button>
-                            <div class="modal-title"></div>
+    <li id="li-contact-form" class="clearfix">
+
+        <section class="panel panel-default">
+            <div class="panel-body">
+
+                <a class="plo-btn sidebar-default-btn"
+                    interact event-type="SHEET_CONTACT_FORM_OPENED"
+                    data-toggle="rcModal" data-target="#nurtik-form" data-id="{{object.metadata.id|default}}">
+                        {{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}
+                </a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="nurtik-form" role="dialog">
+                    <div class="modal-dialog small">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times; {{ 'GLOBAL.EXIT'|trans }}</button>
+                                <div class="modal-title"></div>
+                            </div>
+                            <div class="modal-body">
+                                {{ formated_object.sfExternalGrc|raw }}
+                            </div>
+                            {# <div class="modal-footer"></div> #}
                         </div>
-                        <div class="modal-body">
-                            {{ formated_object.sfExternalGrc|raw }}
-                        </div>
-                        {# <div class="modal-footer"></div> #}
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-</li>
+    </li>
+{% endif %}

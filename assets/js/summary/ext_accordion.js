@@ -19,12 +19,13 @@ export default class SummaryAccordion {
         if (!!this.accordionHeader) this.manageClickOut();
         if (!!this.element) this.manageAccordionClose();
         if (!!this.fixedMapButton) this.manageFixedMapButton();
+        this.manageScrollToSection();
     }
 
     manageTitle() {
         let self = this;
-        if (window.innerWidth <= 1024) {
-            self.summaryTitle.innerHTML = self.summaryTitle.dataset.title; // Ajoute le titre "Sommaire" <= 1024px si aucun titre n'est renseigné
+        if (window.innerWidth <= 1200) {
+            self.summaryTitle.innerHTML = self.summaryTitle.dataset.title; // Ajoute le titre "Sommaire" <= 1200px si aucun titre n'est renseigné
         }
     }
 
@@ -102,5 +103,19 @@ export default class SummaryAccordion {
                 this.manageFixedMapClose();
             }
         });
+    }
+
+    manageScrollToSection() {
+        if (window.innerWidth <= 1200) {
+            let self = this;
+            let summaryHeight = self.element.clientHeight;
+            self.element.querySelectorAll('.summary-item > [data-section]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    let target = document.querySelector(`.page-section${el.dataset.section}`);
+                    window.scrollTo(0, target.offsetTop - summaryHeight);
+                }, false);
+            });
+        }
     }
 }

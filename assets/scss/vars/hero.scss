@@ -14,6 +14,9 @@ $hero-tagslist-border: 1px solid !default;
 $hero-tagslist-flex-dir: column !default;
 $hero-tagslist-icon-size: rem-calc(30) !default;
 
+// Templates 15 & 16
+$hero-blog-header-container-max-width-xlarge: $global-width !default;
+$hero-blog-header-container-max-width-xxlarge: rem-calc($grid-large-container-size) !default;
 
 // Movie toggler
 $movie-toggle-bgcolor : $primary-color !default;

@@ -2,6 +2,10 @@
  * Sidebar Contact form
  */
 
+.registration-status {
+    .panel { border-color: #ff632a; }
+    .panel-body { color: #ff632a; font-weight: bold; }
+}
 
 .sidebar-contact-form-section {
 
@@ -143,6 +147,28 @@
 
 #external-grc,
 #nurtik-form {
+
+    & > details {
+        summary {
+            cursor: pointer;
+            list-style: none;
+            &:after {
+                font-family: 'raccourci';
+                display: inline-block;
+                position: absolute;
+                right: 30px;
+                transform: rotate(90deg) scaleX(1);
+                @extend .icon-nav-next;
+            }
+        }
+    }
+
+    & > details[open] {
+        summary::after {
+            transform: rotate(-90deg) scaleX(1);
+        }
+    }
+
     &.modal-opened {
         display: flex;
     }
@@ -152,9 +178,14 @@
         margin: 0;
         padding: 0;
         .modal-content {
-          height: auto;
-          min-height: 100%;
-          border-radius: 0;
+            border-radius: 0;
+            width: 40%;
+            max-width: 75rem;
+            min-width: 500px;
+            height: auto;
+            max-height: 90vh;
+            margin: 5vh auto;
+            overflow-y: auto;
         }
 
         .sidebar-contact-text {
@@ -164,17 +195,11 @@
 
     // media query big screens
     .modal-dialog.small {
-        width: 50%;
-        max-width: 75rem;
-        min-width: 500px;
         height: auto;
         margin: auto;
-        .modal-content {
-            min-height: auto;
-        }
     }
     @media screen and (max-width: $ts_screen-sm) {
-        .modal-dialog.small {
+        .modal-dialog.small .modal-content {
             min-width: 90vw;
         }
     }

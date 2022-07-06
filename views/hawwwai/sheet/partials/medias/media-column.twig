@@ -1,8 +1,7 @@
 {% if media.type == '03.01.01' %} {# if mediatype is a Photo  #}
     <li>
-        <div class="gallery-photo-wrapper {% if media.URL %}fresco{% endif %}" {% if media.URL %}href="{{media.URL}}" data-fresco-group="gallery_media" data-fresco-options="loop: true, preload: [1,1]"{% endif %} itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-            <img class="rc-img" alt="{{ media._name|default('img-name-mising') }}" src="{{ media.URL | rcImg(380, 600, 75, 'jpg', 'clip') }}" itemprop="contentUrl" />
-            <meta itemprop="url" content="{{ media.URL | rcImg(380, 600, 75, 'jpg', 'clip') }}">
+        <div class="gallery-photo-wrapper {% if media.URL %}fresco{% endif %}" {% if media.URL %}href="{{media.URL}}" data-fresco-group="gallery_media" data-fresco-options="loop: true, preload: [1,1]"{% endif %}>
+            <img class="rc-img" alt="{{ media._name|default('img-name-mising') }}" src="{{ media.URL | rcImg(380, 600, 75, 'jpg', 'clip') }}" />
             {% if media._copyright|default %}<span class="photo-label">{{ media._copyright}}</span>{% endif %}
         </div>
     </li>

@@ -11,26 +11,14 @@
                 }
 
                 .swiper-slide {
-                    transition-property: transform, padding, opacity;
-                    transition-duration: .3s, .3s, 0s;
-                    transition-timing-function: ease;
-
-                    .imageObject {
-                        transition: all .3s ease;
-                    }
-                    .card-description {
-                        transition: all .3s ease;
-                        @include root-add('.swiper-slide', ':not(.swiper-slide-active)') {
-                            font-size: $swiper-zoomActive-scale * 1%;
-                        }
-                    }
+                    transition: transform .3s ease, opacity .3s ease;
 
                     &:not(.swiper-slide-active) {
-                        padding-top: calc( (100 - #{$swiper-zoomActive-scale}) / 2 * 1% );
-                        padding-bottom: calc( (100 - #{$swiper-zoomActive-scale}) / 2 * 1% );
+                        transform: scale(calc(#{$swiper-zoomActive-scale} * 0.01));
 
                         .imageObject {
                             transition: filter .3s ease;
+
                             @if $grayScale-zoomActive-swiper {
                                 filter: $swiper-zoomActive-grayscale;
                             }
@@ -44,9 +32,6 @@
                     }
 
                     &.swiper-slide-active {
-                        .imageObject {
-                            height: inherit;
-                        }
                         z-index: 1;
 
                         @if $swiper-zoomActive-shadow {
@@ -557,21 +542,21 @@
 // }
 
 
-@include breakpoint(xmedium down){
-    .section .section-layout-wrapper{
-        .swResp{
+@include breakpoint(xmedium down) {
+    .section .section-layout-wrapper {
+        .swResp {
             width: 100vw;
         }
 
-        &.grid-container{
-            .swResp{
+        &.grid-container {
+            .swResp {
                 margin-left:calc(#{map-get($grid-column-gutter, medium)} * -1);
             }
         }
 
-        &:not(.grid-container){
-            .grid-padding-x{
-                .swResp{
+        &:not(.grid-container) {
+            .grid-padding-x {
+                .swResp {
                     margin-left: calc(#{map-get($grid-column-gutter, small)} * -0.5);
                 }
             }

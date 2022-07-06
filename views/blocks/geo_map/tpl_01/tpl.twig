@@ -7,6 +7,9 @@
     var mapData = {
         id: "geomap-{{ random_number }}",
         default: {
+            map: {
+                scrollWheelZoom: 1
+            },
             lang : "{{ globals.current_lang }}",
             position:{
                 latitude:{{ default_lat }},

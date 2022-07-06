@@ -5,6 +5,10 @@
         }
     }
 
+    .plyr--video {
+        border-radius: $global-radius;
+    }
+
     .movie-title,
     .movie-caption {
         display: block;

@@ -17,6 +17,9 @@
                 var mapData = {
                     id: "circuitmap-{{ random_number }}",
                     default: {
+                    map: {
+                        scrollWheelZoom: 1
+                    },
                     fitBounds: {{ page_teaser_map_zoom ? 0 : 1}},
                     zoom:{{ page_teaser_map_zoom|default(12)  }},
                     tm_conf_id: {{ tmaps_confid|default('false') }},
@@ -61,6 +64,9 @@
                 var mapData = {
                     id: "geomap-{{ random_number }}",
                     default: {
+                        map: {
+                            scrollWheelZoom: 1
+                        },
                         position: {
                         latitude:{{ post_coordinates.post_latitude }},
                         longitude:{{ post_coordinates.post_longitude }},
@@ -134,10 +140,12 @@
                                 'hide_caption' : true
                             } %}
                         {% endif %}
-                        <span class="profile-title">{{ profile.profile_title }}</span>
-                        {% if profile.profile_description|default %}
-                        <p class="profile-description">{{ profile.profile_description }}</p>
-                        {% endif %}
+                        <div class="profile-section">
+                            <span class="profile-title">{{ profile.profile_title }}</span>
+                            {% if profile.profile_description|default %}
+                            <p class="profile-description">{{ profile.profile_description }}</p>
+                            {% endif %}
+                        </div>
                     </div>
                     {% if profile.profile_favs.profile_favs_things|default %}
                     <div class="profile-favs-wrapper">

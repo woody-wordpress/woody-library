@@ -660,11 +660,11 @@
                     margin-left: -5px;
                 }
                 div[facet-id="citycenter_ghost"] {
-                    margin: 40px 10px 30px 10px;
+                    margin: 40px 8px 30px 0px;
                     height: 5px;
+                    $handleSize: 16px;
 
                     .noUi-handle {
-                        $handleSize: 16px;
                         height: $handleSize;
                         width: $handleSize;
                         top: -5px;
@@ -685,7 +685,7 @@
                         &:after {
                             content: "";
                             position: absolute;
-                            top: 100%; /* At the bottom of the tooltip */
+                            top: 100%; // at the bottom of the tooltip
                             left: 50%;
                             margin-left: -5px;
                             border-width: 5px;
@@ -693,6 +693,22 @@
                             border-color: $primary-color transparent transparent transparent;
                           }
                     }
+                    // handle position for value 0 and 100
+                    .noUi-handle[aria-valuenow="0.0"] {
+                        left: 0;
+                        .noUi-tooltip {
+                            left: 15px;
+                            &:after { left: 25%; }
+                        }
+                    }
+                    .noUi-handle[aria-valuenow="100.0"] {
+                        left: -$handleSize;
+                        .noUi-tooltip {
+                            left: 0;
+                            &:after { left: 70%; }
+                        }
+                    }
+
                     .fixed-label {
                         position: absolute;
                         top: 15px;

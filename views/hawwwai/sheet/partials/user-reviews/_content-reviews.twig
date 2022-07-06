@@ -1,82 +1,36 @@
-{% if contractsLevels.content.reviews %}
-{# and options comments(ac.options) #}
+{# WIDGET FAIRGUEST #}
+{% if contractsLevels.content.reviews and formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default %}
     <section id="reviews" class="row tourism-detail-reviews panel panel-default">
 
-        {# WIDGET FAIRGUEST #}
-        {% if formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default %}
-            {% if app['env'] == 'dev' %}
-                {% set apirender_widget_path = global.request.basepath ~"/assets/widget-iframe.html" %}
-            {% elseif app['env'] == 'preprod' %}
-                {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
-            {% elseif app['env'] == 'prod' %}
-                {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
-            {% endif %}
-
-            {% if formated_object.dataFairguest.disableOptions %}
-                {% set displayOptions = [
-                    'no_reviews_infos',
-                    'reviews',
-                ] %}
-
-            {% else %}
-                {% set displayOptions = [
-                    'classement',
-                    'reviews_infos',
-                    'expressions_often',
-                    'expressions_only',
-                    'satisfaction',
-                    'satisfactionDivision',
-                    'reviews',
-                    'providers_list']
-                %}
-            {% endif %}
-
-            {% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %}
-                {% set displayOptions = displayOptions|merge(['reviews_add']) %}
-            {% endif %}
-            {% set displayOptions = displayOptions|join(',') %}
-
-            {% if formated_object.fairguestReview|default and formated_object.fairguestReview.isValid %}
-            <span itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating">
-                <meta itemprop="ratingValue" content="{{formated_object.fairguestReview.mark}}">
-                <meta itemprop="ratingCount" content="{{formated_object.fairguestReview.nbMark}}">
-                <meta itemprop="bestRating" content="10">
-                {# <meta itemprop="worstRating" content="2"> #}
-            </span>
-            {% endif %}
-
-
-            <iframe iframe-resizer
-                style="border: none; min-width: 100%; width: 100px;*width: 100%;"
-                src="{{ apirender_widget_path }}?{% if not formated_object.dataFairguest.disableOptions %}tokenJS={{config.tokenJS|default}}&{% endif %}widgetId={{config.widgetId|default}}&idFiche={{object.metadata.id}}&color={{ config.FgWidgetColor|default('e47830')|trim('#', 'left') }}&type=big&recentReviews=false&idGroup={{formated_object.dataFairguest.idGroup}}&erpProductKey={{site_key}}&lang={{lang|default('fr')}}&token={{apiAccount.token}}&display={{displayOptions}}">
-            </iframe>
-            {#
-            <fairguest-review-widget
-                data-options='{"idFiche":"{{object.metadata.id}}",
-                            "idGroup": "{{ formated_object.dataFairguest.idGroup }}",
-                            "display":"classement,expressions_often,expressions_only,reviews,evolution{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %},reviews_add{% endif %}",
-                            "color": "{{ config.FgWidgetColor|default('#e47830') }}",
-                            "type":"big",
-                            "lang" : {{lang|default('fr'),
-                            "erpProductKey": "{{site_key}}"
-                            }'>
-            </fairguest-review-widget>
-
-            {% if app['env'] in ['dev','preprod'] %}
-                <script src="http://www.fairguest.rc-preprod.com/widget/fairguest_reviews_bundle.min.js"></script>
-            {% elseif app['env'] == 'prod' %}
-                <script src="http://www.fairguest.com/widget/fairguest_reviews_bundle.min.js"></script>
-            {% endif %}
-            #}
-
-        {# BASIC REVIEW TEMPLATE #}
-        {% else %}
-            <div class="panel-title-responsive"><span class="panel-title-responsive_text">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.ADD_COMMENT'|trans }}</span></div>
-            <div class="panel-body">
-                {% include TWIG.REVIEWS_LIST %}
-            </div>
+        {% if app['env'] == 'dev' %}
+            {% set apirender_widget_path = global.request.basepath ~"/assets/widget-iframe.html" %}
+        {% elseif app['env'] == 'preprod' %}
+            {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
+        {% elseif app['env'] == 'prod' %}
+            {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
         {% endif %}
 
+        <iframe iframe-resizer
+            style="border: none; min-width: 100%; width: 100px;*width: 100%;"
+            src="{{ apirender_widget_path }}?tokenJS={{config.tokenJS|default}}&widgetId={{config.widgetId|default}}&idFiche={{object.metadata.id}}&color={{ config.FgWidgetColor|default('e47830')|trim('#', 'left') }}&type=big&recentReviews=false&idGroup={{formated_object.dataFairguest.idGroup}}&erpProductKey={{site_key}}&lang={{lang|default('fr')}}&token={{apiAccount.token}}">
+        </iframe>
+        {#
+        <fairguest-review-widget data-options='{
+            "idFiche":"{{object.metadata.id}}",
+            "idGroup": "{{ formated_object.dataFairguest.idGroup }}",
+            "display":"classement,expressions_often,expressions_only,reviews,evolution{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %},reviews_add{% endif %}",
+            "color": "{{ config.FgWidgetColor|default('#e47830') }}",
+            "type":"big",
+            "lang" : {{lang|default('fr'),
+            "erpProductKey": "{{site_key}}"
+        }'></fairguest-review-widget>
+
+        {% if app['env'] in ['dev','preprod'] %}
+            <script type="text/javascript" src="http://www.fairguest.rc-preprod.com/widget/fairguest_reviews_bundle.min.js"></script>
+        {% elseif app['env'] == 'prod' %}
+            <script type="text/javascript" src="http://www.fairguest.com/widget/fairguest_reviews_bundle.min.js"></script>
+        {% endif %}
+        #}
 
     </section>
 {% endif %}

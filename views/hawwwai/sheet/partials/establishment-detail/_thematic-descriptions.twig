@@ -51,10 +51,15 @@
                             <div class="_plu-push-top--tiny">
                                 <span period-parser type="select" start={{datablock.startDate| date('Y-m-d')}} end={{datablock.endDate| date('Y-m-d')}}>
                                     <span class="icon-font-event plo-fonticon"></span>
-                                    <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>
-                                    <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', lang)}}</span>
-                                    <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
-                                    <span class="end-date">{{ datablock.endDate | localizeddate('long', 'none', lang)}}</span>
+                                    {% if datablock.startDate| date('Y-m-d') == datablock.endDate| date('Y-m-d') %}
+                                        <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
+                                        <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', lang)}}</span>
+                                    {% else %}
+                                        <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>
+                                        <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', lang)}}</span>
+                                        <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
+                                        <span class="end-date">{{ datablock.endDate | localizeddate('long', 'none', lang)}}</span>
+                                    {% endif %}
                                 </span>
                             </div>
                         {% endif %}
@@ -63,7 +68,7 @@
                         <div class="datablock-field-links _plu-push-top--small">
                             {% if datablock.link|default %}
                                 <div class="datablock-link">
-                                    <a target="_blank" rel="noindex,nofollow" itemprop="url" href="{{ datablock.link }}" download>
+                                    <a target="_blank" rel="noindex,nofollow" href="{{ datablock.link }}" download>
                                         <span class="icon-font-globe plo-fonticon"></span>
                                         {{ datablock.linkText|default('Infos & réservation') }}
                                     </a>
@@ -73,7 +78,7 @@
                                 <div class="datablock-file">
                                     <a target="_blank" data-type="FICHIER" event-type="SHEET_DOWNLOAD_PDF"
                                         rel="noindex,nofollow"
-                                        interact itemprop="url" href="{{ datablock.file }}" download>
+                                        interact href="{{ datablock.file }}" download>
                                         <span class="{{ true ? 'icon-font-download':'icon-font-file-3'}} plo-fonticon"></span>
                                         {{ datablock.fileText|default('Télécharger la doc') }}
                                     </a>

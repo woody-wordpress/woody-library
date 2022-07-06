@@ -37,9 +37,7 @@
                             {% endif %}
                             href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
                             data-frescox-group="gallery_media"
-                            data-frescox-options="loop: true, preload: [1,1]"
-                            itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{media.URL}}">
+                            data-frescox-options="loop: true, preload: [1,1]">
                             <div class="background-img" style="background-image: url({{ media.URL | rcImg(1200, 760, 75, 'jpg', 'clip') }});"></div>
                         </div>
 
@@ -113,15 +111,12 @@
                                     {% if media._caption|default or media._copyright|default %}
                                         data-sub-html="<div>{{ media._caption|default }}</div>{% if media._copyright|default %}<div>©&nbsp;{{ media._copyright|trim('©', 'left') }}{% endif %}</div>"
                                     {% endif %}
-                                    itemprop="image" itemscope itemtype="https://schema.org/ImageObject"
-
                                     href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
                                     data-frescox-group="gallery_media"
                                     data-frescox-options="loop: true, preload: [1,1]"
 
                                     alt="{{ media._name|default('img-name-mising') }}"
                                     src="{{ media.URL | rcImg(1200, 760, 75, 'jpg', 'clip') }}"
-                                    itemprop="url"
                                     />
                             </div>
                         </div>
@@ -134,9 +129,7 @@
                                 {% endif %}
                                 href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
                                 data-frescox-group="gallery_media"
-                                data-frescox-options="loop: true, preload: [1,1]"
-                                itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                                <meta itemprop="url" content="{{media.URL}}">
+                                data-frescox-options="loop: true, preload: [1,1]">
                             <div class="background-img" style="background-image: url({{ media.URL | rcImg(1200, 760, 75, 'jpg', 'clip') }});"></div>
                         </div>
                         {% endif %}
@@ -165,9 +158,7 @@
                         {% endif %}
                         href="{{media.URL| rcImg(1900, 1080, 75, 'jpg', 'clip')}}"
                         data-frescox-group="gallery_media"
-                        data-frescox-options="loop: true, preload: [1,1]"
-                        itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                        <meta itemprop="url" content="{{media.URL}}">
+                        data-frescox-options="loop: true, preload: [1,1]">
                     </div>
                 {% endif %}
             {% endfor %}

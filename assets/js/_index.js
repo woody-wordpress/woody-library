@@ -1,3 +1,4 @@
+import './accessibility';
 import './accordion';
 import './animations';
 import './bookblock';
@@ -7,6 +8,7 @@ import './headnavs';
 import './hero';
 import './infolive';
 import './interactive_gallery';
+import './lang-switcher';
 import './links';
 import './lists';
 import './maps';

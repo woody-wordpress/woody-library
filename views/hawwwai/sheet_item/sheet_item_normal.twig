@@ -321,11 +321,11 @@
                         <div class="item-infos-header">
                             <div class="item-infos-header-left">
                                 {% if dealTitle|default %}
-                                    <h3 class="item-infos-title h3 deal-title">{{ dealTitle}}</h3>
+                                    <div class="item-infos-title h3 deal-title">{{ dealTitle}}</div>
                                 {% endif %}
 
                                 {% if title|default and not dealTitle|default %}
-                                    <h3 class="item-infos-title h3">{{ title }}</h3>
+                                    <div class="item-infos-title h3">{{ title }}</div>
                                 {% endif %}
 
                                 {% if type|default %}

@@ -1,8 +1,9 @@
 {% spaceless %}
-{% if page_teaser_display_favs_btn|default and globals.post_id not in globals.woody_options_pages and globals.woody_options_pages.favorites_url %}
-    <a href="#" class="button-add-to-favs {{ containerClass|default }} is-false">
-        <i class="wicon-058-favoris-plus false" title="{{ __("Ajouter", 'woody-theme') }}"></i>
-        <i class="wicon-059-favoris-moins true" title="{{ __("Supprimer", 'woody-theme') }}"></i>
-    </a>
+{% if page_teaser_display_favs_btn|default and globals.post_id not in globals.woody_options_pages and
+globals.woody_options_pages.favorites_url %}
+<a href="#" class="button-add-to-favs {{ containerClass|default }} is-false">
+    <i class="wicon wicon-058-favoris-plus false" title="{{ __(" Ajouter", 'woody-theme' ) }}"></i>
+    <i class="wicon wicon-059-favoris-moins true" title="{{ __(" Supprimer", 'woody-theme' ) }}"></i>
+</a>
 {% endif %}
 {% endspaceless %}

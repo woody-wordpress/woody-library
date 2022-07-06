@@ -7,9 +7,8 @@
             </dt>
 
             <dd class="col-xs-10 _plu-hard--left">
-                <span itemscope itemprop="location" itemtype="https://schema.org/Place">
-                    <meta itemprop="name" content="{{ 'GLOBAL.ADDRESS'|trans }}"/>
-                    <address class="_plu-flush" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                <span>
+                    <address class="_plu-flush">
 
                         {# peopleFirstName #}
                         {% if formated_object.contacts.establishment.peopleFirstName is not empty
@@ -27,7 +26,7 @@
                         {% if formated_object.contacts.establishment.address1 is not empty
                             or formated_object.contacts.establishment.address2 is not empty
                             or formated_object.contacts.establishment.address3 is not empty %}
-                            <div itemprop="streetAddress">
+                            <div>
                                 {% if formated_object.contacts.establishment.address1 is not empty %}
                                     <div class="address1">{{ formated_object.contacts.establishment.address1 }}</div>
                                 {% endif %}
@@ -49,26 +48,18 @@
                             <div class="_plu-caps _plu-inline">
                                 {% spaceless %}
                                 {% if formated_object.contacts.establishment.zipCode is not empty %}
-                                    <span itemprop="postalCode">{{formated_object.contacts.establishment.zipCode}}</span>&nbsp;
+                                    <span>{{formated_object.contacts.establishment.zipCode}}</span>&nbsp;
                                 {% endif %}
 
                                 {% if formated_object.contacts.establishment.deliveryOffice is not empty %}
-                                    <span itemprop="addressLocality">{{ formated_object.locality }}</span>
+                                    <span>{{ formated_object.locality }}</span>
                                 {% else %}
-                                    <span itemprop="addressLocality">{{ formated_object.contacts.establishment.commune }}</span>
+                                    <span>{{ formated_object.contacts.establishment.commune }}</span>
                                 {% endif %}
                                 {% endspaceless %}
                             </div>
                         {% endif %}
                     </address>
-
-                    <!-- // GeoCoordinates -->
-                    {% if formated_object.geolocations is not empty %}
-                        <span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
-                            {% if formated_object.geolocations.latitude is defined %}<meta itemprop="latitude" content="{{formated_object.geolocations.latitude}}">{% endif %}
-                            {% if formated_object.geolocations.longitude is defined %}<meta itemprop="longitude" content="{{formated_object.geolocations.longitude}}">{% endif %}
-                        </span>
-                    {% endif %}
                 </span>
             </dd>
         </dl>

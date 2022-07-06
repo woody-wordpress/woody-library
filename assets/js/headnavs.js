@@ -124,11 +124,11 @@ $('.woody-component-headnavs').each(function () {
             // Up
             $body.removeClass("scrolling-down").addClass('scrolling-up');
 
-            if (document.querySelector('.woody-component-summary.fixedTop') && window.innerWidth > 1200) {
+            if (document.querySelector('.woody-component-headnavs') !== null && document.querySelector('.woody-component-summary.fixedTop') && window.innerWidth > 1200) {
                 if (document.querySelector('.woody-component-summary.fixedTop').classList.contains('isFixed')) {
                     let summaryMoreOffset = WoodyFilter.apply('summary_more_offset', 0); // Set the value in your child theme if you have a translated topheader when body is scrolling down for example
                     if (document.querySelector('body').classList.contains('admin-bar')) {
-                        document.querySelector('.woody-component-summary.fixedTop').setAttribute('style', `top: ${document.querySelector('.woody-component-headnavs').clientHeight - summaryMoreOffset + 32}px; transition: 0.5s`)
+                        document.querySelector('.woody-component-summary.fixedTop').setAttribute('style', `top: ${document.querySelector('.woody-component-headnavs').clientHeight - summaryMoreOffset + 32}px; transition: 0.5s`);
                     } else {
                         document.querySelector('.woody-component-summary.fixedTop').setAttribute('style', `top: ${document.querySelector('.woody-component-headnavs').clientHeight - summaryMoreOffset}px; transition: 0.5s`);
                     }

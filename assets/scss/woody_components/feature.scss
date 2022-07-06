@@ -1,3 +1,28 @@
+.woody-component-feature-list {
+    .feature-list-block {
+        &-titles {
+            &.has-icon-img img {
+                max-width: $icon-img-max-width;
+            }
+        }
+
+        &-texts {
+            >span {
+                display: block;
+            }
+        }
+
+        &-title {
+            @extend .h3 !optional;
+        }
+
+        &-pretitle,
+        &-subtitle {
+            @extend h6 !optional;
+        }
+    }
+}
+
 .woody-component-feature {
     >a {
         display: block;
@@ -43,7 +68,7 @@
     &.tpl_02 {
         .feature-texts {
             @include xy-gutters($gutter-position: left);
-            display:flex;
+            display: flex;
             flex-direction: column;
         }
     }

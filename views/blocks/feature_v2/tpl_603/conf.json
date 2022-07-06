@@ -1,0 +1,29 @@
+{
+    "approved": true,
+    "name": "Template 603",
+    "description": "Grille 6 éléments - Titres (prétitre, titre) puis icône et textes en-dessous (sous-titre, description)",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_6296243e5eb71"
+    ],
+    "vars": [
+        "icon_type",
+        "icon_img",
+        "woody_icon",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "display",
+        "items",
+        "feature_buttons",
+        "feature_no_padding",
+        "visual_effects"
+    ],
+    "display": [{
+        "length": 6,
+        "text_align": "center",
+        "roadbook": false
+    }],
+    "creation": "2022-06-10"
+}

@@ -1,12 +1,12 @@
 &.is-horizontal-summary {
     .menu {
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             flex-direction: row;
         }
     }
 
     .summary-item {
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             &:not(:last-child) {
                 margin-right: 20px;
             }

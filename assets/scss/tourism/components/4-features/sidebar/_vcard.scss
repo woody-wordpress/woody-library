@@ -2,113 +2,110 @@
  * Sidebar Vcard info
  */
 
-.tourism-detail-sidebar {
+.sidebar-contact-infos {
 
-    .sidebar-contact-infos {
+    dl {
+        display: flex;
+        align-items: center;
+    }
 
-        dl {
-            display: flex;
-            align-items: center; 
+    .plo-panel__row:not(:first-child) {
+        border-top: none;
+    }
+
+    .plo-fonticon {
+        font-size: 24px;
+
+        &:before {
+            width: 24px;
+            height: 24px;
+            margin: 0;
         }
+    }
 
-        .plo-panel__row:not(:first-child) {
-            border-top: none;
-        }
+    .sidebar-vcard-label {
+        padding: 10px 20px;
+        font-size: 1em;
+        margin-bottom: 0;
+        color: $gray;
+        font-style: italic;
+        background: $gray-lighter;
+    }
 
-        .plo-fonticon {
-            font-size: 24px;
+    .sidebar-vcard-names {
+        vertical-align: sub;
+    }
 
-            &:before {
-                width: 24px;
-                height: 24px;
-                margin: 0;
-            }
-        }
+    .sidebar-contact-phones {
 
-        .sidebar-vcard-label {
-            padding: 10px 20px;
-            font-size: 1em;
-            margin-bottom: 0;
-            color: $gray;
-            font-style: italic;
-            background: $gray-lighter;
-        }
+        dd > div {
 
-        .sidebar-vcard-names {
-            vertical-align: sub;
-        }
+            margin-bottom: $vr--tiny;
 
-        .sidebar-contact-phones {
-
-            dd > div {
-
-                margin-bottom: $vr--tiny;
-
-                .phone-link {
-                    cursor: pointer;
-                    color: $text-color;
-                    font-weight: 300;
-
-                    &:hover {
-                        cursor: pointer;
-                        color: $primary-color;
-                        text-decoration: none;
-
-                        .hidden-number {
-                            color: $primary-color;
-                        }
-                    }
-                }
-            }
-
-            .reveal-content {
-                display: none;
-            }
-
-            .hidden-number {
-                vertical-align: bottom;
-                font-size: 1.1rem;
-                padding-left: 3px;
-                color: $primary-color;
-            }
-
-            .main-tel {
-                font-size: rem-calc(22);
-
-                .hidden-number {
-                    font-size: rem-calc(22);
-                }
-
-                @media (min-width: $ts_screen-sm-min) {
-                    // margin-bottom: 30px;
-                }
-            }
-
-            .phone-infos {
-                font-weight: bold;
-                // font-size: $font-size-h6;
+            .phone-link {
                 cursor: pointer;
-                padding: 0 0 10px 20px;
-            }
-        }
-
-        .sidebar-contact-websites {            
-            .website {
-                color: $link-color;
+                color: $text-color;
+                font-weight: 300;
 
                 &:hover {
-                    color: darken($brand-primary, 15%);
-                }
+                    cursor: pointer;
+                    color: $primary-color;
+                    text-decoration: none;
 
-                a {
-                    color: $link-color;
-                    font-weight: 300;
-
-                    &:hover {
-                        cursor: pointer;
-                        color: darken($brand-primary, 15%);
-                        text-decoration: underline;
+                    .hidden-number {
+                        color: $primary-color;
                     }
+                }
+            }
+        }
+
+        .reveal-content {
+            display: none;
+        }
+
+        .hidden-number {
+            vertical-align: bottom;
+            font-size: 1.1rem;
+            padding-left: 3px;
+            color: $primary-color;
+        }
+
+        .main-tel {
+            font-size: rem-calc(22);
+
+            .hidden-number {
+                font-size: rem-calc(22);
+            }
+
+            @media (min-width: $ts_screen-sm-min) {
+                // margin-bottom: 30px;
+            }
+        }
+
+        .phone-infos {
+            font-weight: bold;
+            // font-size: $font-size-h6;
+            cursor: pointer;
+            padding: 0 0 10px 20px;
+        }
+    }
+
+    .sidebar-contact-websites {
+        .website {
+            color: $link-color;
+
+            &:hover {
+                color: darken($brand-primary, 15%);
+            }
+
+            a {
+                color: $link-color;
+                font-weight: 300;
+
+                &:hover {
+                    cursor: pointer;
+                    color: darken($brand-primary, 15%);
+                    text-decoration: underline;
                 }
             }
         }

@@ -1,7 +1,7 @@
 &.summary-tabs {
     padding: 0 !important;
 
-    @include breakpoint(xmedium down) {
+    @include breakpoint(large down) {
         .summary-header {
             top: initial;
             left: initial;
@@ -27,7 +27,7 @@
         }
     }
 
-    @include breakpoint(large) {
+    @include breakpoint(xlarge) {
         border-radius: $summary-border-radius;
         box-shadow: $summary-box-shadow;
 
@@ -43,7 +43,7 @@
     &.isFixed {
         z-index: 10000;
 
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             top: 50%;
             left: initial;
             #{$summary-side-fixed-position}: 10px;
@@ -119,14 +119,14 @@
     }
 
     .menu {
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             display: flex;
             flex-direction: row;
         }
     }
 
     .summary-item {
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             flex-basis: calc(100% / 2);
         }
     }
@@ -150,7 +150,7 @@
         z-index: 1;
         transition: opacity 0.3s ease-in-out;
 
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
             right: 30px;
             opacity: 1;
         }
@@ -228,7 +228,7 @@
         border: none;
         transition: 0.3s ease-in-out;
 
-        @include breakpoint(xmedium down) {
+        @include breakpoint(large down) {
             display: none;
         }
 
@@ -247,7 +247,7 @@
         .tabs-panel#tab-list {
             padding: $summary-accordion-padding;
 
-            @include breakpoint(large) {
+            @include breakpoint(xlarge) {
                 padding: 30px;
                 padding-top: 0;
             }

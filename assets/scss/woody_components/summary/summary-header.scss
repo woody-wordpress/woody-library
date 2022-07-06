@@ -1,7 +1,7 @@
 .summary-header {
     position: relative;
 
-    @include breakpoint(xmedium down) {
+    @include breakpoint(large down) {
         display: flex;
         align-items: center;
         top: -#{$summary-accordion-padding};
@@ -75,7 +75,7 @@
     }
 
     .summary-title {
-        @include breakpoint(xmedium down) {
+        @include breakpoint(large down) {
             margin-bottom: 0 !important;
             transition: 0.25s ease-in-out;
 

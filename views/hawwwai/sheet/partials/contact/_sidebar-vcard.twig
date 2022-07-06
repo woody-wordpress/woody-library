@@ -23,9 +23,9 @@
 
                                 {{ phones[0]|hideNumber(2) }}<span class="hidden-number">▒▒</span>
                             </div>
-                            <a class="phone-link reveal-content" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
+                            <a class="phone-link reveal-content" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
                         {% else %}
-                            <a class="phone-link" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
+                            <a class="phone-link" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[0] }}">{{ phones[0]|beautyNumber }}</a>
                         {% endif %}
                         {% if descriptionPhones[0]|default %}
                             <div class="epsilon text-muted _plu-push-left--tiny _plu-push--tiny">{{ descriptionPhones[0] }}</div>
@@ -41,9 +41,9 @@
                                 analytics-mediaveille>
                                 {{ phones[1]|hideNumber(2) }}<span class="hidden-number">▒▒</span>
                             </div>
-                            <a class="phone-link reveal-content" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
+                            <a class="phone-link reveal-content" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
                         {% else %}
-                            <a class="phone-link" itemprop="telephone" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
+                            <a class="phone-link" rel="noindex,nofollow" data-rel="external" data-type="TEL" href="tel:{{ phones[1] }}">{{ phones[1]|beautyNumber }}</a>
                         {% endif %}
                         {% if descriptionPhones[1]|default %}
                             <div class="epsilon text-muted _plu-push-left--tiny _plu-push--tiny">{{ descriptionPhones[1] }}</div>
@@ -54,18 +54,18 @@
                 {# Fax if available #}
                 {% if fax is not empty %}
                     {% if contractsLevels.hidephones %}
-                        <div class="fax" itemprop="faxNumber" reveal>
+                        <div class="fax" reveal>
                             <div class="phone-link reveal-button delete-when-reveal"
                                 interact event-type="SHEET_REVEAL_PHONE"
                                 analytics-mediaveille>
                                 {{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|hideNumber(2) }}
                                 <span class="hidden-number">▒▒</span>
                             </div>
-                            <div class="phone-link reveal-content" itemprop="telephone">{{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|beautyNumber }}</div>
+                            <div class="phone-link reveal-content">{{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|beautyNumber }}</div>
                         </div>
                     {% else %}
-                        <div class="fax" itemprop="faxNumber">
-                            <div class="phone-link" itemprop="telephone">{{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|beautyNumber }}</div>
+                        <div class="fax">
+                            <div class="phone-link">{{ 'SECTIONS.TOURISM.SHEET.FAX'|trans }}:&nbsp;{{ fax|beautyNumber }}</div>
                         </div>
                     {% endif %}
                 {% endif %}
@@ -90,7 +90,7 @@
                 {% for website in websites %}
                     <div class="website ellipsis"
                         analytics-mediaveille interact event-type="WEBSITE_TOURISTIC_PROVIDER">
-                        <a data-type="URL" class='nowrap' itemprop="url" rel="nofollow" href="{{ website|default }}" target="_blank">{{ website|simpleURL }}</a>
+                        <a data-type="URL" class='nowrap' rel="nofollow" href="{{ website|default }}" target="_blank">{{ website|simpleURL }}</a>
                     </div>
                     {% if descriptionWebsites[loop.index0]|default %}
                         <div class="epsilon text-muted _plu-push-left--tiny _plu-push--tiny">{{ descriptionWebsites[loop.index0] }}</div>
@@ -108,7 +108,7 @@
             <dt class="col-xs-2"><span class="icon-font-tripadvisor plo-fonticon"></span></dt>
             <dt class="col-xs-10 _plu-hard--left">
                 <div class="website ellipsis" interact event-type="WEBSITE_TOURISTIC_PROVIDER">
-                    <a data-type="URL" class='nowrap' itemprop="url" rel="nofollow" href="{{ tripadvisorLink|default }}" target="_blank">{{ tripadvisorLink|simpleURL }}</a>
+                    <a data-type="URL" class='nowrap' rel="nofollow" href="{{ tripadvisorLink|default }}" target="_blank">{{ tripadvisorLink|simpleURL }}</a>
                 </div>
             </dt>
         </dl>

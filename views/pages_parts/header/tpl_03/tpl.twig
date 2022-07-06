@@ -1,6 +1,6 @@
 <header class="woody-component-header tpl_03 site-header show-for-xlarge" data-click-open="true" data-disable-hover="true" data-dropdown-menu="data-dropdown-menu" data-sticky-container="data-sticky-container">
     <div class="main-menu-wrapper">
-        <nav class="top-bar title-bar" id="main-menu">
+        <nav class="top-bar title-bar" id="main-menu" role="navigation">
             <ul class="menu dropdown horizontal align-center align-middle fullwidth-dropdowns">
                 {% for menu_link in main_menu_links %}
                     {% if menu_link.is_frontlink == true %}
@@ -9,6 +9,7 @@
                                 <span class="menuLogo obf" data-obf="{{ menu_link.the_url|default|base64Encode }}" data-target="{{ menu_link.the_target|default('_self') }}" data-post-id="{{ menu_link.the_id }}">
                                 {% else %}
                                     <a class="menuLogo" href="{{ menu_link.the_url|default }}" target="{{ menu_link.the_target|default('_self') }}" data-post-id="{{ menu_link.the_id }}">
+                                        <span class="no-visible-text menu-logo-site-name isAbs">{{ globals.site_name|default }}</span>
                                     {% endif %}
                                     <span class="brand-logo">{{ logo|default('Logo goes here') }}</span>
                                     {% if obfuscation %}
@@ -42,7 +43,7 @@
                                     {% endif %}
                                     {% if obfuscation %}
                                     </span>
-                                    {% else%}
+                                    {% else %}
                                 </a>
                             {% endif %}
                             {% if menu_link.subitems|default and menu_link.subitems is not iterable %}

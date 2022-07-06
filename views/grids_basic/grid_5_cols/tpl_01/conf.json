@@ -4,7 +4,8 @@
     "description": "Grille 5 colonnes égales",
     "lib_type": "lite",
     "acf_groups": [
-        "field_5afd2c9616ecd"
+        "field_5afd2c9616ecd",
+        "group_5b4726f891221"
     ],
     "vars": [
         "items",

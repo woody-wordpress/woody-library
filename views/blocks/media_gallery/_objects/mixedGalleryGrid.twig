@@ -1,19 +1,36 @@
 <div class="woodyGallery grid-x {{ gridClass|default }}{{ gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
-    {% if gallery_items|default %}
-        {% for item in gallery_items %}
-            {% if loop.first %}
-                <div class="cell {{ firstCellClass|default('small-12') }}">
-                    {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
-                        'image_style' : customImageStyleFirst|default("ratio_4_1")
-                    } %}
-                </div>
-            {% else %}
-                <div class="cell {{ secondCellClass|default('small-6') }}">
-                    {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
-                        'image_style' : customImageStyleSecond|default("ratio_16_9")
-                    } %}
-                </div>
+    {% if is_mobile and mobile_grid == 'swiper' %}
+        {% if gallery_items|default %}
+            {% if swipeFrom and gallery_items|length > swipeFrom|default(1) %}
+                {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
+                {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
+                    'items' : gallery_items,
+                    'card' : customCard|default("media_card/tpl_01"),
+                    'image_style' : customImageStyle|default("ratio_square"),
+                    'isRel' : true,
+                    'swResp' : true,
+                    'swiper_options' : json_swiper_options,
+                    'isReveal' : isReveal|default()
+            } %}
             {% endif %}
-        {% endfor %}
+        {% endif %}
+    {% else %}
+        {% if gallery_items|default %}
+            {% for item in gallery_items %}
+                {% if loop.first %}
+                    <div class="cell {{ firstCellClass|default('small-12') }}">
+                        {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
+                            'image_style' : customImageStyleFirst|default("ratio_4_1")
+                        } %}
+                    </div>
+                {% else %}
+                    <div class="cell {{ secondCellClass|default('small-6') }}">
+                        {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
+                            'image_style' : customImageStyleSecond|default("ratio_16_9")
+                        } %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     {% endif %}
 </div>

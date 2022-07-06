@@ -1,0 +1,29 @@
+{
+    "approved": true,
+    "name": "Template 502",
+    "description": "Grille 5 éléments - Icône à gauche des textes (prétitre, titre, sous-titre, description)",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_6296243e5eb71"
+    ],
+    "vars": [
+        "icon_type",
+        "icon_img",
+        "woody_icon",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "display",
+        "items",
+        "feature_buttons",
+        "feature_no_padding",
+        "visual_effects"
+    ],
+    "display": [{
+        "length": 5,
+        "text_align": "left",
+        "roadbook": false
+    }],
+    "creation": "2022-06-10"
+}

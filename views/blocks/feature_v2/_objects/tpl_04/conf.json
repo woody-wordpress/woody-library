@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Template 04",
+    "description": "Icône avec textes alignés à gauche en-dessous (prétitre, titre, sous-titre, description)",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

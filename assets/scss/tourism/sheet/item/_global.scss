@@ -2,11 +2,12 @@
     margin-top: 5px !important;
 }
 
-.single-touristic_sheet.modal-open {
-    .site-content {
-        z-index: 100000;
-    }
-}
+// Rollback fix causes other bugs https://mantis.raccourci.fr/view.php?id=57225
+// .single-touristic_sheet.modal-open {
+//     .site-content {
+//         z-index: 100000;
+//     }
+// }
 
 .infos-wrapper p {
     @include hw_space_elements;

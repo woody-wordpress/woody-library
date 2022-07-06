@@ -1034,7 +1034,7 @@
 /// Description : Limit the width of the woody_base_grid_wrapper to have smaller basicCards
 /// @author Orphée Besson
 /// @param {Value} $nb-cols - Maximum number of columns that the loop will increment
-@mixin maxWidthGridBasicCards($nb-cols: 2) {
+@mixin maxWidthGridCards($nb-cols: 2) {
     @for $i from 1 through $nb-cols {
         &-#{$i} {
             margin: 0 auto; // Center cards in the .woody_base_grid_wrapper

@@ -3,7 +3,7 @@
 
     {% if (contractsLevels.content.booking and (formated_object.bookingUrl|default or formated_object.centralResa|default))
         or (contractsLevels.sidebar.vcard and formated_object.emails.establishment|default and not formated_object.contactLabel|default)
-        or contractsLevels.content.reviews %}
+        or (contractsLevels.content.reviews and formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default) %}
         <ul class="sheet-nav-actions _plu-push">
 
             {% if contractsLevels.content.booking and formated_object.bookingUrl|default %}
@@ -37,18 +37,30 @@
                 </li>
             {% endif %}
 
-            {% if formated_object.sfExternalGrc|default %}
-                <li class="sheet-nav-actions_item nav-contact">
-                    <a data-toggle="rcModal" data-target="#nurtik-form"
-                        data-id="{{object.metadata.id|default}}"
-                        class="plo-btn sheet-nav-actions_button">
+            {% if formated_object.openingPeriods|default and formated_object.openingPeriods.registrationEventpro|default %}
+            {% elseif formated_object.sfExternalGrc|default %}
+                {% if options.externalgrcAccordion|default %}
+                    <li anchor-link ng-click="scrollTo('#external-grc');" onclick="document.querySelector('#external-grc-detail').open=true;" class="sheet-nav-actions_item nav-contact">
+                        <span class="plo-btn sheet-nav-actions_button">
+                            <div class="media media-center">
+                                <span class="media-left media-middle"><span class="icon-font-mail plo-fonticon"></span></span>
+                                <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
+                            </div>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="sheet-nav-actions_item nav-contact">
+                        <a data-toggle="rcModal" data-target="#external-grc"
+                            data-id="{{object.metadata.id|default}}"
+                            class="plo-btn sheet-nav-actions_button">
 
-                        <div class="media media-center">
-                            <span class="media-left media-middle"><span class="icon-font-mail plo-fonticon"></span></span>
-                            <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
-                        </div>
-                    </a>
-                </li>
+                            <div class="media media-center">
+                                <span class="media-left media-middle"><span class="icon-font-mail plo-fonticon"></span></span>
+                                <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.MAIL_CONTACT'|trans }}</span>
+                            </div>
+                        </a>
+                    </li>
+                {% endif %}
             {% elseif contractsLevels.sidebar.vcard and formated_object.emails.establishment|default and not formated_object.contactLabel|default %}
                 <li class="sheet-nav-actions_item nav-contact" ng-if="sheet">
                     <a  rc-modal size="lg"
@@ -69,27 +81,11 @@
                 </li>
             {% endif %}
 
-            {% if contractsLevels.content.reviews %}
-                {% if (formated_object.dataFairguest|default and formated_object.dataFairguest.display) or not (options.addreviews is not defined or (options.addreviews is defined and options.addreviews)) %}
-                    <li class="sheet-nav-actions_item plo-btn nav-reviews" anchor-link ng-click="scrollTo('#reviews')">
-                        <span class="media-left"><span class="icon-font-avis4 [ plo-fonticon ]"></span></span>
-                        <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.SEE_ALL'|trans }}</span>
-                    </li>
-                {% else %} {# if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) #}
-                    <li class="sheet-nav-actions_item nav-reviews">
-                        <a rc-modal
-                            tpl-url="sections/tourism/sheet-detail/modals/comments-form.html"
-                            action="click"
-                            size="lg"
-                            class="plo-btn sheet-nav-actions_button">
-
-                            <div class="media media-center">
-                                <span class="media-left media-middle"><span class="icon-font-avis4 plo-fonticon"></span></span>
-                                <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.ADD_COMMENT'|trans }}</span>
-                            </div>
-                        </a>
-                    </li>
-                {% endif %}
+            {% if contractsLevels.content.reviews and formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default %}
+                <li class="sheet-nav-actions_item plo-btn nav-reviews" anchor-link ng-click="scrollTo('#reviews')">
+                    <span class="media-left"><span class="icon-font-avis4 [ plo-fonticon ]"></span></span>
+                    <span class="media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.COMMENTS.SEE_ALL'|trans }}</span>
+                </li>
             {% endif %}
 
             {% if formated_object.sfMenuUrl|default%}

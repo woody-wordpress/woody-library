@@ -88,7 +88,7 @@
             <meta itemprop="datePublished" content="{{ img.date }}">
         {% endif %}
         {% if img.description %}
-            <span class="hide imageObject-description" itemprop="description" data-nosnippet>{{ img.description }}</span>
+            <span class="hide imageObject-description" itemprop="description" data-nosnippet>{{ img.description|striptags | raw }}</span>
         {% endif %}
 
         {% block imageCaption %}
@@ -100,13 +100,13 @@
                         <span class="imageObject-icon copyright-icon flex-container align-center align-middle">©</span>
                     {% endif %}
                     {% if img.caption|default %}
-                        <span class="imageObject-text imageObject-description" itemprop="caption">{{ img.caption }}</span>
+                        <span class="imageObject-text imageObject-description" itemprop="caption">{{ img.caption|striptags | raw }}</span>
                         {% if img.attachment_more_data.author|default %}
                             <span class="imageObject-text separator">|</span>
                         {% endif %}
                     {% endif %}
                     {% if img.attachment_more_data.author|default %}
-                        <span class="imageObject-text imageObject-author" itemprop="copyrightHolder">{{ img.attachment_more_data.author }}</span>
+                        <span class="imageObject-text imageObject-author" itemprop="copyrightHolder">{{ img.attachment_more_data.author|striptags | raw }}</span>
                     {% endif %}
                 </div>
             {% endif %}
@@ -114,7 +114,7 @@
 
     </figure>
     {% if item.slideshow %}
-    <div class="hide slideshow-srcs" data-ratio="{{ image_style }}" data-srcs='{{ item.slideshow|json_encode|base64Encode }}'>
+    <div class="hide slideshow-srcs" data-ratio="{{ image_style }}" data-srcs='{{ item.slideshow.srcs|json_encode|base64Encode }}' data-alts="{{ item.slideshow.alts|json_encode|base64Encode }}">
     </div>
     {% endif %}
 {% endif %}

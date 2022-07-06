@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Template 03",
+    "description": "Titres (prétitre, titre) puis icône et textes en-dessous (sous-titre, description)",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

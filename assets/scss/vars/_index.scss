@@ -1,3 +1,4 @@
+@import 'accessibility';
 @import 'animations';
 @import 'booking';
 @import 'breadcrumb';
@@ -17,10 +18,10 @@
 @import 'gallery';
 @import 'globals';
 @import 'headnav';
-@import 'hero';
 @import 'icon';
 @import 'img-caption';
 @import 'infolive';
+@import 'lang-switcher';
 @import 'links';
 @import 'list';
 @import 'map';
@@ -55,3 +56,4 @@
 @import 'summary';
 @import 'video';
 @import 'custom_text';
+@import 'hero';

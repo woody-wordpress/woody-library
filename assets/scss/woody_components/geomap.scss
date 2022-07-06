@@ -68,3 +68,30 @@
         margin: 0 !important;
     }
 }
+
+@include breakpoint(small down) {
+
+    .leaflet-pane,
+    .leaflet-popup {
+        transform: translate3d(0px, 0px, 0px) !important;
+    }
+
+    .leaflet-popup {
+        top: 0;
+        left: 0 !important;
+        width: 95vw;
+
+        &-content {
+            width: 90% !important;
+        }
+    }
+
+    .woody-component-geomap .leaflet-popup-pane .leaflet-popup {
+        padding: 0rem;
+    }
+
+    .woody-component-geomap .leaflet-container a.leaflet-popup-close-button {
+        top: 5px;
+        right: 5px;
+    }
+}

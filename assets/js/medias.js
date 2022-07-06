@@ -108,10 +108,12 @@ class Video {
                     }
                 }
                 self.createPlyr(heroPlyrWrapper, options);
-                self.plyr.on('ready', () => {
-                    self.plyr.play();
-                    self.autoplayOnVisible(self.plyr);
-                });
+                if (self.plyr != null) {
+                    self.plyr.on('ready', () => {
+                        self.plyr.play();
+                        self.autoplayOnVisible(self.plyr);
+                    });
+                }
             }
         } else {
             // Manages the "view video" button
@@ -122,6 +124,7 @@ class Video {
             this.toggleMovieSwiper = this.element.closest(".swiper-container");
 
             if (!!this.toggleMovieWrapper && !!this.toggleMovieButton) {
+
                 this.toggleMovieButton.addEventListener('click', () => {
                     self.setSwiper();
                     if (self.plyr == null) {
@@ -134,31 +137,31 @@ class Video {
                         }
                     }
 
-                    if(toggleMovieSwiper.swiper != null){
-                        toggleMovieSwiper.swiper.autoplay.stop();
-                        toggleMovieSwiper.swiper.allowTouchMove = false;
-                        toggleMovieSwiper.swiper.allowSlideNext = false;
-                        toggleMovieSwiper.swiper.allowSlidePrev = false;
+                    if(this.toggleMovieSwiper && this.toggleMovieSwiper.swiper != null){
+                        this.toggleMovieSwiper.swiper.autoplay.stop();
+                        this.toggleMovieSwiper.swiper.allowTouchMove = false;
+                        this.toggleMovieSwiper.swiper.allowSlideNext = false;
+                        this.toggleMovieSwiper.swiper.allowSlidePrev = false;
                     }
 
-                    toggleMovieWrapper.classList.toggle('hidden');
+                    this.toggleMovieWrapper.classList.toggle('hidden');
                     self.element.classList.toggle('is-open');
 
-                    if (toggleMovieButton.classList.contains('close-button')) {
+                    if (this.toggleMovieButton.classList.contains('close-button')) {
                         self.pause();
-                        if(toggleMovieSwiper.swiper != null){
-                            toggleMovieSwiper.swiper.autoplay.start();
-                            toggleMovieSwiper.swiper.allowTouchMove = true;
-                            toggleMovieSwiper.swiper.allowSlideNext = true;
-                            toggleMovieSwiper.swiper.allowSlidePrev = true;
+                        if(this.toggleMovieSwiper && this.toggleMovieSwiper.swiper != null){
+                            this.toggleMovieSwiper.swiper.autoplay.start();
+                            this.toggleMovieSwiper.swiper.allowTouchMove = true;
+                            this.toggleMovieSwiper.swiper.allowSlideNext = true;
+                            this.toggleMovieSwiper.swiper.allowSlidePrev = true;
                         }
                     } else {
                         self.plyr.play();
-                        if(toggleMovieSwiper.swiper != null){
-                            toggleMovieSwiper.swiper.autoplay.stop();
-                            toggleMovieSwiper.swiper.allowTouchMove = false;
-                            toggleMovieSwiper.swiper.allowSlideNext = false;
-                            toggleMovieSwiper.swiper.allowSlidePrev = false;
+                        if(this.toggleMovieSwiper && self.toggleMovieSwiper.swiper != null){
+                            this.toggleMovieSwiper.swiper.autoplay.stop();
+                            this.toggleMovieSwiper.swiper.allowTouchMove = false;
+                            this.toggleMovieSwiper.swiper.allowSlideNext = false;
+                            this.toggleMovieSwiper.swiper.allowSlidePrev = false;
                         }
                     }
 

@@ -1,7 +1,7 @@
 {
     "name": "woody-wordpress-pro/woody-library",
     "type": "wordpress-vendor",
-    "version": "1.33.7",
+    "version": "1.35.0",
     "description": "Catalogue of block and section templates for the Woody builder.",
     "license": "GPL-2.0",
     "authors": [

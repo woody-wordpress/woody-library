@@ -1,0 +1,32 @@
+{
+    "approved": true,
+    "name": "Template 15 - Pano C",
+    "description": "Visuel (3:1) et accroche (Icône, Sur-titre, Titre, sous-titre) + image ou vidéo de fond + video complémentaire",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b052bbee40a4"
+    ],
+    "vars": [
+        "icon_type",
+        "icon",
+        "icon_img",
+        "pretitle",
+        "title",
+        "subtitle",
+        "description",
+        "page_heading_background_img_opacity",
+        "page_heading_img",
+        "page_heading_movie",
+        "page_heading_media_type",
+        "page_heading_add_social_movie",
+        "page_heading_social_movie"
+    ],
+    "display": [{
+        "img_ratio": [
+            "3_1"
+        ],
+        "text_align": "topcenter",
+        "roadbook": false
+    }],
+    "creation": "2022-05-10"
+}

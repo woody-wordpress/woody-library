@@ -1,6 +1,6 @@
 {% if is_list %}
-    <li class="grid-container">
-{% endif %}
+<li class="grid-container">
+    {% endif %}
     {% if menu_part_title_link or menu_part_title %}
     <span class="menuPart-title">
         {% if menu_part_title_link|default %}<a href="{{ menu_part_title_link }}">{% endif %}
@@ -15,21 +15,29 @@
     {% endif %}
 
     {% include 'blocks/focus/_objects/headerObject.twig' with {
-        display: display_block_titles|default(),
-        margin: block_titles_margin|default('marg-bottom-md')
+    display: display_block_titles|default(),
+    margin: block_titles_margin|default('marg-bottom-md')
     } %}
 
-    <div class="woody_base_grid_wrapper{{ swResp and items|length > 1 ? ' woody-mobile-swiper swiper-container swResp' }}{{ 'basic_card' in card ? ' max-width-grid-basicCards-1' }}">
-        <div class="{% block grid_class %}woody_bases_grid tpl_101{% endblock %} align-center grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp and items|length > 1 ? ' swRespW' }}">
+    {% if ('basic_card' in card) or ('overlayed_card' in card and image_style in ['ratio_3_4', 'ratio_10_16',
+    'ratio_a4']) %}
+    {% set maxWidthClass = 'max-width-grid-cards-1' %}
+    {% elseif ('overlayed_card' in card and image_style in ['ratio_square', 'ratio_4_3']) %}
+    {% set maxWidthClass = 'max-width-grid-cards-2' %}
+    {% endif %}
+    <div
+        class="woody_base_grid_wrapper{{ swResp and items|length > 1 ? ' woody-mobile-swiper swiper-container swResp' }} {{ maxWidthClass|default }}">
+        <div
+            class="{% block grid_class %}woody_bases_grid tpl_101{% endblock %} align-center grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp and items|length > 1 ? ' swRespW' }}">
             {% if items|default %}
             {% for key, item in items %}
             <div class="cell{{ swResp and items|length > 1 ? ' swRespS' }}">
                 {% block the_card %}
                 {% include "cards/#{ card }/tpl.twig" with {
-                    'image_style' : image_style,
-                    'page_type' : item.page_type,
-                    'ellipsis': item.ellipsis|default(false),
-                    'card_index':key + 1
+                'image_style' : image_style,
+                'page_type' : item.page_type,
+                'ellipsis': item.ellipsis|default(false),
+                'card_index':key + 1
                 } %}
                 {% endblock %}
             </div>
@@ -40,6 +48,6 @@
 
     {% include 'blocks/focus/_objects/focus_buttons.twig' %}
 
-{% if is_list %}
-    </li>
+    {% if is_list %}
+</li>
 {% endif %}

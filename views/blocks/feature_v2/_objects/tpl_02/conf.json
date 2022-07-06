@@ -1,0 +1,10 @@
+{
+    "approved": true,
+    "name": "Template 02",
+    "description": "Icone à gauche des textes (prétitre, titre, sous-titre, description)",
+    "lib_type": "lite",
+    "acf_groups": [],
+    "vars": [
+        "item"
+    ]
+}

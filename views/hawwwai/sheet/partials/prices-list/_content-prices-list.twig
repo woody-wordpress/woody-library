@@ -6,10 +6,6 @@
             {% block content %}
                 <ul class="plo-nav md-icon-list _plu-flush">
                 {% for payment in formated_object.paymentMethods %}
-                    {# MicroData payment #}
-                    {% if object.data.bordereau not in ['FMA','VIL','PNA'] and payment.libelle|default %}
-                        <meta itemprop="paymentAccepted" content="{{payment.libelle}}">
-                    {% endif %}
                     {# Images #}
                     <li class="payment-methods-icon-wrapper" {% if payment.libelle|default %}tooltip="{{payment.libelle}}"{% endif %}>
                         <img class="payment-methods-icon" alt="{{payment.libelle|default}}" src={{ payment.urlHD |default(payment.url) | rcImg(50, 35, 80, 'png', 'clip') }}>
@@ -78,7 +74,7 @@
                                             <span class="pl-heading">{{ tariff.tariffMax|tariff }}<sup>&nbsp;{{ tariff.currency|default('€')}}</sup></span>
                                         {% endif %}
                                     </div>
-                                    
+
                                     {# Description #}
                                     {% if tariff._description is defined %}
                                         <div class="col-xs-12 _plu-push-top--small">
@@ -216,7 +212,7 @@
                                                 <span class="pl-heading">&#8212;</span>
                                             {% endif %}
                                         </div>
-                                        
+
                                         {# Description #}
                                         {% if tariff._description is defined %}
                                             <div class="col-xs-12 _plu-push-top--small">

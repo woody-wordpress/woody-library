@@ -1,9 +1,5 @@
-{% if contractsLevels.content.maps %}
-
+{% if if object.data.bordereau in ['ITI'] and contractsLevels.content.maps and formated_object.geolocations|default %}
 	<div id="map-container" class="hidden-xs">
-	    {% if object.data.bordereau in ['ITI'] %}
-	        <div id="itinerary-map" class=""></div>
-	    {% endif %}
-
+        <div id="itinerary-map"></div>
 	</div>
 {% endif %}

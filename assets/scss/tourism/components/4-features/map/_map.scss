@@ -30,10 +30,11 @@
         height: 190px;
         & > a { color: white; }
         .gm-style > * {
-            // 12/07/21 - Fix hidden map (gm dom changed?) #52944
-+			&:not(:first-child):not([aria-roledescription="map"]) {
-                display: none;
-            }
+            // 24/06/21 - Fix hidden map (gm dom changed) #52591
+            // 20/05/22 - Fix hidden map (aria-roledescription changed) #57035
+			&:not(:first-child):not([aria-roledescription="map"]):not([aria-roledescription="carte"]) {
+				display: none;
+			}
         }
     }
 }

@@ -1,0 +1,18 @@
+{% set display = item.display %}
+{% set customClasses = 'full-height' %}
+{% extends '_objects/bgParamsObject.twig' %}
+{% block woodyBlockType %}feature{% endblock %}
+{% block indexClass %}{{ customIndexClass|default('01') }}{% endblock %}
+{% block woodyComponentContent %}
+    {% if item.link %}
+        <a class="feature-link no-ext" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" title="{{ item.link.title|default(item.title) }}">
+    {% endif %}
+    {% include "_objects/#{customTitlesObject|default('titlesObject')}.twig" with {
+        'titles' : item,
+        'contextPrefix' : "feature",
+        'flexOptions' : customFlexOptions|default("flex-container flex-dir-column align-center align-middle text-center")
+    } %}
+    {% if item.link %}
+        </a>
+    {% endif %}
+{% endblock %}

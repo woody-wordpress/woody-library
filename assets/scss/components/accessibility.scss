@@ -1,0 +1,52 @@
+.accessibility-mode {
+    input, textarea {
+        background-color: $nurtik-input-background-color !important;
+        box-shadow: none !important;
+        border: 1px solid $medium-gray !important;
+
+        &::placeholder {
+            transition: $nurtik-inputAfter-transition-speed;
+        }
+
+        &:focus {
+            border: 1px solid $nurtik-inputAfter-color !important;
+
+            &::placeholder {
+                opacity: 0;
+                transform: translateY(-0.5rem);
+            }
+        }
+    }
+
+    .input-wrapper {
+        position: relative;
+
+        &::after {
+            padding-left: 0.5em;
+            content: attr(data-content);
+            display: block;
+            width: max-content;
+            height: fit-content;
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: $nurtik-inputAfter-color;
+            opacity: 0;
+            z-index: -1;
+            pointer-events: none;
+            transition: $nurtik-inputAfter-transition-speed;
+        }
+
+        &.active-input{
+            &::after {
+                opacity: 1;
+                z-index: 1;
+                font-size: 0.9rem;
+                top: -0.75em;
+                left: 0.5em;
+                background-color: $nurtik-input-background-color;
+                padding-right: 0.5rem;
+            }
+        }
+    }
+}

@@ -1,17 +1,3 @@
-{# if opening periods exist #}
-{% if formated_object.openingPeriods.periods|default %}
-    {# microdata startDate #}
-    {% if formated_object.openingPeriods.periods[0]._startDate|default %}
-        <meta itemprop="startDate" content="{{ formated_object.openingPeriods.periods[0]._startDate|date('Y-m-d') }}">
-    {% endif %}
-
-    {# microdata endDate #}
-    {% set lastPeriod = formated_object.openingPeriods.periods|last %}
-    {% if lastPeriod._endDate|default %}
-        <meta itemprop="endDate" content="{{ lastPeriod._endDate|date('Y-m-d') }}">
-    {% endif %}
-{% endif %}
-
 {% if contractsLevels.content.periods and formated_object.openingPeriods.periods|default %}
 
     <section id="openings" class="panel panel-default row sheet-tab"
@@ -62,10 +48,7 @@
                                         <span period-parser-disabled type="bloc"
                                             start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
-                                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}}
-                                            {% if 'now'|date('Y') < period.startDate|date('Y') or 'now'|date('Y') > period.endDate|date('Y') %}
-                                                {{ period.endDate | date ('Y') }}
-                                            {% endif %}
+                                            {{ 'SECTIONS.TOURISM.SHEET.PERIODS.ALL_YEAR' | trans}} {{ period.endDate | date ('Y') }}
                                         </span>
 
                                         {% include TWIG.OPENING_HOURS__DAYS_IN_CLEAR %}

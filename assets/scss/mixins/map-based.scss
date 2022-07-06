@@ -183,6 +183,18 @@
     @include breakpoint(medium) {
         font-size: rem-calc(map-get(map-get(map-get($header-styles, medium), $type), font-size) * 1px);
     }
+
+    @if map-get($header-styles, large) !=null {
+        @include breakpoint(large) {
+            font-size: rem-calc(map-get(map-get(map-get($header-styles, large), $type), font-size) * 1px);
+        }
+    }
+
+    @if map-get($header-styles, xxxlarge) !=null {
+        @include breakpoint(xxxlarge) {
+            font-size: rem-calc(map-get(map-get(map-get($header-styles, xxxlarge), $type), font-size) * 1px);
+        }
+    }
 }
 
 @mixin header-lh($type) {
@@ -190,6 +202,18 @@
 
     @include breakpoint(medium) {
         line-height: rem-calc(map-get(map-get(map-get($header-styles, medium), $type), font-size) * 1px + 6px);
+    }
+
+    @if map-get($header-styles, large) !=null {
+        @include breakpoint(large) {
+            line-height: rem-calc(map-get(map-get(map-get($header-styles, large), $type), font-size) * 1px + 6px);
+        }
+    }
+
+    @if map-get($header-styles, xxxlarge) !=null {
+        @include breakpoint(xxxlarge) {
+            line-height: rem-calc(map-get(map-get(map-get($header-styles, xxxlarge), $type), font-size) * 1px + 6px);
+        }
     }
 }
 

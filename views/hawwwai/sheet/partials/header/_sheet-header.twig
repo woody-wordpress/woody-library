@@ -10,7 +10,7 @@
     {% endif %}
 
     <div class="header-text">
-            <h1 class="header-title _plu-push--tiny _plu-flush sheet-header_title"><span itemprop="name">{{formated_object.businessName}}</span>
+        <h1 class="header-title _plu-push--tiny _plu-flush sheet-header_title"><span>{{formated_object.businessName}}</span>
             {% if formated_object.labelRatings|default %}
                 {% include TWIG.LABEL_RATINGS
                     with {'labelRatings': formated_object.labelRatings } only %}
@@ -18,7 +18,7 @@
         </h1>
 
         {% if formated_object.criterias|default or formated_object.contacts.establishment|default or object.data.dublinCore.isReferencedBy|default %}
-            <h2 class="_plu-caps _plu-text-muted _plu-flush sheet-header_subtitle">
+            <div class="h2 _plu-caps _plu-text-muted _plu-flush sheet-header_subtitle">
 
                 {# Subtitle field #}
                 {% if formated_object.subTitle|default %}
@@ -45,7 +45,7 @@
                 {% if formated_object.contacts.establishment|default %}
                     <span class="sheet-header-city">{{ 'GLOBAL.ATPLACE'|trans }}&nbsp;{{ formated_object.locality|default ? formated_object.locality : formated_object.contacts.establishment.commune }}</span>
                 {% endif %}
-            </h2>
+            </div>
         {% endif %}
     </div>
 </div>

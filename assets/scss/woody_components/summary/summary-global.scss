@@ -1,5 +1,5 @@
 & {
-    @include breakpoint(xmedium down) {
+    @include breakpoint(large down) {
         height: $summary-accordion-height;
         padding: $summary-accordion-padding !important;
         overflow: hidden;

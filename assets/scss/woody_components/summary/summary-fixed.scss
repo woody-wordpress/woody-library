@@ -4,4 +4,24 @@
     top: 0;
     left: 0;
     width: 100vw;
+
+    &.summary-visibility-transition {
+        transition: $headnavs-autohide-duration;
+    }
+
+    &.hide-summary {
+        transform: translateY(-101%);
+    }
+
+    @include breakpoint(xlarge) {
+        &.hide-summary {
+            @if $summary-side-fixed-position=='left' {
+                transform: translateX(-200%) translateY(-50%) !important;
+            }
+
+            @if $summary-side-fixed-position=='right' {
+                transform: translateX(200%) translateY(-50%) !important;
+            }
+        }
+    }
 }

@@ -418,15 +418,19 @@ $screen-size in $breakpoints {
 }
 
 /********************************************************************
-**     Limit width of the grid when basicCards|length == 1 || 2    **
+**     Limit width of the grid when items|length == 1 || 2    **
 ********************************************************************/
-.max-width-grid-basicCards {
-    @include maxWidthGridBasicCards(2);
+.max-width-grid-cards {
+    @include maxWidthGridCards(2);
+}
 
-    // Disable limitation for two columns when the section has not full-width
-    &-2 {
-        @include root('.section-layout-wrapper.grid-container') {
-            max-width: initial;
+// Disable limitation for two columns when the section has not full-width
+.woody-component-focus {
+    &[class*='tpl_2'] {
+        .max-width-grid-cards-2 {
+            @include root('.section-layout-wrapper.grid-container') {
+                max-width: initial;
+            }
         }
     }
 }

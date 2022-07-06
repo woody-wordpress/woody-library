@@ -5,7 +5,7 @@
 
         <div class="panel-body text-center">
         {% if formated_object.sitSourceData.logo|default %}
-            <img src="{{ formated_object.sitSourceData.logo }}" class="responsive-img" />
+            <img src="{{ formated_object.sitSourceData.logo }}" class="responsive-img" alt="{{ formated_object.sitSourceData.sourceIdentifier|default(formated_object.sitSourceData.logo) }}" />
         {% endif %}
 
         {% if formated_object.sitSourceData.modified|default and formated_object.sitSourceData.creator|default %}

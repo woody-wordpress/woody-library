@@ -6,7 +6,7 @@
                     ng-class="{selected: isActive(), visible: isVisible({{ loop.index0 }})}"
                     index="{{ loop.index0 }}"
                     {% if loop.last %} last="true" {% endif %}>
-                        <img class="kaarousel-item-media-img step-media" src="{{ media.url | rcImg(800, 448, 75, 'jpg', 'clip') }}" />
+                        <img class="kaarousel-item-media-img step-media" src="{{ media.url | rcImg(800, 448, 75, 'jpg', 'clip') }}" alt="{{media.name}}" />
                         {% if media.copyright|default %}
                             <span class="photo-label">{{media._copyright}}</span>
                         {% endif %}

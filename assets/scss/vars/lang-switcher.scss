@@ -1,0 +1,12 @@
+// LANG-SWITCHER DROPDOWN
+$lang-switcher-dropdown-desktop-direction : 'bottom' !default;
+$lang-switcher-dropdown-mobile-direction : 'top' !default;
+$lang-switcher-dropdown-radius: 0px !default;
+$lang-switcher-dropdown-background-color: $white !default;
+$lang-switcher-dropdown-box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.09) !default;
+$lang-switcher-dropdown-item-padding: 5px !default;
+$lang-switcher-dropdown-z-index : 1 !default;
+
+//SPRITE
+$medium-flag-sprite : url('../img/flags-medium-20190625.png') no-repeat !default;
+$large-flag-sprite : url('../img/flags-large-20190625.png') no-repeat !default;

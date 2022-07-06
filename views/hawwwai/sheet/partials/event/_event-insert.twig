@@ -98,7 +98,7 @@
                 {% if options.googlecalendar is defined and options.googlecalendar %}
                     <a class="plo-btn inverse sidebar-default-btn show-when-angular-ready"
                         google-calendar
-                    {% if formated_object.openingPeriods.nextDates is not empty %}
+                    {% if formated_object.openingPeriods.nextDates|default %}
                         periods='{{ formated_object.openingPeriods.nextDates|json_encode|raw }}'
                     {% endif %}
                         desc="{{ formated_object.description|slice(0, 500)|json_encode|default(null) }}"

@@ -1,5 +1,5 @@
 .menu {
-    @include breakpoint(xmedium down) {
+    @include breakpoint(large down) {
         flex-direction: column;
 
         @include root('.open', true) {

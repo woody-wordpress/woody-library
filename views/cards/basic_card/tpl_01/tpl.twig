@@ -1,4 +1,4 @@
-<div class="card basicCard {{ index_class|default('tpl_01')}} isRel {{ page_type|default }}{{ item.slideshow ? ' has-slideshow' }} {{ item.card_class|default }}{{ item.link.url ? '' : ' has-not-card-link' }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
+<div class="card basicCard {{ index_class|default('tpl_01')}} isRel {{ page_type|default }}{{ item.slideshow ? ' has-slideshow' }} {{ item.card_class|default }}{{ item.link.url ? '' : ' has-not-card-link' }}{{ image_style and (item.img.ID or item.img.url) ? '' : ' has-not-card-image' }} {{ image_style|default }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
     {% if display_index and card_index %}
         <div class="isAbs card-index">
             {{ card_index|zeroise(2) }}

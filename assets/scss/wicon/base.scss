@@ -1,0 +1,21 @@
+@mixin wicon-styles {
+    font-family: "woody-icons";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+}
+
+.wicon {
+    @include wicon-styles;
+}
+
+@mixin wicon($filename, $insert: before) {
+    &:#{$insert} {
+        @include wicon-styles;
+        content: wicon-char($filename);
+    }
+}

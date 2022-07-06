@@ -1,8 +1,10 @@
 <!-- Generated at {{ "now"|date("Y-m-d H:i:s") }} -->
 <script>
+{% if metadata|default %}
 var metadata = {{ metadata|raw }};
+{% endif %}
 {# Print DAC in V2 (worpdress) #}
-{% if display|default and display.version|default == 2 %}
+{% if display|default and display.version|default == 2 and angular_config|default %}
     var DrupalAngularConfig = {{ angular_config|raw }};
     {% if playlistId|default %}
         DrupalAngularConfig.playlistId = "{{ playlistId }}";
@@ -30,10 +32,12 @@ var facetTranslations = null;
 {% endif %}
 var itemsData = {{ items|default|json_encode|raw }};
 var playlistData = {{ playlist|json_encode|raw }};
+{% if TR|default %}
 var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
+{% endif %}
 </script>
 
-{% for template in templates %}
+{% for template in templates|default %}
 <script type="text/twig" id="{{ template.id|default(loop.index0) }}">
     {{ template.twig | raw}}
 </script>

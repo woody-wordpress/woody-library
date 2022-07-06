@@ -153,7 +153,7 @@ if (body.classList.contains('menus-v2')) {
 
             burgerButton.classList.toggle('open');
             body.classList.toggle('menu-is-open');
-            header.classList.toggle('submenu-open');
+            header !== null ? header.classList.toggle('submenu-open') : '';
 
             if (slidingMenu !== null) {
                 let slidingMenuWidth = slidingMenu.offsetWidth + 'px';
