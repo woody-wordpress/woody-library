@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import WoodyFilter from './filter';
 
-$('.swResp').each(function() {
+$('.swResp').each(function () {
     var $this = $(this),
         swiperComponent = $this.parent(),
         swiperWrapper = $this.find('.swRespW'),
@@ -71,6 +71,13 @@ $('.swResp').each(function() {
             }
 
             var options = $.extend(defaultOptions, tabletOptions, thumbsOptions);
+
+            // Get options created in the DOM and merge with default only for swiper-tabs
+            if ($this.parent().hasClass('tabs-swiper')) {
+                var tplOptions = $this.data("options");
+                $.extend(options, tplOptions);
+            }
+
             var responsiveFocusOptions = WoodyFilter.apply('responsive_focus_options', options);
             options = typeof responsiveFocusOptions === 'undefined' ? options : responsiveFocusOptions;
 
@@ -78,15 +85,15 @@ $('.swResp').each(function() {
             var responsive_slider = new Swiper(this, options);
             $this.data('swiper', responsive_slider);
 
-            $(document).on('lazybeforeunveil', function(event) {
+            $(document).on('lazybeforeunveil', function (event) {
                 responsive_slider.update();
             });
         }
 
-        $(window).on('change.zf.tabs', function(e) {
+        $(window).on('change.zf.tabs', function (e) {
             var $target = $(e.target);
             if ($target.find('.swResp')) {
-                setTimeout(function() {
+                setTimeout(function () {
                     responsive_slider.update();
                 }, 600);
             }

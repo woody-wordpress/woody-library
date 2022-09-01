@@ -1,88 +1,105 @@
 {% if image_style %}
-    {% set image_style = image_style %}
-    {% else %}
-    {% set image_style = "ratio_square" %}
+{% set image_style = image_style %}
+{% else %}
+{% set image_style = "ratio_square" %}
 {% endif %}
 {% if reveal == true %}
-    <div class="media-zoom">
-        <div class="media-zoom-img isRel">
-            {% include '_objects/imageObject.twig' with {
-                'img' : item,
-                'noRespCrop' : "noRespCrop"
-            } %}
-            {% if item.attachment_more_data|default and item.attachment_more_data.linked_page|default %}
-                <div class="media-button-wrapper fullcenterbox">
-                    <a href="{{ item.attachment_more_data.linked_page.url|default }}" class="button" target="{{ item.attachment_more_data.linked_page.target|default('_self') }}">
-                        {{ item.attachment_more_data.linked_page.title|default }}
-                    </a>
-                </div>
-            {% elseif item.attachment_more_data|default and item.attachment_more_data.instagram_metadata|default and item.attachment_more_data.instagram_metadata.permalink|default %}
-                <div class="media-button-wrapper fullcenterbox">
-                    <div class="obf button no-ext" data-obf="{{ item.attachment_more_data.instagram_metadata.permalink|base64Encode }}" data-target="_blank">
-                        {{ __('Voir sur Instagram', 'woody-theme') }}
-                    </div>
-                </div>
-            {% endif %}
+<div class="media-zoom">
+    <div class="media-zoom-img isRel">
+        {% include '_objects/imageObject.twig' with {
+        'img' : item,
+        'noRespCrop' : "noRespCrop"
+        } %}
+        {% if item.attachment_more_data|default and item.attachment_more_data.linked_page|default %}
+        <div class="media-button-wrapper fullcenterbox">
+            <a href="{{ item.attachment_more_data.linked_page.url }}" class="button"
+                target="{{ item.attachment_more_data.linked_page.target|default('_self') }}">
+                {{ item.attachment_more_data.linked_page.title }}
+            </a>
         </div>
-
-        {% if item.attachment_more_data.instagram_metadata.date.sec or item.attachment_more_data.instagram_metadata.caption %}
-            <div class="cell media-zoom-texts padd-all-md">
-                    <div class="created">
-                        <small>{{ item.attachment_more_data.instagram_metadata.date.sec|createdFrom() }}</small>
-                    </div>
-
-                    {% if item.attachment_more_data|default and item.attachment_more_data.author|default %}
-                        <div class="author">
-                            {% if item.attachment_more_data.is_instagram == true %}
-                                <span class="instagram-user">
-                                    {% if item.attachment_more_data.instagram_metadata.permalink %}
-                                        <div class="obf no-ext text-black" data-obf="{{ item.attachment_more_data.instagram_metadata.permalink|base64Encode }}" data-target="_blank">
-                                    {% endif %}
-                                    <strong>{{ item.attachment_more_data.author }}</strong>
-                                    {% if item.attachment_more_data.instagram_metadata.permalink %}
-                                        </div>
-                                    {% endif %}
-                                </span>
-                            {% else %}
-                                <strong>{{ item.attachment_more_data.author }}</strong>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-
-                    {% if item.attachment_more_data.instagram_metadata.caption is not iterable  %}
-                        <div class="description marg-top-sm">
-                            <p>{{ item.attachment_more_data.instagram_metadata.caption }}</p>
-                        </div>
-                    {% endif %}
+        {% elseif item.attachment_more_data|default and item.attachment_more_data.instagram_metadata|default and
+        item.attachment_more_data.instagram_metadata.permalink|default %}
+        <div class="media-button-wrapper fullcenterbox">
+            <div class="obf button no-ext"
+                data-obf="{{ item.attachment_more_data.instagram_metadata.permalink|base64Encode }}"
+                data-target="_blank">
+                {{ __('Voir sur Instagram', 'woody-theme') }}
             </div>
+        </div>
         {% endif %}
     </div>
-{% else %}
-    {% if item.type == 'image' %}
-        <span class="mediaCard tpl_01" {% if gallery_lightbox == false %}lightbox="0" {% endif %} data-wgsrc="{{ item.attachment_more_data['linked_video'] ? item.attachment_more_data['linked_video'] : item.sizes.ratio_free }}" title="{{ item.title|default(item.filename) }}" data-wgthumb="{{ item.sizes.ratio_16_9_small }}" data-wgtype="{{ item.attachment_more_data['linked_video'] ? 'video-embed' : 'img'}}">
-            {% if  item.attachment_more_data['linked_video'] %}
-                <span class="movie-icon"></span>
-            {% endif %}
-            {% include '_objects/imageObject.twig' with {
-                'img' : item,
-                'noRespCrop' : "noRespCrop"
-            } %}
-        </span>
-    {% else %}
-        {% if item.type == 'video' %}
-            <span class="mediaCard tpl_01 is_movie" {% if gallery_lightbox == false %}lightbox="0" {% endif %} title="{{ item.title|default(item.filename) }}" data-wgsrc="{{item.url}}" data-wgthumb="{{ item.sizes.ratio_16_9_small|default(item.icon) }}" data-wgtype="video">
-            {% if item.subtype == 'mp4' %}{% set movie = {'mp4_movie_file' : item, 'movie_poster_file' : {'title' : item.filename}} %}
-            {% elseif item.subtype == 'webm' %}{% set movie = {'webm_movie_file' : item, 'movie_poster_file' : {'title' : item.filename}} %}
-            {% elseif item.subtype == 'ogg' %}{% set movie = {'ogg_movie_file' : item, 'movie_poster_file' : {'title' : item.filename}} %}{% endif %}
-                <span class="movie-icon top"></span>
-                {% include '_objects/videoObject.twig' with {
-                    movie,
-                    autoplay : false,
-                    muted : true,
-                    controls : false,
-                    loop:false
-                } %}
+
+    {% if item.attachment_more_data.instagram_metadata.date.sec or item.attachment_more_data.instagram_metadata.caption
+    %}
+    <div class="cell media-zoom-texts padd-all-md">
+        <div class="created">
+            <small>{{ item.attachment_more_data.instagram_metadata.date.sec|createdFrom() }}</small>
+        </div>
+
+        {% if item.attachment_more_data|default and item.attachment_more_data.author|default %}
+        <div class="author">
+            {% if item.attachment_more_data.is_instagram == true %}
+            <span class="instagram-user">
+                {% if item.attachment_more_data.instagram_metadata.permalink %}
+                <div class="obf no-ext text-black"
+                    data-obf="{{ item.attachment_more_data.instagram_metadata.permalink|base64Encode }}"
+                    data-target="_blank">
+                    {% endif %}
+                    <strong>{{ item.attachment_more_data.author }}</strong>
+                    {% if item.attachment_more_data.instagram_metadata.permalink %}
+                </div>
+                {% endif %}
             </span>
+            {% else %}
+            <strong>{{ item.attachment_more_data.author }}</strong>
+            {% endif %}
+        </div>
         {% endif %}
+
+        {% if item.attachment_more_data.instagram_metadata.caption is not iterable %}
+        <div class="description marg-top-sm">
+            <p>{{ item.attachment_more_data.instagram_metadata.caption }}</p>
+        </div>
+        {% endif %}
+    </div>
     {% endif %}
+</div>
+{% else %}
+{% if item.type == 'image' %}
+<span class="mediaCard tpl_01" {% if gallery_lightbox==false %}lightbox="0" {% endif %}
+    data-wgsrc="{{ item.attachment_more_data['linked_video'] ? item.attachment_more_data['linked_video'] : item.sizes.ratio_free }}"
+    title="{{ item.title|default(item.filename) }}" data-wgthumb="{{ item.sizes.ratio_16_9_small }}"
+    data-wgtype="{{ item.attachment_more_data['linked_video'] ? 'video-embed' : 'img'}}"
+    data-wgid="{{ woody_gallery_id|default('page-gallery') }}">
+    {% if item.attachment_more_data['linked_video'] %}
+    <span class="movie-icon"></span>
+    {% endif %}
+    {% include '_objects/imageObject.twig' with {
+    'img' : item,
+    'containerClass' : 'thumb',
+    'noRespCrop' : "noRespCrop"
+    } %}
+</span>
+{% else %}
+{% if item.type == 'video' %}
+<span class="mediaCard tpl_01 is_movie" {% if gallery_lightbox==false %}lightbox="0" {% endif %}
+    title="{{ item.title|default(item.filename) }}" data-wgsrc="{{item.url}}"
+    data-wgthumb="{{ item.sizes.ratio_16_9_small|default(item.icon) }}" data-wgtype="video">
+    {% if item.subtype == 'mp4' %}{% set movie = {'mp4_movie_file' : item, 'movie_poster_file' : {'title' :
+    item.filename}} %}
+    {% elseif item.subtype == 'webm' %}{% set movie = {'webm_movie_file' : item, 'movie_poster_file' : {'title' :
+    item.filename}} %}
+    {% elseif item.subtype == 'ogg' %}{% set movie = {'ogg_movie_file' : item, 'movie_poster_file' : {'title' :
+    item.filename}} %}{% endif %}
+    <span class="movie-icon top"></span>
+    {% include '_objects/videoObject.twig' with {
+    movie,
+    autoplay : false,
+    muted : true,
+    controls : false,
+    loop:false
+    } %}
+</span>
+{% endif %}
+{% endif %}
 {% endif %}

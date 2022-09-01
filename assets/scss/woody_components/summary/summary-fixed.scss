@@ -4,6 +4,11 @@
     top: 0;
     left: 0;
     width: 100vw;
+    box-shadow: $summary-fixed-box-shadow-main;
+
+    &.is-horizontal-summary {
+        box-shadow: $summary-fixed-box-shadow-horizontal;
+    }
 
     &.summary-visibility-transition {
         transition: $headnavs-autohide-duration;

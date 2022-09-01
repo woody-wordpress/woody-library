@@ -14,7 +14,7 @@
                     <form id="{{ filter.id }}"
                             {% if filter.type|default in ['daterangeWithAvailabilities','capacitiesAvailabilities'] %}availableonly{% endif %}>
                         <div class="wrap-date">
-                            <input type="text" name="daterange" class="item-date"
+                            <input readonly type="text" name="daterange" class="item-date"
                                 {% if playlist.isSinglePicker|default %}
                                     placeholder="{{ TR.START|default('.Arrivée') }}"
                                 {% else %}

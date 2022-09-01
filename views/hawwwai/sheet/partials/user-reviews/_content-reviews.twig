@@ -12,17 +12,17 @@
 
         <iframe iframe-resizer
             style="border: none; min-width: 100%; width: 100px;*width: 100%;"
-            src="{{ apirender_widget_path }}?tokenJS={{config.tokenJS|default}}&widgetId={{config.widgetId|default}}&idFiche={{object.metadata.id}}&color={{ config.FgWidgetColor|default('e47830')|trim('#', 'left') }}&type=big&recentReviews=false&idGroup={{formated_object.dataFairguest.idGroup}}&erpProductKey={{site_key}}&lang={{lang|default('fr')}}&token={{apiAccount.token}}">
+            src="{{ apirender_widget_path }}?tokenJS={{config.tokenJS|default}}&widgetId={{config.widgetId|default}}&idFiche={{object.metadata.id}}&color={{ config.FgWidgetColor|default('e47830')|trim('#', 'left') }}&type=big&recentReviews=false&idGroup={{formated_object.dataFairguest.idGroup}}&erpProductKey={{config.site_key}}&lang={{config.lang|default('fr')}}&token={{config.apiAccount.metadata.token}}">
         </iframe>
         {#
         <fairguest-review-widget data-options='{
             "idFiche":"{{object.metadata.id}}",
             "idGroup": "{{ formated_object.dataFairguest.idGroup }}",
-            "display":"classement,expressions_often,expressions_only,reviews,evolution{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %},reviews_add{% endif %}",
+            "display":"classement,expressions_often,expressions_only,reviews,evolution{% if config.options.addreviews is not defined or (config.options.addreviews is defined and config.options.addreviews) %},reviews_add{% endif %}",
             "color": "{{ config.FgWidgetColor|default('#e47830') }}",
             "type":"big",
-            "lang" : {{lang|default('fr'),
-            "erpProductKey": "{{site_key}}"
+            "lang" : {{config.lang|default('fr'),
+            "erpProductKey": "{{config.site_key}}"
         }'></fairguest-review-widget>
 
         {% if app['env'] in ['dev','preprod'] %}

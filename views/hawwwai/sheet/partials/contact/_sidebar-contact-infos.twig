@@ -4,7 +4,7 @@
         {% include TWIG.SIDEBAR_MAP %}
         <ul class="list-group">
             {% include TWIG.ADDRESS %}
-            {% if options.displayed_contacts is not defined or formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.establishment) %}
+            {% if config.options.displayed_contacts is not defined or formated_object.bordereau in ['FMA'] or (config.options.displayed_contacts|default and config.options.displayed_contacts.establishment) %}
                 {% if not hasEmptyComMeans(formated_object.contacts.establishment, true) or formated_object.tripadvisorLink|default %}
                     {% include TWIG.VCARD
                             with {  'phones': formated_object.contacts.establishment.phones,
@@ -21,11 +21,11 @@
     </section>
 </li>
 
-{% if (formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.owner)) and formated_object.bordereau not in ['HLO'] %}
+{% if (formated_object.bordereau in ['FMA'] or (config.options.displayed_contacts|default and config.options.displayed_contacts.owner)) %}
     {% if not hasEmptyComMeans(formated_object.contacts.owner) %}
         <li id="li-contact-infos-owner" class="sidebar-contact-infos contact-owner">
             <section class="panel panel-default">
-                <div class="sidebar-vcard-label">{{ formated_object.owner.group._type|default('SECTIONS.TOURISM.SHEET.ORGANIZER'|trans) }}</div>
+                <div class="sidebar-vcard-label">{{ formated_object.contacts.owner._type|default('SECTIONS.TOURISM.SHEET.ORGANIZER'|trans) }}</div>
 
                 {% if formated_object.contacts.owner.peopleLastName|default %}
                     <div class="panel-body">
@@ -60,7 +60,7 @@
 {% endif %}
 
 
-{% if formated_object.bordereau in ['FMA'] or (options.displayed_contacts|default and options.displayed_contacts.booking) %}
+{% if formated_object.bordereau in ['FMA'] or (config.options.displayed_contacts|default and config.options.displayed_contacts.booking) %}
     {% if not hasEmptyComMeans(formated_object.contacts.booking) %}
         <li id="li-contact-infos-booking" class="sidebar-contact-infos contact-booking">
             <section class="panel panel-default">

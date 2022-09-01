@@ -554,10 +554,50 @@
 }
 
 .geomapCard {
+    .card-section {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .has-btn .card-titles {
+        padding-bottom: 15px;
+    }
+
+    .button {
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        font-size: 12px;
+        font-family: 'helvetica';
+        font-weight: 500;
+    }
+
     .card-titles {
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 30px;
+    }
+
+    .card-title {
+        font-weight: 500;
+        margin-bottom: 5px;
+        text-shadow: 0px 0px 0px $black;
+    }
+
+    .card-description {
+        max-width: 200px;
+    }
+
+    .imageObject {
+        height: 195px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        top: -1px;
+        left: -1px;
+        width: calc(100% + 2px);
     }
 }
 

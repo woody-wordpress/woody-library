@@ -1,0 +1,63 @@
+{% if page_teaser_add_profile and profile.profile_title %}
+    <div class="cell {{ customProfilWidth|default('large-4') }} flex-container flex-dir-column profile-wrapper padd-all-md">
+        <div class="profile-header">
+            {% if profile.profile_picture|default %}
+            {% include '_objects/imageObject.twig' with{
+            'img' : profile.profile_picture,
+            'image_style' : "ratio_square",
+            'containerClass' : "profileMediaWrapper",
+            'hide_caption' : true
+            } %}
+            {% endif %}
+            <div class="profile-section">
+                <span class="profile-title">{{ profile.profile_title }}</span>
+                {% if profile.profile_description|default %}
+                <p class="profile-description">{{ profile.profile_description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% if profile.profile_favs.profile_favs_things|default %}
+        <div class="profile-favs-wrapper">
+            {% if profile.profile_favs.profile_favs_title|default %}
+            <span class="profile-favs-title">{{ profile.profile_favs.profile_favs_title }}</span>
+            {% endif %}
+            <ul class="list-unstyled flex-container wrap profile-favs">
+                {% for fav in profile.profile_favs.profile_favs_things %}
+                <li class="profile-fav">
+                    {% if fav.profile_fav_text %}
+                    <span>{{ fav.profile_fav_text }}</span>
+                    {% elseif fav.profile_fav_woody_icon %}
+                    <span class="wicon {{ fav.profile_fav_woody_icon}}"></span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if profile.profile_expressions %}
+        <ul class="list-unstyled flex-container wrap profile-exps">
+            {% for exp in profile.profile_expressions|sort %}
+            <li class="profile-exp">
+                {% if exp.title %}
+                <span class="expression-title">{{ exp.title }}</span>
+                {% endif %}
+                {% if exp.content %}
+                <div class="expression-content">
+                    {{ exp.content }}
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if profile.links|default %}
+        <ul class="list-unstyled flex-container wrap profile-links">
+            {% for button in profile.links %}
+            <li>
+                {% include '_objects/buttonObject.twig' %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+{% endif %}

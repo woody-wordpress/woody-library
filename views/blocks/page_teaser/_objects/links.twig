@@ -1,0 +1,17 @@
+{% if page_teaser_smart_buttons.links|default %}
+    {% if list_classes is not defined %}
+        {% if page_teaser_smart_buttons.alignement == 'horizontal'  %}
+            {% set list_classes = 'align-left align-top wrap buttons-list' %}
+        {% elseif page_teaser_smart_buttons.alignement == 'vertical' %}
+            {% set list_classes = 'flex-dir-column align-left align-top' %}
+        {% endif %}
+    {% endif %}
+
+    <ul class="list-unstyled flex-container {{ list_classes|default }}">
+        {% for button in page_teaser_smart_buttons.links %}
+            <li class="list-item">
+                {% include '_objects/buttonObject.twig' %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,31 @@
+{% set random_number = ''|random_number %}
+<div class="woody-component woody-component-teaser {{ customIndexClass|default('tpl_08') }} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }} {{ customTextAlignment|default }} {{ customGridSize|default('flex-container flex-dir-column') }}">
+    {% include 'blocks/page_teaser/_objects/backgroundImage.twig' %}
+    {{ breadcrumb|default }}
+    <div class="grid-container isRel">
+        {% if page_teaser_title|default or page_teaser_desc|default or page_teaser_display_favs_btn|default or page_teaser_buttons %}
+        <div class="grid-x {{ customAlignment|default('grid-padding-x grid-padding-y')}} ">
+            <div class="cell texts-wrapper flex-container flex-dir-column {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }} {{ customWidthLeft|default('xmedium-5') }}">
+                {% include 'blocks/page_teaser/_objects/texts.twig' with {
+                    'page_teaser_desc' : null,
+                    'created' : null,
+                }%}
+            </div>
+
+            <div class="cell flex-container flex-dir-column {{ customWidthLeft|default('xmedium-7') }}">
+                {% include 'blocks/page_teaser/_objects/tripInfos.twig' %}
+                {% if page_teaser_desc|default %}
+                    <div class="page-main-description">{{ page_teaser_desc }}</div>
+                {% endif %}
+                {% include 'blocks/page_teaser/_objects/links.twig' %}
+                {% include 'blocks/page_teaser/_objects/share.twig' %}
+            </div>
+
+            {% include 'blocks/page_teaser/_objects/media.twig' with {
+                'media_wrapper_classes' : 'large-4',
+                'page_teaser_img_ratio' : page_teaser_img_ratio|default('ratio_2_1')
+            }%}
+        </div>
+        {% endif %}
+    </div>
+</div>

@@ -57,7 +57,9 @@
         {% endif %}
     {% else %}
 
-    {% set tiny_square = img.sizes['ratio_square_small'] %}
+    {% if tiny_square is not defined %}
+        {% set tiny_square = img.sizes['ratio_square_small'] %}
+    {% endif %}
 
     {% set small_size = img.sizes[image_style ~ '_small'] %}
     {% set medium_size = img.sizes[image_style ~ '_medium'] %}
@@ -88,7 +90,7 @@
             <meta itemprop="datePublished" content="{{ img.date }}">
         {% endif %}
         {% if img.description %}
-            <span class="hide imageObject-description" itemprop="description" data-nosnippet>{{ img.description|striptags | raw }}</span>
+            <span class="hide imageObject-description" itemprop="description" data-nosnippet>{{ img.description|striptags|raw }}</span>
         {% endif %}
 
         {% block imageCaption %}
@@ -100,13 +102,13 @@
                         <span class="imageObject-icon copyright-icon flex-container align-center align-middle">©</span>
                     {% endif %}
                     {% if img.caption|default %}
-                        <span class="imageObject-text imageObject-description" itemprop="caption">{{ img.caption|striptags | raw }}</span>
+                        <span class="imageObject-text imageObject-description" itemprop="caption">{{ img.caption|striptags|raw }}</span>
                         {% if img.attachment_more_data.author|default %}
                             <span class="imageObject-text separator">|</span>
                         {% endif %}
                     {% endif %}
                     {% if img.attachment_more_data.author|default %}
-                        <span class="imageObject-text imageObject-author" itemprop="copyrightHolder">{{ img.attachment_more_data.author|striptags | raw }}</span>
+                        <span class="imageObject-text imageObject-author" itemprop="copyrightHolder">{{ img.attachment_more_data.author|raw }}</span>
                     {% endif %}
                 </div>
             {% endif %}

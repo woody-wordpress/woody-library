@@ -2,13 +2,15 @@
     {% if formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default %}
 
         {% include TWIG.FAIRGUEST_WIDGET_COLUMN
-            with {  'idFiche': object.metadata.id,
+            with {
+                    'widgetId': config.widgetId|default,
+                    'idFiche': object.metadata.id,
                     'idGroup': formated_object.dataFairguest.idGroup,
                     'color': config.FgWidgetColor|default('#e47830'),
-                    'lang': lang|default('fr'),
-                    'options': options|default,
-                    'token': apiAccount.token|default(''),
-                    'siteKey' : site_key }
+                    'lang': config.lang|default('fr'),
+                    'options': config.options|default,
+                    'token': config.apiAccount.metadata.token|default(''),
+                    'siteKey' : config.site_key }
             only %}
     {% endif %}
 {% endif %}

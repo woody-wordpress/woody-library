@@ -9,10 +9,10 @@
         background-color: $summary-item-bgcolor;
         border-radius: $summary-item-border-radius;
         padding: 10px;
-        transition: 0.3s ease-in-out;
     }
 
     font-size: $summary-item-font-size;
     font-weight: $summary-item-font-weight;
     margin-right: 10px;
+    transition: $summary-item-transition;
 }

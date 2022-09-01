@@ -67,7 +67,7 @@
     or formated_object.accessPoints|default
     or (formated_object.environmentPoints|default and contractsLevels.content.environment)
     or (contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default))
-    or (object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos)
+    or (object.data.legalInformations|default and config.options.legalinfos is defined and config.options.legalinfos and contractsLevels.content.legalInfos)
     or (formated_object.langs|default and contractsLevels.content.lang)
     or (contractsLevels.content.labels and formated_object.labels.simpleLabels._labels|default)
     or formated_object.sfTourismHandicapDordogne|default
@@ -228,7 +228,7 @@
             {% endif %}
 
             {# Legal Information #}
-            {% if object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos %}
+            {% if object.data.legalInformations|default and config.options.legalinfos is defined and config.options.legalinfos and contractsLevels.content.legalInfos %}
                 {% embed "@LOCAL/helper/list-group-item.twig" with {class: 'legal-informations'} %}
                     {% block title %}{{ 'GLOBAL.LEGAL_INFORMATION.LEGAL_INFORMATIONS'|trans }}{% endblock %}
                     {% block content %}
@@ -394,7 +394,7 @@
                                     {% set mapDocs = true %}
                                 {% endif %}
                             {% endfor %}
-                            {% if object.data.bordereau in ['ITI'] and site_key in ['les-sept-laux'] %}
+                            {% if object.data.bordereau in ['ITI'] and config.site_key in ['les-sept-laux'] %}
                                 {% for website in formated_object.contacts.establishment.websites %}
                                     <li class="_plu-push--tiny">
                                         <div class="ellipsis epsilon"

@@ -1,5 +1,5 @@
 {# should display info bar ? #}
-{% if (options.remindernavbar is defined and options.remindernavbar) or options.remindernavbar is not defined %}
+{% if (config.options.remindernavbar is defined and config.options.remindernavbar) or config.options.remindernavbar is not defined %}
 
     {% if (contractsLevels.content.booking and (formated_object.bookingUrl|default or formated_object.centralResa|default))
         or (contractsLevels.sidebar.vcard and formated_object.emails.establishment|default and not formated_object.contactLabel|default)
@@ -7,7 +7,7 @@
         <ul class="sheet-nav-actions _plu-push">
 
             {% if contractsLevels.content.booking and formated_object.bookingUrl|default %}
-                {% if true and options.warningExternalLink is defined and options.warningExternalLink %}
+                {% if true and config.options.warningExternalLink is defined and config.options.warningExternalLink %}
                     <li class="sheet-nav-actions_item nav-booking" data-open="warningExternalLink_modal">
                         <div class="plo-btn dark sheet-nav-actions_button">
                             {{'SECTIONS.PLANNING.MENU.ORDER'|trans}}
@@ -39,7 +39,7 @@
 
             {% if formated_object.openingPeriods|default and formated_object.openingPeriods.registrationEventpro|default %}
             {% elseif formated_object.sfExternalGrc|default %}
-                {% if options.externalgrcAccordion|default %}
+                {% if config.options.externalgrcAccordion|default %}
                     <li anchor-link ng-click="scrollTo('#external-grc');" onclick="document.querySelector('#external-grc-detail').open=true;" class="sheet-nav-actions_item nav-contact">
                         <span class="plo-btn sheet-nav-actions_button">
                             <div class="media media-center">

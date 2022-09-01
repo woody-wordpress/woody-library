@@ -19,6 +19,7 @@
 
 .anchor {
     display: flex !important;
+    transition: $summary-item-transition;
 
     @include breakpoint(large down) {
         padding: 0.75rem 0;

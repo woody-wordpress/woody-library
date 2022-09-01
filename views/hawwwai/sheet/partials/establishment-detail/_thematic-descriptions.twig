@@ -53,12 +53,12 @@
                                     <span class="icon-font-event plo-fonticon"></span>
                                     {% if datablock.startDate| date('Y-m-d') == datablock.endDate| date('Y-m-d') %}
                                         <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
-                                        <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', lang)}}</span>
+                                        <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', config.lang)}}</span>
                                     {% else %}
                                         <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>
-                                        <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', lang)}}</span>
+                                        <span class="start-date">{{ datablock.startDate | localizeddate('long', 'none', config.lang)}}</span>
                                         <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
-                                        <span class="end-date">{{ datablock.endDate | localizeddate('long', 'none', lang)}}</span>
+                                        <span class="end-date">{{ datablock.endDate | localizeddate('long', 'none', config.lang)}}</span>
                                     {% endif %}
                                 </span>
                             </div>

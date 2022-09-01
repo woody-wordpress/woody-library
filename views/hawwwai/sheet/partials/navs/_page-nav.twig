@@ -8,7 +8,7 @@
     or contractsLevels.content.reviews and formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default
     or (formated_object.environmentPoints|default and contractsLevels.content.environment)
     or (contractsLevels.content.capacities and formated_object.capacities|default and ( formated_object.capacities|length > 1 or not formated_object.capacities.groupCapacities|default))
-    or (object.data.legalInformations|default and options.legalinfos is defined and options.legalinfos and contractsLevels.content.legalInfos)
+    or (object.data.legalInformations|default and config.options.legalinfos is defined and config.options.legalinfos and contractsLevels.content.legalInfos)
     or (formated_object.langs|default and contractsLevels.content.lang)
     or (contractsLevels.content.labels and formated_object.labels.simpleLabels._labels|default)
     or (contractsLevels.content.handicap and formated_object.labels.tourismHandicap._labels|default)
@@ -193,7 +193,7 @@
 
     {# Medias #}
     {% if contractsLevels.content.medias %}
-        {% if options.sheet_model_v2 is not defined or options.sheet_model_v2 %}
+        {% if config.options.sheet_model_v2 is not defined or config.options.sheet_model_v2 %}
             {% if formated_object.sortedGallery|default %}
                 <li id="nav_gallery" anchor-link ng-click="scrollTo('#gallery')">
                     <a href="" role="button" class="media">
@@ -215,7 +215,7 @@
 
     {% endif %}
 
-    {% if (options.sheet_model_v2 is not defined or options.sheet_model_v2) and formated_object.panoramas|default %}
+    {% if (config.options.sheet_model_v2 is not defined or config.options.sheet_model_v2) and formated_object.panoramas|default %}
         <li id="nav_panorama" anchor-link ng-click="scrollTo('#panorama')">
             <a href="" role="button" class="media">
                 <span class="media-left"><span class="icon-font-panoramic [ plo-fonticon ]"></span></span>
@@ -249,7 +249,7 @@
 
 {# ORDER BTN #}
 {% if contractsLevels.sidebar.booking and formated_object.bookingUrl|default %}
-    {% if options.warningExternalLink is defined and options.warningExternalLink %}
+    {% if config.options.warningExternalLink is defined and config.options.warningExternalLink %}
         <div class="pull-right nav-title sheet-navbar-button navbar-booking-btn visible-xs-block visible-sm-block" data-open="warningExternalLink_modal">
             <div>{{'SECTIONS.PLANNING.MENU.ORDER'|trans}}</div>
         </div>
@@ -268,7 +268,7 @@
 
 <div>
 {# Wishlist button #}
-{% if tpl_wishlist and (options.planner or options.wishlist) %}
+{% if tpl_wishlist and (config.options.planner or config.options.wishlist) %}
     <div id="nav_add"
         class="pull-right nav-title sheet-navbar-button show-when-angular-ready"
         rc-sheet-state
@@ -298,7 +298,7 @@
     </div>
 {% endif %}
 
-{% if object.data.bordereau in ['ITI','PRD'] and (site_key in ['demo','superot'] or app.env in ['dev','preprod']) %}
+{% if object.data.bordereau in ['ITI','PRD'] and (config.site_key in ['demo','superot'] or app.env in ['dev','preprod']) %}
     <div id="iti-print-btn" class="pull-right nav-title sheet-navbar-button show-when-angular-ready">
         <a class="media _plu-flush" role="button">
             <span class="media-left media-middle"><span class="icon icon-font-printer"></span></span>

@@ -1,7 +1,7 @@
 {% if contractsLevels.sidebar.maps and formated_object.geolocations|default %}
     <div class="sidebar-map-container">
 
-        {% if options.calltoaction_sidebarmap|default and options.calltoaction_sidebarmap %}
+        {% if config.options.calltoaction_sidebarmap|default and config.options.calltoaction_sidebarmap %}
 
             <div id="show-map" ng-click="showMap($event)">
                 <div class="plo-btn sidebar-default-btn">{{'TOOLTIPS.DISPLAY_MAP'|trans }}</div>

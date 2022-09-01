@@ -1,0 +1,8 @@
+<div class="shares-wrapper flex-container align-middle {{ customAlignment|default }}">
+    {% if page_teaser_display_shares %}
+        {{ social_shares }}
+    {% endif %}
+    {% if page_teaser_title == false %}
+        {% include '_objects/favoriteTeaserObject.twig'%}
+    {% endif %}
+</div>

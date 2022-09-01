@@ -1,0 +1,19 @@
+{
+    "approved": true,
+    "name": "Template 08",
+    "description": "Affiche les infos indispensables d'une page - Icône, surtitre, titre et sous-titre à gauche et description à droite",
+    "lib_type": "lite",
+    "acf_groups": [
+        "group_5b2bbb46507bf"
+    ],
+    "vars": [
+        "classes",
+        "background_img",
+        "breadcrumb",
+        "page_teaser_title",
+        "page_teaser_display_favs_btn",
+        "page_teaser_desc",
+        "page_teaser_buttons",
+        "page_teaser_display_shares"
+    ]
+}

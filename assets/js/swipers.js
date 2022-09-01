@@ -354,11 +354,23 @@ $(".focus-swiper-fullpage-overlayed .swiper-container").each(function () {
                     titles.push($(this).find(".focus-title").text());
                     pretitles.push($(this).find(".focus-pretitle").text());
                 });
+
+                let pageIndex = index + 1;
+                if ( pageIndex < 10) {
+                    pageIndex = '0' + pageIndex;
+                }
+
                 var paginationItem = '<span class="swiper-pagination-item">';
 
-                paginationItem += (index <= 4) ? '<span class="pagination-pretitle">' + pretitles[index] + '</span><span class="pagination-title">' + titles[index] + '</span>' : '';
+                if($this.find(".swiper-pagination")[0].classList.contains('hasActiveIndex')) {
 
-                paginationItem = (index <= 4) ? paginationItem + '<span class="pagination-separator"><span class="pagination-separator-loader"></span></span>' : paginationItem;
+                    let paginationIndex = '<span class="card-index">' + pageIndex + '</span>';
+
+                    paginationItem += (index <= 4) ? paginationIndex + '<span class="pagination-pretitle">' + pretitles[index] + '</span><span class="pagination-title">' + titles[index] + '</span>' : '';
+                } else {
+                    paginationItem += (index <= 4) ? '<span class="pagination-pretitle">' + pretitles[index] + '</span><span class="pagination-title">' + titles[index] + '</span>' : '';
+                    paginationItem = (index <= 4) ? paginationItem + '<span class="pagination-separator"><span class="pagination-separator-loader"></span></span>' : paginationItem;
+                }
 
                 paginationItem += '</span>';
 

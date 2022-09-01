@@ -1,4 +1,5 @@
 &.is-horizontal-summary {
+
     .menu {
         @include breakpoint(xlarge) {
             flex-direction: row;

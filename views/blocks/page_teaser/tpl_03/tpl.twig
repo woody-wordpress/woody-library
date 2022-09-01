@@ -1,219 +1,28 @@
 {% set random_number = ''|random_number %}
-
-<div class="woody-component woody-component-teaser{% block index_class %} tpl_03{% endblock %} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}{{ page_teaser_add_profile and profile.profile_title ? ' has-profile' }}">
-    {% if background_img %}
-        {% include '_objects/bgImageObject.twig' with {
-                'img': background_img,
-        } %}
-    {% endif %}
-    {% if trip_infos|default %}
-        <div class="grid-x">
-            <div class="cell medium-7 large-9">
-                    {{ breadcrumb|default }}
-            </div>
-        </div>
-    {% else %}
-        {{ breadcrumb|default }}
-    {% endif %}
+<div class="woody-component woody-component-teaser {{ customIndexClass|default('tpl_03') }} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}{{ page_teaser_add_profile and profile.profile_title ? ' has-profile' }}">
+    {% include 'blocks/page_teaser/_objects/backgroundImage.twig' %}
+    {% include 'blocks/page_teaser/_objects/tripInfos.twig' with {
+        'customTripAlignment':'medium-7 large-9',
+        'trip_infos':breadcrumb,
+    } %}
+    {% if trip_infos is not defined %} {{ breadcrumb|default }} {% endif %}
     <div class="grid-container isRel">
-        {% if page_teaser_title|default or page_teaser_desc|default or page_teaser_display_favs_btn|default or page_teaser_buttons %}
-        <div class="grid-x grid-padding-x grid-padding-y align-justify">
-            <div class="cell large-7 flex-container flex-dir-column align-center texts-wrapper {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }}">
-                {{ block("page_teaser_texts", "blocks/page_teaser/tpl_01/tpl.twig") }}
-                {{ block("page_teaser_links", "blocks/page_teaser/tpl_01/tpl.twig") }}
-                {{ block("page_teaser_shares", "blocks/page_teaser/tpl_01/tpl.twig") }}
+        <div class="grid-x {{ customAlignment|default('grid-padding-x grid-padding-y align-justify') }}">
+            <div class="cell texts-wrapper flex-container flex-dir-column {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }} {{ customWidth|default('large-7') }} {{ customTextAlignment|default('align-center') }} {{ customGridSize|default }}">
+                {% include 'blocks/page_teaser/_objects/texts.twig' %}
+                {% include 'blocks/page_teaser/_objects/links.twig' %}
+                {% include 'blocks/page_teaser/_objects/share.twig' %}
             </div>
             {% if trip_infos|default %}
-            <div class="cell medium-12 large-3 flex-container flex-dir-column woody-component-trip-infos-card">
-                {{ trip_infos }}
-            </div>
-            {% endif %}
-
-            {% if page_teaser_add_profile and profile.profile_title %}
-            <div class="cell large-4 flex-container flex-dir-column profile-wrapper padd-all-md">
-                    <div class="profile-header">
-                        {% if profile.profile_picture|default %}
-                            {% include '_objects/imageObject.twig' with{
-                                'img' : profile.profile_picture,
-                                'image_style' : "ratio_square",
-                                'containerClass' : "profileMediaWrapper",
-                                'hide_caption' : true
-                            } %}
-                        {% endif %}
-                        <div class="profile-section">
-                            <span class="profile-title">{{ profile.profile_title }}</span>
-                            {% if profile.profile_description|default %}
-                            <p class="profile-description">{{ profile.profile_description }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% if profile.profile_favs.profile_favs_things|default %}
-                    <div class="profile-favs-wrapper">
-                        {% if profile.profile_favs.profile_favs_title|default %}
-                        <span class="profile-favs-title">{{ profile.profile_favs.profile_favs_title }}</span>
-                        {% endif %}
-                        <ul class="list-unstyled flex-container wrap profile-favs">
-                            {% for fav in profile.profile_favs.profile_favs_things %}
-                                <li class="profile-fav">
-                                    {% if fav.profile_fav_text %}
-                                        <span>{{ fav.profile_fav_text }}</span>
-                                    {% elseif fav.profile_fav_woody_icon %}
-                                        <span class="wicon {{ fav.profile_fav_woody_icon}}"></span>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                    {% if profile.profile_expressions %}
-                    <ul class="list-unstyled flex-container wrap profile-exps">
-                        {% for exp in profile.profile_expressions|sort %}
-                            <li class="profile-exp">
-                                {% if exp.title %}
-                                    <span class="expression-title">{{ exp.title }}</span>
-                                {% endif %}
-                                {% if exp.content %}
-                                    <div class="expression-content">
-                                        {{ exp.content }}
-                                    </div>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    {% if profile.links|default %}
-                    <ul class="list-unstyled flex-container wrap profile-links">
-                        {% for button in profile.links %}
-                            <li>
-                                {% include '_objects/buttonObject.twig' %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-            </div>
-            {% endif %}
-
-            {% if page_teaser_add_media and (page_teaser_img or page_teaser_widget or page_teaser_movie or page_teaser_add_media == 'map') %}
-
-                <div class="cell medium-6 large-5 flex-container align-middle media-wrapper">
-                    {% if page_teaser_media_type == 'img' and page_teaser_img|default %}
-                    {% block imagObject %}
-                        {% include '_objects/imageObject.twig' with {
-                            'img' : page_teaser_img,
-                            'image_style' : "ratio_4_3",
-                            'containerClass' : "pageTeaserMedia"
-                        } %}
-                    {% endblock %}
-                    {% elseif page_teaser_media_type == 'movie' and page_teaser_movie %}
-                    {{ page_teaser_movie }}
-                    {% elseif page_teaser_media_type == 'widget' and page_teaser_widget %}
-                    {{ page_teaser_widget }}
-                    {% elseif page_teaser_media_type == 'map' %}
-                        {% if circuit_map %}
-                            <script>
-                                var mapData = {
-                                    id: "circuitmap-{{ random_number }}",
-                                    default: {
-                                        map: {
-                                            scrollWheelZoom: 1
-                                        },
-                                        fitBounds: {{ page_teaser_map_zoom ? 0 : 1}},
-                                        zoom:{{ page_teaser_map_zoom|default(12)  }},
-                                        tm_conf_id: {{ tmaps_confid|default('false') }},
-                                        controls: {
-                                            "fullScreenControl": true,
-                                            "zoomControl": false,
-                                            "layerControl": false
-                                        }
-                                    },
-                                    markers: [
-                                        {% for day in circuit_map.days %}
-                                            {% if day.lat and day.lng %}
-                                                {
-                                                    lat: {{ day.lat }},
-                                                    lng: {{ day.lng }},
-                                                    mode: "contentFixed",
-                                                    html: "empty",
-                                                    customMarker: "{{ day.marker|e('js') }}",
-                                                    iconSize: [40, 52]
-                                                },
-                                            {% endif %}
-                                        {% endfor %}
-                                    ]
-                                };
-
-                                {% if circuit_map.track %}
-                                    var rcModule = rcModule || {};
-                                    rcModule.GeoJSONFiles = rcModule.GeoJSONFiles || {};
-                                    rcModule.GeoJSONFiles[mapData['id']] = [];
-                                    rcModule.GeoJSONFiles[mapData['id']].push({{ circuit_map.track }});
-                                {% endif %}
-
-                                if (!window.ExtendedMarkersV2) {
-                                    window.ExtendedMarkersV2 = [];
-                                }
-                                ExtendedMarkersV2.push(mapData);
-
-                            </script>
-                            <div id="circuitmap-{{ random_number }}" class="circuit-map"></div>
-
-                        {% elseif post_coordinates %}
-
-                            <script>
-                                var mapData = {
-                                    id: "geomap-{{ random_number }}",
-                                    default: {
-                                        map: {
-                                            scrollWheelZoom: 1
-                                        },
-                                        position:{
-                                            latitude:{{ post_coordinates.post_latitude }},
-                                            longitude:{{ post_coordinates.post_longitude }},
-                                            zoom:{{ page_teaser_map_zoom|default(7) }}
-                                        },
-                                        tm_conf_id: {{ tmaps_confid|default('false') }},
-                                        zoom:{
-                                            state:true
-                                        },
-                                        fullscreen: {
-                                            state:false
-                                        },
-                                        locate: {
-                                            state:false
-                                        },
-                                        geosearch: {
-                                            state:false
-                                        },
-                                        carto: {
-                                            state:false
-                                        },
-                                        fitBounds: 0
-                                    },
-                                    markers: [{
-                                        lat: {{ post_coordinates.post_latitude }},
-                                        lng: {{ post_coordinates.post_longitude }},
-                                        mode: "contentFixed",
-                                        html: "empty"
-                                    }]
-                                };
-
-                                if (!window.ExtendedMarkersV2) {
-                                    window.ExtendedMarkersV2 = [];
-                                }
-                                ExtendedMarkersV2.push(mapData);
-
-                            </script>
-                            <div class="direction-map-wrapper isRel">
-                                <div id="geomap-{{ random_number }}" style="height:300px"></div>
-                                <a href="https://www.google.com/maps/dir/?api=1&destination={{ post_coordinates.post_latitude }},{{ post_coordinates.post_longitude }}" class="iti-button button isAbs" title="{{ __("Voir l'itinéraire", 'woody-theme') }}" target="_blank">{{ __("M'y rendre", 'woody-theme') }}</a>
-                            </div>
-
-                        {% endif %}
-                    {% endif %}
+                <div class="cell medium-12 large-3 flex-container flex-dir-column woody-component-trip-infos-card">
+                    {{ trip_infos }}
                 </div>
-
             {% endif %}
+            {% include 'blocks/page_teaser/_objects/profil.twig' %}
+            {% include 'blocks/page_teaser/_objects/media.twig' with {
+                'media_wrapper_classes' : 'medium-6 large-5',
+                'page_teaser_img_ratio' : page_teaser_img_ratio|default('ratio_4_3')
+            }%}
         </div>
-        {% endif %}
     </div>
 </div>

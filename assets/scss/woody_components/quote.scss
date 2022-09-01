@@ -37,7 +37,7 @@
 
             &:after {
                 bottom: $quote-icon-position;
-                right: $quote-icon-position*.5;
+                right: $quote-icon-position*.2;
                 transform: scale(-1, 1);
             }
         }

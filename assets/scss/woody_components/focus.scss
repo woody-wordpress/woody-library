@@ -364,14 +364,21 @@
 
     &.tpl_323,
     &.tpl_319 {
+        position: relative;
+
+        .focus-header {
+            position: static;
+        }
+
         .swiper-controls {
-            position: relative;
+            position: absolute;
             display: flex;
+            left: calc((100% / 4) - 25px);
+            top: 25px;
 
             .swiper-nav {
                 position: relative;
                 display: flex;
-                margin-left: 150px;
 
                 >div {
                     position: relative;

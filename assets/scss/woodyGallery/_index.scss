@@ -1,5 +1,11 @@
 @import './tools/_index';
 
+body.wg-open {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
 .wgGallery {
     position: fixed;
     top: 0;
@@ -30,7 +36,8 @@
         margin-left: auto;
         margin-right: auto;
 
-        &-button-next, &-button-prev {
+        &-button-next,
+        &-button-prev {
             top: 45%;
             background-color: rgba(black, 0.5);
             background-size: 50% 50%;

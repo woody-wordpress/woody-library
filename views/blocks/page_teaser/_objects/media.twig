@@ -1,0 +1,19 @@
+{% if page_teaser_add_media and (page_teaser_img or page_teaser_widget or page_teaser_movie or page_teaser_add_media == 'map') %}
+    <div class="cell {{ media_wrapper_classes|default('medium-6') }} flex-container align-middle media-wrapper">
+        {% if page_teaser_media_type == 'img' and page_teaser_img|default %}
+            {% block imagObject %}
+                {% include '_objects/imageObject.twig' with {
+                    'img' : page_teaser_img,
+                    'image_style' : page_teaser_img_ratio|default('ratio_4_3'),
+                    'containerClass' : "pageTeaserMedia"
+            } %}
+            {% endblock %}
+        {% elseif page_teaser_media_type == 'movie' and page_teaser_movie %}
+            {{ page_teaser_movie }}
+        {% elseif page_teaser_media_type == 'widget' and page_teaser_widget %}
+            {{ page_teaser_widget }}
+        {% elseif page_teaser_media_type == 'map' %}
+            {% include 'blocks/page_teaser/_objects/map.twig' %}
+        {% endif %}
+    </div>
+{% endif %}

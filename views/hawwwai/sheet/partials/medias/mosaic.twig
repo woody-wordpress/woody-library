@@ -1,6 +1,6 @@
 
 {% set MAX_MEDIAS = 5 %}
-{% if formated_object.bordereau == 'FMA' %}{% set MAX_MEDIAS = 1 %}{% endif %}
+{% if formated_object.bordereau == 'FMA' and config.site_key not in ['marseille-tourisme'] %}{% set MAX_MEDIAS = 1 %}{% endif %}
 {% set nbDisplayed = min(formated_object.mosaicMedias|length, MAX_MEDIAS) %}
 {% set hasVideo = false %}
 <div id="mosaic-header" class="{{ 'has-'~ nbDisplayed }}">
@@ -83,7 +83,7 @@
                                 </div>
                                 {% endif %}
 
-                                {% if options.wishlist %}
+                                {% if config.options.wishlist %}
                                 <div id="add-favorites" class="relative-to-wrapper {% if nbPhotos > 1 %}add-offset{% endif %} show-when-angular-ready">
                                     <div rc-sheet-state ng-class="{'favorited': isFav(sheet.metadata.id)}" ng-click="toggleFav(sheet)">
                                         {% if formated_object.wishlistConfig.iconOff|default('heart-2') in ['heart', 'heart-2'] %}
@@ -206,7 +206,7 @@
         {% if nbDisplayed != 1 %}
             <div class="mosaic-abs-block top left">
                 {# Ajout wishlist #}
-                {% if options.wishlist %}
+                {% if config.options.wishlist %}
                 <div id="add-favorites" class="show-when-angular-ready">
                     <div rc-sheet-state ng-class="{'favorited': isFav(sheet.metadata.id)}" ng-click="toggleFav(sheet)">
                         {% if formated_object.wishlistConfig.iconOff|default('heart-2') in ['heart', 'heart-2'] %}
@@ -295,7 +295,7 @@
 
             <div class="mosaic-abs-block top left">
                 {# Ajout wishlist #}
-                {% if options.wishlist %}
+                {% if config.options.wishlist %}
                 <div id="add-favorites" class="show-when-angular-ready">
                     <div rc-sheet-state ng-class="{'favorited': isFav(sheet.metadata.id)}" ng-click="toggleFav(sheet)">
                         {% if formated_object.wishlistConfig.iconOff|default('heart-2') in ['heart', 'heart-2'] %}
@@ -333,7 +333,7 @@
         {% endif %}
 
         {% if contractsLevels.content.booking and formated_object.bookingUrl|default %}
-            {% if options.warningExternalLink is defined and options.warningExternalLink %}
+            {% if config.options.warningExternalLink is defined and config.options.warningExternalLink %}
                 <div class="responsive-chip chip-booking" data-open="warningExternalLink_modal">
                     <span>{{'SECTIONS.PLANNING.MENU.ORDER'|trans}}</span>
                     <span class="icon-font-nav-next"></span>

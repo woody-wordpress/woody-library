@@ -10,8 +10,8 @@
 
         {% if formated_object.sitSourceData.modified|default and formated_object.sitSourceData.creator|default %}
             <div>
-                {{ 'GLOBAL.UPDATED_ON'|trans}} {{ formated_object.sitSourceData.modified|date("Y-m-d")|localizeddate('long', 'none', lang) }}
-                {{ 'GLOBAL.AT'|trans }} {{ formated_object.sitSourceData.modified|date("H:i:s")| localizeddate('none', 'short', lang) }}
+                {{ 'GLOBAL.UPDATED_ON'|trans}} {{ formated_object.sitSourceData.modified|date("Y-m-d")|localizeddate('long', 'none', config.lang) }}
+                {{ 'GLOBAL.AT'|trans }} {{ formated_object.sitSourceData.modified|date("H:i:s")| localizeddate('none', 'short', config.lang) }}
             </div>
             <div>
                 {{ 'GLOBAL.BY'|trans }} {{ formated_object.sitSourceData.creator }}

@@ -5,9 +5,9 @@
     {% elseif formated_object.mailContact == 'owner' and formated_object.emails.owner|default %}
         {% set email = formated_object.emails.owner %}
     {% endif %}
-{% elseif options.proprio is defined and options.proprio and formated_object.emails.owner|default %}
+{% elseif config.options.proprio is defined and config.options.proprio and formated_object.emails.owner|default %}
     {% set email = formated_object.emails.owner %}
-{% elseif options.bookingcontact is defined and options.bookingcontact %}
+{% elseif config.options.bookingcontact is defined and config.options.bookingcontact %}
     {# {% set email = formated_object.emails.booking %} #} {# if active -> bug lot (no booking emails -> no form) #}
 {% endif %}
 
@@ -19,7 +19,7 @@
     </li>
 
 {% elseif formated_object.sfExternalGrc|default %}
-    {% if not options.externalgrcAccordion|default %}
+    {% if not config.options.externalgrcAccordion|default %}
         {% include TWIG.CONTACT_EXTERNAL_GRC %}
     {% endif %}
 
@@ -40,14 +40,14 @@
                     sticky-contacts keep-original-width='true'
                  {% endif %}
                   class="panel panel-default sidebar-contact-form-section
-                    {% if (options.avatar is defined and options.avatar) or formated_object.user|default %}
+                    {% if (config.options.avatar is defined and config.options.avatar) or formated_object.user|default %}
                         sidebar-contact-form-has-avatar
                     {% endif %}">
 
             <div class="panel-body">
 
                 {# Avatar #}
-                {% if (options.avatar is defined and options.avatar) or formated_object.user|default %}
+                {% if (config.options.avatar is defined and config.options.avatar) or formated_object.user|default %}
                     <div class="plo-box plo-avatar sidebar-contact-form-avatar">
                         <div class="plo-box-content _plu-glue">
                             {% if formated_object.user|default %}
@@ -74,7 +74,7 @@
                             {% if formated_object.contractCode|default == '311.20.02.01.03' %}
                                 {{ 'GLOBAL.QUOTE_REQUEST'|trans }}
                             {% else %}
-                                {% if options.help_label is defined and options.help_label %}
+                                {% if config.options.help_label is defined and config.options.help_label %}
                                     {{ 'GLOBAL.NEED_HELP'|trans }} {{ 'SECTIONS.TOURISM.SHEET.FORM.CONTACT.CONTACT_THE'|trans }}
                                 {% else %}
                                     {{ 'SECTIONS.TOURISM.SHEET.FORM.CONTACT.CONTACT'|trans }}
@@ -87,7 +87,7 @@
                         <div ng-if="!userProfile || !userPicture || (userProfile && !userProfile.link.url)" class="sidebar-contact-business-name pl-heading _plu-flush--top">
                             {% if formated_object.user|default and formated_object.contacts.owner.peopleLastName|default %}
                                 {{ formated_object.contacts.owner.civility|default }} {{ formated_object.contacts.owner.peopleFirstName|default }} {{ formated_object.contacts.owner.peopleLastName|default }}
-                            {% elseif formated_object.mailContact|default and formated_object.contacts[formated_object.mailContact].businessName|default and token not in ['bocage_v2'] %}
+                            {% elseif formated_object.mailContact|default and formated_object.contacts[formated_object.mailContact].businessName|default and config.site_key not in ['tourisme-bocage'] %}
                                 {{ formated_object.contacts[formated_object.mailContact].businessName }}
                             {% elseif formated_object.bordereau == 'FMA' %}
                                 {% if formated_object.contacts.owner.peopleLastName|default %}

@@ -15,7 +15,7 @@ if (document.querySelectorAll('.mediaCard').length) {
 document.querySelectorAll(".mediaCard:not([lightbox='0']):not(.mediaCard-duplicate)").forEach((content, index) => {
     content.addEventListener('click', (e) => {
         moduleWoodyGallery.woodyGallery(
-            '.mediaCard:not([lightbox="0"]):not(.mediaCard-duplicate)',
+            '.mediaCard[data-wgid='+ content.dataset.wgid +']:not([lightbox="0"]):not(.mediaCard-duplicate)',
             [
                 'wgZoom',
                 'wgDownload',

@@ -8,14 +8,9 @@
 
     .leaflet-popup-content {
         min-width: $geomap-popup-content-min-width;
+        margin: 0 !important;
 
         .card {
-            &-link:hover {
-                .card-title {
-                    color: $primary-color;
-                }
-            }
-
             &-titles {
                 text-align: $geomap-titles-text-align;
             }
@@ -32,8 +27,8 @@
     }
 
     .leaflet-container a.leaflet-popup-close-button {
-        top: 65px;
-        right: 65px;
+        top: 60px;
+        right: 60px;
         background: $primary-color;
         display: flex;
         align-items: center;
@@ -43,6 +38,7 @@
         border-radius: 30px;
         padding: 0;
         color: set-color($primary-color);
+        transition: 0.3s;
 
         &:hover {
             background: $secondary-color;
@@ -58,6 +54,10 @@
             left: 50%;
             transform: translateX(-50%);
         }
+    }
+
+    .leaflet-popup-content-wrapper {
+        box-shadow: 0 3px 10px rgba($black, 0.4);
     }
 
     .marker-index {

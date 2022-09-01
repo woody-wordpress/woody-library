@@ -1,35 +1,43 @@
 $hero-bgTitles-opacity: .1 !default;
-$splitHero-bgcolor : $primary-color !default;
-$hero-icon-size:60 !default;
+$splitHero-bgcolor : $primary-color  !default;
+$hero-icon-size: 60 !default;
 
 $hero-tagslist-top: auto !default;
-$hero-tagslist-bottom:15px !default;
+$hero-tagslist-bottom: 15px !default;
 $hero-tagslist-left: 15px !default;
 $hero-tagslist-right: auto !default;
 $hero-tagslist-font_size : 12;
-$hero-tagslist-txt_transform:uppercase !default;
-$hero-tagslist-radius:calc($global-radius / 2) !default;
+$hero-tagslist-txt_transform: uppercase !default;
+$hero-tagslist-radius: calc($global-radius / 2) !default;
 $hero-tagslist-border: 1px solid !default;
 
 $hero-tagslist-flex-dir: column !default;
 $hero-tagslist-icon-size: rem-calc(30) !default;
 
 // Templates 15 & 16
-$hero-blog-header-container-max-width-xlarge: $global-width !default;
+$hero-blog-header-container-max-width-xlarge: $global-width  !default;
 $hero-blog-header-container-max-width-xxlarge: rem-calc($grid-large-container-size) !default;
 
 // Movie toggler
-$movie-toggle-bgcolor : $primary-color !default;
-$movie-toggle-color : $white !default;
+$movie-toggle-bgcolor : $primary-color  !default;
+$movie-toggle-color : $white  !default;
 $movie-toggle-left-position : auto !default;
 $movie-toggle-top-position : auto !default;
 $movie-toggle-right-position : 15px !default;
 $movie-toggle-bottom-position : 15px !default;
-$movie-toggle-padding:(small:5px 10px, large:8px 20px) !default;
+$movie-toggle-padding: (
+    small:5px 10px,
+    large:8px 20px) !default;
 
 $hero-gradient-size: 350px !default;
 $hero-gradient-teaser-overflow: true !default;
 
+// More imgs
+$hero-more-imgs-col-top : 0 !default;
+$hero-more-imgs-col-right : 0 !default;
+$hero-more-imgs-col-left : auto !default;
+$hero-more-imgs-col-bottom : auto !default;
+$hero-more-imgs-col-width : 140px !default;
 
 // Variables CSS
 :root {

@@ -39,7 +39,7 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
 
 {% for template in templates|default %}
 <script type="text/twig" id="{{ template.id|default(loop.index0) }}">
-    {{ template.twig | raw}}
+    {{ template.twig|raw}}
 </script>
 {% endfor %}
     <div class="main-tourism-wrapper newplaylist {% if (options.sheet_model_v2 is not defined or options.sheet_model_v2) %}playlist-model-v2{% endif %}">
@@ -155,7 +155,6 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                                     'reviews': item.reviews|default,
                                     'fairguestReview': item.fairguestReview|default,
                                     'tariffs': item.tariffs|default,
-                                    'zones': item.zones|default,
                                     'deals': item.deals|default,
                                     'services': item.services|default,
                                     'gps': item.gps|default,
@@ -205,7 +204,6 @@ var rcModule = { ymlTranslations : {{ TR|json_encode|raw }} }
                                     'reviews': item.reviews|default,
                                     'fairguestReview': item.fairguestReview|default,
                                     'tariffs': item.tariffs|default,
-                                    'zones': item.zones|default,
                                     'deals': item.deals|default,
                                     'services': item.services|default,
                                     'gps': item.gps|default,

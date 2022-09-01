@@ -1,218 +1,43 @@
 {% set random_number = ''|random_number %}
+{% if page_teaser_add_media or page_teaser_add_profile or trip_infos and customWidth is not defined %}
+    {% set customWidth = 'large-6' %}
+{% else %}
+    {% set customWidth = 'large-10' %}
+{% endif %}
 
-<div class="woody-component woody-component-teaser flex-container flex-dir-column align-bottom {% block index_class %} tpl_07{% endblock %} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}{{ page_teaser_add_profile and profile.profile_title ? ' has-profile' }}">
-    {% if background_img %}
-        {% include '_objects/imageObject.twig' with {
-            'img' : background_img,
-            'img_mobile_url' : background_img.sizes.ratio_4_3_small,
-            'image_style' : 'ratio_3_1',
-            'containerClass' : "backgroundMedia teaserMediaWrapper"
-        } %}
-    {% endif %}
-
+<div class="woody-component woody-component-teaser flex-container flex-dir-column align-bottom {{ customIndexClass|default('tpl_07') }} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}{{ page_teaser_add_profile and profile.profile_title ? ' has-profile' }}">
+    {% include 'blocks/page_teaser/_objects/backgroundImage.twig' with {
+        'img_mobile_url' : background_img.sizes.ratio_4_3_small,
+        'image_style' : page_teaser_img_ratio|default('ratio_3_1'),
+        'containerClass' : "backgroundMedia teaserMediaWrapper"
+    }%}
     {% if page_teaser_add_media and page_teaser_media_type == 'map' %}
         <div class="geo-map-corner isAbs">
-        {% if circuit_map %}
-            <script>
-                var mapData = {
-                    id: "circuitmap-{{ random_number }}",
-                    default: {
-                    map: {
-                        scrollWheelZoom: 1
-                    },
-                    fitBounds: {{ page_teaser_map_zoom ? 0 : 1}},
-                    zoom:{{ page_teaser_map_zoom|default(12)  }},
-                    tm_conf_id: {{ tmaps_confid|default('false') }},
-                    controls: {
-                        "fullScreenControl": true,
-                        "zoomControl": false,
-                        "layerControl": false
-                    }
-                },
-                markers: [
-                    {% for day in circuit_map.days %}
-                        {% if day.lat and day.lng %}
-                            {
-                                lat: {{ day.lat }},
-                                lng: {{ day.lng }},
-                                mode: "contentFixed",
-                                html: "empty",
-                                customMarker: "{{ day.marker|e('js') }}",
-                                iconSize: [40, 52]
-                            },
-                        {% endif %}
-                    {% endfor %}
-                ]};
-
-                {% if circuit_map.track %}
-                    var rcModule = rcModule || {};
-                    rcModule.GeoJSONFiles = rcModule.GeoJSONFiles || {};
-                    rcModule.GeoJSONFiles[mapData['id']] = [];
-                    rcModule.GeoJSONFiles[mapData['id']].push({{ circuit_map.track }});
-                {% endif %}
-
-                if (!window.ExtendedMarkersV2) {
-                    window.ExtendedMarkersV2 = [];
-                }
-                ExtendedMarkersV2.push(mapData);
-            </script>
-
-            <div id="circuitmap-{{ random_number }}" class="circuit-map"></div>
-
-        {% elseif post_coordinates %}
-            <script>
-                var mapData = {
-                    id: "geomap-{{ random_number }}",
-                    default: {
-                        map: {
-                            scrollWheelZoom: 1
-                        },
-                        position: {
-                        latitude:{{ post_coordinates.post_latitude }},
-                        longitude:{{ post_coordinates.post_longitude }},
-                        zoom:{{ page_teaser_map_zoom|default(7) }}
-                    },
-                zoom: {
-                    state:true
-                },
-                fullscreen: {
-                    state:false
-                },
-                locate: {
-                    state:false
-                },
-                geosearch: {
-                    state:false
-                },
-                carto: {
-                    state:false
-                },
-                fitBounds: 0
-                },
-                markers: [{
-                    lat: {{ post_coordinates.post_latitude }},
-                    lng: {{ post_coordinates.post_longitude }},
-                    mode: "contentFixed",
-                    html: "empty"
-                }]
-                };
-
-                if (!window.ExtendedMarkersV2) {
-                    window.ExtendedMarkersV2 = [];
-                }
-                ExtendedMarkersV2.push(mapData);
-            </script>
-
-            <div class="direction-map-wrapper isRel">
-                <div id="geomap-{{ random_number }}"></div>
-                <span class="extend-map-icon wicon wicon-078-fullscreen isAbs show-for-xlarge"></span>
-                <a href="https://www.google.com/maps/dir/?api=1&destination={{ post_coordinates.post_latitude }},{{ post_coordinates.post_longitude }}" class="iti-button button isAbs" title="{{ __("Voir l'itinéraire", 'woody-theme') }}" target="_blank">{{ __("M'y rendre", 'woody-theme') }}</a>
-                <a href="#" class="show-geomap-mobile-button button isAbs hide-for-large" title="{{ __("Afficher la carte", 'woody-theme') }}"><span class="wicon wicon-039-pin"></span><span>{{ __("Afficher la carte", 'woody-theme') }}</span></a>
-                <a href="#" class="hide-geomap-mobile-button button isAbs hide-for-large" title="{{ __("Masquer la carte", 'woody-theme') }}"><span class="wicon wicon-039-pin"></span><span>{{ __("Masquer la carte", 'woody-theme') }}</span></a>
-            </div>
-        {% endif %}
+            {% include 'blocks/page_teaser/_objects/map.twig' %}
         </div>
     {% endif %}
-
     <div class="grid-container flex-container flex-dir-column full-height full-width">
         {{ breadcrumb|default }}
         {% if page_teaser_title|default or page_teaser_desc|default or page_teaser_display_favs_btn|default or page_teaser_buttons %}
-        <div class="grid-x grid-padding-x grid-padding-y align-justify align-bottom">
-            <div class="cell {{ page_teaser_add_media or page_teaser_add_profile or trip_infos ? 'large-6' : 'large-10' }} flex-container flex-dir-column align-center texts-wrapper {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }}">
-                {{ block("page_teaser_texts", "blocks/page_teaser/tpl_01/tpl.twig") }}
-                {{ block("page_teaser_links", "blocks/page_teaser/tpl_01/tpl.twig") }}
-                {{ block("page_teaser_shares", "blocks/page_teaser/tpl_01/tpl.twig") }}
+        <div class="grid-x {{ customAlignment|default('grid-padding-x grid-padding-y align-justify align-bottom') }}">
+            <div class="cell texts-wrapper flex-container flex-dir-column {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }} {{ customWidth|default }} {{ customTextAlignment|default('align-center') }} {{ customGridSize|default }}">
+                {% include 'blocks/page_teaser/_objects/texts.twig' %}
+                {% include 'blocks/page_teaser/_objects/links.twig' %}
+                {% include 'blocks/page_teaser/_objects/share.twig' %}
             </div>
-            {% if trip_infos|default %}
-                <div class="cell medium-12 large-3 flex-container flex-dir-column woody-component-trip-infos-card">
-                    {{ trip_infos }}
-                </div>
-            {% endif %}
-
-            {% if page_teaser_add_profile and profile.profile_title %}
-            <div class="cell large-3 flex-container flex-dir-column profile-wrapper padd-all-md">
-                    <div class="profile-header">
-                        {% if profile.profile_picture|default %}
-                            {% include '_objects/imageObject.twig' with{
-                                'img' : profile.profile_picture,
-                                'image_style' : "ratio_square",
-                                'containerClass' : "profileMediaWrapper",
-                                'hide_caption' : true
-                            } %}
-                        {% endif %}
-                        <div class="profile-section">
-                            <span class="profile-title">{{ profile.profile_title }}</span>
-                            {% if profile.profile_description|default %}
-                            <p class="profile-description">{{ profile.profile_description }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% if profile.profile_favs.profile_favs_things|default %}
-                    <div class="profile-favs-wrapper">
-                        {% if profile.profile_favs.profile_favs_title|default %}
-                        <span class="profile-favs-title">{{ profile.profile_favs.profile_favs_title }}</span>
-                        {% endif %}
-                        <ul class="list-unstyled flex-container wrap profile-favs">
-                            {% for fav in profile.profile_favs.profile_favs_things %}
-                                <li class="profile-fav">
-                                    {% if fav.profile_fav_text %}
-                                        <span>{{ fav.profile_fav_text }}</span>
-                                    {% elseif fav.profile_fav_woody_icon %}
-                                        <span class="wicon {{ fav.profile_fav_woody_icon}}"></span>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                    {% if profile.profile_expressions %}
-                    <ul class="list-unstyled flex-container wrap profile-exps">
-                        {% for exp in profile.profile_expressions|sort %}
-                            <li class="profile-exp">
-                                {% if exp.title %}
-                                    <span class="expression-title">{{ exp.title }}</span>
-                                {% endif %}
-                                {% if exp.content %}
-                                    <div class="expression-content">
-                                        {{ exp.content }}
-                                    </div>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    {% if profile.links|default %}
-                    <ul class="list-unstyled flex-container wrap profile-links">
-                        {% for button in profile.links %}
-                            <li>
-                                {% include '_objects/buttonObject.twig' %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-            </div>
-            {% endif %}
-
-            {% if page_teaser_add_media and (page_teaser_img or page_teaser_widget or page_teaser_movie) %}
-
-                <div class="cell medium-6 large-6 flex-container align-middle media-wrapper">
-                    {% if page_teaser_media_type == 'img' and page_teaser_img|default %}
-                    {% block imagObject %}
-                        {% include '_objects/imageObject.twig' with {
-                            'img' : page_teaser_img,
-                            'image_style' : "ratio_4_3",
-                            'containerClass' : "pageTeaserMedia"
-                        } %}
-                    {% endblock %}
-                    {% elseif page_teaser_media_type == 'movie' and page_teaser_movie %}
-                    {{ page_teaser_movie }}
-                    {% elseif page_teaser_media_type == 'widget' and page_teaser_widget %}
-                    {{ page_teaser_widget }}
-                    {% endif %}
-                </div>
-
+            {% include 'blocks/page_teaser/_objects/tripInfos.twig' with {
+                'customTripAlignment' : 'medium-12 large-3 flex-container flex-dir-column woody-component-trip-infos-card'
+            }%}
+            {% include 'blocks/page_teaser/_objects/profil.twig' with {
+                'customProfilWidth' : 'large-3'
+            }%}
+            {% if page_teaser_media_type != 'map' %}
+                {% include 'blocks/page_teaser/_objects/media.twig'  with {
+                    'media_wrapper_classes' : 'medium-6 large-6',
+                } %}
             {% endif %}
         </div>
-        {% endif %}
+
+    {% endif %}
     </div>
-</div>
+<div>

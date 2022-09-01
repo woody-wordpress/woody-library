@@ -76,7 +76,7 @@
                         <div class="next-date-wrapper">
                             <span class="next-date">
                                 {{ thesaurus.fulldictionary[next.day] }}
-                                {{ next.date | localizeddate('long', 'none', lang) }}
+                                {{ next.date | localizeddate('long', 'none', config.lang) }}
                             </span>
                         </div>
                     {% endfor %}
@@ -95,7 +95,7 @@
                 {% endif %}
 
 
-                {% if options.googlecalendar is defined and options.googlecalendar %}
+                {% if config.options.googlecalendar is defined and config.options.googlecalendar %}
                     <a class="plo-btn inverse sidebar-default-btn show-when-angular-ready"
                         google-calendar
                     {% if formated_object.openingPeriods.nextDates|default %}

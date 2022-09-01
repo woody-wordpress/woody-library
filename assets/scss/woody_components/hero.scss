@@ -145,14 +145,6 @@ body:not(.no-page-header) {
                 left: calc((100vw / 2) / 2.5);
             }
         }
-
-        @include breakpoint(xlarge down) {
-
-            .videoObject-video,
-            .backgroundMedia:not(.embed-plyr) {
-                height: calc(100vw / 2) !important;
-            }
-        }
     }
 
     &.tpl_07 {
@@ -173,9 +165,10 @@ body:not(.no-page-header) {
         }
     }
 
-    &.tpl_10 {
+    &.tpl_10,
+    &.tpl_11,
+    &.tpl_14 {
 
-        .hero-description,
         .scrollDown {
             display: none !important;
         }
@@ -373,6 +366,7 @@ body:not(.no-page-header) {
         &.hero-full-height:not(.hero-blog-header) {
             .backgroundMedia {
                 height: calc(100vw / 2);
+                max-height: 100%;
             }
         }
 
@@ -508,4 +502,25 @@ body:not(.no-page-header) {
         transform: scale(0);
         display: none;
     }
+}
+
+.woody-component-hero.has-moreImgs:not(.isRel) {
+    position: relative;
+}
+
+.hero-more-imgs {
+    .more {
+        color: $white;
+        background-color: rgba($black, .7);
+        font-size: rem-calc(32);
+        pointer-events: none;
+    }
+}
+
+.hero-more-imgs-column {
+    top: $hero-more-imgs-col-top;
+    right: $hero-more-imgs-col-right;
+    left: $hero-more-imgs-col-left;
+    bottom: $hero-more-imgs-col-bottom;
+    width: $hero-more-imgs-col-width;
 }

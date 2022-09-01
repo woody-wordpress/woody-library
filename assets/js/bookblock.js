@@ -64,6 +64,7 @@ $('.woody-component-bookblock').each(function () {
             $submit.addClass('disabled');
         }
 
+        $this.addClass('ready');
     };
 
     var tabulationForms = function () {

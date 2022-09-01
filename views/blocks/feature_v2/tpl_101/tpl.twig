@@ -3,7 +3,7 @@
 {% block indexClass %}{{ customIndexClass|default('101') }}{% endblock %}
 {% block woodyComponentContent %}
     {% if customFeature is not defined %}
-        {% set customFeature = 'tpl_01' %}
+        {% set customFeature = '01' %}
     {% endif %}
 
     {% include "blocks/feature_v2/_objects/featureHeaderObject.twig" %}
@@ -12,7 +12,7 @@
         {% for item in items %}
             <div class="cell">
                 {% include "blocks/feature_v2/_objects/featureObject.twig" with {
-                    'feature' : customFeature|default('tpl_01')
+                    'feature' : customFeature|default('01')
                 } %}
             </div>
         {% endfor %}

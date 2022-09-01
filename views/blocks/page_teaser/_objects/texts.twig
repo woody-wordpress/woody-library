@@ -1,0 +1,29 @@
+{% if page_teaser_woody_icon %}
+    <span class="wicon page-main-wicon wicon-woody-icons {{ page_teaser_woody_icon }}"></span>
+{% endif %}
+
+{% if page_teaser_pretitle or page_teaser_title|default or page_teaser_subtitle or (page_teaser_display_favs_btn|default and globals.options.favorites|default)  %}
+    <div class="page-main-titles">
+        {% if page_teaser_pretitle %}
+            <span class="page-main-pretitle">{{ page_teaser_pretitle }}</span>
+        {% endif %}
+        {% if page_teaser_title|default %}
+            <h1 class="page-main-title">
+                {{ page_teaser_title }}
+                {% include '_objects/favoriteTeaserObject.twig'%}
+            </h1>
+        {% endif %}
+        {% if page_teaser_subtitle %}
+            <span class="page-main-subtitle">{{ page_teaser_subtitle }}</span>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if page_teaser_desc|default %}
+    <div class="page-main-description">{{ page_teaser_desc }}</div>
+{% endif %}
+
+{% if created %}
+    <span class="page-main-created">{{ __('Publié le', 'woody-theme') }}
+        {{ created }}</span>
+{% endif %}

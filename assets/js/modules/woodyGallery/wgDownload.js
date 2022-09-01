@@ -25,7 +25,7 @@ export function wgDownload(wgTools, wgTop, mediasLength) {
                 break;
 
             default:
-                currentSlides = document.querySelectorAll(`.wg-swiper-top .swiper-slide[data-swiper-slide-index="${wgTop.activeIndex -1}"]`);
+                currentSlides = document.querySelectorAll(`.wg-swiper-top .swiper-slide[data-swiper-slide-index="${wgTop.activeIndex - 1}"]`);
                 break;
         }
 

@@ -1,19 +1,21 @@
 // Tabs rail
 $tabs-rail-height: 1px !default;
 $tabs-rail-space: 20px !default;
-$tabs-rail-color: $black !default;
-$tabs-icon-size:(small:rem-calc(24), large:rem-calc(32)) !default;
-$tabs-small-icon-size:rem-calc(32) !default;
+$tabs-rail-color: $black  !default;
+$tabs-icon-size: (
+    small:rem-calc(24),
+    large:rem-calc(32)) !default;
+$tabs-small-icon-size: rem-calc(32) !default;
 $inactive-tab-dot-size: 12px !default;
 $active-tab-dot-size: 14px !default;
-$inactive-tab-dot-color: $light-gray !default;
-$inactive-tab-dot-border-color: $tabs-rail-color !default;
-$active-tab-dot-color: $primary-color !default;
-$active-tab-dot-border-color: $active-tab-dot-color !default;
-$active-tab-dot-radius:50% !default;
+$inactive-tab-dot-color: $light-gray  !default;
+$inactive-tab-dot-border-color: $tabs-rail-color  !default;
+$active-tab-dot-color: $primary-color  !default;
+$active-tab-dot-border-color: $active-tab-dot-color  !default;
+$active-tab-dot-radius: 50% !default;
 
 // Tabs pill
-$tabs-pill-bgcolor: $light-gray !default;
+$tabs-pill-bgcolor: $light-gray  !default;
 $tabs-pill-radius: 5em !default;
 
 // Tabs underline
@@ -21,7 +23,7 @@ $border-tab-size: 5px !default;
 $border-tab-side: true !default;
 
 //Tabs vertical
-$tabs-vertical-separator-color : $black !default;
+$tabs-vertical-separator-color : $black  !default;
 $tabs-vertical-separator-height: 30px !default;
 $tabs-vertical-separator-width: 1px !default;
 $tabs-vertical-separator-left-position :3rem !default;
@@ -29,16 +31,21 @@ $percent-tabs-wrapper-width: 20% !default;
 $percent-tabs-content-width: 80% !default;
 
 
-$tabs-titles-font-size:(small:rem-calc(11), large:rem-calc(16)) !default;
+$tabs-titles-font-size: (
+    small:rem-calc(11),
+    large:rem-calc(16)) !default;
 
 // Responsive Tabs
 $mobile-tabs-height : 60px;
-$mobile-tabs-border: 2px solid $medium-gray !default;
-$mobile-tabs-active-border : 2px solid $primary-color !default;
+$mobile-tabs-border: 2px solid $medium-gray  !default;
+$mobile-tabs-active-border : 2px solid $primary-color  !default;
 $mobile-tabs-wicon-size : 2rem !default;
 $mobile-tabs-text-size : rem-calc(16px) !default;
-$mobile-tabs-active-wicon-color: $primary-color !default;
-$mobile-tabs-active-title-color: $primary-color !default;
-$mobile-tabs-wicon-color: $medium-gray !default;
-$mobile-tabs-title-color: $medium-gray !default;
+$mobile-tabs-active-wicon-color: $primary-color  !default;
+$mobile-tabs-active-title-color: $primary-color  !default;
+$mobile-tabs-wicon-color: $medium-gray  !default;
+$mobile-tabs-title-color: $medium-gray  !default;
 $mobile-tabs-white-space : normal !default;
+
+// Tabs Tooltips
+$tooltip-x-offset : 35px !default;

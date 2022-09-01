@@ -163,7 +163,7 @@
                 position: relative;
                 padding-left: calc(#{$wicon-list-icon-size} + 10px);
                 margin-bottom: 10px;
-                @extend .#{$icon} !optional;
+                @include wicon($icon);
 
                 &:before {
                     position: absolute;

@@ -1,0 +1,90 @@
+{% if circuit_map %}
+    <script>
+        var mapData = {
+            id: "circuitmap-{{ random_number }}",
+            default: {
+                map: {
+                    scrollWheelZoom: 1
+                },
+                fitBounds: {{ page_teaser_map_zoom ? 0 : 1}},
+                zoom:{{ page_teaser_map_zoom|default(12)  }},
+                tm_conf_id: {{ tmaps_confid|default('false') }},
+                controls: {
+                    "fullScreenControl": true,
+                    "zoomControl": false,
+                    "layerControl": false
+                }
+            },
+            markers: [{% for day in circuit_map.days %}{% if day.lat and day.lng %}{
+                            lat: {{ day.lat }},
+                            lng: {{ day.lng }},
+                            mode: "contentFixed",
+                            html: "empty",
+                            customMarker: "{{ day.marker|e('js') }}",
+                            iconSize: [
+                                40,
+                                52
+                            ]
+                        },{% endif %}{% endfor %}]
+        };{% if circuit_map.track %}var rcModule = rcModule || {};
+            rcModule.GeoJSONFiles = rcModule.GeoJSONFiles || {};
+            rcModule.GeoJSONFiles[mapData["id"]] = [];
+            rcModule.GeoJSONFiles[mapData["id"]].push({{ circuit_map.track }});{% endif %}if (!window.ExtendedMarkersV2) {
+            window.ExtendedMarkersV2 = [];
+        }
+        ExtendedMarkersV2.push(mapData);
+    </script>
+    <div id="circuitmap-{{ random_number }}" class="circuit-map"></div>
+
+{% elseif post_coordinates %}
+
+    <script>
+        var mapData = {
+            id: "geomap-{{ random_number }}",
+            default: {
+                map: {
+                    scrollWheelZoom: 1
+                },
+                position:{
+                    latitude:{{ post_coordinates.post_latitude }},
+                    longitude:{{ post_coordinates.post_longitude }},
+                    zoom:{{ page_teaser_map_zoom|default(7) }}
+                },
+                zoom:{
+                    state:true
+                },
+                fullscreen: {
+                    state:false
+                },
+                locate: {
+                    state:false
+                },
+                geosearch: {
+                    state:false
+                },
+                carto: {
+                    state:false
+                },
+                fitBounds: 0
+            },
+            markers: [
+                {
+                    lat: {{ post_coordinates.post_latitude }},
+                    lng: {{ post_coordinates.post_longitude }},
+                    mode: "contentFixed",
+                    html: "empty"
+                }
+            ]
+        };
+
+        if (!window.ExtendedMarkersV2) {
+            window.ExtendedMarkersV2 = [];
+        }
+        ExtendedMarkersV2.push(mapData);
+    </script>
+    <div class="direction-map-wrapper isRel">
+        <div id="geomap-{{ random_number }}" style="height:300px"></div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination={{ post_coordinates.post_latitude }},{{ post_coordinates.post_longitude }}" class="iti-button button isAbs" title="{{ __("Voir l'itinéraire", 'woody-theme') }}" target="_blank">{{ __("M'y rendre", 'woody-theme') }}</a>
+    </div>
+
+{% endif %}

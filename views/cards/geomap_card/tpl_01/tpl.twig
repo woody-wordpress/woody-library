@@ -1,8 +1,9 @@
 
 <div class="card geomapCard isRel {{ item.card_class|default }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
     {% if item.link|default %}
-        <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" {% if item.datahref%}data-href="{{  item.datahref }}"{% endif %}>
+        <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" {% if item.datahref %}data-href="{{ item.datahref }}"{% endif %}>
     {% endif %}
+
     {% block card_media_wrapper %}
         {% if item.img.ID %}
             {% include '_objects/imageObject.twig' with {
@@ -15,7 +16,8 @@
 
         {% endif %}
     {% endblock %}
-    <div class="card-section">
+
+    <div class="card-section {{ item.link ? 'has-btn' : '' }}">
         {% block card_titles %}
             <div class="card-titles">
                 {% if item.title|default %}
@@ -29,10 +31,11 @@
                     </span>
                 {% endif %}
             </div>
+            {% if item.link %}<a class="button primary" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}">{{ item.link.title }}</a>{% endif %}
         {% endblock %}
     </div>
 
-    {% if item.link %}
-        </a>
+    {% if item.link|default %}
+    </a>
     {% endif %}
 </div>

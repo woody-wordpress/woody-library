@@ -43,7 +43,7 @@
     }
 
     .direction-map-wrapper {
-        @include breakpoint(large down){
+        @include breakpoint(large down) {
             height: 100%;
         }
 
@@ -84,17 +84,15 @@
         }
     }
 
-    .imageObject-caption{
-        opacity:0;
+    .imageObject-caption {
+        opacity: 0;
     }
 
-    .pageTeaserMedia:hover .imageObject-caption{
-        opacity:1;
+    .pageTeaserMedia:hover .imageObject-caption {
+        opacity: 1;
     }
 
     .shares-wrapper {
-        justify-content: left;
-
         .button-add-to-favs {
             font-size: 2rem;
             @include xy-gutters($gutter-position: top, $negative:false);
@@ -317,7 +315,7 @@
                     }
                 }
 
-                .show-geomap-mobile-button{
+                .show-geomap-mobile-button {
                     display: none;
                 }
 
@@ -391,9 +389,20 @@
                 margin: 0;
                 z-index: 1;
             }
+
             .hide-geomap-mobile-button {
                 display: none;
             }
+        }
+    }
+
+    &.tpl_08 {
+        .page-main-description {
+            margin-top: 0;
+        }
+
+        .woody-component-trip-infos {
+            position: initial;
         }
     }
 
@@ -401,6 +410,56 @@
         .woody-component-breadcrumb ol {
             max-width: calc(((100vw - #{$global-width}) / 2) + 800px);
             margin: initial;
+        }
+    }
+
+    &.tpl_01, &.tpl_02 {
+        .profile-wrapper {
+            position: static;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding-left: 0;
+
+            .profile-header {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                width: 70%;
+
+                figure {
+                    max-width: calc(150px + 25px);
+
+                    img {
+                        margin: 0;
+                    }
+                }
+
+                .profile-section {
+                    .profile-title, .profile-description {
+                        text-align: left;
+                    }
+                }
+            }
+
+            .profile-favs-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .profile-links {
+                .woody-component-button {
+                    margin-top: 0;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
         }
     }
 }

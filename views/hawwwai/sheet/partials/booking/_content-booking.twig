@@ -7,21 +7,15 @@
     {% else %}
         <section id="booking" class="content-booking panel panel-default row show-when-angular-ready" ng-class="{'booking-elloha': formatedDatas.resaIframe && formatedDatas.resaIframeContent}">
 
-            {# additional picker for specific central #}
-            {% if formated_object.centralResa.type == '99.20.02.02.04' and site_key in ['ot-beaune'] %} {# Ingenie beaune #}
-                <div class="central-resa" ng-if="DGS.isEnabled()">
-                    <div class="resa-controls"><ng-include src="'components/central-resa/central-calendar.html'"></ng-include></div>
-                </div>
-            {% else %}
-                <div ng-if="formatedDatas.resaIframe && formatedDatas.resaIframeContent"
-                    class="panel-title-desktop list-group-item  _plu-push--tiny">
-                    <span class="pl-heading">{{formated_object.centralResa.title|default('Réservez') }}</span>
-                </div>
-                <div ng-if="formatedDatas.resaIframe" class="panel-title-responsive row">
-                    <span class="panel-title-responsive_text">{{formated_object.centralResa.title|default('Réservez') }}</span>
-                </div>
-                <span ng-controller="datesGlobalCtrl"></span>
-            {% endif %}
+
+            <div ng-if="formatedDatas.resaIframe && formatedDatas.resaIframeContent"
+                class="panel-title-desktop list-group-item  _plu-push--tiny">
+                <span class="pl-heading">{{formated_object.centralResa.title|default('Réservez') }}</span>
+            </div>
+            <div ng-if="formatedDatas.resaIframe" class="panel-title-responsive row">
+                <span class="panel-title-responsive_text">{{formated_object.centralResa.title|default('Réservez') }}</span>
+            </div>
+            <span ng-controller="datesGlobalCtrl"></span>
 
             {# content #}
             {% if formated_object.centralResa.type not in ['99.20.02.02.04', '99.20.02.02.05', '99.20.02.02.12', '99.20.02.02.14', '99.20.02.02.15', '99.20.02.02.17', '99.20.02.02.18'] %}

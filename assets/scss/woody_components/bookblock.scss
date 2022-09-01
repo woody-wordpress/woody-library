@@ -125,6 +125,17 @@
     }
 }
 
+// Prevent loading glitch
+.woody-component-bookblock {
+    transition: opacity .2s;
+    opacity: 0;
+
+    &.ready {
+        opacity: 1;
+    }
+}
+
+
 .item-counter-button {
     line-height: 1em;
     width: 32px;

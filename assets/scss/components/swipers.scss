@@ -250,11 +250,16 @@
 .controlsAbs {
     @include breakpoint(large) {
         .swiper {
+            &-container {
+                padding-top: 60px;
+            }
+
             &-controls {
                 position: absolute;
                 top: 0;
                 right: 30px;
-                transform: translateY(-85px);
+                transform: translateY(10px);
+                z-index: 10;
             }
 
             &-button-prev,

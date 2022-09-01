@@ -1,0 +1,8 @@
+{% if background_img %}
+    {% include '_objects/bgImageObject.twig' with {
+            'img': background_img,
+            'img_mobile_url' : img_mobile_url|default,
+            'image_style' : image_style|default,
+            'containerClass' : containerClass|default
+    } %}
+{% endif %}

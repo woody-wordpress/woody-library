@@ -62,9 +62,9 @@
                                         		{{ thesaurus.fulldictionary[period._multipleDay.code] | lower }}
                                         		{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans | lower}}
                                         	</span>
-                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                         	<span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
-                                        	<span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        	<span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                             {% if formated_object.openingPeriods.hasHours %}
                                                 <span class="opening-hours">
                                                     {% set displayComa = false %}
@@ -83,9 +83,9 @@
                                                                 {% else %}
                                                                     {{ 'GLOBAL.FROM'|trans }}
                                                                 {% endif %}
-                                                                {{ schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                {{ schedule.startTime | localizeddate('none', 'short', config.lang) }}
                                                                 {% if schedule.endTime is defined %}
-                                                                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.TO'|trans }} {{ schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.TO'|trans }} {{ schedule.endTime | localizeddate('none', 'short', config.lang) }}
                                                                 {% endif %}
 
                                                                 {# coordination #}
@@ -107,7 +107,7 @@
                                               end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
 
                                         	<span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
-                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                             {% if formated_object.openingPeriods.hasHours %}
                                                 <span class="opening-hours">
                                                     {% set displayComa = false %}
@@ -126,9 +126,9 @@
                                                                 {% else %}
                                                                     {{ 'GLOBAL.FROM'|trans }}
                                                                 {% endif %}
-                                                                {{ schedule.startTime|localizeddate('none', 'short', lang) }}
+                                                                {{ schedule.startTime|localizeddate('none', 'short', config.lang) }}
                                                                 {% if schedule.endTime is defined %}
-                                                                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.TO'|trans }} {{ schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                    {{ 'SECTIONS.TOURISM.SHEET.PERIODS.TO'|trans }} {{ schedule.endTime | localizeddate('none', 'short', config.lang) }}
                                                                 {% endif %}
 
                                                                 {# coordination #}
@@ -147,9 +147,9 @@
                                             start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
                                         	<span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans}}</span>
-                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                        	<span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                         	<span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
-                                            <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                     	</span>
 
                                         {% include TWIG.OPENING_HOURS__DAYS_IN_CLEAR %}
@@ -215,7 +215,7 @@
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
 
                                             <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
-                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                     </option>
 
 
@@ -228,10 +228,10 @@
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
 
                                                 <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans}}</span>
-                                                <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                                <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                                 <br />
                                                 <span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
-                                                <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                                <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                     </option>
                                 {% endif %}
                                 </option>
@@ -270,17 +270,17 @@
                                               end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
 
                                             <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
-                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                         </span>
                                     {% else %}
                                         <span period-parser type="tab"
                                             start="{{ period._startDate is defined ? period._startDate|date('Y-m-d') : period.startDate|date('Y-m-d') }}"
                                             end="{{ period._endDate is defined ? period._endDate|date('Y-m-d') : period.endDate|date('Y-m-d') }}">
                                             <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.FROM' | trans}}</span>
-                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            <span class="start-date">{{ period._startDate|default(period.startDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                             <br />
                                             <span class="prefix-text-end">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.UNTIL' | trans}}</span>
-                                            <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', lang)}}</span>
+                                            <span class="end-date">{{ period._endDate|default(period.endDate)|date('Y-m-d')|localizeddate('long', 'none', config.lang)}}</span>
                                         </span>
                                     {% endif %}
                                 </span>
@@ -348,12 +348,12 @@
                                                                     {# case: if only one starttime specified #}
                                                                     {% if schedule.endTime is not defined
                                                                     and currentday.schedules[loop.index0 + 1] is not defined %}
-                                                                        {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                        {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', config.lang) }}
                                                                     {% elseif schedule.endTime is not defined
                                                                     and currentday.schedules[loop.index0 + 1].endTime is not defined %}
-                                                                        {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                        {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', config.lang) }}
                                                                     {% else %}
-                                                                        {{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                        {{schedule.startTime | localizeddate('none', 'short', config.lang) }}
                                                                     {% endif %}
                                                                 {% endif %}
                                                                 {% if schedule.endTime is defined %}
@@ -361,10 +361,10 @@
                                                                     {# {% if (loop.index0 + 1) < 2 and currentday.schedules[loop.index0 + 1] is not defined %}
                                                                         </div>
                                                                         <div class="col-xs-4 text-center">
-                                                                        {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                        {{schedule.endTime | localizeddate('none', 'short', config.lang) }}
                                                                     {% else %} #}
                                                                         {% if schedule.startTime|default %}-{% endif %}
-                                                                        {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                        {{schedule.endTime | localizeddate('none', 'short', config.lang) }}
                                                                     {# {% endif %} #}
                                                                 {% endif %}
                                                             </div>
@@ -411,12 +411,12 @@
                                                                 {# case: if only one starttime specified #}
                                                                 {% if schedule.endTime is not defined
                                                                 and currentday.schedules[loop.index0 + 1] is not defined %}
-                                                                    {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                    {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', config.lang) }}
                                                                 {% elseif schedule.endTime is not defined
                                                                 and currentday.schedules[loop.index0 + 1].endTime is not defined %}
-                                                                    {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                    {{ 'GLOBAL.AT' | trans}}&nbsp;{{schedule.startTime | localizeddate('none', 'short', config.lang) }}
                                                                 {% else %}
-                                                                    {{schedule.startTime | localizeddate('none', 'short', lang) }}
+                                                                    {{schedule.startTime | localizeddate('none', 'short', config.lang) }}
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if schedule.endTime is defined %}
@@ -424,10 +424,10 @@
                                                                 {# {% if (loop.index0 + 1) < 2 and currentday.schedules[loop.index0 + 1] is not defined %}
                                                                     </div>
                                                                     <div class="col-xs-4 text-center">
-                                                                    {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                    {{schedule.endTime | localizeddate('none', 'short', config.lang) }}
                                                                 {% else %} #}
                                                                     {% if schedule.startTime|default %}-{% endif %}
-                                                                    {{schedule.endTime | localizeddate('none', 'short', lang) }}
+                                                                    {{schedule.endTime | localizeddate('none', 'short', config.lang) }}
                                                                 {# {% endif %} #}
                                                             {% endif %}
                                                         </div>

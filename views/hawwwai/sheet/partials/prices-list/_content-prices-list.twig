@@ -109,13 +109,13 @@
                                             </span>
                                         {% elseif tariffPeriod._formatedStartDate == tariffPeriod._formatedEndDate %}
                                             <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
-                                            <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', lang)}}</span>
+                                            <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', config.lang)}}</span>
                                         {% else %}
                                             <span period-parser type="select" start={{tariffPeriod.startDate| date('Y-m-d')}} end={{tariffPeriod.endDate| date('Y-m-d')}}>
                                                 <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>
-                                                <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', lang)}}</span>
+                                                <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', config.lang)}}</span>
                                                 <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
-                                                <span class="end-date">{{ tariffPeriod.endDate | localizeddate('long', 'none', lang)}}</span>
+                                                <span class="end-date">{{ tariffPeriod.endDate | localizeddate('long', 'none', config.lang)}}</span>
                                             </span>
                                         {% endif %}
                                     </option>
@@ -142,13 +142,13 @@
                                             </span>
                                         {% elseif tariffPeriod._formatedStartDate == tariffPeriod._formatedEndDate %}
                                             <span class="prefix-text-start">{{ 'SECTIONS.TOURISM.SHEET.PERIODS.ON' | trans}}</span>
-                                            <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', lang)}}</span>
+                                            <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', config.lang)}}</span>
                                         {% else %}
                                             <span period-parser type="tab" start={{tariffPeriod.startDate| date('Y-m-d')}} end={{tariffPeriod.endDate| date('Y-m-d')}}>
                                                 <span class="prefix-text-start">{{ 'GLOBAL.DATE.FROM' | trans}}</span>
-                                                <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', lang)}}</span>
+                                                <span class="start-date">{{ tariffPeriod.startDate | localizeddate('long', 'none', config.lang)}}</span>
                                                 <span class="prefix-text-end">{{ 'GLOBAL.DATE.TO' | trans}}</span>
-                                                <span class="end-date">{{ tariffPeriod.endDate | localizeddate('long', 'none', lang)}}</span>
+                                                <span class="end-date">{{ tariffPeriod.endDate | localizeddate('long', 'none', config.lang)}}</span>
                                             </span>
                                         {% endif %}
                                     </div>

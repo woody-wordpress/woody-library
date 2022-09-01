@@ -2,7 +2,7 @@
     (contractsLevels.content.tariffs and formated_object.tariffPeriods|default) or
     (   (contractsLevels.sidebar.booking and formated_object.bookingUrl|default) or
         (contractsLevels.sidebar.booking and formated_object.centralResa|default and formated_object.centralResa.mode|default != 'availability' and
-            (formated_object.centralResa.type not in ['99.20.02.02.04'] or site_key in ['ot-beaune'])
+            (formated_object.centralResa.type not in ['99.20.02.02.04'])
     )) %}
     <li id="li-booking" reference-tariff>
 
@@ -10,7 +10,7 @@
                 {% if contractsLevels.stickyBooking %}
                     sticky-contacts keep-original-width='true'
                 {% endif %}
-                {% if contractsLevels.sidebar.booking and formated_object.centralResa|default and formated_object.centralResa.type != '99.20.02.02.04' or (site_key in ['ot-beaune'] and formated_object.centralResa|default and formated_object.centralResa.type == '99.20.02.02.04') %}
+                {% if contractsLevels.sidebar.booking and formated_object.centralResa|default and formated_object.centralResa.type != '99.20.02.02.04' %}
                 id="sidebar_booking"
                 {% endif %}>
 
@@ -37,7 +37,7 @@
 
                 {% if contractsLevels.sidebar.booking and formated_object.centralResa|default and formated_object.centralResa.mode|default != 'availability' %}
                     {# Input dates #}
-                    {% if formated_object.centralResa.type not in ['99.20.02.02.04', '99.20.02.02.12', '99.20.02.02.14', '99.20.02.02.15', '99.20.02.02.17', '99.20.02.02.18'] or (formated_object.centralResa.type == '99.20.02.02.04' and site_key in ['ot-beaune']) %}
+                    {% if formated_object.centralResa.type not in ['99.20.02.02.04', '99.20.02.02.12', '99.20.02.02.14', '99.20.02.02.15', '99.20.02.02.17', '99.20.02.02.18'] %}
                         <div id="sidebar-booking" class="booking-central-wrapper text-center"
                             {% if contractsLevels.sidebar.referenceTariff %}
                                 ng-class="{'_plu-push-top': ref && ref.price}"
@@ -62,7 +62,7 @@
                 {# BOOKING LINK BUTTON #}
                 {% elseif contractsLevels.sidebar.booking and formated_object.bookingUrl|default %}
 
-                    {% if options.warningExternalLink is defined and options.warningExternalLink %}
+                    {% if config.options.warningExternalLink is defined and config.options.warningExternalLink %}
 
                         <div class="booking-link-wrapper sidebar-default-btn" data-open="warningExternalLink_modal">
                             <span class="plo-btn _plu-fullwidth">{{'SECTIONS.PLANNING.MENU.ORDER'|trans}}</span>

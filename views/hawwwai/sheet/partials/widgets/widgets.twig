@@ -1,7 +1,7 @@
 {# Trip Advisor / Guest Suite #}
 {% if (formated_object.widgets|default and formated_object.widgets.sfWidgetTripAdvisor|default)
     or (formated_object.widgets|default and formated_object.widgets.sfWidgetPictoAccess|default)
-    or (formated_object.widgets|default and formated_object.widgets.sfWidgetGuestSuite|default and options.widgets|default and options.widgets.guestsuite)  %}
+    or (formated_object.widgets|default and formated_object.widgets.sfWidgetGuestSuite|default and config.options.widgets|default and config.options.widgets.guestsuite)  %}
     <article id="reviews-iframe" class="row panel panel-default s-stripes s-stripes--contrast">
         <div class="panel-body">
 
@@ -12,7 +12,7 @@
                     {% if formated_object.widgets.sfWidgetTripAdvisor|default %}
                         <iframe iframe-resizer width="100%" type="text/html" src="https://api.tourism-system.com/content/ts/{{token}}/sheets/{{object.metadata.id}}/template/tripadvisor" frameborder="0"></iframe>
                     {% endif %}
-                    {% if formated_object.widgets.sfWidgetGuestSuite|default and options.widgets|default and options.widgets.guestsuite %}
+                    {% if formated_object.widgets.sfWidgetGuestSuite|default and config.options.widgets|default and config.options.widgets.guestsuite %}
                         {{ formated_object.widgets.sfWidgetGuestSuite|raw }}
                     {% endif %}
                 {% endblock %}
@@ -28,16 +28,16 @@
             {% endif %}
 
             {% if (formated_object.widgets|default and formated_object.widgets.sfWidgetTripAdvisor|default)
-            or (formated_object.widgets.sfWidgetGuestSuite|default and options.widgets|default and options.widgets.guestsuite) %}
+            or (formated_object.widgets.sfWidgetGuestSuite|default and config.options.widgets|default and config.options.widgets.guestsuite) %}
                 <dl class="row">
                     <dt class="col-xs-3"><span class="pl-heading">
                         <span class="nav-title media-body media-middle">{{ 'SECTIONS.TOURISM.SHEET.TABS.COMMENTS'|trans }}</span>
                     </span></dt>
                     <dd class="col-xs-12">
                         {% if formated_object.widgets.sfWidgetTripAdvisor|default %}
-                            <iframe iframe-resizer width="100%" type="text/html" src="https://api.tourism-system.com/content/ts/{{token}}/sheets/{{object.metadata.id}}/template/tripadvisor" frameborder="0"></iframe>
+                            <iframe iframe-resizer width="100%" type="text/html" src="https://api.tourism-system.com/content/ts/{{config.token}}/sheets/{{object.metadata.id}}/template/tripadvisor" frameborder="0"></iframe>
                         {% endif %}
-                        {% if formated_object.widgets.sfWidgetGuestSuite|default and options.widgets|default and options.widgets.guestsuite %}
+                        {% if formated_object.widgets.sfWidgetGuestSuite|default and config.options.widgets|default and config.options.widgets.guestsuite %}
                             {{ formated_object.widgets.sfWidgetGuestSuite|raw }}
                         {% endif %}
                     </dd>

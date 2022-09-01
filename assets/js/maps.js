@@ -261,7 +261,7 @@ function getAndFitBounds() {
 // Update slide on click on marker < 1024
 $(document).on('lazybeforeunveil', function () {
     if (window.innerWidth < 1024) {
-        $('.focus-map-basicCard').each(function () {
+        $('.focus-map-basicCard, .focus-map-overlayedCard').each(function () {
             const focusMapSwiperResp = $(this).find('.swResp');
             var markers = $(this).find('.focus-map-pane-element-toggler');
 

@@ -1,7 +1,7 @@
 .backgroundMedia {
     z-index: 0;
 
-    &:not(.movie):not(.plyr-embed):not(.embed-plyr) {
+    figure {
         pointer-events: none;
     }
 

@@ -22,6 +22,7 @@ export default class Summary {
         this.loadChildClasses();
         this.fixedSummarySize();
         this.hideFixedSummary();
+        this.manageScrollToSection();
     }
 
     // ******** Run Classes ********
@@ -178,6 +179,88 @@ export default class Summary {
             return true;
         } else {
             return false;
+        }
+    }
+
+    manageScrollToSection() {
+        if (window.innerWidth >= 1200) {
+            // Déclaration des variables globales
+            let self = this,
+            allHeight = 0;
+
+            // Definition des fonctions globales
+            function getSummaryHeight() {
+                return self.element.clientHeight;
+            }
+            function getNavigationHeight() {
+                return document.querySelector('.woody-component-headnavs').clientHeight;
+            }
+
+            // Si Summary fixée en haut (TPL_01)
+            if (self.element.classList.contains('fixedTop')) {
+                self.element.querySelectorAll('.summary-item > [data-section]').forEach(el => {
+                    el.addEventListener('click', (e) => {
+
+                        // Récupération de l'ancre
+                        let target = document.querySelector(`.page-section${el.dataset.section}`);
+                        e.preventDefault();
+
+                        // Si scroll-down
+                        if (document.querySelector('body.scrolling-down')) {
+                            if (self.element.classList.contains('isFixed')) {
+                                if (target.offsetTop < window.pageYOffset) {
+                                    allHeight = getSummaryHeight() + getNavigationHeight();
+                                }
+                                else {
+                                    allHeight = getSummaryHeight();
+                                }
+                            }
+                            else {
+                                allHeight = getSummaryHeight();
+                            }
+                        }
+                        // Si scroll-up
+                        else if (document.querySelector('body.scrolling-up')) {
+                            if (target.offsetTop > window.pageYOffset) {
+                                allHeight = getSummaryHeight();
+                            }
+                            else {
+                                allHeight = getSummaryHeight() + getNavigationHeight();
+                            }
+                        }
+                        window.scrollTo(0, target.offsetTop - allHeight);
+                    });
+                });
+            }
+
+            // Si Summary fixée sur le coté (TPL_02 / TPL_03)
+            if (self.element.classList.contains('fixed-summary')) {
+                self.element.querySelectorAll('.summary-item > [data-section]').forEach(el => {
+                    el.addEventListener('click', (e) => {
+
+                        // Récupération de l'ancre
+                        let target = document.querySelector(`.page-section${el.dataset.section}`);
+                        e.preventDefault();
+
+                        // Si scroll-down
+                        if (document.querySelector('body.scrolling-down')) {
+                            if (self.element.classList.contains('isFixed')) {
+                                if (target.offsetTop < window.pageYOffset) {
+                                    allHeight = getNavigationHeight();
+                                }
+                            }
+                        }
+
+                        // Si scroll-up
+                        else if (document.querySelector('body.scrolling-up')) {
+                            if (target.offsetTop < window.pageYOffset) {
+                                allHeight = getNavigationHeight();
+                            }
+                        }
+                        window.scrollTo(0, target.offsetTop - allHeight);
+                    });
+                });
+            }
         }
     }
 }

@@ -18,7 +18,7 @@
                         </div>
                         {% endif %}
 
-                        {% if object.data.bordereau == 'HLO' and formated_object.contacts.owner.businessName is not empty and token not in ['bocage_v2'] %}
+                        {% if object.data.bordereau == 'HLO' and formated_object.contacts.owner.businessName is not empty and config.site_key not in ['tourisme-bocage'] %}
                         <div class="businessName">{{ formated_object.contacts.owner.businessName }}</div>
                         {% endif %}
 

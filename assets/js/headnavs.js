@@ -77,7 +77,7 @@ $('.woody-component-headnavs').each(function () {
                     'height': '100%',
                     'overflow': 'hidden'
                 });
-                visualPageTop.find('.imageObject .imageObject-img').css({
+                visualPageTop.find('.imageObject:not(.thumb) .imageObject-img').css({
                     'position': 'absolute',
                     'left': '50%',
                     'top': '50%',

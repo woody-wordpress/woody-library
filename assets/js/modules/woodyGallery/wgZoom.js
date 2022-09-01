@@ -1,4 +1,4 @@
-export function wgZoom(wgTools){
+export function wgZoom(wgTools) {
     // Add Zoom icon in toolbar
     let zoomTool = document.createElement('span');
     zoomTool.classList.add('zoomTool');

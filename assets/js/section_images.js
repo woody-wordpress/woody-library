@@ -24,7 +24,11 @@ $('.bgImageObject').each(function () {
     var size = getSize(w);
     var ratio = getRatio(w, h);
     var ratios = {};
-    var crop = 'ratio_' + ratio.x + '_' + ratio.y + size;
+    if(ratio.x == 1 && ratio.y == 1){
+        var crop = 'ratio_square' + size;
+    } else {
+        var crop = 'ratio_' + ratio.x + '_' + ratio.y + size;
+    }
 
     var opacity = 'opacity:1;';
     if ($this.parent().is('[class*="bgimg-op"]')) {

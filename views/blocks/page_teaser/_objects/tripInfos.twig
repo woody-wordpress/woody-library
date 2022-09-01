@@ -1,0 +1,7 @@
+{% if trip_infos %}
+    <div class="grid-x trip-infos">
+        <div class="cell {{ customTripAlignment|default('medium-12 large-12') }} isRel">
+            {{ trip_infos }}
+        </div>
+    </div>
+{% endif %}

@@ -10,7 +10,7 @@
                 </span>
             </div>
         </section>
-    {% elseif contractsLevels.sidebar.dynamicOpening and (options.realtimeopenings is not defined or options.realtimeopenings) %}
+    {% elseif contractsLevels.sidebar.dynamicOpening and (config.options.realtimeopenings is not defined or config.options.realtimeopenings) %}
         {% if formated_object.bordereau != 'HLO' %}
             <section class="panel panel-default panel-body dynamic-opening-periods{% if mobile_only|default %} visible-xs-block visible-sm-block{% endif %}"
                 {% if formated_object.openingPeriods|default and formated_object.openingPeriods.periods|default %}
@@ -22,7 +22,7 @@
                     {% if object.data.periods|default %}
                         guessclosed="true"
                     {% endif %}
-                    {% if (options.interpolate_periods is not defined or options.interpolate_periods) and formated_object.bordereau not in ['FMA','PRD','ITI'] %}
+                    {% if (config.options.interpolate_periods is not defined or config.options.interpolate_periods) and formated_object.bordereau not in ['FMA','PRD','ITI'] %}
                         interpolate="true"
                     {% endif %}
                     periods='{{ formated_object.openingPeriods.periods|json_encode(constant('JSON_HEX_QUOT'))|e('html_attr') }}'>

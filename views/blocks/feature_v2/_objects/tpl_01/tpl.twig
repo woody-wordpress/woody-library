@@ -2,7 +2,7 @@
 {% set customClasses = 'full-height' %}
 {% extends '_objects/bgParamsObject.twig' %}
 {% block woodyBlockType %}feature{% endblock %}
-{% block indexClass %}{{ customIndexClass|default('01') }}{% endblock %}
+{% block indexClass %}{{ customFeature|default('01') }}{% endblock %}
 {% block woodyComponentContent %}
     {% if item.link %}
         <a class="feature-link no-ext" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" title="{{ item.link.title|default(item.title) }}">

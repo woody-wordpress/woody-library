@@ -1,4 +1,3 @@
-import './accessibility';
 import './accordion';
 import './animations';
 import './bookblock';

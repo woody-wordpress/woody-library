@@ -23,7 +23,7 @@ export function woodyGallery(selector, plugins = ['wgPagination', 'wgThumbnails'
     wG = document.createElement('aside');
     wG.classList.add('wgGallery');
     document.querySelector('body').appendChild(wG);
-    document.querySelector('body').setAttribute('style', 'width:100%;height:100vh; overflow:hidden');
+    document.querySelector('body').classList.add('wg-open');
 
     // Create wgTools
     pluginwgTools.wgTools(wG);
