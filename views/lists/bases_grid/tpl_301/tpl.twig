@@ -19,11 +19,11 @@
         margin: block_titles_margin|default('marg-bottom-md')
     } %}
 
-    <div class="woody_base_grid_wrapper{{ swResp ? ' woody-mobile-swiper swiper-container swResp' }}">
-        <div class="{% block grid_class %}woody_bases_grid tpl_301{% endblock %} align-stretch grid-x medium-up-3{{ swResp ? ' swRespW' }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp ? ' swRespW' }}">
+    <div class="woody_base_grid_wrapper{{ swResp ? ' woody-mobile-swiper swiper-container swResp' }}" {% if nb_columns > 1 and swResp %}data-columns="{{nb_columns}}"{% endif %}>
+        <div class="{% block grid_class %}woody_bases_grid tpl_301{% endblock %} align-stretch grid-x medium-up-3{{ swResp ? ' swRespW' }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp ? ' swRespW' }} {{ nb_columns > 1 and not swResp ? 'respGrid2' }}">
             {% if items|default %}
                 {% for key, item in items %}
-                    <div class="cell{{ swResp ? ' swRespS' }}">
+                    <div class="cell{{ swResp ? ' swRespS' }} {{ nb_columns > 1 and not swResp ? 'small-6 medium-auto'}}">
                         {% block the_card %}
                             {% include "cards/#{card}/tpl.twig" with {
                                 'desequalize' : desequalize,

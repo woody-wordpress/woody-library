@@ -19,6 +19,12 @@
         font-family: $cardIndex-font-family;
         line-height: 1;
         opacity: $cardIndex-opacity;
+        pointer-events: none;
+
+        @include root('.splitCard.media-right') {
+            left: initial;
+            right: $cardIndex-left-pos;
+        }
     }
 
     &-titles {
@@ -211,7 +217,7 @@
                 background-color: $cardsection-bgcolor;
             }
 
-            @include breakpoint(xmedium down){
+            @include breakpoint(xmedium down) {
                 border-radius: 0 0 $card-border-radius $card-border-radius;
             }
         }
@@ -228,20 +234,22 @@
             }
         }
 
-        @include breakpoint(large){
-            &.media-left{
-                .card-section{
+        @include breakpoint(large) {
+            &.media-left {
+                .card-section {
                     border-radius: 0 $card-border-radius $card-border-radius 0;
                 }
+
                 .cardMediaWrapper {
                     border-radius: $card-border-radius 0 0 $card-border-radius;
                 }
             }
 
-            &.media-right{
-                .card-section{
+            &.media-right {
+                .card-section {
                     border-radius: $card-border-radius 0 0 $card-border-radius;
                 }
+
                 .cardMediaWrapper {
                     border-radius: 0 $card-border-radius $card-border-radius 0;
                 }

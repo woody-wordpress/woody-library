@@ -1,7 +1,7 @@
 <div class="woodyGallery grid-x {{ gridClass|default }}{{ gallery_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}" itemscope="itemscope" itemtype="http://schema.org/ImageGallery">
     {% if is_mobile and mobile_grid == 'swiper' %}
         {% set swipeFrom = 1 %}
-        {% if gallery_items|default %}
+        {% if gallery_items %}
             {% if swipeFrom and gallery_items|length > swipeFrom|default(1) %}
                 {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
                 {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {
@@ -16,9 +16,9 @@
             {% endif %}
         {% endif %}
     {% elseif is_mobile and mobile_grid == 'grid' %}
-        {% if gallery_items|default %}
+        {% if gallery_items %}
             {% for item in gallery_items %}
-                <div class="cell">
+                <div class="cell{{ mobile_cols == 2 ? ' small-6' }}">
                     {% include "cards/#{customCard|default('media_card/tpl_01')}/tpl.twig" with {
                         'image_style' : customImageStyle|default("ratio_square"),
                         'reveal' : isReveal|default()
@@ -27,7 +27,7 @@
             {% endfor %}
         {% endif %}
     {% else %}
-        {% if gallery_items|default %}
+        {% if gallery_items %}
             {% if swipeFrom and gallery_items|length > swipeFrom|default(1) %}
                 {% set json_swiper_options = swiper_options | json_encode | e('html_attr') %}
                 {% include 'swipers/basic_swiper/tpl_01/tpl.twig' with {

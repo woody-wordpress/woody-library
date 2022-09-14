@@ -1,7 +1,7 @@
-<div class="woody-mobile-swiper swiper-container {{ swResp ? ' swResp' }}">
-    <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }} {{ swResp ? ' swRespW' }}">
+<div class="woody-mobile-swiper swiper-container {{ swResp ? ' swResp' }}" {% if nb_columns > 1 %}data-columns="{{ nb_columns|default }}"{% endif %}>
+    <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }} {{ swResp ? ' swRespW' }} {{ nb_columns > 1 and not swResp ? 'respGrid2'}}">
         {% for key, item in items %}
-                <div class="cell swRespS">
+                <div class="cell swRespS {{ nb_columns > 1 and not swResp ? 'small-6 medium-12'}}">
                     {% if loop.index is odd %}
                         {% include "cards/#{oddCard}/tpl.twig" with {
                             'page_type' : item.page_type,

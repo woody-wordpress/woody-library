@@ -5,14 +5,16 @@ $snowflake--slope-blue: #00A6ED !default;
 $snowflake--slope-red: #EB4F4A !default;
 $snowflake--slope-black: #131313 !default;
 
-.woody-component-snowflake{
+.woody-component-snowflake {
     .flex-grow {
         flex-grow: 1;
     }
-    .weather-wrapper{
-        .swiper-pagination{
-            bottom:0;
-            &.swiper-pagination-bullets .swiper-pagination-bullet{
+
+    .weather-wrapper {
+        .swiper-pagination {
+            bottom: 0;
+
+            &.swiper-pagination-bullets .swiper-pagination-bullet {
                 background-color: $black;
             }
         }
@@ -31,42 +33,43 @@ $snowflake--slope-black: #131313 !default;
             display: flex;
             justify-content: center;
             align-items: center;
-            &:before{
+
+            &:before {
                 line-height: 50px;
                 display: block;
             }
         }
 
-        .weather-name{
+        .weather-name {
             display: block;
             margin-bottom: 15px;
         }
     }
 
-    .playzone-state{
-        .dot{
+    .playzone-state {
+        .dot {
             width: 10px;
             height: 10px;
             border-radius: 20px;
             display: inline-block;
 
-            &.open{
+            &.open {
                 background-color: $snowflake--slope-green;
             }
 
-            &.close{
+            &.close {
                 background-color: $snowflake--slope-red;
             }
         }
     }
 
-    .simple-opening-wrapper{
-        .length{
+    .simple-opening-wrapper {
+        .length {
             display: block;
         }
     }
 
-    &.tpl_04{
+    &.tpl_04 {
         .block {
             min-width: 0;
             flex-basis: 350px;
@@ -78,11 +81,11 @@ $snowflake--slope-black: #131313 !default;
 @each $color,
 $hex in $foundation-palette {
     .woody-component-snowflake.bg-#{$color} {
-        .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet{
+        .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet {
             background-color: set-color($hex);
         }
 
-        .weather-wrapper .weather-icon{
+        .weather-wrapper .weather-icon {
             color: set-color($hex);
         }
     }
@@ -207,8 +210,10 @@ $hex in $foundation-palette {
 
         .info-header {
             text-transform: uppercase;
+
             span {
                 padding: 0 15px;
+
                 &:before,
                 &:after {
                     content: '';
@@ -444,8 +449,6 @@ $hex in $foundation-palette {
         }
 
         .alert-text {
-            margin-left: $global-margin;
-
             .msg {
                 font-style: $infolive-alert-text-style;
                 font-weight: $infolive-alert-text-weight;
@@ -671,6 +674,7 @@ $hex in $foundation-palette {
         display: flex;
         justify-content: center;
         align-items: center;
+
         &:hover {
             background: $secondary-color;
         }
@@ -721,15 +725,19 @@ $hex in $foundation-palette {
                 align-items: center;
                 justify-content: center;
                 color: rgba($black, .6);
+
                 &.green {
                     background-color: $snowflake--slope-green;
                 }
+
                 &.blue {
                     background-color: $snowflake--slope-blue;
                 }
+
                 &.red {
                     background-color: $snowflake--slope-red;
                 }
+
                 &.black {
                     background-color: $snowflake--slope-black;
                 }
@@ -1101,17 +1109,21 @@ $hex in $foundation-palette {
             color: $white;
         }
     }
-    .bg-white, .bg-lightgray {
+
+    .bg-white,
+    .bg-lightgray {
         &.bloc {
             .title {
                 color: $black;
             }
         }
     }
+
     .block-header {
         .wicon {
             color: $primary-color;
         }
+
         .title {
             font-weight: 700;
         }
@@ -1124,17 +1136,21 @@ $hex in $foundation-palette {
                 font-weight: 400;
             }
         }
+
         .val {
             &.open {
                 font-size: 160%;
             }
+
             &.total {
                 font-size: 80%;
             }
         }
     }
+
     .slope-color-wrapper {
         padding: 10px;
+
         .simple-opening-wrapper {
             margin-bottom: 0;
         }

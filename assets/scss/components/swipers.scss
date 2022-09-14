@@ -179,6 +179,41 @@
     }
 }
 
+.woody-mobile-swiper {
+    @include breakpoint(xmedium down) {
+        padding: 0 30px !important;
+
+        .woody_bases_grid, .swRespW {
+            margin-left: 0;
+        }
+    }
+}
+
+.section-layout-wrapper.grid-container {
+
+    .woody-mobile-swiper,
+    .woody-swiper {
+        &.woody-swiper-grid-container:not(.swResp) {
+            @include breakpoint(xmedium down) {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+.woody-swiper-grid-container:not(.swResp) {
+    .swRespGrid {
+        .swRespGridS {
+            width: 50%;
+
+            @include breakpoint(xmedium) {
+                width: calc(100% / 3);
+            }
+        }
+    }
+}
+
 // Controls
 /*.swiper-controls {
     position: absolute;
@@ -479,12 +514,29 @@
     }
 }
 
+.grid_1col_tpl_01>.cell {
+    // padding: 15px !important;
+}
+
+.woody-swiper-grid-container {
+    // overflow: visible !important;
+
+    // width: calc(100% + 10px) !important;
+    // width: 100vw !important;
+}
+
 // Responsive
 .swResp {
+    width: calc(100% + 25px) !important;
+    margin-left: -15px !important;
+    padding: 0 30px !important;
+
+    // width: initial !important;
+
     @include breakpoint(xmedium down) {
-        &:not(.no-padding) {
-            padding: 0 60px !important;
-        }
+        // &:not(.no-padding) {
+        //     padding: 0 60px !important;
+        // }
 
         &.no-padding {
             @include wicon(025-suivant, after);
@@ -528,53 +580,29 @@
     }
 }
 
-// .section .section-layout-wrapper.grid-container {
-//     .swResp {
-
-//         @include breakpoint(xmedium down) {
-//             @include xy-gutters($negative:true);
+// @include breakpoint(xmedium down) {
+//     .section .section-layout-wrapper {
+//         .swResp {
+//             width: 100vw;
 //         }
 
-//         @include breakpoint(xmedium only) {
-//             width: calc(100% + #{map-get($grid-column-gutter, medium)});
+//         &.grid-container {
+//             .swResp {
+//                 margin-left:calc(#{map-get($grid-column-gutter, medium)} * -1);
+//             }
 //         }
 
-//         @include breakpoint(medium down) {
-//             width: calc(100% + #{map-get($grid-column-gutter, small)});
+//         &:not(.grid-container) {
+//             .grid-padding-x {
+//                 .swResp {
+//                     margin-left: calc(#{map-get($grid-column-gutter, small)} * -0.5);
+//                 }
+//             }
 //         }
-
 //     }
 // }
 
-
-@include breakpoint(xmedium down) {
-    .section .section-layout-wrapper {
-        .swResp {
-            width: 100vw;
-        }
-
-        &.grid-container {
-            .swResp {
-                margin-left:calc(#{map-get($grid-column-gutter, medium)} * -1);
-            }
-        }
-
-        &:not(.grid-container) {
-            .grid-padding-x {
-                .swResp {
-                    margin-left: calc(#{map-get($grid-column-gutter, small)} * -0.5);
-                }
-            }
-        }
-    }
-}
-
-
-
 .swiperOut {
-    // padding-left: 25px;
-    // padding-right: 25px;
-
     @include breakpoint(large) {
         padding-left: 60px;
         padding-right: 60px;
@@ -621,28 +649,5 @@
 .bg-secondary {
     .swResp+.swiper-controls .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
         border-color: $white;
-    }
-}
-
-// Reset cell paddings
-.grid-padding-x>.cell>.swResp,
-.grid-padding-y>.cell.swResp,
-.grid-padding-y>.cell>.woody-component-focus.tpl_502,
-.grid-padding-x>.cell .woody-component-basic-swiper {
-    @include breakpoint(medium down) {
-        // @include xy-gutters($gutter-position: left right, $negative:true);
-    }
-}
-
-.grid-padding-x>.cell .woody-component-basic-swiper {
-    @include breakpoint(medium down) {
-        // width: calc(100% + 20px);
-    }
-}
-
-.swResp .grid-padding-y>.cell {
-    @include breakpoint(medium down) {
-        // padding-top: 0;
-        // padding-bottom: 0;
     }
 }

@@ -3,16 +3,30 @@ import WoodyFilter from './filter';
 
 $('.swResp').each(function () {
     var $this = $(this),
-        swiperComponent = $this.parent(),
-        swiperWrapper = $this.find('.swRespW'),
-        swiperLength = swiperWrapper.children().length;
+    swiperComponent = $this.parent(),
+    swiperWrapper = $this.find('.swRespW'),
+    swiperLength = swiperWrapper.children().length;
 
     if (window.innerWidth < 1024 && swiperLength > 1) {
         // Multirows case
         var $multirows = $($this.find('.multiRows'));
         if ($multirows.length != 0) {
-            $multirows.find('.grid-y>.cell').removeClass().addClass('swRespS').unwrap('.grid-y').unwrap('.multiRows');
-            $multirows.find('.grid-x>.cell').removeClass().addClass('swRespS').unwrap('.grid-x').unwrap('.multiRows');
+
+            let y = transformToSlide($multirows.find('.grid-y>.cell'), 'y');
+            let x = transformToSlide($multirows.find('.grid-x>.cell'), 'x');
+
+            function transformToSlide(element, direction) {
+                element.each((index, el) => {
+                    if ($(el).hasClass('no-swRespS')) {
+                        element.splice(index, 1);
+                        element = [...element, ...$(el).find(`.grid-${direction}>.cell`)];
+                    }
+                });
+                return $(element);
+            }
+
+            x.removeClass().addClass('swRespS').unwrap('.grid-x').unwrap('.multiRows').unwrap('.no-swRespS');
+            y.removeClass().addClass('swRespS').unwrap('.grid-y').unwrap('.multiRows').unwrap('.no-swRespS');
         }
 
         // Remove visualModifier div that causes bug
@@ -21,6 +35,9 @@ $('.swResp').each(function () {
         }
 
         swiperComponent.find('.swiper-controls').remove();
+        $this.unwrap();
+
+        // $this.removeClass('swiper-container');
 
         var $the_wrapper = $($this.find('.swRespW'));
         if ($the_wrapper.length != 0) {
@@ -30,17 +47,24 @@ $('.swResp').each(function () {
                 $theSlide.removeClass('cell').addClass('swiper-slide');
             }
 
+            if ($this.attr('data-columns') != undefined) {
+                var customSlidesPerView = $this.attr('data-columns') + '.1';
+            } else {
+                var customSlidesPerView = 1.1;
+            }
+
             var defaultOptions = {},
                 tabletOptions = {},
                 thumbsOptions = {};
 
             defaultOptions = {
-                spaceBetween: 25,
+                // spaceBetween: 25,
+                spaceBetween: 15,
                 loop: false,
-                slidesPerView: 2,
+                slidesPerView: 2.1,
                 breakpoints: {
                     640: {
-                        slidesPerView: 1
+                        slidesPerView: customSlidesPerView
                     }
                 }
             };
@@ -100,3 +124,13 @@ $('.swResp').each(function () {
         });
     }
 });
+
+document.querySelectorAll('.mobile-grid-x').forEach((element) => {
+    if (window.innerWidth < 1024 ) {
+        element.classList.contains('grid-y') ? element.classList.remove('grid-y') : '';
+        element.classList.contains('grid-frame') ? element.classList.remove('grid-frame') : '';
+        element.classList.contains('grid-padding-y') ? element.classList.add('grid-padding-x') : '';
+        element.classList.contains('grid-padding-y') ? element.classList.remove('grid-padding-y') : '';
+        element.classList.add('grid-x');
+    }
+})

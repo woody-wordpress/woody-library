@@ -228,8 +228,8 @@
     &.tpl_401 {
         .splitCard {
             @include breakpoint(xmedium down) {
-                margin-left: map-get($grid-column-gutter, medium);
-                margin-right: map-get($grid-column-gutter, medium);
+                margin-left: map-get($grid-column-gutter, small);
+                margin-right: map-get($grid-column-gutter, small);
             }
         }
     }
@@ -409,7 +409,7 @@
                 margin-left: 0;
                 margin-right: 0;
 
-                >.cell {
+                &:not(.respGrid2)>.cell {
                     padding-left: 0;
                     padding-right: 0;
                 }

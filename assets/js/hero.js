@@ -1,3 +1,28 @@
+import * as moduleWoodyGallery from './modules/woodyGallery/wgGallery.js';
+
+let toggleHeroMoreImgs = document.getElementById('toggleHeroMoreImgs');
+if(!!toggleHeroMoreImgs){
+    toggleHeroMoreImgs.addEventListener('click', (e) => {
+        moduleWoodyGallery.woodyGallery(
+            '.mediaCard[data-wgid="hero-thumbs"]',
+            [
+                'wgZoom',
+                'wgDownload',
+                'wgFullScreen',
+                'wgAutoplay',
+                'wgPagination',
+                'wgThumbnails',
+                'wgHideThumbnails',
+                'wgFlip',
+                // 'wgRotate'
+            ],
+            0,
+            e.target.parentNode.firstElementChild.firstElementChild.dataset.wgtype,
+        );
+    });
+}
+
+
 (function() {
     class Hero {
         constructor(element) {

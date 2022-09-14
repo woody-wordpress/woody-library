@@ -1,6 +1,6 @@
-<div class="swiper-wrapper swRespW" {% if equalize_swiper %} data-equalizer="data-equalizer"{% endif %}>
+<div class="swiper-wrapper swRespW {{ nb_columns > 1 ? 'swRespGrid' }}" {% if equalize_swiper %} data-equalizer="data-equalizer"{% endif %}>
     {% for key, item in items %}
-        <div class="swiper-slide swRespS">
+        <div class="swiper-slide swRespS {{ nb_columns > 1 ? 'swRespGridS cell' }}">
             {% if isReveal == true %}
                 <div class="cell">
             {% endif %}
