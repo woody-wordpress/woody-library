@@ -138,4 +138,20 @@ body.wg-open {
         background-position: center;
         background-repeat: no-repeat;
     }
+
+    .imageObject-caption {
+        left: 50%;
+        transform: translateX(-50%);
+
+        &:before {
+            width: 100%;
+            background-color: rgba($black, .8);
+        }
+
+        .imageObject-text {
+            font-size: 0.75rem;
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
 }

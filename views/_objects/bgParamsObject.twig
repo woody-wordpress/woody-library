@@ -1,11 +1,12 @@
 {% extends '_objects/visualModifier.twig' %}
-
 {% block content %}
     {% if no_padding == 0 %}
         {% set spaceBetween = 30 %}
     {% else %}
         {% set spaceBetween = 0 %}
     {% endif %}
+
+    {% block woodyComponentBeforeContent %}{% endblock %}
 
     {% set component_classes = [
         'woody-component',
@@ -32,17 +33,17 @@
         {% endif %}
 
         {% if alert %}
-            <div class="empty-section {% if not public_alert %}admin-only{% endif %}">
+            <div class="empty-section{% if not public_alert %} admin-only{% endif %}">
                 <div class="empty-message isAbs">
                     <p>{{ alert|default }}</p>
                 </div>
             </div>
         {% endif %}
+
         {% block woodyComponentContent %}{% endblock %}
 
         {% if display.background_img %}
             </div>
         {% endif %}
     </div>
-
 {% endblock %}

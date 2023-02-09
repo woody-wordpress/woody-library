@@ -77,16 +77,6 @@ $('.woody-component-headnavs').each(function () {
                     'height': '100%',
                     'overflow': 'hidden'
                 });
-                visualPageTop.find('.imageObject:not(.thumb) .imageObject-img').css({
-                    'position': 'absolute',
-                    'left': '50%',
-                    'top': '50%',
-                    'transform': 'translateX(-50%) translateY(-50%)',
-                    'min-height': '100%',
-                    'min-width': '100%',
-                    'width': 'auto',
-                    'max-width': 'none'
-                });
                 visualPageTop.find('.videoObject').css({
                     'height': '100%',
                     'overflow': 'hidden'

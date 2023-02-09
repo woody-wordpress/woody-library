@@ -1,0 +1,12 @@
+.sheet-sidebar-item-opening {
+    .over-event-label {
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: $sheet-endedEvent-color;
+        border-radius: $global-radius $global-radius 0 0;
+        width: calc(100% + 60px); // Width of sidebar + 2 * 30px (padding-left + padding-right)
+        margin-top: -30px;
+        margin-left: -30px;
+        margin-right: -30px;
+    }
+}

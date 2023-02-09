@@ -1,0 +1,13 @@
+.sheet-sidebar-item-social-networks {
+    li:not(:last-child) {
+        margin-right: 10px;
+    }
+
+    a {
+        transition: 0.25s ease-in-out;
+    }
+
+    .wicon {
+        font-size: rem-calc(24);
+    }
+}

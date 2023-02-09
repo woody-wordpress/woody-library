@@ -3,6 +3,7 @@
     "name": "Template 309 - Paysage B",
     "description": "Grille 3 blocs - 3 cartes image et textes centrés (Paysage B + slider au dela de 3) + cartouche prix",
     "lib_type": "lite",
+    "lib_design": "THUMB",
     "acf_groups": [
         "group_5b0d1ed32a384",
         "group_5b2788b48d04c",

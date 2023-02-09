@@ -155,7 +155,7 @@
                 .swRespS,
                 .swiper-slide {
                     box-sizing: border-box;
-                    @include xy-gutters($gutter-type: padding, $gutter-position:top right bottom left);
+                    @include xy-gutters($gutter-type: padding, $gutter-position: top right bottom left);
                 }
 
             }
@@ -183,7 +183,8 @@
     @include breakpoint(xmedium down) {
         padding: 0 30px !important;
 
-        .woody_bases_grid, .swRespW {
+        .woody_bases_grid,
+        .swRespW {
             margin-left: 0;
         }
     }
@@ -213,27 +214,6 @@
         }
     }
 }
-
-// Controls
-/*.swiper-controls {
-    position: absolute;
-    width: 100%;
-    height: calc(100% + 50px);
-    top: auto;
-    bottom: 0;
-    left: 0;
-
-    @include breakpoint(large) {
-        top: 0;
-        bottom: auto;
-    }
-}
-
-.swiper-controls-offset {
-    .swiper-controls {
-        height: 100%;
-    }
-}*/
 
 // Navigation
 .swiper-button-next,
@@ -430,7 +410,7 @@
         &.left {
             @each $swiper-size in $swiper-sizes {
                 &.#{$swiper-size} {
-                    @include swiperOverflow($right:false, $size:$swiper-size);
+                    @include swiperOverflow($right: false, $size: $swiper-size);
                 }
             }
         }
@@ -438,7 +418,7 @@
         &.right {
             @each $swiper-size in $swiper-sizes {
                 &.#{$swiper-size} {
-                    @include swiperOverflow($left:false, $size:$swiper-size);
+                    @include swiperOverflow($left: false, $size: $swiper-size);
                 }
             }
         }
@@ -446,7 +426,7 @@
         &.left.right {
             @each $swiper-size in $swiper-sizes {
                 &.#{$swiper-size} {
-                    @include swiperOverflow($size:$swiper-size);
+                    @include swiperOverflow($size: $swiper-size);
                 }
             }
         }
@@ -467,7 +447,7 @@
             &.left {
                 @each $swiper-size in $swiper-sizes {
                     &.#{$swiper-size} {
-                        @include swiperOverflow($right:false, $size:$swiper-size, $context:contained);
+                        @include swiperOverflow($right: false, $size: $swiper-size, $context: contained);
                     }
                 }
             }
@@ -475,7 +455,7 @@
             &.right {
                 @each $swiper-size in $swiper-sizes {
                     &.#{$swiper-size} {
-                        @include swiperOverflow($left:false, $size:$swiper-size, $context:contained);
+                        @include swiperOverflow($left: false, $size: $swiper-size, $context: contained);
                     }
                 }
             }
@@ -484,7 +464,7 @@
                 @each $swiper-size in $swiper-sizes {
 
                     &.#{$swiper-size} {
-                        @include swiperOverflow($size:$swiper-size, $context:contained);
+                        @include swiperOverflow($size: $swiper-size, $context: contained);
                     }
                 }
             }
@@ -494,13 +474,14 @@
 
 .section-layout-wrapper:not(.grid-container) {
     .swiperJustified {
+
         @include breakpoint(large) {
-            margin-left: $justifiedSwiperBlankSpace;
+            margin-left: auto;
             max-width: calc(100vw - #{$justifiedSwiperBlankSpace});
         }
 
         @include breakpoint(xlarge) {
-            margin-left: calc(#{$justifiedSwiperBlankSpace} - (#{map-get($grid-column-gutter, medium)} / 2));
+            margin-left: auto;
         }
     }
 
@@ -514,30 +495,15 @@
     }
 }
 
-.grid_1col_tpl_01>.cell {
-    // padding: 15px !important;
-}
-
-.woody-swiper-grid-container {
-    // overflow: visible !important;
-
-    // width: calc(100% + 10px) !important;
-    // width: 100vw !important;
-}
-
 // Responsive
 .swResp {
-    width: calc(100% + 25px) !important;
-    margin-left: -15px !important;
-    padding: 0 30px !important;
-
-    // width: initial !important;
+    @include breakpoint(xmedium down) {
+        width: calc(100% + 25px) !important;
+        margin-left: -15px !important;
+        padding: 0 30px !important;
+    }
 
     @include breakpoint(xmedium down) {
-        // &:not(.no-padding) {
-        //     padding: 0 60px !important;
-        // }
-
         &.no-padding {
             @include wicon(025-suivant, after);
             @include wicon(026-precedent, before);
@@ -580,32 +546,18 @@
     }
 }
 
-// @include breakpoint(xmedium down) {
-//     .section .section-layout-wrapper {
-//         .swResp {
-//             width: 100vw;
-//         }
-
-//         &.grid-container {
-//             .swResp {
-//                 margin-left:calc(#{map-get($grid-column-gutter, medium)} * -1);
-//             }
-//         }
-
-//         &:not(.grid-container) {
-//             .grid-padding-x {
-//                 .swResp {
-//                     margin-left: calc(#{map-get($grid-column-gutter, small)} * -0.5);
-//                 }
-//             }
-//         }
-//     }
-// }
-
 .swiperOut {
     @include breakpoint(large) {
         padding-left: 60px;
         padding-right: 60px;
+
+        &.swiperOut-left {
+            padding-right: unset;
+        }
+
+        &.swiperOut-right {
+            padding-left: unset;
+        }
 
 
         >.isRel {

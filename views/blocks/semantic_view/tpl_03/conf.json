@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Template 03 - Paysage A",
     "description": "Blocs de texte avec image 2:1 au dessus du texte centré",
+    "lib_design": "OK",
     "lib_type": "lite",
     "acf_groups": [
         "group_5c4f2efaccd2f"

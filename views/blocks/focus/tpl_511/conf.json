@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Template 511 - Paysage C et B",
     "description": "Grille de 5 contenus - Mixed 2/3 colonnes - Carte textes au mileu et centrés sur image (Paysage B)",
+    "lib_design": "OK",
     "lib_type": "lite",
     "acf_groups": [
         "group_5b0d1ed32a384",

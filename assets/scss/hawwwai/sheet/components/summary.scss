@@ -1,0 +1,7 @@
+.sheet-v2 {
+    .woody-component-summary {
+        &:not(.isFixed) {
+            display: none; // On masque le sommaire dans le corps de la fiche quand il n'est pas fixé
+        }
+    }
+}

@@ -1,5 +1,6 @@
+{% spaceless %}
 <div class="woody-component-landswpr isRel {{ index_class|default('tpl_01') }} bg-black" >
-    <div class="swiper-container woody-landing-swiper {{ styleClass|default }}" data-options="{{ json_swiper_options }}">
+    <div class="swiper-container woody-landing-swiper{{ styleClass|html_class }}"{% if json_swiper_options %} data-options="{{ json_swiper_options }}"{% endif %}>
         <div class="swiper-wrapper">
             {% for slide in landswpr_slides %}
                 <div class="swiper-slide slide-{{ loop.index }} {{ slide.landswpr_slide_media.landswpr_media_op }} slide-type-{{ slide.landswpr_slide_media.landswpr_slide_media_type }}">
@@ -8,20 +9,30 @@
                             {% include '_objects/imageObject.twig' with {
                                 'img' : slide.landswpr_slide_media.landswpr_slide_img,
                                 'image_style' : customImageStyle|default('ratio_16_9'),
+                                'img_mobile_url' : slide.landswpr_slide_media.landswpr_slide_img.img_mobile_url|default,
                                 'containerClass' : "landswprMediaWrapper",
                                 'hide_caption' : true
                             } %}
                         {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'movie' and slide.landswpr_slide_media.landswpr_slide_movie %}
-                                {% include '_objects/videoObject.twig' with {
-                                    'movie' : slide.landswpr_slide_media.landswpr_slide_movie,
+                            {% if globals.is_mobile and slide.landswpr_slide_media.landswpr_slide_movie.desktop_only %}
+                                {% include '_objects/imageObject.twig' with {
+                                    'img' : slide.landswpr_slide_media.landswpr_slide_movie.movie_poster_file,
                                     'image_style' : customImageStyle|default('ratio_16_9'),
                                     'containerClass' : "landswprMediaWrapper",
-                                    'ratio' : 1.777778,
-                                    'loop' : true,
-                                    'muted' : true,
-                                    'autoplay' : true,
-                                    'playsinline' : true
+                                    'hide_caption' : true
                                 } %}
+                            {% else %}
+                                    {% include '_objects/videoObject.twig' with {
+                                        'movie' : slide.landswpr_slide_media.landswpr_slide_movie,
+                                        'image_style' : customImageStyle|default('ratio_16_9'),
+                                        'containerClass' : "landswprMediaWrapper",
+                                        'ratio' : 1.777778,
+                                        'loop' : true,
+                                        'muted' : true,
+                                        'autoplay' : true,
+                                        'playsinline' : true
+                                    } %}
+                            {% endif %}
                         {% elseif slide.landswpr_slide_media.landswpr_slide_media_type == 'embed' and slide.landswpr_slide_media.landswpr_slide_embed %}
                             {% if slide.landswpr_slide_media.landswpr_slide_embed_thumbnail_url %}
                                 <img class="landSwprPlyr-thumbnail responsive-img" src="{{ slide.landswpr_slide_media.landswpr_slide_embed_thumbnail_url }}"/>
@@ -32,8 +43,8 @@
                         {% endif %}
                     {% endblock %}
                     {% block landswpr_titles_wrapper %}
-                        {% if slide.title or slide.subtitle or slide.pretitle or slide.landswpr_slide_smart_links.links %}
-                            <div class="landswpr-titles-wrapper grid-container padd-all-lg {{ titlesAlignment|default('fullcenterbox fcbCol') }}">
+                        {% if slide.title or slide.subtitle or slide.pretitle or slide.landswpr_slide_smart_links.links or slide.description %}
+                            <div class="landswpr-titles-wrapper grid-container padd-all-lg{{ titlesAlignment|default('fullcenterbox fcbCol')|html_class }}">
                                 {% include '_objects/titlesObject.twig' with {
                                     'titles' : slide,
                                     'contextPrefix' : "landswpr",
@@ -92,3 +103,4 @@
         {% endif %}
     </div>
 </div>
+{% endspaceless %}

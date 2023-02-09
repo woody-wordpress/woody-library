@@ -1,21 +1,26 @@
 <div
     class="hero-more-imgs hero-more-imgs-{{ listDirection|default('column') }} flex-container flex-dir-{{ listDirection|default('column') }} isAbs padd-all-sm">
     {% for item in items %}
+    {# On créé les images dans le dom (sans les afficher en mobile) => elle serviront à générer la galerie  #}
     <div
-        class="more-imgs-thumb show-for-large marg-bottom-sm{{ loop.index == moreImgsMaxItems and items|length > loop.index ? ' isRel' }}{{ loop.index > moreImgsMaxItems ? ' hide' }}">
+        class="more-imgs-thumb show-for-large{{ loop.index == moreImgsMaxItems and items|length > loop.index ? ' isRel' }}{{ loop.index > moreImgsMaxItems ? ' hide' }}">
         {% include 'cards/media_card/tpl_01/tpl.twig' with {
-        'image_style' : "ratio_16_9",
-        'hide_caption' : true,
-        'gallery_lightbox' : true,
-        'woody_gallery_id' : 'hero-thumbs'
+            'image_style' : thumbRatio|default('ratio_16_9'),
+            'hide_caption' : true,
+            'gallery_lightbox' : true,
+            'woody_gallery_id' : 'hero-thumbs'
         }%}
-        {% if loop.index == moreImgsMaxItems and items|length > loop.index %}
-        {% set count = items|length - loop.index %}
-        <span class="more fullcenterbox">+{{ count }}</span>
+        {% if not globals.is_mobile and loop.index == moreImgsMaxItems and items|length > loop.index %}
+            {% set count = items|length - loop.index + 1 %}
+            <span class="more fullcenterbox">
+                +{{ count }} {% if count > 1 %}{{ __('photos', 'woody-theme') }}{% else %}{{ __('photo', 'woody-theme') }}{% endif %}
+            </span>
         {% endif %}
     </div>
     {% endfor %}
-    <span class="hide-for-large toggle-hero-more-imgs isAbs" id="toggleHeroMoreImgs">
-        +{{ items|length }} {{ __('photos', 'woody-theme') }}
-    </span>
+    {% if globals.is_mobile %}
+        <span class="toggle-hero-more-imgs isAbs" id="toggleHeroMoreImgs">
+            +{{ items|length }} {{ __('photos', 'woody-theme') }}
+        </span>
+    {% endif %}
 </div>

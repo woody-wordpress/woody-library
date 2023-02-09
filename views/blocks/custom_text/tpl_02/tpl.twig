@@ -3,17 +3,18 @@
 {% block indexClass %}{{ customIndexClass|default('02') }}{% endblock %}
 {% set customClasses = show_more_button ? 'has-show-more-button' : '' %}
 {% block woodyComponentContent %}
-    {% include '_objects/genericBlocTitles.twig' with {
-        display: display_block_titles|default(),
-        margin: block_titles_margin|default('marg-bottom-md'),
-        flex_options: flex_options|default("flex-container flex-dir-column align-center")
-    } %}
+
     <div class="grid-x{{ custom_text_no_padding ? '' : ' grid-padding-x' }}{{ background_img ? ' isRel'}}">
         <div class="cell">
+            {% include '_objects/genericBlocTitles.twig' with {
+                display: display_block_titles|default(),
+                margin: block_titles_margin|default('marg-bottom-md'),
+                flex_options: flex_options|default("flex-container flex-dir-column align-center text-left")
+            } %}
             {{ text|default }}
+            {% include '_objects/buttonBlock.twig' with {
+                block_buttons: block_titles.generic_buttons
+            } %}
         </div>
     </div>
-    {% include '_objects/buttonBlock.twig' with {
-        block_buttons: block_titles.generic_buttons,
-    } %}
 {% endblock %}

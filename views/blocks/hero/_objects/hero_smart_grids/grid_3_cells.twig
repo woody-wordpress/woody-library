@@ -1,0 +1,32 @@
+{% set count = more_imgs|length - 2 %}
+<div class="grid-x grid-padding-x align-stretch{{ more_imgs|length > 0 ? ' isRel' }}">
+    {% if parallax %}
+    <div class="rellax" data-rellax-speed="2">
+    {% endif %}
+        <div class="cell xmedium-6 {{ page_heading_media_type|default }}{{ page_heading_social_movie ? ' embed-plyr' }}">
+            {% set desktopImgSize = 'ratio_4_3' %}
+             {% set ratio = false %}
+            {{ block("heroMediaWrapper", "blocks/hero/tpl_04/tpl.twig") }}
+        </div>
+    {% if parallax %}
+    </div>
+    {% endif %}
+    {% for item in more_imgs[:2] %}
+        <div class="cell xmedium-3">
+            {% include 'cards/media_card/tpl_01/tpl.twig' with {
+                'image_style' : 'ratio_10_16',
+                'hide_caption' : true,
+                'gallery_lightbox' : true,
+                'woody_gallery_id' : 'hero-thumbs'
+            }%}
+        </div>
+    {% endfor %}
+    {% if count > 0 %}
+        {% include 'blocks/hero/_objects/more_imgs_list.twig' with {
+            'items' : more_imgs[2:],
+            'moreImgsMaxItems' : 1,
+            'listDirection' : 'single',
+            'thumbRatio' : 'ratio_3_1'
+        } %}
+    {% endif %}
+</div>

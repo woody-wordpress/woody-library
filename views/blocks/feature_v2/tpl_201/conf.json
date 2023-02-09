@@ -3,6 +3,7 @@
     "name": "Template 201",
     "description": "Grille 2 éléments - Icône avec textes centrés en-dessous (prétitre, titre, sous-titre, description)",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": [
         "group_6296243e5eb71"
     ],

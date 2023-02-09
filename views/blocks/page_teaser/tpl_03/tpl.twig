@@ -1,11 +1,14 @@
 {% set random_number = ''|random_number %}
 <div class="woody-component woody-component-teaser {{ customIndexClass|default('tpl_03') }} {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}{{ page_teaser_add_profile and profile.profile_title ? ' has-profile' }}">
     {% include 'blocks/page_teaser/_objects/backgroundImage.twig' %}
-    {% include 'blocks/page_teaser/_objects/tripInfos.twig' with {
-        'customTripAlignment':'medium-7 large-9',
-        'trip_infos':breadcrumb,
-    } %}
-    {% if trip_infos is not defined %} {{ breadcrumb|default }} {% endif %}
+    {% if trip_infos|default %}
+        {% include 'blocks/page_teaser/_objects/tripInfos.twig' with {
+            'customTripAlignment':'medium-7 large-9',
+            'trip_infos':breadcrumb,
+        } %}
+    {% else %}
+        {{ breadcrumb|default }}
+    {% endif %}
     <div class="grid-container isRel">
         <div class="grid-x {{ customAlignment|default('grid-padding-x grid-padding-y align-justify') }}">
             <div class="cell texts-wrapper flex-container flex-dir-column {{ page_teaser_woody_icon ? 'has-icon ' }}{{ page_teaser_title ? 'has-title ' }}{{ page_teaser_pretitle ? 'has-pretitle ' }}{{ page_teaser_subtitle ? 'has-subtitle ' }}{{ page_teaser_desc ? 'has-desc ' }}{{ created ? 'has-created' }} {{ customWidth|default('large-7') }} {{ customTextAlignment|default('align-center') }} {{ customGridSize|default }}">

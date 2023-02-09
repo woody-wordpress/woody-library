@@ -3,6 +3,10 @@
         .leaflet-popup {
             bottom: -10px !important;
             padding: 70px;
+            @include breakpoint(medium down) {
+                bottom: 75px !important; //leaflet popup display whole card
+                left: -245px !important; //leaflet popup display next to map controls
+            }
         }
     }
 
@@ -18,6 +22,12 @@
             &-title {
                 font-size: $geomap-title-font-size;
                 transition: color .3s;
+            }
+
+            &-section {
+                @include breakpoint(medium down) { //map translate 3D on leaflet popup short desc case
+                    min-height: 275px;
+                }
             }
 
             a[target="_blank"].card-link:after {
@@ -69,29 +79,3 @@
     }
 }
 
-@include breakpoint(small down) {
-
-    .leaflet-pane,
-    .leaflet-popup {
-        transform: translate3d(0px, 0px, 0px) !important;
-    }
-
-    .leaflet-popup {
-        top: 0;
-        left: 0 !important;
-        width: 95vw;
-
-        &-content {
-            width: 90% !important;
-        }
-    }
-
-    .woody-component-geomap .leaflet-popup-pane .leaflet-popup {
-        padding: 0rem;
-    }
-
-    .woody-component-geomap .leaflet-container a.leaflet-popup-close-button {
-        top: 5px;
-        right: 5px;
-    }
-}

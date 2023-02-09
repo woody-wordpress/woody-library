@@ -1,0 +1,17 @@
+.ratings-container {
+    padding-left: 10px;
+
+    .rating-icon {
+        height: 12px;
+        width: 12px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        filter: brightness(0%);
+        margin-right: 4px;
+    }
+
+    .rating-type:not(:first-child) {
+        padding-left: 5px;
+    }
+}

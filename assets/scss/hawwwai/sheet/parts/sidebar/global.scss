@@ -1,0 +1,23 @@
+$sheet-sidebar-list-gap: 50px;
+
+.sheet-sidebar-list {
+    gap: $sheet-sidebar-list-gap;
+}
+
+.sheet-sidebar-part {
+    &:not(:last-child) {
+        position: relative;
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: calc((#{$sheet-sidebar-list-gap} / 2) * -1); // Gap of .sheet-sidebar-list / 2 for centering separator between 2 parts
+            transform: translateX(-50%);
+            height: 2px;
+            width: calc(100% + 60px);
+            background-color: $light-gray;
+        }
+    }
+}

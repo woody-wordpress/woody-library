@@ -1,7 +1,7 @@
 {% spaceless %}
 {% set cardDatesClasses = 'grid-y align-center align-middle' %}
 
-<div class="{{ contextPrefix }}-info {{ leftWrapperClasses|default }}">
+<div class="{{ contextPrefix }}-info{{ leftWrapperClasses|html_class }}">
     {{ block("cardDates", "_objects/titlesObject.twig") }}
     {{ block("sheetLength", "_objects/titlesObject.twig") }}
     {% if titles.the_price.price or titles.the_duration.count_days or titles.the_duration.count_hours or titles.the_duration.count_minutes or title.the_length.length %}
@@ -13,15 +13,15 @@
     {% endif %}
 </div>
 
-<div class="{{ contextPrefix }}-titles {{ rightWrapperClasses|default }}">
+<div class="{{ contextPrefix }}-titles{{ rightWrapperClasses|html_class }}">
     {% if titles.icon_type == 'picto' and titles.woody_icon|default %}
-    <span class="{{ contextPrefix }}-wicon wicon wicon-woody-icons {{ titles.woody_icon }}"></span>
+    <span class="{{ contextPrefix }}-wicon wicon wicon-woody-icons{{ titles.woody_icon|html_class }}"></span>
     {% elseif titles.icon_type == 'img' and titles.icon_img %}
     <img class="img-responsive" src="{{ titles.icon_img.sizes.thumbnail }}" {% if titles.icon_img.alt %} alt="{{ titles.icon_img.alt }}" {% endif %} />
     {% endif %}
 
     {% if titles.pretitle|default or titles.title|default or titles.subtitle|default or titles.sheet_type or titles.sheet_rating|default or titles.description|default or titles.sheet_town|default %}
-        <div class="{{ contextPrefix }}-texts {{ textsClasses|default }}">
+        <div class="{{ contextPrefix }}-texts{{ textsClasses|html_class }}{{ titles.pretitle ? ' has-pretitle' }}{{ titles.title ? ' has-title' }}{{ titles.subtitle ? ' has-subtitle' }}{{ titles.description ? ' has-desc' }}{{ titles.created ? ' has-created' }}">
             {% if titles.pretitle|default %}
             <span class="{{ contextPrefix }}-pretitle">{{ titles.pretitle }}</span>
             {% endif %}

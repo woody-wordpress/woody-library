@@ -1,0 +1,30 @@
+.woody-component-tabs.sheet-tabs {
+    .tabs {
+        @include breakpoint(xmedium) {
+            gap: 15px;
+
+            .tabs-title {
+                &.is-active {
+                    .tab-link {
+                        color: $white !important;
+                        background-color: $primary-color;
+                    }
+                }
+            }
+
+            .tab-link {
+                font-weight: bold;
+                border: 1px solid $primary-color;
+
+                @if $global-radius !=0 {
+                    border-radius: 30px;
+                }
+            }
+        }
+    }
+
+    .tabs-panel {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

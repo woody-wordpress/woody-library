@@ -31,8 +31,6 @@ ul {
 
 .sheet-model-v2.has-mosaic {
     .sheet-sidebar {
-        z-index: 1;
-
         @media (min-width: 992px) {
             margin-top: -70px;
         }

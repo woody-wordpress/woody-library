@@ -1,0 +1,28 @@
+.sit-source-footer {
+    border-top: 1px solid $black;
+
+    @include breakpoint(xmedium) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.sit-source-left-part {
+    @include breakpoint(xmedium) {
+        flex-direction: row;
+    }
+}
+
+.sit-source-logo {
+    max-width: 200px;
+}
+
+.sit-source-information {
+    font-style: italic;
+
+    @include breakpoint(xmedium) {
+        text-align: left;
+        padding-right: 15px;
+        margin-bottom: 0;
+    }
+}

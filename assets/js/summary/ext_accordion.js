@@ -1,5 +1,5 @@
 export default class SummaryAccordion {
-    constructor(el) {
+    constructor (el) {
         this.element = el;
         this.accordionHeader = this.element.querySelector('.summary-header');
         this.summaryTitle = this.element.querySelector('.summary-title');
@@ -13,7 +13,7 @@ export default class SummaryAccordion {
         this.init();
     }
 
-    init() {
+    init () {
         if (!!this.summaryTitle) this.manageTitle();
         if (!!this.accordionHeader) this.manageAccordionHeader();
         if (!!this.accordionHeader) this.manageClickOut();
@@ -22,14 +22,14 @@ export default class SummaryAccordion {
         this.manageScrollToSection();
     }
 
-    manageTitle() {
+    manageTitle () {
         let self = this;
         if (window.innerWidth <= 1200) {
             self.summaryTitle.innerHTML = self.summaryTitle.dataset.title; // Ajoute le titre "Sommaire" <= 1200px si aucun titre n'est renseigné
         }
     }
 
-    manageAccordionHeader() {
+    manageAccordionHeader () {
         let self = this;
         self.accordionHeader.addEventListener('click', (event) => {
             self.element.classList.toggle('open');
@@ -46,7 +46,7 @@ export default class SummaryAccordion {
         });
     }
 
-    manageClickOut() {
+    manageClickOut () {
         let self = this;
         document.addEventListener('click', function (e) {
             if (self.accordionHeader.classList.contains('open')) {
@@ -64,7 +64,7 @@ export default class SummaryAccordion {
         });
     }
 
-    manageAccordionClose() {
+    manageAccordionClose () {
         let self = this;
         self.element.addEventListener('click', (event) => {
             self.element.classList.remove('open');
@@ -78,7 +78,7 @@ export default class SummaryAccordion {
         });
     }
 
-    manageFixedMapClose() {
+    manageFixedMapClose () {
         let self = this;
         document.addEventListener('click', (event) => {
             if (!event.target.closest('.fixed-map-wrapper') || event.target.closest('.summary-geomap-anchor')) {
@@ -89,7 +89,7 @@ export default class SummaryAccordion {
         });
     };
 
-    manageFixedMapButton() {
+    manageFixedMapButton () {
         let self = this;
         this.fixedMapButton.addEventListener('click', (event) => {
             // Create a new event and dispatch it
@@ -105,14 +105,14 @@ export default class SummaryAccordion {
         });
     }
 
-    manageScrollToSection() {
+    manageScrollToSection () {
         if (window.innerWidth <= 1200) {
             let self = this;
             let summaryHeight = self.element.clientHeight;
             self.element.querySelectorAll('.summary-item > [data-section]').forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
-                    let target = document.querySelector(`.page-section${el.dataset.section}`);
+                    let target = document.querySelector(`.page-section${el.dataset.section}`) || document.querySelector(`.sheet-part${el.dataset.section}`);
                     window.scrollTo(0, target.offsetTop - summaryHeight);
                 }, false);
             });

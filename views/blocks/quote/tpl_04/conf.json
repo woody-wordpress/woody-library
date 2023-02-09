@@ -3,6 +3,7 @@
     "name": "Template 04 - Carré",
     "description": "Photo + Citation avec Texte + Auteur en colonne",
     "lib_type": "lite",
+    "lib_design": "THUMB",
     "acf_groups": [
         "group_5b042e516ef62"
     ],

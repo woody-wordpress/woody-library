@@ -1,0 +1,9 @@
+.favorites-container {
+    .button-add-to-favs:not(.add-favorites-button-link) {
+        margin-right: 4px;
+
+        .wicon {
+            font-size: rem-calc(24);
+        }
+    }
+}

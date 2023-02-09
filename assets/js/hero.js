@@ -37,14 +37,16 @@ if(!!toggleHeroMoreImgs){
         }
 
         updateHeight() {
-            var teaserHeight = this.teaser.getBoundingClientRect().height,
-                teaserOverflow = this.rootStyle.getPropertyValue('--hero-gradient-teaser-overflow'),
-                heroGradientSize = this.rootStyle.getPropertyValue('--hero-gradient-size');
+            if(!!this.teaser && !!this.heroMedia){
+                var teaserHeight = this.teaser.getBoundingClientRect().height,
+                    teaserOverflow = this.rootStyle.getPropertyValue('--hero-gradient-teaser-overflow'),
+                    heroGradientSize = this.rootStyle.getPropertyValue('--hero-gradient-size');
 
-            if (teaserOverflow == 'true') {
-                this.heroMedia.style.setProperty('height', 'calc(100vh + ' + heroGradientSize + ' + ' + teaserHeight + 'px)');
-            } else {
-                this.heroMedia.style.setProperty('height', 'calc(100vh + ' + heroGradientSize);
+                if (teaserOverflow == 'true') {
+                    this.heroMedia.style.setProperty('height', 'calc(100vh + ' + heroGradientSize + ' + ' + teaserHeight + 'px)');
+                } else {
+                    this.heroMedia.style.setProperty('height', 'calc(100vh + ' + heroGradientSize);
+                }
             }
         }
     }

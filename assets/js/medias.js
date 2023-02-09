@@ -249,7 +249,41 @@ class Medias {
             this.components.push(player);
         });
         this.playPauseMultiple();
+
+        // Initialize sound control
+        Array.from(document.querySelectorAll('.videoObject-video.sound-control')).forEach(video => {
+            this.appendSoundControl(video);
+        });
     }
+
+    appendSoundControl(video){
+        if(!!video){
+
+            let checkBox = document.createElement('input');
+            checkBox.setAttribute('type', 'checkbox');
+
+            let slider = document.createElement('span');
+            slider.setAttribute('class', 'slider');
+
+            let soundSwitch = document.createElement('label');
+            soundSwitch.setAttribute('class', 'sound-switch');
+
+            soundSwitch.append(checkBox);
+            soundSwitch.append(slider);
+
+            video.parentElement.append(soundSwitch);
+
+            checkBox.addEventListener('change', function(){
+                if(this.checked){
+                    video.muted = false;
+                } else {
+                    video.muted = true;
+                }
+            });
+
+        }
+    }
+
     // On Play, force others videos to be paused
     playPauseMultiple() {
         let self = this;

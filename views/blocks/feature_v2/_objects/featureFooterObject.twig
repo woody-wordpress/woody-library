@@ -5,7 +5,7 @@
             {% elseif feature_buttons.alignement == 'vertical' %}
                 {% set list_classes = 'flex-dir-column align-center align-middle' %}
             {% endif %}
-            <ul class="list-unstyled flex-container {{ list_classes|default }}">
+            <ul class="list-unstyled flex-container grid-gap-sm {{ list_classes|default }}">
                 {% for button in feature_buttons.links %}
                     <li class="list-item">
                         {% include '_objects/buttonObject.twig' %}

@@ -1,17 +1,19 @@
-{% if is_list %}
-<li class="grid-container">
-{% endif %}
-
-    {% if menu_part_title|default %}
-        <span class="menuPart-title">
-            {% if menu_part_title_link|default %}<a href="{{ menu_part_title_link }}">{% endif %}
-            {{ menu_part_title }}
-            {% if menu_part_title_link|default %}</a>{% endif %}
-        </span>
+{% spaceless %}
+    {% if is_list %}
+    <li class="grid-container">
     {% endif %}
 
-    {% block grid_items %}{% endblock %}
+        {% if menu_part_title|default %}
+            <span class="menuPart-title">
+                {% if menu_part_title_link|default %}<a href="{{ menu_part_title_link }}">{% endif %}
+                {{ menu_part_title }}
+                {% if menu_part_title_link|default %}</a>{% endif %}
+            </span>
+        {% endif %}
 
-{% if is_list %}
-</li>
-{% endif %}
+        {% block grid_items %}{% endblock %}
+
+    {% if is_list %}
+    </li>
+    {% endif %}
+{% endspaceless %}

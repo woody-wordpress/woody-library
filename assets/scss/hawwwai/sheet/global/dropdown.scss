@@ -1,0 +1,27 @@
+.button-pane {
+    cursor: pointer;
+
+    &.has-icon {
+        &::after {
+            display: block;
+            position: absolute;
+            content: '';
+            top: 50%;
+            right: 1rem;
+            transform: translateY(calc(-50% - 6px));
+            height: 0;
+            width: 0;
+            border: inset 6px;
+            border-bottom-width: 0;
+            border-top-style: solid;
+            border-color: currentColor transparent transparent;
+        }
+    }
+}
+
+.dropdown-pane {
+    width: initial;
+    border: none;
+    border-radius: 0 0 $global-radius $global-radius;
+    padding: 15px !important;
+}

@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Template 09 - Pano C",
+    "description": "Bloc de publicité => Image 3/1 + texte sur l'image à gauche",
+    "lib_design": "THUMB",
+    "acf_groups": [
+        "group_5df759f45990c"
+    ],
+    "vars": [
+        "text"
+    ]
+}

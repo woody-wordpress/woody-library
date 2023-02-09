@@ -1,11 +1,29 @@
 {% if block_titles.focus_buttons|default %}
-    <div class="focus-buttons {{ padding|default('padd-all-sm') }}">
+    <div class="focus-buttons {{ padding|default('padd-top-sm padd-bottom-sm') }}">
         {% if block_titles.focus_buttons.alignement == 'horizontal' %}
-            {% set list_classes = 'align-middle wrap' %}
+            {% if block_titles.focus_buttons.justify == 'left' %}
+                {% set list_classes = 'align-middle wrap' %}
+                {% set align = 'align-left' %}
+            {% elseif block_titles.focus_buttons.justify == 'right' %}
+                {% set list_classes = 'align align-middle wrap' %}
+                {% set align = 'align-right' %}
+            {% else %}
+                {% set list_classes = 'align-middle wrap' %}
+                {% set align = 'align-center' %}
+            {% endif %}
         {% elseif block_titles.focus_buttons.alignement == 'vertical' %}
-            {% set list_classes = 'flex-dir-column align-middle' %}
+            {% if block_titles.focus_buttons.justify == 'left' %}
+                {% set list_classes = 'flex-dir-column' %}
+                {% set align = 'align-top' %}
+            {% elseif block_titles.focus_buttons.justify == 'right' %}
+                {% set list_classes = 'flex-dir-column' %}
+                {% set align = 'align-bottom' %}
+            {% else %}
+                {% set list_classes = 'flex-dir-column' %}
+                {% set align = 'align-middle' %}
+            {% endif %}
         {% endif %}
-        <ul class="list-unstyled flex-container {{ align|default('align-center') }} {{ list_classes|default }}">
+        <ul class="list-unstyled flex-container grid-gap-sm {{ align|default('align-center') }} {{ list_classes|default }}">
             {% for button in block_titles.focus_buttons.links %}
                 <li class="list-item">
                     {% include '_objects/buttonObject.twig' %}

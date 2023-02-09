@@ -1,0 +1,46 @@
+.sheet-sidebar-item-event {
+    .date-item {
+        &:not(:nth-child(1)) {
+            margin-top: 15px;
+        }
+    }
+
+    .date-format {
+        line-height: 1;
+    }
+
+    .date-day-label {
+        font-size: rem-calc(14);
+    }
+
+    .date-day-label,
+    .date-month {
+        text-transform: uppercase;
+    }
+
+    .date-day-number {
+        font-size: rem-calc(34);
+        font-weight: bold;
+    }
+
+    .date-month {
+        font-size: rem-calc(20);
+    }
+
+    .date-separator {
+        font-size: 2rem;
+        color: $medium-gray;
+    }
+
+    .date-oneday {
+        .date-day-number {
+            margin: 0 10px;
+        }
+    }
+
+    .date-multipleday {
+        .date-day-number {
+            margin: 10px 0;
+        }
+    }
+}

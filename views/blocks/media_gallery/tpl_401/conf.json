@@ -21,13 +21,15 @@
         "gallery_items",
         "gallery_link"
     ],
-    "display": [{
-        "type": "grid",
-        "length": 4,
-        "infinite": "true",
-        "img_ratio": [
-            "square",
-        ],
-        "roadbook": true
-    }]
+    "display": [
+        {
+            "type": "grid",
+            "length": 4,
+            "infinite": "true",
+            "img_ratio": [
+                "square"
+            ],
+            "roadbook": true
+        }
+    ]
 }

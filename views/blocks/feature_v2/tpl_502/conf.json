@@ -3,6 +3,7 @@
     "name": "Template 502",
     "description": "Grille 5 éléments - Icône à gauche des textes (prétitre, titre, sous-titre, description)",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": [
         "group_6296243e5eb71"
     ],

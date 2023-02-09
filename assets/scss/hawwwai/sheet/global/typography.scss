@@ -1,0 +1,66 @@
+.sheet-part-title {
+    display: block;
+}
+
+.sheet-part-subtitle {
+    display: block;
+    font-weight: bold;
+}
+
+.criterias-review-wrapper {
+    margin-bottom: 10px;
+}
+
+.criterias-list {
+    gap: 10px;
+
+    li {
+        font-size: rem-calc(10);
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+        line-height: 1;
+        padding: 5px 10px;
+    }
+}
+
+.teaser-container {
+    .h3 {
+        margin: 0;
+    }
+}
+
+.more-content-anchor {
+    font-size: rem-calc(14);
+    text-decoration: currentColor underline;
+    text-underline-offset: 2px;
+    transition: 0.25s ease-in-out;
+    margin-top: 5px;
+
+    &:hover,
+    &:focus {
+        text-decoration: currentColor underline;
+    }
+}
+
+.opening-state {
+    &--text {
+        font-size: rem-calc(22);
+    }
+
+    &-opened {
+        color: $success-color;
+    }
+
+    &-closed {
+        color: $alert-color;
+    }
+
+    &-soon {
+        color: $warning-color;
+    }
+
+    &-undefined {
+        color: $medium-gray;
+    }
+}

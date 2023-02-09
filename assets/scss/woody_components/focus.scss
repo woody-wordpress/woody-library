@@ -192,6 +192,19 @@
         }
     }
 
+    &.tpl_155 {
+
+        .card-section {
+            padding-right: 90px;
+        }
+    }
+
+    &.remove-duplicated-margin {
+        .woody-component-button.padd-top-sm {
+            padding: unset;
+        }
+    }
+
     &.tpl_502,
     &.tpl_503,
     &.tpl_605,
@@ -344,20 +357,33 @@
     &.tpl_323,
     &.tpl_319,
     &.tpl_326 {
+
         .focus-header {
-            padding: $global-padding * 3;
+            padding: $global-padding * 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
 
             @include breakpoint(xlarge) {
-                padding-right: $global-padding * 6;
+                padding-right: calc(39% + #{$global-padding} * 2 ); // C'est un peu arbitraire mais ça marche
+            }
+
+            .focus-buttons {
+                padding-left: 0;
+                padding-right: 0;
             }
         }
 
         .woody-component-basic-swiper {
-            transform: translateY(-$swiper-offset-size);
+            transform: translateY(calc(-(100% / 3) / 2)); // calc(1/3 du swiper / 2 pour arriver à la moitié de la première card)
+            padding-top: $global-padding * 2;
+            padding-bottom: $global-padding * 2;
 
             @include breakpoint(xlarge) {
-                transform: translateX(-$swiper-offset-size) translateY(0);
-                width: calc(100% + #{$swiper-offset-size});
+                transform: translateX(calc(-1 * (100% / 3) / 2)) translateY(0);
+                width: calc(100% + #{calc((100% / 3) / 2)});
             }
         }
     }
@@ -370,11 +396,20 @@
             position: static;
         }
 
+        .swiper-container {
+            padding-top: unset;
+        }
+
         .swiper-controls {
             position: absolute;
             display: flex;
-            left: calc((100% / 4) - 25px);
-            top: 25px;
+            top: unset;
+            bottom: 10px;
+            right: 30px;
+
+            @include breakpoint(large down) {
+                display: none;
+            }
 
             .swiper-nav {
                 position: relative;
@@ -431,9 +466,9 @@
         @include breakpoint(large) {
             padding-left: 120px;
 
-            .focus-buttons>.flex-container {
-                justify-content: flex-start;
-            }
+            // .focus-buttons>.flex-container {
+            //     justify-content: flex-start;
+            // }
         }
 
         &.has-bgimg>.content .grid-x>.cell,
@@ -540,6 +575,15 @@
         }
     }
 
+    &.tpl_360,
+    &.tpl_361 {
+
+        .card-section {
+            aspect-ratio: 4/3;
+        }
+
+    }
+
     &.tpl_502,
     &.tpl_503 {
 
@@ -593,6 +637,65 @@
         .card-button {
             @include breakpoint(large) {
                 margin-left: 25%;
+            }
+        }
+    }
+
+    &.tpl_154 {
+
+        @include breakpoint(xmedium) {
+
+            .controlsAbs {
+                // Repositionnement des flèches de navigation
+
+                .swiper-container {
+                    padding-top: unset;
+                }
+
+                .swiper-controls,
+                .swiper-button-prev,
+                .swiper-button-next {
+                    bottom: 0;
+                    top: unset;
+                }
+            }
+
+            .card-section {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .focus-buttons {
+                padding-left: 0;
+                padding-right: 0;
+
+                //Fix des marges des boutons suivant leur alignement
+                .align-right .woody-component-button:last-child {
+                    margin-right: unset;
+                }
+
+                .align-left .woody-component-button:first-child {
+                    margin-left: unset;
+                }
+
+                .align-bottom .woody-component-button {
+                    margin-right: unset;
+                }
+
+                .align-top .woody-component-button {
+                    margin-left: unset;
+                }
+            }
+        }
+    }
+
+    &.tpl_419 {
+        @include breakpoint(medium down) {
+
+            .card-section {
+                flex-flow: column nowrap;
             }
         }
     }
@@ -673,10 +776,17 @@
             }
         }
 
-        .card-link {
+        .card-link,
+        .has-not-card-link {
             @include breakpoint(xmedium down) {
                 flex-direction: row !important;
                 height: 80px;
+            }
+        }
+
+        .has-not-card-link {
+            @include breakpoint(xmedium down) {
+                display: flex;
             }
         }
 
@@ -1024,4 +1134,35 @@
             }
         }
     }
+}
+
+//GRID OVERFLOW
+.woody-component-focus.tpl {
+
+    &_525,
+    &_526,
+    &_527,
+    &_528,
+    &_529 {
+
+        .grid-padding-y>.grid-overflow {
+            // Décalage de la MEA au format carré
+            transform: translateX(-#{map-get($grid-padding-gutters, small)});
+
+            @include root('.section-layout-wrapper:not(.grid-container)') {
+                transform: translate(calc(#{map-get($grid-padding-gutters, medium)} * -2), calc(#{map-get($grid-padding-gutters, small)}));
+            }
+
+            @include root('.section-layout-wrapper.grid-large-container') {
+                transform: translate(calc(#{map-get($grid-padding-gutters, small)} * -2), calc(#{map-get($grid-padding-gutters, small)} / 2));
+            }
+        }
+
+        .grid-overflow {
+            // Fix du décalage de la MEA au format carré quand les paddings sont désactivés
+            transform: translate(calc(-#{map-get($grid-padding-gutters, medium)} * 2), -18px);
+        }
+
+    }
+
 }

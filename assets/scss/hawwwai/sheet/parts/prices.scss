@@ -1,0 +1,25 @@
+.woody-component-sheet-prices {
+    .price-row {
+        @include breakpoint(medium) {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .price-description {
+        font-size: rem-calc(14);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(16);
+        }
+    }
+
+    .price-value {
+        font-weight: bold;
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(20);
+        }
+    }
+}

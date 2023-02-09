@@ -145,21 +145,21 @@ $.fn.extend({
 
         switch (paginationType) {
             case 'fraction':
-                var fraction = function renderFraction(currentClass, totalClass) {
+                var fraction = function renderFraction (currentClass, totalClass) {
                     return '<span class="' + currentClass + '"></span>' + '<span class="' + totalClass + '"></span>';
                 };
 
                 paginationTypeOptions.renderFraction = fraction;
                 break;
             case 'progressbar':
-                var progressbar = function renderProgressBar(progressbarFillClass) {
+                var progressbar = function renderProgressBar (progressbarFillClass) {
                     return '<span class="' + progressbarFillClass + '"></span>';
                 };
 
                 paginationTypeOptions.renderProgressBar = progressbar;
                 break;
             case 'loader':
-                var loader = function renderBullet(index) {
+                var loader = function renderBullet (index) {
                     var autoplayIsActive = this.params.autoplay,
                         autoplay = this.params.autoplay.delay,
                         speed = this.params.speed,
@@ -211,7 +211,7 @@ $('[data-tabs]').on("change.zf.tabs", function (e) {
 // Init woody-swipers only on large devices. Small devices goes with swResp classes
 if (window.innerWidth >= 1024) {
     // Basic Swipers
-    $("body:not(.single-touristic_sheet) .woody-swiper").initSwiper({
+    $("body:not(.old-sheet) .woody-swiper").initSwiper({
         preloadImages: false,
         watchSlidesProgress: true,
         watchSlidesVisibility: true,
@@ -352,23 +352,25 @@ $(".focus-swiper-fullpage-overlayed .swiper-container").each(function () {
 
                 $this.find(".swiper-wrapper .swiper-slide").each(function (i) {
                     titles.push($(this).find(".focus-title").text());
-                    pretitles.push($(this).find(".focus-pretitle").text());
+                    // pretitles.push($(this).find(".focus-pretitle").text());
                 });
 
                 let pageIndex = index + 1;
-                if ( pageIndex < 10) {
+                if (pageIndex < 10) {
                     pageIndex = '0' + pageIndex;
                 }
 
                 var paginationItem = '<span class="swiper-pagination-item">';
 
-                if($this.find(".swiper-pagination")[0].classList.contains('hasActiveIndex')) {
+                if ($this.find(".swiper-pagination")[0].classList.contains('hasActiveIndex')) {
 
                     let paginationIndex = '<span class="card-index">' + pageIndex + '</span>';
 
-                    paginationItem += (index <= 4) ? paginationIndex + '<span class="pagination-pretitle">' + pretitles[index] + '</span><span class="pagination-title">' + titles[index] + '</span>' : '';
+                    // paginationItem += (index <= 4) ? paginationIndex + '<span class="pagination-pretitle">' + pretitles[index] + '</span><span class="pagination-title">' + titles[index] + '</span>' : '';
+                    paginationItem += (index <= 4) ? paginationIndex + '<span class="pagination-title">' + titles[index] + '</span>' : '';
                 } else {
-                    paginationItem += (index <= 4) ? '<span class="pagination-pretitle">' + pretitles[index] + '</span><span class="pagination-title">' + titles[index] + '</span>' : '';
+                    // paginationItem += (index <= 4) ? '<span class="pagination-pretitle">' + pretitles[index] + '</span><span class="pagination-title">' + titles[index] + '</span>' : '';
+                    paginationItem += (index <= 4) ? '<span class="pagination-title">' + titles[index] + '</span>' : '';
                     paginationItem = (index <= 4) ? paginationItem + '<span class="pagination-separator"><span class="pagination-separator-loader"></span></span>' : paginationItem;
                 }
 
@@ -402,3 +404,4 @@ $(".woody-component-landswpr.tpl_08 .woody-landing-swiper").each(function () {
         },
     });
 });
+

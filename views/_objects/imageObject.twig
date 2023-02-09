@@ -77,14 +77,14 @@
         {% set srcset = "#{ small_size } 360w, #{ medium_size } 640w, #{ original_size } 1200w" %}
     {% endif %}
 
-    <figure itemscope itemtype="http://schema.org/ImageObject" class="isRel imageObject {{ noRespCrop }} {{ containerClass|default }}{{ img.attachment_more_data.is_instagram ? ' is_instagram' }}">
+    <figure itemscope itemtype="http://schema.org/ImageObject" class="isRel imageObject{{ noRespCrop|html_class }}{{ containerClass|html_class }}{{ img.attachment_more_data.is_instagram ? ' is_instagram' }}">
         {% if img.lazy == 'disabled' %}
             <img class="imageObject-img img-responsive" src="{{ original_size }}" alt="{{ img.alt|default(img.filename) }}" srcset="{{ srcset }}" itemprop="thumbnail"  {% if img_mobile_url %} data-mobile-img="{{ img_mobile_url }}" {% endif %} {% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
         {% else %}
             <noscript>
-                <img class="imageObject-img img-responsive {{ img.class|default }}" src="{{ medium_size }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail"/>
+                <img class="imageObject-img img-responsive{{ img.class|html_class }}" src="{{ medium_size }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail"/>
             </noscript>
-            <img class="imageObject-img img-responsive {{ lazyClass|default("lazyload") }}" src="{{ blank_ratio }}" srcset="{{ blank_ratio }}" data-src="{{ medium_size }}" data-sizes="auto" data-srcset="{{ srcset }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail" {% if img_mobile_url %} data-mobile-img-url="{{ img_mobile_url }}" {% endif %} {% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
+            <img class="imageObject-img img-responsive{{ lazyClass|default("lazyload")|html_class }}" src="{{ blank_ratio }}" srcset="{{ blank_ratio }}" data-src="{{ medium_size }}" data-sizes="auto" data-srcset="{{ srcset }}" alt="{{ img.alt|default(img.filename) }}" itemprop="thumbnail" {% if img_mobile_url %} data-mobile-img-url="{{ img_mobile_url }}" {% endif %} {% if tiny_square|default %} data-tiny-square-url="{{ tiny_square }}"{% endif %}/>
         {% endif %}
         {% if img.date %}
             <meta itemprop="datePublished" content="{{ img.date }}">
@@ -95,7 +95,7 @@
 
         {% block imageCaption %}
             {% if img.caption|default or img.attachment_more_data.author|default %}
-                <div class="imageObject-caption flex-container align-middle isAbs {{ img_caption_position|default('bottom left') }}" {% if hide_caption == true %} style="display:none"{% endif %} data-nosnippet>
+                <div class="imageObject-caption flex-container align-middle isAbs{{ img_caption_position|default('bottom left')|html_class }}{{ hide_caption ? ' hide' }}" data-nosnippet>
                     {% if img.attachment_more_data.is_instagram %}
                         <span class="imageObject-icon wicon wicon-011-instagram flex-container align-center align-middle"></span>
                     {% else %}

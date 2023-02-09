@@ -10,14 +10,14 @@
                         <path class="svg-{{ marker_color|default }}" d='m 77.764997,136.67611 c 14.163118,0 25.647903,11.15711 25.647903,24.92004 0,13.76259 -10.660376,28.8546 -25.647903,43.41776 -16.220447,-15.76086 -25.647894,-29.65517 -25.647894,-43.41776 0,-13.76293 11.484775,-24.92004 25.647894,-24.92004 z' fill='undefined' stroke='undefined' stroke-width='2px'></path>
                         <circle fill='#FFF' stroke='undefined' stroke-width='0px' cx='65.302' cy='148.829' r='6.938' opacity='1.0' transform='matrix(2.7385413,0,0,2.7385413,-101.1597,-245.98577)'></circle>
                     </svg>
-                    <span class="wicon {{ marker_woody_icon }} text-{{ marker_color|default }}"></span>
+                    <span class="wicon{{ marker_woody_icon|html_class }} text-{{ marker_color|default }}"></span>
                 {% else %}
                     <svg viewBox="0 0 54.757 54.757" xmlns="http://www.w3.org/2000/svg">
                         <path class="svg-{{ marker_color|default }}" d="M40.94 5.617A19.052 19.052 0 0 0 27.38 0a19.05 19.05 0 0 0-13.56 5.617c-6.703 6.702-7.536 19.312-1.804 26.952L27.38 54.757 42.721 32.6c5.755-7.671 4.922-20.281-1.781-26.983zM27.557 26c-3.859 0-7-3.141-7-7s3.141-7 7-7 7 3.141 7 7-3.141 7-7 7z"/>
                     </svg>
                 {% endif %}
             {% elseif marker_style == 'icon_only' and marker_woody_icon|default %}
-                <span class="wicon {{ marker_woody_icon }}"></span>
+                <span class="wicon{{ marker_woody_icon|html_class }}"></span>
             {% elseif marker_style == 'round' %}
                 <span class="circle bg-primary"></span>
             {% endif %}

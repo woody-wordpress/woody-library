@@ -1,3 +1,4 @@
+{% spaceless %}
 <div class="booking-wrapper">
     <div class="booking-price">
         <span class="booking-prefix">{{ booking.prefix }}</span>
@@ -13,3 +14,4 @@
         <a href="{{ booking.link.url }}" class="button no-ext" title="{{ booking.link.title|default(__('Réserver', 'woody-theme')) }}" target="{{ booking.link.target|default('_self') }}">{{ booking.link.title|default(__('Réserver', 'woody-theme')) }}</a>
     {% endif %}
 </div>
+{% endspaceless %}

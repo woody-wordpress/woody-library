@@ -13,3 +13,8 @@ $body-shadow-curve: .2 !default;
 // Icons
 $duration-icon: 015-horloge !default;
 $distance-icon: 039-pin !default;
+
+// Variables CSS
+:root {
+    --rc-global-radius: #{$global-radius}; // Useful for getting the value for the Fairguest widget
+}

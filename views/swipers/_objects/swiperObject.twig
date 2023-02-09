@@ -1,8 +1,15 @@
-<div class="swiper-wrapper swRespW {{ nb_columns > 1 ? 'swRespGrid' }}" {% if equalize_swiper %} data-equalizer="data-equalizer"{% endif %}>
+<div class="swiper-wrapper swRespW{{ mobile_cols > 1 ? ' swRespGrid' }}"{% if equalize_swiper %} data-equalizer="data-equalizer"{% endif %}>
     {% for key, item in items %}
-        <div class="swiper-slide swRespS {{ nb_columns > 1 ? 'swRespGridS cell' }}">
+        <div class="swiper-slide swRespS{{ mobile_cols > 1 ? ' swRespGridS cell' }}">
             {% if isReveal == true %}
                 <div class="cell">
+            {% endif %}
+            {% if alt_basic|default and not globals.is_mobile %}
+                {% if key is even %}
+                    {% set reverse_dir = true %}
+                {% else %}
+                    {% set reverse_dir = false %}
+                {% endif %}
             {% endif %}
             {% include "cards/#{card}/tpl.twig" with {
                 'desequalize' : desequalize,
@@ -10,7 +17,8 @@
                 'page_type' : item.page_type,
                 'ellipsis': item.ellipsis|default(false),
                 'card_index':loop.index0 + card_index_offset|default(1),
-                'reveal' : isReveal|default()
+                'reveal' : isReveal|default(),
+                'reverse_dir': reverse_dir|default(false)
             } %}
             {% if isReveal == true %}
                 </div>

@@ -3,6 +3,7 @@
     "name": "Template Liste 204 - Paysage C",
     "description": "2 colonnes égales",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": [
         "group_5bc6005838259",
         "group_5b0d1ed32a384",

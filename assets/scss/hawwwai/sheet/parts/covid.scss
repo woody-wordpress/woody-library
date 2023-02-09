@@ -1,0 +1,6 @@
+.woody-component-sheet-covid {
+    background-color: $sheet-message-color;
+    border-style: $bg-params-border-style;
+    border-width: $bg-params-border-width;
+    border-color: darken($sheet-message-color, 10%);
+}

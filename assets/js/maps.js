@@ -262,7 +262,7 @@ function getAndFitBounds() {
 $(document).on('lazybeforeunveil', function () {
     if (window.innerWidth < 1024) {
         $('.focus-map-basicCard, .focus-map-overlayedCard').each(function () {
-            const focusMapSwiperResp = $(this).find('.swResp');
+            var focusMapSwiperResp = $(this).find('.swResp');
             var markers = $(this).find('.focus-map-pane-element-toggler');
 
             // Update slide on click
@@ -271,22 +271,24 @@ $(document).on('lazybeforeunveil', function () {
                 var swIndex = focusMapSwiperResp.find('[data-toggle-id="' + panId + '"]').index();
                 focusMapSwiperResp.data().swiper.slideTo(swIndex);
             });
-
             // Update marker with slide
-            focusMapSwiperResp.data().swiper.on('slideChangeTransitionStart', function () {
-                var slideActive = focusMapSwiperResp.find('.swiper-slide-active');
-                slideActive.addClass('is-active');
-                slideActive.siblings('.focus-map-pane-element').removeClass('is-active');
-                var slideIndex = slideActive.data('toggle-id');
+            var slides = focusMapSwiperResp.find('.focus-map-pane-element');
+            if(slides.length > 1) {
+                focusMapSwiperResp.data().swiper.on('slideChangeTransitionStart', function () {
+                    var slideActive = focusMapSwiperResp.find('.swiper-slide-active');
+                    slideActive.addClass('is-active');
+                    slideActive.siblings('.focus-map-pane-element').removeClass('is-active');
+                    var slideIndex = slideActive.data('toggle-id');
 
-                markers.removeClass('activePane');
-                markers.each(function () {
-                    var linkID = $(this).data('toggle');
-                    if (linkID == slideIndex) {
-                        $(this).addClass('activePane');
-                    }
+                    markers.removeClass('activePane');
+                    markers.each(function () {
+                        var linkID = $(this).data('toggle');
+                        if (linkID == slideIndex) {
+                            $(this).addClass('activePane');
+                        }
+                    });
                 });
-            });
+            }
         });
     }
 });

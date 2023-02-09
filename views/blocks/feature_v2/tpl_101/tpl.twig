@@ -8,15 +8,29 @@
 
     {% include "blocks/feature_v2/_objects/featureHeaderObject.twig" %}
 
-    <div class="grid-x {{ gridClasses|default }} align-strech{{ feature_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
-        {% for item in items %}
-            <div class="cell">
-                {% include "blocks/feature_v2/_objects/featureObject.twig" with {
-                    'feature' : customFeature|default('01')
-                } %}
+    {% if globals.is_mobile and mobile_grid == 'swiper' %}
+        <div class="swResp" {% if mobile_cols > 1 %}data-columns="{{ mobile_cols }}"{% endif %}>
+            <div class="swiper-wrapper swRespW">
+                {% for key, item in items %}
+                    <div class="swiper-slide swRespS">
+                        {% include "blocks/feature_v2/_objects/featureObject.twig" with {
+                            'feature' : customFeature|default('01')
+                        } %}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% else %}
+         <div class="grid-x {{ gridClasses|default }} align-strech{{ feature_no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+            {% for item in items %}
+                <div class="cell{{ globals.is_mobile and mobile_grid == 'grid' and mobile_cols == 2 ? ' small-6' }}">
+                    {% include "blocks/feature_v2/_objects/featureObject.twig" with {
+                        'feature' : customFeature|default('01')
+                    } %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {% include "blocks/feature_v2/_objects/featureFooterObject.twig" with {
         'customClasses': 'isRel'

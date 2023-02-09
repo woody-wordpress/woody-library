@@ -1,0 +1,24 @@
+{% set isInSectionRel = true %}
+{% extends 'blocks/claims/tpl_01/tpl.twig' %}
+{% block index_class %} tpl_08 inSection{% endblock %}
+{% block imageObject %}
+    {% include '_objects/imageObject.twig' with {
+        'img' : item.claim_img,
+        'img_mobile_url' : item.claim_img_mobile.url,
+        'image_style' : 'ratio_4_1',
+        'containerClass' : "claimMediaWrapper",
+        'noRespCrop' : 'noRespCrop',
+        'hide_caption' : true,
+    } %}
+{% endblock %}
+{% block titleObject %}
+<div class="claim-section flex-dir-column flex-center bottomleftbox bg-white">
+{% include '_objects/titlesObject.twig' with {
+        'titles' : item,
+        'contextPrefix' : "claim",
+        'flexOptions': 'flex-container align-middle padd-all-sm bg-white',
+        'ellipsis': 50
+    } %}
+</div>
+{% endblock %}
+{% block closeClaim %}{% endblock %}

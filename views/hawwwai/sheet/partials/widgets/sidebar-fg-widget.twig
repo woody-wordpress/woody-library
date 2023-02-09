@@ -1,25 +1,39 @@
 <li id="li-fairguest-widget" class="show-when-angular-ready hidden-xs">
     <section class="panel panel-default">
         <div class="panel-body">
-            {#<fairguest-review-widget
-            data-options='{ "type":"column_with_bars",
-                            "idFiche":"{{ idFiche }}",
-                            "idGroup":"{{ idGroup }}",
-                            "color": "{{ color }}",
-                            "lang" : {{ lang }},
-                            "erpProductKey": "{{ siteKey }}"}'>
-            </fairguest-review-widget>#}
-            {# TODO add widgetId={{widgetId}} when new widget ready and check desti !!! without widgetId !!! #}
-            {% if app['env'] == 'dev' %}
-                <iframe id="myIframe" iframe-resizer style="width: 100%; border: none" src="{{ global.request.basepath }}/assets/widget-iframe.html?idFiche={{idFiche}}&widgetId={{widgetId}}&color={{ color|trim('#', 'left')|default('e47830') }}&type=column_with_bars&idGroup={{idGroup}}&erpProductKey={{siteKey}}&lang={{lang}}&token={{token}}&display={% if siteKey not in ['crt-reunion'] %}classement,{% endif %}providers_list,expressions_often,expressions_only,reviews,evolution{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %},reviews_add{% endif %}"></iframe>
-            {% elseif app['env'] == 'preprod' %}
-                <iframe id="myIframe" iframe-resizer style="width: 100%; border: none" src="/api/render/assets/widget-iframe.html?idFiche={{idFiche}}&widgetId={{widgetId}}&color={{ color|trim('#', 'left')|default('e47830') }}&type=column_with_bars&idGroup={{idGroup}}&erpProductKey={{siteKey}}&lang={{lang}}&token={{token}}&display={% if siteKey not in ['crt-reunion'] %}classement,{% endif %}providers_list,expressions_often,expressions_only,reviews,evolution{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %},reviews_add{% endif %}"></iframe>
-            {% elseif app['env'] == 'prod' %}
-                <iframe id="myIframe" iframe-resizer style="width: 100%; border: none" src="/api/render/assets/widget-iframe.html?idFiche={{idFiche}}&widgetId={{widgetId}}&color={{ color|trim('#', 'left')|default('e47830') }}&type=column_with_bars&idGroup={{idGroup}}&erpProductKey={{siteKey}}&lang={{lang}}&token={{token}}&display={% if siteKey not in ['crt-reunion'] %}classement,{% endif %}providers_list,expressions_often,expressions_only,reviews,evolution{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %},reviews_add{% endif %}"></iframe>
+
+            {% set iframeMode = false %}
+
+            {% if iframeMode|default %}
+
+                {% if app['env'] == 'dev' %}
+                    {% set apirender_widget_path = global.request.basepath ~"/assets/widget-iframe.html" %}
+                {% elseif app['env'] == 'preprod' %}
+                    {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
+                {% elseif app['env'] == 'prod' %}
+                    {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
+                {% endif %}
+
+                <iframe id="myIframe" iframe-resizer
+                    style="width: 100%; border: none"
+                    class="lazyload"
+                    data-src="{{ apirender_widget_path }}?idFiche={{idFiche}}&widgetId={{widgetId}}&color={{ color|trim('#', 'left')|default('e47830') }}&type=column_with_bars&idGroup={{idGroup}}&erpProductKey={{siteKey}}&lang={{lang}}&token={{token}}&display={% if siteKey not in ['crt-reunion'] %}classement,{% endif %}providers_list,expressions_often,expressions_only,reviews,evolution{% if options.addreviews is not defined or (options.addreviews is defined and options.addreviews) %},reviews_add{% endif %}">
+                </iframe>
+
+            {% else %}
+
+                <fairguest_reviews-widget data-options='{
+                    "idFiche" : "{{idFiche}}",
+                    "type" :    "column_with_bars",
+                    "lang" :    "{{lang|default('fr')}}"
+                }'></fairguest_reviews-widget>
+
             {% endif %}
+
             <span class="plo-btn _plu-fullwidth _plu-push-top" anchor-link ng-click="scrollTo('#reviews')">
                 {{ 'GLOBAL.KNOW_MORE'|trans }}
             </span>
+
         </div>
     </section>
 </li>

@@ -186,16 +186,6 @@ button.menu-icon {
         position: relative;
         justify-content: $sliding-menu-item-justify-content;
         transition: $sliding-menu-item-transition;
-
-        &.is-active {
-            .submenu-wrapper {
-                pointer-events: auto;
-            }
-
-            .submenu-grid {
-                opacity: 1;
-            }
-        }
     }
 }
 
@@ -206,6 +196,14 @@ body.menu-is-open {
         .menu-item {
             &.is-active {
                 z-index: 1;
+
+                .submenu-wrapper {
+                    pointer-events: auto;
+                }
+
+                .submenu-grid {
+                    opacity: 1;
+                }
             }
         }
 

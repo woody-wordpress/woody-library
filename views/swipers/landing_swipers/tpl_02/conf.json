@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Landing Swiper (Custom pagination)",
     "description": "Swiper items",
+    "lib_design": "OK",
     "lib_type": "lite",
     "acf_groups": [
         "group_5bb325e8b6b43"

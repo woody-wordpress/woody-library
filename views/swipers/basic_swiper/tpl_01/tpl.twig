@@ -1,5 +1,5 @@
 <div class="woody-component-basic-swiper {{ index_class|default('tpl_01 ') }}{{ swiperCustomClasses|default }}{{ hide_controls ? ' not-controls ' }}{{ isRel ? ' isRel' }}{{ swResp ? ' is-swResp' }}">
-    <div class="swiper-container {{ swResp ? ' swResp' }} woody-swiper {{ nb_columns > 1 ? 'woody-swiper-grid-container' }} {{ styleClass|default }} {{ thumbs ? 'has-thumbs' : '' }} {{ pagination ? 'has-pagination' : '' }} {{ hide_controls ? '' : 'has-navigation' }}" data-options="{{ swiper_options|default }}" {% if nb_columns > 1 %}data-columns="{{ nb_columns|default }}"{% endif %}>
+    <div class="swiper-container {{ swResp ? ' swResp' }} woody-swiper {{ mobile_cols > 1 ? 'woody-swiper-grid-container' }} {{ styleClass|default }} {{ thumbs ? 'has-thumbs' : '' }} {{ pagination ? 'has-pagination' : '' }} {{ hide_controls ? '' : 'has-navigation' }}" data-options="{{ swiper_options|default }}" {% if mobile_cols > 1 %}data-columns="{{ mobile_cols|default }}"{% endif %}>
         {% include "swipers/_objects/swiperObject.twig" with {
             'isReveal' : isReveal|default()
         } %}

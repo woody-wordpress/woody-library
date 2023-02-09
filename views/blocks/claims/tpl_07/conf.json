@@ -1,0 +1,12 @@
+{
+    "approved": true,
+    "name": "Template 07 - Paysage B",
+    "description": "Bloc de publicité => Image 16/9 + texte sur l'image à gauche",
+    "lib_design": "THUMB",
+    "acf_groups": [
+        "group_5df759f45990c"
+    ],
+    "vars": [
+        "text"
+    ]
+}

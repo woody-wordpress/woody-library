@@ -9,11 +9,12 @@ export function wgContent(medias, wG) {
 
     let wrapper = document.querySelector('.wg-swiper-top .wg-swiper-wrapper');
     medias.forEach((media) => {
+        let copyright = media.querySelector('.imageObject-caption') != null ? media.querySelector('.imageObject-caption').outerHTML : '';
         if (media.dataset.wgtype === "video" || media.dataset.wgtype === "video-embed") {
             pluginwgVideo.wgVideo(media, wrapper);
         }
         else {
-            pluginwgImage.wgImage(media, wrapper);
+            pluginwgImage.wgImage(media, copyright, wrapper);
         }
     });
 }

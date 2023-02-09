@@ -21,6 +21,13 @@
             @extend h6 !optional;
         }
     }
+
+    // Fix equalizer when visualModifier
+    .grid-x>.cell {
+        &>.visualModifier {
+            height: 100%;
+        }
+    }
 }
 
 .woody-component-feature {
@@ -70,6 +77,15 @@
             @include xy-gutters($gutter-position: left);
             display: flex;
             flex-direction: column;
+        }
+
+        .feature-button {
+            //permet d'aligner le bouton aux textes (icone + textes alignement horizontal)
+            margin-left: calc(#{$feature-icon-size}px + #{map-get($grid-margin-gutters, small)} - 2px);
+
+            @include breakpoint(medium) {
+                margin-left: calc(#{$feature-icon-size}px + #{map-get($grid-margin-gutters, medium)} - 2px);
+            }
         }
     }
 }

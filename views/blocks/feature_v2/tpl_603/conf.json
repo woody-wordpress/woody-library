@@ -3,6 +3,7 @@
     "name": "Template 603",
     "description": "Grille 6 éléments - Titres (prétitre, titre) puis icône et textes en-dessous (sous-titre, description)",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": [
         "group_6296243e5eb71"
     ],

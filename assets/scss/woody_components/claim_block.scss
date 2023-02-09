@@ -20,11 +20,26 @@
             right: 50%;
             transform: translateX(50%) translateY(50%);
         }
+
+        .claim-wicon {
+            margin-top: -35px;
+            margin-bottom: 10px;
+            background-color: $white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $black;
+            position: relative;
+            z-index: 2;
+        }
     }
 
     .claim {
         &-titles {
-            @include xy-gutters($gutter-type: padding, $gutter-position:top left right);
+            @include xy-gutters($gutter-type: padding, $gutter-position: top left right);
         }
 
         &-pretitle,
@@ -47,25 +62,51 @@
             @extend .h6 !optional;
         }
 
-        &-wicon {
-            margin-top: -35px;
-            margin-bottom: 10px;
-            background-color: $white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: $black;
-            position: relative;
-            z-index: 2;
-        }
+        &-wicon {}
 
         &-button {
             @include xy-gutters($gutter-position: top left right);
             display: flex;
-            justify-content: center; 
+            justify-content: center;
+        }
+
+        //Claim in Section TPL 05
+        &-section.bottomleftbox {
+            transform: translateX(0%) translateY(0%) translateZ(0);
+            width: 25%;
+            height: calc(100% / 3 * 2);
+            justify-content: center;
+            @include positionInDiv (bottom, $claimOffset, left);
+
+            @include breakpoint(medium) {
+                padding: $global-padding;
+            }
+
+            @include breakpoint(large down) {
+                width: 85%;
+                max-height: 70%;
+                @include positionInDiv (bottom, $mobileClaimOffset, left);
+            }
+
+            &+.claim-button {
+                @include positionInDiv (bottom, $claimOffset, left);
+
+                @include breakpoint(large down) {
+                    @include positionInDiv (bottom, $mobileClaimOffset, left);
+                }
+            }
+        }
+    }
+
+    // Tpl_07 (symétrie du tpl_06)
+    &.tpl_07 {
+
+        .textsWrapper {
+            order: 1;
+        }
+
+        .imageWrapper {
+            order: 2;
         }
     }
 
@@ -105,7 +146,7 @@ body.fullScrolled {
     .woody-component-claims-block {
         transform: translateY(-50px); // To stay above cookie consent banner
     }
-    
+
     .claim-content {
         @include breakpoint(large down) {
             font-size: 14px;

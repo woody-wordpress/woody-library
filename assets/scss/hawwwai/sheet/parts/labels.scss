@@ -1,0 +1,43 @@
+.woody-component-sheet-labels {
+    .label-item {
+        &:not(.specificity-label-item) {
+            border: 1px solid lighten($medium-gray, 15%);
+        }
+
+        &.unavailable {
+            cursor: not-allowed;
+
+            img {
+                filter: grayscale(100%);
+                opacity: 0.2;
+            }
+        }
+
+        img {
+            height: auto;
+            max-width: 75px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .label-name {
+            font-size: rem-calc(14);
+        }
+    }
+
+    .labels-list {
+        &.tourism_handicap {
+            img {
+                max-width: 50px;
+            }
+        }
+
+        &.tourism_handicap_dordogne {
+            img {
+                max-height: 40px;
+                max-width: initial;
+                width: auto;
+            }
+        }
+    }
+}

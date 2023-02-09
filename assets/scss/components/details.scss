@@ -1,0 +1,44 @@
+details {
+    summary {
+        display: block;
+
+        &::marker {
+            display: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &[open] {
+        display: block;
+        padding-bottom: 30px;
+
+        &+#hide-after-open-details {
+            display: none;
+        }
+
+        summary {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        #open-details {
+            display: none;
+        }
+
+        #close-details {
+            display: block;
+        }
+    }
+
+    #close-details {
+        display: none;
+    }
+}
+
+::-webkit-details-marker {
+    display: none;
+}

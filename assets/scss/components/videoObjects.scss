@@ -1,3 +1,78 @@
 .videoObject-video {
     width: 100%;
 }
+
+.videoObject {
+
+    .sound-switch {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        z-index: 10;
+
+        @include breakpoint(xmedium) {
+            bottom: 30px;
+            right: 30px;
+        }
+
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(black, .4);
+            transition: .4s;
+            border-radius: 34px;
+
+            @include wicon(082-son-off, after);
+
+            &:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+
+            &:after {
+                position: absolute;
+                left: 10px;
+                top: 5px;
+                transition: .4s;
+            }
+        }
+
+        input:checked+.slider {
+            background-color: $primary-color;
+            @include wicon(083-son-on, after);
+
+            &:after {
+                left: 35px;
+                transform: rotate(360deg);
+            }
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px $primary-color;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+    }
+}

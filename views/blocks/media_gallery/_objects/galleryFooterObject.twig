@@ -1,11 +1,23 @@
  {% if gallery_buttons|default %}
         <div class="gallery-footer {{ customClasses|default }}">
             {% if gallery_buttons.alignement == 'horizontal' %}
-                {% set list_classes = 'align-center align-middle wrap' %}
+                {% if gallery_buttons.justify == 'left' %}
+                    {% set list_classes = 'align-left align-middle wrap' %}
+                {% elseif gallery_buttons.justify == 'right' %}
+                    {% set list_classes = 'align-right align-middle wrap' %}
+                {% else %}
+                    {% set list_classes = 'align-center align-middle wrap' %}
+                {% endif %}
             {% elseif gallery_buttons.alignement == 'vertical' %}
-                {% set list_classes = 'flex-dir-column align-center align-middle' %}
+                {% if gallery_buttons.justify == 'left' %}
+                    {% set list_classes = 'flex-dir-column align-center align-top wrap' %}
+                {% elseif gallery_buttons.justify == 'right' %}
+                    {% set list_classes = 'flex-dir-column align-center align-bottom wrap' %}
+                {% else %}
+                    {% set list_classes = 'flex-dir-column align-center align-middle wrap' %}
+                {% endif %}
             {% endif %}
-            <ul class="list-unstyled flex-container {{ list_classes|default }}">
+            <ul class="list-unstyled flex-container grid-gap-sm {{ list_classes|default }}">
                 {% for button in gallery_buttons.links %}
                     <li class="list-item">
                         {% include '_objects/buttonObject.twig' %}

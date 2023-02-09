@@ -3,6 +3,7 @@
     "name": "Template 03 - Photo carré à droite",
     "description": "Citation avec photo à droite + texte et auteur à gauche (auteur aligné à gauche)",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": [
         "group_5b042e516ef62"
     ],

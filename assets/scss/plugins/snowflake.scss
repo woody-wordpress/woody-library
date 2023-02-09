@@ -60,6 +60,10 @@ $snowflake--slope-black: #131313 !default;
             &.close {
                 background-color: $snowflake--slope-red;
             }
+
+            &.prepare {
+                background-color: $dark-gray;
+            }
         }
     }
 
@@ -780,6 +784,10 @@ $hex in $foundation-palette {
 
                 &.openning {
                     background: $warning-color;
+                }
+
+                &.prepare {
+                    background: $dark-gray;
                 }
             }
         }

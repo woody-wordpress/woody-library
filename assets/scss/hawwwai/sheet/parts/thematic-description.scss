@@ -1,0 +1,31 @@
+.woody-component-sheet-thematic-description {
+    .thematic-item {
+        border-color: $primary-color;
+        border-style: $bg-params-border-style;
+        border-width: $bg-params-border-width;
+    }
+
+    .thematic-title {
+        color: $primary-color;
+    }
+
+    .thematic-item {
+        &[data-tiff="390.20.02.05.01"] {
+            border-color: $durable-tourism-color;
+
+            .thematic-title {
+                color: $durable-tourism-color;
+            }
+        }
+
+        &[data-tiff="418.20.02.05.02"] {
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+
+            .thematic-icon {
+                padding-left: 30px;
+                padding-right: 0;
+            }
+        }
+    }
+}

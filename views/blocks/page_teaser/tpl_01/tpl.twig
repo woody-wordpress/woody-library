@@ -1,4 +1,4 @@
-<div class="woody-component woody-component-teaser {{ customIndexClass|default('tpl_01') }} trip-info-banner {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }}">
+<div class="woody-component woody-component-teaser {{ customIndexClass|default('tpl_01') }} trip-info-banner {{ classes|default }}{{ background_img ? ' has-bgimg' }}{{ page_teaser_add_media ? ' has-media' }} {{ customClasses|default }}">
     {% include 'blocks/page_teaser/_objects/backgroundImage.twig' %}
     {{ breadcrumb|default }}
     <div class="grid-container isRel">

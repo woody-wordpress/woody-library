@@ -57,6 +57,12 @@
                     background: rgba($primary-color, 0.07);
                 }
             }
+
+            .profile-result-complement {
+                font-size: rem-calc(12);
+                font-weight: $global-weight-normal;
+                color: darken($medium-gray, 10%);
+            }
         }
     }
 
@@ -100,7 +106,6 @@
 
         .flowchart-img {
             margin-top: -35px;
-            margin-bottom: 10px;
 
             @include breakpoint(large) {
                 margin-top: -50px;
@@ -207,16 +212,21 @@
         }
 
         .link-profile {
-            font-size: rem-calc(13);
             color: $black;
             transition: 0.25s ease-in-out;
 
-            @include breakpoint(large) {
-                font-size: rem-calc(16);
-            }
-
             &:hover {
                 color: $primary-color;
+            }
+        }
+
+        .name {
+            display: block;
+            font-size: rem-calc(13);
+            margin-top: 15px;
+
+            @include breakpoint(large) {
+                font-size: rem-calc(16);
             }
         }
 
@@ -228,6 +238,11 @@
             @include breakpoint(large) {
                 font-size: rem-calc(14);
             }
+        }
+
+        // On masque les catégories de profils dans .flowchart-item
+        [data-profile-taxo-hide="true"] {
+            display: none;
         }
 
         .more-profiles-button {
@@ -261,6 +276,13 @@
             }
         }
 
+        // On masque les boutons d'action si le profil est de type "entity"
+        &[data-profile-type="entity"] {
+            .more-actions-button {
+                display: none;
+            }
+        }
+
         &:hover,
         &.more-actions-list-is-opened {
             border-color: $primary-color;
@@ -287,6 +309,11 @@
             width: $flowchart-mini-item-img-size;
             max-width: $flowchart-mini-item-img-size;
             margin-right: 5px;
+        }
+
+        // On masque les catégories de profils dans .flowchart-mini-item
+        [data-mini-profile-taxo-hide="true"] {
+            display: none;
         }
     }
 

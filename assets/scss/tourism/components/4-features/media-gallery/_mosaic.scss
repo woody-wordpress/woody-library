@@ -145,6 +145,7 @@
     flex-direction: column;
     position: relative;
     justify-content: center;
+    z-index: 0;
 
     .sheet-header-logos {
         margin-top: -25px;

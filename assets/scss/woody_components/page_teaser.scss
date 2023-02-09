@@ -88,8 +88,13 @@
         opacity: 0;
     }
 
-    .pageTeaserMedia:hover .imageObject-caption {
-        opacity: 1;
+    &.has-bgimg,
+    .pageTeaserMedia {
+        &:hover {
+            .imageObject-caption {
+                opacity: 1;
+            }
+        }
     }
 
     .shares-wrapper {
@@ -209,7 +214,14 @@
         }
 
         @include breakpoint(xmedium) {
-            height: calc(100vw / 3);
+            min-height: calc(100vw / 3);
+        }
+
+
+        .woody-component-breadcrumb {
+                @include breakpoint(medium down) {
+                    padding: 15px 30px !important;
+                }
         }
 
         >.grid-container {
@@ -220,25 +232,11 @@
             }
 
             @include breakpoint(xmedium up) {
-                height: calc(100vw / 3);
-                position: absolute;
-                left: 50%;
-                bottom: 0;
-                transform: translateX(-50%);
                 padding-bottom: 60px;
-                overflow: hidden;
             }
 
             .grid-x {
                 margin-top: auto;
-            }
-
-            .woody-component-breadcrumb {
-                @include breakpoint(medium down) {
-                    position: absolute;
-                    top: 0;
-                    left: 30px;
-                }
             }
         }
 

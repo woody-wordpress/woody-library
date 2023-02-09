@@ -2,9 +2,19 @@
     @include tabs-title;
 }
 
+// Evite le prev slide non-visible de dépasser sur le slide actif
+.swiper-slide-prev:not(.swiper-slide-visible) {
+    transform: translateX(-1px);
+}
+
+// Evite le next slide non-visible de dépasser sur le slide actif
+.swiper-slide-next:not(.swiper-slide-visible) {
+    transform: translateX(1px);
+}
+
 .tabs-dlink-title,
 .tabs-title {
-    >.tab-link {
+    > .tab-link {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -41,7 +51,6 @@
             @include breakpoint(large) {
                 margin-top: 10px;
             }
-
         }
     }
 }
@@ -79,13 +88,13 @@
             }
         }
 
-        >li:nth-of-type(1) {
+        > li:nth-of-type(1) {
             .tab-link:before {
                 display: none;
             }
         }
 
-        >li:nth-last-of-type(1) {
+        > li:nth-last-of-type(1) {
             .tab-link:after {
                 display: none;
             }
@@ -93,7 +102,7 @@
     }
 
     .tabs-rail-bottom {
-        .tabs-title>.tab-link {
+        .tabs-title > .tab-link {
             color: $tabs-rail-color;
         }
 
@@ -150,7 +159,7 @@
         .tabs-title {
             @include padding(0, 0.25, 0, 0.25);
 
-            >.tab-link {
+            > .tab-link {
                 flex-direction: row;
             }
         }
@@ -184,7 +193,7 @@
                 &:not(:last-child) {
                     a {
                         &:before {
-                            content: '';
+                            content: "";
                             position: absolute;
                             top: 0;
                             right: 0;
@@ -196,7 +205,6 @@
                     }
                 }
             }
-
         }
 
         .is-active {
@@ -213,7 +221,6 @@
     }
 
     .tabs-swiper {
-
         .swiper-container {
             padding: 0 50px !important;
         }
@@ -227,9 +234,9 @@
     }
 
     .tabs-button {
-        grid-gap: calc(#{map-get($grid-column-gutter, 'medium')} / 2);
+        grid-gap: calc(#{map-get($grid-column-gutter, "medium")} / 2);
 
-        .tabs-title>.tab-link {
+        .tabs-title > .tab-link {
             flex-direction: row;
             grid-gap: 5px;
         }
@@ -242,32 +249,32 @@
         .tabs-title.is-active a {
             background-color: $primary-color;
             border-color: $primary-color;
-            color: $white  !important;
+            color: $white !important;
 
             @include root-bg(primary) {
-                background-color: $white  !important;
+                background-color: $white !important;
                 border-color: $white;
-                color: $primary-color  !important;
+                color: $primary-color !important;
             }
 
             @include root-bg(secondary) {
-                background-color: $white  !important;
+                background-color: $white !important;
                 border-color: $white;
-                color: $primary-color  !important;
+                color: $primary-color !important;
             }
 
             @include root-bg($dark-list) {
-                background-color: $white  !important;
+                background-color: $white !important;
                 border-color: $white;
-                color: $primary-color  !important;
+                color: $primary-color !important;
             }
         }
     }
 }
 
 .woody-component-tabs {
-    @include breakpoint (large) {
-        &.tpl_05 {
+    @include breakpoint(large) {
+        &.tpl_vertical {
             display: flex;
             flex-direction: row;
 
@@ -281,6 +288,15 @@
 
             .tabs-vertical {
                 flex-direction: column;
+
+                .tab-link {
+                    flex-direction: row;
+                }
+            }
+        }
+
+        &.tpl_05 {
+            .tabs-vertical {
                 align-items: stretch;
 
                 .tabs-title:not(:first-child) {
@@ -289,7 +305,7 @@
                     &:after {
                         content: "";
                         position: absolute;
-                        bottom:calc(100% - (#{$tabs-vertical-separator-height} / 2));
+                        bottom: calc(100% - (#{$tabs-vertical-separator-height} / 2));
                         left: $tabs-vertical-separator-left-position;
                         height: $tabs-vertical-separator-height;
                         width: $tabs-vertical-separator-width;
@@ -298,8 +314,6 @@
                 }
 
                 .tab-link {
-                    flex-direction: row;
-
                     .wicon {
                         margin-bottom: 0px;
                         margin-right: 10px;
@@ -312,24 +326,24 @@
     // Classes for aligning blocks vertically in grids
     .tabs-alignment {
         &-align-middle {
-            &>.grid-x {
+            & > .grid-x {
                 align-items: center;
             }
         }
 
         &-align-bottom {
-            &>.grid-x {
+            & > .grid-x {
                 align-items: flex-end;
             }
         }
 
         &-align-stretch {
-            &>.grid-x {
+            & > .grid-x {
                 align-items: stretch;
             }
 
-            .cell>.woody-component,
-            .woodyGallery>.woody-component-basic-swiper>.woody-component {
+            .cell > .woody-component,
+            .woodyGallery > .woody-component-basic-swiper > .woody-component {
                 height: 100%;
             }
         }
@@ -341,8 +355,6 @@
         color: $white;
     }
 }
-
-
 
 //RESPONSIVE -> SELECT
 
@@ -385,7 +397,7 @@
                     }
                 }
 
-                &>li {
+                & > li {
                     z-index: -1;
                     width: calc(100% + 4px);
                     display: flex;
@@ -464,7 +476,6 @@
 .swiper-button-next,
 .swiper-button-prev {
     &.tooltip-visible {
-
         .slide-tooltip-next,
         .slide-tooltip-prev {
             opacity: 1;
@@ -488,12 +499,12 @@
     top: 50%;
     transform: translateY(-50%);
     color: $black;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, .2);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 
     .wicon {
         font-size: rem-calc(15);
         margin-right: 5px;
-        color: $black  !important;
+        color: $black !important;
     }
 }
 
@@ -503,4 +514,15 @@
 
 .slide-tooltip-next {
     right: $tooltip-x-offset;
+}
+
+// Fix z-index on Safari
+@include breakpoint(medium down) {
+    .woody-component-tabs .tabs-wrapper ul.tabs > li {
+        z-index: 0;
+
+        &.is-active {
+            z-index: -1;
+        }
+    }
 }

@@ -26,11 +26,11 @@
     {% set maxWidthClass = 'max-width-grid-cards-2' %}
     {% endif %}
     <div
-        class="woody_base_grid_wrapper{{ swResp and items|length > 1 ? ' woody-mobile-swiper swiper-container swResp' }} {{ maxWidthClass|default }}" {% if nb_columns > 1 and swResp %}data-columns="{{nb_columns}}"{% endif %}>
-        <div class="{% block grid_class %}woody_bases_grid tpl_101{% endblock %} align-center grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp and items|length > 1 ? ' swRespW' }} {{ nb_columns > 1 and not swResp ? 'respGrid2' }}">
+        class="woody_base_grid_wrapper{{ swResp and items|length > 1 ? ' woody-mobile-swiper swiper-container swResp' }} {{ maxWidthClass|default }}" {% if mobile_cols > 1 and swResp %}data-columns="{{mobile_cols}}"{% endif %}>
+        <div class="{% block grid_class %}woody_bases_grid tpl_101{% endblock %} align-center grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp and items|length > 1 ? ' swRespW' }} {{ mobile_cols > 1 and not swResp ? 'respGrid2' }}">
             {% if items|default %}
             {% for key, item in items %}
-            <div class="cell{{ swResp and items|length > 1 ? ' swRespS' }} {{ nb_columns > 1 and not swResp ? 'small-6 medium-12'}}">
+            <div class="cell{{ swResp and items|length > 1 ? ' swRespS' }} {{ mobile_cols > 1 and not swResp ? 'small-6 medium-12'}}">
                 {% block the_card %}
                 {% include "cards/#{ card }/tpl.twig" with {
                 'image_style' : image_style,
@@ -39,6 +39,7 @@
                 'card_index':key + 1
                 } %}
                 {% endblock %}
+                {% block the_media_card %}{% endblock %}
             </div>
             {% endfor %}
             {% endif %}

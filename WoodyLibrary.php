@@ -20,6 +20,7 @@ namespace WoodyLibrary\Library\WoodyLibrary;
  */
 
 use Symfony\Component\Finder\Finder;
+use JsonException;
 
 /**
  *
@@ -32,6 +33,7 @@ class WoodyLibrary
         if (function_exists('apply_filters')) {
             $dirs = apply_filters('woody_library_templates_directories', $dirs); // Filter to add directory
         }
+
         return $dirs;
     }
 
@@ -39,11 +41,9 @@ class WoodyLibrary
     {
         $return = [];
         foreach ($components as $component => $val) {
-            if (!empty($val['acf_groups'])) {
-                if (in_array($id, $val['acf_groups'])) {
-                    unset($val['acf_groups']);
-                    $return[$component] = $val;
-                }
+            if (!empty($val['acf_groups']) && in_array($id, $val['acf_groups'])) {
+                unset($val['acf_groups']);
+                $return[$component] = $val;
             }
         }
 
@@ -78,8 +78,7 @@ class WoodyLibrary
     public static function getComponentsData($finder)
     {
         $components = [];
-        foreach ($finder as $key => $folder) {
-
+        foreach ($finder as $folder) {
             // Foreach folder, get full and relative path
             $folder_path = $folder->getRealPath();
             $folder_name  = $folder->getRelativePathname();
@@ -90,25 +89,30 @@ class WoodyLibrary
 
             $jsonsFinder = new Finder();
             $jsonsFinder->files()->name('*.json')->in($folder_path);
-            foreach ($jsonsFinder as $key => $json) {
-                $json_data = file_get_contents($json);
-                $php_data = json_decode($json_data, true);
+            foreach ($jsonsFinder as $json) {
+                try {
+                    $json_data = file_get_contents($json);
+                    $php_data = json_decode($json_data, true, 512, JSON_THROW_ON_ERROR);
+                } catch (JsonException $jsonException) {
+                    wd(sprintf('%s : %s', $jsonException->getMessage(), $json), 'emergency');
+                }
 
                 if (empty($php_data['approved']) || $php_data['approved'] == false) {
                     continue;
                 }
+
                 if (!empty($php_data['acf_groups'])) {
-                    foreach ($php_data['acf_groups'] as $key => $acf_group) {
+                    foreach ($php_data['acf_groups'] as $acf_group) {
                         $components[$name]['acf_groups'][] = $acf_group;
                     }
                 } else {
                     $components[$name]['acf_groups'][] = '';
                 }
 
-                $components[$name]['name'] = (!empty($php_data['name'])) ? $php_data['name'] : '';
-                $components[$name]['description'] = (!empty($php_data['description'])) ? $php_data['description'] : '';
-                $components[$name]['display'] = (!empty($php_data['display'])) ? $php_data['display'] : '';
-                $components[$name]['creation'] = (!empty($php_data['creation'])) ? $php_data['creation'] : '';
+                $components[$name]['name'] = (empty($php_data['name'])) ? '' : $php_data['name'];
+                $components[$name]['description'] = (empty($php_data['description'])) ? '' : $php_data['description'];
+                $components[$name]['display'] = (empty($php_data['display'])) ? '' : $php_data['display'];
+                $components[$name]['creation'] = (empty($php_data['creation'])) ? '' : $php_data['creation'];
             }
 
             // Get all images files (.png) in the targeted folder
@@ -124,10 +128,12 @@ class WoodyLibrary
                     if ($keep == true) {
                         $url[] = $path_part;
                     }
-                    if ($path_part == 'views') {
+
+                    if ($path_part == 'views' || $path_part == 'Views') {
                         $keep = true;
                     }
                 }
+
                 $components[$name]['thumbnails']['small'] = implode('/', $url);
             }
 

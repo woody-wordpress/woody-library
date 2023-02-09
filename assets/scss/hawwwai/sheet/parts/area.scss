@@ -1,0 +1,16 @@
+.woody-component-sheet-area {
+
+    .woody-component-tabs,
+    .woody-component-focus {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .woody-component-focus {
+        padding: 0;
+
+        .swiper-wrapper {
+            height: initial;
+        }
+    }
+}

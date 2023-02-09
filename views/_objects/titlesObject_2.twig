@@ -1,6 +1,6 @@
 {% spaceless %}
-<div class="{{ contextPrefix }}-titles {{ flexOptions|default }}">
-    <div class="{{ contextPrefix }}-texts {{ textsClasses|default }}">
+<div class="{{ contextPrefix }}-titles{{ flexOptions|html_class }}">
+    <div class="{{ contextPrefix }}-texts{{ textsClasses|html_class }}{{ titles.pretitle ? ' has-pretitle' }}{{ titles.title ? ' has-title' }}{{ titles.subtitle ? ' has-subtitle' }}{{ titles.description ? ' has-desc' }}{{ titles.created ? ' has-created' }}">
         {% if titles.pretitle|default %}
             <span class="{{ contextPrefix }}-pretitle">{{ titles.pretitle }}</span>
         {% endif %}
@@ -12,7 +12,7 @@
             {% endif %}
         {% endif %}
         {% if titles.icon_type == 'picto' and titles.woody_icon|default %}
-            <span class="{{ contextPrefix }}-wicon wicon wicon-woody-icons {{ titles.woody_icon }}"></span>
+            <span class="{{ contextPrefix }}-wicon wicon wicon-woody-icons{{ titles.woody_icon|html_class }}"></span>
         {% elseif titles.icon_type == 'img' and titles.icon_img %}
             <img class="img-responsive img-circle" src="{{ titles.icon_img.sizes.thumbnail }}" {% if titles.icon_img.alt %} alt="{{ titles.icon_img.alt }}" {% endif %}/>
         {% endif %}

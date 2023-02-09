@@ -1,0 +1,16 @@
+.woody-component-events {
+    .card {
+        &-tripInfos-wrapper {
+            right: 0;
+        }
+    }
+    .events {
+        &-item {
+            border-left: $events-hawwwai-border $events-hawwwai-border-color;
+            @include breakpoint(large down) {
+                border-left: none;
+                border-bottom: $events-hawwwai-border $events-hawwwai-border-color;
+            }
+        }
+    }
+}

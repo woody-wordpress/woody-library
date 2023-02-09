@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Template 504 - Paysage B",
     "description": "Grille 5 blocs - 5 cartes image et textes (Paysage B + slider au dela de 5)",
+    "lib_design": "OK",
     "lib_type": "lite",
     "acf_groups": [
         "group_5b0d1ed32a384",

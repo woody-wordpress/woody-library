@@ -1,37 +1,47 @@
 {# FORMAT 2:1 #}
 <div
     class="woody-component woody-component-hero {{ classes|default }} {% block index_class %}tpl_01 hero-full-height{% endblock %} isRel {{ page_heading_background_img_opacity|default }} {% if page_heading_img or page_heading_movie.movie_poster_file|default %} bg-black has-bgimg{% endif %}{% if parallax %} parallax-hero{% endif %}{% if blur %} hero-blur{% endif %}{% if page_heading_more_imgs.display_imgs and page_heading_more_imgs.imgs %} has-moreImgs{% endif %}">
-    {% if page_heading_img or page_heading_movie.movie_poster_file|default %}
-    <div class="hero-bg backgroundMedia {{ page_heading_media_type|default }}">
-        {% if parallax %}<div class="rellax" data-rellax-speed="-4">{% endif %}
-            {% if page_heading_media_type == 'img' and page_heading_img.filename|default %}
-            {% if desktopImgSize is not defined %}
-            {% set desktopImgSize = 'ratio_2_1' %}
+    {% block heroMediaWrapper %}
+        {% if page_heading_img or page_heading_movie.movie_poster_file|default %}
+        <div class="hero-bg backgroundMedia {{ page_heading_media_type|default }}">
+            {% if parallax %}
+            <div class="rellax" data-rellax-speed="-4">
             {% endif %}
-            {% include "_objects/imageObject.twig" with {
-            'img' : page_heading_img,
-            'tiny_square' : page_heading_img.sizes.ratio_square_medium,
-            'img_mobile_url' : mobile_page_heading_img.sizes.ratio_square_medium,
-            'image_style' : desktopImgSize
-            } %}
-            {% elseif page_heading_media_type == 'movie'|default %}
-            {% block heroVideo %}
-            {% include '_objects/videoObject.twig' with {
-            'movie' : page_heading_movie,
-            'image_style' : "ratio_2_1",
-            'containerClass' : "heroMediaWrapper",
-            'ratio' : "2",
-            'autoplay': true,
-            'loop': true,
-            'muted' : true,
-            'playsinline' : true
-            } %}
-            {% endblock %}
-            {% endif %}
+                {% if page_heading_media_type == 'img' and page_heading_img.filename|default %}
+                    {% if desktopImgSize is not defined %}
+                        {% set desktopImgSize = 'ratio_2_1' %}
+                    {% endif %}
+                    {% if mobile_img_override_ratio is defined and mobile_img_override_ratio is not empty %}
+                        {% set mobileImgSize = mobile_img_override_ratio %}
+                    {% endif %}
+                    {% if mobileImgSize is not defined %}
+                        {% set mobileImgSize = 'ratio_square_medium' %}
+                    {% endif %}
+                    {% include "_objects/imageObject.twig" with {
+                        'img' : page_heading_img,
+                        'noRespCrop': 'noRespCrop',
+                        'img_mobile_url' : mobile_page_heading_img ? attribute(mobile_page_heading_img.sizes, mobileImgSize) : attribute(page_heading_img.sizes, mobileImgSize),
+                        'image_style' : desktopImgSize
+                    } %}
+                {% elseif page_heading_media_type == 'movie'|default %}
+                    {% block heroVideo %}
+                        {% include '_objects/videoObject.twig' with {
+                            'movie' : page_heading_movie,
+                            'image_style' : "ratio_2_1",
+                            'containerClass' : "heroMediaWrapper",
+                            'ratio' : "2",
+                            'autoplay': true,
+                            'loop': true,
+                            'muted' : true,
+                            'playsinline' : true
+                        } %}
+                    {% endblock %}
+                {% endif %}
 
-            {% if parallax %}</div>{% endif %}
-    </div>
-    {% endif %}
+                {% if parallax %}</div>{% endif %}
+        </div>
+        {% endif %}
+    {% endblock %}
 
     {% block moreImgs %}
     {% if page_heading_more_imgs.display_imgs and page_heading_more_imgs.imgs %}
@@ -72,7 +82,7 @@
     {% if page_heading_tags %}
     <ul class="list-unstyled isAbs flex-container align-middle tagslist">
         {% for tag in page_heading_tags %}
-        <li class="tagslist-item">{{ tag.label }}</li>
+        <li class="tagslist-item" data-term-id="{{ tag.value }}">{{ tag.label }}</li>
         {% endfor %}
     </ul>
     {% endif %}

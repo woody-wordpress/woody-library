@@ -57,7 +57,7 @@ body:not(.no-page-header) {
 
         .heroMediaWrapper .videoObject-video,
         .heroMediaWrapper.videoObject {
-            height: 100%;
+            height: 100% !important;
         }
     }
 
@@ -69,6 +69,10 @@ body:not(.no-page-header) {
                 height: 100%;
             }
         }
+    }
+
+    .imageObject {
+        height: 100%;
     }
 
     .tagslist {
@@ -529,7 +533,7 @@ body:not(.no-page-header) {
     .more {
         color: $white;
         background-color: rgba($black, .7);
-        font-size: rem-calc(32);
+        font-size: rem-calc(16);
         pointer-events: none;
     }
 }
@@ -540,4 +544,49 @@ body:not(.no-page-header) {
     left: $hero-more-imgs-col-left;
     bottom: $hero-more-imgs-col-bottom;
     width: $hero-more-imgs-col-width;
+    grid-gap: $hero-more-imgs-grid-gap;
+}
+
+.mozaic-hero {
+
+    .backgroundMedia,
+    .imageObject {
+        height: 100%;
+    }
+
+    .hero-more-imgs {
+        bottom: 0px;
+        right: 15px;
+        height: 70px;
+    }
+}
+
+.woody-component-hero.tpl_17>.grid-container {
+    @include breakpoint(xmedium down) {
+        padding: 20px;
+
+        >.grid-x {
+            flex-direction: column-reverse;
+            grid-gap: 15px;
+        }
+
+        .toggle-hero-more-imgs {
+            top: 30px;
+            right: 15px;
+        }
+    }
+
+    @include breakpoint(xmedium) {
+
+        .heroPlyr-wrapper,
+        .heroPlyr-wrapper iframe,
+        .videoObject,
+        .videoObject-video {
+            height: 100%;
+        }
+    }
+}
+
+.woody-component-hero.tpl_17 .videoObject {
+    position: relative;
 }

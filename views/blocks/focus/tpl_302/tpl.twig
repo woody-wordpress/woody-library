@@ -1,11 +1,11 @@
 {% set swiperOut = 3 %}
-{% set customClasses = 'isRel' %}
+{% set customClasses = customClasses|default('isRel') %}
 {% extends '_objects/bgParamsObject.twig' %}
 {% block woodyBlockType %}focus{% endblock %}
 {% block indexClass %}{{ customIndexClass|default('302') }}{% endblock %}
 {% block woodyComponentContent %}
     {% set swiper_options = {
-        'slidesPerView' : 3,
+        'slidesPerView' : slidesPerView|default(3),
         'spaceBetween' : spaceBetween,
         'initialSlide': customInitialSlide|default(0),
         'centeredSlides': customCenterSlides|default(false),
@@ -27,6 +27,8 @@
         'image_style' : customImageStyle|default("ratio_square"),
         'fallbackMaxLength' : 3,
         'styleClass' : customSwiperStyleClass|default,
+        'swiperCustomClasses': swiperCustomClasses|default(""),
         'isRel': true
     } %}
 {% endblock %}
+

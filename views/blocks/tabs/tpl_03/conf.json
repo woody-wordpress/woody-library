@@ -3,6 +3,7 @@
     "name": "Template 03",
     "description": "Grilles de blocs au choix dans des onglets (barre d'onglets au dessus)",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": ["group_5b471f2922b04"],
     "vars": ["tabs"]
 }

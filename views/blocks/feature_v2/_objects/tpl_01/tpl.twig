@@ -1,5 +1,7 @@
 {% set display = item.display %}
-{% set customClasses = 'full-height' %}
+{% if customClasses is not defined  %}
+    {% set customClasses = 'full-height text-center' %}
+{% endif %}
 {% extends '_objects/bgParamsObject.twig' %}
 {% block woodyBlockType %}feature{% endblock %}
 {% block indexClass %}{{ customFeature|default('01') }}{% endblock %}
@@ -12,6 +14,11 @@
         'contextPrefix' : "feature",
         'flexOptions' : customFlexOptions|default("flex-container flex-dir-column align-center align-middle text-center")
     } %}
+
+    {% if item.link and item.link.title and item.link.url and item.display_button %}
+    <span class="feature-button button primary" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" title="{{ item.link.title|default(item.title) }}">{{ item.link.title }}</span>
+    {% endif %}
+
     {% if item.link %}
         </a>
     {% endif %}

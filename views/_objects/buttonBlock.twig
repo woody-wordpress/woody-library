@@ -6,22 +6,29 @@
 {% endif %}
 {% if block_buttons.links or attribute(_context, block_button_prefix ~ '_phone') %}
     <div class="cell medium-4 {{block_button_prefix}}-actions flex-container flex-dir-column align-center">
+
         {% if block_buttons.alignement == 'horizontal' %}
-            {% if layout == 'centered' %}
-                {% set list_classes = 'align-center align-top wrap' %}
+            {% if block_buttons.justify == 'left' %}
+                {% set list_classes = 'align-left align-middle wrap grid-gap-sm' %}
+            {% elseif block_buttons.justify == 'right' %}
+                {% set list_classes = 'align-right align-middle wrap grid-gap-sm' %}
             {% else %}
-                {% set list_classes = 'align-left align-top wrap' %}
+                {% set list_classes = 'align-center align-middle wrap grid-gap-sm' %}
             {% endif %}
+
         {% elseif block_buttons.alignement == 'vertical' %}
-            {% if layout == 'centered' %}
-                {% set list_classes = 'flex-dir-column align-center align-middle' %}
+            {% if block_buttons.justify == 'left' %}
+                {% set list_classes = 'flex-dir-column align-center align-top wrap grid-gap-sm' %}
+            {% elseif block_buttons.justify == 'right' %}
+                {% set list_classes = 'flex-dir-column align-center align-bottom wrap grid-gap-sm' %}
             {% else %}
-                {% set list_classes = 'flex-dir-column align-left align-top' %}
+                {% set list_classes = 'flex-dir-column align-center align-middle wrap grid-gap-sm' %}
             {% endif %}
         {% endif %}
+
         {% block block_link %}
             {% if block_buttons.links|default %}
-                <ul class="list-unstyled flex-container {{ list_classes|default }}">
+                <ul class="list-unstyled flex-container{{ list_classes|html_class }}">
                     {% for button in block_buttons.links %}
                         <li class="list-item">
                             {% include '_objects/buttonObject.twig' %}

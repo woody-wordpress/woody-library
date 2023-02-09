@@ -1,11 +1,23 @@
 {% if alignement == 'horizontal' %}
-    {% set list_classes = 'align-center align-middle wrap' %}
+    {% if justify == 'left' %}
+        {% set list_classes = 'align-left align-middle wrap' %}
+    {% elseif justify == 'right' %}
+        {% set list_classes = 'align-right align-middle wrap' %}
+    {% else %}
+        {% set list_classes = 'align-center align-middle wrap' %}
+    {% endif %}
 {% elseif alignement == 'vertical' %}
-    {% set list_classes = 'flex-dir-column align-center align-middle' %}
+    {% if justify == 'left' %}
+        {% set list_classes = 'flex-dir-column align-center align-top' %}
+    {% elseif justify == 'right' %}
+        {% set list_classes = 'flex-dir-column align-center align-bottom' %}
+    {% else %}
+        {% set list_classes = 'flex-dir-column align-center align-middle' %}
+    {% endif %}
 {% endif %}
 <div class="woody-component woody-component-links tpl_01">
     {% if links|default %}
-        <ul class="list-unstyled flex-container {{ list_classes|default }}" data-equalizer="linksHeight">
+        <ul class="list-unstyled flex-container grid-gap-sm {{ list_classes|default }}" data-equalizer="linksHeight">
             {% for button in links %}
                 <li class="list-item">
                     {% include '_objects/buttonObject.twig' %}

@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Template 104 - Paysage B",
     "description": "Grille bloc 100% - Cartes texte à gauche sous l'image (Paysage B + slider au delà de 1)",
+    "lib_design": "OK",
     "lib_type": "lite",
     "acf_groups": [
         "group_5b0d1ed32a384",

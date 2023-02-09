@@ -2,7 +2,7 @@ import WoodyFilter from '../filter';
 import SummaryAccordion from './ext_accordion';
 
 export default class Summary {
-    constructor(el) {
+    constructor (el) {
         this.element = el;
         this.offset = this.element.getBoundingClientRect().top + document.documentElement.scrollTop;
         this.summaryItems = this.element.querySelectorAll('.summary-item');
@@ -14,7 +14,7 @@ export default class Summary {
         this.init();
     }
 
-    init() {
+    init () {
         this.trigger('summary:init');
         this.setOffsetRatio();
         this.manageSections();
@@ -26,15 +26,15 @@ export default class Summary {
     }
 
     // ******** Run Classes ********
-    loadChildClasses() {
+    loadChildClasses () {
         if (this.element.classList.contains('summary-accordion')) new SummaryAccordion(this.element);
     }
 
-    setOffsetRatio() {
+    setOffsetRatio () {
         this.offsetRatio = window.innerHeight / 4;
     }
 
-    manageSections() {
+    manageSections () {
         let self = this;
         this.element.querySelectorAll('.summary-item > [data-section]').forEach(el => {
             self.sections.push({
@@ -44,7 +44,7 @@ export default class Summary {
         })
     }
 
-    scrollEvent() {
+    scrollEvent () {
         //TODO: REFAC: This should be into a Singleton
         let self = this;
         let lastKnownScrollPosition = 0;
@@ -62,7 +62,7 @@ export default class Summary {
         });
     }
 
-    events() {
+    events () {
         let self = this;
         // On Scroll
         this.scrollEvent();
@@ -79,21 +79,21 @@ export default class Summary {
     }
 
     // Self class Events
-    on(event, callback) {
+    on (event, callback) {
         this.element.addEventListener(event, callback);
     }
 
-    trigger(event) {
+    trigger (event) {
         this.element.dispatchEvent(new Event(event));
     }
 
-    scrolling() {
+    scrolling () {
         if (this.element.classList.contains('fixed-summary')) this.manageFixedSummary();
         this.manageActiveSection();
         this.trigger('summary:scrolling');
     }
 
-    manageFixedSummary() {
+    manageFixedSummary () {
         let adminbar = document.querySelector('#wpadminbar') ? document.querySelector('#wpadminbar').offsetHeight : 0;
         let summary_offset_modifier = WoodyFilter.apply('summary_offset_modifier', 0); //Hook var
         if (this.scrollPos - summary_offset_modifier >= this.offset - adminbar) {
@@ -107,25 +107,27 @@ export default class Summary {
         }
     }
 
-    manageActiveSection() {
+    manageActiveSection () {
         let self = this;
         let index = 0;
         this.sections.forEach(section => {
-            let screenOffset = section.element.getBoundingClientRect();
-            if (screenOffset.top <= 0 + self.offsetRatio && screenOffset.bottom >= 0 + self.offsetRatio) {
-                if (self.currentSection !== section.id) {
-                    self.currentSection = section.id;
-                    let oldActive = self.element.querySelector('.summary-item [data-section].active');
-                    let newActive = self.element.querySelector('[data-section="' + section.id + '"]');
-                    if (!!oldActive) {
-                        oldActive.classList.remove('active');
-                        oldActive.closest('.summary-item').classList.remove('active');
-                    }
-                    if (!!newActive) {
-                        newActive.classList.add('active');
-                        newActive.closest('.summary-item').classList.add('active');
-                        self.currentIndex = index;
-                        self.trigger('summary:section:changed');
+            if (section.element !== null) {
+                let screenOffset = section.element.getBoundingClientRect();
+                if (screenOffset.top <= 0 + self.offsetRatio && screenOffset.bottom >= 0 + self.offsetRatio) {
+                    if (self.currentSection !== section.id) {
+                        self.currentSection = section.id;
+                        let oldActive = self.element.querySelector('.summary-item [data-section].active');
+                        let newActive = self.element.querySelector('[data-section="' + section.id + '"]');
+                        if (!!oldActive) {
+                            oldActive.classList.remove('active');
+                            oldActive.closest('.summary-item').classList.remove('active');
+                        }
+                        if (!!newActive) {
+                            newActive.classList.add('active');
+                            newActive.closest('.summary-item').classList.add('active');
+                            self.currentIndex = index;
+                            self.trigger('summary:section:changed');
+                        }
                     }
                 }
             }
@@ -133,16 +135,18 @@ export default class Summary {
         })
     }
 
-    fixedSummarySize() {
+    fixedSummarySize () {
         if ((this.element.classList.contains('fixed-summary')) && (window.innerWidth >= 1200)) {
             // Si c'est un fixed-summary au dessus de 1200 OU un summary accordion en dessous de 1200
             let summaryContainer = this.element.closest('.cell');
             // Ajout de la height de base à son container pour éviter le saut du contenu au scroll
-            summaryContainer.style.height = summaryContainer.offsetHeight + 'px';
+            if (summaryContainer !== null) {
+                summaryContainer.style.height = summaryContainer.offsetHeight + 'px';
+            }
         }
     }
 
-    hideFixedSummary() {
+    hideFixedSummary () {
         // Dans le cas d'un fixed summary qui ne se fixe pas en haut de page
         if (this.element.classList.contains('fixed-summary') && !this.element.classList.contains('fixedTop')) {
             let self = this,
@@ -172,7 +176,7 @@ export default class Summary {
         }
     }
 
-    isVisible(element) {
+    isVisible (element) {
         let bounding = element.getBoundingClientRect();
 
         if ((bounding.top > 0 || bounding.bottom > 0) && bounding.top < (window.innerHeight || document.documentElement.clientHeight)) {
@@ -182,17 +186,17 @@ export default class Summary {
         }
     }
 
-    manageScrollToSection() {
+    manageScrollToSection () {
         if (window.innerWidth >= 1200) {
             // Déclaration des variables globales
             let self = this,
-            allHeight = 0;
+                allHeight = 0;
 
             // Definition des fonctions globales
-            function getSummaryHeight() {
+            function getSummaryHeight () {
                 return self.element.clientHeight;
             }
-            function getNavigationHeight() {
+            function getNavigationHeight () {
                 return document.querySelector('.woody-component-headnavs').clientHeight;
             }
 
@@ -202,33 +206,35 @@ export default class Summary {
                     el.addEventListener('click', (e) => {
 
                         // Récupération de l'ancre
-                        let target = document.querySelector(`.page-section${el.dataset.section}`);
+                        let target = document.querySelector(`.page-section${el.dataset.section}`) || document.querySelector(`.sheet-part${el.dataset.section}`);
                         e.preventDefault();
 
-                        // Si scroll-down
-                        if (document.querySelector('body.scrolling-down')) {
-                            if (self.element.classList.contains('isFixed')) {
-                                if (target.offsetTop < window.pageYOffset) {
-                                    allHeight = getSummaryHeight() + getNavigationHeight();
+                        if (target !== null) {
+                            // Si scroll-down
+                            if (document.querySelector('body.scrolling-down')) {
+                                if (self.element.classList.contains('isFixed')) {
+                                    if (target.offsetTop < window.pageYOffset) {
+                                        allHeight = getSummaryHeight() + getNavigationHeight();
+                                    }
+                                    else {
+                                        allHeight = getSummaryHeight();
+                                    }
                                 }
                                 else {
                                     allHeight = getSummaryHeight();
                                 }
                             }
-                            else {
-                                allHeight = getSummaryHeight();
+                            // Si scroll-up
+                            else if (document.querySelector('body.scrolling-up')) {
+                                if (target.offsetTop > window.pageYOffset) {
+                                    allHeight = getSummaryHeight();
+                                }
+                                else {
+                                    allHeight = getSummaryHeight() + getNavigationHeight();
+                                }
                             }
+                            window.scrollTo(0, target.offsetTop - allHeight);
                         }
-                        // Si scroll-up
-                        else if (document.querySelector('body.scrolling-up')) {
-                            if (target.offsetTop > window.pageYOffset) {
-                                allHeight = getSummaryHeight();
-                            }
-                            else {
-                                allHeight = getSummaryHeight() + getNavigationHeight();
-                            }
-                        }
-                        window.scrollTo(0, target.offsetTop - allHeight);
                     });
                 });
             }
@@ -239,25 +245,27 @@ export default class Summary {
                     el.addEventListener('click', (e) => {
 
                         // Récupération de l'ancre
-                        let target = document.querySelector(`.page-section${el.dataset.section}`);
+                        let target = document.querySelector(`.page-section${el.dataset.section}`) || document.querySelector(`.sheet-part${el.dataset.section}`);
                         e.preventDefault();
 
-                        // Si scroll-down
-                        if (document.querySelector('body.scrolling-down')) {
-                            if (self.element.classList.contains('isFixed')) {
+                        if (target !== null) {
+                            // Si scroll-down
+                            if (document.querySelector('body.scrolling-down')) {
+                                if (self.element.classList.contains('isFixed')) {
+                                    if (target.offsetTop < window.pageYOffset) {
+                                        allHeight = getNavigationHeight();
+                                    }
+                                }
+                            }
+
+                            // Si scroll-up
+                            else if (document.querySelector('body.scrolling-up')) {
                                 if (target.offsetTop < window.pageYOffset) {
                                     allHeight = getNavigationHeight();
                                 }
                             }
+                            window.scrollTo(0, target.offsetTop - allHeight);
                         }
-
-                        // Si scroll-up
-                        else if (document.querySelector('body.scrolling-up')) {
-                            if (target.offsetTop < window.pageYOffset) {
-                                allHeight = getNavigationHeight();
-                            }
-                        }
-                        window.scrollTo(0, target.offsetTop - allHeight);
                     });
                 });
             }

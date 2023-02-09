@@ -1,8 +1,9 @@
 {% spaceless %}
 {% set cardPriceClasses = 'priceTag flex-container flex-dir-column align-center align-middle' %}
 
-<div class="{{ contextPrefix }}-titles {{ flexOptions|default }} isRel">
+<div class="{{ contextPrefix }}-titles{{ flexOptions|html_class }} isRel">
 
+    {{ block("fairguestGrade", "_objects/titlesObject.twig") }}
     {{ block("cardIcon", "_objects/titlesObject.twig") }}
     {{ block("cardDates", "_objects/titlesObject.twig") }}
     {{ block("sheetLocomotions", "_objects/titlesObject.twig") }}

@@ -34,6 +34,9 @@
                         {% if item.contacts.mail %}
                             <a class="profile-mail flex-container align-middle" href="mailto:{{ item.contacts.mail }}">{{ item.contacts.mail }}</a>
                         {% endif %}
+                        {% if item.contacts.mailto %}
+                            <a class="profile-mailto flex-container align-middle" data-to="{{ item.contacts.mailto }}">{{ __('Envoyer un email', 'woody-theme') }}</a>
+                        {% endif %}
                         {% if item.contacts.phone %}
                             <a class="profile-phone flex-container align-middle" href="tel:{{ item.contacts.phone }}">{{ item.contacts.phone }}</a>
                         {% endif %}

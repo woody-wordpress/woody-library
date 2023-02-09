@@ -278,19 +278,19 @@
     // UP
     @if $direction==up {
         &:before {
-            right: calc(0% - #{$w-tooltip-box-size} * 1.5);
+            left: 50%;
             bottom: calc(100% + #{$w-tooltip-box-size});
             border-top: $w-tooltip-border;
             border-radius: $w-tooltip-radius;
-            transform: translateY(10px) scale(1.1);
+            transform: translateX(-50%) translateY(10px) scale(1.1);
             transform-origin: bottom center;
         }
 
         &:after {
             @include triangle($w-tooltip-box-size, $w-tooltip-bg, down);
-            right: 0;
+            left: 50%;
             bottom: calc(100% - #{$w-tooltip-box-size} / 2);
-            transform: translateY(10px) scale(1.1);
+            transform: translateX(-50%) translateY(10px) scale(1.1);
             transform-origin: bottom center;
         }
     }
@@ -318,19 +318,19 @@
     // DOWN
     @else if $direction==down {
         &:before {
-            right: calc(0% - #{$w-tooltip-box-size} * 1.5);
+            left: 50%;
             top: calc(100% + #{$w-tooltip-box-size});
             border-bottom: $w-tooltip-border;
             border-radius: $w-tooltip-radius;
-            transform: translateY(-10px) scale(1.1);
+            transform: translateX(-50%) translateY(-10px) scale(1.1);
             transform-origin: top center;
         }
 
         &:after {
             @include triangle($w-tooltip-box-size, $w-tooltip-bg, up);
-            right: 0;
+            left: 50%;
             top: calc(100% - #{$w-tooltip-box-size} / 2);
-            transform: translateY(-10px) scale(1.1);
+            transform: translateX(-50%) translateY(-10px) scale(1.1);
             transform-origin: top center;
         }
     }
@@ -365,6 +365,10 @@
         &:after {
             opacity: 1;
             transform: translateX(0) scale(1);
+
+            @if $direction==up or $direction==down {
+                transform: translateX(-50%) scale(1);
+            }
         }
     }
 }
@@ -1066,16 +1070,22 @@
 
 @mixin border($size: 1px, $type: solid, $color: $black, $opacity: .2, $side: all) {
     $opacity: $opacity * 100%;
-    @if $side == all {
+
+    @if $side==all {
         border: $size $type mix($color, $white, $opacity);
-    } @else {
+    }
+
+    @else {
         border-#{$side}: $size $type mix($color, $white, $opacity);
     }
+
     @include root-bg($foundation-palette) {
         @if in_list($dark-list, $current-loop-color) {
-            @if $side == all {
+            @if $side==all {
                 border-color: mix($white, $current-loop-hex, $opacity);
-            } @else {
+            }
+
+            @else {
                 border-#{$side}-color: mix($white, $current-loop-hex, $opacity);
             }
         }
@@ -1086,4 +1096,19 @@
     @include border($size, $type, $color, $opacity);
     margin-top: -1px;
     margin-left: -1px;
+}
+
+@mixin positionInDiv ($alignmentY, $offsetValue, $offetSideX) {
+
+    #{$offetSideX}: $offsetValue;
+    #{$alignmentY}: 0;
+
+    @if $alignmentY==bottom {
+        top: initial;
+    }
+
+    @if $alignmentY==top {
+        bottom: initial;
+    }
+
 }

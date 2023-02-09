@@ -32,7 +32,7 @@
         } %}
     {% endif %}
 
-    <div class="card-section {{ texts_pos|default('bottomcenterBox') }} fcbCol {% if item.profil %}has-profile{% endif %}">
+    <div class="card-section {{ texts_pos|default('bottomcenterBox') }} fcbCol {% if item.profil %}has-profile{% endif %} {% if display_button and (item.link.link_label or item.link.title) %}has-button{% endif %}">
         {{ block('card_terms', 'cards/basic_card/tpl_01/tpl.twig') }}
         {{ block('card_titles', 'cards/basic_card/tpl_01/tpl.twig') }}
         {{ block('card_profile', 'cards/basic_card/tpl_01/tpl.twig') }}

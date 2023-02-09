@@ -1,3 +1,4 @@
+{% spaceless %}
 {% if block_titles.title or block_titles.pretitle or block_titles.subtitle %}
 {% set classes = [
     'generic-block-header',
@@ -47,3 +48,4 @@
     {% endif %}
 </div>
 {% endif %}
+{% endspaceless %}

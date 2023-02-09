@@ -17,10 +17,10 @@
             'image_style' : customImageStyleFirst|default("ratio_4_3"),
         }%}
     {% else %}
-        <div class="woody-mobile-swiper swiper-container {{ swResp ? ' swResp' }}" {% if nb_columns > 1 %}data-columns="{{ nb_columns|default }}"{% endif %}>
-            <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp ? ' swRespW' }} {{ nb_columns > 1 and not swResp ? 'respGrid2' }}">
+        <div class="woody-mobile-swiper swiper-container {{ swResp ? ' swResp' }}" {% if mobile_cols > 1 %}data-columns="{{ mobile_cols|default }}"{% endif %}>
+            <div class="grid-x{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}{{ swResp ? ' swRespW' }} {{ mobile_cols > 1 and not swResp ? 'respGrid2' }}">
                 {% for key, item in items[: 2] %}
-                    <div class="cell medium-6 large-4{{ swResp ? ' swRespS' }} {{ nb_columns > 1 and not swResp ? 'small-6' }}">
+                    <div class="cell medium-6 large-4{{ swResp ? ' swRespS' }} {{ mobile_cols > 1 and not swResp ? 'small-6' }}">
                         {% include "cards/#{customCard}/tpl.twig" with {
                             'image_style' : customImageStyleFirst|default("ratio_4_3"),
                             'page_type' : item.page_type,
@@ -40,7 +40,7 @@
                     </div>
                 {% endfor %}
                 {% for key, item in items[3:2] %}
-                    <div class="cell medium-6{{ swResp ? ' swRespS' }} {{ nb_columns > 1 and not swResp ? 'small-6' }}">
+                    <div class="cell medium-6{{ swResp ? ' swRespS' }} {{ mobile_cols > 1 and not swResp ? 'small-6' }}">
                         {% include "cards/#{customCard}/tpl.twig" with {
                             'image_style' : customImageStyleSecond|default("ratio_16_9"),
                             'page_type' : item.page_type,

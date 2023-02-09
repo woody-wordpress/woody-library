@@ -1,9 +1,9 @@
 {% extends '_objects/gridObject.twig' %}
 {% block grid_items %}
-<div class="grid_1col_tpl_01 grid-x {{ alignment|default }} {{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
+<div class="grid_1col_tpl_01 grid-x{{ alignment|html_class }}{{ no_padding == 0 ? ' grid-padding-x grid-padding-y' }}">
     {% if items|default %}
         {% for key, item in items %}
-            <div class="cell xmedium-down-order-{{resp_order[key]|default(0)}}">
+            <div class="cell xmedium-down-order-{{resp_order[key]|default(9)}}">
                 {{ item }}
             </div>
         {% endfor %}

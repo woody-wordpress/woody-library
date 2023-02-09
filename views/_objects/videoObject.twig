@@ -1,11 +1,11 @@
 {% spaceless %}
-    <div class="videoObject {{ containerClass|default }}" itemprop="video" itemscope="itemscope" itemtype="http://schema.org/VideoObject">
+    <div class="videoObject{{ containerClass|html_class }}" itemprop="video" itemscope="itemscope" itemtype="http://schema.org/VideoObject">
     {% if movie.movie_poster_file.title|default %}
         <span class="hide videoObject-name" itemprop="name">{{ movie.movie_poster_file.title }}</span>
         <meta itemprop="thumbnailUrl" content="{{ movie.movie_poster_file.sizes[image_style]|default }}"/>
     {% endif %}
     {% if movie.mp4_movie_file or movie.movie_ogg_file or movie.movie_webm_file %}
-        <video class="card-video videoObject-video" poster="{{ movie.movie_poster_file.sizes[image_style] }}"{% if ratio|default %} style="height:calc(100vw / {{ ratio }})"{% endif %}{% if autoplay %} autoplay{% endif %}{% if loop %} loop{% endif %}{% if muted %} muted{% endif %}{% if playsinline %} playsinline{% endif %}{% if controls %} controls{% endif %}>
+        <video class="card-video videoObject-video{{ movie.allow_movie_sound_on ? 'sound-control'|html_class }}" poster="{{ movie.movie_poster_file.sizes[image_style] }}"{% if ratio|default %} style="height:calc(100vw / {{ ratio }})"{% endif %}{% if autoplay %} autoplay{% endif %}{% if loop %} loop{% endif %}{% if muted %} muted{% endif %}{% if playsinline %} playsinline{% endif %}{% if controls %} controls{% endif %}>
             {% if movie.mp4_movie_file|default %}<source src="{{ movie.mp4_movie_file.url }}" type="video/mp4">{% endif %}
             {% if movie.movie_ogg_file|default %}<source src="{{ movie.movie_ogg_file.url }}" type="video/ogg">{% endif %}
             {% if movie.movie_webm_file|default %}<source src="{{ movie.movie_webm_file.url }}" type="video/webm">{% endif %}

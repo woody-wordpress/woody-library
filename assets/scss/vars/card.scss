@@ -128,3 +128,11 @@ $cardIndex-color : $white !default;
 $cardIndex-opacity : 1 !default;
 $cardIndex-font-size : 44 !default;
 $cardIndex-font-family : $header-font-family !default;
+$cardIndex-font-weight : $global-weight-normal !default;
+
+// Fairguest badge
+$cardFairguestBadge-offset: -38px !default;
+$cardFairguestBadge-font-size: 20px !default;
+$cardFairguestBadge-font-weight: normal !default;
+$cardFairguestBadge-border-radius: 10px !default;
+$cardFairguestBadge-padding: 9px 6px !default;

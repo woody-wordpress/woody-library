@@ -17,6 +17,7 @@
         color: $cardIndex-color;
         font-size: rem-calc($cardIndex-font-size);
         font-family: $cardIndex-font-family;
+        font-weight: $cardIndex-font-weight;
         line-height: 1;
         opacity: $cardIndex-opacity;
         pointer-events: none;
@@ -24,6 +25,30 @@
         @include root('.splitCard.media-right') {
             left: initial;
             right: $cardIndex-left-pos;
+        }
+    }
+
+    &-fairguest-badge {
+        z-index: 10;
+
+        &.has-rating {
+            margin-bottom: 10px;
+
+            @include root('.basicCard') {
+                margin-top: $cardFairguestBadge-offset;
+            }
+        }
+
+        span {
+            color: $white;
+            display: inline-block;
+            font-size: $cardFairguestBadge-font-size;
+            font-weight: $cardFairguestBadge-font-weight;
+            text-align: center;
+            line-height: 1;
+            min-width: 40px;
+            border-radius: $cardFairguestBadge-border-radius;
+            padding: $cardFairguestBadge-padding;
         }
     }
 
@@ -171,10 +196,6 @@
     }
 
     &.basicCard {
-        .card-link {
-            display: flex;
-            flex-direction: column;
-        }
 
         .card-section {
             display: flex;
@@ -407,6 +428,33 @@
                 .term {
                     display: $iti-infos-type-term-display;
                 }
+            }
+        }
+    }
+
+    &.skeleton-card {
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 10;
+            background-color: #e2e5e7;
+            background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, .5), transparent);
+            background-repeat: no-repeat;
+            background-size: 25% 100%;
+            background-position: left -25% top 0;
+            animation: skeletonCard 0.75s ease infinite;
+            transition: 0.25s ease-in-out;
+        }
+
+        &.card-loaded {
+            &::before {
+                pointer-events: none;
+                opacity: 0;
+                animation-play-state: paused;
             }
         }
     }

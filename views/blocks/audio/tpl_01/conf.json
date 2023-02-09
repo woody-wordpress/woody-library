@@ -3,6 +3,7 @@
     "name": "Template 01",
     "description": "Player audio",
     "lib_type": "lite",
+    "lib_design": "THUMB",
     "acf_groups": [
         "group_5d8c62865c326"
     ],

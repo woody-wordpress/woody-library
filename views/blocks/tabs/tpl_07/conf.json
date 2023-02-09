@@ -1,8 +1,0 @@
-{
-    "approved": true,
-    "name": "Template 07",
-    "description": "Grilles de blocs au choix dans des onglets (barre d'onglets au dessus)",
-    "lib_type": "lite",
-    "acf_groups": ["group_5b471f2922b04"],
-    "vars": ["tabs"]
-}

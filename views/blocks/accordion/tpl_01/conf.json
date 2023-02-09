@@ -3,6 +3,7 @@
     "name": "Template 01",
     "description": "Titres avec textes associés dépliables",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": [
         "group_5b0433ff0bb17"
     ],

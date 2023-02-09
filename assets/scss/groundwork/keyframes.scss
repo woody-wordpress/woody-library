@@ -70,3 +70,9 @@
         opacity: 1;
     }
 }
+
+@keyframes skeletonCard {
+    to {
+        background-position: right -35% top 0;
+    }
+}

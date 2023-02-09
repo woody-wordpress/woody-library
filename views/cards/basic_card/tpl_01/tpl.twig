@@ -1,4 +1,5 @@
-<div class="card basicCard {{ index_class|default('tpl_01')}} isRel {{ page_type|default }}{{ item.slideshow ? ' has-slideshow' }} {{ item.card_class|default }}{{ item.link.url ? '' : ' has-not-card-link' }}{{ image_style and (item.img.ID or item.img.url) ? '' : ' has-not-card-image' }} {{ image_style|default }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
+{% spaceless %}
+<div class="card basicCard{{ index_class|default('tpl_01')|html_class}} isRel{{ page_type|html_class }}{{ item.slideshow ? ' has-slideshow' }}{{ item.card_class|html_class }}{{ item.link.url ? '' : ' has-not-card-link' }}{{ not item.link.url and reverse_dir ? 'flex-dir-column-reverse'|html_class }}{{ image_style and (item.img.ID or item.img.url) ? '' : ' has-not-card-image' }}{{ image_style|html_class }}" {% if item.sheet_id %} data-sheetid="{{item.sheet_id}}" {% else %} data-postid="{{ item.post_id }}" {% endif %}>
     {% if display_index and card_index %}
         <div class="isAbs card-index">
             {{ card_index|zeroise(2) }}
@@ -8,7 +9,7 @@
         {% if obfuscation %}
             <span class="card-link obf" data-obf="{{ item.link.url|base64Encode }}" data-target="{{ item.link.target|default('_self') }}">
         {% else %}
-            <a class="card-link" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" {% if item.datahref%}data-href="{{  item.datahref }}"{% endif %}>
+            <a class="card-link flex-container flex-dir-column {{ reverse_dir ? 'flex-dir-column-reverse' }}" href="{{ item.link.url }}" target="{{ item.link.target|default('_self') }}" {% if item.datahref %}data-href="{{  item.datahref }}"{% endif %}>
         {% endif %}
             {% endif %}
             {% block card_media_wrapper %}
@@ -31,7 +32,7 @@
                 } %}
                 {% endif %}
             {% endblock %}
-            <div class="card-section{{ card_section_class|default }} {% if item.profil %}has-profile{% endif %}" {% if not desequalize %} data-equalizer-watch {% endif %}>
+            <div class="card-section{{ card_section_class|html_class }}{% if item.profil %} has-profile{% endif %}{% if display_button and (item.link.link_label or item.link.title) %} has-button{% endif %}" {% if not desequalize %} data-equalizer-watch {% endif %}>
                 {% block card_terms %}
                     {% if item.terms %}
                         <div class="card-terms flex-container align-center wrap">
@@ -71,13 +72,17 @@
                 {% endblock %}
                 {% block card_button %}
                     {% if display_button and (item.link.link_label or item.link.title) %}
-                        <span class="card-button button">
+                    <span class="card-button button{{ button_classes|html_class }}">
+                        {% if item.bookin.link %}
+                            {{ __('Réserver', 'woody_theme') }}
+                        {% else %}
                             {% if item.link.link_label %}
                                 {{ item.link.link_label }}
                             {% elseif item.link.title %}
                                 {{ item.link.title }}
                             {% endif %}
-                        </span>
+                        {% endif %}
+                    </span>
                     {% endif %}
                 {% endblock %}
                 {% block card_bookable %}
@@ -92,3 +97,4 @@
         </a>
     {% endif %}
 </div>
+{% endspaceless %}

@@ -1,36 +1,50 @@
 {# WIDGET FAIRGUEST #}
 {% if contractsLevels.content.reviews and formated_object.dataFairguest|default and formated_object.dataFairguest.display and formated_object.dataFairguest.idGroup|default %}
-    <section id="reviews" class="row tourism-detail-reviews panel panel-default">
+    <section id="reviews" class="row tourism-detail-reviews">
 
-        {% if app['env'] == 'dev' %}
-            {% set apirender_widget_path = global.request.basepath ~"/assets/widget-iframe.html" %}
-        {% elseif app['env'] == 'preprod' %}
-            {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
-        {% elseif app['env'] == 'prod' %}
-            {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
+        {# Gestion event fairguest-widget-no-data > suppression widget #}
+        <script>
+            let hasFairguestWidgetNoData = false;
+            window.addEventListener('message', (msg) => {
+                const fgElements = [
+                    '#nav_reviews',
+                    '#reviews',
+                    '.sheet-nav-actions_item.nav-reviews',
+                    '#li-fairguest-widget',
+                ];
+                if (msg.data === 'fairguest-widget-no-data' && !hasFairguestWidgetNoData) {
+                    document.querySelectorAll(fgElements.join(',')).forEach((elt) => { elt.remove(); });
+                    console.warn('fairguest-widget-no-data event received');
+                    hasFairguestWidgetNoData = true;
+                }
+            });
+        </script>
+
+        {% set iframeMode = false %}
+
+        {% if iframeMode %}
+
+            {% if app['env'] == 'dev' %}
+                {% set apirender_widget_path = global.request.basepath ~"/assets/widget-iframe.html" %}
+            {% elseif app['env'] == 'preprod' %}
+                {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
+            {% elseif app['env'] == 'prod' %}
+                {% set apirender_widget_path = "/api/render/assets/widget-iframe.html" %}
+            {% endif %}
+            <iframe iframe-resizer class="lazyload" style="border: none; min-width: 100%; width: 100px;*width: 100%;"
+                data-src="{{ apirender_widget_path }}?widgetId={{config.widgetId|default}}&idFiche={{object.metadata.id}}&color={{ config.FgWidgetColor|default('e47830')|trim('#', 'left') }}&type=big&lang={{config.lang|default('fr')}}">
+            </iframe>
+
+        {% else %}
+
+            <fairguest_reviews-widget data-options='{
+                "idFiche" : "{{object.metadata.id}}",
+                "type" :    "big",
+                "lang" :    "{{config.lang|default('fr')}}"
+            }'></fairguest_reviews-widget>
+            <script type="text/javascript" src="https://www.fairguest.com/api/v2/fairguest/widgets/{{ config.widgetId }}/retrocompatibility"></script>
+
         {% endif %}
-
-        <iframe iframe-resizer
-            style="border: none; min-width: 100%; width: 100px;*width: 100%;"
-            src="{{ apirender_widget_path }}?tokenJS={{config.tokenJS|default}}&widgetId={{config.widgetId|default}}&idFiche={{object.metadata.id}}&color={{ config.FgWidgetColor|default('e47830')|trim('#', 'left') }}&type=big&recentReviews=false&idGroup={{formated_object.dataFairguest.idGroup}}&erpProductKey={{config.site_key}}&lang={{config.lang|default('fr')}}&token={{config.apiAccount.metadata.token}}">
-        </iframe>
-        {#
-        <fairguest-review-widget data-options='{
-            "idFiche":"{{object.metadata.id}}",
-            "idGroup": "{{ formated_object.dataFairguest.idGroup }}",
-            "display":"classement,expressions_often,expressions_only,reviews,evolution{% if config.options.addreviews is not defined or (config.options.addreviews is defined and config.options.addreviews) %},reviews_add{% endif %}",
-            "color": "{{ config.FgWidgetColor|default('#e47830') }}",
-            "type":"big",
-            "lang" : {{config.lang|default('fr'),
-            "erpProductKey": "{{config.site_key}}"
-        }'></fairguest-review-widget>
-
-        {% if app['env'] in ['dev','preprod'] %}
-            <script type="text/javascript" src="http://www.fairguest.rc-preprod.com/widget/fairguest_reviews_bundle.min.js"></script>
-        {% elseif app['env'] == 'prod' %}
-            <script type="text/javascript" src="http://www.fairguest.com/widget/fairguest_reviews_bundle.min.js"></script>
-        {% endif %}
-        #}
 
     </section>
 {% endif %}

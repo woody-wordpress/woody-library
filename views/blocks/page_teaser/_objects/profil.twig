@@ -54,7 +54,10 @@
         <ul class="list-unstyled flex-container wrap profile-links">
             {% for button in profile.links %}
             <li>
-                {% include '_objects/buttonObject.twig' %}
+                {% include '_objects/buttonObject.twig' with {
+                    has_context: true,
+                    button_context: 'profile'
+                }%}
             </li>
             {% endfor %}
         </ul>

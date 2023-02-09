@@ -35,6 +35,9 @@
                             </ul>
                         {% endif %}
                     </li>
+                    {% if menu_link.content|default %}
+                        {{ menu_link.content }}
+                    {% endif %}
                 {% endfor %}
             </ul>
         </nav>

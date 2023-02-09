@@ -1,9 +1,11 @@
+{% spaceless %}
 {% if visual_effects.transform %}
-    <div class="visualModifier {{ visual_effects.transform }} {{ visual_effects.deep|default }}">
-    {% endif %}
-    {% block content %}
-        {# Here's the content of the block #}
-    {% endblock %}
-    {% if visual_effects.transform %}
+    <div class="visualModifier{{ visual_effects.transform|html_class }}{{ visual_effects.deep|html_class }}">
+{% endif %}
+{% block content %}
+    {# Here's the content of the block #}
+{% endblock %}
+{% if visual_effects.transform %}
     </div>
 {% endif %}
+{% endspaceless %}

@@ -1,0 +1,28 @@
+.cta-sheet-link {
+    color: $primary-color;
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+
+    .wicon {
+        font-size: rem-calc(20);
+        margin-right: 4px;
+    }
+
+    .cta-sheet-link-label {
+        text-decoration: currentColor underline;
+        text-underline-offset: 2px;
+    }
+
+    &:hover {
+        color: darken($primary-color, 10%);
+    }
+}
+
+button.cta-sheet-link {
+    text-decoration: none;
+    line-height: inherit;
+    cursor: pointer;
+}

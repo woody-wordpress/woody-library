@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Template 08 - Paysage A",
     "description": "Visuel (2:1) et accroche aligné à gauche (Icône, Sur-titre, Titre, sous-titre, description) + image ou vidéo de fond + video complémentaire",
+    "lib_design": "OK",
     "lib_type": "lite",
     "acf_groups": [
         "group_5b052bbee40a4"

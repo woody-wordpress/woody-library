@@ -3,6 +3,7 @@
     "name": "Template 01",
     "description": "Icone avec textes centrés en-dessous (pretitre, titre, sous-titre, description)",
     "lib_type": "lite",
+    "lib_design": "OK",
     "acf_groups": [
         "group_5b0ec29dbd905"
     ],

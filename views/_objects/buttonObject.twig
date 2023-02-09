@@ -1,6 +1,6 @@
 {% spaceless %}
 {% set random_number = ''|random_number %}
-<div class="woody-component-button marg-all-sm{% if button.button_add_img and button.button_img %} has-thumbnail{% endif %}">
+<div class="woody-component-button padd-top-sm {% if button.button_add_img and button.button_img %} has-thumbnail{% endif %}">
     {% if button.button_type == 'link' and button.link.url|default %}
         {% if button.add_modal == true %}
             {% block button_thumbnail %}
@@ -14,17 +14,17 @@
                     </div>
                 {% endif %}
             {% endblock %}
-            <button class="button {{ button.button_style|default }} {{ button.button_size|default }} {{ button.link.title is empty ? 'no-title' }}" data-open="{{ acf_fc_layout }}_modal_{{ random_number }}">
+            <button class="button{{ has_context ? ' ' ~ button_context ~ '-button' }}{{ button.button_style|html_class }}{{ button.button_size|html_class }}{{ button.link.title is empty ? ' no-title' }}" data-open="{{ acf_fc_layout }}_modal_{{ random_number }}">
                 {% if button.button_woody_icon|default %}
-                    <span class="wicon {{ button.button_woody_icon }}"></span>
+                    <span class="wicon{{ button.button_woody_icon|html_class }}"></span>
                 {% endif %}
                 {% if button.link.title %}
                     <span class="button-label" data-label="{{ button.link.title }}">{{ button.link.title }}</span>
                 {% endif %}
             </button>
-            <div class="full reveal" id="{{ acf_fc_layout }}_modal_{{ random_number }}" data-close-on-click="true" data-reveal data-animation-in="scale-up-in" data-animation-out="scale-up-out">
+            <div class="full reveal" id="{{ acf_fc_layout }}_modal_{{ random_number }}" data-close-on-click="true" data-animation-in="scale-up-in" data-animation-out="scale-up-out" data-reveal>
                 <div class="content-wrapper">
-                    <iframe class="full-frame" src="{{  button.link.url }}"></iframe>
+                    <iframe class="full-frame" src="{{ button.link.url }}"></iframe>
                 </div>
                 <button class="close-button" data-close aria-label="Close modal" type="button">
                     <small>{{ __('Fermer', 'woody-theme') }}</small><span aria-hidden="true">&times;</span>
@@ -32,7 +32,7 @@
             </div>
         {% else %}
             {{ block('button_thumbnail') }}
-            <a class="woody-component-button button {{ button.button_style|default }} {{ button.button_size|default }} {{ button.link.title is empty ? 'no-title' }}" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}">
+            <a class="woody-component-button button{{ has_context ? ' ' ~ button_context ~ '-button' }}{{ button.button_style|html_class }}{{ button.button_size|html_class }}{{ button.link.title is empty ? ' no-title' }}" href="{{ button.link.url }}" target="{{ button.link.target|default('_self') }}">
 
                 {% if button.button_woody_icon|default %}
                     <span class="wicon {{ button.button_woody_icon }}"></span>
@@ -44,9 +44,9 @@
         {% endif %}
     {% elseif button.button_type == 'file' and button.file.url %}
         {{ block('button_thumbnail') }}
-        <a class="button button-download {{ button.button_style|default }} {{ button.button_size|default }} {{ button.button_text is empty ? 'no-title' }}" href="{{ button.file.url }}" target="_blank" data-equalize-by-row="">
+        <a class="button button-download{{ has_context ? ' ' ~ button_context ~ '-button' }}{{ button.button_style|html_class }}{{ button.button_size|html_class }}{{ button.button_text is empty ? ' no-title' }}" href="{{ button.file.url }}" target="_blank" data-equalize-by-row="">
             {% if button.button_woody_icon|default %}
-                <span class="wicon {{ button.button_woody_icon }}"></span>
+                <span class="wicon{{ button.button_woody_icon|html_class }}"></span>
             {% endif %}
             {% if button.button_text %}
                 <span class="button-label" data-label="{{ button.button_text }}">{{ button.button_text }}</span>
@@ -57,9 +57,9 @@
         </a>
     {% elseif button.button_type == 'code' and button.widget|default %}
         {{ block('button_thumbnail') }}
-        <button class="button {{ button.button_style|default }} {{ button.button_size|default }} {{ button.button_text is empty ? 'no-title' }}" data-open="{{ acf_fc_layout }}_modal_{{ random_number }}" data-equalize-by-row="">
+        <button class="button{{ has_context ? ' ' ~ button_context ~ '-button' }}{{ button.button_style|html_class }}{{ button.button_size|html_class }}{{ button.button_text is empty ? ' no-title' }}" data-open="{{ acf_fc_layout }}_modal_{{ random_number }}" data-equalize-by-row="">
                 {% if button.button_woody_icon|default %}
-                    <span class="wicon {{ button.button_woody_icon }}"></span>
+                    <span class="wicon{{ button.button_woody_icon|html_class }}"></span>
                 {% endif %}
                 {% if button.button_text %}
                     <span class="button-label" data-label="{{ button.button_text }}">{{ button.button_text }}</span>

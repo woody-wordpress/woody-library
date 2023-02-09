@@ -1,0 +1,19 @@
+.sheet-sidebar-item-covid-status {
+    .covid-item {
+        font-weight: 500;
+        padding: 10px 30px;
+        letter-spacing: 0.2px;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+
+    .covid-charterStatus {
+        background-color: $sheet-covid-charter-color;
+    }
+
+    .covid-service {
+        background-color: $sheet-covid-service-color;
+    }
+}

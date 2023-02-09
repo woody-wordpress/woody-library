@@ -5,4 +5,12 @@
             'image_style' : image_style|default,
             'containerClass' : containerClass|default
     } %}
+    {% if has_copyright %}
+        {% with {
+            'img' : background_img,
+            'img_caption_position' : 'bottom left'|default
+        }%}
+        {{ block("imageCaption", "_objects/imageObject.twig") }}
+        {% endwith %}
+    {% endif %}
 {% endif %}

@@ -2,6 +2,7 @@
     "approved": true,
     "name": "Template 415 - Carré",
     "description": "Grille 4 blocs - Carte textes sur image (Carré + slider au dela de 4)",
+    "lib_design": "OK",
     "lib_type": "lite",
     "acf_groups": [
         "group_5b0d1ed32a384",

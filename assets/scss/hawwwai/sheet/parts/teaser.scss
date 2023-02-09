@@ -1,0 +1,7 @@
+.woody-component-sheet-teaser {
+    .share-container {
+        @include breakpoint(large) {
+            justify-content: flex-end;
+        }
+    }
+}
